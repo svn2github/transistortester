@@ -1,0 +1,43 @@
+\section*{Vorwort}
+
+\subsection*{Grunds\"atzliches}
+Jeder Bastler kennt das folgende Problem: Man baut einen Transistor aus oder man nimmt einen aus einer Bastelkiste.
+Wenn man die Typenbezeichnung erkennen kann und man bereits ein Datenblatt hat oder eins bekommen kann, ist alles in Ordnung.
+Aber wenn man keine Datenbl\"atter findet, hat man keine Idee, was das f\"ur ein Bauteil sein kann.
+Mit den konventionellen Me"smethoden ist es schwierig und zeitaufw\"andig den Typ des Bauteils und dessen Parameter herauszufinden.
+Es k\"onnte ein NPN, PNP, N- oder P-Kanal-MOSFET usw.
+Es war die Idee von Markus F. diese Arbeit von einem AVR Mikrocontroller erledigen zu lassen.
+
+\subsection*{Wie meine Arbeit begann}
+Meine Besch\"aftigung mit der Software des TransistorTesters von Markus F. \cite{Frejek} hat begonnen, als ich Probleme mit
+meinem Programmer hatte.
+Ich hatte eine Platine und Komponenten gekauft, aber ich war mit dem Windows Treiber nicht in der Lage den EEprom Speicher des ATmega8
+ohne Fehlermeldungen zu beschreiben.
+Deshalb habe ich die Software von Markus F. genommen und habe alle Zugriffe auf den EEprom Speicher durch
+Zugriffe auf den Programm Speicher (flash) ersetzt.
+Bei der Durchsicht der Software, um an anderer Stelle Programmspeicher (flash) einzusparen, hatte ich die Idee,
+das Ergebnis der ReadADC Funktion von ADC Einheiten in eine Millivolt (mV) Aufl\"osung zu \"andern.
+Die mV Aufl\"osung wird f\"ur die Ausgabe von Spannungswerten gebraucht.
+Wenn die ReadADC Funktion direkt die mV Aufl\"osung liefert, kann man die Umwandlung f\"ur jeden
+Ausgabewert einsparen.
+Diese mV Aufl\"osung kann man erhalten, wenn man zuerst die Ergebnisse von 22 ADC-Einlesungen addiert.
+Die Summe mu"s mit zwei multipliziert und durch neun geteilt werden.
+Das ergibt einen Maximalwert von \begin{math}\frac{1023\cdot22\cdot2}{9} = 5001\end{math},
+welcher hervorragend zu der gew\"unschten mV Aufl\"osung passt.
+So hatte ich zus\"atzlich die Hoffnung, da"s die Erh\"ohung der ADC Aufl\"osung durch \"Uberabtastung helfen
+k\"onnte die Spannungs-Einlesung zu verbessern, wie es in dem Atmel Report AVR121 \cite{AVR121} beschrieben ist.
+Die Original Version von ReadADC hat die Ergebnisse von 20 ADC-Einlesungen addiert und danach durch 20 dividiert,
+so da"s das Ergebnis wieder die original Aufl\"osung des ADC hat. Deshalb konnte niemals eine Erh\"ohung der ADC Aufl\"osung
+durch \"Uberabtastung stattfinden.
+So hatte ich wenig Arbeit, die ReadADC Funktion zu \"andern, aber dies erforderte die Analyse des kompletten
+Programms und \"Anderung aller ,,if'' Abfragen im Programm, wo Spannungswerte gepr\"uft wurden.
+Aber dies war nur der Beginn meiner Arbeit!
+
+Mehr und mehr Ideen wurden eingebaut um die Messung schneller und genauer zu machen.
+Zus\"atzlich wurde der Bereich der Widerstands und Kondensator Messung erweitert.
+Das Ausgabe-Format f\"ur das LCD-Dislay wurde ver\"andert, so wurden Symbole f\"ur die Darstellung von
+Dioden, Widerst\"anden und Kondensatoren verwendet.
+F\"ur weitere Einzelheiten schauen Sie in das aktuelle Eigenschaften-Kapitel \ref{sec:features}.
+Geplante Arbeiten und neue Ideen wurden im Arbeitslisten-Kapitel \ref{sec:todo} gesammelt.
+Inzwischen kann ich unter dem Linux Betriebssystem auch den EEprom-Speicher des ATmega8 einwandfrei beschreiben.
+

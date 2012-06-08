@@ -1,0 +1,185 @@
+
+%\newpage
+\section{Selftest Function}
+\label{sec:selftest}
+Beginning with release 0.9k I have implemented a self test function. Usage is very simple.
+If you have installed  test terminal with clamps, put all clamps together to a piece of uninsulated wire and press the start button.
+The program notice the shorten probes and start the self test function.
+After finishing the self test the transistor tester will continue with normal measurement.
+If no equipment is connected, the program will end with ``part unknown or damaged''. 
+The unhappy side of the self test function is that the 8K flash is used near the limit.
+The length of the ATmega8 version 0.9k is about 8000 bytes.
+You can configure self test only together with all other options for a ATmega168  or ATmega328.
+For the ATmega8 you must at least omit the option AUTOSCALE\_ADC because of the limited flash memory.
+The separate steps of the self test function is generally displayed on row~1 of the LCD display with the letter T
+followed by the step number.
+Every step is repeated 8~times, before the program continues with the next step.
+But if you hold the start key pressed, when the test is finished, this test is not repeated any more.
+If you leave the key pressed the total time, every test is executed only once.
+
+In every step only measurement results are displayed, no error analysis are done, you must interpret the results yourself.
+At this place I will give you an additional important hint. Never do a measurement with connected ISP plug!
+The ISP interface influences the measurement. 
+\vspace{1cm}
+Here is the list of currently implemented tests:
+\vspace{1cm}
+\begin{enumerate}
+\item {\bf Measurement of the 1.3V (or 1.1V) reference Voltage (band gap Reference).}
+In row 1 the text ``Ref='' and the measured Voltage in mV is displayed.
+For the ATmega8 the voltage should be near to 1.3V. For the other processors the voltage should be near to 1.1V.
+The second row shows the resulting factors for capacity measurement.
+\item {\bf Comparing of the  \(680\Omega\) resistors.}
+In row~1 the cryptic text  ``+RL- 12 13 23'' is shown. Meaning of this is as follows: 
+The RL is the short form of Resistor Low meaning the \(680\Omega\) resistors. The 12 stand for: 
+resistor at pin~1 is connected to VCC (+) and resistor at pin~2 is connected to GND (-). 
+The result of this measurement  is displayed in row~2 at the first place. 
+ In row~1 follows now a ``13'' which means, that the first connection of measurement~1 is still connected
+with \(680\Omega\) to VCC but that the resistor of pin~3 is connected to GND.
+The result is displayed in the middle place of row~2. 
+The last measurement of this test ``23.'' means that now the resistor at pin~2 is connected to VCC (+) and
+the resistor of pin 3 is connected to GND. The result of measurement is displayed at the last place of LCR row~2.
+Please remember, that the resolution of the ADC is about 4.88mV!
+The measurement situation is also shown in figure~\ref{fig:test2}.
+All these combinations with respect to the internal resistance of the pins should result to: 
+\(\frac{5001 \cdot  (19+680)}{ (19+680+680+22)} = 2493\) .
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm]{../FIG/Test2.eps}
+\caption{Comparison of \(680\Omega\) resistors }
+\label{fig:test2}
+\end{figure}
+
+\item {\bf Comparing of the \(470k\Omega\) resistors.}
+Now the display shows in row 1 ``+RH- 12 13 23''. The same procedure as done in step~2 is repeated with the \(470k\Omega\) resistors (symbols RH).
+Result should be nearly \(\frac{5001 \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} = 2500\) for all combinations.
+\item In this step nothing is measured, but the {\bf order is displayed „ isolate Probe“},
+which means that it is time to separate the probes (release from wire).
+\item {\bf This step tests the capability of GND (-) connected \(470k\Omega\) resistors (H) to pull the test pins to GND.}
+Row 1 shows the text  ``RH-''.
+Row 2 should display zero for all three pins.
+\item {\bf This step tests the capability of VCC (+) connected \(470k\Omega\) resistors (H) to pull the test pins  to VCC (+).}
+Row 1 shows the text ``RH+''.
+The best value for this three measurements  is 5001.
+ Great differences from the best value for test 5 and 6 are errors  such as isolation problem, flux material or damaged port.
+\item {\bf Measuring of internal resistance of pin output switched to the GND signal.}
+The text in the 1st LCD row is ``Ri\_Lo = (mV)''.
+In the second row of the LCD three voltages were displayed.
+The internal resistance of the port C outputs switched to GND (-) are measured with the current
+of to VCC (+) switched \(680\Omega\) resistors, see Figure~\ref{fig:test7}.
+Only the three pins of the ADC port are measured, the resistor port B (PB0,PB2 and PB4) can not be measured
+without hardware modification.
+Is is assumed that the port resistance of the different ports are nearly identical.
+To get the resistor values, you must divide the displayed mV values by about 7 (see test 8). 
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Test7.eps}
+\caption{Measurement of internal resistance of Port C switched to GND }
+\label{fig:test7}
+\end{figure}
+
+\item {\bf Measuring of internal resistance of port outputs switched to the VCC (+)signal.}
+The needed current is generated with to GND connected \(680\Omega\) resistors .
+The text in the 1st LCD row is ``Ri\_Hi= (mV)''. In the second row of the LCD three voltages are displayed (in difference to VCC).
+It are the same measurements as those in test~7 to the other side as you can see in Figure \ref{fig:test8}.
+With the following steps you can get the resistance:
+To get the current build:  \((5001 - (result of test 7) - (result of test 8)) / 680\).
+Then you can get both resistor values by dividing the voltage (result of test~7 or 8) by this current.
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Test8.eps}
+\caption{Measurement of internal resistance of Port C switched to VCC }
+\label{fig:test8}
+\end{figure}
+
+\item A {\bf 50Hz rectangle signal} is generated on Pin~2 and  the same signal in opposite direction on Pin~3.
+Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
+This test is repeated 8~times with 5~seconds period each.
+You can check the time of the wait calls, if you have an oscilloscope or frequency counter.
+If you don't use the crystal clock version, the result may be inexactly.
+A exactly clock frequency and wait time are important for measurement of capacity values.
+
+\end{enumerate}
+
+At the end of test function the text ``Auto Test End''  is shown in row~1 and the version number of software is shown in row~2.
+Then the program continues with the normal measurement task.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c |}
+    \hline
+Test No. & 1. Result & 2. Result & 3. Result \\
+    \hline
+    \hline
+Test 1 & band gap Ref  1237 &  & \\
+Reference  & RHfakt 753 & RLfakt.  4887 &  \\
+    \hline
+Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
+comparison \(680\Omega\) & 2488 & 2488 & 2484 \\
+best value: 2493 & & & \\
+    \hline
+Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
+comparison \(470k\Omega\) & 2493 & 2493 & 2493 \\
+best value: 2500 & & & \\
+    \hline
+test 4 & isolate probe & & \\
+    \hline
+test 5 & RH1- &  RH2- & RH3- \\
+\(470k\Omega\) isolation & 0 & 0 & 0 \\
+best value: 0 & & & \\
+    \hline
+Test 6 & RH1+ & RH2+ & RH3+ \\
+\(470k\Omega\) isolation & 4995 & 4995 & 4995 \\
+best value: 5001 & & & \\
+    \hline
+Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
+Pin resistance Low & 132 & 132 & 137 \\
+    \hline
+Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
+Pin resistance High & 151 & 151 & 151 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Selftest Mega8 @ 8MHz, Signature 1E9307, WITH\_AUTOREF}
+  \label{tab:test_m8} 
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c |}
+    \hline
+Test No. & 1. Result & 2. Result & 3. Result \\
+    \hline
+    \hline
+Test 1 & band gap Ref  1090 &  & \\
+Reference  & RHfakt 865 & RLfakt.  5649 &  \\
+    \hline
+Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
+comparison \(680\Omega\) & 2493 & 2493 & 2493 \\
+best value: 2493 & & & \\
+    \hline
+Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
+comparison \(470k\Omega\) & 2497 & 2498 & 2498 \\
+best value: 2500 & & & \\
+    \hline
+test 4 & isolate probe & & \\
+    \hline
+test 5 & RH1- &  RH2- & RH3- \\
+\(470k\Omega\) isolation & 0 & 0 & 0 \\
+best value: 0 & & & \\
+    \hline
+Test 6 & RH1+ & RH2+ & RH3+ \\
+\(470k\Omega\) isolation & 4998 & 4998 & 4998 \\
+best value: 5001 & & & \\
+    \hline
+Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
+Pin resistance Low & 131 & 132 & 132 \\
+    \hline
+Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
+Pin resistance High & 156 & 156 & 156 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Selftest Mega168 @ 8MHz, Signature 1E9406, WITH\_AUTOREF}
+  \label{tab:test_m168} 
+\end{table}
