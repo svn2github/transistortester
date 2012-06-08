@@ -1,0 +1,45 @@
+
+%\newpage
+\chapter{Spezielle Software Teile}
+
+Es wurden zahlreiche Ver\"anderungen durchgef\"uhrt um flash Speicherplatz zu sparen.
+Die LCD Ausgabe von Test-Anschlu"snummern wurde in der Form ,,lcd\_data('1'+Pin)'' durchgef\"uhrt.
+Um den Platz f\"ur die zus\"atzliche Addition f\"ur jeden Aufruf zu sparen, wurde die
+Funktion ,,lcd\_ziff1(uint8\_t pin)'' in die Datei lcd\_routines.c eingef\"ugt.
+
+
+Die Pseudo Funktionen in der Form \_delay\_ms(200) sind keine Bibliotheksfunktionen
+sondern es werden f\"ur jede Aufrufstelle Warteschleifen in das Programm eingebaut.
+Das verbraucht viel Speicher, wenn man viele Aufrufe an unterschiedlichen Programmstellen hat.
+Alle solche Aufrufe wurden durch Aufrufe einer speziellen in Assembler-Sprache geschriebenen
+Bibliothek ersetzt, welche nur 74~Bytes des flash-Speichers (bei 8MHz) verbraucht, aber
+Aufrufe von wait1us() bis wait5s() in den Stufen 1,2,3,4,5,10,20\dots zur Verf\"ugung stellt.
+Die Routinen enthalten den Watch Dog Reset Befehl f\"ur alle Aufrufe \"uber 50ms.
+Jeder Aufruf ben\"otigt nur eine Anweisung (2~Byte). Warte-Aufrufe mit Zwischenwerten
+wie 8ms ben\"otigen zwei Aufrufe (wait5ms() und wait3ms() oder zwei mal wait4ms() Aufrufe).
+Ich kenne keine L\"osung, die \"okonomischer w\"are, wenn man viele Warteaufrufe im Programm benutzt.
+Die Aufrufe benutzen keine Register, nur der Stapelzeiger (Stack Pointer) wird f\"ur die R\"uckkehr-Adressen
+im RAM (maximal 28 Byte Stack-Platz) benutzt.
+
+Die vollst\"andige Liste der Funktionen ist:\\
+wait1us(), wait2us(), wait3us(), wait4us(), wait5us(), wait10us(), \\
+wait20us(), wait30us(), wait30us(), wait40us(), wait50us(), wait100us(), \\
+wait200us(), wait300us(), wait400us(), wait500us(), wait1ms(),\\
+wait2ms(), wait3ms(), wait4ms(), wait5ms(), wait10ms(),\\
+wait20ms(), wait30ms(), wait40ms(), wait50ms(), wait100ms(),\\
+wait200ms(),wait300ms(), wait400ms, wait500ms(), wait1s(),\\
+wait2s(), wait3s(), wait4s() und wait5s();\\
+Das sind 36~Funktionen, die nur 37~Anweisungen inklusive dem Watch Dog Reset benutzen!
+Da gibt es keinen Weg diese Bibliothek zu verk\"urzen.
+Zu guter Letzt halten die Aufrufe die exakte Zeit ein, wenn der unterste Aufruf (wait1us) dies tut.
+Nur die Warte-Aufrufe \"uber 50ms sind einen Takt pro 100ms zu lang wegen des zus\"atzlich eingebauten
+Watch Dog Reset.
+
+
+Zus\"atzlich wurde die oft benutzte Folge ,,wait5ms(); ReadADC(\dots);'' durch einen einzelnen Aufruf
+,,W5msReadADC(\dots);'' ersetzt.
+Dasselbe wurde auch f\"ur die Folge ,,wait20ms(); ReadADC(\dots);'' gemacht, die durch den Aufruf
+,,W20msReadADC(\dots);'' ersetzt wurde.
+Die Funktion ReadADC wurde zus\"atzlich in Assembler Sprache portiert, so da"s diese Erweiterung
+sehr effektiv integriert werden konnte.
+Eine funktionell identische C-Version der ReadADC Funktion ist auch beigef\"ugt.

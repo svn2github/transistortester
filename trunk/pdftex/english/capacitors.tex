@@ -1,0 +1,157 @@
+\section{Measurement of Capacitors}
+The measurement of capacitor values are done as separate task by measurement of load time
+after all other measurements. 
+The original software of Markus F. did this with a program loop, which reads the corresponding digital input
+pin until a switch occured and count the loop cycles.
+This has the handicap, that the resolution of time measurement is limited by the
+time consumption of one loop cycle.
+This usually was done in all six combinations for all three probe pins. 
+The actual software uses two different ways to get the load time in only
+three combinations for the three probe pins. The positive side is now always the
+higher probe number. Only if capacity is measured parallel with a diode, the
+polarity can be in the other order.
+
+\subsection{Discharging of Capacitors}
+You should always discharge the capacitor before connecting it to the tester.
+The tester additionally discharge the capacitor before any measurement.
+If the voltage is below 1300mV, the capacitor is shortened by the output pins of the connected ADC port (Port C).
+I~believe that this is legal because every output port has a built in resistance of about \(20\Omega\).
+The data sheet Figure 149 (page 258) \cite{ATmega8} shows voltage drop of output pins up to 2V.
+Of course I can not guaranty, that no damage can occur. 
+I~have tested the function with a 15mF Capacitor many times and I~have never noticed any problem.
+The current should be below the specified limit of 40mA and is reduced fast by discharging.
+Off course damage can occur if you do not discharge a (high voltage) capacitor before connecting it to your tester.
+
+\subsection{Measurement of big Capacitors}
+\label{sec:bigcap}
+One side of the capacitor is connected to GND. The other side of the capacitor is connected with the
+\(680\Omega\) resistor to VCC for a period of 10ms. Afterwards this probe pin is switched to Input (High Impedance).
+After this 10 ms current pulse the voltage of the capacitor is measured without any current. If the voltage has not
+reached a minimal value of 300mV, the load pulse is repeated up to 499 times.
+If after 127 pulses a minimum voltage of 75mV is not reached (about 2s), further load is stopped, because never
+the 300mV can be reached with the remaining load pulses.
+Figure~\ref{fig:bigcap} shows the three phases of measuring the capacity value of a capacitor.
+The value of the capacity is then computed with the count of load pulses and the reached load voltage from a table.
+The table contains  the factors to get the capacity in nF units from load time and the reached voltage
+with a spacing of 25mV.
+Interim value of voltage will be interpolated.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Bigcap.eps}
+\caption{discharge a capacitor and load with 10ms load pulses until voltage reach a value of 300mV}
+\label{fig:bigcap}
+\end{figure}
+As a result of the low load voltage, the measurement is much faster than the initial software version,
+ because this advantage works also on discharging. So bigger capacitors can be measured.
+Furthermore a diode, which is parallel connected to the capacitor don´t disturb the measurement in most cases,
+because the flux voltage of most diodes is not reached.
+Figure~\ref{pic:c229} shows the charge and discharge for a \(229\mu F\) capacitor.
+The flat top of diagram from load end to discharge begin is caused by the measuring and computing time of the ATmega.
+Figure~\ref{pic:c5mF} shows the same measurement for a~\(5mF\) capacitor,
+notice how the time for measurement is grown to about 1.5 seconds inclusive the discharge. 
+The last example shows the capacity measuring of a~\(15mF\) capacitor in Figure~\ref{pic:c15mF}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/charge_229uF.png}
+    \caption{\(229\mu F\) Capacitor}
+    \label{pic:c229}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/charge_5mF.png}
+    \caption{\(5mF\) Capacitor}
+    \label{pic:c5mF}
+  \end{subfigure}
+  \caption{Charge and discharge of big Capacitors for measuring}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/charge_15mF.png}
+  \caption{Charge and discharge of a \(15mF\) Capacitor for measuring}
+  \label{pic:c15mF}
+\end{figure}
+
+\subsection{Measurement of small Capacitors}
+If the first 10 ms load pulse has overloaded the capacitor, another technique of measurement is used.
+The ATmega processor has a build in 16-Bit counter, which can operate at the full clock rate (1MHz or 8MHz).
+This counter has also the feature to save his counter value by a external event.
+This event can be built by the output of the comparator. 
+The comparator can operate with any ADC input pin and the band gap reference.
+Figure~\ref{fig:comparat} shows a simplified diagram of the measurement situation.
+So I discharge the capacitor, prepare the comparator to the proper pin input, start the counter at 0 and
+start immediately the charging of the capacitor with one side connected to GND and the other side connected with
+the \(470k\Omega\) resistor to VCC.
+Now I check within a program loop, if the counter flags signals a overflow event or a input capture (external) event.
+I count the overflow events until I detect the input capture event.
+In this case I stop the counter and check if I must count a additional overflow,
+because the counter can't be stopped by the input capture event.
+
+
+The input capture counter and the overflow counter built together the total time,
+from which I subtract a experimental find out constant to eliminate the measurement offset. 
+I don't know, if this constant must be adapted to other printed circuit boards.
+The actual software can use a table with the theoretical  dependency of the load time in respect to the comparator voltage.
+The table is spaced in 50mV steps and will be interpolated according to the actual reference voltage. 
+This table will only be acticated with the Makefile option WITH\_AUTO\_REF.
+I noticed that the reference voltage is permanently somewhat to low,
+ so that you can choose an offset with the Makefile option REF\_KORR.
+The measured reference voltage will then be corrected (added) by your value (mV units).
+If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega88, ATmega168 and ATmega328
+are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
+A sample measurement of this type is shown in figure~\ref{pic:c22uF}.
+The measurement time is above 2.6s because the \(470k\Omega\) is
+used for charging, but discharge is in this case much faster than charging.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Comparat.eps}
+\caption{measurement little capacity values with comparator}
+\label{fig:comparat}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/charge_22uF.png}
+  \caption{Charge and discharge of a \(22\mu F\) Capacitor for measuring}
+  \label{pic:c22uF}
+\end{figure}
+
+
+In principle this technique of measurement can also be done with the \(680\Omega\) resistor, but 
+because the ADC can't be used if the comparator is working, I have no chance to monitor the
+load voltage until the comparator is stopped. If a undetected diode is parallel connected with
+the capacitor, the load current of the capacitor can be absorbed by the diode (threshold voltage) and
+the band-gap voltage will never be reached.
+The method taken in actual software for big capacitors in section~\ref{sec:bigcap}
+avoids this conceptual bug.
+
+\subsection{Results of Capacitor measurement}
+The results of my measurements is shown if figure~\ref{fig:mega8cap} for ATmega8 processor without and 
+with the AUTOSCALE\_ADC option. Additionally some values of original software are shown with a correction factor
+of 0.85 (-15\%).
+The results of the measurement of the same capacitors for ATmega168 is shown in figure~\ref{fig:mega168cap}.
+The reference for the error computing is the measurement of a PeakTech 3315 multimeter, not the printed value
+of the parts. In future I hope to take the measurements of a PeakTech 2170 RCL-meter as more exactly
+base values.
+There is a trend in relative errors with the big capacitor measurement, which I can't explain.
+I hope, that I will find the reason for this.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega8cap}
+\caption{Error in \% for capacitor measurements with ATmega8 }
+\label{fig:mega8cap}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cap}
+\caption{Error in \% for capacitor measurements with ATmega168 }
+\label{fig:mega168cap}
+\end{figure}
+

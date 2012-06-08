@@ -1,0 +1,17 @@
+
+%\newpage
+\chapter{Known errors and unsolved problems}
+{\center Software Version 0.97k}
+
+\begin{enumerate}
+\item The measurement results of little capacity values vary with the Pin combinations. Combination 1:2 values are about 3pF less than the values of the other pin combinations  (1:3 and 2:3). This effect is equal on any tested AVR processor.
+\item Germanium Diodes (AC128) are not detected in all cases.
+\item Does program work correctly without the automatic shut off?
+\item The shown Pin numbers of resistor measurement are sometimes identical and stay in this error state until power is switched off
+(Version 0.95k).
+\item Capacitors with values of more than 40mF are detected as resistors with a value of \(2\Omega\).
+Because resistor is detected first, capacity measurement is not done. More practical capacitors normaly have
+values of 10mF or below. So if this problem can not be solved, capacity measurement can also be limited to
+40mF instead of the aspired 100mF top value.
+
+\end{enumerate}

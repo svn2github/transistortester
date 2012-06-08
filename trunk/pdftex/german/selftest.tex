@@ -1,0 +1,201 @@
+
+%\newpage
+\section{Selbsttest Funktion}
+\label{sec:selftest}
+Beginnend mit Version 0.9k habe ich eine Selbsttest-Funktion eingebaut.
+Die Benutzung ist sehr einfach.
+Wenn Sie Pr\"ufspitzen mit Klemmen verwenden, klemmen Sie alle Klemmen auf ein unisoliertes St\"uck Draht und dr\"ucken Sie
+den Start Taster.
+Das Programm bemerkt die kurzgeschlossenen Klemmen und startet den Selbsttest.
+Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
+Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
+Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
+Die ungl\"uckliche Seite der Selbsttest-Funktion ist, da"s der 8k flash Speicher fast verbraucht ist.
+Die L\"ange der ATmega8 Version ist ungef\"ahr 8000 Bytes.
+Man kann die Selbsttest-Funktion zusammen mit allen anderen Optionen nur f\"ur einen ATmega168
+oder ATmega328 w\"ahlen.
+F\"ur einen ATmega8 mu"s man wegen des begrenzten flash Speichers wenigstens die Option AUTOSCALE\_ADC weglassen.
+Die einzelnen Schritte der Selbsttestfunktion werden immer in Zeile~1 des LCD Displays mit dem Buchstaben T
+gefolgt von der Schritt-Nummer dargestellt.
+Jeder Schritt wird achtmal wiederholt, bevor das Programm zum n\"achsten Schritt geht.
+Aber wenn man den Start Taster gedr\"uckt h\"alt, wenn ein Durchlauf beendet wird, wird dieser Test nicht
+mehr wiederholt.
+Wenn man den Taster w\"ahrend dem gesamten Selbsttest gedr\"uckt h\"alt, wird jeder Schritt nur einmal ausgef\"uhrt.
+
+In jedem Schritt werden nur Me"sergebnisse dargestellt, es wird keine Fehleranalyse durchgef\"uhrt.
+Man  mu"s die Ergebnisse selbst interpretieren.
+An dieser Stelle m\"ochte ich noch einen wichtigen Hinweis geben. F\"uhren Sie niemals Messungen mit
+eingestecktem ISP-Stecker durch!
+Die ISP-Schnittstelle st"ort die Messungen.
+
+\vspace{1cm}
+Hier ist die Liste der derzeit eingebauten Tests:
+\vspace{1cm}
+\begin{enumerate}
+\item {\bf Messung der 1,3V (oder 1,1V) Referenz Spannung (band gap Reference).} In Zeile 1 wird der Text ,,Ref='' und die
+gemessene Spannung in mV angezeigt.
+F\"ur den ATmega8 sollte die gemessene Spannung nahe bei 1,3V liegen, f\"ur die anderen Prozessoren liegt
+die Referenzspannung normal um die 1,1V.
+Die zweite Zeile zeigt die resultierenden Faktoren f\"ur die Kapazit\"ats-Messung.
+\item {\bf Vergleich der \(680\Omega\) Widerst\"ande.} 
+In Zeile~1 wird der kryptische Text  ,,+RL- 12 13 23'' angezeigt. Das bedeutet das folgende:
+Das RL ist eine Kurzform f\"ur Resistor Low, was die \(680\Omega\) Widerst\"ande meint. Die ,,12'' steht f\"ur: 
+Widerstand am Pin~1 ist verbunden mit VCC (+) und Widerstand am Pin~2 ist verbunden mit GND (-). 
+Das Ergebnis dieser Messung steht in Zeile~2 an erster Stelle.
+ In Zeile~1 folgt nun ,,13'', was bedeutet, da"s der Widerstand von Pin 1 wieder nach VCC verbunden ist,
+aber da"s jetzt der \(680\Omega\) Widerstand von Pin~3  mit GND verbunden ist.
+Das Ergebnis steht in Zeile 2 an der mittleren Stelle.
+
+Die letzte Messung dieses Tests ,,23'' bedeutet, da"s nun der Widerstand von Pin 2 mit VCC verbunden ist und
+der Widerstand von Pin~3 mit GND verbunden ist.
+Das Ergebnis steht in der zweiten LCD-Zeile an letzter Stelle.
+Ich m\"ochte daran erinnern, da"s die Aufl\"osung des ADC etwa 4,88mV betr\"agt!
+Die Me"ssituation wird auch in Abbildung~\ref{fig:test2} dargestellt.
+Alle diese Kombinationen sollten im Hinblick auf die internen Port-Widerst\"ande folgendes ergeben:
+\(\frac{5001 \cdot  (19+680)}{ (19+680+680+22)} = 2493\) .
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm]{../FIG/Test2.eps}
+\caption{Vergleich der \(680\Omega\) Widerst\"ande }
+\label{fig:test2}
+\end{figure}
+
+\item {\bf Vergleich der \(470k\Omega\) Widerst\"ande.}
+Jetzt zeigt das Display in Zeile 1 ,,+RH- 12 13 23''. Das gleiche Verfahren wie in Schritt wird wiederholt mit den
+ \(470k\Omega\) Widerst\"anden (Symbol RH).
+Die Ergebnisse sollten nahe bei \(\frac{5001 \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} = 2500\) f\"ur alle Kombinationen sein.
+\item In diesem Schritt wird nichts gemessen, es erfolgt lediglich die {\bf Anweisung ,,isolate Probe''},
+was bedeutet, da"s es nun Zeit ist die Klemmen zu trennen (vom blanken Draht l\"osen).
+\item Dieser Schritt testet die {\bf F\"ahigkeit von mit GND (-) verbundenen \(470k\Omega\) Widerst\"anden (H) die Testpins auf GND zu ziehen.}
+Zeile 1 zeigt den Text ,,RH-''.
+Zeile 2 sollte f\"ur alle drei Pinne  Null mV anzeigen.
+\item Dieser Schritt testet die {\bf F\"ahigkeit von mit VCC (+) verbundenen \(470k\Omega\) Widerst\"anden (H) die Testpins auf VCC zu ziehen.}
+Zeile 1 zeigt den Text ,,RH+''.
+Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 5001 in Zeile 2.
+ Gro"se Abweichungen vom Idealwert f\"ur Schritt 5 und 6 sind Fehler wie Isolations Problem, Flu"smittelreste oder besch\"adigter Port.
+\item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
+Der Text in der ersten Zeile des LCD ist ,,Ri\_Lo = (mV)''.
+In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt.
+Die internen Port C Widerst\"ande von auf GND (-) geschalteten Ausg\"angen werden mit dem Strom
+der nach VCC (+) geschalteten \(680\Omega\) Widerst\"ande gemessen, siehe Abbildung~\ref{fig:test7}.
+Es werden nur die drei Pinne des ADC Ports vermessen, die Widerstands-Ports  PB0, PB2 und PB4 k\"onnen nicht
+ohne Ver\"anderung der Hardware gemessen werden.
+Es wird angenommen, da"s die Port Widerst\"ande von unterschiedlichen Ports nahezu identisch sind.
+Um die Widerstandswerte zu erhalten, m\"ussen die angezeigten mV Werte durch ungef\"ahr 7 geteilt werden (siehe Schritt 8).
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Test7.eps}
+\caption{Messung des Innenwiderstandes von auf GND geschalteten Port C Ausg\"angen.}
+\label{fig:test7}
+\end{figure}
+
+\item {\bf Messung des Innenwiderstandes von auf VCC geschalteten Port Ausg\"angen.}
+Der ben\"otigte Strom wird von auf GND geschalteten \(680\Omega\) Widerst\"anden geliefert.
+Der Text in der ersten LCD Zeile ist ,,Ri\_Hi= (mV)''.
+In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt als Differenz zu VCC.
+Es ist die gleiche Messung wie die in Test 7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
+Mit folgenden Schritten k\"onnen Sie den Innenwiderstand berechnen:
+Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
+Sie k\"onnen beide Widerstandswerte erhalten, indem Sie die jeweilige Spannung
+(Ergebnisse von Test~7 oder Test~8) durch diesen Strom dividieren.
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Test8.eps}
+\caption{Messung des Innenwiderstandes des auf VCC geschalteten Port C Ausg\"angen.}
+\label{fig:test8}
+\end{figure}
+
+\item Ein {\bf 50 Hz Rechtecksignal} wird auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
+Testpin~1 wird auf GND geschaltet. Der Strom f\"ur Testpin 2 und 3 wird mit \(680\Omega\) Widerst\"anden begrenzt.
+Dieser Test wird achtmal mit jeweils 5 Sekunden Dauer durchgef\"uhrt.
+Man kann die Zeit der Verz\"ogerungs-Aufrufe pr\"ufen, wenn man ein Oszilloskop oder einen
+Frequenz-Z\"ahler besitzt.
+Wenn man f\"ur die Takterzeugung keinen Quarz benutzt, k\"onnen die
+Ergebnisse der Kondensatormessung ungenau sein.
+Eine genaue Taktfrequenz und genaue Wartezeiten sind wichtig f\"ur die Bestimmung von Kapazit\"atswerten.
+
+\end{enumerate}
+
+An Ende der Selbsttest-Funktion wird der Text ,,Auto Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
+Dann f\"ahrt das Programm mit der normalen Me"sfunktion fort.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c |}
+    \hline
+Test Nr. & 1. Ergebnis & 2. Ergebnis & 3. Ergebnis \\
+    \hline
+    \hline
+Test 1 & band gap Ref  1237 &  & \\
+Referenz  & RHfakt 753 & RLfakt.  4887 &  \\
+    \hline
+Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
+Vergleich \(680\Omega\) & 2488 & 2488 & 2484 \\
+bester Wert: 2493 & & & \\
+    \hline
+Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
+Vergleich \(470k\Omega\) & 2493 & 2493 & 2493 \\
+bester Wert: 2500 & & & \\
+    \hline
+Test 4 & isolate probe & & \\
+    \hline
+Test 5 & RH1- &  RH2- & RH3- \\
+\(470k\Omega\) isolation & 0 & 0 & 0 \\
+bester Wert: 0 & & & \\
+    \hline
+Test 6 & RH1+ & RH2+ & RH3+ \\
+\(470k\Omega\) isolation & 4995 & 4995 & 4995 \\
+bester Wert: 5001 & & & \\
+    \hline
+Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
+Pin Widerstand Low & 132 & 132 & 137 \\
+    \hline
+Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
+Pin Widerstand High & 151 & 151 & 151 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Selbsttest Mega8, Signature 1E9307, WITH\_AUTOREF}
+  \label{tab:test_m8} 
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c |}
+    \hline
+Test No. & 1. Ergebnis & 2. Ergebnis & 3. Ergebnis \\
+    \hline
+    \hline
+Test 1 & band gap Ref  1090 &  & \\
+Referenz  & RHfakt 865 & RLfakt.  5649 &  \\
+    \hline
+Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
+Vergleich \(680\Omega\) & 2493 & 2493 & 2493 \\
+bester Wert: 2493 & & & \\
+    \hline
+Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
+Vergleich \(470k\Omega\) & 2497 & 2498 & 2498 \\
+bester Wert: 2500 & & & \\
+    \hline
+Test 4 & isolate probe & & \\
+    \hline
+Test 5 & RH1- &  RH2- & RH3- \\
+\(470k\Omega\) isolation & 0 & 0 & 0 \\
+bester Wert: 0 & & & \\
+    \hline
+Test 6 & RH1+ & RH2+ & RH3+ \\
+\(470k\Omega\) isolation & 4998 & 4998 & 4998 \\
+bester Wert: 5001 & & & \\
+    \hline
+Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
+Pin Widerstand Low & 131 & 132 & 132 \\
+    \hline
+Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
+Pin Widerstand High & 156 & 156 & 156 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Selbsttest Mega168, Signature 1E9406, WITH\_AUTOREF}
+  \label{tab:test_m168} 
+\end{table}

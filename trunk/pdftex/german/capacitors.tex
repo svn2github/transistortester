@@ -1,0 +1,158 @@
+\section{Messen von Kondensatoren}
+Die Messung von Kapazit\"atswerten wird nach allen anderen Messungen als separater Teil mit einer Ladezeitmessung 
+durchgef\"uhrt.
+Die original Software vom Markus F. hat das mit einer Programm-Schleife gemacht, die den betreffenden digitalen
+Eingangs Pin bis zu einer Signal\"anderung gelesen hat und dabei die Schleifendurchl\"aufe gez\"ahlt.
+Dies hat den Nachteil, da"s die Aufl\"osung der Zeitmessung begrenzt ist durch die Gesamtzeit eines Schleifendurchlaufs.
+Dies wurde \"ublicherweise in allen sechs Kombinationsm\"oglichkeiten f\"ur die drei Testpins durchgef\"uhrt.
+Die aktuelle Software benutzt zwei verschiedene M\"oglichkeiten um die Ladezeit zu erhalten in nur drei
+Kombinationsm\"oglichkeiten f\"ur die drei Testpins.
+Die positive Seite ist nun immer die h\"ohere Testpin-Nummer.
+Nur wenn die Kapazit\"at zusammen mit einer parallel geschalteten Diode gemessen wird,
+kann die Polarit\"at die andere Richtung haben.
+
+\subsection{Entladen der Kondensatoren}
+Sie sollten die Kapazit\"aten immer entladen, bevor sie mit dem Tester verbunden werden.
+Bevor irgendein Test gestartet wird, wird der Kondensator vom Tester immer noch einmal entladen.
+Wenn die Spannung unter 1300mV ist, wird der Kondensator daf\"ur mit den angeschlossenen ADC Ports (Port C) kurzgeschlossen.
+Ich glaube das ist legal, weil jeder Port-Ausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
+Die Abbildung 149 (Seite 258) im Atmega8 Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
+Nat\"urlich kann ich nicht garantieren, da"s kein Schaden auftreten kann.
+Ich habe die Funktion mit 15mF Kondensatoren sehr oft getestet und ich habe noch nie ein Problem bemerkt.
+Der Strom sollte unter der spezifizierten Grenze von 40mA bleiben und reduziert sich schnell durch die Entladung.
+Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator vor dem Anschlie"sen an den Tester nicht entladen.
+
+\subsection{Messung von gro"sen Kapazit\"aten}
+\label{sec:bigcap}
+Eine Seite des Kondensators ist mit GND verbunden. Die andere Seite wird \"uber den \(680\Omega\) Widerstand f\"ur 10ms mit VCC verbunden.
+Danach wird dieser Messpin auf Eingang geschaltet (Hochohmig).
+Nach diesem Strompuls wird die Spannung am Kondensator stromlos gemessen.
+Wenn die Spannung noch nicht den Minimalwert von 300mV erreicht hat, wird der 10 ms Ladepuls bis zu 499 Mal wiederholt.
+Wenn nach 127 Pulsen (ungef\"ahr 2s) noch nicht eine Minimalspannung von 75mV erreicht ist, wird der Ladevorgang abgebrochen,
+ weil die 300mV mit den verbleibenden Ladepulsen nie erreicht werden kann.
+Abbildung~\ref{fig:bigcap} zeigt die drei Phasen der Kapazit\"atsbestimmung eines Kondensators.
+Der Kapazit\"atswert wird dann berechnet aus der Ladepuls-Anzahl und der erreichten Ladespannung \"uber eine Tabelle.
+Die Tabelle enth\"alt mit einem Spannungsabstand von 25mV die Faktoren, um aus der Ladezeit und der Spannung 
+den Kapazit\"atswert zu bestimmen. 
+Zwischenwerte der Spannung werden interpoliert.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Bigcap.eps}
+\caption{Kondensator Entladung und Ladung mit 10ms Ladepulsen bis Spannung \textgreater 300mV}
+\label{fig:bigcap}
+\end{figure}
+Wegen der niedrigen Ladespannung wird die Messung viel schneller als bei der urspr\"unglichen Softwareversion,
+weil dieser Vorteil auch bei der Entladung wirkt. So k\"onnen auch gr\"o"sere Kondensatoren gemessen werden.
+Zus\"atzlich st\"ort in den meisten F\"allen eine parallel geschaltete Diode nicht die Messung, weil die Schwellspannung
+der Diode nicht erreicht wird.
+Abbildung~\ref{pic:c229} zeigt das Laden und Entladen eines \(229\mu F\) Kondensators.
+Das flache Dach der Me"skurve bis zum Entladebeginn ist durch die Me"szeit und Berechnungszeit des ATmega verursacht.
+Abbildung~\ref{pic:c5mF} zeigt die gleiche Messung mit einem~\(5mF\) Kondensator,
+beachte wie die Me"szeit inklusive Entladung auf ungef\"ahr 1,5 Sekunden angewachsen ist.
+Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\) Kondensators.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/charge_229uF.png}
+    \caption{\(229\mu F\) Kondensator}
+    \label{pic:c229}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/charge_5mF.png}
+    \caption{\(5mF\) Kondensator}
+    \label{pic:c5mF}
+  \end{subfigure}
+  \caption{Laden und Entladen von gro"sen Kondensatoren f\"ur die Messung}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/charge_15mF.png}
+  \caption{Laden und Entladen eines \(15mF\) Kondensators f\"ur die Messung}
+  \label{pic:c15mF}
+\end{figure}
+
+\subsection{Messen von kleinen Kapazit\"aten}
+Wenn der erste 10 ms Ladepuls den Kondensator zu hoch aufgeladen hat, wird eine andere Me"stechnik benutzt.
+Der ATmega Prozessor hat einen eingebauten 16-Bit Z\"ahler, der bei voller Taktfrequenz (1MHz oder 8MHz) arbeiten kann.
+Diese Z\"ahler hat auch die F\"ahigkeit aufgrund eines externen Ereignisses den Z\"ahlerstand zu sichern.
+Dieses Ereignis kann auch das Ausgangs-Signal des Komparators sein.
+Der Komparator kann mit jeden ADC Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
+Schaltbild~\ref{fig:comparat} zeigt ein vereinfachtes Diagram der Me"ssituation.
+So entlade ich den Kondensator, bereite den Komparator f\"ur den richtigen Pin Eingang vor, starte den Z\"ahler bei 0 und
+starte sofort das Laden des Kondensators.
+Dabei ist eine Seite des Kondensators mit GND die andere Seite \"uber den \(470k\Omega\) Widerstand mit VCC verbunden.
+Nun pr\"ufe ich in einer Programm-Schleife, ob der Z\"ahler ein \"Uberlauf-Ereignis (overflow) oder ein
+ externes Ereignis (input capture) meldet.
+Die \"Uberlauf-Ereignisse z\"ahle ich bis ich ein externes Ereignis feststelle.
+In diesem Fall halte ich den Z\"ahler an und pr\"ufe, ob ich noch einen zus\"atzlichen \"Uberlauf z\"ahlen mu"s, 
+weil der Z\"ahler nicht mit dem externen Ereignis (input capture) angehalten werden kann.
+
+
+Der Z\"ahlerstand des externen Ereignisses bildet zusammen mit dem \"Uberlaufz\"ahler die Gesamtzeit,
+von der ich eine experimentell herausgefundene Konstante abziehe, um den Me"swerte-Offset zu beseitigen.
+Ich wei"s nicht, ob diese Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
+Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der Ladezeit in Bezug auf die Komparator-Spannung ber\"ucksichtigen.
+Die Tabelle hat einen Abstand von 50mV Schritten und wird interpoliert entsprechend der aktuellen Referenz-Spannung.
+Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
+Ich habe bemerkt, da"s die Referenz-Spannung immer etwas zu klein gemessen wird,
+ deshalb kann man einen Zusatz mit der Makefile Option REF\_KORR angeben.
+Die gemessene Referenz-Spannung wird dann mit dem angegebenen Korrekturwert (mV) korrigiert (addiert).
+Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
+Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 Prozessoren ber\"ucksichtigt.
+Eine Beispielmessung von diesem Typ ist in Abbildung~\ref{pic:c22uF} dargestellt.
+Die Me"szeit ist ungef\"ahr 2,6s weil der \(470k\Omega\) Widerstand f\"ur das Laden benutzt wird,
+aber das Entladen geht in diesem Fall viel schneller als das Laden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Comparat.eps}
+\caption{Messung kleiner Kapazit\"atswerte mit dem Komparator}
+\label{fig:comparat}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/charge_22uF.png}
+  \caption{Laden und Entladen eines \(22\mu F\) Kondensators f\"ur die Messung}
+  \label{pic:c22uF}
+\end{figure}
+
+
+Im Prinzip kann diese Technik auch mit dem \(680\Omega\) Widerstand benutzt werden,
+aber weil w\"ahrend dem Komparatorbetrieb der ADC nicht benutzt werden kann, habe ich keine
+M\"oglichkeit die Ladespannung zu beobachten bis der Komparator angehalten wird.
+Wenn eine unentdeckte Diode mit dem Kondensator parallelgeschaltet ist, kann der Ladestrom
+von der Diode aufgenommen werden (Schwellspannung) und die Referenz-Spannung w\"urde nie erreicht.
+Die Methode, die in der aktuellen Software f\"ur gro"se Kondensatoren in Kapitel~\ref{sec:bigcap}
+verwendet wird, vermeidet diesen Konzeptfehler.
+
+\subsection{Ergebnisse der Kondensator-Messung}
+Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} f\"ur den ATmega8 Prozessor ohne und mit
+der AUTOSCALE\_ADC Option dargestellt. Zus\"atzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
+von 0,85~(-15\%) dargestellt.
+Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
+Die Referenz f\"ur die Fehlerberechnung sind die Me"swerte eines PeakTech 3315 Multimeters, nicht die aufgedruckten
+Werte der Bauteile. F\"ur die Zukunft hoffe ich die Messungen eines PeakTech 2170 RCL-Me"sger\"ates als genauere
+Bezugswerte nehmen zu k\"onnen.
+Es gibt einen Trend der relativen Me"sfehler bei gro"sen Kondensatoren, den ich nicht erkl\"aren kann.
+Ich hoffe, da"s ich den Grund daf\"ur finde.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega8cap}
+\caption{Prozentualer Fehler der Kondensator-Messungen mit dem ATmega8}
+\label{fig:mega8cap}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cap}
+\caption{Prozentualer Fehler der Kondensator-Messungen mit dem ATmega168}
+\label{fig:mega168cap}
+\end{figure}
+

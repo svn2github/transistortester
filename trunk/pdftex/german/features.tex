@@ -1,0 +1,101 @@
+%\newpage
+\chapter{Eigenschaften}
+\label{sec:features}
+\begin{enumerate}
+\item Arbeitet mit ATmega8, ATmega88, ATmega168 oder ATmega328 Mikrocontrollern.
+\item Anzeige der Me"sergebnisse auf einem 2x16 Zeichen LCD-Display.
+\item Ein Tasten Bedienung mit automatischer Abschaltfunktion.
+\item Batterie-Betrieb ist m\"oglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA betr\"agt.
+\item Preisg\"unstige L\"osung ist m\"oglich ohne Quarz und ohne automatische Abschaltung.
+\item Automatische Erkennung von NPN und PNP bipolaren Transistoren, N- und P-Channel MOSFETs, JFETs,
+Dioden, Doppeldioden, Thyristors und Triacs.
+\item Automatische Erkennung des Pin Anschl\"usse der erkannten Bauteile.
+\item Messung des Stromverst\"arkungsfaktors und der Basis-Emitter Schwellspannung f\"ur bipolare Transistoren.
+\item Darlington Transistoren k\"onnen durch die h\"ohere Schwellspannung und durch den hohen Stromverst\"arkungsfaktor erkannt werden.
+\item Automatische Erkennung einer Schutzdiode bei bipolaren Transistoren und bei MOSFETs.
+\item Messung der Schwellwert-Spannung und der Gate Kapazit\"atswerte von MOSFETs.
+\item Bis zu zwei Widerst\"ande werden gemessen und mit Symbolen
+\setlength{\unitlength}{0.1mm}
+\linethickness{0.4mm}
+\begin{picture}(60,30)
+\put(0,15){\line(1,0){10}}
+\put(10,5){\line(0,1){20}}
+\put(10,5){\line(1,0){40}}
+\put(10,25){\line(1,0){40}}
+\put(50,5){\line(0,1){20}}
+\put(50,15){\line(1,0){10}}
+\end{picture}
+und den Widerstands-Werten angezeigt.
+Alle Symbole werden eingerahmt mit den gefundenen Testpin Nummern des Testers (1-3).
+Deshalb k\"onnen auch Potentiometer gemessen werden. Wenn der Schleifer eines Potentiometers auf eine Endposition
+gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschlu"s und Endanschlu"s unterscheiden.
+\item Die Aufl\"osung der Widerstandsmessung ist jetzt \(0,1\Omega\), Werte von bis zu \(50M\Omega\) werden erkannt.
+\item Ein Kondensator kann erkannt und gemessen werden. Der wird mit dem Symbol 
+\setlength{\unitlength}{0.1mm}
+\begin{picture}(60,30)
+\linethickness{0.4mm}
+\put(0,15){\line(1,0){20}}
+\put(40,15){\line(1,0){20}}
+\put(22,0){\line(0,1){30}}
+\put(26,0){\line(0,1){30}}
+\put(34,0){\line(0,1){30}}
+\put(38,0){\line(0,1){30}}
+\end{picture}
+und Kapazit\"atswert angezeigt.
+Der Wert kann zwischen 35pF (bei 8MHz Takt, 70pF bei 1MHz Takt) bis 40mF mit einer Aufl\"osung von bis zu 1pF (bei 8MHz Takt).
+\item Bis zu vier Dezimalstellen werden f\"ur die Kapazit\"ats und Widerstands-Werte in der richtigen Dimension angezeigt.
+\item Bis zu zwei Dioden werden mit dem Symbol
+\setlength{\unitlength}{0.1mm}
+\begin{picture}(60,30)
+\linethickness{0.4mm}
+\put(0,15){\line(1,0){60}}
+\put(22,2){\line(0,1){26}}
+\put(26,6){\line(0,1){18}}
+\put(30,10){\line(0,1){10}}
+\put(38,2){\line(0,1){26}}
+\end{picture}
+oder dem Symbol
+\setlength{\unitlength}{0.1mm}
+\begin{picture}(60,30)
+\linethickness{0.4mm}
+\put(0,15){\line(1,0){60}}
+\put(38,2){\line(0,1){26}}
+\put(34,6){\line(0,1){18}}
+\put(30,10){\line(0,1){10}}
+\put(22,2){\line(0,1){26}}
+\end{picture}
+in der richtigen Reihenfolge angezeigt.
+Zus\"atzlich werden die Schwellspannungen angezeigt.
+\item Eine LED wird als Diode erkannt, die Schwellspannung ist viel h\"oher als bei einer normalen Diode.
+Doppeldioden werden als zwei Dioden erkannt.
+\item Zener-Dioden k\"onnen erkannt werden, wenn die Zener-Spannung unter 4,5V ist.
+Sie werden als zwei Dioden angezeigt, man kann das Bauelement nur mit den Spannungen erkennen.
+Die \"au"seren Testpin Nummern, welche die Dioden Symbole umgeben, sind in diesem Fall identisch.
+Man kann die wirkliche Anode der Diode nur durch diejenige Diode herausfinden, deren Schwellwert Spannung nahe bei 700mV liegt!
+\item Wenn mehr als 3 Dioden erkannt werden, wird die gefundene Anzahl der Dioden zusammen mit der Fehlermeldung angezeigt.
+Das kann nur passieren, wenn Dioden an alle drei Test-Pins angeschlossen sind und wenigstens eine eine Zener-Diode ist.
+In diesem Fall sollte man nur zwei Test-Pins anschlie"sen und die Messung erneut starten, eine nach der anderen.
+\item Der Kapazit\"atswert einer einzelnen Diode in Sperr-Richtung wird automatisch ermittelt.
+Bipolare Transistoren k\"onnen auch untersucht werden, wenn nur die Basis und entweder Kollektor oder Emitter angeschlossen wird.
+\item Die Anschl\"usse einer Gleichrichter-Br\"ucke k\"onnen mit nur einer Messung herausgefunden werden.
+\item Kondensatoren mit Kapazit\"atswerten von unter 35pF werden normalerweise nicht erkannt, 
+aber sie k\"onnen zusammen mit einer parallel geschalteten Diode oder mit einem parallel geschaltetem Kondensator mit
+wenigstens 35pF gemessen werden.
+In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom Me"sergebnis abgezogen werden.
+\item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen k\"onnen l\"anger dauern.
+\item Die Software kann f\"ur Me"sserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
+\item Eingebaute Selbsttest-Funktion inklusive einem 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
+\end{enumerate}
+
+Thyristoren und Triacs k\"onnen nur erkannt werden, wenn der Test-Strom \"uber dem Halte-Strom liegt.
+Einige Thyristoren und Triacs brauchen auch einen h\"oheren Z\"undstrom als dieser Tester liefern kann.
+Der verf\"ugbare Teststrom ist nur ungef\"ahr 6mA!
+Es ist m\"oglich, da"s nicht alle Optionen in zuk\"unftigen Versionen erhalten bleiben, weil diese Software
+immer noch im Teststadium ist.
+
+\vspace{1cm}
+\textbf{{\Large Achtung:}} Stellen Sie immer sicher, da"s Kondensatoren vor dem Anschlu"s an den Tester entladen sind!
+Der Tester k\"onnte sonst besch\"adigt werden bevor er eingeschaltet ist.
+Es gibt nur wenig Schutzfunktion der ATmega Anschl\"usse.
+
+
