@@ -16,5 +16,9 @@ Weil Widerst\"ande zuerst entdeckt werden, wird die Kapazit\"atsmessung dann nic
 Praxisgerechtere Kondensatoren haben meist Werte von bis zu 10mF.
 Deshalb k\"onnte die Kapazit\"atsmessung auch auf 40mF anstelle der geplanten 100mF begrenzt werden, wenn dieses Problem nicht
 gel\"ost werden kann.
+\item Entladeprozedur von Kondensatoren endet nicht richtig. Es ist ein Fall bekannt geworden, wo ein ATmega8 Prozessor,
+der mit AUTOSCALE\_ADC Option arbeiten sollte, nicht zum regul\"aren Entlade-Ende kam.
+Die Spannungsgrenze ist mit unter 3mV sehr niedrig gesetzt. Bei meinen eigenen Versuchen hat die Grenze immer gereicht.
+Der Fehler \"au"sert sich so, da"s nach einer Zeit von etwa 12s die Meldung ,,Cell!'' im Display erscheint.
 
 \end{enumerate}
