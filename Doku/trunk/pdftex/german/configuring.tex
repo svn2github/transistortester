@@ -47,7 +47,9 @@ Beispiel: CFLAGS += -DWITH\_SELFTEST
 Beispiel: CFLAGS += -DR\_MESS
   \item[C\_MESS] schaltet die Kondenstormessung ein.
  Diese Option sollte immer angegeben werden.\\
-Beispiel: CFLAGS += -DC\_MESS
+  \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) für einen entladenen Kondensator fest.
+Der Wert kann höher als 3mV gesetzt werde, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach längerer Zeit ,,Cell!''.\\
+Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor f\"ur die Kapazit\"atsmessung 
 von kleinen Kapazit\"aten (unter \(50\mu F\)) zu ermitteln.\\
 Beispiel:  CFLAGS += -DWITH\_AUTO\_REF

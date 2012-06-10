@@ -43,6 +43,10 @@ example: CFLAGS += -DWITH\_SELFTEST
 example: CFLAGS += -DR\_MESS
   \item[C\_MESS] enables the capacity measurement. This option should allways be set.\\
 example: CFLAGS += -DC\_MESS
+  \item[CAP\_EMPTY\_LEVEL]  This option defines the voltage level for discharged capacitor (mV units).
+You can set the level to higher value as 3mV, if the tester does not finish discharging of capacitors.
+In this case the tester ends after longer time with the message ``Cell!''.\\
+example: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] specifies, that reference voltage is read to get the actual factor for capacity measuring of low capacity values (below \(50\mu F\)).\\
 example:  CFLAGS += -DWITH\_AUTO\_REF
   \item[REF\_KORR] specifies an offset for readed reference voltage in mV units.
