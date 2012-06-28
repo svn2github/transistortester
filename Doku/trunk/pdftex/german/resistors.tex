@@ -56,7 +56,7 @@ Der gleiche gespreizte Bereich f\"ur die Type 2 Messung wird in Abbildung~\ref{f
 Ungl\"ucklicherweise kann man nicht die h\"ohere ADC Aufl\"osung f\"ur Me"smethode Type 2 benutzen,
 weil die Spannung zu hoch ist und unser ATmega keine differenziellen ADC Eing\"ange besitzt.
 Die Messungen mit den \(680\Omega\) Widerst\"anden werden bis zu einem Widerstandswert von 
-\(28k\Omega\) (Spannung ist unter 120mV) zur Bestimmung des Me"sergebnisses verwendet.
+\(20k\Omega\) (Spannung ist unter 169mV) zur Bestimmung des Me"sergebnisses verwendet.
 
 F\"ur h\"ohere Widerstandswerte werden Messungen mit den \(470k\Omega\) Widerst\"anden benutzt.
 Der Mittelwert von beiden Messungen wird f\"ur den angezeigten Widerstandwert benutzt, wenn alle Messungen ergeben,
@@ -97,6 +97,11 @@ Der theoretische Spannungs-Verlauf wird in Abbildung~\ref{fig:RHv} gezeigt, wobe
 logarithmischer Skalierung gezeigt werden.
 Der theoretische Verlauf in diesem Diagramm endet bei \(100M\Omega\), aber das Ergebnis des Testers wird auf
  \(60M\Omega\) begrenzt, anderenfalls nimmt der Tester an, da"s kein Widerstand angeschlossen ist.
+Als Ergebnis wird der gewichtete Mittelwert von beiden me"smethoden verwendet nach den gleichen Regeln, die schon bei
+den Messungen mit den  \(680\Omega\) Widerst\"anden beschrieben wurden.
+Ich habe beobachtet, da"s die Me"sergebnisse f\"ur alle ATmega Typen  n\"aher am wahren Wert liegen, wenn zum Me"sergebnis
+ein konstanter Offset von \(700\Omega\) addiert wird.
+Dieser Offset kann mit der RH\_OFFSET Konstante (define) in der Datei config.h angepa"st werden.
 
 \begin{figure}[H]
 \centering
@@ -124,6 +129,7 @@ Abbildung~\ref{fig:mega8res} zeigt den relativen Fehler der Widerstandmessung mi
 Mikrocontroller. Mega8 sind die Ergebnisse ohne AUTOSCALE\_ADC Option,
 Mega8as sind die Ergebnisse mit der Option AUTOSCALE\_ADC und
 Mega8orig sind die gleichen Messungen mit der original Software von Markus F. ohne meine Verbesserungen.
+Die Ergebnisse f\"ur die AUTOSCALE\_ADC Version zeigen hier kaum Verbesserungs-Potential.
 Abbildung~\ref{fig:mega168res} zeigt die gleichen Messungen mit einem ATmega168 Mikrocontroller.
 Mega168 sind die Ergebnisse ohne die AUTOSCALE\_ADC Option, Mega168as die mit der
  AUTOSCALE\_ADC Option.

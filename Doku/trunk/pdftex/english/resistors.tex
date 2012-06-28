@@ -52,8 +52,8 @@ The range switching with the AUTOSCALE\_ADC option can help in this case.
 The same zoomed range of measurement type 2 shows the figure~\ref{fig:RLvhigh}.
 Unfortunately we can not use the higher ADC resolution for measurement type~2 in this range,
  because the voltage is too high and our ATmega have no differential ADC input.
-Measurements with the \(680\Omega\) resistors are taken for building the result of measurements up to \(28k\Omega\)
-(Voltage will be below 120mV).
+Measurements with the \(680\Omega\) resistors are taken for building the result of measurements up to \(20k\Omega\)
+(Voltage will be below 169mV).
 For higher resistor values the measurements with the \(470k\Omega\) resistors are used. The mean value of both
 measurements is taken as displayed resistor value, if all tests attests, that is is no other type of part.
 If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below 0.98V,
@@ -91,6 +91,9 @@ is so low, that no voltage difference at the internal port resistors of the ATme
 The theoretical voltage gradient is shown in figure~\ref{fig:RHv} where the resistor values are again shown in logarithmic scale.
 The theoretical gradient in this diagram ends at \(100M\Omega\), but the resulting value of the Tester is
 limited to \(60M\Omega\), otherwise the Tester assumes that no resistor is connected.
+The weighted average of both measurement types is taken as result with the same rules described for the measurements with the \(680\Omega\) resistors.
+For all ATmega processors I had found, that the measured results with the \(470k\Omega\) resistors are more exactly,
+if a constant offset of \(700\Omega\) will be added. This offset can be adjusted with the RH\_OFFSET define in the config.h file.
 
 \begin{figure}[H]
 \centering
@@ -118,6 +121,8 @@ Figure~\ref{fig:mega8res} shows the relative errors of the resistor measurements
 ATmega8 microcontroller. Mega8 are the results without AUTOSCALE\_ADC option,
 Mega8as are the results with the option AUTOSCALE\_ADC and
 Mega8orig are some results of the original software of Markus F. without my improvements.
+You can see, that it is difficult to make the resistor measurement better with the AUTOSCALE\_ADC mode
+of the ATmega8 processor.
 Figure~\ref{fig:mega168res} shows the same measurements with a ATmega168 microcontroller.
 Mega168 are the results without the AUTOSCALE\_ADC option, Mega168as are the same
 measurements with the AUTOSCALE\_ADC option.

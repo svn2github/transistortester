@@ -52,3 +52,8 @@ mit VCC oder GND, oder der Pin kann "uber den \(680\Omega\) Widerstand mit VCC o
   \caption{alle Me"sm\"oglichkeiten}
   \label{tab:case} 
 \end{table}
+
+Wenn die Kondensatormessung des Testers konfiguriert ist, versucht der Tester vor allen Messungen erst einmal,
+die Kondensatoren an allen Anschlußpins zu entladen. Wenn das nicht gelingt, also die Restspannung zu hoch bleibt,
+wird das Entladen nach etwa 12 Sekunden mit der Meldung ,,Cell!'' abgebrochen. Dies kann auch dann vorkommen, wenn
+gar kein Kondensator angeschlossen ist.

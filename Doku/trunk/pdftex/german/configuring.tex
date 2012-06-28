@@ -53,9 +53,9 @@ Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor f\"ur die Kapazit\"atsmessung 
 von kleinen Kapazit\"aten (unter \(50\mu F\)) zu ermitteln.\\
 Beispiel:  CFLAGS += -DWITH\_AUTO\_REF
-  \item[REF\_KORR] gibt einen Offset f\"ur die gelesene Referenz-Spannung in mV Einheiten an.
+  \item[REF\_C\_KORR] gibt einen Offset f\"ur die gelesene Referenz-Spannung in mV Einheiten an.
 Das kann benutzt werden um die Kapazit\"atsmessung im WITH\_AUTO\_REF Mode abzugleichen.\\
-Beispiel:  CFLAGS += -DREF\_KORR=14
+Beispiel:  CFLAGS += -DREF\_C\_KORR=14
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V f\"ur den ATmega8 und 1,1V f\"ur die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
@@ -66,6 +66,9 @@ Die Abbildungen~\ref{pic:aref1} und \ref{pic:aref5} zeigen die Schaltzeiten mit 
 Wie Sie sehen k\"onnen ist das Schalten von 5V auf 1,1V viel langsamer als das Zur\"uckschalten auf 5V.
 Wenn Sie noch einen 100nF installiert haben, ist die Schaltzeit etwa Faktor 100 l\"anger!\\
 Beispiel: CFLAGS += -DNO\_AREF\_CAP
+  \item[REF\_R\_KORR] gibt einen Offset f\"ur die interne Referenz-Spannung in mV Einheiten an.
+Mit diesem Offset kann eine Differenz bei der Umschaltung der Referenzspannung f\"ur die Widerstandsmessung abgeglichen werden.\\
+Beispiel:  CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] gibt der Software an, mit welcher Taktfrequenz in MHz der Tester arbeiten wird.
 Die Software ist nur mit 1MHz und 8MHz getestet. Der 8MHz Betrieb wird wegen der besseren Aufl\"osung der
 Kondensator-Messung empfohlen.\\

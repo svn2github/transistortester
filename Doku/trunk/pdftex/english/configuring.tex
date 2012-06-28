@@ -49,9 +49,9 @@ In this case the tester ends after longer time with the message ``Cell!''.\\
 example: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] specifies, that reference voltage is read to get the actual factor for capacity measuring of low capacity values (below \(50\mu F\)).\\
 example:  CFLAGS += -DWITH\_AUTO\_REF
-  \item[REF\_KORR] specifies an offset for readed reference voltage in mV units.
+  \item[REF\_C\_KORR] specifies a offset for readed reference voltage in mV units.
 This can be used to adjust the capacity measurement in the WITH\_AUTO\_REF mode.\\
-example:  CFLAGS += -DREF\_KORR=14
+example:  CFLAGS += -DREF\_C\_KORR=14
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
@@ -62,6 +62,9 @@ Figure \ref{pic:aref1} and \ref{pic:aref5} show the switching time with a 1nF ca
 As you can see the switching from 5V to 1.1V is much slower than switching back to 5V. If you
 have still installed the 100nF, switching time will be about factor 100 longer!\\
 example: CFLAGS += -DNO\_AREF\_CAP
+  \item[REF\_R\_KORR] specifies a offset for the internal ADC-reference voltage in mV units.
+With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.\\
+example: CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] tells your software at which Clock Frequency in MHz your Tester will operate.
 The software is tested only for 1 MHz and 8Mhz. The 8MHz operation is recommended for better resolution of capacity measurement.\\
 example: OP\_MHZ = 8
