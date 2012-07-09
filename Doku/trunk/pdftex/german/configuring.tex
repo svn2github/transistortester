@@ -70,7 +70,7 @@ Beispiel: CFLAGS += -DNO\_AREF\_CAP
 Mit diesem Offset kann eine Differenz bei der Umschaltung der Referenzspannung f\"ur die Widerstandsmessung abgeglichen werden.\\
 Beispiel:  CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] gibt der Software an, mit welcher Taktfrequenz in MHz der Tester arbeiten wird.
-Die Software ist nur mit 1MHz und 8MHz getestet. Der 8MHz Betrieb wird wegen der besseren Aufl\"osung der
+Die Software ist nur mit 1MHz, 8MHz und zus\"atzlich auch 16MHz getestet. Der 8MHz Betrieb wird wegen der besseren Aufl\"osung der
 Kondensator-Messung empfohlen.\\
 Beispiel: OP\_MHZ = 8
   \item[USE\_EEPROM] gibt an, ob feste Texte und Tabellen im EEprom Speicher abgelegt werden sollen.
@@ -126,6 +126,11 @@ weil das die Gefahr von Batterie-Sch\"aden wegen der Tief-Entladung erh\"oht!
 Wenn Sie wiederaufladbare 9V Batterien einsetzen, werden ,,Ready to Use'' Typen wegen der geringeren Selbstentladung empfohlen.\\
 Beispiel f\"ur low drop Regler (5.4V): CFLAGS += -DBAT\_POOR=54 \\
 Beispiel f\"ur 7805 type Regler (6.4V): CFLAGS += -DBAT\_POOR=64
+  \item[UF\_OUT\_MV] setzt das Ausgabeformat f\"ur die Diodenflu"sspannung auf mV Einheit.
+Anderenfalls wird die Flu"sspannung in Volt mit zwei Nachkommastellen ausgegeben.
+Die Ausgabe in Volt spart eine Stelle auf dem LCD, die mV Ausgabe braucht weniger Programmspeicher.
+Die 16 Stellen des LCD sind manchmal zu knapp f\"ur die zus\"atzliche Angabe der Kapazit\"at, deshalb sollte die Volt Ausgabe bevorzugt werden.\\
+Beispiel: CFLAGS += -DUF\_OUT\_MV
   \item[PROGRAMMER] stellt den Programmer Typ f\"ur das avrdude Schnittstellenprogramm ein.
 Eine richtige Einstellung des Programmer Typs (und Ports) ist notwendig, wenn Sie den ,,make upload'' oder
 ,,make fuses'' Aufruf dieser Makefile benutzen.

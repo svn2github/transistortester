@@ -66,7 +66,7 @@ example: CFLAGS += -DNO\_AREF\_CAP
 With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.\\
 example: CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] tells your software at which Clock Frequency in MHz your Tester will operate.
-The software is tested only for 1 MHz and 8Mhz. The 8MHz operation is recommended for better resolution of capacity measurement.\\
+The software is tested only for 1 MHz, 8MHz and additionally 16MHz. The 8MHz operation is recommended for better resolution of capacity measurement.\\
 example: OP\_MHZ = 8
   \item[USE\_EEPROM] specifies if you wish to locate fix text and tables in EEprom Memory. Otherwise the flash memory is used.
 Recommended is to use the EEprom (option set).\\
@@ -111,6 +111,11 @@ because this increase the risk of battery damage by the reason of the deep disch
 If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
 example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=54
 example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=64
+  \item[UF\_OUT\_MV] set the output format of the flux voltage to mV units.
+Otherwise the flux voltage is shown in Volt units with two digit decimal place.
+The output format with Volt units save one digit at the LCD, the mV output format needs less program memory.
+The 16 digits of the LCD are sometimes insufficient for mV output together with capacity value, therefore you should prefere the Volt output.\\
+exmple: CFLAGS += -DUF\_OUT\_MV
   \item[PROGRAMMER] select your programmer type for avrdude interface program.
 The correct selection of this option is needed, if you use the ``make upload'' or ``make fuses'' call
 of this Makefile.
