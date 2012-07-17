@@ -99,9 +99,11 @@ set format y "% g"
 set xtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set xtics autofreq  norangelimit
 set ylabel "Error / Percent"
-plot "../GNU/capmess8.dat" u 2:($4-$3)/$3*100 title "Mega8" ls 1,"../GNU/capmess8.dat" u 1:($5-$3)/$3*100 title "Mega8as" ls 2,"../GNU/capmessorig.dat" u 1:($4*0.88-$3)/$3*100 title "orig" ls 3
+set yrange [-2 to 10]
+plot "../GNU/capmess8.dat" u 3:($4-$3)/$3*100 title "Mega8" ls 1,"../GNU/capmess8.dat" u 3:($5-$3)/$3*100 title "Mega8as" ls 2,"../GNU/capmessorig.dat" u 3:($4*0.88-$3)/$3*100 title "orig" ls 3
 set output
 set output "../GNU/Mega168cap.eps"
-plot "../GNU/capmess168.dat" u 2:($3-$2)/$2*100 title "Mega168" ls 1,"../GNU/capmess168.dat" u 1:($4-$2)/$2*100 title "Mega168as14" ls 2
+#plot "../GNU/capmess168.dat" u 3:($4-$3)/$3*100 title "Mega168" ls 1,"../GNU/capmess168.dat" u 3:(($5-$3)-12e-12+(4000e-24/($5+259e-12)))/$3*100 title "Mega168as8" ls 2
+plot "../GNU/capmess168.dat" u 3:($4-$3)/$3*100 title "Mega168" ls 1,"../GNU/capmess168.dat" u 3:($5-$3)/$3*100 title "Mega168as8" ls 2
 set output
 #    EOF
