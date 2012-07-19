@@ -136,11 +136,10 @@ Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} f\"ur den
 der AUTOSCALE\_ADC Option dargestellt. Zus\"atzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
 von 0,88~(-12\%) dargestellt.
 Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
-Die Referenz f\"ur die Fehlerberechnung sind die Me"swerte eines PeakTech 3315 Multimeters, nicht die aufgedruckten
-Werte der Bauteile. F\"ur die Zukunft hoffe ich die Messungen eines PeakTech 2170 RCL-Me"sger\"ates als genauere
-Bezugswerte nehmen zu k\"onnen.
-Es gibt einen Trend der relativen Me"sfehler bei gro"sen Kondensatoren, den ich nicht erkl\"aren kann.
-Ich hoffe, da"s ich den Grund daf\"ur finde.
+Die Referenz f\"ur die Fehlerberechnung sind die Me"swerte eines PeakTech 2170 RCL-Me"sger\"ates, 
+ nicht die aufgedruckten Werte der Bauteile.
+Die gr\"o"seren relativen Me"sfehler bei gro"sen Kondensatoren liegen wahrscheinlich an der unterschiedlichen G\"ute 
+der Elektrolytkondensatoren. Die G\"ute wird derzeit nicht ermittelt.
 
 \begin{figure}[H]
 \centering
@@ -156,3 +155,26 @@ Ich hoffe, da"s ich den Grund daf\"ur finde.
 \label{fig:mega168cap}
 \end{figure}
 
+Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren werden in Abbildung~\ref{fig:mega168all} dargestellt.
+Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
+nicht benutzt.
+Besonders bei den ATmega168 Prozessoren habe ich einen Me"sfehler beobachtet, der von der Anstiegsgeschwindigkeit
+der Spannung beim Ladevorgang abh\"angig ist.
+Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
+Nullwertes (168-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
+Kondensatoren C\_H\_KORR=20 (168-B), sowie zus\"atzlich als Kurve 168-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
+(COMP\_SLEW1=4000 und COMP\_SLEW2=220).
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168all}
+\caption{Fehler der Kondensator-Messung von drei ATmega168 Prozessoren}
+\label{fig:mega168all}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cap_opt}
+\caption{Optimierung der Kondensator-Messung eines ATmega168}
+\label{fig:mega168optcap}
+\end{figure}

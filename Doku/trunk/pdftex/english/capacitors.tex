@@ -155,3 +155,26 @@ I hope, that I will find the reason for this.
 \label{fig:mega168cap}
 \end{figure}
 
+The differences of measurements of three different ATmega168 processors is shown in figure~\ref{fig:mega168all} .
+At this only the zero value of the capacity measurement of 39pF is respected, all other facility to correct the results are
+not used.
+Especially with the ATmega168 processors I have noticed a anomaly of measurement results, which depend on the slew rate of
+the voltage during loading of the capacitor.
+Figure~\ref{fig:mega168optcap} shows the error of the capacity measurement when only the zero value is respected
+(168-A), with correction factor for little capacitors REF\_C\_KORR=66 as well as the correction factor for big
+capacitors C\_H\_KORR=20 (168-B), plus additional as gradient 168-C  with a model of the slew rate dependency of little capacitor 
+measurements (COMP\_SLEW1=4000 und COMP\_SLEW2=220).
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168all}
+\caption{Error of capacitor measurements of three ATmega168 processors}
+\label{fig:mega168all}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cap_opt}
+\caption{Improvement of the capacitor measurement of one ATmega168}
+\label{fig:mega168optcap}
+\end{figure}

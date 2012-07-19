@@ -1,5 +1,5 @@
 LISTE = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/rmess.eps
-LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps
+LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
@@ -20,6 +20,10 @@ all: $(LISTE) ttester.pdf
 	gnuplot ../GNU/capmess8.gnu
 ../GNU/Mega168cap.eps: ../GNU/capmess168.gnu ../GNU/capmess168.dat
 	gnuplot ../GNU/capmess168.gnu
+../GNU/Mega168cap_opt.eps: ../GNU/capmessopt168.gnu ../GNU/capmess168-3.dat
+	gnuplot ../GNU/capmessopt168.gnu
+../GNU/Mega168all.eps: ../GNU/capmess168all.gnu ../GNU/capmess168-all.dat
+	gnuplot ../GNU/capmess168all.gnu
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps ../FIG/Messung.fig
 ../FIG/port.eps: ../FIG/port.fig
