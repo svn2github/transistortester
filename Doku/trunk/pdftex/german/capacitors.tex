@@ -15,7 +15,7 @@ kann die Polarit\"at die andere Richtung haben.
 Sie sollten die Kapazit\"aten immer entladen, bevor sie mit dem Tester verbunden werden.
 Bevor irgendein Test gestartet wird, wird der Kondensator vom Tester immer noch einmal entladen.
 Wenn die Spannung unter 1300mV ist, wird der Kondensator daf\"ur mit den angeschlossenen ADC Ports (Port C) kurzgeschlossen.
-Ich glaube das ist legal, weil jeder Port-Ausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
+Ich glaube das ist legal, weil jeder Portausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
 Die Abbildung 149 (Seite 258) im Atmega8 Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
 Nat\"urlich kann ich nicht garantieren, da"s kein Schaden auftreten kann.
 Ich habe die Funktion mit 15mF Kondensatoren sehr oft getestet und ich habe noch nie ein Problem bemerkt.
@@ -155,15 +155,11 @@ der Elektrolytkondensatoren. Die G\"ute wird derzeit nicht ermittelt.
 \label{fig:mega168cap}
 \end{figure}
 
-Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren werden in Abbildung~\ref{fig:mega168all} dargestellt.
+Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
-nicht benutzt.
-Besonders bei den ATmega168 Prozessoren habe ich einen Me"sfehler beobachtet, der von der Anstiegsgeschwindigkeit
-der Spannung beim Ladevorgang abh\"angig ist.
-Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
-Nullwertes (168-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
-Kondensatoren C\_H\_KORR=20 (168-B), sowie zus\"atzlich als Kurve 168-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
-(COMP\_SLEW1=4000 und COMP\_SLEW2=220).
+nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12 cm langen Anschlu"sleitungen mit den
+Klemmem verursacht werden.
+Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich mit der Board Version ,,DG2BRS V 5.2.1'' ermittelt.
 
 \begin{figure}[H]
 \centering
@@ -171,6 +167,21 @@ Kondensatoren C\_H\_KORR=20 (168-B), sowie zus\"atzlich als Kurve 168-C  mit der
 \caption{Fehler der Kondensator-Messung von drei ATmega168 Prozessoren}
 \label{fig:mega168all}
 \end{figure}
+
+Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
+angepa"st werden. Dazu kann die Korrekturspannung REF\_C\_KORR f\"ur den Komparator angegeben werden, der f\"ur die Messung der kleinen 
+Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1 Promille.
+F\"ur die gro"sen Kapazit\"aten kann der Promillewert C\_H\_KORR angegeben werden, um den die Messungen
+zu gro"s sind. Da die gro"sen Kondensatoren meistens Elektrolytkondensatoren mit schechter G\"ute sind, ist die Bestimmung
+des Kapazit\"atswertes und damit auch des me"sfehlers hier besonders schwierig.
+Besonders bei den ATmega168 Prozessoren habe ich bei kleinen Kapazit\"atswerten einen Me"sfehler beobachtet, 
+der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist.
+Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
+Nullwertes (168-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
+Kondensatoren C\_H\_KORR=50 (168-B), sowie zus\"atzlich als Kurve 168-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
+(COMP\_SLEW1=4000 und COMP\_SLEW2=220).
+Der Spannungsanstiegs-Korrekturfaktor berechnet sich nach \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
+wobei cval der gemessene Kapazit\"atswert in pF ist.
 
 \begin{figure}[H]
 \centering
