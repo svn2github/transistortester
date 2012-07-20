@@ -54,8 +54,12 @@ Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
 von kleinen Kapazit\"aten (unter \(50\mu F\)) zu ermitteln.\\
 Beispiel:  CFLAGS += -DWITH\_AUTO\_REF
   \item[REF\_C\_KORR] gibt einen Offset f\"ur die gelesene Referenz-Spannung in mV Einheiten an.
-Das kann benutzt werden um die Kapazit\"atsmessung im WITH\_AUTO\_REF Mode abzugleichen.\\
+Das kann benutzt werden um die Kapazit\"atsmessung kleiner Kondensatoren abzugleichen.
+Ein Wert von 10 ergibt etwa 1 Prozent kleinere Me"sergebnisse.\\
 Beispiel:  CFLAGS += -DREF\_C\_KORR=14
+  \item[C\_H\_KORR] gibt eine Korrektur der Me"sergebnisse f\"ur gro"se Kondensatoren an.
+Eine Eingabe von 10 f\"uhrt zu 1 Prozent kleineren Me"sergebnissen.\\
+Beispiel:  CFLAGS += -DC\_H\_KORR=10
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V f\"ur den ATmega8 und 1,1V f\"ur die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
