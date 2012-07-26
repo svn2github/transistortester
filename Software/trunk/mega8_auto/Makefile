@@ -39,6 +39,7 @@ UI_LANGUAGE = LANG_ENGLISH
 
 # the WITH_AUTO_REF option enables reading of internal REF-voltage to get factors for the Capacity measuring
 CFLAGS += -DWITH_AUTO_REF
+# REF_C_KORR has mV units, greater values gives lower capacity results
 #CFLAGS += -DREF_C_KORR=15
 CFLAGS += -DC_H_KORR=5
 

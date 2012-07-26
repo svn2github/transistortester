@@ -155,7 +155,8 @@ I hope, that I will find the reason for this.
 \label{fig:mega168cap}
 \end{figure}
 
-The differences of measurements of three different ATmega168 processors and one ATmega168A processor are shown in figure~\ref{fig:mega168all} .
+The differences of measurements of three different ATmega168 processors are shown in figure~\ref{fig:mega168all} .
+The same results of three different ATmega168A processors are shown in figure~\ref{fig:mega168Aall} .
 At this only the zero value of the capacity measurement of 39pF is respected, all other facility to correct the results are
 not used.
 This zero value includes the 2-3pF, which are caused by the 12 cm long cable with the clips.
@@ -168,6 +169,13 @@ The board layout can cause a different zero value, I have fixed this zero value 
 \label{fig:mega168all}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168Aall}
+\caption{Error of capacitor measurements of three ATmega168A processors}
+\label{fig:mega168Aall}
+\end{figure}
+
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.
 For this you can set a correction voltage REF\_C\_KORR for the comparator, which will be used for measurement of little capacity values.
 A correction of 1~mV will reduce the measurement results to 0.1~\% .
@@ -178,9 +186,9 @@ the capacity value is difficult. So it is also extra difficult to get the differ
 Especially with the ATmega168 processors I have noticed a anomaly of measurement results of little capacity values,
 which depend on the slew rate of the voltage during loading of the capacitor.
 Figure~\ref{fig:mega168optcap} shows the error of the capacity measurement when only the zero value is respected
-(168-A), with correction factor for little capacitors REF\_C\_KORR=66 as well as the correction factor for big
-capacitors C\_H\_KORR=50 (168-B), plus additional as gradient 168-C  with a model of the slew rate dependency of little capacitor 
-measurements (COMP\_SLEW1=4000 und COMP\_SLEW2=220).
+(168-3-A), with correction factor for little capacitors REF\_C\_KORR=66 as well as the correction factor for big
+capacitors C\_H\_KORR=50 (168-3-B), plus additional as gradient 168-3-C  with a model of the slew rate dependency of little capacitor 
+measurements (COMP\_SLEW1=4000 und COMP\_SLEW2=220). Also the self-discharge of big capacitors is respected with gradient 168-3-C.
 The component with the slew rate dependent value is computed with \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
 where cval is the measured capacity value with pF units.
 

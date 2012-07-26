@@ -100,6 +100,10 @@ set xtics autofreq  norangelimit
 set ylabel "Error / Percent"
 #set yrange [-2 to 10]
 set output "../GNU/Mega168all.eps"
-plot "../GNU/capmess168-all.dat" u 3:($4-$3)/$3*100 title "168-1" ls 1,"../GNU/capmess168-all.dat" u 3:($5-$3)/$3*100 title "168-2" ls 2,"../GNU/capmess168-all.dat" u 3:($6-$3)/$3*100 title "168-3" ls 3,"../GNU/capmess168-all.dat" u 3:($7-$3)/$3*100 title "168A-4" ls 4
+plot "../GNU/capmess168-all.dat" u 3:($4-$3)/$3*100 title "168-1" ls 1,"../GNU/capmess168-all.dat" u 3:($5-$3)/$3*100 title "168-2" ls 2,"../GNU/capmess168-all.dat" u 3:($6-$3)/$3*100 title "168-3" ls 3
+set output
+set key inside at 1.e-6,8.5 vertical Right nobox
+set output "../GNU/Mega168Aall.eps"
+plot "../GNU/capmess168-all.dat" u 3:($7-$3)/$3*100 title "168A-4" ls 1,"../GNU/capmess168-all.dat" u 3:($8-$3)/$3*100 title "168A-5" ls 2,"../GNU/capmess168-all.dat" u 3:($9-$3)/$3*100 title "168A-6" ls 3
 set output
 #    EOF
