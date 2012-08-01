@@ -156,7 +156,8 @@ I hope, that I will find the reason for this.
 \end{figure}
 
 The differences of measurements of three different ATmega168 processors are shown in figure~\ref{fig:mega168all} .
-The same results of three different ATmega168A processors are shown in figure~\ref{fig:mega168Aall} .
+The same results of three different ATmega168A processors are shown in figure~\ref{fig:mega168Aall} and
+three different ATmega168PA processors are shown in figure~\ref{fig:mega168PAall}.
 At this only the zero value of the capacity measurement of 39pF is respected, all other facility to correct the results are
 not used.
 This zero value includes the 2-3pF, which are caused by the 12 cm long cable with the clips.
@@ -174,6 +175,13 @@ The board layout can cause a different zero value, I have fixed this zero value 
 \input{../GNU/Mega168Aall}
 \caption{Error of capacitor measurements of three ATmega168A processors}
 \label{fig:mega168Aall}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168PAall}
+\caption{Error of capacitor measurements of three ATmega168PA processors}
+\label{fig:mega168PAall}
 \end{figure}
 
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.

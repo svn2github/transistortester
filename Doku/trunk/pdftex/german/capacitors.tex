@@ -156,7 +156,8 @@ der Elektrolytkondensatoren. Die G\"ute wird derzeit nicht ermittelt.
 \end{figure}
 
 Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt.
-Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildungref{fig:mega168Aall} gezeigt.
+Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung \ref{fig:mega168Aall} und
+vo drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
 nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlu"sleitungen mit den
 Klemmem verursacht werden.
@@ -174,6 +175,13 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
 \input{../GNU/Mega168Aall}
 \caption{Fehler der Kondensator-Messung von drei ATmega168A Prozessoren}
 \label{fig:mega168Aall}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168PAall}
+\caption{Fehler der Kondensator-Messung von drei ATmega168PA Prozessoren}
+\label{fig:mega168PAall}
 \end{figure}
 
 Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
