@@ -194,7 +194,7 @@ Besonders bei den ATmega168 Prozessoren habe ich bei kleinen Kapazit\"atswerten 
 der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist.
 Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
 Nullwertes (168-3-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
-Kondensatoren C\_H\_KORR=50 (168-3-B), sowie zus\"atzlich als Kurve 168-3-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
+Kondensatoren C\_H\_KORR=5 (168-3-B), sowie zus\"atzlich als Kurve 168-3-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
 (COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbstentladeverhaltens der großen Kondensatoren.
 Der Spannungsanstiegs-Korrekturfaktor berechnet sich nach \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
 wobei cval der gemessene Kapazit\"atswert in pF ist.

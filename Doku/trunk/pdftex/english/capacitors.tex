@@ -195,7 +195,7 @@ Especially with the ATmega168 processors I have noticed a anomaly of measurement
 which depend on the slew rate of the voltage during loading of the capacitor.
 Figure~\ref{fig:mega168optcap} shows the error of the capacity measurement when only the zero value is respected
 (168-3-A), with correction factor for little capacitors REF\_C\_KORR=66 as well as the correction factor for big
-capacitors C\_H\_KORR=50 (168-3-B), plus additional as gradient 168-3-C  with a model of the slew rate dependency of little capacitor 
+capacitors C\_H\_KORR=5 (168-3-B), plus additional as gradient 168-3-C  with a model of the slew rate dependency of little capacitor 
 measurements (COMP\_SLEW1=4000 und COMP\_SLEW2=220). Also the self-discharge of big capacitors is respected with gradient 168-3-C.
 The component with the slew rate dependent value is computed with \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
 where cval is the measured capacity value with pF units.
