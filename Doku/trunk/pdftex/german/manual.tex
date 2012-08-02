@@ -1,0 +1,51 @@
+\chapter{Bedienungshinweise}
+\label{sec:manual}
+Die Bedienung des Transistortesters ist einfach.
+Trotzdem sind einige Hinweise erforderlich.
+Meistens sind an die drei Testports \"uber Stecker Leitungen mit Krokodilklemmen oder anderen Klemmen angeschlossen.
+Es k\"onnen auch Fassungen f\"ur Transistoren angeschlossen sein.
+In jedem Fall k\"onnen Sie Bauteile mit drei Anschl\"ussen mit den drei Testports in beliebiger Reihenfolge verbinden.
+Bei zweipoligen Bauteilen k\"onnen Sie die beiden Anschl\"usse mit beliebigen Testports verbinden.
+Normalerweise spielt die Polarit\"at keine Rolle, auch Elektrolytkondensatoren k\"onnen beliebig angeschlossen werden.
+Die Messung der Kapazit\"at wird aber so durchgef\"uhrt, da"s der Minuspol am Testport mit der kleineren Nummer liegt.
+Da die Me"sspannung aber zwischen 0,3 V und maximal 1,3 V liegt, spielt auch hier die Polarit\"at keine wichtige Rolle.
+Wenn das Bauteil angeschlossen ist, sollte es w\"ahrend der Messung nicht ber\"uhrt werden. Legen Sie es auf einen
+isolierenden Untergrund ab, wenn es nicht in einem Sockel steckt. Ber\"uhren Sie auch nicht die Isolation der Me"skabel,
+das Me"sergebnis kann beeinflu"st werden.
+Dann sollte der Starttaster gedr\"uckt werden.
+Nach einer Startmeldung erscheint nach circa zwei Sekunden das Me"sergebnis. Bei einer Kondensatormessung kann es
+auch abh\"angig von der Kapazit\"at l\"anger dauern.
+
+Was dann weiter geschieht, h\"angt von der Softwarekonfiguration des Testers ab.
+\begin{description}
+  \item[Einzelmessung] Wenn der Tester f\"ur Einzelmessung konfiguriert ist, schaltet der Tester nach einer Anzeigezeit von 10 Sekunden
+(konfigurierbar) wieder automatisch aus, um die Batterie zu schonen. W\"ahrend der Anzeigezeit kann aber
+auch vorzeitig eine neue Messung gestartet werden. Nach der Abschaltung kann nat\"urlich auch wieder eine
+neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem anderen Bauteil.\\
+
+  \item[Dauermessung] Einen Sonderfall stellt die Konfiguration ohne die automatische Abschaltfunktion dar.
+Diese Konfiguration wird normalerweise nur ohne die Transistoren f\"ur die Abschaltung benutzt.
+Es wird stattdessen eine externer Ein-/Aus-Schalter ben\"otigt. Hierbei wiederholt der Tester die
+Messungen solange, bis ausgeschaltet wird.\\
+
+  \item[Serienmessung] In diesem Konfigurationsfall wird der Tester nicht nach einer Messung sondern erst nach einer konfigurierbaren
+Zahl von Messungen abgeschaltet. Im Standardfall wird der Tester nach f\"unf Messungen ohne erkanntes Bauteil
+abgeschaltet. Wird ein angeschlossenes Bauteil erkannt, wird erst bei der doppelten Anzahl, also zehn Messungen abgeschaltet.
+Eine einzige Messung mit nicht erkanntem Bauteil setzt die Z\"ahlung f\"ur erkannte Bauteile auf Null zur\"uck.
+Ebenso setzt eine einzige Messung mit erkannten Bauteil die Z\"ahlung f\"ur die nicht erkannten Bauteile auf Null zur\"uck.
+Dies hat zur Folge, da"s auch ohne Bet\"atigung des Starttasters immer weiter gemessen werden kann,
+ wenn Bauteile regelm\"a"sig gewechselt werden.
+Ein Bauteilwechsel f\"uhrt in der Regel durch die zwischenzeitlich leeren Klemmen zu einer Messung ohne erkanntes Bauteil.\\
+
+Eine Besonderheit gibt es in diesem Betriebsmodus f\"ur die Anzeigezeit. Wenn beim Einschalten der Starttaster nur kurz
+gedr\"uckt wurde, betr\"agt die Anzeigezeit der Me"sergebnisse nur drei Sekunden. Wenn der Starttaster bis zum Erscheinen der
+ersten Meldung festgehalten wurde, betr\"agt die Anzeigezeit wie bei der Einzelmessung zehn Sekunden.
+Ein vorzeitiger neuer Me"sbeginn ist aber w\"ahrend der Anzeigezeit durch erneutes Dr\"ucken des Starttasters m\"oglich.\\
+
+\end{description}
+
+Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kuzschlu"s aller drei
+Testports gestartet werden.
+Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgef\"uhrt. Die achtmalige Testwiederholung
+kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
+sich durch Loslassen des Startasters interessante Tests achtmal wiederholen lassen.

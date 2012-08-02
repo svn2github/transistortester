@@ -1,0 +1,50 @@
+\chapter{Instructions for use}
+\label{sec:manual}
+Using of the Transistor-Tester is simple.
+Anyway some hints are required.
+In most cases are wires with alligator clips connected to the test ports with plugs.
+Also sockets for transistors can be connected.
+In either case you can connect parts with three pins to the three test ports in any order.
+If your part has only two pins, you can connect this pins to any two of the tree test ports.
+Normally the polarity of part is irrelevant, you can also connect pins of electrolytical capacitors in any order. 
+The measurement of capacity is normally done in a way, that the minus pole is at the test port with the lower number.
+But, because the measurment voltage is only between 0.3 V and at most 1.3 V, the polarity doesn\'t matter.
+When the part is connected, you should not touch it during the measurement. You should put it down to a nonconducting pad
+if it not placed in a socket. You should also not touch to the isolation of wires connected with the test ports,
+the measurement results can be affected.
+Then you should press the start button.
+After displaying a start message, the measurement result should appear after two seconds.
+If capacitors are measured, the time to result can be longer corresponding to the capacity.
+
+How the transistor-tester continues, depends on the configuration of the software.
+\begin{description}
+  \item[Single measurement mode] If the tester is configured for single measurement mode, the tester shut off automatical after displaying the
+result for 10 seconds for a longer lifetime of battery. 
+During the display time a next measurement can be started by pressing the start button.
+After the shut off a next measurement can be started too of course.
+The next measurement can be done with the same or another part.\\
+
+  \item[Endless measurement mode] A special case is the configuration without automatical shut off.
+This configuration is normally only used without the transistors for the shut off function.
+A external off switch is necessary for this case. The tester will repeat measurements until power
+is switched off.\\
+
+  \item[Multi measurement mode] In this mode the tester will shut down not after the first measurement but 
+after a configurable series of measurements. In the standard case the tester will shut down after five
+measurements without found part. If any part is identified by test, the tester is shut down after double of
+five (ten) measurements. A single measurement with unknown part after a series of measurement of known parts will
+reset the counter of known measuerements to zero. Also a single measurement of known part will reset the counter
+of unknown measurements to zero. This behavior can result in a nearly endless series of measurements without
+pressing the start button, if parts are disconnected and connected in periodical manner.
+
+In this mode there is a special feature for the display period. If the start button is pressed only short for switching
+on the tester, the result of measurement ist only shown for three seconds. Buf if you press and hold the start button until
+the first message is shown, the further measurement results are shown for ten seconds.
+The next measurement can started earlier by pressing the start button during the displaying of result.\\
+
+\end{description}
+
+If the software is configured with the selftest function, the selftest can be started by connecting all three test ports together.
+In this case all of the documented tests in the Selftest chapter \ref{sec:selftest} will be done.
+The repetition of the tests can be avoided, if the start button is hold pressed.
+So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
