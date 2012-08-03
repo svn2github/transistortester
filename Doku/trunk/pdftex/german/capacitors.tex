@@ -155,7 +155,22 @@ der Elektrolytkondensatoren. Die G\"ute wird derzeit nicht ermittelt.
 \label{fig:mega168cap}
 \end{figure}
 
-Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt.
+Wie schwierig es ist, f\"ur Kondensatormessungen den richtigen Bezugswert zu finden, soll die Abbildung~\ref{fig:capcompare} zeigen.
+Als Bezugswert wurde hier der aufgedruckte Wert genommen. Die Kurve ,,Multimeter'' zeigt die Abweichungen, die mit einem
+Peaktech~3315 Multimeter gemessen wurden.
+Die n\"achste Kurve ,,LCR'' zeigt die Abweichungen, die mit einem Peaktech~2170 LCR-Meter in dem jeweils g\"unstigsten Frequenzbereich gemessen wurden.
+Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Me"sabweichungen eines ATmega168 best\"ucktem Transistor-Tester gezeigt.
+Ob die gezeigten Fehler aber tats\"achliche Me"sfehler des jeweiligen Ger\"ates sind, mu"s bezweifelt werden, da auch der
+aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/capcompare}
+\caption{Vergleich der Kondensator-Messungen mit Multimeter, LCR-meter und ATmega168}
+\label{fig:capcompare}
+\end{figure}
+
+Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt. Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
 Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung \ref{fig:mega168Aall} und
 vo drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
@@ -195,7 +210,7 @@ der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist
 Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
 Nullwertes (168-3-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
 Kondensatoren C\_H\_KORR=5 (168-3-B), sowie zus\"atzlich als Kurve 168-3-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
-(COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbstentladeverhaltens der großen Kondensatoren.
+(COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbstentladeverhaltens der gro"sen Kondensatoren.
 Der Spannungsanstiegs-Korrekturfaktor berechnet sich nach \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
 wobei cval der gemessene Kapazit\"atswert in pF ist.
 

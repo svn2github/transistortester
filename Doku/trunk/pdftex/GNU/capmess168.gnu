@@ -103,4 +103,8 @@ set output "../GNU/Mega168cap.eps"
 #plot "../GNU/capmess168.dat" u 3:($4-$3)/$3*100 title "Mega168" ls 1,"../GNU/capmess168.dat" u 3:(($5-$3)-12e-12+(4000e-24/($5+259e-12)))/$3*100 title "Mega168as8" ls 2
 plot "../GNU/capmess168.dat" u 3:($4-$3)/$3*100 title "Mega168" ls 1,"../GNU/capmess168.dat" u 3:($5-$3)/$3*100 title "Mega168as8" ls 2
 set output
+set output "../GNU/capcompare.eps"
+set autoscale y
+plot "../GNU/capmess168.dat" u 1:($2-$1)/$1*100 title "Multimeter" ls 1,"../GNU/capmess168.dat" u 1:($3-$1)/$1*100 title "LCR" ls 2,"../GNU/capmess168.dat" u 1:($5-$1)/$1*100 title "Mega168as" ls 3
+set output
 #    EOF
