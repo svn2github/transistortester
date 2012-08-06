@@ -100,7 +100,7 @@ Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der
 Die Tabelle hat einen Abstand von 50mV Schritten und wird interpoliert entsprechend der aktuellen Referenz-Spannung.
 Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
 Ich habe bemerkt, da"s die Referenz-Spannung immer etwas zu klein gemessen wird,
- deshalb kann man einen Zusatz mit der Makefile Option REF\_KORR angeben.
+ deshalb kann man einen Zusatz mit der Makefile Option REF\_C\_KORR angeben.
 Die gemessene Referenz-Spannung wird dann mit dem angegebenen Korrekturwert (mV) korrigiert (addiert).
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
 Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 Prozessoren ber\"ucksichtigt.
@@ -138,8 +138,9 @@ von 0,88~(-12\%) dargestellt.
 Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
 Die Referenz f\"ur die Fehlerberechnung sind die Me"swerte eines PeakTech 2170 RCL-Me"sger\"ates, 
  nicht die aufgedruckten Werte der Bauteile.
-Die gr\"o"seren relativen Me"sfehler bei gro"sen Kondensatoren liegen wahrscheinlich an der unterschiedlichen G\"ute 
-der Elektrolytkondensatoren. Die G\"ute wird derzeit nicht ermittelt.
+Die gr\"o"seren relativen Me"sfehler bei gro"sen Kondensatoren liegen zum Teil an der zu hohen Me"sfrequenz (100 Hz) des
+RCL-Me"sger\"ates f\"ur gro"se Elektrolytkondensatoren, zum anderen spielt auch die schlechte G\"ute der
+Elektrolytkondensatoren eine Rolle.
 
 \begin{figure}[H]
 \centering
@@ -159,9 +160,9 @@ Wie schwierig es ist, f\"ur Kondensatormessungen den richtigen Bezugswert zu fin
 Als Bezugswert wurde hier der aufgedruckte Wert genommen. Die Kurve ,,Multimeter'' zeigt die Abweichungen, die mit einem
 Peaktech~3315 Multimeter gemessen wurden.
 Die n\"achste Kurve ,,LCR'' zeigt die Abweichungen, die mit einem Peaktech~2170 LCR-Meter in dem jeweils g\"unstigsten Frequenzbereich gemessen wurden.
-Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Me"sabweichungen eines ATmega168 best\"ucktem Transistor-Tester gezeigt.
+Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Me"sabweichungen eines ATmega168 best\"ucktem Transistor-Testers gezeigt.
 Ob die gezeigten Fehler aber tats\"achliche Me"sfehler des jeweiligen Ger\"ates sind, mu"s bezweifelt werden, da auch der
-aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht.
+aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht (Exemplarstreuung).
 
 \begin{figure}[H]
 \centering
@@ -172,7 +173,7 @@ aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht.
 
 Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt. Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
 Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung \ref{fig:mega168Aall} und
-vo drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
+von drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
 nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlu"sleitungen mit den
 Klemmem verursacht werden.

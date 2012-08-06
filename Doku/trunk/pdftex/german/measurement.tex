@@ -27,7 +27,7 @@ Jeder Testpin (Me"sport) kann als digitaler oder analoger Eingang benutzt werden
 Diese Me"s\-f\"ahig\-keit ist un\-abh\"an\-gig von der Verwendung des Ports als Ausgang.
 Jeder Testpin kann als Ausgang verwendet werden und in diesem Zustand mit GND (0V) oder VCC (5V) verbunden werden,
 oder er kann \"uber einen \(680\Omega\) Widerstand oder einen \(470k\Omega\) Widerstand mit entweder GND oder VCC verbunden werden.
-Tabelle \ref{tab:case} zeigt alle m\"oglichen Me"sm\"oglichkeiten.
+Tabelle \ref{tab:case} zeigt alle denkbaren Me"sm\"oglichkeiten.
 Beachte, da"s der positive Zustand durch direktes Verbinden mit VCC (Port C) oder
 durch Verbinden mit dem \(680\Omega\) Widerstand mit VCC (Port B) erreicht werden kann.
 Die gleiche M\"oglichkeit hat der negative Zustand des Testpins zu der GND Seite.
@@ -54,6 +54,7 @@ mit VCC oder GND, oder der Pin kann "uber den \(680\Omega\) Widerstand mit VCC o
 \end{table}
 
 Wenn die Kondensatormessung des Testers konfiguriert ist, versucht der Tester vor allen Messungen erst einmal,
-die Kondensatoren an allen Anschlußpins zu entladen. Wenn das nicht gelingt, also die Restspannung zu hoch bleibt,
+die Kondensatoren an allen Anschlu"spins zu entladen. Wenn das nicht gelingt, also die Restspannung zu hoch bleibt,
 wird das Entladen nach etwa 12 Sekunden mit der Meldung ,,Cell!'' abgebrochen. Dies kann auch dann vorkommen, wenn
-gar kein Kondensator angeschlossen ist.
+gar kein Kondensator angeschlossen ist. Die Ursache kann in diesem Fall sein, da"s die Entlade-Grenzspannung f\"ur diesen
+ATmega zu niedrig gew\"ahlt ist.

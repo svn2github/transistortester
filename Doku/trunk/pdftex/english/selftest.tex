@@ -85,6 +85,12 @@ It are the same measurements as those in test~7 to the other side as you can see
 With the following steps you can get the resistance:
 To get the current build:  \((5001 - (result of test 7) - (result of test 8)) / 680\).
 Then you can get both resistor values by dividing the voltage (result of test~7 or 8) by this current.
+If the AUTO\_CAL option is selected and the last test and this test is repeated eight times, the
+mean value of the internal resistance of the port outputs will be written to the EEprom.
+The result for this test will then be notified in row 1, the last value of row 2 is then the result of
+the test before this (switched to GND).
+Thie results will be used for further measurement.
+
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Test8.eps}
@@ -97,6 +103,11 @@ The zero value for the capacity measurement with pin combinations 1:3, 2:3 and 1
 Alls three values are shown in pF units.
 The normal output of capacity measurement will respect a default zero offset of 39 pF.
 But for this results is no correction respected, no zero offset is subtracted.
+If the AUTO\_CAL option is selected and the test will be repeated eight times, the mean value
+of the found zero offsets will be written to the EEprom and will be used for further capacity measurements.
+This will be notified by the output of ''EE=xx'' in row 1.
+Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
+If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
 \item A {\bf 50Hz rectangle signal} is generated on Pin~2 and  the same signal in opposite direction on Pin~3.
 Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.

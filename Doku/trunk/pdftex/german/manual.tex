@@ -25,7 +25,7 @@ neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem 
 
   \item[Dauermessung] Einen Sonderfall stellt die Konfiguration ohne die automatische Abschaltfunktion dar.
 Diese Konfiguration wird normalerweise nur ohne die Transistoren f\"ur die Abschaltung benutzt.
-Es wird stattdessen eine externer Ein-/Aus-Schalter ben\"otigt. Hierbei wiederholt der Tester die
+Es wird stattdessen ein externer Ein-/Aus-Schalter ben\"otigt. Hierbei wiederholt der Tester die
 Messungen solange, bis ausgeschaltet wird.\\
 
   \item[Serienmessung] In diesem Konfigurationsfall wird der Tester nicht nach einer Messung sondern erst nach einer konfigurierbaren
@@ -48,4 +48,7 @@ Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbstte
 Testports gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgef\"uhrt. Die achtmalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
-sich durch Loslassen des Startasters interessante Tests achtmal wiederholen lassen.
+sich durch Loslassen des Starttasters interessante Tests achtmal wiederholen lassen.
+Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest eine Kalibration der Nullwertes f\"ur die
+Kondensatormessung und eine Kalibration des Innenwiderstandes der Port-Ausg\"ange durchgef\"uhrt. Hierf\"ur m\"ussen aber alle
+acht Testwiederholungen durchgef\"uhrt werden, um die Mittelwerte zu bilden.

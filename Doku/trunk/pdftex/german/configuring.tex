@@ -42,13 +42,18 @@ Beispiel: CFLAGS += -DLCD\_CYRILLIC
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Pr\"ufspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
+  \item[AUTO\_CAL] Der Nullabgleich f\"ur die Kondensatormessung und der Innenwiderstand der Port-Ausg\"ange wird beim
+Selbsttest zus\"atzlich ins EEprom geschrieben und ist damit f\"ur die weiteren Messungen abgeglichen.\\
+Beispiel: CFLAGS += -DAUTO\_CAL
+  \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50 Hz Signal auf Port 2 und Port 3 erzeugt.\\
+Beispiel: CFLAGS += -DFREQUENCY\_50HZ
   \item[R\_MESS] schaltet die Widerstandsmessung ein.
  Diese Option sollte immer angegeben werden.\\
 Beispiel: CFLAGS += -DR\_MESS
   \item[C\_MESS] schaltet die Kondenstormessung ein.
  Diese Option sollte immer angegeben werden.\\
-  \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) für einen entladenen Kondensator fest.
-Der Wert kann höher als 3mV gesetzt werde, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach längerer Zeit ,,Cell!''.\\
+  \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) f\"ur einen entladenen Kondensator fest.
+Der Wert kann h\"oher als 3mV gesetzt werde, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach l\"angerer Zeit ,,Cell!''.\\
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor f\"ur die Kapazit\"atsmessung 
 von kleinen Kapazit\"aten (unter \(50\mu F\)) zu ermitteln.\\

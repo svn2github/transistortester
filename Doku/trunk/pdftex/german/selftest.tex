@@ -32,7 +32,7 @@ Die ISP-Schnittstelle st"ort die Messungen.
 Hier ist die Liste der derzeit eingebauten Tests:
 \vspace{1cm}
 \begin{enumerate}
-\item {\bf Messung der 1,3V (oder 1,1V) Referenz Spannung (band gap Reference).} In Zeile 1 wird der Text ,,Ref='' und die
+\item {\bf Messung der 1,3V (oder 1,1V) Referenz Spannung (band gap Reference).} In Zeile~1 wird der Text ,,Ref='' und die
 gemessene Spannung in mV angezeigt.
 F\"ur den ATmega8 sollte die gemessene Spannung nahe bei 1,3V liegen, f\"ur die anderen Prozessoren liegt
 die Referenzspannung normal um die 1,1V.
@@ -42,11 +42,11 @@ In Zeile~1 wird der kryptische Text  ,,+RL- 12 13 23'' angezeigt. Das bedeutet d
 Das RL ist eine Kurzform f\"ur Resistor Low, was die \(680\Omega\) Widerst\"ande meint. Die ,,12'' steht f\"ur: 
 Widerstand am Pin~1 ist verbunden mit VCC (+) und Widerstand am Pin~2 ist verbunden mit GND (-). 
 Das Ergebnis dieser Messung steht in Zeile~2 an erster Stelle.
- In Zeile~1 folgt nun ,,13'', was bedeutet, da"s der Widerstand von Pin 1 wieder nach VCC verbunden ist,
+ In Zeile~1 folgt nun ,,13'', was bedeutet, da"s der Widerstand von Pin~1 wieder nach VCC verbunden ist,
 aber da"s jetzt der \(680\Omega\) Widerstand von Pin~3  mit GND verbunden ist.
 Das Ergebnis steht in Zeile 2 an der mittleren Stelle.
 
-Die letzte Messung dieses Tests ,,23'' bedeutet, da"s nun der Widerstand von Pin 2 mit VCC verbunden ist und
+Die letzte Messung dieses Tests ,,23'' bedeutet, da"s nun der Widerstand von Pin~2 mit VCC verbunden ist und
 der Widerstand von Pin~3 mit GND verbunden ist.
 Das Ergebnis steht in der zweiten LCD-Zeile an letzter Stelle.
 Ich m\"ochte daran erinnern, da"s die Aufl\"osung des ADC etwa 4,88mV betr\"agt!
@@ -72,7 +72,7 @@ Zeile 1 zeigt den Text ,,RH-''.
 Zeile 2 sollte f\"ur alle drei Pinne  Null mV anzeigen.
 \item Dieser Schritt testet die {\bf F\"ahigkeit von mit VCC (+) verbundenen \(470k\Omega\) Widerst\"anden (H) die Testpins auf VCC zu ziehen.}
 Zeile 1 zeigt den Text ,,RH+''.
-Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 5001 in Zeile 2.
+Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 5001 in Zeile~2.
  Gro"se Abweichungen vom Idealwert f\"ur Schritt 5 und 6 sind Fehler wie Isolations Problem, Flu"smittelreste oder besch\"adigter Port.
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
 Der Text in der ersten Zeile des LCD ist ,,Ri\_Lo = (mV)''.
@@ -94,11 +94,16 @@ Um die Widerstandswerte zu erhalten, m\"ussen die angezeigten mV Werte durch ung
 Der ben\"otigte Strom wird von auf GND geschalteten \(680\Omega\) Widerst\"anden geliefert.
 Der Text in der ersten LCD Zeile ist ,,Ri\_Hi= (mV)''.
 In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt als Differenz zu VCC.
-Es ist die gleiche Messung wie die in Test 7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
+Es ist die gleiche Messung wie die in Test~7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
 Mit folgenden Schritten k\"onnen Sie den Innenwiderstand berechnen:
 Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
 Sie k\"onnen beide Widerstandswerte erhalten, indem Sie die jeweilige Spannung
 (Ergebnisse von Test~7 oder Test~8) durch diesen Strom dividieren.
+Wenn die AUTO\_CAL Option gew\"ahlt wurde und der vorige und dieser Test achtmal wiederholt wurden,
+wird der Mittelwert der Innenwiderst\"ande der Ausgabe-Ports im EEprom festgehalten.
+Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 angezeigt, der letzte Wert der Zeile~2 ist dann
+das Ergebnis f\"ur den vorigen Test (auf GND geschaltet).
+Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Test8.eps}
@@ -109,11 +114,17 @@ Sie k\"onnen beide Widerstandswerte erhalten, indem Sie die jeweilige Spannung
 \item {\bf Messung des Nulloffsets der Kondensatormessung.}
 F\"ur die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF ausgegeben.
 In der Software wird ein Vorgabewert von circa 39 pF f\"ur die normale Me"swertausgabe ber\"ucksichtigt.
-F\"ur die Ausgabe dieses Tests wird keine Korrektur ber\"ucksichtigt, es wird auch kein Nulloffset abgezogen.
+F\"ur die Ausgabe dieses Tests ist keine Korrektur ber\"ucksichtigt, es wird auch kein Nulloffset abgezogen.
+Wenn die AUTO\_CAL Option gew\"ahlt wurde und der Test achtmal wiederholt wurde, wird der Mittelwert
+der gefundenen Nulloffsets im EEprom festgehalten und steht f\"ur die weiteren Kapazit\"ats-Messungen zur Verf\"ugung.
+Angezeigt wird das durch die Ausgabe ,,EE=xx''  in Zeile 1.
+Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnvoll machen.
+So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
+Sockel erh\"ohen.
 
 \item Ein {\bf 50 Hz Rechtecksignal} wird auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
 Testpin~1 wird auf GND geschaltet. Der Strom f\"ur Testpin 2 und 3 wird mit \(680\Omega\) Widerst\"anden begrenzt.
-Dieser Test wird achtmal mit jeweils 5 Sekunden Dauer durchgef\"uhrt.
+Dieser Test wird achtmal mit jeweils 5~Sekunden Dauer durchgef\"uhrt.
 Man kann die Zeit der Verz\"ogerungs-Aufrufe pr\"ufen, wenn man ein Oszilloskop oder einen
 Frequenz-Z\"ahler besitzt.
 Wenn man f\"ur die Takterzeugung keinen Quarz benutzt, k\"onnen die

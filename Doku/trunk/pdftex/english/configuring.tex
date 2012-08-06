@@ -39,6 +39,11 @@ example: CFLAGS += -DLCD\_CYRILLIC
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
 Selftest will be started, if you connect all three probes together and start measurement.\\
 example: CFLAGS += -DWITH\_SELFTEST
+  \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
+to the EEprom with the selftest routine. They will be used for further measurements automatically.\\
+example: CFLAGS += -DAUTO\_CAL
+  \item[FREQUENCY\_50HZ] At the end of selftest a 50 Hz Signal will be generated on Port 2 and Port 3 for up to one minute.\\
+example: CFLAGS += -DFREQUENCY\_50HZ
   \item[R\_MESS] enables the resistor measurement. This option should allways be set.\\
 example: CFLAGS += -DR\_MESS
   \item[C\_MESS] enables the capacity measurement. This option should allways be set.\\
