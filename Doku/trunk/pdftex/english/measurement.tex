@@ -51,3 +51,10 @@ or that the probe can be connected with the \(680\Omega\) resistor to VCC or GND
   \caption{all combinations of measurement}
   \label{tab:case} 
 \end{table}
+
+If the capacitor measuring is configured for the tester, the tester will try to discharge the capacitors connected at all
+test pins.
+If discharge will fail, that means the remaining voltage is to high, the discharging will be aborted after about 12 seconds
+with the meassage ''Cell!''. This can also be happen, if no capacitor is connected to any test pin.
+The cause for this can be, that the cut-off voltage is choosed to low for this ATmega.
+You can choose a higher voltage with the Makefile option CAP\_EMPTY\_LEVEL.

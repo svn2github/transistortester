@@ -6,11 +6,11 @@ The circuit of the TransistorTester in figure \ref{fig:ttester} is based on the 
 Changed or moved parts are marked with green color, optional parts are marked with red color.
 Some changes are made because the electronical power switch make problems in some implementations.
 Therefore the resistor R7 is reduced to \(3.3k\Omega\). The capacitor C2 is reduced to
-10nF and R8 is moved so that the PD6 output does not try to switch a 100nF capacitor directly.
+10nF and R8 is moved so that the PD6 output does not try to switch the C2 capacitor directly.
  Additional blocking capacitors are added and should be placed
 near the power connection of the Atmega and near the Voltage regulator.
 Because the PD7 input and PC6 (RESET) are the only pins, where pull up resistors where
-needed, one \(27k\Omega\) resistor is added to the PD7 (pin 12) input. With this modification
+needed, one extra \(27k\Omega\) resistor is added to the PD7 (pin 12) input. With this modification
 the software can disable all internal pull up resistors of the ATmega.
 The additional crystal with its 22pF capacitors are optional added. 
 The accuracy of a crystal has the benefit of more stable time measurement for getting the
@@ -35,7 +35,7 @@ A optional ISP connector has been added to easier load new software versions to 
 \end{figure}
 
 \section{Hints for building the TransistorTester}
-Every LCD-display with a 2~x~16 character display and a HD44780 compatible controller
+Every LCD-display with at least 2x16 character and a HD44780 compatible controller
 can be used with the TransistorTester. You should respect the current needed for
 illumination, some LCD need lower current than others.
 I had tried OLED type displays, but this type cause interference with measurements
@@ -124,12 +124,12 @@ If you have a high temperature display type, you must provide a negative contras
 for operation. In this case you can use the ICL~7660 device for generating
 a negative voltage from positive 5V.
 If there is no output readable on the LCD and the background light is on,
-you should disconnect the power and check all four data and two control signal connections.
+you should disconnect the power and check all four data plus the two control signal connections.
 If all connection are well, the only reason I see is a uncorrect timing of
 control signals. This can be caused by a slower LCD controller than expected by
 the software or the ATmega software runs at wrong clock speed. Please check for which
 clock speed your programming data was compiled  and if the fuses of the
-ATmega are correct set to that speed. You find all parameter data in the corresponding
+ATmega are correct set to that speed. You find the clock parameter in the corresponding
 Makefile.
 \item[Something but not all is readable on the LCD display]
 Check if the .eep data are loaded to the EEprom memory of ATmega.

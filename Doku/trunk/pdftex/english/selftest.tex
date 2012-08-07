@@ -109,17 +109,19 @@ This will be notified by the output of ''EE=xx'' in row 1.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
-\item A {\bf 50Hz rectangle signal} is generated on Pin~2 and  the same signal in opposite direction on Pin~3.
-Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
-This test is repeated 8~times with 5~seconds period each.
-You can check the time of the wait calls, if you have an oscilloscope or frequency counter.
-If you don't use the crystal clock version, the result may be inexactly.
-A exactly clock frequency and wait time are important for measurement of capacity values.
-
 \end{enumerate}
 
 At the end of test function the text ``Auto Test End''  is shown in row~1 and the version number of software is shown in row~2.
+If selected, a {\bf 50Hz rectangle signal} is generated on Pin~2 and the same signal in opposite direction on Pin~3.
+Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
+This will be notified by the Output of 50Hz at the end of row 1 of the LCD display.
+The 50Hz signal will be generated 30 times for 2~seconds each.
+You can check the time of the wait calls, if you have an oscilloscope or frequency counter.
+If you don't use the crystal clock version, the result may be inexactly.
+A exactly clock frequency and wait time are important for measurement of capacity values.
+You can abort the generation of the 50Hz signal by long time pressing of the start button.
 Then the program continues with the normal measurement task.
+
 
 \begin{table}[H]
   \begin{center}
@@ -128,11 +130,11 @@ Then the program continues with the normal measurement task.
 Test No. & 1. Result & 2. Result & 3. Result \\
     \hline
     \hline
-Test 1 & band gap Ref  1237 &  & \\
-Reference  & RHfakt 753 & RLfakt.  4887 &  \\
+Test 1 & band gap Ref  1228 &  & \\
+Reference  & RHfakt 756 & &  \\
     \hline
 Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
-comparison \(680\Omega\) & 2488 & 2488 & 2484 \\
+comparison \(680\Omega\) & 2489 & 2488 & 2484 \\
 best value: 2493 & & & \\
     \hline
 Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
@@ -146,7 +148,7 @@ test 5 & RH1- &  RH2- & RH3- \\
 best value: 0 & & & \\
     \hline
 Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & 4995 & 4995 & 4995 \\
+\(470k\Omega\) isolation & 4996 & 4995 & 4995 \\
 best value: 5001 & & & \\
     \hline
 Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
@@ -154,6 +156,9 @@ Pin resistance Low & 132 & 132 & 137 \\
     \hline
 Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
 Pin resistance High & 151 & 151 & 151 \\
+    \hline
+Test 9 & C0 1:3 & C0 2:3 & C0 1:2 \\
+Capacitor offset & 34 & 35 & 33 \\
     \hline
     \end{tabular}
   \end{center}
@@ -168,33 +173,36 @@ Pin resistance High & 151 & 151 & 151 \\
 Test No. & 1. Result & 2. Result & 3. Result \\
     \hline
     \hline
-Test 1 & band gap Ref  1090 &  & \\
-Reference  & RHfakt 865 & RLfakt.  5649 &  \\
+Test 1 & band gap Ref  1051 &  & \\
+Reference  & RHfakt 865 &   &  \\
     \hline
 Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
 comparison \(680\Omega\) & 2493 & 2493 & 2493 \\
 best value: 2493 & & & \\
     \hline
 Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
-comparison \(470k\Omega\) & 2497 & 2498 & 2498 \\
+comparison \(470k\Omega\) & 2494 & 2498 & 2498 \\
 best value: 2500 & & & \\
     \hline
 test 4 & isolate probe & & \\
     \hline
 test 5 & RH1- &  RH2- & RH3- \\
-\(470k\Omega\) isolation & 0 & 0 & 0 \\
+\(470k\Omega\) isolation & 1 & 1 & 1 \\
 best value: 0 & & & \\
     \hline
 Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & 4998 & 4998 & 4998 \\
+\(470k\Omega\) isolation & 5000 & 5000 & 5000 \\
 best value: 5001 & & & \\
     \hline
 Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
-Pin resistance Low & 131 & 132 & 132 \\
+Pin resistance Low & 138 & 139 & 139 \\
     \hline
 Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
 Pin resistance High & 156 & 156 & 156 \\
     \hline
+    \hline
+Test 9 & C0 1:3 & C0 2:3 & C0 1:2 \\
+Capacitor offset & 39 & 39 & 38 \\
     \end{tabular}
   \end{center}
   \caption{Selftest Mega168 @ 8MHz, Signature 1E9406, WITH\_AUTOREF}

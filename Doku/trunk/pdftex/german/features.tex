@@ -13,7 +13,7 @@ Dioden, Doppeldioden, Thyristors und Triacs.
 \item Messung des Stromverst\"arkungsfaktors und der Basis-Emitter Schwellspannung f\"ur bipolare Transistoren.
 \item Darlington Transistoren k\"onnen durch die h\"ohere Schwellspannung und durch den hohen Stromverst\"arkungsfaktor erkannt werden.
 \item Automatische Erkennung einer Schutzdiode bei bipolaren Transistoren und bei MOSFETs.
-\item Messung der Schwellwert-Spannung und der Gate Kapazit\"atswerte von MOSFETs.
+\item Messung der Schwellwert-Spannungen und der Gate Kapazit\"atswerte von MOSFETs.
 \item Bis zu zwei Widerst\"ande werden gemessen und mit Symbolen
 \setlength{\unitlength}{0.1mm}
 \linethickness{0.4mm}
@@ -84,7 +84,8 @@ wenigstens 25pF gemessen werden.
 In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom Me"sergebnis abgezogen werden.
 \item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen k\"onnen l\"anger dauern.
 \item Die Software kann f\"ur Me"sserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
-\item Eingebaute Selbsttest-Funktion inklusive einem 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
+\item Eingebaute Selbsttest-Funktion inklusive einem optionalen 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz
+und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
 \item W\"ahlbare M\"oglichkeit, den Nullabgleich f\"ur die Kondensatormessung und die Innenwiderstandsbestimmung f\"ur die
 Portausg\"ange beim Selbsttest abzugleichen.
 \end{enumerate}
@@ -94,6 +95,7 @@ Einige Thyristoren und Triacs brauchen auch einen h\"oheren Z\"undstrom als dies
 Der verf\"ugbare Teststrom ist nur ungef\"ahr 6mA!
 Es ist m\"oglich, da"s nicht alle Optionen in zuk\"unftigen Versionen erhalten bleiben, weil diese Software
 immer noch im Teststadium ist.
+Alle M\"oglichkeiten sind nur bei Mikrocontrollern mit mehr Programmspeicher wie ATmega168 konfigurierbar.
 
 \vspace{1cm}
 \textbf{{\Large Achtung:}} Stellen Sie immer sicher, da"s Kondensatoren vor dem Anschlu"s an den Tester entladen sind!

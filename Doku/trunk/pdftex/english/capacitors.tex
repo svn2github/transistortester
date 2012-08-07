@@ -93,19 +93,19 @@ because the counter can't be stopped by the input capture event.
 
 
 The input capture counter and the overflow counter built together the total time,
-from which I subtract a experimental find out constant to eliminate the measurement offset. 
-I don't know, if this constant must be adapted to other printed circuit boards.
+from which I subtract a predefined experimental find out constant or a value found by the last selftest to eliminate the measurement offset. 
+I don't know, if the experimental find out constant must be adapted to other printed circuit boards.
 The actual software can use a table with the theoretical  dependency of the load time in respect to the comparator voltage.
 The table is spaced in 50mV steps and will be interpolated according to the actual reference voltage. 
 This table will only be acticated with the Makefile option WITH\_AUTO\_REF.
 I noticed that the reference voltage is permanently somewhat to low,
- so that you can choose an offset with the Makefile option REF\_KORR.
+ so that you can choose an offset with the Makefile option REF\_C\_KORR.
 The measured reference voltage will then be corrected (added) by your value (mV units).
 If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega88, ATmega168 and ATmega328
 are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
 A sample measurement of this type is shown in figure~\ref{pic:c22uF}.
-The measurement time is above 2.6s because the \(470k\Omega\) is
-used for charging, but discharge is in this case much faster than charging.
+The measurement time for the \(22 \mu F\) capacitor is above 2.6s because the \(470k\Omega\) is
+used for charging. But discharging is in this case much faster than charging.
 
 \begin{figure}[H]
 \centering
@@ -134,12 +134,12 @@ avoids this conceptual bug.
 The results of my measurements is shown if figure~\ref{fig:mega8cap} for ATmega8 processor without and 
 with the AUTOSCALE\_ADC option. Additionally some values of original software are shown with a correction factor
 of 0.88 (-12\%).
-The results of the measurement of the same capacitors for ATmega168 is shown in figure~\ref{fig:mega168cap}.
-The reference for the error computing is the measurement of a PeakTech 3315 multimeter, not the printed value
-of the parts. In future I hope to take the measurements of a PeakTech 2170 RCL-meter as more exactly
-base values.
-There is a trend in relative errors with the big capacitor measurement, which I can't explain.
-I hope, that I will find the reason for this.
+The results of the measurement of the same capacitors for a ATmega168 is shown in figure~\ref{fig:mega168cap}.
+The reference for the error computing is the measurement of a PeakTech 2170 RCL-meter, not the printed value
+of the parts.
+A part of the relative high measurement difference is caused be the too high measurement frequency for big
+electrolytical capacitors. On the other side the bad quality factor of the electrolytical capacitors may cause
+another percentage.
 
 \begin{figure}[H]
 \centering
@@ -202,10 +202,10 @@ The board layout can cause a different zero value, I have fixed this zero value 
 
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.
 For this you can set a correction voltage REF\_C\_KORR for the comparator, which will be used for measurement of little capacity values.
-A correction of 1~mV will reduce the measurement results to 0.1~\% .
+A correction of 1~mV will reduce the measurement results to 0.11~\% .
 For big capacity values you can specify with the per mill value C\_H\_KORR, how much your capacity values are measured too big.
 Because the capacitors with big values are most electrolytic capacitors with worse quality factor, the measurement of
-the capacity value is difficult. So it is also extra difficult to get the difference to the real value of a measurement.
+the capacity value is difficult. So it is also extra difficult to get the difference to the real value of a capacitor.
 
 Especially with the ATmega168 processors I have noticed a anomaly of measurement results of little capacity values,
 which depend on the slew rate of the voltage during loading of the capacitor.

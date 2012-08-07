@@ -9,14 +9,14 @@ Einige \"Anderungen wurden gemacht, weil die Strom-Abschaltung in einigen Nachba
 bereitet hatte.
 Deshalb ist der Widerstand R7 auf \(3.3k\Omega\) reduziert. 
 Der Kondensator C2 ist auf 10nF verkleinert und der Widerstand R8 ist verschoben, so da"s der
-Ausgang PD6 nicht versucht den 100nF Kondenstor direkt zu laden.
+Ausgang PD6 nicht versucht den C2 Kondenstor direkt zu laden.
 Zus\"atzliche Abblock-Kondensatoren wurden hinzugef\"ugt und sollten nahe den Versorgungs-Anschl\"ussen
 des ATmega und nahe bei dem Spannungsregler plaziert werden.
 Weil der PD7 Eingang und der PC6 (RESET) Anschlu"s die einzigen Anschl\"usse sind, wo
-,,pull-up'' Widerst\"ande gebraucht werden, wurde ein \(27k\Omega\) Widerstand an dem PD7 (Pin 12) Anschlu"s vorgesehen.
+,,pull-up'' Widerst\"ande gebraucht werden, wurde ein zus\"atzlicher \(27k\Omega\) Widerstand an dem PD7 (Pin 12) Anschlu"s vorgesehen.
 Mit dieser \"Anderung k\"onnen die internen ,,pull-up'' Widerst\"ande des ATmega abgeschaltet werden.
 Ein Quarz mit seinen 22pF Kondensatoren wurde zus\"atzlich vorgesehen.
-Ein Quarz hat Vorteile f\"ur die Kapazit\"atsmessung wegen der genauerer Zeitmessung.
+Ein Quarz hat Vorteile f\"ur die Kapazit\"atsmessung wegen der genaueren Zeitmessung.
 Die neue Software kann den Bereich f\"ur den ADC umschalten. Die Umschalt-Geschwindigkeit
 wird durch den externen Kondensator C1 am AREF (21) Pin des ATmega reduziert.
 Um die Messung nicht langsamer als notwendig machen zu m\"ussen, sollte der Kondensator auf
@@ -38,7 +38,7 @@ laden zu k\"onnen.
 \end{figure}
 
 \section{Hinweise f\"ur den Aufbau des TransistorTesters}
-Jede LCD-Anzeige-Einheit mit 2x16 Zeichen und einem HD44780 kompatiblen Kontroller kann mit
+Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780 kompatiblen Kontroller kann mit
 dem TransistorTester benutzt werden.
 Man sollte auf den Strombedarf der Hintergrundbeleuchtung achten, einige Anzeigen ben\"otigen
 mehr Strom als andere.
@@ -145,7 +145,7 @@ den Betrieb.
 In diesem Fall kann man den ICL~7660 Baustein zum Erzeugen der negativen Spannung aus der
 positiven 5V verwenden.
 Wenn keine Anzeige auf dem LCD erkannt wird und wenn die Hintergrundbeleuchtung an ist,
-sollten Sie die Spannungsversorgung trennen und alle vier Datenverbindungen und die 
+sollten Sie die Spannungsversorgung trennen und alle vier Datenverbindungen sowie die 
 beiden Steuersignale \"uberpr\"ufen.
 Wenn alle Verbindungen in Ordnung sind, sehe ich als Ursache nur noch die M\"oglichkeit einer
 falschen Zeitabfolge der Steuersignale.
@@ -153,14 +153,14 @@ Die Ursache hierf\"ur kann sein, da"s der LCD-Kontroller langsamer ist als es di
 des ATmega erwartet. Es k\"onnte auch sein, da"s der ATmega auf der falschen Taktrate l\"auft.
 Bitte \"uberpr\"ufen Sie f\"ur welche Taktrate die Software \"ubersetzt ist und ob
 die fuses des ATmega f\"ur diese Geschwindigkeit richtig gesetzt sind.
-Sie finden alle eingestellten Parameter in der betreffenden Makefile.
+Sie finden die eingestellte Taktrate in der betreffenden Makefile.
 
 \item[Einiges, aber nicht alles ist auf der LCD-Anzeige lesbar] 
 \"Uberpr\"ufen Sie ob die .eep Daten in den EEprom Speicher des ATmega geladen wurden.
 Wenn alle Programmdaten richtig geladen wurden, sollten Sie die Taktrate ihrer
 Programmdaten (Makefile) und die ATmega Prozessor Einstellungen pr\"ufen (fuses).
 
-\item[Messung ist zu langsam und Kapazit\"aten werden 8 Mal zu klein gemessen.] 
+\item[Messung ist zu langsam und Kapazit\"aten werden um Faktor 8 zu klein gemessen.] 
 Sie betreiben die Software, die f\"ur 8MHz \"ubersetzt wurde mit einer Taktrate von 1MHz.
 Bitte konfigurieren Sie den ATmega mit den fuses richtig.
 

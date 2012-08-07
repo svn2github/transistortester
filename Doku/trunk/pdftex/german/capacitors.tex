@@ -20,7 +20,7 @@ Die Abbildung 149 (Seite 258) im Atmega8 Datenblatt \cite{ATmega8} zeigt einen S
 Nat\"urlich kann ich nicht garantieren, da"s kein Schaden auftreten kann.
 Ich habe die Funktion mit 15mF Kondensatoren sehr oft getestet und ich habe noch nie ein Problem bemerkt.
 Der Strom sollte unter der spezifizierten Grenze von 40mA bleiben und reduziert sich schnell durch die Entladung.
-Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator vor dem Anschlie"sen an den Tester nicht entladen.
+Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator nicht entladen bevor Sie ihn an den Tester anschlie"sen.
 
 \subsection{Messung von gro"sen Kapazit\"aten}
 \label{sec:bigcap}
@@ -88,14 +88,15 @@ starte sofort das Laden des Kondensators.
 Dabei ist eine Seite des Kondensators mit GND die andere Seite \"uber den \(470k\Omega\) Widerstand mit VCC verbunden.
 Nun pr\"ufe ich in einer Programm-Schleife, ob der Z\"ahler ein \"Uberlauf-Ereignis (overflow) oder ein
  externes Ereignis (input capture) meldet.
-Die \"Uberlauf-Ereignisse z\"ahle ich bis ich ein externes Ereignis feststelle.
+Die \"Uberlauf-Ereignisse z\"ahle ich, bis ich ein externes Ereignis feststelle.
 In diesem Fall halte ich den Z\"ahler an und pr\"ufe, ob ich noch einen zus\"atzlichen \"Uberlauf z\"ahlen mu"s, 
 weil der Z\"ahler nicht mit dem externen Ereignis (input capture) angehalten werden kann.
 
 
 Der Z\"ahlerstand des externen Ereignisses bildet zusammen mit dem \"Uberlaufz\"ahler die Gesamtzeit,
-von der ich eine experimentell herausgefundene Konstante abziehe, um den Me"swerte-Offset zu beseitigen.
-Ich wei"s nicht, ob diese Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
+von der ich eine experimentell herausgefundene vordefinierte Konstante oder eine im Sebsttest herausgefundene Konstante abziehe, 
+um den Me"swerte-Offset zu beseitigen.
+Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
 Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der Ladezeit in Bezug auf die Komparator-Spannung ber\"ucksichtigen.
 Die Tabelle hat einen Abstand von 50mV Schritten und wird interpoliert entsprechend der aktuellen Referenz-Spannung.
 Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
@@ -105,8 +106,8 @@ Die gemessene Referenz-Spannung wird dann mit dem angegebenen Korrekturwert (mV)
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
 Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 Prozessoren ber\"ucksichtigt.
 Eine Beispielmessung von diesem Typ ist in Abbildung~\ref{pic:c22uF} dargestellt.
-Die Me"szeit ist ungef\"ahr 2,6s weil der \(470k\Omega\) Widerstand f\"ur das Laden benutzt wird,
-aber das Entladen geht in diesem Fall viel schneller als das Laden.
+Die Me"szeit f\"ur den \(22 \mu F\) Kondensator ist ungef\"ahr 2,6s weil der \(470k\Omega\) Widerstand f\"ur das Laden benutzt wird.
+Aber das Entladen geht in diesem Fall viel schneller als das Laden.
 
 \begin{figure}[H]
 \centering
@@ -171,12 +172,13 @@ aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht (Exemp
 \label{fig:capcompare}
 \end{figure}
 
-Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren und einem ATmega168A Prozessor werden in Abbildung~\ref{fig:mega168all} dargestellt. Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
+Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren werden in Abbildung~\ref{fig:mega168all} dargestellt.
+Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
 Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung \ref{fig:mega168Aall} und
 von drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
 nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlu"sleitungen mit den
-Klemmem verursacht werden.
+Klemmen verursacht werden.
 Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich mit der Board Version ,,DG2BRS V 5.2.1'' ermittelt.
 
 \begin{figure}[H]
@@ -202,10 +204,10 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
 
 Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
 angepa"st werden. Dazu kann die Korrekturspannung REF\_C\_KORR f\"ur den Komparator angegeben werden, der f\"ur die Messung der kleinen 
-Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1~Promille.
+Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1,1~Promille.
 F\"ur die gro"sen Kapazit\"aten kann der Promillewert C\_H\_KORR angegeben werden, um den die Messungen
 zu gro"s sind. Da die gro"sen Kondensatoren meistens Elektrolytkondensatoren mit schechter G\"ute sind, ist die Bestimmung
-des Kapazit\"atswertes und damit auch des Me"sfehlers hier besonders schwierig.
+des wahren Kapazit\"atswertes und damit auch des Me"sfehlers hier besonders schwierig.
 Besonders bei den ATmega168 Prozessoren habe ich bei kleinen Kapazit\"atswerten einen Me"sfehler beobachtet, 
 der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist.
 Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des

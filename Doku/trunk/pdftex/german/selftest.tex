@@ -92,16 +92,17 @@ Um die Widerstandswerte zu erhalten, m\"ussen die angezeigten mV Werte durch ung
 
 \item {\bf Messung des Innenwiderstandes von auf VCC geschalteten Port Ausg\"angen.}
 Der ben\"otigte Strom wird von auf GND geschalteten \(680\Omega\) Widerst\"anden geliefert.
-Der Text in der ersten LCD Zeile ist ,,Ri\_Hi= (mV)''.
+Der Text in der ersten LCD Zeile ist ,,Ri\_Hi= (mV)'', wenn keine AUTO\_CAL Option gesetzt ist.
+Mit gesetzter AUTO\_CAL Option wird nur ,,Ri\_Hi='' ausgegeben.
 In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt als Differenz zu VCC.
 Es ist die gleiche Messung wie die in Test~7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
-Mit folgenden Schritten k\"onnen Sie den Innenwiderstand berechnen:
+Mit folgenden Schritten k\"onnen Sie den Innenwiderstand selbst berechnen:
 Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
 Sie k\"onnen beide Widerstandswerte erhalten, indem Sie die jeweilige Spannung
 (Ergebnisse von Test~7 oder Test~8) durch diesen Strom dividieren.
 Wenn die AUTO\_CAL Option gew\"ahlt wurde und der vorige und dieser Test achtmal wiederholt wurden,
 wird der Mittelwert der Innenwiderst\"ande der Ausgabe-Ports im EEprom festgehalten.
-Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 angezeigt, der letzte Wert der Zeile~2 ist dann
+Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 in \(d\Omega\) angezeigt, der letzte Wert der Zeile~2 ist dann
 das Ergebnis f\"ur den vorigen Test (auf GND geschaltet).
 Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 \begin{figure}[H]
@@ -122,18 +123,20 @@ Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnv
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
 Sockel erh\"ohen.
 
-\item Ein {\bf 50 Hz Rechtecksignal} wird auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
+\end{enumerate}
+
+An Ende der Selbsttest-Funktion wird der Text ,,Auto Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
+Wenn gew\"ahlt, wird ein {\bf 50 Hz Rechtecksignal} auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
 Testpin~1 wird auf GND geschaltet. Der Strom f\"ur Testpin 2 und 3 wird mit \(680\Omega\) Widerst\"anden begrenzt.
-Dieser Test wird achtmal mit jeweils 5~Sekunden Dauer durchgef\"uhrt.
+Angezeigt wird das durch die Anzeige 50Hz am Ende der Zeile 1.
+Diese Ausgabe wird dreizigmal mit jeweils 2~Sekunden Dauer durchgef\"uhrt.
 Man kann die Zeit der Verz\"ogerungs-Aufrufe pr\"ufen, wenn man ein Oszilloskop oder einen
 Frequenz-Z\"ahler besitzt.
 Wenn man f\"ur die Takterzeugung keinen Quarz benutzt, k\"onnen die
 Ergebnisse der Kondensatormessung ungenau sein.
 Eine genaue Taktfrequenz und genaue Wartezeiten sind wichtig f\"ur die Bestimmung von Kapazit\"atswerten.
+Die Ausgabe des 50Hz Signals kann durch gedr\"uckthalten des Start-Tasters vorzeitig abgebrochen werden.
 
-\end{enumerate}
-
-An Ende der Selbsttest-Funktion wird der Text ,,Auto Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
 Dann f\"ahrt das Programm mit der normalen Me"sfunktion fort.
 
 \begin{table}[H]
@@ -143,11 +146,11 @@ Dann f\"ahrt das Programm mit der normalen Me"sfunktion fort.
 Test Nr. & 1. Ergebnis & 2. Ergebnis & 3. Ergebnis \\
     \hline
     \hline
-Test 1 & band gap Ref  1237 &  & \\
-Referenz  & RHfakt 753 & RLfakt.  4887 &  \\
+Test 1 & band gap Ref  1228 &  & \\
+Referenz  & RHfakt 756 &  &  \\
     \hline
 Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
-Vergleich \(680\Omega\) & 2488 & 2488 & 2484 \\
+Vergleich \(680\Omega\) & 2489 & 2488 & 2488 \\
 bester Wert: 2493 & & & \\
     \hline
 Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
@@ -161,7 +164,7 @@ Test 5 & RH1- &  RH2- & RH3- \\
 bester Wert: 0 & & & \\
     \hline
 Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & 4995 & 4995 & 4995 \\
+\(470k\Omega\) isolation & 4996 & 4995 & 4995 \\
 bester Wert: 5001 & & & \\
     \hline
 Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
@@ -169,6 +172,9 @@ Pin Widerstand Low & 132 & 132 & 137 \\
     \hline
 Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
 Pin Widerstand High & 151 & 151 & 151 \\
+    \hline
+Test 9 & C0  1:3 & C0  2:3 & C0 1:2 \\
+Kondensator Offset & 34 & 35 & 33 \\
     \hline
     \end{tabular}
   \end{center}
@@ -183,32 +189,35 @@ Pin Widerstand High & 151 & 151 & 151 \\
 Test No. & 1. Ergebnis & 2. Ergebnis & 3. Ergebnis \\
     \hline
     \hline
-Test 1 & band gap Ref  1090 &  & \\
-Referenz  & RHfakt 865 & RLfakt.  5649 &  \\
+Test 1 & band gap Ref  1051 &  & \\
+Referenz  & RHfakt 902 &  &  \\
     \hline
 Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
 Vergleich \(680\Omega\) & 2493 & 2493 & 2493 \\
 bester Wert: 2493 & & & \\
     \hline
 Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
-Vergleich \(470k\Omega\) & 2497 & 2498 & 2498 \\
+Vergleich \(470k\Omega\) & 2494 & 2498 & 2498 \\
 bester Wert: 2500 & & & \\
     \hline
 Test 4 & isolate probe & & \\
     \hline
 Test 5 & RH1- &  RH2- & RH3- \\
-\(470k\Omega\) isolation & 0 & 0 & 0 \\
+\(470k\Omega\) isolation & 1 & 1 & 1 \\
 bester Wert: 0 & & & \\
     \hline
 Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & 4998 & 4998 & 4998 \\
+\(470k\Omega\) isolation & 5000 & 5000 & 5000 \\
 bester Wert: 5001 & & & \\
     \hline
 Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
-Pin Widerstand Low & 131 & 132 & 132 \\
+Pin Widerstand Low & 138 & 139 & 139 \\
     \hline
 Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
 Pin Widerstand High & 156 & 156 & 156 \\
+    \hline
+Test 9 & C0  1:3 & C0  2:3 & C0 1:2 \\
+Kondensator Offset & 39 & 39 & 38 \\
     \hline
     \end{tabular}
   \end{center}
