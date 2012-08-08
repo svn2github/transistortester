@@ -14,5 +14,6 @@ find the end of discharge in the AUTOSCALE\_ADC mode.
 The voltage limit for discharged capacitor ist set very low to below 3mV. My own tests with different processors are all well.
 The appearance of this error is, that the tester wrote after a long time of about 12s the text ``Cell!'' to the LCD.
 You can adjust the CAP\_EMPTY\_LEVEL in the Makefile to a higher level of 3mV, if you can not find the reason!
+\item Power Schottky Diodes such as MBR20100CT are not detected correctly as dual diodes.
 
 \end{enumerate}
