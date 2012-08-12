@@ -184,21 +184,21 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168all}
-\caption{Fehler der Kondensator-Messung von drei ATmega168 Prozessoren}
+\caption{Kondensator-Messfehler von drei ATmega168, unkalibriert}
 \label{fig:mega168all}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168Aall}
-\caption{Fehler der Kondensator-Messung von drei ATmega168A Prozessoren}
+\caption{Kondensator-Messfehler von drei ATmega168A, unkalibriert}
 \label{fig:mega168Aall}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168PAall}
-\caption{Fehler der Kondensator-Messung von drei ATmega168PA Prozessoren}
+\caption{Kondensator-Messfehler von drei ATmega168PA, unkalibriert}
 \label{fig:mega168PAall}
 \end{figure}
 
@@ -223,3 +223,64 @@ wobei cval der gemessene Kapazit\"atswert in pF ist.
 \caption{Optimierung der Kondensator-Messung eines ATmega168}
 \label{fig:mega168optcap}
 \end{figure}
+
+\subsection{Automatischer Abgleich der Kondensator-Messung}
+
+Der automatische Abgleich besteht aus zwei Teilen. Der erste Teil besteht darin, einen Nullabgleich der Kondensatormessung durchzuf\"uhren.
+Dazu wird in der Selbstest-Routine der Mittelwert der gemessenen Kapazit\"at bei nicht angeschlossenem Kondensator bestimmt.
+Es wird derzeit ein gemeinsamer Mittelwert f\"ur die drei Me"skombinationen (Pin 1:3 , 2:3 und 1:2) bestimmt.
+Nach erfolgreichem Abgleich wird der Korrekturwert im EEprom festgehalten und f\"ur k\"unftige Messungen verwendet.
+Schwieriger war die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
+Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} gezeigt wurden.
+Als wesentliche Ursache wurde das unterschiedliche Verhalten (Offset Spannung) des analogen Komparators herausgefunden.
+
+In Abbildung \ref{fig:CompAdjust} werden die Daten von den neun untersuchten Prozessoren gezeigt.
+Die Punkte ,,diff2ref'' zeigen die Spannungsdifferenz, die sich nach dem Laden eines Kondensators mit \(660 nF\) zu der
+jeweiligen internen Referenzspannung ergibt. Idealerweise w\"are diese Spannung immer Null, wenn der analoge
+Komparator rechtzeitig das Signal zum Beenden des Ladevorganges gegeben h\"atte. Die kurze Verwaltungszeit des ATmega
+sollte bei der relativ gro"sen Kapazit\"at zu keiner me"sbaren Spannungserh\"ohung gef\"uhrt haben.
+Die Punkte ,,CapErr'' zeigen die aus den Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} 
+gesch\"atzten Me"sfehler der einzelnen ATmega Exemplare in Promille.
+Auff\"allig ist, wie die ,,CapErr'' Punkte den ,,diff2ref'' Punkten folgen.
+Deshalb zeigen die Punkte ,,diff'' die Differenz zwischen den jeweiligen ,,CapErr'' und ,,diff2ref'' Punkten.
+Mit einem mittleren Wert f\"ur diff kann man also einen guten Sch\"atzwert f\"ur die Korrektur der Kondensatormessung aus der
+Differenz der Kondensatorspannung nach dem Laden zur internen Referenzspannung berechnen.
+Im zweiten Teil der Abgleichprozedur mu"s also ein Kondensator hoher G\"ute zwischen Pin 1 und Pin 3 mit mindestens \(100 nF\)
+angeschlossen werden. Es sollte ein Folienkondensator, nach M\"oglichkeit kein keramischer Kondensator und schon gar kein
+Elektrolyt-Kondensator sein. Der Kapazit\"atswert kann bis zu \(22 \mu F\) betragen,
+braucht aber f\"ur diesen Abgleich nicht genau bekannt zu sein.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/ComparatorAdjust}
+\caption{Daten von neun ATmega168 Prozessoren}
+\label{fig:CompAdjust}
+\end{figure}
+
+Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal} und \ref{fig:mega168PAcal} zeigen die Meßergebnisse
+der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
+Die Prozessoren wurden alle mit der selben Software programmiert, lediglich f\"ur die ATmega168PA mu"ste die
+Makefile wegen ,,PARTNO = m168p'' angepa"st werden. Nach der Programmierung wurde bei jedem ATmega ein
+Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cal}
+\caption{Kondensator-Messfehler von drei ATmega168, kalibriert}
+\label{fig:mega168cal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168Acal}
+\caption{Kondensator-Messfehler von drei ATmega168A, kalibriert}
+\label{fig:mega168Acal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168PAcal}
+\caption{Kondensator-Messfehler von drei ATmega168PA, kalibriert}
+\label{fig:mega168PAcal}
+\end{figure}
+

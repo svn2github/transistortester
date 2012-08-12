@@ -182,21 +182,21 @@ The board layout can cause a different zero value, I have fixed this zero value 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168all}
-\caption{Error of capacitor measurements of three ATmega168 processors}
+\caption{capacity measurement error of three ATmega168, not calibrated}
 \label{fig:mega168all}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168Aall}
-\caption{Error of capacitor measurements of three ATmega168A processors}
+\caption{capacity measurement error of three ATmega168A, not calibrated}
 \label{fig:mega168Aall}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168PAall}
-\caption{Error of capacitor measurements of three ATmega168PA processors}
+\caption{capacity measurement error of three ATmega168PA, not calibrated}
 \label{fig:mega168PAall}
 \end{figure}
 
@@ -222,3 +222,67 @@ where cval is the measured capacity value with pF units.
 \caption{Improvement of the capacitor measurement of one ATmega168}
 \label{fig:mega168optcap}
 \end{figure}
+
+\subsection{Automatic calibration of the capacitor measurement}
+
+The automatic calibration is build in two parts. The first part find out the zero offset of the capacity measurement.
+For that the mean value of the capacity measured without connected capacitor is build. 
+Currently a common mean value for the three measurement combinations Pin 1:3, Pin 2:3 and Pin 1:2 is build.
+After successfull determination the zero offset is written to the EEprom and will be used for further measurements.
+More difficult was the clearance of the variance of the different ATmega processors for little capacitors (< \(40 \mu F\)),
+which is shown in Figure~\ref{fig:mega168all}, \ref{fig:mega168Aall} and \ref{fig:mega168PAall}.
+As a isignificant reason for this is found the different characteristic (Offset voltage) of the analog comparator.
+
+The date of measurement of nine different processors is shown in figure~\ref{fig:CompAdjust} .
+The ''diff2ref'' points show the difference of the voltage of a loaded capacitor of \(660 nF\) to the
+individual internal reference voltages (band gap).
+Ideally this difference Voltage should be zero, if the analog comparator has stopped the loading by the signal to
+the processor. The short handling time of the processor should not allow to load a measurably rising of the 
+capacitor voltage of this relative big capacitor.
+The ''CapErr'' points show the estimated measurement errors of each processor out of figure~\ref{fig:mega168all}, \ref{fig:mega168Aall} 
+and \ref{fig:mega168PAall} with per mill units.
+It is noticeable, how the ''CapErr'' points will follow the ''diff2ref'' points.
+Therefore the ''diff'' points show the difference between the particular ''CapErr'' and ''diff2ref'' points.
+With a mean value of the ''diff'' points we can get a good estimation for the correction of the capacitor measurements 
+together with the difference voltage of the loaded capacitor and the internal reference.
+For the second part of adjustment you must connect a capacitor to Pin 1 and Pin 3. This capacitor should have
+a good quality factor and should have a capacity of at least \(100 nF\).
+It should be a film capacitor, as far as possible not a ceramic capacitor und in no case a electrolytic capacitor.
+The value of this capacitor can be up to \(22 \mu F\), but you don't need to know the exact value.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/ComparatorAdjust}
+\caption{Date of nine ATmega168 processors}
+\label{fig:CompAdjust}
+\end{figure}
+
+The figures~\ref{fig:mega168cal}, \ref{fig:mega168Acal} and \ref{fig:mega168PAcal} shows the measurement results
+of the different processors with a standard software after the auto calibration.
+The flash of the processors was loaded with the same software, only for the ATmega168PA the Makefile must be
+adapted with ''PARTNO = m168p''.
+After loading the data the selftest was started for each ATmega and a capacitor with \(330 nF\) was connected
+during test No.~10 to Pin~1 and Pin~3.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168cal}
+\caption{capacity measurement error of three ATmega168, calibrated}
+\label{fig:mega168cal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168Acal}
+\caption{capacity measurement error of three ATmega168A, calibrated}
+\label{fig:mega168Acal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega168PAcal}
+\caption{capacity measurement error of three ATmega168PA, calibrated}
+\label{fig:mega168PAcal}
+\end{figure}
+
+

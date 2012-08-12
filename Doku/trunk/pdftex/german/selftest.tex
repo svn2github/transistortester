@@ -123,6 +123,14 @@ Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnv
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
 Sockel erh\"ohen.
 
+\item {\bf Messung des Komparatoroffsets f\"ur den Abgleich der Kondensatormessung.}
+Um den Offset des analogen Komparators zu bestimmen, mu"s ein Kondensator an Pin~1 und Pin~3 angeschlossen werden.
+Der Kondensator wird f\"ur die Pufferung der Ladespannung bei der Kondensatormessung ben\"otigt, um den Unterschied der 
+Ladespannung zur internen Referenzspannung bestimmen zu k\"onnen. Es sollte ein Kondensator hoher G\"ute mit
+mindestens \(100 nF\) sein. Kapazit\"atswerte von bis zu \(22 \mu F\) k\"onnen problemlos verwendet werden.
+Auf keinen Fall sollte man Elektrolyt-Kondensatoren verwenden.
+Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 2 angezeigt und in den EEprom Speicher geschrieben.
+
 \end{enumerate}
 
 An Ende der Selbsttest-Funktion wird der Text ,,Auto Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.

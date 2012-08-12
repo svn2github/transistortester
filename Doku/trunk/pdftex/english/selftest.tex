@@ -109,6 +109,15 @@ This will be notified by the output of ''EE=xx'' in row 1.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
+\item {\bf Measurement of the comparator offset for capacitor measurement adjustment.}
+To get the offset of the analog comparator, a capacitor must be connected to pin~1 and pin~3 .
+The capacitor will be needed for buffering the load voltage of a capacitor, in order to get the voltage
+difference of load voltage to the internal reference voltage (band gap).
+A capacitor of at least \(100 nF\) with high quality factor should be used.
+Capacity values of up to \(22 \mu F\) can be used without problems.
+You should never use electrolytical capacitors.
+If measurement is successfull, the correction value is short shown in row~2 of the LCD and written to the EEprom.
+
 \end{enumerate}
 
 At the end of test function the text ``Auto Test End''  is shown in row~1 and the version number of software is shown in row~2.
