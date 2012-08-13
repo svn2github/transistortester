@@ -98,14 +98,15 @@ Thie results will be used for further measurement.
 \label{fig:test8}
 \end{figure}
 
-\item {\bf Measurement of the zero value of the capacitor measurement.}
-The zero value for the capacity measurement with pin combinations 1:3, 2:3 and 1:2 is shown in that order.
+\item {\bf Measurement of the zero offset of the capacitor measurement.}
+The zero offset for the capacity measurement with pin combinations 1:3, 2:3 and 1:2 is shown in that order.
 Alls three values are shown in pF units.
-The normal output of capacity measurement will respect a default zero offset of 39 pF.
-But for this results is no correction respected, no zero offset is subtracted.
-If the AUTO\_CAL option is selected and the test will be repeated eight times, the mean value
-of the found zero offsets will be written to the EEprom and will be used for further capacity measurements.
-This will be notified by the output of ''EE=xx'' in row 1.
+For this results no predefined zero offset is respected.
+If the AUTO\_CAL option is selected , the mean value of 8 measurements with all 6 combinations is build and
+will be written to the EEprom, if the value is less than \(70 pF\).
+This will be notified by the output of ''EE=xx'' in row~1.
+The row 2 shows the three zero offsets for pin combinations 1:3, 2:3 and 1:2.
+This zero offsets will be subtracted for the normal capacity measurements.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 

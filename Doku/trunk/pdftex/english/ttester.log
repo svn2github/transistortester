@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  13 AUG 2012 00:31
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  13 AUG 2012 12:47
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -640,11 +640,11 @@ File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RHv-eps-converted-to.pdf>) (../GNU/Mega8res.tex
 Package epstopdf Info: Source file: <../GNU/Mega8res.eps>
-(epstopdf)                    date: 2012-08-13 00:31:13
+(epstopdf)                    date: 2012-08-13 12:47:21
 (epstopdf)                    size: 23278 bytes
 (epstopdf)             Output file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-08-13 00:31:11
-(epstopdf)                    size: 6856 bytes
+(epstopdf)                    date: 2012-08-13 12:35:45
+(epstopdf)                    size: 6863 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8res-eps-convert
 ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -652,8 +652,8 @@ runsystem(epstopdf --outfile=../GNU/Mega8res-eps-converted-to.pdf ../GNU/Mega8r
 es.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-08-13 00:31:14
-(epstopdf)                    size: 6856 bytes.
+(epstopdf)                    date: 2012-08-13 12:47:22
+(epstopdf)                    size: 6860 bytes.
 
 <../GNU/Mega8res-eps-converted-to.pdf, id=461, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
@@ -661,10 +661,10 @@ File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 <use ../GNU/Mega8res-eps-converted-to.pdf>) [26 <../FIG/ResistormessH2-eps-conv
 erted-to.pdf> <../GNU/RHv-eps-converted-to.pdf>] (../GNU/Mega168res.tex
 Package epstopdf Info: Source file: <../GNU/Mega168res.eps>
-(epstopdf)                    date: 2012-08-13 00:31:13
+(epstopdf)                    date: 2012-08-13 12:47:21
 (epstopdf)                    size: 22731 bytes
 (epstopdf)             Output file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-08-13 00:31:11
+(epstopdf)                    date: 2012-08-13 12:35:45
 (epstopdf)                    size: 6141 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168res-eps-conve
 rted-to.pdf ../GNU/Mega168res.eps>
@@ -673,8 +673,8 @@ runsystem(epstopdf --outfile=../GNU/Mega168res-eps-converted-to.pdf ../GNU/Mega
 168res.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-08-13 00:31:14
-(epstopdf)                    size: 6141 bytes.
+(epstopdf)                    date: 2012-08-13 12:47:22
+(epstopdf)                    size: 6137 bytes.
 
 <../GNU/Mega168res-eps-converted-to.pdf, id=478, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
@@ -734,7 +734,7 @@ Package epstopdf Info: Source file: <../FIG/Comparat.eps>
 (epstopdf)                    size: 13895 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Comparat-eps-convert
 ed-to.pdf ../FIG/Comparat.eps>
-(epstopdf)             \includegraphics on input line 112.
+(epstopdf)             \includegraphics on input line 118.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/Comparat-eps-converted-to.pdf, id=530, 375.4025pt x 188.705pt>
@@ -744,8 +744,8 @@ File: ../FIG/Comparat-eps-converted-to.pdf Graphic file (type pdf)
 <../PNG/charge_22uF.png, id=531, 321.2pt x 234.8775pt>
 File: ../PNG/charge_22uF.png Graphic file (type png)
 
-<use ../PNG/charge_22uF.png> [31 <../FIG/Comparat-eps-converted-to.pdf> <../PNG
-/charge_22uF.png (PNG copy)>] (../GNU/Mega8cap.tex
+<use ../PNG/charge_22uF.png> [31 <../FIG/Comparat-eps-converted-to.pdf>]
+(../GNU/Mega8cap.tex
 Package epstopdf Info: Source file: <../GNU/Mega8cap.eps>
 (epstopdf)                    date: 2012-08-13 00:23:31
 (epstopdf)                    size: 20706 bytes
@@ -760,7 +760,8 @@ Package epstopdf Info: Output file is already uptodate.
 <../GNU/Mega8cap-eps-converted-to.pdf, id=552, 361.35pt x 252.945pt>
 File: ../GNU/Mega8cap-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega8cap-eps-converted-to.pdf>) (../GNU/Mega168cap.tex
+<use ../GNU/Mega8cap-eps-converted-to.pdf>) [32 <../PNG/charge_22uF.png (PNG co
+py)>] (../GNU/Mega168cap.tex
 Package epstopdf Info: Source file: <../GNU/Mega168cap.eps>
 (epstopdf)                    date: 2012-08-13 00:23:31
 (epstopdf)                    size: 19960 bytes
@@ -772,11 +773,10 @@ rted-to.pdf ../GNU/Mega168cap.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168cap-eps-converted-to.pdf, id=553, 361.35pt x 252.945pt>
+<../GNU/Mega168cap-eps-converted-to.pdf, id=559, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168cap-eps-converted-to.pdf>) [32 <../GNU/Mega8cap-eps-converte
-d-to.pdf>] (../GNU/capcompare.tex
+<use ../GNU/Mega168cap-eps-converted-to.pdf>) (../GNU/capcompare.tex
 Package epstopdf Info: Source file: <../GNU/capcompare.eps>
 (epstopdf)                    date: 2012-08-13 00:23:31
 (epstopdf)                    size: 21521 bytes
@@ -788,11 +788,11 @@ rted-to.pdf ../GNU/capcompare.eps>
 (epstopdf)             \includegraphics on input line 134.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/capcompare-eps-converted-to.pdf, id=563, 361.35pt x 252.945pt>
+<../GNU/capcompare-eps-converted-to.pdf, id=561, 361.35pt x 252.945pt>
 File: ../GNU/capcompare-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/capcompare-eps-converted-to.pdf>) [33 <../GNU/Mega168cap-eps-conver
-ted-to.pdf> <../GNU/capcompare-eps-converted-to.pdf>] (../GNU/Mega168all.tex
+<use ../GNU/capcompare-eps-converted-to.pdf>) [33 <../GNU/Mega8cap-eps-converte
+d-to.pdf> <../GNU/Mega168cap-eps-converted-to.pdf>] (../GNU/Mega168all.tex
 Package epstopdf Info: Source file: <../GNU/Mega168all.eps>
 (epstopdf)                    date: 2012-08-13 00:19:27
 (epstopdf)                    size: 21587 bytes
@@ -804,7 +804,7 @@ rted-to.pdf ../GNU/Mega168all.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168all-eps-converted-to.pdf, id=577, 361.35pt x 252.945pt>
+<../GNU/Mega168all-eps-converted-to.pdf, id=574, 361.35pt x 252.945pt>
 File: ../GNU/Mega168all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168all-eps-converted-to.pdf>) (../GNU/Mega168Aall.tex
@@ -819,10 +819,11 @@ erted-to.pdf ../GNU/Mega168Aall.eps>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168Aall-eps-converted-to.pdf, id=578, 361.35pt x 252.945pt>
+<../GNU/Mega168Aall-eps-converted-to.pdf, id=575, 361.35pt x 252.945pt>
 File: ../GNU/Mega168Aall-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168Aall-eps-converted-to.pdf>) (../GNU/Mega168PAall.tex
+<use ../GNU/Mega168Aall-eps-converted-to.pdf>) [34 <../GNU/capcompare-eps-conve
+rted-to.pdf> <../GNU/Mega168all-eps-converted-to.pdf>] (../GNU/Mega168PAall.tex
 Package epstopdf Info: Source file: <../GNU/Mega168PAall.eps>
 (epstopdf)                    date: 2012-08-13 00:19:27
 (epstopdf)                    size: 21740 bytes
@@ -833,12 +834,11 @@ Package epstopdf Info: Source file: <../GNU/Mega168PAall.eps>
 verted-to.pdf ../GNU/Mega168PAall.eps>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
-
-<../GNU/Mega168PAall-eps-converted-to.pdf, id=579, 361.35pt x 252.945pt>
+<../GNU/Mega168PAall-eps-converted-to.pdf, id=587, 361.35pt x 252.945pt>
 File: ../GNU/Mega168PAall-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168PAall-eps-converted-to.pdf>) [34 <../GNU/Mega168all-eps-conv
-erted-to.pdf> <../GNU/Mega168Aall-eps-converted-to.pdf>]
+<use ../GNU/Mega168PAall-eps-converted-to.pdf>) [35 <../GNU/Mega168Aall-eps-con
+verted-to.pdf> <../GNU/Mega168PAall-eps-converted-to.pdf>]
 (../GNU/Mega168cap_opt.tex
 Package epstopdf Info: Source file: <../GNU/Mega168cap_opt.eps>
 (epstopdf)                    date: 2012-08-13 00:23:31
@@ -852,11 +852,10 @@ onverted-to.pdf ../GNU/Mega168cap_opt.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=591, 361.35pt x 252.945pt>
+<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=597, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap_opt-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168cap_opt-eps-converted-to.pdf>) [35 <../GNU/Mega168PAall-eps-
-converted-to.pdf>] (../GNU/ComparatorAdjust.tex
+<use ../GNU/Mega168cap_opt-eps-converted-to.pdf>) (../GNU/ComparatorAdjust.tex
 Package epstopdf Info: Source file: <../GNU/ComparatorAdjust.eps>
 (epstopdf)                    date: 2012-08-11 16:47:09
 (epstopdf)                    size: 18418 bytes
@@ -869,7 +868,7 @@ df>
 (epstopdf)             \includegraphics on input line 123.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=606, 361.35pt x 252.945pt>
+<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=605, 361.35pt x 252.945pt>
 File: ../GNU/ComparatorAdjust-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/ComparatorAdjust-eps-converted-to.pdf>) [36 <../GNU/Mega168cap_opt-
@@ -1045,7 +1044,7 @@ nts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10
 .pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
 hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-
 texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on ttester.pdf (49 pages, 622394 bytes).
+Output written on ttester.pdf (49 pages, 622912 bytes).
 PDF statistics:
  865 PDF objects out of 1000 (max. 8388607)
  200 named destinations out of 1000 (max. 500000)

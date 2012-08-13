@@ -93,13 +93,17 @@ In diesem Fall halte ich den Z\"ahler an und pr\"ufe, ob ich noch einen zus\"atz
 weil der Z\"ahler nicht mit dem externen Ereignis (input capture) angehalten werden kann.
 
 
-Der Z\"ahlerstand des externen Ereignisses bildet zusammen mit dem \"Uberlaufz\"ahler die Gesamtzeit,
-von der ich eine experimentell herausgefundene vordefinierte Konstante oder eine im Sebsttest herausgefundene Konstante abziehe, 
-um den Me"swerte-Offset zu beseitigen.
-Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
-Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der Ladezeit in Bezug auf die Komparator-Spannung ber\"ucksichtigen.
+Der Z\"ahlerstand des externen Ereignisses bildet zusammen mit dem \"Uberlaufz\"ahler die Gesamtzeit, aus der die
+Kapazit\"at mit einem Faktor bestimmt wird.
+Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der Ladezeit in Bezug auf die gemessene
+Komparator-Spannung ber\"ucksichtigen.
 Die Tabelle hat einen Abstand von 50mV Schritten und wird interpoliert entsprechend der aktuellen Referenz-Spannung.
 Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
+Vom Kapazit\"atswert ziehe ich eine experimentell herausgefundene vordefinierte Konstante oder eine im Selbsttest
+herausgefundene Konstante ab, um den Me"swerte-Offset zu beseitigen.
+Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
+Mit einem Selbsttest bei gesetzter AUTO\_CAL Option wird diese Anpassung automatisch erledigt.
+
 Ich habe bemerkt, da"s die Referenz-Spannung immer etwas zu klein gemessen wird,
  deshalb kann man einen Zusatz mit der Makefile Option REF\_C\_KORR angeben.
 Die gemessene Referenz-Spannung wird dann mit dem angegebenen Korrekturwert (mV) korrigiert (addiert).
@@ -174,8 +178,9 @@ aufgedruckte Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht (Exemp
 
 Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren werden in Abbildung~\ref{fig:mega168all} dargestellt.
 Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
-Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung \ref{fig:mega168Aall} und
-von drei verschiedenen ATmega168PA Prozessoren in Abbildung \ref{fig:mega168PAall} gezeigt.
+Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung~\ref{fig:mega168Aall}, 
+von drei verschiedenen ATmega168PA Prozessoren in Abbildung~\ref{fig:mega168PAall} und von drei verschiedenen
+ATmega328 in Abbildung~\ref{fig:mega328all} sowie von drei ATmega328P in Abbildung~\ref{fig:mega328Pall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
 nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlu"sleitungen mit den
 Klemmen verursacht werden.
@@ -202,11 +207,28 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
 \label{fig:mega168PAall}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328all}
+\caption{Kondensator-Messfehler von drei ATmega328, unkalibriert}
+\label{fig:mega328all}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328Pall}
+\caption{Kondensator-Messfehler von drei ATmega328P, unkalibriert}
+\label{fig:mega328Pall}
+\end{figure}
+
 Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
 angepa"st werden. Dazu kann die Korrekturspannung REF\_C\_KORR f\"ur den Komparator angegeben werden, der f\"ur die Messung der kleinen 
-Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1,1~Promille.
+Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1~mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1,1~Promille.
+Bei einem automatischen Abgleich ist REF\_C\_KORR  nur ein Offset zu der gemessenen Differenzspannung von geladenem Kondensator
+und der internen Referenz.
 F\"ur die gro"sen Kapazit\"aten kann der Promillewert C\_H\_KORR angegeben werden, um den die Messungen
-zu gro"s sind. Da die gro"sen Kondensatoren meistens Elektrolytkondensatoren mit schechter G\"ute sind, ist die Bestimmung
+zu gro"s sind.
+Da die gro"sen Kondensatoren meistens Elektrolytkondensatoren mit schechter G\"ute sind, ist die Bestimmung
 des wahren Kapazit\"atswertes und damit auch des Me"sfehlers hier besonders schwierig.
 Besonders bei den ATmega168 Prozessoren habe ich bei kleinen Kapazit\"atswerten einen Me"sfehler beobachtet, 
 der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist.
@@ -228,8 +250,8 @@ wobei cval der gemessene Kapazit\"atswert in pF ist.
 
 Der automatische Abgleich besteht aus zwei Teilen. Der erste Teil besteht darin, einen Nullabgleich der Kondensatormessung durchzuf\"uhren.
 Dazu wird in der Selbstest-Routine der Mittelwert der gemessenen Kapazit\"at bei nicht angeschlossenem Kondensator bestimmt.
-Es wird derzeit ein gemeinsamer Mittelwert f\"ur die drei Me"skombinationen (Pin 1:3 , 2:3 und 1:2) bestimmt.
-Nach erfolgreichem Abgleich wird der Korrekturwert im EEprom festgehalten und f\"ur k\"unftige Messungen verwendet.
+Es werden die Mittelwerte aus jeweils 8 Messungen f\"ur alle 6 Me"skombinationen bestimmt.
+Nach erfolgreichem Abgleich werden die Korrekturwerte im EEprom festgehalten und f\"ur k\"unftige Messungen verwendet.
 Schwieriger war die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
 Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} gezeigt wurden.
 Als wesentliche Ursache wurde das unterschiedliche Verhalten (Offset Spannung) des analogen Komparators herausgefunden.
@@ -257,7 +279,8 @@ braucht aber f\"ur diesen Abgleich nicht genau bekannt zu sein.
 \label{fig:CompAdjust}
 \end{figure}
 
-Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal} und \ref{fig:mega168PAcal} zeigen die Meßergebnisse
+Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal},  \ref{fig:mega328cal} und
+\ref{fig:mega328Pcal} zeigen die Meßergebnisse
 der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
 Die Prozessoren wurden alle mit der selben Software programmiert, lediglich f\"ur die ATmega168PA mu"ste die
 Makefile wegen ,,PARTNO = m168p'' angepa"st werden. Nach der Programmierung wurde bei jedem ATmega ein
@@ -282,5 +305,19 @@ Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und 
 \input{../GNU/Mega168PAcal}
 \caption{Kondensator-Messfehler von drei ATmega168PA, kalibriert}
 \label{fig:mega168PAcal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328cal}
+\caption{Kondensator-Messfehler von drei ATmega328, kalibriert}
+\label{fig:mega328cal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328Pcal}
+\caption{Kondensator-Messfehler von drei ATmega328P, kalibriert}
+\label{fig:mega328Pcal}
 \end{figure}
 

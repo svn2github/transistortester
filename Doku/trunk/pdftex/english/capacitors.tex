@@ -93,13 +93,19 @@ because the counter can't be stopped by the input capture event.
 
 
 The input capture counter and the overflow counter built together the total time,
-from which I subtract a predefined experimental find out constant or a value found by the last selftest to eliminate the measurement offset. 
-I don't know, if the experimental find out constant must be adapted to other printed circuit boards.
+from which we can get the capacity with a factor.
 The actual software can use a table with the theoretical  dependency of the load time in respect to the comparator voltage.
 The table is spaced in 50mV steps and will be interpolated according to the actual reference voltage. 
 This table will only be acticated with the Makefile option WITH\_AUTO\_REF.
+From the build capacity value I subtract a predefined experimental find out constant or a value found by the last selftest
+with AUTO\_CAL option to eliminate the zero offset. 
+The zero offset may vary with printed board type, the used test equipment or processor.
+The selftest with AUTO\_CAL option will find out your zero offset automatically.
+
 I noticed that the reference voltage is permanently somewhat to low,
  so that you can choose an offset with the Makefile option REF\_C\_KORR.
+After calibration with the AUTO\_CAL option , the REF\_C\_KORR will only be a offset to the measured difference voltage
+between loaded capacitor and internal referenz.
 The measured reference voltage will then be corrected (added) by your value (mV units).
 If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega88, ATmega168 and ATmega328
 are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
@@ -227,11 +233,11 @@ where cval is the measured capacity value with pF units.
 
 The automatic calibration is build in two parts. The first part find out the zero offset of the capacity measurement.
 For that the mean value of the capacity measured without connected capacitor is build. 
-Currently a common mean value for the three measurement combinations Pin 1:3, Pin 2:3 and Pin 1:2 is build.
-After successfull determination the zero offset is written to the EEprom and will be used for further measurements.
+A mean value for all 6 measurement combinations is build with 8 repetitions.
+After successfull determination the zero offsets are written to the EEprom and will be used for further measurements.
 More difficult was the clearance of the variance of the different ATmega processors for little capacitors (< \(40 \mu F\)),
 which is shown in Figure~\ref{fig:mega168all}, \ref{fig:mega168Aall} and \ref{fig:mega168PAall}.
-As a isignificant reason for this is found the different characteristic (Offset voltage) of the analog comparator.
+As a significant reason for this is found the different characteristic (Offset voltage) of the analog comparator.
 
 The date of measurement of nine different processors is shown in figure~\ref{fig:CompAdjust} .
 The ''diff2ref'' points show the difference of the voltage of a loaded capacitor of \(660 nF\) to the

@@ -114,22 +114,30 @@ Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 
 \item {\bf Messung des Nulloffsets der Kondensatormessung.}
 F\"ur die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF ausgegeben.
-In der Software wird ein Vorgabewert von circa 39 pF f\"ur die normale Me"swertausgabe ber\"ucksichtigt.
+In der Software wird ein Vorgabewert von circa 39~pF f\"ur die normale Me"swertausgabe ber\"ucksichtigt.
 F\"ur die Ausgabe dieses Tests ist keine Korrektur ber\"ucksichtigt, es wird auch kein Nulloffset abgezogen.
 Wenn die AUTO\_CAL Option gew\"ahlt wurde und der Test achtmal wiederholt wurde, wird der Mittelwert
-der gefundenen Nulloffsets im EEprom festgehalten und steht f\"ur die weiteren Kapazit\"ats-Messungen zur Verf\"ugung.
-Angezeigt wird das durch die Ausgabe ,,EE=xx''  in Zeile 1.
+der gefundenen Nulloffsets im EEprom festgehalten, wenn der Null Offset kleiner als 70pF ist.
+Der gefundene Null Offset wird f\"ur die weiteren Kapazit\"ats-Messungen Pin abh\"angig ber\"ucksichtigt.
+Angezeigt wird das durch die Ausgabe ,,EE0''  in Zeile 1, wobei die Zeile 2 die gespeicherten Null Offsets f\"ur
+die Pin-Kombinationen 1:3, 2:3 und 1:2 anzeigt.
 Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnvoll machen.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
 Sockel erh\"ohen.
 
-\item {\bf Messung des Komparatoroffsets f\"ur den Abgleich der Kondensatormessung.}
-Um den Offset des analogen Komparators zu bestimmen, mu"s ein Kondensator an Pin~1 und Pin~3 angeschlossen werden.
-Der Kondensator wird f\"ur die Pufferung der Ladespannung bei der Kondensatormessung ben\"otigt, um den Unterschied der 
-Ladespannung zur internen Referenzspannung bestimmen zu k\"onnen. Es sollte ein Kondensator hoher G\"ute mit
+\item {\bf Warten auf den Anschlu"s eines Kondensators an Pin~1 und Pin~3.}
+Zur Vorbereitung der Messung des Spannungs-Offsets des analogen Komparators mu"s ein ausreichend gro"ser
+Kondensator zwischen Pin 1 und Pin 3 angeschlossen werden.
+ Es sollte ein Kondensator hoher G\"ute mit
 mindestens \(100 nF\) sein. Kapazit\"atswerte von bis zu \(22 \mu F\) k\"onnen problemlos verwendet werden.
 Auf keinen Fall sollte man Elektrolyt-Kondensatoren verwenden.
-Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 2 angezeigt und in den EEprom Speicher geschrieben.
+
+
+\item {\bf Messung des Komparatoroffsets f\"ur den Abgleich der Kondensatormessung.}
+Um den Offset des analogen Komparators zu bestimmen, mu"s ein Kondensator an Pin~1 und Pin~3 angeschlossen sein.
+Der Kondensator wird f\"ur die Pufferung der Ladespannung bei der Kondensatormessung ben\"otigt, um den Unterschied der 
+Ladespannung zur internen Referenzspannung bestimmen zu k\"onnen.
+Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 2 mit dem Text ,,REF\_C='' angezeigt und in den EEprom Speicher geschrieben.
 
 \end{enumerate}
 
