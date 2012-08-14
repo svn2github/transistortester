@@ -162,11 +162,11 @@ another percentage.
 \end{figure}
 
 Figure~\ref{fig:capcompare} illustrates, how difficult is it to choose the right base for the capacity measurement.
-All measurement results are compared with the printed value of the capacitors.
+All measurement results are compared with the best estimated value of the capacitors.
 The gradient ,,Multimeter'' shows the differences of the Peaktech~3315 Multimeter results.
 The next gradient ,,LCR'' shows the differences of the Peaktech~2170 LCR-Meter results, which is taken from best frequency approach.
 To compare this results to the results of a ATmega168 equipped Transistor-Tester the gradient ,,ATmega168as'' is also shown.
-I beleave, that this errors are not real measurement errors of the particular equipment, because the printed value are
+I beleave, that this errors are not real measurement errors of the particular equipment, because my best estimated value are
 also not the real capacity value of the capacitors.
 
 \begin{figure}[H]
@@ -180,6 +180,8 @@ The differences of measurements of three different ATmega168 processors are show
 In this case the results of the LCR~meter is taken as base of comparison.
 The same results of three different ATmega168A processors are shown in figure~\ref{fig:mega168Aall} and
 three different ATmega168PA processors are shown in figure~\ref{fig:mega168PAall}.
+The results of three ATmega328 are additianally shown in figure~\ref{fig:mega328all} and the results from three
+ATmega328P are shown in figure~\ref{fig:mega328Pall}.
 At this only the zero value of the capacity measurement of 39pF is respected, all other facility to correct the results are
 not used.
 This zero value includes the 2-3pF, which are caused by the 12 cm long cable with the clips.
@@ -204,6 +206,20 @@ The board layout can cause a different zero value, I have fixed this zero value 
 \input{../GNU/Mega168PAall}
 \caption{capacity measurement error of three ATmega168PA, not calibrated}
 \label{fig:mega168PAall}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328all}
+\caption{capacity measurement error of three ATmega328, not calibrated}
+\label{fig:mega328all}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328Pall}
+\caption{capacity measurement error of three ATmega328P, not calibrated}
+\label{fig:mega328Pall}
 \end{figure}
 
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.
@@ -263,7 +279,8 @@ The value of this capacitor can be up to \(22 \mu F\), but you don't need to kno
 \label{fig:CompAdjust}
 \end{figure}
 
-The figures~\ref{fig:mega168cal}, \ref{fig:mega168Acal} and \ref{fig:mega168PAcal} shows the measurement results
+The figures~\ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal}, \ref{fig:mega328cal} and \ref{fig:mega328Pcal}
+ shows the measurement results
 of the different processors with a standard software after the auto calibration.
 The flash of the processors was loaded with the same software, only for the ATmega168PA the Makefile must be
 adapted with ''PARTNO = m168p''.
@@ -289,6 +306,20 @@ during test No.~10 to Pin~1 and Pin~3.
 \input{../GNU/Mega168PAcal}
 \caption{capacity measurement error of three ATmega168PA, calibrated}
 \label{fig:mega168PAcal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328cal}
+\caption{capacity measurement error of three ATmega328, calibrated}
+\label{fig:mega328cal}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega328Pcal}
+\caption{capacity measurement error of three ATmega328P, calibrated}
+\label{fig:mega328Pcal}
 \end{figure}
 
 
