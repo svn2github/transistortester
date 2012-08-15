@@ -30,7 +30,7 @@ Nach diesem Strompuls wird die Spannung am Kondensator stromlos gemessen.
 Wenn die Spannung noch nicht den Minimalwert von 300mV erreicht hat, wird der 10 ms Ladepuls bis zu 499 Mal wiederholt.
 Wenn nach 127 Pulsen (ungef\"ahr 2s) noch nicht eine Minimalspannung von 75mV erreicht ist, wird der Ladevorgang abgebrochen,
  weil die 300mV mit den verbleibenden Ladepulsen nie erreicht werden kann.
-Abbildung~\ref{fig:bigcap} zeigt die drei Phasen der Kapazit\"atsbestimmung eines Kondensators.
+Abbildung~\ref{fig:bigcap1} zeigt die drei Phasen der Kapazit\"atsbestimmung eines Kondensators.
 Der Kapazit\"atswert wird dann berechnet aus der Ladepuls-Anzahl und der erreichten Ladespannung \"uber eine Tabelle.
 Die Tabelle enth\"alt mit einem Spannungsabstand von 25mV die Faktoren, um aus der Ladezeit und der Spannung 
 den Kapazit\"atswert zu bestimmen. 
@@ -40,8 +40,9 @@ Zwischenwerte der Spannung werden interpoliert.
 \centering
 \includegraphics[]{../FIG/Bigcap.eps}
 \caption{Kondensator Entladung und Ladung mit 10ms Ladepulsen bis Spannung \textgreater 300mV}
-\label{fig:bigcap}
+\label{fig:bigcap1}
 \end{figure}
+
 Wegen der niedrigen Ladespannung wird die Messung viel schneller als bei der urspr\"unglichen Softwareversion,
 weil dieser Vorteil auch bei der Entladung wirkt. So k\"onnen auch gr\"o"sere Kondensatoren gemessen werden.
 Zus\"atzlich st\"ort in den meisten F\"allen eine parallel geschaltete Diode nicht die Messung, weil die Schwellspannung
@@ -187,17 +188,20 @@ Klemmen verursacht werden.
 Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich mit der Board Version ,,DG2BRS V 5.2.1'' ermittelt.
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega168all}
-\caption{Kondensator-Messfehler von drei ATmega168, unkalibriert}
-\label{fig:mega168all}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega168Aall}
-\caption{Kondensator-Messfehler von drei ATmega168A, unkalibriert}
-\label{fig:mega168Aall}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168all}}
+    \caption{drei ATmega168}
+    \label{fig:mega168all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168Aall}}
+    \caption{drei ATmega168A}
+    \label{fig:mega168Aall}
+  \end{subfigure}
+  \caption{Kondensator-Messfehler, unkalibriert}
 \end{figure}
 
 \begin{figure}[H]
@@ -208,17 +212,20 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega328all}
-\caption{Kondensator-Messfehler von drei ATmega328, unkalibriert}
-\label{fig:mega328all}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega328Pall}
-\caption{Kondensator-Messfehler von drei ATmega328P, unkalibriert}
-\label{fig:mega328Pall}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328all}}
+    \caption{drei ATmega328}
+    \label{fig:mega328all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328Pall}}
+    \caption{drei ATmega328P}
+    \label{fig:mega328Pall}
+  \end{subfigure}
+  \caption{Kondensator-Messfehler, unkalibriert}
 \end{figure}
 
 Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
@@ -287,17 +294,20 @@ Makefile wegen ,,PARTNO = m168p'' angepa"st werden. Nach der Programmierung wurd
 Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega168cal}
-\caption{Kondensator-Messfehler von drei ATmega168, kalibriert}
-\label{fig:mega168cal}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega168Acal}
-\caption{Kondensator-Messfehler von drei ATmega168A, kalibriert}
-\label{fig:mega168Acal}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168cal}}
+    \caption{drei ATmega168}
+    \label{fig:mega168cal}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168Acal}}
+    \caption{drei ATmega168A}
+    \label{fig:mega168Acal}
+  \end{subfigure}
+  \caption{Kondensator-Messfehler, kalibriert}
 \end{figure}
 
 \begin{figure}[H]
@@ -308,16 +318,20 @@ Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und 
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega328cal}
-\caption{Kondensator-Messfehler von drei ATmega328, kalibriert}
-\label{fig:mega328cal}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328cal}}
+    \caption{drei ATmega328}
+    \label{fig:mega328cal}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328Pcal}}
+    \caption{drei ATmega328P}
+    \label{fig:mega328Pcal}
+  \end{subfigure}
+  \caption{Kondensator-Messfehler, kalibriert}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega328Pcal}
-\caption{Kondensator-Messfehler von drei ATmega328P, kalibriert}
-\label{fig:mega328Pcal}
-\end{figure}
 

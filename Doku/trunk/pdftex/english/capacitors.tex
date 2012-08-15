@@ -188,17 +188,20 @@ This zero value includes the 2-3pF, which are caused by the 12 cm long cable wit
 The board layout can cause a different zero value, I have fixed this zero value with the board ''DG2BRS V 5.2.1''.
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega168all}
-\caption{capacity measurement error of three ATmega168, not calibrated}
-\label{fig:mega168all}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega168Aall}
-\caption{capacity measurement error of three ATmega168A, not calibrated}
-\label{fig:mega168Aall}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168all}}
+    \caption{three ATmega168}
+    \label{fig:mega168all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168Aall}}
+    \caption{three ATmega168A}
+    \label{fig:mega168Aall}
+  \end{subfigure}
+\caption{capacity measurement error, not calibrated}
 \end{figure}
 
 \begin{figure}[H]
@@ -209,17 +212,20 @@ The board layout can cause a different zero value, I have fixed this zero value 
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega328all}
-\caption{capacity measurement error of three ATmega328, not calibrated}
-\label{fig:mega328all}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega328Pall}
-\caption{capacity measurement error of three ATmega328P, not calibrated}
-\label{fig:mega328Pall}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328all}}
+    \caption{three ATmega328}
+    \label{fig:mega328all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328Pall}}
+    \caption{three ATmega328P}
+    \label{fig:mega328Pall}
+  \end{subfigure}
+\caption{capacity measurement error, not calibrated}
 \end{figure}
 
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.
@@ -288,17 +294,20 @@ After loading the data the selftest was started for each ATmega and a capacitor 
 during test No.~10 to Pin~1 and Pin~3.
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega168cal}
-\caption{capacity measurement error of three ATmega168, calibrated}
-\label{fig:mega168cal}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega168Acal}
-\caption{capacity measurement error of three ATmega168A, calibrated}
-\label{fig:mega168Acal}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168cal}}
+    \caption{three ATmega168}
+    \label{fig:mega168cal}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega168Acal}}
+    \caption{three ATmega168A}
+    \label{fig:mega168Acal}
+  \end{subfigure}
+  \caption{capacity measurement error, calibrated}
 \end{figure}
 
 \begin{figure}[H]
@@ -309,17 +318,19 @@ during test No.~10 to Pin~1 and Pin~3.
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\input{../GNU/Mega328cal}
-\caption{capacity measurement error of three ATmega328, calibrated}
-\label{fig:mega328cal}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328cal}}
+    \caption{three ATmega328}
+    \label{fig:mega328cal}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega328Pcal}}
+    \caption{three ATmega328P}
+    \label{fig:mega328Pcal}
+  \end{subfigure}
+  \caption{capacity measurement error, calibrated}
 \end{figure}
-
-\begin{figure}[H]
-\centering
-\input{../GNU/Mega328Pcal}
-\caption{capacity measurement error of three ATmega328P, calibrated}
-\label{fig:mega328Pcal}
-\end{figure}
-
 

@@ -83,33 +83,33 @@ set ylabel "reference voltage / mV"
 set key inside right top vertical Right noreverse enhanced autotitles nobox
 set output "../GNU/SelfTref.eps"
 set yrange [ 1050 : 1110 ] noreverse nowriteback 
-plot "../GNU/selftest.dat" u 1 ls 4 title "Reference"
+plot "../GNU/selftest.dat" u 1:2 ls 4 title "Reference"
 set output
 set ylabel "voltage / mV"
 set output "../GNU/SelfTMitL.eps"
 set yrange [ 2480 : 2505 ] noreverse nowriteback 
-plot "../GNU/selftest.dat" u 2 ls 4 title "RLmiddle12", "../GNU/selftest.dat" u 3 ls 2 title "RLmiddle13", "../GNU/selftest.dat" u 4 ls 3 title "RLmiddle23"
+plot "../GNU/selftest.dat" u 1:3 ls 4 title "RLmiddle12", "../GNU/selftest.dat" u 1:4 ls 2 title "RLmiddle13", "../GNU/selftest.dat" u 1:5 ls 3 title "RLmiddle23"
 set output
 set output "../GNU/SelfTMitH.eps"
 set yrange [ 2480 : 2505 ] noreverse nowriteback 
-plot "../GNU/selftest.dat" u 5 ls 4 title "RHmiddle12", "../GNU/selftest.dat" u 6 ls 2 title "RHmiddle13", "../GNU/selftest.dat" u 7 ls 3 title "RHmiddle23"
+plot "../GNU/selftest.dat" u 1:6 ls 4 title "RHmiddle12", "../GNU/selftest.dat" u 1:7 ls 2 title "RHmiddle13", "../GNU/selftest.dat" u 1:8 ls 3 title "RHmiddle23"
 set output
 set output "../GNU/SelfTbottomH.eps"
 set yrange [ 0 : 5 ] noreverse nowriteback 
-plot "../GNU/selftest.dat" u 8 ls 4 title "RHbottom1", "../GNU/selftest.dat" u 9 ls 2 title "RHbottom2", "../GNU/selftest.dat" u 10 ls 3 title "RHbottom3"
+plot "../GNU/selftest.dat" u 1:9 ls 4 title "RHbottom1", "../GNU/selftest.dat" u 1:10 ls 2 title "RHbottom2", "../GNU/selftest.dat" u 1:11 ls 3 title "RHbottom3"
 set output
 set autoscale y
 set output "../GNU/SelfTtopH.eps"
-plot "../GNU/selftest.dat" u 11 ls 4 title "RHtop1", "../GNU/selftest.dat" u 12 ls 2 title "RHtop2", "../GNU/selftest.dat" u 13 ls 3 title "RHtop3"
+plot "../GNU/selftest.dat" u 1:12 ls 4 title "RHtop1", "../GNU/selftest.dat" u 1:13 ls 2 title "RHtop2", "../GNU/selftest.dat" u 1:14 ls 3 title "RHtop3"
 set output
 set output "../GNU/SelfTRiLo.eps"
-plot "../GNU/selftest.dat" u 14 ls 4 title "RiLo1", "../GNU/selftest.dat" u 15 ls 2 title "RiLo2", "../GNU/selftest.dat" u 16 ls 3 title "RiLo3"
+plot "../GNU/selftest.dat" u 1:15 ls 4 title "RiLo1", "../GNU/selftest.dat" u 1:16 ls 2 title "RiLo2", "../GNU/selftest.dat" u 1:17 ls 3 title "RiLo3"
 set output
 set output "../GNU/SelfTRiHi.eps"
-plot "../GNU/selftest.dat" u 17 ls 4 title "RiHi1", "../GNU/selftest.dat" u 18 ls 2 title "RiHi2", "../GNU/selftest.dat" u 19 ls 3 title "RiHi3"
+plot "../GNU/selftest.dat" u 1:18 ls 4 title "RiHi1", "../GNU/selftest.dat" u 1:19 ls 2 title "RiHi2", "../GNU/selftest.dat" u 1:20 ls 3 title "RiHi3"
 set output
 set ylabel "Capacity / pF"
 set output "../GNU/SelfTcap0.eps"
-plot "../GNU/selftest.dat" u 20 ls 4 title "CNULL1", "../GNU/selftest.dat" u 21 ls 2 title "CNULL2", "../GNU/selftest.dat" u 22 ls 3 title "CNULL3"
+plot "../GNU/selftest.dat" u 1:21 ls 4 title "CNULL1", "../GNU/selftest.dat" u 1:22 ls 2 title "CNULL2", "../GNU/selftest.dat" u 1:23 ls 3 title "CNULL3"
 set output
 #    EOF
