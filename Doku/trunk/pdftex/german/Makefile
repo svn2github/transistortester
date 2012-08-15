@@ -1,6 +1,6 @@
 LISTE = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/rmess.eps
 LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
-LISTE += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps
+LISTE += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
@@ -31,6 +31,8 @@ all: $(LISTE) ttester.pdf
 	gnuplot ../GNU/comparator_diff.gnu
 ../GNU/SelfTref.eps: ../GNU/selftest.gnu ../GNU/selftest.dat
 	gnuplot ../GNU/selftest.gnu
+../GNU/MegaAuto.eps: ../GNU/capmessAUTO.gnu ../GNU/capmessAUTO.dat
+	gnuplot ../GNU/capmessAUTO.gnu
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps ../FIG/Messung.fig
 ../FIG/port.eps: ../FIG/port.fig

@@ -10,7 +10,7 @@ Normally the polarity of part is irrelevant, you can also connect pins of electr
 The measurement of capacity is normally done in a way, that the minus pole is at the test port with the lower number.
 But, because the measurment voltage is only between 0.3 V and at most 1.3 V, the polarity doesn\'t matter.
 When the part is connected, you should not touch it during the measurement. You should put it down to a nonconducting pad
-if it not placed in a socket. You should also not touch to the isolation of wires connected with the test ports,
+if it is not placed in a socket. You should also not touch to the isolation of wires connected with the test ports,
 the measurement results can be affected.
 Then you should press the start button.
 After displaying a start message, the measurement result should appear after two seconds.
@@ -49,6 +49,7 @@ In this case all of the documented tests in the Selftest chapter \ref{sec:selfte
 The repetition of the tests can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
 If the function AUTO\_CAL is selected in the Makefile, there will be calibrated the zero offset for the capacity measurement
-and the internal resistance of the port output. But for this feature the tests must be repeated all eight times for
-building the mean values.
+and the internal resistance of the port output. But for this feature the tests must be repeated the full eight times for
+building the mean values. If you connect a capcitor with at least \(100 nF\) to pin~1 and pin~3, the offset voltage
+of the analog comparator will be compensated for better measurement of capacity values.
 

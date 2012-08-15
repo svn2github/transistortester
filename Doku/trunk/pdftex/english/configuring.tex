@@ -17,6 +17,9 @@ If you alter the Makefile, all the software will be compiled new, if you call a 
 ``make upload'' command. The software compiled for a ATmega8 does not run on a ATmega88.
 The software compiled for a ATmega168 does not run on the ATmega88, even if the ATmega88 has enough flash memory! 
 Be careful, if you don't use my Makefile.
+With the correct options set, my software runs on the unchanged hardware of Markus F
+(PARTNO=M8, NO option NO\_AREF\_CAP and NO PULLUP\_DISABLE option).
+The clock rate can also be set to 8 MHz with fuses, no crystal is required!
 
 
 The following options in the Makefile are avaiable to configure the software for your Tester.
@@ -42,7 +45,7 @@ example: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
 to the EEprom with the selftest routine. They will be used for further measurements automatically.\\
 example: CFLAGS += -DAUTO\_CAL
-  \item[FREQUENCY\_50HZ] At the end of selftest a 50 Hz Signal will be generated on Port 2 and Port 3 for up to one minute.\\
+  \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
 example: CFLAGS += -DFREQUENCY\_50HZ
   \item[R\_MESS] enables the resistor measurement. This option should allways be set.\\
 example: CFLAGS += -DR\_MESS
@@ -59,7 +62,9 @@ This can be used to adjust the capacity measurement of little capacitors.
 A correction value of 10 results to about 1~percent lower measurement results.\\
 example:  CFLAGS += -DREF\_C\_KORR=14
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
-A value of 10 results to 1~percent lower measurement results.\\
+A value of 10 results to 1~percent lower measurement results.
+If the option AUTO\_CAL is selected together with the WITH\_SELFTEST option, the REF\_C\_KORR will be
+a offset to the measured voltage difference of the test capacitor and the internal reference voltage.\\
 example:  CFLAGS += -DREF\_C\_KORR=10
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
@@ -103,7 +108,9 @@ Only if any sequence is interrupted by the other type, measurement continues.
 The result of measurement stay on the display for 10~seconds for the single measurement, for the
 multiple measurement version display time is reduced to 3~seconds (set in config.h).
 If the start key is pressed a longer time on power on time, the display time is also 10~seconds for the multiple measurement.
-The maximum value is 255 (CFLAGS += -DPOWER\_OFF=255).
+The maximum value is 255 (CFLAGS += -DPOWER\_OFF=255).\\
+example 1: CFLAGS += -DPOWER\_OFF=5\\
+example 2: CFLAGS += -DPOWER\_OFF
   \item[BAT\_CHECK] enables the Battery Voltage Check. If you don't select this option, the version number of
 software is output to the LCD instead.
 This option is usefull for battery powered tester version to remember for the battery change.\\
@@ -113,7 +120,8 @@ example: CFLAGS += -DBAT\_CHECK
 to adjust the output value.
 Also the voltage loss of transistor T3 can be respected with this option.
  threshold level does not affect the voltage checking levels (BAT\_POOR).\\
-examples: CFLAGS += -DBAT\_OUT=300  or CFLAGS += -DBAT\_OUT
+example 1: CFLAGS += -DBAT\_OUT=300\\
+example 2: CFLAGS += -DBAT\_OUT
   \item[BAT\_POOR] sets the poor level of battery voltage to the specified 100mV (1/10 Volt) value.
 The warning level of battery voltage is always 1V higher than the specified poor level.
 Setting the poor level to low values such as 5.4V is not recommended for rechargeable 9V batteries,

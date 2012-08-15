@@ -287,7 +287,7 @@ braucht aber f\"ur diesen Abgleich nicht genau bekannt zu sein.
 \end{figure}
 
 Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal},  \ref{fig:mega328cal} und
-\ref{fig:mega328Pcal} zeigen die Meßergebnisse
+\ref{fig:mega328Pcal} zeigen die Me"sergebnisse
 der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
 Die Prozessoren wurden alle mit der selben Software programmiert, lediglich f\"ur die ATmega168PA mu"ste die
 Makefile wegen ,,PARTNO = m168p'' angepa"st werden. Nach der Programmierung wurde bei jedem ATmega ein
@@ -334,4 +334,19 @@ Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und 
   \caption{Kondensator-Messfehler, kalibriert}
 \end{figure}
 
+Zuletzt will ich die Wirkung der AUTO\_CAL Option im Selbstest noch einmal verdeutlichen.
+Die folgende Diagramm \ref{fig:MegaAuto}zeigt die Ergebnisse von drei ATmega Prozessoren 
+mit der gr\"o"sten Me"sabweichung noch einmal vor und nach der Kalibration.
+Die Punkte mit der Endung ,,unc'' zeigen die Me"sabweichungen ohne Kalibration.
+Die Linien mit der Endung ,,cal'' zeigen die Me"sabweichungen der gleichen Prozessoren
+mit der gleichen Software nach der Kalibration im Selbsttest-Zweig.
+Die Ursache der Me"sabweichungen f\"ur gro"se Kondensatoren (\( \textgreater 40 \mu F\)) ist
+noch nicht bekannt. Alle verwendeten Kondensatoren f\"ur diese Me"sreihe waren
+Folien Kondensatoren oder keramische Kondensatoren (\(56 pF, 100 pF und 3,3 nF\)), keine Elko's.
 
+\begin{figure}[H]
+\centering
+\input{../GNU/MegaAuto}
+\caption{Kondensator-Messfehler von drei ATmega, vor und nach der Kalibration}
+\label{fig:MegaAuto}
+\end{figure}

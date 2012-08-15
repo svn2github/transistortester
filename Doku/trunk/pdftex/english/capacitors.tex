@@ -273,7 +273,7 @@ It is noticeable, how the ''CapErr'' points will follow the ''diff2ref'' points.
 Therefore the ''diff'' points show the difference between the particular ''CapErr'' and ''diff2ref'' points.
 With a mean value of the ''diff'' points we can get a good estimation for the correction of the capacitor measurements 
 together with the difference voltage of the loaded capacitor and the internal reference.
-For the second part of adjustment you must connect a capacitor to Pin 1 and Pin 3. This capacitor should have
+For the second part of adjustment you must connect a capacitor to pin~1 and pin~3. This capacitor should have
 a good quality factor and should have a capacity of at least \(100 nF\).
 It should be a film capacitor, as far as possible not a ceramic capacitor und in no case a electrolytic capacitor.
 The value of this capacitor can be up to \(22 \mu F\), but you don't need to know the exact value.
@@ -291,7 +291,7 @@ of the different processors with a standard software after the auto calibration.
 The flash of the processors was loaded with the same software, only for the ATmega168PA the Makefile must be
 adapted with ''PARTNO = m168p''.
 After loading the data the selftest was started for each ATmega and a capacitor with \(330 nF\) was connected
-during test No.~10 to Pin~1 and Pin~3.
+during test No.~10 to pin~1 and pin~3.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -332,5 +332,23 @@ during test No.~10 to Pin~1 and Pin~3.
     \label{fig:mega328Pcal}
   \end{subfigure}
   \caption{capacity measurement error, calibrated}
+\end{figure}
+
+At last I will make more clear the effect of the AUTO\_CAL option in the selftest program.
+The following figure~\ref{fig:MegaAuto} shows the results from the three ATmega processors
+with the biggest error of measurement, one measurement before the calibration and another
+measurement after the calibration.
+The points marked with the ending ''unc'' shows the the errors without calibration.
+The lines with the ending ''cal'' shows the error results of the {\bf same processors} 
+with the {\bf same software} after the calibration in the selftest section.
+The reason for the measurement errors for big capacitors (\( \textgreater 40 \mu F\)) is
+not yet known. All used capacitors for this series of measurements are film capacitors or
+ceramic capacitors (\(56 pF, 100 pF and 3.3 nF\)), no electrolytical capacitors are used.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/MegaAuto}
+\caption{Error of capacitor measurement of three ATmega, before and after the calibration}
+\label{fig:MegaAuto}
 \end{figure}
 

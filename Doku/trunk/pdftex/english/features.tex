@@ -83,7 +83,9 @@ In this case you must subtract the capacity value of the parallel connected part
 \item Software can be configured to enable series of measurements before power will be shut down.
 \item Build in selftest function with 50Hz Frequency generator to check the accuracy of clock frequency and wait calls.
 \item Selectable facility for ATmega168 or ATmega328, to calibrate the zero offset of capacity measurement and the
-internal port resistance of port output with the selftest.
+internal port resistance of port output with the selftest. A external capacitor with at least \(100 nF\) 
+between pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
+This can reduce measurement errors of capacitors of up to \(40 \mu F\).
 \end{enumerate}
 
 Thyristors and Triacs can only be detected, if the test current is above the holding current.

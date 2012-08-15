@@ -25,8 +25,8 @@ unset style line
 unset style arrow
 set style histogram clustered gap 2 title  offset character 0, 0, 0
 set offsets 0, 0, 0, 0
-set pointsize 2
-set pointintervalbox 2
+set pointsize 3
+set pointintervalbox 3
 set encoding default
 unset polar
 unset parametric
@@ -75,6 +75,7 @@ set style data points
 set style line 1  linetype 1 linewidth 3.000
 set style line 2  linetype 2 linewidth 3.000
 set style line 3  linetype 3 linewidth 3.000
+set style line 4  linetype 4 linewidth 3.000
 set xrange [ 0.00000 : 16.0000 ] noreverse nowriteback
 set xlabel "Processor number"
 set xtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
@@ -100,13 +101,19 @@ plot "../GNU/selftest.dat" u 1:9 ls 4 title "RHbottom1", "../GNU/selftest.dat" u
 set output
 set autoscale y
 set output "../GNU/SelfTtopH.eps"
+set ylabel "voltage / mV"
 plot "../GNU/selftest.dat" u 1:12 ls 4 title "RHtop1", "../GNU/selftest.dat" u 1:13 ls 2 title "RHtop2", "../GNU/selftest.dat" u 1:14 ls 3 title "RHtop3"
 set output
+set ylabel "resistance / Ohm"
 set output "../GNU/SelfTRiLo.eps"
-plot "../GNU/selftest.dat" u 1:15 ls 4 title "RiLo1", "../GNU/selftest.dat" u 1:16 ls 2 title "RiLo2", "../GNU/selftest.dat" u 1:17 ls 3 title "RiLo3"
+plot "../GNU/selftest.dat" u 1:(($15*680)/(5001 - $15 - $18)) ls 4 title "RiLo1", \
+     "../GNU/selftest.dat" u 1:(($16*680)/(5001 - $16 - $19)) ls 2 title "RiLo2", \
+     "../GNU/selftest.dat" u 1:(($17*680)/(5001 - $17 - $20)) ls 3 title "RiLo3"
 set output
 set output "../GNU/SelfTRiHi.eps"
-plot "../GNU/selftest.dat" u 1:18 ls 4 title "RiHi1", "../GNU/selftest.dat" u 1:19 ls 2 title "RiHi2", "../GNU/selftest.dat" u 1:20 ls 3 title "RiHi3"
+plot "../GNU/selftest.dat" u 1:(($18*680)/(5001 - $15 - $18)) ls 4 title "RiHi1", \
+     "../GNU/selftest.dat" u 1:(($19*680)/(5001 - $16 - $19)) ls 2 title "RiHi2", \
+     "../GNU/selftest.dat" u 1:(($20*680)/(5001 - $17 - $20)) ls 3 title "RiHi3"
 set output
 set ylabel "Capacity / pF"
 set output "../GNU/SelfTcap0.eps"
