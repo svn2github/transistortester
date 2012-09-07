@@ -43,7 +43,10 @@ example: CFLAGS += -DLCD\_CYRILLIC
 Selftest will be started, if you connect all three probes together and start measurement.\\
 example: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
-to the EEprom with the selftest routine. They will be used for further measurements automatically.\\
+to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
+voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
+capacitor with alt least \(100 nF\) to pin 1 and pin 3 in the test No. 10. 
+All found values will be written to EEprom and will be used for further measurements automatically.\\
 example: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
 example: CFLAGS += -DFREQUENCY\_50HZ
@@ -77,7 +80,9 @@ As you can see the switching from 5V to 1.1V is much slower than switching back 
 have still installed the 100nF, switching time will be about factor 100 longer!\\
 example: CFLAGS += -DNO\_AREF\_CAP
   \item[REF\_R\_KORR] specifies a offset for the internal ADC-reference voltage in mV units.
-With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.\\
+With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.
+If you select the AUTO\_CAL option of the selftest section, this value is a offset to the found voltage 
+difference in the AUTO\_CAL function.\\
 example: CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] tells your software at which Clock Frequency in MHz your Tester will operate.
 The software is tested only for 1 MHz, 8MHz and additionally 16MHz. The 8MHz operation is recommended for better resolution of capacity measurement.\\
@@ -90,9 +95,10 @@ example: CFLAGS += -DUSE\_EEPROM
 This option prevents a possible influence of pull-up resistors at the measuring ports (Port B and Port C).\\
 example: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] this option specifies, how often an ADC value is read and accumulated.
-Possible values for 5V Operation are 44, 22 and 11. The 44 gives best accuracy, but the longest measurement time.
+You can select any value between 5 and 200 for building mean value of one ADC measurement.
+Higher values result to better accuracy, but  longer measurement time.
 One ADC measurement with 44~values takes about 4.7ms.\\
-example: CFLAGS += -DANZ\_MESS=44
+example: CFLAGS += -DANZ\_MESS=25
   \item[POWER\_OFF] This option enables the automatic power off function. If you don't specify this option,
  measurements are done in a loop infinitely  until power is disconnected with a ON/OFF switch.
 If you have the tester without the power off transistors, you can deselect the option POWER\_OFF.

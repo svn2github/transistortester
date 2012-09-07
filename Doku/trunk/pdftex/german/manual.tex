@@ -50,5 +50,10 @@ Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests aus
 kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
 sich durch Loslassen des Starttasters interessante Tests achtmal wiederholen lassen.
 Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest eine Kalibration der Nullwertes f\"ur die
-Kondensatormessung und eine Kalibration des Innenwiderstandes der Port-Ausg\"ange durchgef\"uhrt. Hierf\"ur m\"ussen aber alle
-acht Testwiederholungen durchgef\"uhrt werden, um die Mittelwerte zu bilden.
+Kondensatormessung, eine Kalibration des Spannungsoffsets f\"ur die AUTOSCALE\_ADC Funktion  und 
+eine Kalibration des Innenwiderstandes der Port-Ausg\"ange durchgef\"uhrt.
+Hierf\"ur m\"ussen aber alle acht Testwiederholungen durchgef\"uhrt werden, um die Mittelwerte zu bilden.
+Wenn Sie einen Kondenstor mit wenigstens \(100 nF\) an Pin~1 und Pin~3 w\"ahrend der Test Nummer 10 anschlie"sen,
+wird die Offset Spoannung des analogen Komparators kompensiert, um bessere Kapazit"atswerte messen zu k\"onnen.
+Die Verst\"arkung f\"ur ADC Messungen mit der internen Referenz-Spannung wird ebenfalls abgeglichen, um
+bessere Widerstands-Me"sergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.

@@ -22,7 +22,7 @@ Aber wenn man den Start Taster gedr\"uckt h\"alt, wenn ein Durchlauf beendet wir
 mehr wiederholt.
 Wenn man den Taster w\"ahrend dem gesamten Selbsttest gedr\"uckt h\"alt, wird jeder Schritt nur einmal ausgef\"uhrt.
 
-In jedem Schritt werden nur Me"sergebnisse dargestellt, es wird keine Fehleranalyse durchgef\"uhrt.
+Ohne die AUTO\_CAL Option werden in jedem Schritt nur Me"sergebnisse dargestellt, es wird keine Fehleranalyse durchgef\"uhrt.
 Man  mu"s die Ergebnisse selbst interpretieren.
 An dieser Stelle m\"ochte ich noch einen wichtigen Hinweis geben. F\"uhren Sie niemals Messungen mit
 eingestecktem ISP-Stecker durch!
@@ -41,17 +41,17 @@ Die zweite Zeile zeigt den resultierenden Faktor f\"ur die Kapazit\"ats-Messung 
 In Zeile~1 wird der kryptische Text  ,,+RL- 12 13 23'' angezeigt. Das bedeutet das folgende:
 Das RL ist eine Kurzform f\"ur Resistor Low, was die \(680\Omega\) Widerst\"ande meint. Die ,,12'' steht f\"ur: 
 Widerstand am Pin~1 ist verbunden mit VCC (+) und Widerstand am Pin~2 ist verbunden mit GND (-). 
-Das Ergebnis dieser Messung steht in Zeile~2 an erster Stelle.
+Das Ergebnis dieser Messung steht in Zeile~2 an erster Stelle als Differenz zum theoretischen Wert.
  In Zeile~1 folgt nun ,,13'', was bedeutet, da"s der Widerstand von Pin~1 wieder nach VCC verbunden ist,
 aber da"s jetzt der \(680\Omega\) Widerstand von Pin~3  mit GND verbunden ist.
-Das Ergebnis steht in Zeile 2 an der mittleren Stelle.
+Das Ergebnis steht in Zeile 2 an der mittleren Stelle als Differenz zum theoretischen Wert.
 
 Die letzte Messung dieses Tests ,,23'' bedeutet, da"s nun der Widerstand von Pin~2 mit VCC verbunden ist und
 der Widerstand von Pin~3 mit GND verbunden ist.
-Das Ergebnis steht in der zweiten LCD-Zeile an letzter Stelle.
+Das Ergebnis steht in der zweiten LCD-Zeile an letzter Stelle als Differenz zum theoretischen Wert.
 Ich m\"ochte daran erinnern, da"s die Aufl\"osung des ADC etwa 4,88mV betr\"agt!
 Die Me"ssituation wird auch in Abbildung~\ref{fig:test2} dargestellt.
-Alle diese Kombinationen sollten im Hinblick auf die internen Port-Widerst\"ande folgendes ergeben:
+Der theoretische Wert ergibt sich im Hinblick auf die internen Port-Widerst\"ande wie folgt:
 \(\frac{5001 \cdot  (19+680)}{ (19+680+680+22)} = 2493\) .
 
 \begin{figure}[H]
@@ -64,7 +64,7 @@ Alle diese Kombinationen sollten im Hinblick auf die internen Port-Widerst\"ande
 \item {\bf Vergleich der \(470k\Omega\) Widerst\"ande.}
 Jetzt zeigt das Display in Zeile 1 ,,+RH- 12 13 23''. Das gleiche Verfahren wie in Schritt wird wiederholt mit den
  \(470k\Omega\) Widerst\"anden (Symbol RH).
-Die Ergebnisse sollten nahe bei \(\frac{5001 \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} = 2500\) f\"ur alle Kombinationen sein.
+Die Ergebnisse werden als Differenz zu  \(\frac{VCC \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} \) f\"ur alle Kombinationen dargestellt.
 \item In diesem Schritt wird nichts gemessen, es erfolgt lediglich die {\bf Anweisung ,,isolate Probe''},
 was bedeutet, da"s es nun Zeit ist die Klemmen zu trennen (vom blanken Draht l\"osen).
 \item Dieser Schritt testet die {\bf F\"ahigkeit von mit GND (-) verbundenen \(470k\Omega\) Widerst\"anden (H) die Testpins auf GND zu ziehen.}
@@ -72,11 +72,11 @@ Zeile 1 zeigt den Text ,,RH-''.
 Zeile 2 sollte f\"ur alle drei Pinne  Null mV anzeigen.
 \item Dieser Schritt testet die {\bf F\"ahigkeit von mit VCC (+) verbundenen \(470k\Omega\) Widerst\"anden (H) die Testpins auf VCC zu ziehen.}
 Zeile 1 zeigt den Text ,,RH+''.
-Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 5001 in Zeile~2.
+Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 0 in Zeile~2, da die Diffenz zu VCC dargestellt wird.
  Gro"se Abweichungen vom Idealwert f\"ur Schritt 5 und 6 sind Fehler wie Isolations Problem, Flu"smittelreste oder besch\"adigter Port.
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
 Der Text in der ersten Zeile des LCD ist ,,Ri\_Lo = (mV)''.
-In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt.
+In der zweiten Zeile des LCDs werden drei Spannungswerte als Differenz zum theoretischen Wert angezeigt.
 Die internen Port C Widerst\"ande von auf GND (-) geschalteten Ausg\"angen werden mit dem Strom
 der nach VCC (+) geschalteten \(680\Omega\) Widerst\"ande gemessen, siehe Abbildung~\ref{fig:test7}.
 Es werden nur die drei Pinne des ADC Ports vermessen, die Widerstands-Ports  PB0, PB2 und PB4 k\"onnen nicht
@@ -119,7 +119,7 @@ F\"ur die Ausgabe dieses Tests ist keine Korrektur ber\"ucksichtigt, es wird auc
 Wenn die AUTO\_CAL Option gew\"ahlt wurde und der Test achtmal wiederholt wurde, wird der Mittelwert
 der gefundenen Nulloffsets im EEprom festgehalten, wenn der Null Offset kleiner als 70pF ist.
 Der gefundene Null Offset wird f\"ur die weiteren Kapazit\"ats-Messungen Pin abh\"angig ber\"ucksichtigt.
-Angezeigt wird das durch die Ausgabe ,,EE0''  in Zeile 1, wobei die Zeile 2 die gespeicherten Null Offsets f\"ur
+Angezeigt wird das durch die Ausgabe ,,C0''  in Zeile 1, wobei die Zeile 2 die gespeicherten Null Offsets f\"ur
 die Pin-Kombinationen 1:3, 2:3 und 1:2 anzeigt.
 Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnvoll machen.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
@@ -138,6 +138,10 @@ Um den Offset des analogen Komparators zu bestimmen, mu"s ein Kondensator an Pin
 Der Kondensator wird f\"ur die Pufferung der Ladespannung bei der Kondensatormessung ben\"otigt, um den Unterschied der 
 Ladespannung zur internen Referenzspannung bestimmen zu k\"onnen.
 Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 2 mit dem Text ,,REF\_C='' angezeigt und in den EEprom Speicher geschrieben.
+Wenn Sie die AUTOSCALE\_ADC Option gew\"ahlt haben, wird die Verst\"arkung der ADC Lesefunktion mit der
+internen Referenz Spannung abgeglichen durch den Vergleich der Kondensatorspannung unter 1 V einmal mit
+der VCC Referenz gemessen und einmal mit der internen Referenz gemessen.
+Der REF\_R\_KORR Wert ist dann nur ein Offset f\"r diese automatisch gefundene Differenz.
 
 \end{enumerate}
 
@@ -166,12 +170,12 @@ Test 1 & band gap Ref  1228 &  & \\
 Referenz  & RHfakt 756 &  &  \\
     \hline
 Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
-Vergleich \(680\Omega\) & 2489 & 2488 & 2488 \\
-bester Wert: 2493 & & & \\
+Vergleich \(680\Omega\) & -4 & -5 & -5 \\
+bester Wert: 0 & & & \\
     \hline
 Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
-Vergleich \(470k\Omega\) & 2493 & 2493 & 2493 \\
-bester Wert: 2500 & & & \\
+Vergleich \(470k\Omega\) & -7 & -7 & -7 \\
+bester Wert: 0 & & & \\
     \hline
 Test 4 & isolate probe & & \\
     \hline
@@ -180,8 +184,8 @@ Test 5 & RH1- &  RH2- & RH3- \\
 bester Wert: 0 & & & \\
     \hline
 Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & 4996 & 4995 & 4995 \\
-bester Wert: 5001 & & & \\
+\(470k\Omega\) isolation & -6 & -5 & -5 \\
+bester Wert: 0 & & & \\
     \hline
 Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
 Pin Widerstand Low & 132 & 132 & 137 \\
@@ -210,19 +214,21 @@ Test No. &  Me"styp    & Idealwert & Abbildung \\
     \hline
 Test 1 & band gap Ref  & 1100 & \ref{fig:SelfTref} \\
     \hline
-Test 2 & RL Mitte & 2493 & \ref{fig:SelfTMitL} \\
+Test 2 & RL Mitte & 0 & \ref{fig:SelfTMitL} \\
     \hline
-Test 3 & RH Mitte & 2500 & \ref{fig:SelfTMitH} \\
+Test 3 & RH Mitte & 0 & \ref{fig:SelfTMitH} \\
     \hline
 Test 5 & RH Low &  0 & \ref{fig:SelfTlowH} \\
     \hline
-Test 6 & RH High & 5001 & \ref{fig:SelfTtopH} \\
+Test 6 & RH High & 0 & \ref{fig:SelfTtopH} \\
     \hline
 Test 7 & R out Lo & 131 & \ref{fig:SelfTRoL} \\
     \hline
 Test 8 & R out Hi & 151 & \ref{fig:SelfTRoH} \\
     \hline
 Test 9 & Cap0  & 30 & \ref{fig:SelfTcap} \\
+    \hline
+Test 9 & Referenz Korrektur  & 0 & \ref{fig:SelfTrefKorr} \\
     \hline
     \end{tabular}
   \end{center}
@@ -251,7 +257,7 @@ Test 9 & Cap0  & 30 & \ref{fig:SelfTcap} \\
     \caption{mit \(470 k\Omega\)}
     \label{fig:SelfTMitH}
   \end{subfigure}
-  \caption{Selbsttest: Mittenspannung}
+  \caption{Selbsttest: Abweichung der Mittenspannung}
 \end{figure}
 
 \begin{figure}[H]
@@ -293,5 +299,26 @@ Test 9 & Cap0  & 30 & \ref{fig:SelfTcap} \\
   \resizebox{9cm}{!}{\input{../GNU/SelfTcap0}}
   \caption{Selbsttest: Nullwert der Kapazit\"atsmessung}
   \label{fig:SelfTcap}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{9cm}{!}{\input{../GNU/SelfTrefKorr}}
+  \caption{Selbsttest: Korrekturwerte nach automatischer Kalibration}
+  \label{fig:SelfTrefKorr}
+\end{figure}
+
+Zuletzt m\"ochte ich die Differenzen der am AREF Pin mit einem Multimeter
+gemessenen Spannungen und der intern mit dem ADC gemessenen Referenzspannungen der
+15 verschiedenen ATmega Prozessoren und die mit dem automatischen Abgleich
+gefundenen Korrekturspannung (REF\_R\_KORR) in Abbildung~\ref{fig:SelfTrefDiff} gegen\"uberstellen.
+Sie k\"onnen sehen, da"s die Werte der automatischen Kalibration nahezu den extern
+gemessenen Referenz-Spannungswerten folgen.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{9cm}{!}{\input{../GNU/SelfTrefDiff}}
+  \caption{Selbsttest: Spannungsdifferenz der internen Referenz}
+  \label{fig:SelfTrefDiff}
 \end{figure}
 

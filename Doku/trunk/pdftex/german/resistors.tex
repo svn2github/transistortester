@@ -159,3 +159,61 @@ Unterhalb von einem Widerstandswert von \(10\Omega\) macht ein Aufl\"osungs-Schr
 \caption{Relativer Fehler in \% f\"ur Widerstand-Messungen mit ATmega168 }
 \label{fig:mega168res}
 \end{figure}
+
+Das Diagramm \ref{fig:m168res_all} zeigt die Me"sfehler von drei ATmega168 Prozessoren vor der Kalibration als Punkte, nach der
+Kalibration als Linie. Entsprechend werden die Me"sfehler von drei ATmega168A Prozessoren in Abbildung \ref{fig:m168ares_all} und
+die Me"sfehler von drei ATmega328P Prozessoren in Abbildung \ref{fig:m168pres_all} gezeigt.
+Die Me"sfehler von ATmega328 Prozessoren werden in den Abbildungen \ref{fig:m328res_all} und \ref{fig:m328pres_all} gezeigt.
+Nach der automatischen Kalibration bleibt der Me"sfehler mit einer Ausnahme (ATmega328P-13, \(22 k\Omega\)) im Widerstandsbereich
+\(10~\Omega~-~20 M\Omega\) im Bereich \(\pm1~\%\).
+Vor der Kalibration k\"onnen die Me"sfehler bei einigen Prozessoren bis \(\pm~3\%\) betragen.
+Der Fehler wird verursacht durch die AUTOSCALE\_ADC Umschaltung der ADC-Referenz.
+Durch den direkten Vergleich einer Kondensatorspannung von unter 1~V, einmal mit der VCC Referenz und nochmal mit
+der internen ADC Referenz gemessen, kann der Fehler ausgeglichen werden.
+In diesem Fall wird die Spannung mit dem gleichen Multiplexor-Kanal gemessen und die Bandgap Referenz ist auf den AREF Pin
+aufgeschaltet.
+Die direkte Vermessung der Bandgap Referenz durch die direkte Wahl des Multiplexer-Eingangs f\"uhrt leider zu diesem Offset,
+der entweder manuell mit der REF\_R\_KORR Option oder automatisch mit der AUTO\_CAL Option des Selbsttestes beseitigt werden kann.
+Im AUTO\_CAL Modus ist REF\_R\_KORR ein zus\"atzlicher Offset zur automatisch gefundenen Spannungsdifferenz.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m168res_all}}
+    \caption{mit drei ATmega168}
+    \label{fig:m168res_all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m168ares_all}}
+    \caption{mit drei ATmega168A}
+    \label{fig:m168ares_all}
+  \end{subfigure}
+\caption{Relativer Fehler in \% f\"ur Widerstands-Messungen}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/m168pres_all}
+\caption{Relativer Fehler in \% f\"ur Widerstands-Messungen mit drei ATmega168P }
+\label{fig:m168pres_all}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m328res_all}}
+    \caption{mit drei ATmega328}
+    \label{fig:m328res_all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m328pres_all}}
+    \caption{mit drei ATmega328P}
+    \label{fig:m328pres_all}
+  \end{subfigure}
+\caption{Relativer Fehler in \% f\"ur Widerstands-Messungen}
+\end{figure}
+

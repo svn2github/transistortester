@@ -88,8 +88,11 @@ In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom 
 und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
 \item W\"ahlbare M\"oglichkeit f\"ur ATmega168 oder ATmega328, den Nullabgleich f\"ur die Kondensatormessung und die Innenwiderst\"ande f\"ur die
 Portausg\"ange beim Selbsttest automatisch zu bestimmen.
-Ein externer Kondensator mit wenigstens \(100 nF\) an Pin~1 und Pin~3 ist notwendig, um die Offset Spannung des analogen Komparators
-zu kompensieren. Dies kann den Me"sfehler bei Kapazit\"atsmessungen bis zu \(40 \mu F\) reduzieren.
+Ein externer Kondensator mit wenigstens \(100 nF\) an Pin~1 und Pin~3 ist notwendig, um die Offset Spannung des analogens
+Komparators zu kompensieren.
+Dies kann den Me"sfehler bei Kapazit\"atsmessungen bis zu \(40 \mu F\) reduzieren.
+Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verst\"arkung f\"ur
+die ADC Messung mit der internen Referenzspannung berechnet.
 \end{enumerate}
 
 Thyristoren und Triacs k\"onnen nur erkannt werden, wenn der Test-Strom \"uber dem Halte-Strom liegt.

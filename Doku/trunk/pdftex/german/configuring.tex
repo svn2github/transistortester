@@ -76,7 +76,9 @@ Wie Sie sehen k\"onnen ist das Schalten von 5V auf 1,1V viel langsamer als das Z
 Wenn Sie noch einen 100nF installiert haben, ist die Schaltzeit etwa Faktor 100 l\"anger!\\
 Beispiel: CFLAGS += -DNO\_AREF\_CAP
   \item[REF\_R\_KORR] gibt einen Offset f\"ur die interne Referenz-Spannung in mV Einheiten an.
-Mit diesem Offset kann eine Differenz bei der Umschaltung der Referenzspannung f\"ur die Widerstandsmessung abgeglichen werden.\\
+Mit diesem Offset kann eine Differenz bei der Umschaltung der Referenzspannung f\"ur die Widerstandsmessung abgeglichen werden.
+Wenn die AUTO\_CAL Option gew\"ahlt wurde, ist dieser Wert nur ein Offset zu der gefundenen Spannungs-Differenz in der
+AUTO\_CAL Funktion.\\
 Beispiel:  CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] gibt der Software an, mit welcher Taktfrequenz in MHz der Tester arbeiten wird.
 Die Software ist nur mit 1MHz, 8MHz und zus\"atzlich auch 16MHz getestet. Der 8MHz Betrieb wird wegen der besseren Aufl\"osung der
@@ -92,7 +94,8 @@ Option benutzen zu k\"onnen.
 Mit dieser Option wird ein m\"oglicher Einflu"s der ,,pull-up'' Widerst\"ande auf die Me"s-Ports (Port B und Port C) verhindert.\\
 Beispiel: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] diese Option gibt an, wie oft der ADC-Wert eingelesen und addiert werden soll.
-F\"ur den 5V Betrieb sind die Werte 44, 22 und 11 m\"oglich. Die 44 ergibt die beste Genauigkeit aber die l\"angste Me"szeit.
+Sie k\"onnen einen Wert zwischen 5 und 200 w\"ahlen um einen Mittelwert f\"ur eine ADC Messung zu bilden.
+H\"ohere Werte ergeben eine bessere Genauigkeit, aber brauchen l\"angere Me"szeit.
 Eine ADC-Messung mit dem Wert 44 braucht etwa 4,7ms.\\
 Beispiel: CFLAGS += -DANZ\_MESS=44
   \item[POWER\_OFF] Diese Option schaltet die automatische Abschaltfunktion ein.

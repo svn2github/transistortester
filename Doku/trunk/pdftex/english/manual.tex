@@ -50,6 +50,7 @@ The repetition of the tests can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
 If the function AUTO\_CAL is selected in the Makefile, there will be calibrated the zero offset for the capacity measurement
 and the internal resistance of the port output. But for this feature the tests must be repeated the full eight times for
-building the mean values. If you connect a capcitor with at least \(100 nF\) to pin~1 and pin~3, the offset voltage
-of the analog comparator will be compensated for better measurement of capacity values.
+building the mean values. If you connect a capacitor with at least \(100 nF\) to pin~1 and pin~3 during test step 10, the offset voltage
+of the analog comparator will be compensated for better measurement of capacity values and the gain for ADC measurements
+with the internal reference voltage will be adjusted too for better resistor measurement results with the AUTOSCALE\_ADC option.
 

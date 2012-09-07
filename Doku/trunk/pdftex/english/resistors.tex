@@ -53,7 +53,8 @@ The same zoomed range of measurement type 2 shows the figure~\ref{fig:RLvhigh}.
 Unfortunately we can not use the higher ADC resolution for measurement type~2 in this range,
  because the voltage is too high and our ATmega have no differential ADC input.
 Measurements with the \(680\Omega\) resistors are taken for building the result of measurements up to \(20k\Omega\)
-(Voltage will be below 169mV).
+(Voltage of measurement typ 2 will be below 169mV).
+
 For higher resistor values the measurements with the \(470k\Omega\) resistors are used. The mean value of both
 measurements is taken as displayed resistor value, if all tests attests, that is is no other type of part.
 If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below 0.98V,
@@ -93,7 +94,7 @@ The theoretical gradient in this diagram ends at \(100M\Omega\), but the resulti
 limited to \(60M\Omega\), otherwise the Tester assumes that no resistor is connected.
 The weighted average of both measurement types is taken as result with the same rules described for the measurements with the \(680\Omega\) resistors.
 For all ATmega processors I had found, that the measured results with the \(470k\Omega\) resistors are more exactly,
-if a constant offset of \(700\Omega\) will be added. This offset can be adjusted with the RH\_OFFSET define in the config.h file.
+if a constant offset of \(350\Omega\) will be added. This offset can be adjusted with the RH\_OFFSET define in the config.h file.
 
 \begin{figure}[H]
 \centering
@@ -149,3 +150,62 @@ Below a resistance value of \(10\Omega\) one resolution step results to a error 
 \caption{Relative error in \% for resistor measurements with ATmega168 }
 \label{fig:mega168res}
 \end{figure}
+
+The figure \ref{fig:m168res_all} shows the measurement errors of three ATmega168 processors before calibration as points, after the
+calibration as line. The equivalent measurement errors of three ATmega168A prozessors are shown in figure \ref{fig:m168ares_all} and
+the measurement errors of three ATmega168P prozessors are shown in figure \ref{fig:m168pres_all} .
+The measurement errors of three ATmega328 prozessors are shown in figure \ref{fig:m328res_all} and \ref{fig:m328pres_all}.
+After the automatic calibration the relative measurement errors of resistors between \(10~\Omega~-~20 M\Omega\) 
+usually are in the limit \(\pm1~\%\). Only one measurement of a \(22 k\Omega\) resistor with the ATmega328P-13 shows 
+a higher error.
+Before the calibration errors of some processors are found with \(\pm~3\%\).
+This will be caused by the AUTOSCALE\_ADC switching of the ADC reference.
+The direct compare of a capacitor voltage below 1~V, once measured with the VCC reference and another once measured with 
+the internal reference, can adjust this error.
+With this measurement condition the voltage is measured with the same multiplexor channel and the internal bandgap reference
+is connected to the AREF pin of the ATmega.
+Unfortunately the direct measurement of the bandgap reference with the special multiplexor channel results to this offset,
+which can be manually adjusted with the REF\_R\_KORR option or automatically with the AUTO\_CAL option of the selftest.
+With the AUTO\_CAL option the REF\_R\_KORR value is a additional offset to the automatic find out value!
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m168res_all}}
+    \caption{with three ATmega168}
+    \label{fig:m168res_all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m168ares_all}}
+    \caption{with three ATmega168A}
+    \label{fig:m168ares_all}
+  \end{subfigure}
+\caption{Relativ error in \% for resistor measurements}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/m168pres_all}
+\caption{Relativ error in \% for resistor measurements with three ATmega168P }
+\label{fig:m168pres_all}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m328res_all}}
+    \caption{with three ATmega328}
+    \label{fig:m328res_all}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/m328pres_all}}
+    \caption{with three ATmega328P}
+    \label{fig:m328pres_all}
+  \end{subfigure}
+\caption{Relativ error in \% for resistor measurements}
+\end{figure}
+

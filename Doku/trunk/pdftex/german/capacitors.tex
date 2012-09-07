@@ -105,9 +105,11 @@ herausgefundene Konstante ab, um den Me"swerte-Offset zu beseitigen.
 Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
 Mit einem Selbsttest bei gesetzter AUTO\_CAL Option wird diese Anpassung automatisch erledigt.
 
-Ich habe bemerkt, da"s die Referenz-Spannung immer etwas zu klein gemessen wird,
+Ich habe bemerkt, da"s die Referenz-Spannung meistens etwas zu klein gemessen wird,
  deshalb kann man einen Zusatz mit der Makefile Option REF\_C\_KORR angeben.
-Die gemessene Referenz-Spannung wird dann mit dem angegebenen Korrekturwert (mV) korrigiert (addiert).
+Nach der Kalibration mit der AUTO\_CAL option ist der REF\_C\_KORR Wert nur ein Zusatz zu der automatisch
+gefundenen Differenz zwischen geladener Kondensator-Spannung und der internen Referenz-Spannung.
+Die gemessene Referenz-Spannung wird dann mit dem Korrekturwert (mV) korrigiert (addiert).
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
 Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 Prozessoren ber\"ucksichtigt.
 Eine Beispielmessung von diesem Typ ist in Abbildung~\ref{pic:c22uF} dargestellt.
@@ -256,7 +258,7 @@ wobei cval der gemessene Kapazit\"atswert in pF ist.
 \subsection{Automatischer Abgleich der Kondensator-Messung}
 
 Der automatische Abgleich besteht aus zwei Teilen. Der erste Teil besteht darin, einen Nullabgleich der Kondensatormessung durchzuf\"uhren.
-Dazu wird in der Selbstest-Routine der Mittelwert der gemessenen Kapazit\"at bei nicht angeschlossenem Kondensator bestimmt.
+Dazu wird in der Selbsttest-Routine der Mittelwert der gemessenen Kapazit\"at bei nicht angeschlossenem Kondensator bestimmt.
 Es werden die Mittelwerte aus jeweils 8 Messungen f\"ur alle 6 Me"skombinationen bestimmt.
 Nach erfolgreichem Abgleich werden die Korrekturwerte im EEprom festgehalten und f\"ur k\"unftige Messungen verwendet.
 Schwieriger war die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
