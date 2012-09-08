@@ -140,11 +140,6 @@ weil das die Gefahr von Batterie-Sch\"aden wegen der Tief-Entladung erh\"oht!
 Wenn Sie wiederaufladbare 9V Batterien einsetzen, werden ,,Ready to Use'' Typen wegen der geringeren Selbstentladung empfohlen.\\
 Beispiel f\"ur low drop Regler (5.4V): CFLAGS += -DBAT\_POOR=54 \\
 Beispiel f\"ur 7805 type Regler (6.4V): CFLAGS += -DBAT\_POOR=64
-  \item[UF\_OUT\_MV] setzt das Ausgabeformat f\"ur die Diodenflu"sspannung auf mV Einheit.
-Anderenfalls wird die Flu"sspannung in Volt mit zwei Nachkommastellen ausgegeben.
-Die Ausgabe in Volt spart eine Stelle auf dem LCD, die mV Ausgabe braucht weniger Programmspeicher.
-Die 16 Stellen des LCD sind manchmal zu knapp f\"ur die zus\"atzliche Angabe der Kapazit\"at, deshalb sollte die Volt Ausgabe bevorzugt werden.\\
-Beispiel: CFLAGS += -DUF\_OUT\_MV
   \item[PROGRAMMER] stellt den Programmer Typ f\"ur das avrdude Schnittstellenprogramm ein.
 Eine richtige Einstellung des Programmer Typs (und Ports) ist notwendig, wenn Sie den ,,make upload'' oder
 ,,make fuses'' Aufruf dieser Makefile benutzen.
