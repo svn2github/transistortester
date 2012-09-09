@@ -33,8 +33,6 @@ Die Spannung \(UE\) ist die Differenz der Emitter-Spannung zu VCC.
 Die Differenz des \(22\Omega\) und \(19\Omega\) Widerstandes wird nicht ber\"ucksichtigt.
 Wenn die \(UB\) Spannung unter 10mV liegt, wird die Messung mit dem \(470k\Omega\) Widerstand an der Basis gemacht.
 F\"ur diesen Fall wird der Stromverst\"arkungsfaktor mit \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\) gebildet.
-Weil der Stromverst\"arkungsfaktor f\"ur Darlington-Transistoren sehr hoch werden kann, wird der Faktor
-auf 65535 (\(2^{16}-1\)) limitiert. 
 
 \begin{figure}[H]
 \centering
@@ -77,7 +75,6 @@ Die Messung eines NPN-Transistors beginnt auf gleiche Weise wie die PNP-Transist
 mit der Messung des Stromverst\"arkungsfaktors in der Kollektor-Schaltung.
 Zuerst wird die Messung mit einem nach VCC geschalteten \(680\Omega\) Basis Widerstand gemacht.
 Wenn die Spannung an dem Basis-Widerstand zu klein ist, wird stattdessen der \(470k\Omega\) Widerstand genommen.
-Der Stromverst\"arkungsfaktor wird auf 65535 (16Bit) begrenzt.
 Die Messungen werden dann in der Emitter-Schaltung fortgef\"uhrt, wie in Abbildung \ref{fig:npnce} gezeigt.
 \begin{figure}[H]
 \centering
@@ -187,9 +184,9 @@ BC640 & PNP, B=216, .72V & PNP, B=240, .72V & PNP, B=185, .72V\\
     \hline
 AC128 (Ge.) & PNP, B=64, .27V & PNP, B=65, .27V & PNP, B=58, .27V\\
     \hline
-BC517 & NPN, B=28296, 1.40V & NPN, B=29330, 1.41V & NPN, B=28224, 1.40V\\
+BC517 & NPN, B=28296, 1.40V & NPN, B=29330, 1.41V & NPN, B=25.5k, 1.20V\\
     \hline
-BC516 & PNP, B=65535, 1.41V & PNP, B=65535, 1.41V & PNP, B=65535, 1.40V\\
+BC516 & PNP, B=65535, 1.41V & PNP, B=65535, 1.41V & PNP, B=81.5k, 1.17V\\
     \hline
 BRY55/200 & Thyristor & Thyristor & Thyristor\\
     \hline

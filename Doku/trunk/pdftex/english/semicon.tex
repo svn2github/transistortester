@@ -29,8 +29,6 @@ the hFE is build as \(hFE = \frac{UE-UB}{UB}\). The voltage \(UE\) is the differ
 The difference between the \(22\Omega\) and \(19\Omega\) resistors are not respected.
 If the \(UB\) voltage is below 10mV, the measurement is done with the \(470k\Omega\) resistor at the base.
 In this case the current amplification factor is build as \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\).
-Because the current amplification factor of Darlington Transistors can be very high, the factor is limitted 
- to 65535 (\(2^{16}-1\)). 
 
 \begin{figure}[H]
 \centering
@@ -69,7 +67,6 @@ The measuring of NPN-Transistors begin in the same way as PNP-Transistors with m
 the current amplification factor in the common collector circuit.
 First measurement is done with a \(680\Omega\) base resistor switched to VCC. If the
 voltage at the base resistor ist too low, the \(470k\Omega\) resistor is taken instead.
-The amplification factor is limited to 65535 (16Bit).
 Measurement then continues with the common emitter circuit as shown in figure \ref{fig:npnce}.
 \begin{figure}[H]
 \centering
@@ -173,9 +170,9 @@ BC640 & PNP, B=216, .72V & PNP, B=240, .72V & PNP, B=185, .72V\\
     \hline
 AC128 (Ge.) & PNP, B=64, .27V & PNP, B=65, .27V & PNP, B=58, .27V\\
     \hline
-BC517 & NPN, B=28296, 1.40V & NPN, B=29330, 1.41V & NPN, B=28224, 1.40V\\
+BC517 & NPN, B=28296, 1.40V & NPN, B=29330, 1.41V & NPN, B=25.5k, 1.20V\\
     \hline
-BC516 & PNP, B=65535, 1.41V & PNP, B=65535, 1.41V & PNP, B=65535, 1.40V\\
+BC516 & PNP, B=65535, 1.41V & PNP, B=65535, 1.41V & PNP, B=81.5k, 1.17V\\
     \hline
 BRY55/200 & Thyristor & Thyristor & Thyristor\\
     \hline
