@@ -20,7 +20,6 @@ CFLAGS = -Wall
 
 #select your Part-No. for avrdude :
 # atmega8  : m8
-# atmega48 : m48 or m48p
 # atmega88 : m88 or m88p
 # atmega168: m168 or m168p
 # atmega328: m328 or m328p
@@ -43,16 +42,16 @@ UI_LANGUAGE = LANG_ENGLISH
 # with ATmega168
 #CFLAGS += -DAUTO_CAL
 # FREQUENCY_50HZ enables a 50 Hz frequency generator for up to one minute at the end of selftests
-CFLAGS += -DFREQUENCY_50HZ
+#CFLAGS += -DFREQUENCY_50HZ
 
 # the WITH_AUTO_REF option enables reading of internal REF-voltage to get factors for the Capacity measuring
-CFLAGS += -DWITH_AUTO_REF
+#CFLAGS += -DWITH_AUTO_REF
 # REF_C_KORR has mV units, greater values gives lower capacity results
 #CFLAGS += -DREF_C_KORR=15
 CFLAGS += -DC_H_KORR=5
 
 # the WITH_UART option enables the software UART
-#CFLAGS += -DWITH_UART
+CFLAGS += -DWITH_UART
 
 # the R_MESS option enables Resistor measuring 
 CFLAGS += -DR_MESS
@@ -64,7 +63,7 @@ CFLAGS += -DCAP_EMPTY_LEVEL=3
 
 # the AUTOSCALE_ADC option enables the autoscale ADC (VCC and Bandgap Ref)
 CFLAGS += -DAUTOSCALE_ADC
-#CFLAGS += -DREF_R_KORR=0
+CFLAGS += -DREF_R_KORR=0
 # NO_AREF_CAP tells your Software, that you have no Capacitor installed at pin AREF (21)
 # this enables a shorter wait-time for AUTOSCALE_ADC function
 CFLAGS += -DNO_AREF_CAP
@@ -113,12 +112,6 @@ CFLAGS += -DBAT_OUT=150
 # Setting the poor level to low values is not recommended for rechargeable 9V Batteries,
 # because this increase the danger for deep discharge!!
 CFLAGS += -DBAT_POOR=64
-
-# Output of flux voltage of diodes can be done in mV units or in Volt with two digits decimal place.
-# The Volt output can save space at the LCD, but needs more program space.
-# Set the option UF_OUT_MV to get the mV units.
-#CFLAGS += -DUF_OUT_MV
-
 
 # select your programmer type and port if you will use avrdude
 PROGRAMMER=avrisp2

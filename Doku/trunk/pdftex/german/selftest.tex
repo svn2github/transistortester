@@ -75,14 +75,13 @@ Zeile 1 zeigt den Text ,,RH+''.
 Der bestm\"ogliche mV Wert f\"ur die drei Messungen w\"are 0 in Zeile~2, da die Diffenz zu VCC dargestellt wird.
  Gro"se Abweichungen vom Idealwert f\"ur Schritt 5 und 6 sind Fehler wie Isolations Problem, Flu"smittelreste oder besch\"adigter Port.
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
-Der Text in der ersten Zeile des LCD ist ,,Ri\_Lo = (mV)''.
-In der zweiten Zeile des LCDs werden drei Spannungswerte als Differenz zum theoretischen Wert angezeigt.
+Dieser und die folgenden Schritte werden nur bei gew\"ahlter AUTO\_CAL Option durchgef\"uhrt.
 Die internen Port C Widerst\"ande von auf GND (-) geschalteten Ausg\"angen werden mit dem Strom
 der nach VCC (+) geschalteten \(680\Omega\) Widerst\"ande gemessen, siehe Abbildung~\ref{fig:test7}.
 Es werden nur die drei Pinne des ADC Ports vermessen, die Widerstands-Ports  PB0, PB2 und PB4 k\"onnen nicht
 ohne Ver\"anderung der Hardware gemessen werden.
 Es wird angenommen, da"s die Port Widerst\"ande von unterschiedlichen Ports nahezu identisch sind.
-Um die Widerstandswerte zu erhalten, m\"ussen die angezeigten mV Werte durch ungef\"ahr 7 geteilt werden (siehe Schritt 8).
+Der Widerstandswert wird im n\"achsten Schritt mit ausgegeben.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Test7.eps}
@@ -92,18 +91,13 @@ Um die Widerstandswerte zu erhalten, m\"ussen die angezeigten mV Werte durch ung
 
 \item {\bf Messung des Innenwiderstandes von auf VCC geschalteten Port Ausg\"angen.}
 Der ben\"otigte Strom wird von auf GND geschalteten \(680\Omega\) Widerst\"anden geliefert.
-Der Text in der ersten LCD Zeile ist ,,Ri\_Hi= (mV)'', wenn keine AUTO\_CAL Option gesetzt ist.
-Mit gesetzter AUTO\_CAL Option wird nur ,,Ri\_Hi='' ausgegeben.
-In der zweiten Zeile des LCDs werden drei Spannungswerte angezeigt als Differenz zu VCC.
 Es ist die gleiche Messung wie die in Test~7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
-Mit folgenden Schritten k\"onnen Sie den Innenwiderstand selbst berechnen:
+Der Innenwiderstand wird wie folgt berechnet:
 Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
-Sie k\"onnen beide Widerstandswerte erhalten, indem Sie die jeweilige Spannung
-(Ergebnisse von Test~7 oder Test~8) durch diesen Strom dividieren.
-Wenn die AUTO\_CAL Option gew\"ahlt wurde und der vorige und dieser Test achtmal wiederholt wurden,
-wird der Mittelwert der Innenwiderst\"ande der Ausgabe-Ports im EEprom festgehalten.
-Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 in \(d\Omega\) angezeigt, der letzte Wert der Zeile~2 ist dann
-das Ergebnis f\"ur den vorigen Test (auf GND geschaltet).
+Die Widerstandswerte ergeben sich, wenn die gemessene Spannung durch diesen Strom dividiert wird.
+Der gefundene Mittelwert der Innenwiderst\"ande der Ausgabe-Ports wird im EEprom festgehalten.
+Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 in \(d\Omega\) angezeigt, der Innenwiderstand
+zur GND Seite wird in Zeile~2 angezeigt.
 Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 \begin{figure}[H]
 \centering
@@ -116,11 +110,10 @@ Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 F\"ur die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF ausgegeben.
 In der Software wird ein Vorgabewert von circa 39~pF f\"ur die normale Me"swertausgabe ber\"ucksichtigt.
 F\"ur die Ausgabe dieses Tests ist keine Korrektur ber\"ucksichtigt, es wird auch kein Nulloffset abgezogen.
-Wenn die AUTO\_CAL Option gew\"ahlt wurde und der Test achtmal wiederholt wurde, wird der Mittelwert
-der gefundenen Nulloffsets im EEprom festgehalten, wenn der Null Offset kleiner als 70pF ist.
-Der gefundene Null Offset wird f\"ur die weiteren Kapazit\"ats-Messungen Pin abh\"angig ber\"ucksichtigt.
-Angezeigt wird das durch die Ausgabe ,,C0''  in Zeile 1, wobei die Zeile 2 die gespeicherten Null Offsets f\"ur
-die Pin-Kombinationen 1:3, 2:3 und 1:2 anzeigt.
+Die gefundenen Nulloffsets werden im EEprom festgehalten, wenn alle Null Offsets kleiner als 70pF sind.
+Die gefundene Null Offsets werden f\"ur die weiteren Kapazit\"ats-Messungen Pin abh\"angig ber\"ucksichtigt.
+Angezeigt wird  die Ausgabe ,,C0''  in Zeile 1, gefolgt von den 3 Null Offsets f\"ur
+die Pin-Kombinationen 1:3, 2:3 und 1:2 .
 Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnvoll machen.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
 Sockel erh\"ohen.
@@ -137,10 +130,11 @@ Auf keinen Fall sollte man Elektrolyt-Kondensatoren verwenden.
 Um den Offset des analogen Komparators zu bestimmen, mu"s ein Kondensator an Pin~1 und Pin~3 angeschlossen sein.
 Der Kondensator wird f\"ur die Pufferung der Ladespannung bei der Kondensatormessung ben\"otigt, um den Unterschied der 
 Ladespannung zur internen Referenzspannung bestimmen zu k\"onnen.
-Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 2 mit dem Text ,,REF\_C='' angezeigt und in den EEprom Speicher geschrieben.
+Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,REF\_C='' angezeigt und in den EEprom Speicher geschrieben.
 Wenn Sie die AUTOSCALE\_ADC Option gew\"ahlt haben, wird die Verst\"arkung der ADC Lesefunktion mit der
 internen Referenz Spannung abgeglichen durch den Vergleich der Kondensatorspannung unter 1 V einmal mit
 der VCC Referenz gemessen und einmal mit der internen Referenz gemessen.
+Die gefundene Differenz wird in Zeile 2 angezeigt und ebenfalls im EEprom festgehalten.
 Der REF\_R\_KORR Wert ist dann nur ein Offset f\"r diese automatisch gefundene Differenz.
 
 \end{enumerate}
