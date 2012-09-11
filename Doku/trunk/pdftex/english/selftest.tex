@@ -69,14 +69,13 @@ The results are shown als difference to VCC and should be near zero.
  Great differences from the best value for test 5 and 6 are errors  such as isolation problem, flux material or damaged port.
 
 \item {\bf Measuring of internal resistance of pin output switched to the GND signal.}
-The text in the 1st LCD row is ``Ri\_Lo = (mV)''.
-In the second row of the LCD three voltages were displayed.
+This test and the follwing tests willonly be done, if the option AUTO\_CAL is selected.
 The internal resistance of the port C outputs switched to GND (-) are measured with the current
 of to VCC (+) switched \(680\Omega\) resistors, see Figure~\ref{fig:test7}.
 Only the three pins of the ADC port are measured, the resistor port B (PB0,PB2 and PB4) can not be measured
 without hardware modification.
 Is is assumed that the port resistance of the different ports are nearly identical.
-To get the resistor values, you must divide the displayed mV values by about 7 (see test 8). 
+The resistor value will be shown in the next test.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Test7.eps}
@@ -86,16 +85,13 @@ To get the resistor values, you must divide the displayed mV values by about 7 (
 
 \item {\bf Measuring of internal resistance of port outputs switched to the VCC (+)signal.}
 The needed current is generated with to GND connected \(680\Omega\) resistors .
-The text in the 1st LCD row is ``Ri\_Hi= (mV)''. In the second row of the LCD three voltages are displayed (in difference to VCC).
 It are the same measurements as those in test~7 to the other side as you can see in Figure \ref{fig:test8}.
-With the following steps you can get the resistance:
-To get the current build:  \((VCC - (result of test 7) - (result of test 8)) / 680\).
-Then you can get both resistor values by dividing the voltage (result of test~7 or 8) by this current.
-If the AUTO\_CAL option is selected and the last test step and this test step is repeated eight times, the
-mean value of the internal resistance of the port outputs will be written to the EEprom.
-The result for this test will then be notified in row 1, the last value of row 2 is then the result of
-the last test step (switched to GND).
-Thie results will be written to the EEprom memory and will be used for further measurement.
+With the following steps the resistance is computed:
+To get the current, the following is computed:  \((VCC - (result of test 7) - (result of test 8)) / 680\).
+To get both resistor values, the voltage (result of test~7 or 8) is divided by this current.
+The result for this test will then be notified in row 1, the resistance value to the GND side is
+displayed in row 2 .
+Both results will be written to the EEprom memory and will be used for further measurement.
 
 \begin{figure}[H]
 \centering
@@ -107,15 +103,10 @@ Thie results will be written to the EEprom memory and will be used for further m
 \item {\bf Measurement of the zero offset of the capacitor measurement.}
 The zero offset for the capacity measurement with pin combinations 1:3, 2:3 and 1:2 is shown in that order.
 Alls three values are shown in pF units.
-For this results no predefined zero offset is respected.
-If the AUTO\_CAL option is selected , the mean value of 8 measurements with all 6 combinations is build and
-will be written to the EEprom, if the value is less than \(70 pF\).
-You can see the growing of sum values with the AUTO\_CAL option in row 2 of the LCD.
-This will be notified by the output of ''C0'' in row~1.
-This mean zero offsets will than be subtracted for the normal capacity measurements.
-The row 2 shows the three zero offsets for pin combinations 1:3, 2:3 and 1:2 if
-the AUTO\_CAL option is not selected. You must set the value in config.h for your
-processor type in this case.
+For this measurements no predefined zero offset is respected.
+The results will be written to the EEprom, if all values are less than \(70 pF\).
+This will be notified by the output of ''C0'' in row~1, followed by the results of
+ the three zero offsets for pin combinations 1:3, 2:3 and 1:2 .
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
