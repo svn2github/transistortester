@@ -23,7 +23,7 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
  ../Transistortester.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
- ../CheckPins.c ../ReadCapacity.c ../AutoCheck.c
+ ../CheckPins.c ../ReadCapacity.c ../ReadInductance.c ../AutoCheck.c
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -82,5 +82,7 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
 ../CheckPins.c:
 
 ../ReadCapacity.c:
+
+../ReadInductance.c:
 
 ../AutoCheck.c:

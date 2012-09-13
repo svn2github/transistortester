@@ -51,7 +51,7 @@ UI_LANGUAGE = LANG_ENGLISH
 CFLAGS += -DC_H_KORR=5
 
 # the WITH_UART option enables the software UART
-CFLAGS += -DWITH_UART
+#CFLAGS += -DWITH_UART
 
 # the R_MESS option enables Resistor measuring 
 CFLAGS += -DR_MESS
