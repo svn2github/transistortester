@@ -27,7 +27,6 @@ Die folgenden Optionen der Makefile sind verf\"ugbar, um die Software f\"ur den 
 \begin{description}
   \item[PARTNO] beschreibt den Ziel-Prozessor:\\
          m8 = ATmega8\\
-         m48 or m48p = ATmega48\\
          m88 or m88p = ATmega88\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
@@ -43,7 +42,10 @@ Beispiel: CFLAGS += -DLCD\_CYRILLIC
 wenn Sie alle drei Pr\"ufspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] Der Nullabgleich f\"ur die Kondensatormessung und der Innenwiderstand der Port-Ausg\"ange wird beim
-Selbsttest zus\"atzlich ins EEprom geschrieben und ist damit f\"ur die weiteren Messungen abgeglichen.\\
+Selbsttest zus\"atzlich ins EEprom geschrieben und ist damit f\"ur die weiteren Messungen abgeglichen.
+Wenn nach dem Nullbgleich der Kondensatormessung ein Kondensator mit mehr als \(100~nF\) an Pin~1 und Pin~3 
+angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung f\"ur die AUTOSCALE\_ADC
+Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieben.\\
 Beispiel: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50 Hz Signal auf Port 2 und Port 3 erzeugt.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
@@ -56,10 +58,12 @@ Beispiel: CFLAGS += -DR\_MESS
 Der Wert kann h\"oher als 3mV gesetzt werden, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach l\"angerer Zeit ,,Cell!''.\\
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor f\"ur die Kapazit\"atsmessung 
-von kleinen Kapazit\"aten (unter \(50\mu F\)) zu ermitteln.\\
+von kleinen Kapazit\"aten (unter \(40\mu F\)) zu ermitteln.\\
 Beispiel:  CFLAGS += -DWITH\_AUTO\_REF
   \item[REF\_C\_KORR] gibt einen Offset f\"ur die gelesene Referenz-Spannung in mV Einheiten an.
 Das kann benutzt werden um die Kapazit\"atsmessung kleiner Kondensatoren abzugleichen.
+Wenn zus\"atzlich die AUTO\_CAL Option gew\"ahlt wurde, ist diese Angabe nur ein zus\"atzlicher Offset f\"ur
+den gefundenen Komparator-Offset.
 Ein Wert von 10 ergibt etwa 1~Prozent kleinere Me"sergebnisse.\\
 Beispiel:  CFLAGS += -DREF\_C\_KORR=14
   \item[C\_H\_KORR] gibt eine Korrektur der Me"sergebnisse f\"ur gro"se Kondensatoren an.

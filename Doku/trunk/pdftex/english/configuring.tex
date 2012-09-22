@@ -27,7 +27,6 @@ The following options in the Makefile are avaiable to configure the software for
 \begin{description}
   \item[PARTNO] describes the target processor:\\
          m8 = ATmega8\\
-         m48 or m48p = ATmega48\\
          m88 or m88p = ATmega88\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
@@ -45,7 +44,7 @@ example: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
-capacitor with alt least \(100 nF\) to pin 1 and pin 3 in the test No. 10. 
+capacitor with at least \(100 nF\) to pin~1 and pin~3 after measurement of capacity zero offset. 
 All found values will be written to EEprom and will be used for further measurements automatically.\\
 example: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
@@ -58,16 +57,16 @@ example: CFLAGS += -DC\_MESS
 You can set the level to higher value as 3mV, if the tester does not finish discharging of capacitors.
 In this case the tester ends after longer time with the message ``Cell!''.\\
 example: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
-  \item[WITH\_AUTO\_REF] specifies, that reference voltage is read to get the actual factor for capacity measuring of low capacity values (below \(50\mu F\)).\\
+  \item[WITH\_AUTO\_REF] specifies, that reference voltage is read to get the actual factor for capacity measuring of low capacity values (below \(40\mu F\)).\\
 example:  CFLAGS += -DWITH\_AUTO\_REF
   \item[REF\_C\_KORR] specifies a offset for readed reference voltage in mV units.
 This can be used to adjust the capacity measurement of little capacitors.
-A correction value of 10 results to about 1~percent lower measurement results.\\
-example:  CFLAGS += -DREF\_C\_KORR=14
-  \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
-A value of 10 results to 1~percent lower measurement results.
+A correction value of 10 results to about 1~percent lower measurement results.
 If the option AUTO\_CAL is selected together with the WITH\_SELFTEST option, the REF\_C\_KORR will be
 a offset to the measured voltage difference of the test capacitor and the internal reference voltage.\\
+example:  CFLAGS += -DREF\_C\_KORR=14
+  \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
+A value of 10 results to 1~percent lower measurement results.\\
 example:  CFLAGS += -DREF\_C\_KORR=10
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
@@ -81,11 +80,12 @@ have still installed the 100nF, switching time will be about factor 100 longer!\
 example: CFLAGS += -DNO\_AREF\_CAP
   \item[REF\_R\_KORR] specifies a offset for the internal ADC-reference voltage in mV units.
 With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.
-If you select the AUTO\_CAL option of the selftest section, this value is a offset to the found voltage 
+If you select the AUTO\_CAL option of the selftest section, this value is only a additionally offset to the found voltage 
 difference in the AUTO\_CAL function.\\
 example: CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] tells your software at which Clock Frequency in MHz your Tester will operate.
-The software is tested only for 1 MHz, 8MHz and additionally 16MHz. The 8MHz operation is recommended for better resolution of capacity measurement.\\
+The software is tested only for 1 MHz, 8MHz and additionally 16MHz. 
+The 8MHz operation is recommended for better resolution of capacity measurement.\\
 example: OP\_MHZ = 8
   \item[USE\_EEPROM] specifies if you wish to locate fix text and tables in EEprom Memory. Otherwise the flash memory is used.
 Recommended is to use the EEprom (option set).\\

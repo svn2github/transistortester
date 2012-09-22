@@ -41,7 +41,7 @@ the Tester cannot differ the middle pin and the end pin.
 \put(34,0){\line(0,1){30}}
 \put(38,0){\line(0,1){30}}
 \end{picture}
-and value.  The value can be from 25pF (8MHz clock, 50pF @1MHz clock) to 40mF with a resolution of up to 1 pF (@8MHz clock].
+and value.  The value can be from 25pF (8MHz clock, 50pF @1MHz clock) to 100mF with a resolution of up to 1 pF (@8MHz clock].
 \item Up to four digits are shown for capacitor and resistor values with the correct dimension.
 \item Up to two diodes are shown with symbol
 \setlength{\unitlength}{0.1mm}
@@ -67,7 +67,7 @@ in correct order. Additionally the flux voltages are shown.
 \item LED is detected as diode, the flux voltage is much higher than normal. 
 Two-in-one LEDs are also detected as two diodes.
 \item Zener-Diodes can be detected, if reverse break down Voltage is below 4.5V.
-They are shown as two diodes, you can identify this part only by the voltages.
+These are shown as two diodes, you can identify this part only by the voltages.
 The outer probe numbers, which surround the diode symbols, are identical in this case.
 You can identify the real Anode of the diode only by the one with break down (threshold) Voltage nearby 700mV!
 \item If more than 3 diode type parts are detected, the number of founded diodes is shown additionally to the fail message.
@@ -79,7 +79,11 @@ Bipolar Transistors can also be analysed, if you connect the Base and only one o
 \item Capacitors with value below 25pF are usually not detectet, but can be measured together with
 a parallel diode or a parallel capacitor with at least 25pF.
 In this case you must subtract the capacity value of the parallel connected part.
-\item Testing time is about two seconds, only capacity measurement can cause longer period.
+\item For resistors below \(2800 \Omega\) also the measurement of inductance will be done, if
+your ATmega has more than 8K flash memory.
+The range will be from about 0.04 mH to more than 20 H, but the accuracy is not good.
+The measurement result is only shown with a single component connected.
+\item Testing time is about two seconds, only capacity or inductance measurement can cause longer period.
 \item Software can be configured to enable series of measurements before power will be shut down.
 \item Build in selftest function with 50Hz Frequency generator to check the accuracy of clock frequency and wait calls.
 \item Selectable facility for ATmega168 or ATmega328, to calibrate the zero offset of capacity measurement and the
@@ -94,7 +98,7 @@ Thyristors and Triacs can only be detected, if the test current is above the hol
 Some Thyristors and Triacs need as higher gate trigger current, than this Tester can deliver.
 The available testing current is only about 6mA!
 It is possible that not all options remains in future releases, because this software is currently in a testing stage,
-You can select all features only for microcontroller with mor program memory such as ATmega168.
+You can select all features only for microcontroller with more program memory such as ATmega168.
 
 \vspace{1cm}
 \textbf{{\Large Attention:}} Allways be shure to discharge capacitors before connecting them to the Tester!

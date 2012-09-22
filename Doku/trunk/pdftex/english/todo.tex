@@ -20,9 +20,6 @@ Measurements could be done in nearly half the time, if 250kHz operation is toler
 \item Think about how we can get the real internal resistance of port B output (resistor switching port) instead of assuming, that ports are equal.
 \item Can discharging of capacitors be made more quickly, if the minus pin is additionally raised
 with the \(680\Omega\) resistor to VCC (+)?
-\item Who is using the serial port? I did not test this function and even I don't know how.
-\item Can inductance be tested?
-\item How measurement results changes by variation of  the  supply voltage between 4,5V and 5V? 
 \item Check if the tester can use floating-point representation of  values. The risk of overflow  is lower.
 There is no need to use multiplication and division together to build a multiplication with a non integer factor.
 But I don't know how much flash memory must be spend for the library.
@@ -35,9 +32,6 @@ The current could reach more than 100mA. Will the port be damaged? What is with 
 \item Can optoelectronic couplers be checked?  
 \item Is the ESR measurement of electrolytical capacitors  possible.
 \item Warning message, if the found reference voltage is not plausible in relation to ATmega model and VCC.
-\item Can we connect precision voltage reference to PC4 to calibrate VCC and internal reference?
-\item If a battery cell is connected to the tester, the tester tries to discharge,
-but fails without message, better is it to recognise the part as cell (with voltage?).
 \item What is about a second generation tester with a bigger ATmega which includes differential ADC-port, more flash memory …. ?
 There is no ATxmega which have supply voltage of 5V, only the ATmega line  is possible. 
 \item Idea for a New Projekt: USB  version without LCD-Display, Power from USB, Communication to PC over a USB-Serial bridge.

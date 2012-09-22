@@ -7,17 +7,14 @@ If you have installed  test terminal with clamps, put all clamps together to a p
 The program notice the shorten probes and start the self test function.
 After finishing the self test the transistor tester will continue with normal measurement.
 If no equipment is connected, the program will end with ``part unknown or damaged''. 
-The unhappy side of the self test function is that the 8K flash is used near the limit.
-The length of the ATmega8 version 0.9k is about 8000 bytes.
 You can configure self test only together with all other options for a ATmega168  or ATmega328.
-For the ATmega8 you must at least omit the option AUTOSCALE\_ADC because of the limited flash memory.
-The separate steps of the self test function is generally displayed on row~1 of the LCD display with the letter T
+The separate steps of the self test function 1 to 6 is displayed on row~1 of the LCD display with the letter T
 followed by the step number.
-Every step is repeated 8~times, before the program continues with the next step.
+Every step is repeated 4~times, before the program continues with the next step.
 But if you hold the start key pressed, when the test is finished, this test is not repeated any more.
 If you leave the key pressed the total time, every test is executed only once.
 
-Without the AUTO\_CAL option only measurement results are displayed in evrery step, no error analysis are done, you must interpret the results yourself.
+Without the AUTO\_CAL option only measurement results are displayed in every step, no error analysis are done, you must interpret the results yourself.
 At this place I will give you an additional important hint. Never do a measurement with connected ISP plug!
 The ISP interface influences the measurement. 
 \vspace{1cm}
@@ -69,7 +66,7 @@ The results are shown als difference to VCC and should be near zero.
  Great differences from the best value for test 5 and 6 are errors  such as isolation problem, flux material or damaged port.
 
 \item {\bf Measuring of internal resistance of pin output switched to the GND signal.}
-This test and the follwing tests willonly be done, if the option AUTO\_CAL is selected.
+This test and the follwing tests will only be done, if the option AUTO\_CAL is selected.
 The internal resistance of the port C outputs switched to GND (-) are measured with the current
 of to VCC (+) switched \(680\Omega\) resistors, see Figure~\ref{fig:test7}.
 Only the three pins of the ADC port are measured, the resistor port B (PB0,PB2 and PB4) can not be measured
@@ -89,8 +86,8 @@ It are the same measurements as those in test~7 to the other side as you can see
 With the following steps the resistance is computed:
 To get the current, the following is computed:  \((VCC - (result of test 7) - (result of test 8)) / 680\).
 To get both resistor values, the voltage (result of test~7 or 8) is divided by this current.
-The result for this test will then be notified in row 1, the resistance value to the GND side is
-displayed in row 2 .
+The result for this test will then be notified in row 1 with the text ''RI\_Hi='', the resistance value (\(\Omega\)) to the GND side is
+displayed in row 2 with the text ''RI\_Lo=''.
 Both results will be written to the EEprom memory and will be used for further measurement.
 
 \begin{figure}[H]
@@ -122,13 +119,14 @@ You should never use electrolytical capacitors, use film capacitors instead.
 To get the offset of the analog comparator, a capacitor must already be connected to pin~1 and pin~3 .
 The capacitor will be needed for buffering the load voltage of a capacitor, in order to get the voltage
 difference of load voltage to the internal reference voltage (band gap).
-If measurement is successfull, the correction value is short shown with the text ''REF\_C='' in row~2 of 
+If measurement is successfull, the correction value is short shown with the text ''REF\_C='' in row~1 of 
 the LCD and written to the EEprom. You can give a additional offset to the automatic measured value
 with the REF\_C\_KORR option.
 If you have selected the AUTOSCALE\_ADC option, the gain of the ADC readings with the internal reference
 will be adjusted by comparing a capacitor voltage below 1 V once readed with VCC reference and once
-readed with the internal reference. Your REF\_R\_KORR value is a additional offset to the automatic
-find out difference value.
+readed with the internal reference. 
+The measurement result is shown in row 2 with the text ''REF\_R=''. 
+Your REF\_R\_KORR value is a additional offset to this automatic find out difference value.
 
 \end{enumerate}
 
@@ -144,49 +142,6 @@ A exactly clock frequency and wait time are important for measurement of capacit
 You can abort the generation of the 50Hz signal by long time pressing of the start button.
 Then the program continues with the normal measurement task.
 
-
-\begin{table}[H]
-  \begin{center}
-    \begin{tabular}{| l | c | c | c |}
-    \hline
-Test No. & 1. Result & 2. Result & 3. Result \\
-    \hline
-    \hline
-Test 1 & band gap Ref  1228 &  & \\
-Reference  & RHfakt 756 & &  \\
-    \hline
-Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
-comparison \(680\Omega\) & -4 & -5 & -5 \\
-best value: 0 & & & \\
-    \hline
-Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
-comparison \(470k\Omega\) & -7 & -7 & -7 \\
-best value: 0 & & & \\
-    \hline
-test 4 & isolate probe & & \\
-    \hline
-test 5 & RH1- &  RH2- & RH3- \\
-\(470k\Omega\) isolation & 0 & 0 & 0 \\
-best value: 0 & & & \\
-    \hline
-Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & -5 & -6 & -6 \\
-best value: 0 & & & \\
-    \hline
-Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
-Pin resistance Low & 132 & 132 & 137 \\
-    \hline
-Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
-Pin resistance High & 151 & 151 & 151 \\
-    \hline
-Test 9 & C0 1:3 & C0 2:3 & C0 1:2 \\
-Capacitor offset & 34 & 35 & 33 \\
-    \hline
-    \end{tabular}
-  \end{center}
-  \caption{Selftest Mega8 @ 8MHz, Signature 1E9307, WITH\_AUTOREF}
-  \label{tab:test_m8} 
-\end{table}
 
 The results of the selftests of nine different ATmega168 processors and of six ATmega328 processors
 will be shown in the following figures.

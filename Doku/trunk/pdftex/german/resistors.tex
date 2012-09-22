@@ -66,6 +66,10 @@ wird ein gewichteter Mittelwert mit Faktor vier f\"ur die Messung mit der Spannu
 Das wird wegen der Faktor vier besseren Aufl\"osung dieser Messung gemacht.
 Faktor vier wird nur f\"ur ATmega88, ATmega168 und ATmega328 Prozessoren verwendet, f\"ur ATmega8 wird ein
 Faktor zwei als Wichtung benutzt wenn die Spannung unter 0,98V ist, weil die ADC Referenzspannung hier 2,54V statt 1,1V betr"agt.
+Wenn der ATmega mehr als 8 KByte Flash Speicher besitzt, wird die Spannungsmessung an den Widerst\"anden so lange verz\"ogert,
+bis keine \"Anderung mehr festgestellt wird oder eine Zeitgrenze \"uberschritten wird.
+Durch diese Ma"snahme werden auch gro"se Kondensatoren nicht mehr irrt\"umlich als
+Widerst\"ande erkannt und der Gleichstrom-Widerstand gro"ser Induktivit\"aten wird richtig gemessen.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}

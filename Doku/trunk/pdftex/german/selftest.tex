@@ -10,14 +10,11 @@ Das Programm bemerkt die kurzgeschlossenen Klemmen und startet den Selbsttest.
 Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
 Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
 Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
-Die ungl\"uckliche Seite der Selbsttest-Funktion ist, da"s der 8k flash Speicher fast verbraucht ist.
-Die L\"ange der ATmega8 Version ist ungef\"ahr 8000 Bytes.
 Man kann die Selbsttest-Funktion zusammen mit allen anderen Optionen nur f\"ur einen ATmega168
 oder ATmega328 w\"ahlen.
-F\"ur einen ATmega8 mu"s man wegen des begrenzten flash Speichers wenigstens die Option AUTOSCALE\_ADC weglassen.
-Die einzelnen Schritte der Selbsttestfunktion werden immer in Zeile~1 des LCD Displays mit dem Buchstaben T
+Die einzelnen Schritte der Selbsttestfunktion werden f\"ur Test~1 bis Test~6 in Zeile~1 des LCD Displays mit dem Buchstaben T
 gefolgt von der Schritt-Nummer dargestellt.
-Jeder Schritt wird achtmal wiederholt, bevor das Programm zum n\"achsten Schritt geht.
+Die Schritte 1 bis 6 wird viermal wiederholt, bevor das Programm zum n\"achsten Schritt geht.
 Aber wenn man den Start Taster gedr\"uckt h\"alt, wenn ein Durchlauf beendet wird, wird dieser Test nicht
 mehr wiederholt.
 Wenn man den Taster w\"ahrend dem gesamten Selbsttest gedr\"uckt h\"alt, wird jeder Schritt nur einmal ausgef\"uhrt.
@@ -96,8 +93,8 @@ Der Innenwiderstand wird wie folgt berechnet:
 Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
 Die Widerstandswerte ergeben sich, wenn die gemessene Spannung durch diesen Strom dividiert wird.
 Der gefundene Mittelwert der Innenwiderst\"ande der Ausgabe-Ports wird im EEprom festgehalten.
-Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 in \(\Omega\) angezeigt, der Innenwiderstand
-zur GND Seite wird in Zeile~2 angezeigt.
+Das Ergebnis f\"ur diesen Test wird dann in Zeile~1 mit dem Text ,,RI\_Hi=''in \(\Omega\) angezeigt, der Innenwiderstand
+zur GND Seite wird in Zeile~2 mit dem Text ,,RI\_Lo='' angezeigt.
 Diese Werte stehen dann f\"ur weitere Messungen zur Verf\"ugung.
 \begin{figure}[H]
 \centering
@@ -112,7 +109,7 @@ In der Software wird ein Vorgabewert von circa 39~pF f\"ur die normale Me"swerta
 F\"ur die Ausgabe dieses Tests ist keine Korrektur ber\"ucksichtigt, es wird auch kein Nulloffset abgezogen.
 Die gefundenen Nulloffsets werden im EEprom festgehalten, wenn alle Null Offsets kleiner als 70pF sind.
 Die gefundene Null Offsets werden f\"ur die weiteren Kapazit\"ats-Messungen Pin abh\"angig ber\"ucksichtigt.
-Angezeigt wird  die Ausgabe ,,C0''  in Zeile 1, gefolgt von den 3 Null Offsets f\"ur
+Angezeigt wird  die Ausgabe ,,C0''  in Zeile 1, gefolgt von den drei Null Offsets f\"ur
 die Pin-Kombinationen 1:3, 2:3 und 1:2 .
 Bitte beachten Sie, da"s Ver\"anderungen des Me"saufbaus einen Neuabgleich sinnvoll machen.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegen\"uber einem leeren
@@ -134,8 +131,8 @@ Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,
 Wenn Sie die AUTOSCALE\_ADC Option gew\"ahlt haben, wird die Verst\"arkung der ADC Lesefunktion mit der
 internen Referenz Spannung abgeglichen durch den Vergleich der Kondensatorspannung unter 1 V einmal mit
 der VCC Referenz gemessen und einmal mit der internen Referenz gemessen.
-Die gefundene Differenz wird in Zeile 2 angezeigt und ebenfalls im EEprom festgehalten.
-Der REF\_R\_KORR Wert ist dann nur ein Offset f\"r diese automatisch gefundene Differenz.
+Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEprom festgehalten.
+Der REF\_R\_KORR Wert ist dann nur ein zus\"atzlicher Offset f\"r diese automatisch gefundene Differenz.
 
 \end{enumerate}
 
@@ -150,51 +147,8 @@ Wenn man f\"ur die Takterzeugung keinen Quarz benutzt, k\"onnen die
 Ergebnisse der Kondensatormessung ungenau sein.
 Eine genaue Taktfrequenz und genaue Wartezeiten sind wichtig f\"ur die Bestimmung von Kapazit\"atswerten.
 Die Ausgabe des 50Hz Signals kann durch gedr\"uckthalten des Start-Tasters vorzeitig abgebrochen werden.
-
 Dann f\"ahrt das Programm mit der normalen Me"sfunktion fort.
 
-\begin{table}[H]
-  \begin{center}
-    \begin{tabular}{| l | c | c | c |}
-    \hline
-Test Nr. & 1. Ergebnis & 2. Ergebnis & 3. Ergebnis \\
-    \hline
-    \hline
-Test 1 & band gap Ref  1228 &  & \\
-Referenz  & RHfakt 756 &  &  \\
-    \hline
-Test 2 & RL1+ RL2- & RL1+ RL3- & RL2+ RL3- \\
-Vergleich \(680\Omega\) & -4 & -5 & -5 \\
-bester Wert: 0 & & & \\
-    \hline
-Test 3 & RH1+ RH2- & RH1+ RH3- & RH2+ RH3- \\
-Vergleich \(470k\Omega\) & -7 & -7 & -7 \\
-bester Wert: 0 & & & \\
-    \hline
-Test 4 & isolate probe & & \\
-    \hline
-Test 5 & RH1- &  RH2- & RH3- \\
-\(470k\Omega\) isolation & 0 & 0 & 0 \\
-bester Wert: 0 & & & \\
-    \hline
-Test 6 & RH1+ & RH2+ & RH3+ \\
-\(470k\Omega\) isolation & -6 & -5 & -5 \\
-bester Wert: 0 & & & \\
-    \hline
-Test 7 & TP1- RL1+ & TP2- RL2+ & TP3- RL3+ \\
-Pin Widerstand Low & 132 & 132 & 137 \\
-    \hline
-Test 8 & TP1+ RL1- & TP2+ RL2- & TP3+ RL3- \\
-Pin Widerstand High & 151 & 151 & 151 \\
-    \hline
-Test 9 & C0  1:3 & C0  2:3 & C0 1:2 \\
-Kondensator Offset & 34 & 35 & 33 \\
-    \hline
-    \end{tabular}
-  \end{center}
-  \caption{Selbsttest Mega8, Signature 1E9307, WITH\_AUTOREF}
-  \label{tab:test_m8} 
-\end{table}
 
 Die Ergebnisse des Selbsttests der 9 verschiedenen ATmega168 Prozessoren und der 6 ATmega328 Prozessoren
 sind in den folgenden Abbildungen dargestellt. 

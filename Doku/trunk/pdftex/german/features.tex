@@ -42,7 +42,7 @@ gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschlu"s und Endans
 \put(38,0){\line(0,1){30}}
 \end{picture}
 und Kapazit\"atswert angezeigt.
-Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 40mF mit einer Aufl\"osung von bis zu 1pF (bei 8MHz Takt).
+Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 100mF mit einer Aufl\"osung von bis zu 1pF (bei 8MHz Takt).
 \item Bis zu vier Dezimalstellen werden f\"ur die Kapazit\"ats und Widerstands-Werte in der richtigen Dimension angezeigt.
 \item Bis zu zwei Dioden werden mit dem Symbol
 \setlength{\unitlength}{0.1mm}
@@ -82,7 +82,11 @@ Bipolare Transistoren k\"onnen auch untersucht werden, wenn nur die Basis und en
 aber sie k\"onnen zusammen mit einer parallel geschalteten Diode oder mit einem parallel geschaltetem Kondensator mit
 wenigstens 25pF gemessen werden.
 In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom Me"sergebnis abgezogen werden.
-\item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen k\"onnen l\"anger dauern.
+\item Bei Widerst\"anden unter \(2800 \Omega\) wird auch eine Induktivit\"atsmessung durchgef\"uhrt, wenn der
+ATmega mehr als 8K Flash Speicher besitzt.
+Der Anzeigebereich ist etwa 0.04 mH bis \"uber 20 H, die Genauigkeit allerdings nicht hoch.
+Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswert angezeigt.
+\item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen und Induktivit\"atsmessungen k\"onnen l\"anger dauern.
 \item Die Software kann f\"ur Me"sserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
 \item Eingebaute Selbsttest-Funktion inklusive einem optionalen 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz
 und der Verz\"ogerungszeiten zu \"uberpr\"ufen.

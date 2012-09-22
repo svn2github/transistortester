@@ -135,44 +135,44 @@ plot "../GNU/rmess-all.dat" u 1:(($14-$1)/$1*100) title "m328p-13" ls 1 with poi
      "../GNU/rmess-autocal.dat" u 1:(($16-$1)/$1*100) title "m328p-15" ls 6 with lines
 set output
 ##################################################################################
-set output "../GNU/m168res_korr.eps"
-plot "../GNU/rmess-korr.dat" u 1:(($2-$1)/$1*100) title "m168-1" ls 1 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($3-$1)/$1*100) title "m168-2" ls 2 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($4-$1)/$1*100) title "m168-3" ls 3 with points,\
-     "../GNU/rmess-autocal.dat" u 1:(($2-$1)/$1*100) title "m168-1" ls 4 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($3-$1)/$1*100) title "m168-2" ls 5 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($4-$1)/$1*100) title "m168-3" ls 6 with lines
-set output
-set output "../GNU/m168ares_korr.eps"
-plot "../GNU/rmess-korr.dat" u 1:(($5-$1)/$1*100) title "m168a-4" ls 1 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($6-$1)/$1*100) title "m168a-5" ls 2 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($7-$1)/$1*100) title "m168a-6" ls 3 with points,\
-     "../GNU/rmess-autocal.dat" u 1:(($5-$1)/$1*100) title "m168a-4" ls 4 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($6-$1)/$1*100) title "m168a-5" ls 5 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($7-$1)/$1*100) title "m168a-6" ls 6 with lines
-set output
-set output "../GNU/m168pres_korr.eps"
-plot "../GNU/rmess-korr.dat" u 1:(($8-$1)/$1*100) title "m168p-7" ls 1 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($9-$1)/$1*100) title "m168p-8" ls 2 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($10-$1)/$1*100) title "m168p-9" ls 3 with points,\
-     "../GNU/rmess-autocal.dat" u 1:(($8-$1)/$1*100) title "m168p-7" ls 4 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($9-$1)/$1*100) title "m168p-8" ls 5 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($10-$1)/$1*100) title "m168p-9" ls 6 with lines
-set output
-set output "../GNU/m328res_korr.eps"
-plot "../GNU/rmess-korr.dat" u 1:(($11-$1)/$1*100) title "m328-10" ls 1 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($12-$1)/$1*100) title "m328-11" ls 2 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($13-$1)/$1*100) title "m328-12" ls 3 with points,\
-     "../GNU/rmess-autocal.dat" u 1:(($11-$1)/$1*100) title "m328-10" ls 4 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($12-$1)/$1*100) title "m328-11" ls 5 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($13-$1)/$1*100) title "m328-12" ls 6 with lines
-set output
-set output "../GNU/m328pres_korr.eps"
-plot "../GNU/rmess-korr.dat" u 1:(($14-$1)/$1*100) title "m328p-13" ls 1 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($15-$1)/$1*100) title "m328p-14" ls 2 with points,\
-     "../GNU/rmess-korr.dat" u 1:(($16-$1)/$1*100) title "m328p-15" ls 3 with points,\
-     "../GNU/rmess-autocal.dat" u 1:(($14-$1)/$1*100) title "m328p-13" ls 4 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($15-$1)/$1*100) title "m328p-14" ls 5 with lines,\
-     "../GNU/rmess-autocal.dat" u 1:(($16-$1)/$1*100) title "m328p-15" ls 6 with lines
-set output
+#set output "../GNU/m168res_korr.eps"
+#plot "../GNU/rmess-korr.dat" u 1:(($2-$1)/$1*100) title "m168-1" ls 1 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($3-$1)/$1*100) title "m168-2" ls 2 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($4-$1)/$1*100) title "m168-3" ls 3 with points,\
+#     "../GNU/rmess-autocal.dat" u 1:(($2-$1)/$1*100) title "m168-1" ls 4 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($3-$1)/$1*100) title "m168-2" ls 5 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($4-$1)/$1*100) title "m168-3" ls 6 with lines
+#set output
+#set output "../GNU/m168ares_korr.eps"
+#plot "../GNU/rmess-korr.dat" u 1:(($5-$1)/$1*100) title "m168a-4" ls 1 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($6-$1)/$1*100) title "m168a-5" ls 2 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($7-$1)/$1*100) title "m168a-6" ls 3 with points,\
+#     "../GNU/rmess-autocal.dat" u 1:(($5-$1)/$1*100) title "m168a-4" ls 4 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($6-$1)/$1*100) title "m168a-5" ls 5 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($7-$1)/$1*100) title "m168a-6" ls 6 with lines
+#set output
+#set output "../GNU/m168pres_korr.eps"
+#plot "../GNU/rmess-korr.dat" u 1:(($8-$1)/$1*100) title "m168p-7" ls 1 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($9-$1)/$1*100) title "m168p-8" ls 2 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($10-$1)/$1*100) title "m168p-9" ls 3 with points,\
+#     "../GNU/rmess-autocal.dat" u 1:(($8-$1)/$1*100) title "m168p-7" ls 4 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($9-$1)/$1*100) title "m168p-8" ls 5 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($10-$1)/$1*100) title "m168p-9" ls 6 with lines
+#set output
+#set output "../GNU/m328res_korr.eps"
+#plot "../GNU/rmess-korr.dat" u 1:(($11-$1)/$1*100) title "m328-10" ls 1 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($12-$1)/$1*100) title "m328-11" ls 2 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($13-$1)/$1*100) title "m328-12" ls 3 with points,\
+#     "../GNU/rmess-autocal.dat" u 1:(($11-$1)/$1*100) title "m328-10" ls 4 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($12-$1)/$1*100) title "m328-11" ls 5 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($13-$1)/$1*100) title "m328-12" ls 6 with lines
+#set output
+#set output "../GNU/m328pres_korr.eps"
+#plot "../GNU/rmess-korr.dat" u 1:(($14-$1)/$1*100) title "m328p-13" ls 1 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($15-$1)/$1*100) title "m328p-14" ls 2 with points,\
+#     "../GNU/rmess-korr.dat" u 1:(($16-$1)/$1*100) title "m328p-15" ls 3 with points,\
+#     "../GNU/rmess-autocal.dat" u 1:(($14-$1)/$1*100) title "m328p-13" ls 4 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($15-$1)/$1*100) title "m328p-14" ls 5 with lines,\
+#     "../GNU/rmess-autocal.dat" u 1:(($16-$1)/$1*100) title "m328p-15" ls 6 with lines
+#set output
 #    EOF

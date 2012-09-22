@@ -1,0 +1,60 @@
+\section{Messen von Induktivit\"aten}
+Die Messung von Induktivit\"atswerten wird nach allen anderen Messungen als separater Teil mit allen
+gefundenen Widerst\"anden mit weniger als \(2800~\Omega\) durchgef\"uhrt.
+Das Me"sverfahren beruht auf dem Prinzip, da"s beim Schlie"sen des Stromkreises der Strom nach
+der Formel \(Il~=~Imax~\cdot~(1~-~\exp{\frac{-t}{\tau}})\) ansteigt.
+Die Zeitkonstante \(\tau = \frac{L}{R}\) ist proportional zu der Induktivit\"at~\(L\), aber umgekehrt
+proportional zu dem Widerstand~\(R\). 
+Der Strom kann hier nur indirekt \"uber den Spannungsabfall an einem Widerstand
+gemessen werden.
+Leider wird durch den relativ hohen Widerstand \(680~\Omega\) die Zeitkonstante zus\"atzlich verringert, was
+wiederum die Messung von kleinen Induktivit\"aten mit dem 8 MHz Takt zus\"atzlich erschwert.
+Um die Zeitkonstante zu bestimmen, wird die Spannung am \(680~\Omega\) Widerstand als Stromsensor
+mit dem analogen Komparator \"uberwacht. Wenn der Spannungsabfall am \(680~\Omega\) Widerstand gr\"o"ser als
+die Vergleichs-Spannung der internen Spannungsreferenz wird, meldet der Komparator dies an den beim
+Stromeinschalten gestarteten 16-Bit Z\"ahler weiter, der daraufhin den Z\"ahlerstand dieses
+Ereignisses festh\"alt. Eventuelle \"Uberl\"aufe des Z\"ahlers werden vom Programm mitgez\"ahlt. 
+Wenn die Spannung gr\"o"ser ist, wird der Z\"ahler sofort angehalten und aus dem festgehaltenen Z\"ahlerstand und
+dem \"Uberlaufz\"ahler die Gesamtzeit bestimmt.
+Der Anschlu"s der Spule wird wieder von VCC auf GND geschaltet, und \"uber eine Spannungs\"uberwachung beider
+Anschl\"usse gewartet, bis kein Strom mehr festgestellt wird.
+Das Schaltbild~\ref{fig:Inductance} zeigt ein vereinfachtes Diagram der Me"ssituation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Inductance.eps}
+\caption{Messung von Induktivit\"aten mit dem Komparator}
+\label{fig:Inductance}
+\end{figure}
+
+Aus der Versorgungsspannung VCC und der Summe aller Widerst\"ande im Stromkreis kann der Maximalstrom Imax und
+daraus der Anteil der Vergleichsspannung im Verh\"altnis zur Maximalspannung am \(680~\Omega\) Widerstand
+\(Umax~=~Imax~\cdot~(680~+~19)\) bestimmt werden.
+Mit der Formel \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) kann die Indukivit\"at bestimmt werden.
+Der nat\"urliche Logarithmus wird im Programm mit einer Tabelle ermittelt.
+Um auch kleinere Induktivit\"aten messen zu k\"onnen, wird der \(680 \Omega\) Widerstand im Stromkreis weggelassen,
+wenn der Widerstandswert der Spule kleiner \(8 \Omega\) gemessen wurde. Als Me"swiderstand f\"ur die Strom-Messung
+dient in diesem Fall der Ausgangswiderstand der Ausgabeports (\(19 \Omega\)). In diesem Fall wird der Spitzenstrom gr\"o"ser
+als es die Spezifikation des ATmega erlaubt. Da das nur f\"ur eine sehr kurze Zeit passiert, erwarte ich keine Sch\"aden.
+Um eine l\"angere Zeitdauer mit \"uberh\"ohtem Strom auszuschlie"sen, wird die zus\"atzliche Messung mit 
+verz\"ogertem Z\"ahlerstart immer mit \(680 \Omega\) Widerstand durchgef\"uhrt.
+
+
+Bei gro"sen Induktivit\"aten k\"onnen parasit\"are Kapazit\"aten den Strom so schnell ansteigen lassen, da"s
+die Spannungs\"uberwachung mit dem Komparator sofort anspricht. Um dennoch die Induktivit\"at bestimmen zu
+k\"onnen, wird die gleiche Messung noch einmal gemacht, aber der Z\"ahler etwas sp\"ater gestartet, damit
+der Spannungsanstieg durch den Stromzuwachs der Induktivit"at und nicht die Stromspitze durch die
+Steukapazit\"at gemessen wird.
+Die Messungen werden in beiden Stromrichtungen durchgef\"uhrt.
+Von den beiden Messungen in gleicher Stromrichtung wird das h\"ohere Me"sergebnis verwendet.
+Von den Messungen in beiden Stromrichtungen wird der kleinere Wert als Resultat der Induktivit\"atsmessung genommen.
+
+\subsection{Ergebnisse der Induktivit\"ats-Messungen}
+Die Abbildung~\ref{fig:Induct328p} zeigt die Me"sergebnisse verschiedener Induktivit\"aten.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/induct328p}
+\caption{Induktivit\"ats-Messfehler von ATmega328P-15}
+\label{fig:Induct328p}
+\end{figure}

@@ -1,0 +1,63 @@
+\section{Measurement of inductance}
+The measurement of inductance values will be done as separate part with all found resistors with
+less than \(2800~\Omega\).
+The methode of measurement is based on the growing of current by formula \(Il~=~Imax~\cdot~(1~-~e\exp{\frac{-t}{\tau}})\) 
+after switching on the current.
+The time constant \(\tau = \frac{L}{R}\) is proportional to the inductance~\(L\), but reverse proportional to the
+resistor~\(R\). 
+The current can only measured indirectly with the potential drop of a resistor.
+Unfortunately the time constant will be reduced additionally by the relative high resistance \(680~\Omega\),
+for that the measurement of little inductance values is additionally made difficult with the 8 MHz clock.
+To get the time constant, the voltage at the \(680~\Omega\) resistor will be monitored by the analog
+comparator.
+If the voltage drop at the \(680~\Omega\) resistor is higher than the voltage of the internal reference, this
+event will be notified to the 16-bit counter, which is started at the same time of switching current on.
+The counter will save the state of this event.
+If the counter will overrun, this will be counted by the program.
+After the event, the counter will be stopped by the program and the total time will be build with the saved
+counter stge and the overflow counter.
+The positive side of the coil will be switched from VCC to GND and hold in this stage until  monitoring 
+of the voltages of both pins shows, that no current is detected.
+The figure~\ref{fig:Inductance} shown a simplified diagram of the measurement situation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Inductance.eps}
+\caption{Measurement of inductances with the comparator}
+\label{fig:Inductance}
+\end{figure}
+
+With the supply voltage VCC and the sum of all resistors in the electric circuit the maximum current Imax and from
+that the percentage of the reference voltage to the maximum voltage at the \(680~\Omega\) resistor can be calculated
+\(Umax~=~Imax~\cdot~(680~+~19)\) .
+With the formula \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) the inductance can be calculated.
+The natural logarithm will be taken out of a build in table.
+In order to also measure lower inductance values, the \(680 \Omega\) resistor will be omitted in the current loop,
+if the resistance value of the inductor is measured with less than \(8 \Omega\).
+Only the output resistance of the port (\(19 \Omega\)) will be used for measurement of the current.
+In this special case the peak current will be greater than the value, that the specification of the ATmega allows.
+Because this will be true only for a very short time, I expect no damage of the ATmega ports.
+To avoid a longer time with excessive current, the additional measurement with delayed start of the counter will always be
+done with the \(680 \Omega\) resistor.
+
+
+With great inductance values the parasitic capacity can cause a quick rise of current, so that the comparator
+will responce inmmediately.
+The get the value of the inductance anyway, the measurement will be repeated with a delayed start of the counter.
+With this methode the voltage grow caused by the current increase of the inductor will be detected by the
+analog comparator instead of the current peak of the parasitic capacity.
+The measurements are always done in both current directions.
+The program will select the higher result of measurement in the same current direction, but the
+lower result of the different current direction as result.
+
+\subsection{Results of the inductance measurements}
+The figure~\ref{fig:Induct328p} shows the results of the measurement of different inductors.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/induct328p}
+\caption{Error of inductance measurement of ATmega328P-15}
+
+\label{fig:Induct328p}
+\end{figure}
+

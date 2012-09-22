@@ -1,19 +1,12 @@
 
 %\newpage
 \chapter{Known errors and unsolved problems}
-{\center Software Version 0.99k}
+{\center Software Version 1.00k}
 
 \begin{enumerate}
+
 \item Germanium Diodes (AC128) are not detected in all cases.
-\item Capacitors with values of more than 40mF are detected as resistors with a value of \(2\Omega\).
-Because resistor is detected first, capacity measurement is not done. More practical capacitors normaly have
-values of 10mF or below. So if this problem can not be solved, capacity measurement can also be limited to
-40mF instead of the aspired 100mF top value.
-\item Discharging of capacitors does not end regular. One user had reported to me, that a ATmega8 processor could not
-find the end of discharge in the AUTOSCALE\_ADC mode.
-The voltage limit for discharged capacitor ist set very low to below 3mV. My own tests with different processors are all well.
-The appearance of this error is, that the tester wrote after a long time of about 12s the text ``Cell!'' to the LCD.
-You can adjust the CAP\_EMPTY\_LEVEL in the Makefile to a higher level of 3mV, if you can not find the reason!
+
 \item Power Schottky Diodes such as MBR20100CT are not detected correctly as dual diodes.
 
 \end{enumerate}

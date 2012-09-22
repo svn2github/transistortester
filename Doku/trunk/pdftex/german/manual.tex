@@ -14,7 +14,7 @@ isolierenden Untergrund ab, wenn es nicht in einem Sockel steckt. Ber\"uhren Sie
 das Me"sergebnis kann beeinflu"st werden.
 Dann sollte der Starttaster gedr\"uckt werden.
 Nach einer Startmeldung erscheint nach circa zwei Sekunden das Me"sergebnis. Bei einer Kondensatormessung kann es
-abh\"angig von der Kapazit\"at auch l\"anger dauern.
+abh\"angig von der Kapazit\"at auch deutlich l\"anger dauern.
 
 Was dann weiter geschieht, h\"angt von der Softwarekonfiguration des Testers ab.
 \begin{description}
@@ -48,12 +48,11 @@ Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbstte
 Testports gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgef\"uhrt. Die achtmalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
-sich durch Loslassen des Starttasters interessante Tests achtmal wiederholen lassen.
+sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
 Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest eine Kalibration der Nullwertes f\"ur die
 Kondensatormessung, eine Kalibration des Spannungsoffsets f\"ur die AUTOSCALE\_ADC Funktion  und 
 eine Kalibration des Innenwiderstandes der Port-Ausg\"ange durchgef\"uhrt.
-Hierf\"ur m\"ussen aber alle acht Testwiederholungen durchgef\"uhrt werden, um die Mittelwerte zu bilden.
 Wenn Sie einen Kondenstor mit wenigstens \(100 nF\) an Pin~1 und Pin~3 w\"ahrend der Test Nummer 10 anschlie"sen,
-wird die Offset Spoannung des analogen Komparators kompensiert, um bessere Kapazit"atswerte messen zu k\"onnen.
+wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu k\"onnen.
 Die Verst\"arkung f\"ur ADC Messungen mit der internen Referenz-Spannung wird ebenfalls abgeglichen, um
 bessere Widerstands-Me"sergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.

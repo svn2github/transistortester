@@ -62,6 +62,11 @@ a weighted average is build with factor four for this value. The other value is 
 This is done to respect the factor four better resolution of this measurement. Factor four is only taken for ATmega88,
 ATmega168 and ATmega328 processors, for the ATmega8 two is taken as weighting factor if voltage is below 0.98V,
 because the reference voltage for the ADC is here 2.54V instead of 1.1V .
+If the ATmega has more than 8KByte flash memory, the voltage measurement at the resistors will be delayed until
+no more changes are detected or the time limit is reached.
+With this method big capacitors are no more detected as resistors by mistake and
+the DC resistance of big inductors will be measured correctly.
+
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}

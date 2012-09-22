@@ -2,7 +2,7 @@
 
 \section{Circuit of the TransistorTester}
 The circuit of the TransistorTester in figure \ref{fig:ttester} is based on the circuit of
- Markus F. released in Abb. 1 of AVR-Transistortester report \cite{Frejek}.
+ Markus F. released in Abb.~1 of AVR-Transistortester report \cite{Frejek}.
 Changed or moved parts are marked with green color, optional parts are marked with red color.
 Some changes are made because the electronical power switch make problems in some implementations.
 Therefore the resistor R7 is reduced to \(3.3k\Omega\). The capacitor C2 is reduced to
@@ -10,7 +10,7 @@ Therefore the resistor R7 is reduced to \(3.3k\Omega\). The capacitor C2 is redu
  Additional blocking capacitors are added and should be placed
 near the power connection of the Atmega and near the Voltage regulator.
 Because the PD7 input and PC6 (RESET) are the only pins, where pull up resistors where
-needed, one extra \(27k\Omega\) resistor is added to the PD7 (pin 13) input. With this modification
+needed, one extra \(27k\Omega\) resistor is added to the PD7 (pin~13) input. With this modification
 the software can disable all internal pull up resistors of the ATmega.
 The additional crystal with its 22pF capacitors are optional added. 
 The accuracy of a crystal has the benefit of more stable time measurement for getting the
