@@ -88,10 +88,15 @@ GNUTERM = "wxt"
 set terminal epslatex color solid
 set grid
 set logscale x
+set pointsize 3
 set style data points
-set style line 1  linetype 1 linewidth 3.000 
-set style line 2  linetype 2 linewidth 3.000 
-set style line 3  linetype 3 linewidth 3.000 
+set style line 1  linetype 1 linecolor rgb "red" linewidth 3.000  pointtype 4
+set style line 4  linetype 1 linecolor rgb "red" linewidth 3.000  pointtype 6
+set style line 2  linetype 1 linecolor rgb "green" linewidth 3.000 pointtype 4 pointsize 2
+set style line 3  linetype 1 linecolor rgb "blue" linewidth 3.000  pointtype 2
+set style line 5  linetype 1 linecolor rgb "green" linewidth 3.000 pointtype 3
+set style line 6  linetype 1 linecolor rgb "blue" linewidth 3.000  pointtype 7 pointsize 2
+
 set xlabel "Inductance value / H"
 set format x "%.0s%c"
 set format y "% g"
@@ -100,6 +105,10 @@ set xtics autofreq  norangelimit
 set ylabel "Error / Percent"
 set key inside right top vertical Right noreverse enhanced autotitles nobox
 set output "../GNU/induct328p.eps"
-plot "../GNU/inductors.dat" u 1:($4-$1)/$1*100 title "328p-15" ls 2, "../GNU/inductors.dat" u 1:($2-$1)/$1*100 title "LCR" ls 3
+plot "../GNU/inductors.dat" u 1:($28-$1)/$1*100 title "328p" ls 1, "../GNU/inductors.dat" u 1:($30-$1)/$1*100 notitle ls 1 , "../GNU/inductors.dat" u 1:($32-$1)/$1*100 notitle ls 1,\
+     "../GNU/inductors.dat" u 1:($22-$1)/$1*100 title "328" ls 4, "../GNU/inductors.dat" u 1:($24-$1)/$1*100 notitle ls 4 , "../GNU/inductors.dat" u 1:($26-$1)/$1*100 notitle ls 4,\
+     "../GNU/inductors.dat" u 1:($16-$1)/$1*100 title "168p" ls 2, "../GNU/inductors.dat" u 1:($18-$1)/$1*100 notitle ls 2 , "../GNU/inductors.dat" u 1:($20-$1)/$1*100 notitle ls 2,\
+     "../GNU/inductors.dat" u 1:($10-$1)/$1*100 title "168a" ls 5, "../GNU/inductors.dat" u 1:($12-$1)/$1*100 notitle ls 5 , "../GNU/inductors.dat" u 1:($14-$1)/$1*100 notitle ls 5,\
+     "../GNU/inductors.dat" u 1:($4-$1)/$1*100 title "168" ls 6, "../GNU/inductors.dat" u 1:($6-$1)/$1*100 notitle ls 6 , "../GNU/inductors.dat" u 1:($8-$1)/$1*100 notitle ls 6
 set output
 #    EOF

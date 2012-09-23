@@ -5,7 +5,6 @@
 
 \begin{enumerate}
 \item Add more and better documentation.
-\item By my tests I have noticed that the measured voltages of the internal band gap reference is lower than the data sheets let me expect. The reason is unknown. VCC?, ADC-error?
 \item Check if transistor tester could get better “interpolated” ADC values if additional noise is added to the signal or to the ADC reference (see ATMEL document AVR121: Enhancing ADC resolution by oversampling).
 If all items are identical, there can't be any enhancement of resolution by oversampling. Can enough noise be generated with the ATmega counter?
 How additional noise affects  the upper and lower limit values?
@@ -13,10 +12,6 @@ Of course this method can not eliminate all of the ADC errors.
 \item This method can be tested by building a ramp input signal and monitoring this signal.
 The ramp signal can be build by slowly charging a big capacitor with the 470kΩ resistor.
 The growing of the voltage can then be monitored with the LCD display in a special part of self test.
-\item The ADC operates with a clock frequency of 125kHz. The specification allows up to 200kHz with full accuracy.
-But the 200kHz clock is impossible to set with prescaler, if CPU-Clock is 1MHz or 8MHz.
-How much accuracy is lost, if the ADC Clock is set to 250kHz?
-Measurements could be done in nearly half the time, if 250kHz operation is tolerable.
 \item Think about how we can get the real internal resistance of port B output (resistor switching port) instead of assuming, that ports are equal.
 \item Can discharging of capacitors be made more quickly, if the minus pin is additionally raised
 with the \(680\Omega\) resistor to VCC (+)?

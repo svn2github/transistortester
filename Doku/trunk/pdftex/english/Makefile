@@ -1,11 +1,12 @@
 LISTE = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/rmess.eps
 LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
 LISTE += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
-LISTE += ../GNU/m168res_all.eps
+LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/Inductance.eps
+LISTE += ../FIG/JFETcd.eps 
 all: $(LISTE) ttester.pdf
 	
 ../GNU/RLvtot.eps: ../GNU/RLvtot.gnu
@@ -36,6 +37,8 @@ all: $(LISTE) ttester.pdf
 	gnuplot ../GNU/capmessAUTO.gnu
 ../GNU/m168res_all.eps: ../GNU/rmess_all.gnu ../GNU/rmess-all.dat ../GNU/rmess-autocal.dat
 	gnuplot ../GNU/rmess_all.gnu
+../GNU/induct328p.eps: ../GNU/inductors.gnu ../GNU/inductors.dat
+	gnuplot ../GNU/inductors.gnu
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps ../FIG/Messung.fig
 ../FIG/port.eps: ../FIG/port.fig
@@ -66,6 +69,8 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/PNPce.fig
 ../FIG/NPNce.eps: ../FIG/NPNce.fig
 	fig2eps ../FIG/NPNce.fig
+../FIG/JFETcd.eps: ../FIG/JFETcd.fig
+	fig2eps ../FIG/JFETcd.fig
 ../FIG/ttester.eps: ../FIG/ttester.fig
 	fig2eps ../FIG/ttester.fig
 ../FIG/Inductance.eps: ../FIG/Inductance.fig

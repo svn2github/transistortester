@@ -18,6 +18,19 @@ Wenn die Spannung des negativen Pins gr\"o"ser als 92mV ist, werden zus\"atzlich
 um N-Kanal JFET oder D-MOSFET (Verarmungs Typ) und P-Kanal JFET oder P-MOSFET zu unterscheiden.
 Die MOSFET Versionen k\"onnen unterschieden werden durch den stromlosen Zustand des
 TriStatePins in jedem Zustand.
+Um Parameter dieser Verarmungs Typen messen zu k\"onnen, werden sie mit einem \(680 \Omega\) Widerstand am
+Source Pin vermessen, wie in Abbildung \ref{fig:JFETcd} gezeigt wird. Diese Messung wird anstelle der
+\"ublichen Messung des Stromes bei einer Gate-Spannung auf Source Potential gemacht, da wegen des
+relativ hohen \(680 \Omega\) Widerstandes in vielen F\"allen der Kennstrom \(I_\mathrm{DSS}\) 
+des FET-Transistors nicht erreicht w\"urde.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/JFETcd.eps}
+\caption{Messung von Gate-Source-Spannung und Source Strom eines N-JFET Transistors}
+\label{fig:JFETcd}
+\end{figure}
+
 Wenn das Bauteil keinen Strom zwischen dem positiven Pin und dem negativen Pin ohne ein Signal
 auf dem TristatePin hat, sind die n\"achsten Tests im n\"achsten Unterkapitel \ref{sec:pnp} beschrieben.
 Wenn Strom festgestellt wird, sind die n\"achsten Tests in dem Dioden Unterkapitel \ref{sec:diode} beschrieben.

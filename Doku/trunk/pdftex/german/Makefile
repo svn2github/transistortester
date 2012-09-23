@@ -6,6 +6,7 @@ LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/Res
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/Inductance.eps
+LISTE += ../FIG/JFETcd.eps 
 all: $(LISTE) ttester.pdf
 	
 ../GNU/RLvtot.eps: ../GNU/RLvtot.gnu
@@ -68,6 +69,8 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/PNPce.fig
 ../FIG/NPNce.eps: ../FIG/NPNce.fig
 	fig2eps ../FIG/NPNce.fig
+../FIG/JFETcd.eps: ../FIG/JFETcd.fig
+	fig2eps ../FIG/JFETcd.fig
 ../FIG/ttester.eps: ../FIG/ttester.fig
 	fig2eps ../FIG/ttester.fig
 ../FIG/Inductance.eps: ../FIG/Inductance.fig

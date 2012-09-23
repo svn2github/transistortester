@@ -52,12 +52,17 @@ lower result of the different current direction as result.
 
 \subsection{Results of the inductance measurements}
 The figure~\ref{fig:Induct328p} shows the results of the measurement of different inductors.
+From a inductance of \(3 mF\) the measurement is done with the \(680 \Omega\) resistor, because
+the resistance of the inductor is more than \(8 \Omega\). The time constant is reduced with the
+additional resistor. Probably this is the reason for the higher measurement error.
+The Inductors above \(1 H\) are relays or primary sides of power transformers, for which
+measurements are difficult because the iron core has residual remanence.
+
 
 \begin{figure}[H]
 \centering
 \input{../GNU/induct328p}
-\caption{Error of inductance measurement of ATmega328P-15}
-
+\caption{Error of inductance measurement of 15 different ATmega
 \label{fig:Induct328p}
 \end{figure}
 

@@ -47,14 +47,19 @@ der Spannungsanstieg durch den Stromzuwachs der Induktivit"at und nicht die Stro
 Steukapazit\"at gemessen wird.
 Die Messungen werden in beiden Stromrichtungen durchgef\"uhrt.
 Von den beiden Messungen in gleicher Stromrichtung wird das h\"ohere Me"sergebnis verwendet.
-Von den Messungen in beiden Stromrichtungen wird der kleinere Wert als Resultat der Induktivit\"atsmessung genommen.
+Von den Messungen in verschiedenen Stromrichtungen wird der kleinere Wert als Resultat der Induktivit\"atsmessung genommen.
 
 \subsection{Ergebnisse der Induktivit\"ats-Messungen}
 Die Abbildung~\ref{fig:Induct328p} zeigt die Me"sergebnisse verschiedener Induktivit\"aten.
+Ab einer Induktivit\"at von \(3 mF\) wird mit dem \(680 \Omega\) Widerstand gemessen, da der Widerstand
+der Induktivit\"at mehr als \(8 \Omega\) betr\"agt. Durch den zus\"atzlichen Widerstand wird die
+Zeitkonstante verk\"urzt. Dies ist wahrscheinlich der Grund f\"ur den h\"oheren Me"sfehler.
+Die Induktivit\"aten \"uber \(1 H\) sind Relays und Prim\"arwicklungen von Netztrafos, die wegen
+der Remanenz des Eisenkerns schwierig zu messen sind.
 
 \begin{figure}[H]
 \centering
 \input{../GNU/induct328p}
-\caption{Induktivit\"ats-Messfehler von ATmega328P-15}
+\caption{Induktivit\"ats-Messfehler von 15 verschiedenen ATmega}
 \label{fig:Induct328p}
 \end{figure}

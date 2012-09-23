@@ -43,7 +43,7 @@ wenn Sie alle drei Pr\"ufspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] Der Nullabgleich f\"ur die Kondensatormessung und der Innenwiderstand der Port-Ausg\"ange wird beim
 Selbsttest zus\"atzlich ins EEprom geschrieben und ist damit f\"ur die weiteren Messungen abgeglichen.
-Wenn nach dem Nullbgleich der Kondensatormessung ein Kondensator mit mehr als \(100~nF\) an Pin~1 und Pin~3 
+Wenn nach dem Nullbgleich der Kondensatormessung ein Kondensator mit mehr als \(100 nF\) an Pin~1 und Pin~3 
 angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung f\"ur die AUTOSCALE\_ADC
 Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieben.\\
 Beispiel: CFLAGS += -DAUTO\_CAL
@@ -77,7 +77,7 @@ Dies erm\"oglicht k\"urzere Wartezeiten f\"ur die AUTOSCALE\_ADC Umschaltung des
 Ein 1nF Kondensator wurde in diesem Modus ohne Fehler getestet.
 Die Abbildungen~\ref{pic:aref1} und \ref{pic:aref5} zeigen die Schaltzeiten mit einem 1nF Kondensator.
 Wie Sie sehen k\"onnen ist das Schalten von 5V auf 1,1V viel langsamer als das Zur\"uckschalten auf 5V.
-Wenn Sie noch einen 100nF installiert haben, ist die Schaltzeit etwa Faktor 100 l\"anger!\\
+Wenn Sie noch einen \(100 nF\) installiert haben, ist die Schaltzeit etwa Faktor 100 l\"anger!\\
 Beispiel: CFLAGS += -DNO\_AREF\_CAP
   \item[REF\_R\_KORR] gibt einen Offset f\"ur die interne Referenz-Spannung in mV Einheiten an.
 Mit diesem Offset kann eine Differenz bei der Umschaltung der Referenzspannung f\"ur die Widerstandsmessung abgeglichen werden.
@@ -86,7 +86,7 @@ AUTO\_CAL Funktion.\\
 Beispiel:  CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] gibt der Software an, mit welcher Taktfrequenz in MHz der Tester arbeiten wird.
 Die Software ist nur mit 1MHz, 8MHz und zus\"atzlich auch 16MHz getestet. Der 8MHz Betrieb wird wegen der besseren Aufl\"osung der
-Kondensator-Messung empfohlen.\\
+Kondensator- und Spulen-Messung empfohlen.\\
 Beispiel: OP\_MHZ = 8
   \item[USE\_EEPROM] gibt an, ob feste Texte und Tabellen im EEprom Speicher abgelegt werden sollen.
 Anderenfalls wird der Programmspeicher (flash) benutzt.

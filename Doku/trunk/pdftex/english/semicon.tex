@@ -16,6 +16,18 @@ If the voltage of the negative pin is greater than 92mV with the
 currentless TriStatePin, additional tests are made to differ N-Channel JFET or D-MOSFET (depletion)
 and P-Channel JFET or P-MOSFET. MOSFET versions can be differed by the missing of current in any state
 of the TriStatePin.
+To get parameters of this depletion types, they will be measured with a \(680 \Omega\) resistor at
+the source pin, as shown in figure \ref{fig:JFETcd} . This measurement will be done instead of the
+usually measurement of current with the gate hold at source level, because with the relative high
+resistance of the \(680 \Omega\) resistor the \(I_\mathrm{DSS}\) current of the FET transistor can often not be reached.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/JFETcd.eps}
+\caption{Measurement of the  Gate-Source voltage and Source current of a N-JFET transistor}
+\label{fig:JFETcd}
+\end{figure}
+
 If the component has no current between positive probe and negative probe without signal at the
 TristatePin, the next tests are specified in the next section \ref{sec:pnp}.
 If current was detected, the next test is described in the diode section \ref{sec:diode}.
