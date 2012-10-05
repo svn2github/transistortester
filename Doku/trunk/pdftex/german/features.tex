@@ -25,7 +25,7 @@ Dioden, Doppeldioden, Thyristors und Triacs.
 \put(50,5){\line(0,1){20}}
 \put(50,15){\line(1,0){10}}
 \end{picture}
-und den Widerstands-Werten angezeigt.
+und den Widerstands-Werten mit bis zu vier Dezimalstellen in der richtigen Dimension angezeigt.
 Alle Symbole werden eingerahmt mit den gefundenen Testpin Nummern des Testers (1-3).
 Deshalb k\"onnen auch Potentiometer gemessen werden. Wenn der Schleifer eines Potentiometers auf eine Endposition
 gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschlu"s und Endanschlu"s unterscheiden.
@@ -41,9 +41,11 @@ gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschlu"s und Endans
 \put(34,0){\line(0,1){30}}
 \put(38,0){\line(0,1){30}}
 \end{picture}
-und Kapazit\"atswert angezeigt.
+und Kapazit\"atswert mit bis zu vier Dezimalstellen in der richtigen Dimension angezeigt.
 Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 100mF mit einer Aufl\"osung von bis zu 1pF (bei 8MHz Takt).
-\item Bis zu vier Dezimalstellen werden f\"ur die Kapazit\"ats und Widerstands-Werte in der richtigen Dimension angezeigt.
+\item Bei Kondensatoren mit einer Kapazit\"at \"uber \(4 \mu F\) wird zus\"atzlich der \"aquivalente Serienwiderstand (ESR) des Kondensators
+mit einer Aufl\"osung von \(0.01 \Omega\) gemessen und mit zwei Dezimalstellen angezeigt.
+Diese F\"ahigkeit steht nur zur Verf\"ugung, wenn der ATmega mindestens 16K Flash Speicher besitzt.
 \item Bis zu zwei Dioden werden mit dem Symbol
 \setlength{\unitlength}{0.1mm}
 \begin{picture}(60,30)
@@ -84,7 +86,7 @@ wenigstens 25pF gemessen werden.
 In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom Me"sergebnis abgezogen werden.
 \item Bei Widerst\"anden unter \(2800 \Omega\) wird auch eine Induktivit\"atsmessung durchgef\"uhrt, wenn der
 ATmega mehr als 8K Flash Speicher besitzt.
-Der Anzeigebereich ist etwa 0.04 mH bis \"uber 20 H, die Genauigkeit ist allerdings nicht hoch.
+Der Anzeigebereich ist etwa 0.01 mH bis \"uber 20 H, die Genauigkeit ist allerdings nicht hoch.
 Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswert angezeigt.
 \item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen und Induktivit\"atsmessungen k\"onnen l\"anger dauern.
 \item Die Software kann f\"ur Me"sserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
@@ -92,8 +94,8 @@ Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswer
 und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
 \item W\"ahlbare M\"oglichkeit f\"ur ATmega168 oder ATmega328, den Nullabgleich f\"ur die Kondensatormessung und die Innenwiderst\"ande f\"ur die
 Portausg\"ange beim Selbsttest automatisch zu bestimmen.
-Ein externer Kondensator mit wenigstens \(100 nF\) an Pin~1 und Pin~3 ist notwendig, um die Offset Spannung des analogens
-Komparators zu kompensieren.
+Ein externer Kondensator mit einer Kapazit\"at zwischen \(100 nF\) und \(3 \mu F\) an Pin~1 und Pin~3 ist notwendig, 
+um die Offset Spannung des analogens Komparators zu kompensieren.
 Dies kann den Me"sfehler bei Kapazit\"atsmessungen bis zu \(40 \mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verst\"arkung f\"ur
 die ADC Messung mit der internen Referenzspannung berechnet.
