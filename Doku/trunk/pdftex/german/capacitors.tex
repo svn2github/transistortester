@@ -18,7 +18,7 @@ Wenn die Spannung unter 1300mV ist, wird der Kondensator daf\"ur mit den angesch
 Ich glaube das ist legal, weil jeder Portausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
 Die Abbildung 149 (Seite 258) im Atmega8 Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
 Nat\"urlich kann ich nicht garantieren, da"s kein Schaden auftreten kann.
-Ich habe die Funktion mit 15mF Kondensatoren sehr oft getestet und ich habe noch nie ein Problem bemerkt.
+Ich habe die Funktion mit Kondensatoren von mehr als \(15 mF\) sehr oft getestet und ich habe noch nie ein Problem bemerkt.
 Der Strom sollte unter der spezifizierten Grenze von 40mA bleiben und reduziert sich schnell durch die Entladung.
 Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator nicht entladen bevor Sie ihn an den Tester anschlie"sen.
 
@@ -140,7 +140,7 @@ Die Methode, die in der aktuellen Software f\"ur gro"se Kondensatoren in Kapitel
 verwendet wird, vermeidet diesen Konzeptfehler.
 
 \subsection{Messen des \"aquivalenten Serienwiderstandes ESR}
-Bei Kondensatoren mit mehr als etwa \(4 \mu F\) wird versucht den Serienwiderstand von Kondensatoren zu messen.
+Bei Kondensatoren mit mehr als etwa \(2 \mu F\) wird versucht den Serienwiderstand von Kondensatoren zu messen.
 Der ESR Widerstand stellt zum Beispiel ein Ma"s f\"ur die Alterung von Elektrolyt-Kondensatoren dar.
 Die Abbildung~\ref{fig:Cap_equiv} zeigt ein Ersatzschaltbild eines Kondensators.
 Der Widerstand \(Rp\) stellt den Isolationswiderstand des Kondensators dar, \(ESL\) die \"aquivalente
@@ -153,7 +153,7 @@ Serieninduktivit\"at und der Widerstand \(ESR\) stellt den \"aquivalenten Serien
   \label{fig:Cap_equiv}
 \end{figure}
 
-Genau genommen ist auch der ESR Widerstand eines Kondensators abh\"angig von der Betriebsfrequenz.
+Genau genommen ist der ESR Widerstand eines Kondensators abh\"angig von der Betriebsfrequenz und der Temperatur.
 \"Ublicherweise wird der mit einem sinusf\"ormigen Signal bei \(100 kHz\) gemessene Wert in Datenbl\"attern angegeben.
 Bei dieser Frequenz kann der ATmega ohne externe Beschaltung keine Messung durchf\"uhren.
 Das nachfolgend beschriebene Verfahren erreicht nur eine Me"sfrequenz von unter 680 Hz mit n\"aherungsweise rechteckigem
@@ -192,55 +192,36 @@ Die Genauigkeit der ESR Messung ist aus verschiedenen Gr\"unden nicht sehr hoch:
 \begin{enumerate}
 \item Die Spannungsmessung an den beiden Kondensator-Anschl\"ussen kann nicht gleichzeitig sondern nur nacheinander durchgef\"uhrt werden.
  In der Zwischenzeit hat sich der Ladestrom durch den Ladevorgang des Kondensators ge\"andert.
+Dies wird versucht mit einer kapazit\"atsabh\"angigen Korrektur der Minuspol-Spannung auszugleichen.
 \item Der ADC nimmt den Spannungswert 1.5 Takte nach dem Start des Wandlungsvorgangs. Der Wandelvorgang beginnt mit
 der steigenden Flanke des ADC-Taktes, wenn das Startbit gesetzt ist. Wenn der Ladestrom des Kondensators zu fr\"uh abgeschaltet wird,
 nimmt der ADC die falsche Spannung f\"ur die strombehaftete Messung auf. Wird der Ladestrom zu sp\"at abgeschaltet, wird
 der Kondensator weiter geladen als es der strombehafteten Messung entspricht.
 Dann wird im stromlosen Zustand eine zu hohe Spannung gemessen.
 Es ist aber schwierig im Programm den genauen Zeitpunkt f\"ur die Stromabschaltung zu treffen.
+Um das \"Uberladen auszugleichen, wird die im stromlosen Zustand gemessene Spannung um 2 \% reduziert.
 \item Der Port-Ausgangswiderstand wird bei dieser Me"smethode als Referenz benutzt, dessen Widerstandwert
 ist aber auch nicht exakt bekannt.
 \item Die Aufl\"osung des ADC reicht nicht aus, um eine Widerstandsaufl\"osung von \(0.01 \Omega\) zu erreichen.
 F\"ur alle Messungen wird die interne Spannungsreferenz (1.1 V) benutzt, um die best m\"ogliche Aufl\"osung zu verwenden.
 Zus\"atzlich wird versucht, den Aufl\"osungs-Mangel durch eine gro"se Zahl von Einzelmessungen abzumildern.
+\item Mit der Abfrage des Fertigsignals der ADC-Wandlung gelingt es nicht exakt, die Schaltzeiten der Port-Ausg\"ange mit dem
+ADC-Takt zu synchronisieren.
 \end{enumerate}
 
-Trotzdem scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Tabelle \ref{tab:esr_mes} zeigt.
+Trotz allen Schwierigkeiten scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Abbildung \ref{fig:Cesr} zeigt.
 Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken st\"arker als die Messungen des LCR-meters.
+Die Me"sergebnisse des LCR-Me"sger\"ates wurden bei einer Frequenz von 1 kHz gemessen.
 Beim Transistortester mu"s auf die Qualit\"at der Anschl\"usse geachtet werden. Verwendete Anschlu"skabel
 erh\"ohen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern k\"onnen die gemessenen
 Widerstandwerte erh"ohen. Das LCR-Me"sger\"at macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
 
-\begin{table}[H]
-  \begin{center}
-    \begin{tabular}{| l || c | c || c | c |}
-    \hline
-           & LCRmeter,100Hz & LCRmeter,1kHz & Transistortester & Transistortester \\
- Bauteil   & Kapazit\"at & Serieller Widerstand & Kapazit\"at & Serieller Widerstand \\
-           & \(\mu F\) & \(\Omega\) & \(\mu F\) & \(\Omega\) \\
-    \hline
- 4.4uF/100V & 4.19    &  0.25   & 4.197 &  0.35 \\
- 10uF/100V & 9.91    &  0.06   & 9.953 &  0.05 \\
- 10uF/Tantal & 11.7    &  0.86   & 12.95 &  0.87 \\
- 10uF/350V & 9.37    &  1.72   & 9.90 &  1.73 \\
- 47uF/25V & 44.9    &  0.93   & 47.33 &  0.95 \\
- 68uF/100V & 64.1    &  0.09   & 66.6 &  0.10 \\
- 50uF/50V &  81.3    &  0.62   & 85.84 & 0.68 \\
- 100uF/25V & 161.5   &  0.29   & 167.7 & 0.30 \\
- 220uF/63V & 234.5   &  0.09   & 246.7 & 0.08 \\
- 330uF/50V & 313.1   &  0.07   & 328.8 & 0.08 \\
- 470uF/35V & 440.7   &  0.02   & 460.8 & 0.02 \\
- 500uF/3V  & 423.2   &  0.43   & 494.1 & 0.47 \\
- 1000uF/35V & 961.9  &  0.01   & 1004 & 0.02 \\
- 2200uF/40V & 2110   &  0.0    & 2250 & 0.02 \\
- 4700uF/25V & 4620   &  0.0    & 5025 & 0.01 \\
-    \hline
-    \end{tabular}
-  \end{center}
-  \caption{Ergebnisse von ESR-Messungen}
-  \label{tab:esr_mes}
-\end{table}
-
+\begin{figure}[H]
+\centering
+\input{../GNU/Cesr}
+\caption{Messergebnisse der ESR-Messungen mit 15 veschiedenen ATmega}
+\label{fig:Cesr}
+\end{figure}
 
 
 \subsection{Ergebnisse der Kondensator-Messung}
@@ -380,8 +361,8 @@ Auff\"allig ist, wie die ,,CapErr'' Punkte den ,,diff2ref'' Punkten folgen.
 Deshalb zeigen die Punkte ,,diff'' die Differenz zwischen den jeweiligen ,,CapErr'' und ,,diff2ref'' Punkten.
 Mit einem mittleren Wert f\"ur diff kann man also einen guten Sch\"atzwert f\"ur die Korrektur der Kondensatormessung aus der
 Differenz der Kondensatorspannung nach dem Laden zur internen Referenzspannung berechnen.
-Im zweiten Teil der Abgleichprozedur mu"s also ein Kondensator hoher G\"ute zwischen Pin 1 und Pin 3 mit einer
-Kapazit\"at zwischen \(100 nF\) und \(3 \mu F\) angeschlossen werden. 
+Im zweiten Teil der Abgleichprozedur mu"s also ein Kondensator hoher G\"ute zwischen Pin~1 und Pin~3 mit einer
+Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) angeschlossen werden. 
 Es sollte ein Folienkondensator, nach M\"oglichkeit kein keramischer Kondensator und schon gar kein
 Elektrolyt-Kondensator sein. Der Kapazit\"atswert braucht aber f\"ur diesen Abgleich nicht genau bekannt zu sein.
 

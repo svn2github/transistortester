@@ -18,7 +18,7 @@ If the voltage is below 1300mV, the capacitor is shortened by the output pins of
 I~believe that this is legal because every output port has a built in resistance of about \(20\Omega\).
 The data sheet Figure 149 (page 258) \cite{ATmega8} shows voltage drop of output pins up to 2V.
 Of course I can not guaranty, that no damage can occur. 
-I~have tested the function with a 15mF Capacitor many times and I~have never noticed any problem.
+I~have tested the function with big capacitors of more than \(15 mF\) many times and I~have never noticed any problem.
 The current should be below the specified limit of 40mA and is reduced fast by discharging.
 Off course damage can occur if you do not discharge a (high voltage) capacitor before connecting it to your tester.
 
@@ -137,8 +137,8 @@ The method taken in actual software for big capacitors in section~\ref{sec:bigca
 avoids this conceptual bug.
 
 \subsection{Measurement of the Equivalent Series Resistance ESR}
-If the measured capacitor has a capacity of more than about \(4 \mu F\), the tester will try to measure
-the series resitance too.
+If the measured capacitor has a capacity of more than about \(2 \mu F\), the tester will try to measure
+the series resistance too.
 The series resistance ESR is a good indicator for the aging of electrolytical capacitors for example.
 The figure ~\ref{fig:Cap_equiv} shows a equivalent circuit of a capacitor.
 The resistor \(Rp\) represents the leakage resistance of the capacitor, \(ESL\) the equivalent series inductivity and
@@ -151,16 +151,16 @@ the resistance \(ESR\) represents the equivalent series resistance.
   \label{fig:Cap_equiv}
 \end{figure}
 
-Strictly speaking the ESR of a capacitor depends on the operating frequency.
+Strictly speaking the ESR of a capacitor depends on the operating frequency and temperature.
 Usually the value measured with sine wave-form signal of \(100 kHz\) is denoted in the data sheets.
 This measurement can not be done with the ATmega without external equipment.
 With the subsequent written method a measurement frequency will be below 680 Hz with nearly rectangular signal.
-To get the value of the equivalent series restistance,
+To get the value of the equivalent series resistance,
 the voltage of both connections will be measured during loading in one direction with the ADC internal reference 
 voltage (1.1 V).
 After the measurement the load current will be switched off and the voltage of the capacitor is measured
 again without the current.
-
+If this voltage is below 3 mV, the sequence of measurement is repeated.
 The figure~\ref{fig:Cap_esr} shows the corresponding circuits.
 
 \begin{figure}[H]
@@ -170,7 +170,6 @@ The figure~\ref{fig:Cap_esr} shows the corresponding circuits.
   \label{fig:Cap_esr}
 \end{figure}
 
-If this voltage is below 3 mV, the sequence of measurement is repeated.
 The difference of capacitor voltages with and without current is proportional to the internal resistance of the capacitor. 
 The expected voltage of this difference is so low, that one measurement can not result to a feasible result.
 Therefore after this the current will be switched to the opposite direction and the same measurement will be repeated.
@@ -190,53 +189,35 @@ The accuracy of the ESR measurement is not very high by different reasons:
 \begin{enumerate}
 \item The voltage measurement at both pins of the capacitor can not be done at the same time, the only way is to do it in sequence.
 In the interim time between both measurements the load current has changed due to the charge of capacitor.
+The program tries to compensate this fact with a capacity dependent correction of the low side voltage.
 \item The ADC takes the measurement voltage after 1.5 clock ticks after the start of conversion.
 The conversion beginns with the rising edge of the ADC-clock, if the start bit is set.
 If the charge current will be switched off to early, the ADC takes the wrong voltage for the measurement with current.
-If the charge current will be switched off to late, the capacitor will be take more electric charge, than that of the
+If the charge current will be switched off to late, the capacitor will take more electric charge, than that of the
 corresponding measurement with load current. This will cause a too high voltage of the measurement without current.
 But it is difficult to switch off the current at the right time by software. 
+The added voltage sum of the measurements without current is reduced by 2~\% to compensate the overloading.
 \item The port output resistance is used as a reference value by this measurement method, but this resistance value is
 not exacly known too.
 \item The resolution of the ADC is not sufficient to get a resolution of resistance of \(0.01 \Omega\).
 To get the best avaiable resolution of ADC, the internal reference (1.1 V) is used for all measurements.
 The resolution deficit will be attenuated by accumulating a big number of single measurements too.
+\item The switching of ports can not be exactly synchronized to the ADC clock with polling of conversion done.
 \end{enumerate}
 
-Anyway the results seems to be practical, as shown with the following table \ref{tab:esr_mes}.
+Anyway the results seems to be practical, as shown with the following figure \ref{fig:Cesr}.
 The ESR values of the same part measured with the Transistortester vary more than the values measured with the LCR meter.
+All ESR results from the LCR meter are measured with a frequency of 1 kHz.
 You must respect the quality of all connection parts. The used cable connections can cause a higher measured resistance value.
 The plug connectors can also result a higher resistance value.
 The LCR meter has the advantage of the used Kelvin terminals.
-\begin{table}[H]
-  \begin{center}
-    \begin{tabular}{| l || c | c || c | c |}
-    \hline
-           & LCRmeter,100Hz & LCRmeter,1kHz & Transistortester & Transistortester \\
- capacitor   & capacity & Serial resistance & capacity & Serial resistance \\
-           & \(\mu F\) & \(\Omega\) & \(\mu F\) & \(\Omega\) \\
-    \hline
- 4.4uF/100V & 4.19    &  0.25   & 4.197 &  0.35 \\
- 10uF/100V & 9.91    &  0.06   & 9.953 &  0.05 \\
- 10uF/Tantal & 11.7    &  0.86   & 12.95 &  0.87 \\
- 10uF/350V & 9.37    &  1.72   & 9.90 &  1.73 \\
- 47uF/25V & 44.9    &  0.93   & 47.33 &  0.95 \\
- 68uF/100V & 64.1    &  0.09   & 66.6 &  0.10 \\
- 50uF/50V &  81.3    &  0.62   & 85.84 & 0.68 \\
- 100uF/25V & 161.5   &  0.29   & 167.7 & 0.30 \\
- 220uF/63V & 234.5   &  0.09   & 246.7 & 0.08 \\
- 330uF/50V & 313.1   &  0.07   & 328.8 & 0.08 \\
- 470uF/35V & 440.7   &  0.02   & 460.8 & 0.02 \\
- 500uF/3V  & 423.2   &  0.43   & 494.1 & 0.47 \\
- 1000uF/35V & 961.9  &  0.01   & 1004 & 0.02 \\
- 2200uF/40V & 2110   &  0.0    & 2250 & 0.02 \\
- 4700uF/25V & 4620   &  0.0    & 5025 & 0.01 \\
-    \hline
-    \end{tabular}
-  \end{center}
-  \caption{Results of some ESR-measurements}
-  \label{tab:esr_mes}
-\end{table}
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Cesr}
+\caption{ESR measurement results of 15 different ATmega}
+\label{fig:Cesr}
+\end{figure}
 
 
 
@@ -379,7 +360,7 @@ Therefore the ''diff'' points show the difference between the particular ''CapEr
 With a mean value of the ''diff'' points we can get a good estimation for the correction of the capacitor measurements 
 together with the difference voltage of the loaded capacitor and the internal reference.
 For the second part of adjustment you must connect a capacitor to pin~1 and pin~3. This capacitor should have
-a good quality factor and should have a capacity between \(100 nF\) and \(3 \mu F\).
+a good quality factor and should have a capacity between \(100 nF\) and \(20 \mu F\).
 It should be a film capacitor, as far as possible not a ceramic capacitor und in no case a electrolytic capacitor.
 You don't need to know the exact value of this capacitor.
 

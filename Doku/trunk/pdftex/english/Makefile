@@ -1,12 +1,12 @@
 LISTE = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/rmess.eps
 LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
 LISTE += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
-LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps
+LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/Inductance.eps
-LISTE += ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps
+LISTE += ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps
 all: $(LISTE) ttester.pdf
 	
 ../GNU/RLvtot.eps: ../GNU/RLvtot.gnu
@@ -39,6 +39,8 @@ all: $(LISTE) ttester.pdf
 	gnuplot ../GNU/rmess_all.gnu
 ../GNU/induct328p.eps: ../GNU/inductors.gnu ../GNU/inductors.dat
 	gnuplot ../GNU/inductors.gnu
+../GNU/Cesr.eps: ../GNU/Cesr.gnu ../GNU/Cesr_all.dat
+	gnuplot ../GNU/Cesr.gnu
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps ../FIG/Messung.fig
 ../FIG/port.eps: ../FIG/port.fig
@@ -77,6 +79,8 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/Inductance.fig
 ../FIG/Cap_equiv.eps: ../FIG/Cap_equiv.fig
 	fig2eps ../FIG/Cap_equiv.fig
+../FIG/Cap_esr.eps: ../FIG/Cap_esr.fig
+	fig2eps ../FIG/Cap_esr.fig
 TEXLIST =  capacitors.tex configuring.tex errors.tex features.tex hardware.tex measurement.tex preface.tex resistors.tex selftest.tex semicon.tex special.tex todo.tex
 ttester.pdf: ttester.tex $(LISTE) $(TEXLIST)
 	pdflatex --shell-escape ttester.tex

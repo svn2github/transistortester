@@ -44,7 +44,7 @@ example: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
-capacitor with a capacity value between \(100 nF\) and \(3 \mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
+capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
 All found values will be written to EEprom and will be used for further measurements automatically.\\
 example: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
@@ -67,16 +67,16 @@ a offset to the measured voltage difference of the test capacitor and the intern
 example:  CFLAGS += -DREF\_C\_KORR=14
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
 A value of 10 results to 1~percent lower measurement results.\\
-example:  CFLAGS += -DREF\_C\_KORR=10
+example:  CFLAGS += -DC\_H\_KORR=10
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
-  \item[NO\_AREF\_CAP] tells your Software, that you have no Capacitor installed at pin AREF (pin 21).
+  \item[NO\_AREF\_CAP] tells your Software, that you have no capacitor (\(100 nF\)) installed at pin AREF (pin 21).
 This enables a shorter wait-time for the AUTOSCALE\_ADC scale switching of the ADC.
-A 1nF capacitor was tested in this mode without detected errors.
-Figure \ref{pic:aref1} and \ref{pic:aref5} show the switching time with a 1nF capacitor.
+A \(1 nF\) capacitor was tested in this mode without detected errors.
+Figure \ref{pic:aref1} and \ref{pic:aref5} show the switching time with a \(1 nF\) capacitor.
 As you can see the switching from 5V to 1.1V is much slower than switching back to 5V. If you
-have still installed the 100nF, switching time will be about factor 100 longer!\\
+have still installed the \(100 nF\), switching time will be about factor 100 longer!\\
 example: CFLAGS += -DNO\_AREF\_CAP
   \item[REF\_R\_KORR] specifies a offset for the internal ADC-reference voltage in mV units.
 With this offset a difference by switching from VCC based ADC reference to internal ADC reference for resistor measurement can be adjusted.
@@ -97,7 +97,7 @@ example: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] this option specifies, how often an ADC value is read and accumulated.
 You can select any value between 5 and 200 for building mean value of one ADC measurement.
 Higher values result to better accuracy, but  longer measurement time.
-One ADC measurement with 44~values takes about 4.7ms.\\
+One ADC measurement with 44~values takes about 5ms.\\
 example: CFLAGS += -DANZ\_MESS=25
   \item[POWER\_OFF] This option enables the automatic power off function. If you don't specify this option,
  measurements are done in a loop infinitely  until power is disconnected with a ON/OFF switch.
@@ -133,7 +133,7 @@ The warning level of battery voltage is always 1V higher than the specified poor
 Setting the poor level to low values such as 5.4V is not recommended for rechargeable 9V batteries,
 because this increase the risk of battery damage by the reason of the deep discharge!
 If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
-example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=54
+example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=54\\
 example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=64
   \item[PROGRAMMER] select your programmer type for avrdude interface program.
 The correct selection of this option is needed, if you use the ``make upload'' or ``make fuses'' call
@@ -141,7 +141,6 @@ of this Makefile.
 For further information please look to the manual pages of avrdude and online documentation~\cite{avrdude}.\\
 example: PROGRAMMER=avrisp2
   \item[PORT] select the port where avrdude can reach your microcontroller (atmega).
-and port if you will use avrdude
 For further information please look to the manual pages of avrdude.\\
 example: PORT=usb
 

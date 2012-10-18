@@ -43,7 +43,7 @@ wenn Sie alle drei Pr\"ufspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
   \item[AUTO\_CAL] Der Nullabgleich f\"ur die Kondensatormessung und der Innenwiderstand der Port-Ausg\"ange wird beim
 Selbsttest zus\"atzlich ins EEprom geschrieben und ist damit f\"ur die weiteren Messungen abgeglichen.
-Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazit\"at zwischen \(100 nF\) und \(3 \mu F\) an Pin~1 und Pin~3 
+Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 
 angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung f\"ur die AUTOSCALE\_ADC
 Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieben.\\
 Beispiel: CFLAGS += -DAUTO\_CAL
@@ -100,7 +100,7 @@ Beispiel: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] diese Option gibt an, wie oft der ADC-Wert eingelesen und addiert werden soll.
 Sie k\"onnen einen Wert zwischen 5 und 200 w\"ahlen um einen Mittelwert f\"ur eine ADC Messung zu bilden.
 H\"ohere Werte ergeben eine bessere Genauigkeit, aber brauchen l\"angere Me"szeit.
-Eine ADC-Messung mit dem Wert 44 braucht etwa 4,7ms.\\
+Eine ADC-Messung mit dem Wert 44 braucht etwa 5ms.\\
 Beispiel: CFLAGS += -DANZ\_MESS=44
   \item[POWER\_OFF] Diese Option schaltet die automatische Abschaltfunktion ein.
 Wenn Sie diese Option weglassen, werden die Messungen in einer Schleife endlos wiederholt, bis die Betriebs-Spannung 

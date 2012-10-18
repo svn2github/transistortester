@@ -43,7 +43,7 @@ the Tester cannot differ the middle pin and the end pin.
 \end{picture}
 and value with up to four decimal digits in the right dimension. 
 The value can be from 25pF (8MHz clock, 50pF @1MHz clock) to 100mF with a resolution of up to 1 pF (@8MHz clock].
-\item For capacitors with a capacity value above \(4 \mu F\) the Equivalent Serial Resistance (ESR) is measured 
+\item For capacitors with a capacity value above \(2 \mu F\) the Equivalent Serial Resistance (ESR) is measured 
 with a resolution of \(0.01 \Omega\) and shown with two significant decimal digits.
 This feature is only avaiable for ATmega with at least 16K flash memory.
 \item Up to two diodes are shown with symbol
@@ -84,14 +84,14 @@ a parallel diode or a parallel capacitor with at least 25pF.
 In this case you must subtract the capacity value of the parallel connected part.
 \item For resistors below \(2800 \Omega\) also the measurement of inductance will be done, if
 your ATmega has at least 16K flash memory.
-The range will be from about 0.01 mH to more than 20 H, but the accuracy is not good.
+The range will be from about \(0.01 mH\) to more than \(20 H\), but the accuracy is not good.
 The measurement result is only shown with a single component connected.
 \item Testing time is about two seconds, only capacity or inductance measurement can cause longer period.
 \item Software can be configured to enable series of measurements before power will be shut down.
 \item Build in selftest function with 50Hz Frequency generator to check the accuracy of clock frequency and wait calls.
 \item Selectable facility for ATmega168 or ATmega328, to calibrate the zero offset of capacity measurement and the
 internal port resistance of port output with the selftest. A external capacitor with a value between \(100 nF\) 
-and \(3 \mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
+and \(20 \mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
 This can reduce measurement errors of capacitors of up to \(40 \mu F\).
 With the same capacitor a correction voltage to the internal reference voltage is found to adjust the
 gain for ADC measuring with the internal reference.
