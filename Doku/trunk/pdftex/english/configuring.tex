@@ -71,6 +71,13 @@ example:  CFLAGS += -DC\_H\_KORR=10
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
+  \item[ESR\_ZERO] defines a zero offset for ESR measurements.
+This zero offset will be subtracted from all ESR measurements.
+If the ESR measurement results to a negativ value, the text ''ESR=?'' is displayed and the zero offset
+in the EEprom memory will be corrected.
+This corrected zero offset will be used for further measurements.
+If you measure ESR values always too high, you should select a higher ESR\_ZERO value.\\
+Example: CFLAGS += -DESR\_ZERO=29
   \item[NO\_AREF\_CAP] tells your Software, that you have no capacitor (\(100 nF\)) installed at pin AREF (pin 21).
 This enables a shorter wait-time for the AUTOSCALE\_ADC scale switching of the ADC.
 A \(1 nF\) capacitor was tested in this mode without detected errors.

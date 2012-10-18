@@ -72,6 +72,11 @@ Beispiel:  CFLAGS += -DC\_H\_KORR=10
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V f\"ur den ATmega8 und 1,1V f\"ur die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
+  \item[ESR\_ZERO] gibt einen Nullwert f\"ur die ESR Messung von Kondensatoren vor. Dieser Nullwert wird von den
+ermittelten Me"swerten abgezogen. Bei negativen ESR-Werten wird die Ausgabe ,,ESR=?'' angezeigt und der Nullwert
+im EEprom korrigiert. Dieser korrigierte Wert wird bei den folgenden Messungen wirksam.
+Falls Sie immer zu hohe ESR-Werte messen, sollten Sie diesen Vorgabewert erh\"ohen.\\
+Beispiel: CFLAGS += -DESR\_ZERO=29
   \item[NO\_AREF\_CAP] teilt der Software mit, da"s Sie keinen Kondensator am AREF Pin (Pin 21) angeschlossen haben.
 Dies erm\"oglicht k\"urzere Wartezeiten f\"ur die AUTOSCALE\_ADC Umschaltung des ADC.
 Ein 1nF Kondensator wurde in diesem Modus ohne Fehler getestet.
