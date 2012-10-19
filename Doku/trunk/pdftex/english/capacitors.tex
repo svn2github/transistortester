@@ -76,6 +76,18 @@ The last example shows the capacity measuring of a~\(15mF\) capacitor in Figure~
   \label{pic:c15mF}
 \end{figure}
 
+After this capacity measurement the self-discharge of the capacitor will be checked by
+waiting a proportional period the loading has taken and reading the load voltage again.
+The measured capacity value is corrected due to this voltage drop.
+A test with a parallel connection of a \(68 \mu F\) capacitor and a \(2.2 k\Omega\) resistor shows
+the effectivity of this method.
+The measured capacity value without the resistor is \(66.5 \mu F\),
+with the parallel \(2.2 k\Omega\) resistor results to a capacity value of \(66.3 \mu F\).
+For comparison here are the results measured with a Peaktech 3315 multimeter:
+Without the resistor a capacity value of \(68.2 \mu F\) is measured, with the
+parallel \(2.2 k\Omega\) resistor a value of \(192 \mu F\) is measured with the multimeter.
+
+
 \subsection{Measurement of small Capacitors}
 If the first 10 ms load pulse has overloaded the capacitor, another technique of measurement is used.
 The ATmega processor has a build in 16-Bit counter, which can operate at the full clock rate (1MHz or 8MHz).

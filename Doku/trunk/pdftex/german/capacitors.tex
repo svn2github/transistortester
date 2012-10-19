@@ -77,6 +77,16 @@ Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\
   \label{pic:c15mF}
 \end{figure}
 
+Nach dieser Kondensatormessung wird die Selbstantladung des Kondensators untersucht, indem der
+Spannungsverlust  einer der Ladezeit proportionalen Zeit untersucht wird.
+Der gemessene Kapazit\"atswert wird entsprechend korrigiert. Ein Test mit einer Parallelschaltung von
+einem \(68 \mu F\) Kondensator mit einem \(2.2 k\Omega\) Widerstand zeigt die
+Wirksamkeit der Methode. Der ermittelte Kapazit\"atswert ohne den Widerstand betr\"agt \(66.5 \mu F\),
+mit dem parallelen \(2.2 k\Omega\) Widerstand wird ein Kapazit\"atswert von \(65.3 \mu F\) gemessen.
+Zum Vergleich m\"ochte ich die entsprechenden Ergebnisse mit einem Peaktech 3315 Multimeter angeben.
+Ohne den Widerstand wird eine Kapazit\"at von \(68.2 \mu F\) gemessen, mit dem parallelen \(2.2 k\Omega\)
+Widerstand wird aber \(192 \mu F\) mit dem Multimeter gemessen.
+
 \subsection{Messen von kleinen Kapazit\"aten}
 Wenn der erste 10 ms Ladepuls den Kondensator zu hoch aufgeladen hat, wird eine andere Me"stechnik benutzt.
 Der ATmega Prozessor hat einen eingebauten 16-Bit Z\"ahler, der bei voller Taktfrequenz (1MHz oder 8MHz) arbeiten kann.
@@ -178,8 +188,8 @@ Die zu erwartende Spannungsdifferenz ist allerdings so gering, da"s mit einer Me
 werden kann.
 Aus diesem Grund wird danach der Strom umgekehrt und die Messung in der anderen Richtung wiederholt.
 Die gesamte Me"ssequenz wird 128 Mal durchgef\"uhrt und die Ergebnisse der Spannungsmessungen addiert.
-Danach hat man drei Spanungssummen, die Spannung am Minuspol des Kondensators mit Strom \(Ulp\), die Spannung am
-Pluspol des Kondensators mit Strom \(Uhp\) und die Spannung am Pluspol des Kondensators ohne Strom \(Uc\).
+Danach hat man drei Spanungssummen, die Spannung \(Ulp\) am Minuspol des Kondensators mit Strom, die Spannung \(Uhp\) am
+Pluspol des Kondensators mit Strom und die Spannung \(Uc\) am Pluspol des Kondensators ohne Strom.
 Die Spannungssumme am Minuspol des Kondensators repr\"asentiert den Spannungsabfall bei einem mittleren
 Ladestrom am Port-Ausgangswiderstand \(Rport\). Aus der Differenz der Spannungssumme am Pluspol und Minuspol des Kondensators
 hat man ein Ma"s f\"ur die Spannung am Kondensator mit Ladestrom \(Udiff = Uhp - Ulp\).
@@ -255,7 +265,7 @@ Peaktech~3315 Multimeter gemessen wurden.
 Die n\"achste Kurve ,,LCR'' zeigt die Abweichungen, die mit einem Peaktech~2170 LCR-Meter in dem jeweils g\"unstigsten Frequenzbereich gemessen wurden.
 Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Me"sabweichungen eines ATmega168 best\"ucktem Transistor-Testers gezeigt.
 Ob die gezeigten Fehler aber tats\"achliche Me"sfehler des jeweiligen Ger\"ates sind, mu"s bezweifelt werden, da auch die
-Sch\"atzung des Kapazit\"atswert nicht dem wirklichen Kapazit\"at entspricht.
+Sch\"atzung des Kapazit\"atswert nicht der wirklichen Kapazit\"at entspricht.
 
 \begin{figure}[H]
 \centering
