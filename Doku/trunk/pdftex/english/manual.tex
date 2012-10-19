@@ -48,10 +48,20 @@ If the software is configured with the selftest function, the selftest can be st
 In this case all of the documented tests in the Selftest chapter \ref{sec:selftest} will be done.
 The repetition of the tests can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
-If the function AUTO\_CAL is selected in the Makefile, there will be calibrated the zero offset for the capacity measurement
-and the internal resistance of the port output. 
+If the function AUTO\_CAL is selected in the Makefile, there will be calibrated 
+the internal resistance of the port output and 
+the zero offset for the capacity measurement.
 If you connect a capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after the measurement of the capacity zero offset, 
 the offset voltage of the analog comparator will be compensated for better measurement of capacity values and 
 additionally the gain for ADC measurements with the internal reference voltage will be adjusted too 
 for better resistor measurement results with the AUTOSCALE\_ADC option.
 
+
+The zero offset for the ESR measurement will be preset as option ESR\_ZERO in the Makefile.
+This zero offset, which is set too high in normal case, will be preset in EEprom by the software and will be
+set to this initial value by every selftest.
+After every ESR measurement the result will be checked for negative value. In this case the zero offset will
+be reduced to get a zero result for next ESR measurement.
+With this methode the zero offset can be adjusted with a electrolytical capacitor with high capacity value and
+low ESR value.
+But this adjust precedure must be repeated after every selftest.

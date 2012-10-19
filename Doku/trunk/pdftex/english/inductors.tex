@@ -1,7 +1,7 @@
 \section{Measurement of inductance}
 The measurement of inductance values will be done as separate part with all found resistors with
 less than \(2800~\Omega\).
-The methode of measurement is based on the growing of current by formula \(Il~=~Imax~\cdot~(1~-~e\exp{\frac{-t}{\tau}})\) 
+The methode of measurement is based on the growing of current by formula \(Il~=~Imax~\cdot~(1~-~\exp{\frac{-t}{\tau}})\) 
 after switching on the current.
 The time constant \(\tau = \frac{L}{R}\) is proportional to the inductance~\(L\), but reverse proportional to the
 resistor~\(R\). 
@@ -15,7 +15,7 @@ event will be notified to the 16-bit counter, which is started at the same time 
 The counter will save the state of this event.
 If the counter will overrun, this will be counted by the program.
 After the event, the counter will be stopped by the program and the total time will be build with the saved
-counter stge and the overflow counter.
+counter stage and the overflow counter.
 The positive side of the coil will be switched from VCC to GND and hold in this stage until  monitoring 
 of the voltages of both pins shows, that no current is detected.
 The figure~\ref{fig:Inductance} shown a simplified diagram of the measurement situation.
@@ -45,12 +45,12 @@ if the measurement is done without the \(680 \Omega\) resistor. Otherwise a zero
 
 With great inductance values the parasitic capacity can cause a quick rise of current, so that the comparator
 will responce inmmediately.
-The get the value of the inductance anyway, the measurement will be repeated with a delayed start of the counter.
+To get the value of the inductance anyway, the measurement will be repeated with a delayed start of the counter.
 With this methode the voltage grow caused by the current increase of the inductor will be detected by the
 analog comparator instead of the current peak of the parasitic capacity.
 The measurements are always done in both current directions.
 The program will select the higher result of measurement in the same current direction, but the
-lower result of the different current direction as result.
+lower result of the different current direction as the displayed result.
 
 \subsection{Results of the inductance measurements}
 The figure~\ref{fig:Induct328p} shows the results of the measurement of different inductors.

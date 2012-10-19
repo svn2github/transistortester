@@ -7,11 +7,11 @@ If you have installed  test terminal with clamps, put all clamps together to a p
 The program notice the shorten probes and start the self test function.
 After finishing the self test the transistor tester will continue with normal measurement.
 If no equipment is connected, the program will end with ``part unknown or damaged''. 
-You can configure self test only together with all other options for a ATmega168  or ATmega328.
+You can configure self test only for a ATmega168  or ATmega328.
 The separate steps of the self test function 1 to 6 is displayed on row~1 of the LCD display with the letter T
 followed by the step number.
 Every step is repeated 4~times, before the program continues with the next step.
-But if you hold the start key pressed, when the test is finished, this test is not repeated any more.
+But if you hold the start key pressed, when the test cycle is finished, this test is not repeated any more.
 If you leave the key pressed the total time, every test is executed only once.
 
 Without the AUTO\_CAL option only measurement results are displayed in every step, no error analysis are done, you must interpret the results yourself.
@@ -109,14 +109,14 @@ If you use wire with clips, the zero offset may be 3~pF greater compared to a em
 
 \item {\bf Wait for the connection of a capacitor to pin~1 and pin~3.}
 The message ''1-C-3 \textgreater 100nF'' is shown in row 1 of LCD.
-To prepare the measurement of the offset voltage of the analog comparator you must connect
+To prepare the measurement of the comparator offset voltage, you must connect
 a sufficient big capacitor to pin~1 and pin~3.
 It should be a capacitor with a high quality factor and a capacity between \(100 nF\) and \(20 \mu F\).
 You should never use electrolytical capacitors, use film capacitors instead.
 
 \item {\bf Measurement of the comparator offset for capacitor measurement adjustment.}
-To get the offset of the analog comparator, a capacitor must already be connected to pin~1 and pin~3 .
-The capacitor will be needed for buffering the load voltage of a capacitor, in order to get the voltage
+To get the offset of the analog comparator, a capacitor must already be connected to pin~1 and pin~3.
+The capacitor is needed for buffering the load voltage of a capacitor, in order to get the voltage
 difference of load voltage to the internal reference voltage (band gap).
 If measurement is successfull, the correction value is short shown with the text ''REF\_C='' in row~1 of 
 the LCD and written to the EEprom. You can give a additional offset to the automatic measured value
@@ -130,7 +130,7 @@ Your REF\_R\_KORR value is a additional offset to this automatic find out differ
 \end{enumerate}
 
 At the end of test function the text ``Auto Test End''  is shown in row~1 and the version number of software is shown in row~2.
-If selected with the Makefile option FREQUENCY\_50HZ, a {\bf 50Hz rectangle signal} is generated on pin~2 and 
+If the Makefile option FREQUENCY\_50HZ is set, a {\bf 50Hz rectangle signal} is generated on pin~2 and 
 the same signal in opposite direction on pin~3.
 Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
 This will be notified by the Output of ``50Hz'' at the end of row 1 of the LCD display.

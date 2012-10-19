@@ -17,13 +17,13 @@ The accuracy of a crystal has the benefit of more stable time measurement for ge
 capacitor values.
 New software version can use a scale switch of the ADC. The speed of switching is reduced
 by the external capacitor C1 at the AREF (21) pin of the ATmega. To avoid slowing down the
-measurement speedi more than necessary, the value of this capacitor should be reduced to 1nF.
+measurement speed more than necessary, the value of this capacitor should be reduced to 1nF.
 Removing of the capacitor C1 is also possible.
 For adapting the software to the actual circuit take a look to the Makefile options in the
 configuring chapter \ref{sec:config}. Some different versions of R11 / R12 resistor combinations circulates
 in the internet. I~have adapted my software to the original of Markus F. \cite{Frejek} with \(10k\Omega\) and \(3.3k\Omega\).
-The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) is planned to use
-with future software versions and is currently not used.
+The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can be used to
+check and calibrate the VCC voltage, but is not required.
 A optional ISP connector has been added to easier load new software versions to the tester.
 
 

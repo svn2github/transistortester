@@ -89,8 +89,10 @@ The measurement result is only shown with a single component connected.
 \item Testing time is about two seconds, only capacity or inductance measurement can cause longer period.
 \item Software can be configured to enable series of measurements before power will be shut down.
 \item Build in selftest function with 50Hz Frequency generator to check the accuracy of clock frequency and wait calls.
-\item Selectable facility for ATmega168 or ATmega328, to calibrate the zero offset of capacity measurement and the
-internal port resistance of port output with the selftest. A external capacitor with a value between \(100 nF\) 
+\item Selectable facility for ATmega168 or ATmega328, to calibrate
+the internal port resistance of port output and
+the zero offset of capacity measurement with the selftest.
+A external capacitor with a value between \(100 nF\) 
 and \(20 \mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
 This can reduce measurement errors of capacitors of up to \(40 \mu F\).
 With the same capacitor a correction voltage to the internal reference voltage is found to adjust the

@@ -53,10 +53,10 @@ The same zoomed range of measurement type 2 shows the figure~\ref{fig:RLvhigh}.
 Unfortunately we can not use the higher ADC resolution for measurement type~2 in this range,
  because the voltage is too high and our ATmega have no differential ADC input.
 Measurements with the \(680\Omega\) resistors are taken for building the result of measurements up to \(20k\Omega\)
-(Voltage of measurement typ 2 will be below 169mV).
+(Voltage of measurement type 2 will be below 169mV).
 
 For higher resistor values the measurements with the \(470k\Omega\) resistors are used. The mean value of both
-measurements is taken as displayed resistor value, if all tests attests, that is is no other type of part.
+measurements is taken as displayed resistor value, if all tests attests, that it is no other type of part.
 If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below 0.98V,
 a weighted average is build with factor four for this value. The other value is weighted with factor one.
 This is done to respect the factor four better resolution of this measurement. Factor four is only taken for ATmega88,

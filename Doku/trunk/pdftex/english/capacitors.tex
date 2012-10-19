@@ -105,7 +105,7 @@ The selftest with AUTO\_CAL option will find out your zero offset automatically.
 I noticed that the reference voltage is permanently somewhat to low,
  so that you can choose an offset with the Makefile option REF\_C\_KORR.
 After calibration with the AUTO\_CAL option , the REF\_C\_KORR will only be a offset to the measured difference voltage
-between loaded capacitor and internal referenz.
+between loaded capacitor and internal reference.
 The measured reference voltage will then be corrected (added) by your value (mV units).
 If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega88, ATmega168 and ATmega328
 are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
@@ -173,12 +173,12 @@ The figure~\ref{fig:Cap_esr} shows the corresponding circuits.
 The difference of capacitor voltages with and without current is proportional to the internal resistance of the capacitor. 
 The expected voltage of this difference is so low, that one measurement can not result to a feasible result.
 Therefore after this the current will be switched to the opposite direction and the same measurement will be repeated.
-The whole measurement sequence will be done 128 times and the results od the voltage measurements will be added.
-So we have three sums of voltages, the voltage at the low side of the capacitor with current \(Ulp\), the voltage at
-the high side of the capacitor with current \(Uhp\) and the voltage of the high side of the capacitor without current \(Uc\).
+The whole measurement sequence will be done 128 times and the results of the voltage measurements will be added.
+So we have three sums of voltages, the voltage \(Ulp\) at the low side of the capacitor with current, the voltage \(Uhp\) at
+the high side of the capacitor with current and the voltage \(Uc\) of the high side of the capacitor without current.
 The sum of voltages at the low side of the capacitor represents the potential drop with the mean load current at
 the port output resistance \(Rport\). 
-The voltage difference  of the high side and the low side of the capacitor reresents the voltage of the capacitor with
+The voltage difference  of the high side and the low side of the capacitor represents the voltage of the capacitor with
 load current \(Udiff = Uhp - Ulp\).
 The difference \(Uesr = Udiff - Uc\) should represent the voltage drop at the internal resistance of the capacitor with
 mean load current.
@@ -223,13 +223,13 @@ The LCR meter has the advantage of the used Kelvin terminals.
 
 
 \subsection{Results of Capacitor measurement}
-The results of my measurements is shown if figure~\ref{fig:mega8cap} for ATmega8 processor without and 
+The results of my capacity measurements are shown in figure~\ref{fig:mega8cap} for ATmega8 processor without and 
 with the AUTOSCALE\_ADC option. Additionally some values of original software are shown with a correction factor
 of 0.88 (-12\%).
 The results of the measurement of the same capacitors for a ATmega168 is shown in figure~\ref{fig:mega168cap}.
 The base for the error computing are the measurement results of a PeakTech 2170 RCL-meter, not the printed value
 of the parts.
-A part of the relative high measurement difference is caused be the too high measurement frequency of the RCL-meter for big
+A part of the relative high measurement difference is caused by the too high measurement frequency of the RCL-meter for big
 electrolytical capacitors. On the other side the bad quality factor of the electrolytical capacitors may cause
 another percentage.
 
@@ -343,7 +343,7 @@ The automatic calibration is build in two parts. The first part find out the zer
 For that the mean value of the capacity measured without connected capacitor is build. 
 A mean value for all 6 measurement combinations is build with 8 repetitions.
 After successfull determination the zero offsets are written to the EEprom and will be used for further measurements.
-More difficult was the clearance of the variance of the different ATmega processors for little capacitors (< \(40 \mu F\)),
+More difficult was the clearance of the variance of the different ATmega processors for little capacitors (\textless \(40 \mu F\)),
 which is shown in Figure~\ref{fig:mega168all}, \ref{fig:mega168Aall} and \ref{fig:mega168PAall}.
 As a significant reason for this is found the different characteristic (Offset voltage) of the analog comparator.
 

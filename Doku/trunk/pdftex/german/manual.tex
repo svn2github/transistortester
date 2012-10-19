@@ -49,11 +49,20 @@ Testports gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgef\"uhrt. Die viermalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
 sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
-Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest eine Kalibration der Nullwertes f\"ur die
-Kondensatormessung und 
-eine Kalibration des Innenwiderstandes der Port-Ausg\"ange durchgef\"uhrt.
+Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest
+eine Kalibration des Innenwiderstandes der Port-Ausg\"ange und
+eine Kalibration der Nullwertes f\"ur die Kondensatormessung durchgef\"uhrt.
 Wenn Sie einen Kondenstor mit einer beliebiger Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 
 w\"ahrend der Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) anschlie"sen,
 wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu k\"onnen.
 Die Verst\"arkung f\"ur ADC Messungen mit der internen Referenz-Spannung wird ebenfalls abgeglichen, um
 bessere Widerstands-Me"sergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
+
+
+Der Nullwert f\"ur die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt. Dieser Nullwert, der im
+Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt und wird bei jedem Selbsttest
+wieder auf diesen Wert zur\"uckgesetzt.
+Nach jeder ESR-Messung wird gepr\"uft, ob das Resultat negativ ist. In diesem Fall wird der Nullwert so weit
+reduziert, da"s sich bei der n\"achsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
+einem Elektrolytkondensator hoher Kapazit\"at und mit niedrigem ESR durchgef\"uhrt werden.
+Dieser Nullabgleich mu"s aber nach jedem Selbsttest wiederholt werden.
