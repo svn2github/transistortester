@@ -1,12 +1,14 @@
 
 %\newpage
 \chapter{Known errors and unsolved problems}
-{\center Software Version 1.01k}
+{\center Software Version 1.02k}
 
 \begin{enumerate}
 
 \item Germanium Diodes (AC128) are not detected in all cases.
 
-\item Power Schottky Diodes such as MBR20100CT are not detected correctly as dual diodes.
+\item Capacity value in reverse direction for Power Schottky Diodes such as MBR3045PT can not be measured,
+if only one diode is connected. The reason is a too big residual current of this diode.
+Sometimes the measurement is possible by cooling down the device (with  cooling spray for example).
 
 \end{enumerate}

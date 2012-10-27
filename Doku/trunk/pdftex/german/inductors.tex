@@ -33,7 +33,7 @@ daraus der Anteil der Vergleichsspannung im Verh\"altnis zur Maximalspannung am 
 Mit der Formel \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) kann die Indukivit\"at bestimmt werden.
 Der nat\"urliche Logarithmus wird im Programm mit einer Tabelle ermittelt.
 Um auch kleinere Induktivit\"aten messen zu k\"onnen, wird der \(680 \Omega\) Widerstand im Stromkreis weggelassen,
-wenn der Widerstandswert der Spule kleiner \(8 \Omega\) gemessen wurde. Als Me"swiderstand f\"ur die Strom-Messung
+wenn der Widerstandswert der Spule kleiner \(24 \Omega\) gemessen wurde. Als Me"swiderstand f\"ur die Strom-Messung
 dient in diesem Fall der Ausgangswiderstand der Ausgabeports (\(19 \Omega\)). In diesem Fall wird der Spitzenstrom gr\"o"ser
 als es die Spezifikation des ATmega erlaubt. Da das nur f\"ur eine sehr kurze Zeit passiert, erwarte ich keine Sch\"aden.
 Um eine l\"angere Zeitdauer mit \"uberh\"ohtem Strom auszuschlie"sen, wird die zus\"atzliche Messung mit 
@@ -53,9 +53,6 @@ Von den Messungen in verschiedenen Stromrichtungen wird der kleinere Wert als Re
 
 \subsection{Ergebnisse der Induktivit\"ats-Messungen}
 Die Abbildung~\ref{fig:Induct328p} zeigt die Me"sergebnisse verschiedener Induktivit\"aten.
-Ab einer Induktivit\"at von \(3 mF\) wird mit dem \(680 \Omega\) Widerstand gemessen, da der Widerstand
-der Induktivit\"at mehr als \(8 \Omega\) betr\"agt. Durch den zus\"atzlichen Widerstand wird die
-Zeitkonstante verk\"urzt.
 Die Induktivit\"aten \"uber \(1 H\) sind Relays und Prim\"arwicklungen von Netztrafos, die wegen
 der Remanenz des Eisenkerns schwierig zu messen sind.
 

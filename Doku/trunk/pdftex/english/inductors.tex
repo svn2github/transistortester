@@ -33,7 +33,7 @@ that the percentage of the reference voltage to the maximum voltage at the \(680
 With the formula \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) the inductance can be calculated.
 The natural logarithm will be taken out of a build in table.
 In order to also measure lower inductance values, the \(680 \Omega\) resistor will be omitted in the current loop,
-if the resistance value of the inductor is measured with less than \(8 \Omega\).
+if the resistance value of the inductor is measured with less than \(24 \Omega\).
 Only the output resistance of the port (\(19 \Omega\)) will be used for measurement of the current.
 In this special case the peak current will be greater than the value, that the specification of the ATmega allows.
 Because this will be true only for a very short time, I expect no damage of the ATmega ports.
@@ -54,9 +54,6 @@ lower result of the different current direction as the displayed result.
 
 \subsection{Results of the inductance measurements}
 The figure~\ref{fig:Induct328p} shows the results of the measurement of different inductors.
-From a inductance of \(3 mF\) the measurement is done with the \(680 \Omega\) resistor, because
-the resistance of the inductor is more than \(8 \Omega\). The time constant is reduced with the
-additional resistor.
 The Inductors above \(1 H\) are relays or primary sides of power transformers, for which
 measurements are difficult because the iron core has residual remanence.
 
