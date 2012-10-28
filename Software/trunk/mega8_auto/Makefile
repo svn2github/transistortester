@@ -95,7 +95,7 @@ CFLAGS += -DANZ_MESS=25
 # The tester will also shut down with found part,
 # but measurements are allowed double of the specified number.
 #  You can specify up to 255 empty measurements (CFLAGS += -DPOWER_OFF=255).
-CFLAGS += -DPOWER_OFF=5
+CFLAGS += -DPOWER_OFF
 # option BAT_CHECK enables the Battery Voltage Check, otherwise output SW Version
 # is only needed for battery powered tester version
 CFLAGS += -DBAT_CHECK
@@ -363,7 +363,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = lcd-routines.o main.o swuart.o wait1000ms.o CombineToLong.o ReadCapacity.o ReadInductance.o ReadADC.o GetESR.o
+OBJECTS = lcd-routines.o lcd_hw_4_bit.o main.o swuart.o wait1000ms.o CombineToLong.o ReadCapacity.o ReadInductance.o ReadADC.o GetESR.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -374,6 +374,9 @@ all: $(TARGET) TransistorTester.hex TransistorTester.eep TransistorTester.lss si
 
 ## Compile
 lcd-routines.o: ../lcd-routines.c Makefile
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+lcd_hw_4_bit.o: ../lcd_hw_4_bit.S Makefile
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ReadCapacity.o: ../ReadCapacity.c Makefile
