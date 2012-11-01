@@ -38,6 +38,8 @@ Die folgenden Optionen der Makefile sind verf\"ugbar, um die Software f\"ur den 
 Das \(\mu\) und \(\Omega\) Zeichen ist im kyrillischen Zeichensatz nicht enthalten.
 Wenn Sie diese Option angeben, werden beide Zeichen von der Software in das LCD geladen.\\
 Beispiel: CFLAGS += -DLCD\_CYRILLIC
+  \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port D f\"ur Streifenleiterplatinen an.
+Die Einzelheiten findet man in dem Hardware Kapitel \ref{sec:hardware}.
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Pr\"ufspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST

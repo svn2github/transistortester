@@ -1,6 +1,7 @@
 \chapter{Hardware}
 
 \section{Circuit of the TransistorTester}
+\label{sec:hardware}
 The circuit of the TransistorTester in figure \ref{fig:ttester} is based on the circuit of
  Markus F. released in Abb.~1 of AVR-Transistortester report \cite{Frejek}.
 Changed or moved parts are marked with green color, optional parts are marked with red color.
@@ -33,6 +34,30 @@ A optional ISP connector has been added to easier load new software versions to 
 \caption{New circuit of TransistorTester}
 \label{fig:ttester}
 \end{figure}
+The software can follow to another pin assignment of port D for a simpler connection of the
+LCD display. 
+The following table \ref{tab:grid-change} shows the modified assignments.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c |}
+    \hline
+       Signal & circuit diagram & strip grid board version\\
+    \hline
+    pushbutton input  &  PD7   &  PD0 \\
+    LCD-RS    &  PD4      & PD7 \\
+    LCD-E     &  PD5   & PD5 \\
+    LCD-D4    &  PD0   & PD4 \\
+    LCD-D5    &  PD1   & PD3 \\
+    LCD-D6    &  PD2   & PD2 \\
+    LCD-D7    &  PD3   & PD1 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Changes for strip grid board}
+  \label{tab:grid-change}
+\end{table}
+
 
 \section{Hints for building the TransistorTester}
 Every LCD-display with at least 2x16 character and a HD44780 compatible controller

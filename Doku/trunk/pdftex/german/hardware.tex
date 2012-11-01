@@ -1,6 +1,7 @@
 \chapter{Hardware}
 
 \section{Die Schaltung des TransistorTesters}
+\label{sec:hardware}
 Die Schaltung des TransistorTesters in Abbildung~\ref{fig:ttester} basiert auf der Schaltung von
 Markus F., die er in Abb. 1 des AVR-Transistortester Reports \cite{Frejek} ver\"offentlicht hat.
 Ge\"anderte oder verschobene Bauteile sind mit gr\"uner Farbe markiert, optionale Teile sind
@@ -37,6 +38,31 @@ laden zu k\"onnen.
 \caption{Neue TransistorTester-Schaltung}
 \label{fig:ttester}
 \end{figure}
+
+Um einen einfacheren Anschluß des Displays an den ATmega auf Streifenleiter Platinen zu erreichen,
+kann die Software auch eine andere Port D Belegung ber\"ucksichtigen.
+Die folgende Tabelle \ref{tab:grid-change} zeigt die \"Anderungen der Pin Belegungen.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c |}
+    \hline
+       Signal & Schaltbild & Streifenleiter\\
+    \hline
+    Tastensignal  &  PD7   &  PD0 \\
+    LCD-RS    &  PD4      & PD7 \\
+    LCD-E     &  PD5   & PD5 \\
+    LCD-D4    &  PD0   & PD4 \\
+    LCD-D5    &  PD1   & PD3 \\
+    LCD-D6    &  PD2   & PD2 \\
+    LCD-D7    &  PD3   & PD1 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{\"Anderungen f\"ur Streifenleiter-Platine}
+  \label{tab:grid-change}
+\end{table}
+
 
 \section{Hinweise f\"ur den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780 kompatiblen Kontroller kann mit
