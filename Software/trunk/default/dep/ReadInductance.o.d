@@ -4,7 +4,8 @@ ReadInductance.o: ../ReadInductance.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/inttypes.h \
  /usr/lib/gcc/avr/4.5.3/include/stdint.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdint.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom328p.h \
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom168.h \
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iomx8.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/portpins.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/common.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/version.h \
@@ -33,7 +34,9 @@ ReadInductance.o: ../ReadInductance.c \
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdint.h:
 
-/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom328p.h:
+/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iom168.h:
+
+/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iomx8.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/portpins.h:
 
