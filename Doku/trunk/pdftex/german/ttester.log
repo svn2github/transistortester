@@ -1,24 +1,16 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.10.28)  4 NOV 2012 14:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  4 NOV 2012 19:47
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
 **ttester.tex
 (./ttester.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
-rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
-c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
-h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
-h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
-ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
-rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
-kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
- polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
-lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
-welsh, loaded.
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/report.cls
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, ngerman, german, german-x-2009-06-19, ngerman-x-2009-06-19, loaded.
+
+(/usr/share/texmf-texlive/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/size12.clo
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo
 File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -34,7 +26,7 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/lmodern.sty
+(/usr/share/texmf/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -69,93 +61,88 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/t1enc.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/ucs/utf8x.def
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/ucs/ucs.sty
+(/usr/share/texmf-texlive/tex/latex/ucs/ucs.sty
 Package: ucs 2004/10/17 UCS: Unicode input support
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/ucs/data/uni-global.def
-File: uni-global.def 2012/08/28 UCS: Unicode global data
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2004/10/17 UCS: Unicode global data
 )
 \uc@secondtry=\count88
 \uc@combtoks=\toks16
 \uc@combtoksb=\toks17
 \uc@temptokena=\toks18
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/preprint/fullpage.sty
+(/usr/share/texmf-texlive/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip43
 )
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2008/07/08 v3.8m The Babel package
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/english.ldf
+(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen103
 )
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 )
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/ngermanb.ldf
+(/usr/share/texmf-texlive/tex/generic/babel/ngermanb.ldf
 Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
 \l@naustrian = a dialect from \language\l@ngerman 
 Package babel Info: Making " an active character on input line 92.
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks19
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count90
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2012/02/19 v3.2f Customizing captions (AR)
+(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
+Package: caption 2009/10/09 v3.1k Customizing captions (AR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
+(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 \captionmargin=\dimen106
 \captionmargin@=\dimen107
 \captionwidth=\dimen108
@@ -165,178 +152,153 @@ Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
 )
 \c@ContinuedFloat=\count91
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
+(/usr/share/texmf-texlive/tex/latex/caption/subcaption.sty
+Package: subcaption 2008/08/31 v1.0b Adding subcaptions (AR)
 \c@subfigure=\count92
 \c@subtable=\count93
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/color.cfg
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/epstopdf.sty
-Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2009/10/17 v2.4 Conversion with epstopdf on the fly (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2009/10/17 v2.4 Base part for package epstopdf
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
 )
+(/usr/share/texmf-texlive/tex/latex/oberdiek/grfext.sty
+Package: grfext 2007/09/30 v1.0 Managing graphics extensions (HO)
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
 )
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
+(grfext)             \AppendGraphicsExtensions on input line 433.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(/usr/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2009/10/26 v1.1 Configuration of epstopdf for TeX Live
 )))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2012/10/15 v6.83k Hypertext links for LaTeX
+(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
-Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
-
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
-Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
-Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
-Package hobsub Info: Skipping package `infwarerr' (already loaded).
-Package hobsub Info: Skipping package `ltxcmds' (already loaded).
-Package hobsub Info: Skipping package `ifluatex' (already loaded).
-Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
 Package ifvtex Info: VTeX not detected.
-Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
-Package hobsub Info: Skipping package `ifpdf' (already loaded).
-Package hobsub Info: Skipping package `etexcmds' (already loaded).
-Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
-Package hobsub Info: Skipping package `kvdefinekeys' (already loaded).
-Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
-Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
-Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
 )
-Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
-Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+(/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
 )
-Package hobsub Info: Skipping package `hobsub' (already loaded).
-Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
-Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
-Package: xcolor-patch 2011/01/30 xcolor patch
-Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
-Package atveryend Info: \enddocument detected (standard20110627).
-Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
-Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
-Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
-)
-(/usr/local/texlive/2012/texmf-dist/tex/generic/ifxetex/ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/auxhook.sty
-Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
 \@linkdim=\dimen112
 \Hy@linkcounter=\count94
 \Hy@pagecounter=\count95
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2012/10/15 v6.83k Hyperref: PDFDocEncoding definition (HO)
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count96
-
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4322.
-Package hyperref Info: Link nesting OFF on input line 4327.
-Package hyperref Info: Hyper index ON on input line 4330.
-Package hyperref Info: Plain pages OFF on input line 4337.
-Package hyperref Info: Backreferencing OFF on input line 4342.
-Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4567.
-\c@Hy@tempcnt=\count97
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip10
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4920.
-\XeTeXLinkMargin=\dimen113
-\Fld@menulength=\count98
-\Field@Width=\dimen114
-\Fld@charsize=\dimen115
-Package hyperref Info: Hyper figures OFF on input line 6174.
-Package hyperref Info: Link nesting OFF on input line 6179.
-Package hyperref Info: Hyper index ON on input line 6182.
-Package hyperref Info: backreferencing OFF on input line 6189.
-Package hyperref Info: Link coloring OFF on input line 6194.
-Package hyperref Info: Link coloring with OCG OFF on input line 6199.
-Package hyperref Info: PDF/A mode OFF on input line 6204.
-LaTeX Info: Redefining \ref on input line 6244.
-LaTeX Info: Redefining \pageref on input line 6248.
-\Hy@abspage=\count99
-\c@Item=\count100
-\c@Hfootnote=\count101
-)
+LaTeX Info: Redefining \url on input line 3428.
 
-Package hyperref Message: Driver: hpdftex.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2012/10/15 v6.83k Hyperref driver for pdfTeX
-\Fld@listcount=\count102
-\c@bookmark@seq@number=\count103
+(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+))
+\Fld@menulength=\count96
+\Field@Width=\dimen113
+\Fld@charsize=\dimen114
+\Field@toks=\toks20
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring OFF on input line 4397.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
-Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-82.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 )
-\Hy@SectionHShift=\skip44
+\Hy@abspage=\count97
+\c@Item=\count98
+\c@Hfootnote=\count99
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/float/float.sty
+*hyperref using driver hpdftex*
+(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count100
+)
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count104
-\float@exts=\toks20
+\c@float@type=\count101
+\float@exts=\toks21
 \float@box=\box26
-\@float@everytoks=\toks21
+\@float@everytoks=\toks22
 \@floatcapt=\box27
 ) (./ttester.aux
 (./00-preface.aux) (./10-features.aux) (./20-hardware.aux) (./30-manual.aux)
@@ -361,68 +323,65 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 18.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/t1lmr.fd
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/ucs/ucsencs.def
-File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
+(/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 )
-(/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
-\scratchdimen=\dimen116
+\scratchcounter=\count102
+\scratchdimen=\dimen115
 \scratchbox=\box28
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count108
-\MPscratchDim=\dimen117
-\MPnumerator=\count109
-\makeMPintoPDFobject=\count110
-\everyMPtoPDFconversion=\toks23
+\nofMPsegments=\count103
+\nofMParguments=\count104
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count105
+\MPscratchDim=\dimen116
+\MPnumerator=\count106
+\everyMPtoPDFconversion=\toks24
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\AtBeginShipoutBox=\box29
 Package hyperref Info: Link coloring OFF on input line 18.
- (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2012/07/31 v2.42 Cross-referencing by name of section
+ (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count111
+\c@section@level=\count107
 )
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
-LaTeX Info: Redefining \nameref on input line 18.
-
-(./ttester.out) (./ttester.out)
+ (./ttester.out)
+(./ttester.out)
 \@outlinefile=\write3
 \openout3 = `ttester.out'.
 
+\AtBeginShipoutBox=\box29
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 27.
-
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/ot1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 27.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/omllmm.fd
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 27.
 
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/omslmsy.fd
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 27.
 
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/omxlmex.fd
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -432,18 +391,18 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 27.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/ucs/data/uni-0.def
-File: uni-0.def 2012/08/28 UCS: Unicode data U+0000..U+00FF
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 )
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 27.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/t1lmtt.fd
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 
-Non-PDF special ignored!{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/upd
-map/pdftex.map}] (./ttester.toc
+Non-PDF special ignored!{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(./ttester.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -481,28 +440,19 @@ Kapitel 1.
  (./20-hardware.tex
 Kapitel 2.
 Package epstopdf Info: Source file: <../FIG/ttester.eps>
-(epstopdf)                    date: 2012-11-04 14:32:33
-(epstopdf)                    size: 61663 bytes
+(epstopdf)                    date: 2012-11-04 19:44:50
+(epstopdf)                    size: 61497 bytes
 (epstopdf)             Output file: <../FIG/ttester-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:28
-(epstopdf)                    size: 21140 bytes
+(epstopdf)                    date: 2012-11-04 19:44:52
+(epstopdf)                    size: 21044 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/ttester-eps-converte
 d-to.pdf ../FIG/ttester.eps>
 (epstopdf)             \includegraphics on input line 37.
-runsystem(epstopdf --outfile=../FIG/ttester-eps-converted-to.pdf ../FIG/ttester
-.eps)...executed.
-
-Package epstopdf Info: Result file: <../FIG/ttester-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:36
-(epstopdf)                    size: 21140 bytes.
-<../FIG/ttester-eps-converted-to.pdf, id=233, 768.8725pt x 404.51125pt>
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/ttester-eps-converted-to.pdf, id=231, 768.8725pt x 404.51125pt>
 File: ../FIG/ttester-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/ttester-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/ttester-eps-converted-to.pdf used on input line
- 37.
-(pdftex.def)             Requested size: 512.1496pt x 269.4657pt.
- [6
+<use ../FIG/ttester-eps-converted-to.pdf> [6
 
 
 
@@ -554,75 +504,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
 
-[13] <../PNG/AREF2_1V.png, id=287, 321.2pt x 234.8775pt>
+[13] <../PNG/AREF2_1V.png, id=285, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
 
-<use ../PNG/AREF2_1V.png>
-Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 96.
-(pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
- <../PNG/AREF2VCC.png, id=288, 321.2pt x 234.8775pt>
+<use ../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png, id=286, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
 
 <use ../PNG/AREF2VCC.png>
-Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 103.
-(pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
-
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 94--107
 [][]   [] 
  []
 
-[14 <../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png>] [15]) [16]
+[14 <../PNG/AREF2_1V.png (PNG copy)> <../PNG/AREF2VCC.png (PNG copy)>] [15])
+[16]
 \openout2 = `50-measurement.aux'.
 
-
-(./50-measurement.tex
+ (./50-measurement.tex
 Kapitel 5.
 Package epstopdf Info: Source file: <../FIG/port.eps>
-(epstopdf)                    date: 2012-11-04 14:32:24
-(epstopdf)                    size: 19962 bytes
+(epstopdf)                    date: 2012-11-04 19:44:42
+(epstopdf)                    size: 19796 bytes
 (epstopdf)             Output file: <../FIG/port-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:28
-(epstopdf)                    size: 9325 bytes
+(epstopdf)                    date: 2012-11-04 19:44:53
+(epstopdf)                    size: 9208 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/port-eps-converted-t
 o.pdf ../FIG/port.eps>
 (epstopdf)             \includegraphics on input line 12.
-runsystem(epstopdf --outfile=../FIG/port-eps-converted-to.pdf ../FIG/port.eps).
-..executed.
-
-Package epstopdf Info: Result file: <../FIG/port-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:36
-(epstopdf)                    size: 9325 bytes.
-<../FIG/port-eps-converted-to.pdf, id=307, 224.84pt x 123.46124pt>
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/port-eps-converted-to.pdf, id=304, 224.84pt x 123.46124pt>
 File: ../FIG/port-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/port-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/port-eps-converted-to.pdf used on input line 12
-.
-(pdftex.def)             Requested size: 224.83945pt x 123.46092pt.
 Package epstopdf Info: Source file: <../FIG/terminal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:24
-(epstopdf)                    size: 25557 bytes
+(epstopdf)                    date: 2012-11-04 19:44:42
+(epstopdf)                    size: 25391 bytes
 (epstopdf)             Output file: <../FIG/terminal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:29
-(epstopdf)                    size: 9939 bytes
+(epstopdf)                    date: 2012-11-04 19:44:53
+(epstopdf)                    size: 9831 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/terminal-eps-convert
 ed-to.pdf ../FIG/terminal.eps>
 (epstopdf)             \includegraphics on input line 22.
-runsystem(epstopdf --outfile=../FIG/terminal-eps-converted-to.pdf ../FIG/termin
-al.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/terminal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:37
-(epstopdf)                    size: 9939 bytes.
-
-<../FIG/terminal-eps-converted-to.pdf, id=309, 224.84pt x 152.57pt>
+<../FIG/terminal-eps-converted-to.pdf, id=306, 224.84pt x 152.57pt>
 File: ../FIG/terminal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/terminal-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/terminal-eps-converted-to.pdf used on input lin
-e 22.
-(pdftex.def)             Requested size: 224.83945pt x 152.56963pt.
- [17
+<use ../FIG/terminal-eps-converted-to.pdf> [17
 
 
 
@@ -632,317 +559,213 @@ e 22.
 
  (./51-semicon.tex
 Package epstopdf Info: Source file: <../FIG/JFETcd.eps>
-(epstopdf)                    date: 2012-11-04 14:32:32
-(epstopdf)                    size: 44301 bytes
+(epstopdf)                    date: 2012-11-04 19:44:49
+(epstopdf)                    size: 44135 bytes
 (epstopdf)             Output file: <../FIG/JFETcd-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:29
-(epstopdf)                    size: 17402 bytes
+(epstopdf)                    date: 2012-11-04 19:44:53
+(epstopdf)                    size: 17260 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/JFETcd-eps-converted
 -to.pdf ../FIG/JFETcd.eps>
 (epstopdf)             \includegraphics on input line 29.
-runsystem(epstopdf --outfile=../FIG/JFETcd-eps-converted-to.pdf ../FIG/JFETcd.e
-ps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/JFETcd-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:37
-(epstopdf)                    size: 17402 bytes.
-
-<../FIG/JFETcd-eps-converted-to.pdf, id=340, 406.51875pt x 309.155pt>
+<../FIG/JFETcd-eps-converted-to.pdf, id=337, 406.51875pt x 309.155pt>
 File: ../FIG/JFETcd-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/JFETcd-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/JFETcd-eps-converted-to.pdf used on input line 
-29.
-(pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
- [19
+<use ../FIG/JFETcd-eps-converted-to.pdf> [19
 
 
  <../FIG/JFETcd-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/PNPcc.eps>
-(epstopdf)                    date: 2012-11-04 14:32:31
-(epstopdf)                    size: 44868 bytes
+(epstopdf)                    date: 2012-11-04 19:44:48
+(epstopdf)                    size: 44702 bytes
 (epstopdf)             Output file: <../FIG/PNPcc-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:30
-(epstopdf)                    size: 19690 bytes
+(epstopdf)                    date: 2012-11-04 19:44:54
+(epstopdf)                    size: 19543 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/PNPcc-eps-converted-
 to.pdf ../FIG/PNPcc.eps>
 (epstopdf)             \includegraphics on input line 52.
-runsystem(epstopdf --outfile=../FIG/PNPcc-eps-converted-to.pdf ../FIG/PNPcc.eps
-)...executed.
-
-Package epstopdf Info: Result file: <../FIG/PNPcc-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:37
-(epstopdf)                    size: 19690 bytes.
- <../FIG/PNPcc-eps-converted-to.pdf, id=360, 406.51875pt x 309.155pt>
+Package epstopdf Info: Output file is already uptodate.
+ <../FIG/PNPcc-eps-converted-to.pdf, id=357, 406.51875pt x 309.155pt>
 File: ../FIG/PNPcc-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/PNPcc-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/PNPcc-eps-converted-to.pdf used on input line 5
-2.
-(pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
 Package epstopdf Info: Source file: <../FIG/PNPce.eps>
-(epstopdf)                    date: 2012-11-04 14:32:31
-(epstopdf)                    size: 44981 bytes
+(epstopdf)                    date: 2012-11-04 19:44:48
+(epstopdf)                    size: 44815 bytes
 (epstopdf)             Output file: <../FIG/PNPce-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:30
-(epstopdf)                    size: 20092 bytes
+(epstopdf)                    date: 2012-11-04 19:44:54
+(epstopdf)                    size: 19937 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/PNPce-eps-converted-
 to.pdf ../FIG/PNPce.eps>
 (epstopdf)             \includegraphics on input line 80.
-runsystem(epstopdf --outfile=../FIG/PNPce-eps-converted-to.pdf ../FIG/PNPce.eps
-)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/PNPce-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:38
-(epstopdf)                    size: 20092 bytes.
-
-<../FIG/PNPce-eps-converted-to.pdf, id=362, 406.51875pt x 309.155pt>
+<../FIG/PNPce-eps-converted-to.pdf, id=359, 406.51875pt x 309.155pt>
 File: ../FIG/PNPce-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/PNPce-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/PNPce-eps-converted-to.pdf used on input line 8
-0.
-(pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
- [20 <../FIG/PNPcc-eps-converted-to.pdf>]
+<use ../FIG/PNPce-eps-converted-to.pdf> [20 <../FIG/PNPcc-eps-converted-to.pdf>
+]
 Package epstopdf Info: Source file: <../FIG/NPNce.eps>
-(epstopdf)                    date: 2012-11-04 14:32:32
-(epstopdf)                    size: 44878 bytes
+(epstopdf)                    date: 2012-11-04 19:44:49
+(epstopdf)                    size: 44712 bytes
 (epstopdf)             Output file: <../FIG/NPNce-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:30
-(epstopdf)                    size: 20563 bytes
+(epstopdf)                    date: 2012-11-04 19:44:54
+(epstopdf)                    size: 20413 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/NPNce-eps-converted-
 to.pdf ../FIG/NPNce.eps>
 (epstopdf)             \includegraphics on input line 93.
-runsystem(epstopdf --outfile=../FIG/NPNce-eps-converted-to.pdf ../FIG/NPNce.eps
-)...executed.
-
-Package epstopdf Info: Result file: <../FIG/NPNce-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:38
-(epstopdf)                    size: 20563 bytes.
- <../FIG/NPNce-eps-converted-to.pdf, id=382, 406.51875pt x 309.155pt>
+Package epstopdf Info: Output file is already uptodate.
+ <../FIG/NPNce-eps-converted-to.pdf, id=379, 406.51875pt x 309.155pt>
 File: ../FIG/NPNce-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/NPNce-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/NPNce-eps-converted-to.pdf used on input line 9
-3.
-(pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
- [21 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=400, 321.
-2pt x 234.8775pt>
+<use ../FIG/NPNce-eps-converted-to.pdf> [21 <../FIG/PNPce-eps-converted-to.pdf>
+] <../PNG/IRFU120gate.png, id=397, 321.2pt x 234.8775pt>
 File: ../PNG/IRFU120gate.png Graphic file (type png)
 
-<use ../PNG/IRFU120gate.png>
-Package pdftex.def Info: ../PNG/IRFU120gate.png used on input line 122.
-(pdftex.def)             Requested size: 321.19922pt x 234.87692pt.
- [22 <../FIG/NPNce-eps-converted-to.pdf>] [23 <../PNG/IRFU120gate.png>]) [24] [
-25]
+<use ../PNG/IRFU120gate.png> [22 <../FIG/NPNce-eps-converted-to.pdf>] [23 <../P
+NG/IRFU120gate.png (PNG copy)>]) [24] [25]
 \openout2 = `52-resistors.aux'.
 
  (./52-resistors.tex
 Package epstopdf Info: Source file: <../FIG/ResistormessL1.eps>
-(epstopdf)                    date: 2012-11-04 14:32:26
-(epstopdf)                    size: 34876 bytes
+(epstopdf)                    date: 2012-11-04 19:44:44
+(epstopdf)                    size: 34710 bytes
 (epstopdf)             Output file: <../FIG/ResistormessL1-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2012-11-04 14:31:31
-(epstopdf)                    size: 14365 bytes
+(epstopdf)                    date: 2012-11-04 19:44:55
+(epstopdf)                    size: 14224 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/ResistormessL1-eps-c
 onverted-to.pdf ../FIG/ResistormessL1.eps>
 (epstopdf)             \includegraphics on input line 15.
-runsystem(epstopdf --outfile=../FIG/ResistormessL1-eps-converted-to.pdf ../FIG/
-ResistormessL1.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/ResistormessL1-eps-converted-to.pdf
->
-(epstopdf)                    date: 2012-11-04 14:32:39
-(epstopdf)                    size: 14365 bytes.
-
-<../FIG/ResistormessL1-eps-converted-to.pdf, id=436, 406.51875pt x 159.59625pt>
+<../FIG/ResistormessL1-eps-converted-to.pdf, id=432, 406.51875pt x 159.59625pt>
 File: ../FIG/ResistormessL1-eps-converted-to.pdf Graphic file (type pdf)
 <use ../FIG/ResistormessL1-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/ResistormessL1-eps-converted-to.pdf used on inp
-ut line 15.
-(pdftex.def)             Requested size: 406.51775pt x 159.59584pt.
 Package epstopdf Info: Source file: <../FIG/ResistormessL2.eps>
-(epstopdf)                    date: 2012-11-04 14:32:27
-(epstopdf)                    size: 34876 bytes
+(epstopdf)                    date: 2012-11-04 19:44:44
+(epstopdf)                    size: 34710 bytes
 (epstopdf)             Output file: <../FIG/ResistormessL2-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2012-11-04 14:31:31
-(epstopdf)                    size: 14499 bytes
+(epstopdf)                    date: 2012-11-04 19:44:55
+(epstopdf)                    size: 14359 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/ResistormessL2-eps-c
 onverted-to.pdf ../FIG/ResistormessL2.eps>
 (epstopdf)             \includegraphics on input line 22.
-runsystem(epstopdf --outfile=../FIG/ResistormessL2-eps-converted-to.pdf ../FIG/
-ResistormessL2.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/ResistormessL2-eps-converted-to.pdf
->
-(epstopdf)                    date: 2012-11-04 14:32:39
-(epstopdf)                    size: 14499 bytes.
-
-<../FIG/ResistormessL2-eps-converted-to.pdf, id=437, 406.51875pt x 159.59625pt>
+<../FIG/ResistormessL2-eps-converted-to.pdf, id=433, 406.51875pt x 159.59625pt>
 File: ../FIG/ResistormessL2-eps-converted-to.pdf Graphic file (type pdf)
-<use ../FIG/ResistormessL2-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/ResistormessL2-eps-converted-to.pdf used on inp
-ut line 22.
-(pdftex.def)             Requested size: 406.51775pt x 159.59584pt.
- (../GNU/RLvtot.tex
+<use ../FIG/ResistormessL2-eps-converted-to.pdf> (../GNU/RLvtot.tex
 Package epstopdf Info: Source file: <../GNU/RLvtot.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19958 bytes
+(epstopdf)                    date: 2012-11-04 19:47:53
+(epstopdf)                    size: 19854 bytes
 (epstopdf)             Output file: <../GNU/RLvtot-eps-converted-to.pdf>
+(epstopdf)                    date: 2012-11-04 19:47:54
+(epstopdf)                    size: 4103 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/RLvtot-eps-converted
 -to.pdf ../GNU/RLvtot.eps>
 (epstopdf)             \includegraphics on input line 115.
-runsystem(epstopdf --outfile=../GNU/RLvtot-eps-converted-to.pdf ../GNU/RLvtot.e
-ps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/RLvtot-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:39
-(epstopdf)                    size: 4114 bytes.
-
-<../GNU/RLvtot-eps-converted-to.pdf, id=439, 361.35pt x 252.945pt>
+<../GNU/RLvtot-eps-converted-to.pdf, id=435, 361.35pt x 252.945pt>
 File: ../GNU/RLvtot-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/RLvtot-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/RLvtot-eps-converted-to.pdf used on input line 
-115.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [26
+<use ../GNU/RLvtot-eps-converted-to.pdf>) [26
 
 
  <../FIG/ResistormessL1-eps-converted-to.pdf> <../FIG/ResistormessL2-eps-conver
 ted-to.pdf>] (../GNU/RLvlow.tex
 Package epstopdf Info: Source file: <../GNU/RLvlow.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20026 bytes
+(epstopdf)                    date: 2012-11-04 19:47:53
+(epstopdf)                    size: 19922 bytes
 (epstopdf)             Output file: <../GNU/RLvlow-eps-converted-to.pdf>
+(epstopdf)                    date: 2012-11-04 19:47:54
+(epstopdf)                    size: 3783 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/RLvlow-eps-converted
 -to.pdf ../GNU/RLvlow.eps>
 (epstopdf)             \includegraphics on input line 138.
-runsystem(epstopdf --outfile=../GNU/RLvlow-eps-converted-to.pdf ../GNU/RLvlow.e
-ps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/RLvlow-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:39
-(epstopdf)                    size: 3798 bytes.
-
-<../GNU/RLvlow-eps-converted-to.pdf, id=470, 361.35pt x 252.945pt>
+<../GNU/RLvlow-eps-converted-to.pdf, id=466, 361.35pt x 252.945pt>
 File: ../GNU/RLvlow-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/RLvlow-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/RLvlow-eps-converted-to.pdf used on input line 
-138.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/RLvhigh.tex
+<use ../GNU/RLvlow-eps-converted-to.pdf>) (../GNU/RLvhigh.tex
 Package epstopdf Info: Source file: <../GNU/RLvhigh.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20156 bytes
+(epstopdf)                    date: 2012-11-04 19:47:53
+(epstopdf)                    size: 20052 bytes
 (epstopdf)             Output file: <../GNU/RLvhigh-eps-converted-to.pdf>
+(epstopdf)                    date: 2012-11-04 19:47:54
+(epstopdf)                    size: 3779 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/RLvhigh-eps-converte
 d-to.pdf ../GNU/RLvhigh.eps>
 (epstopdf)             \includegraphics on input line 139.
-runsystem(epstopdf --outfile=../GNU/RLvhigh-eps-converted-to.pdf ../GNU/RLvhigh
-.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/RLvhigh-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:40
-(epstopdf)                    size: 3794 bytes.
-
-<../GNU/RLvhigh-eps-converted-to.pdf, id=471, 361.35pt x 252.945pt>
+<../GNU/RLvhigh-eps-converted-to.pdf, id=467, 361.35pt x 252.945pt>
 File: ../GNU/RLvhigh-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/RLvhigh-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/RLvhigh-eps-converted-to.pdf used on input line
- 139.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/RLvhigh-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 75--88
 [][]   [] 
  []
 
 [27 <../GNU/RLvtot-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/ResistormessH1.eps>
-(epstopdf)                    date: 2012-11-04 14:32:25
-(epstopdf)                    size: 34735 bytes
+(epstopdf)                    date: 2012-11-04 19:44:43
+(epstopdf)                    size: 34569 bytes
 (epstopdf)             Output file: <../FIG/ResistormessH1-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2012-11-04 14:31:32
-(epstopdf)                    size: 14236 bytes
+(epstopdf)                    date: 2012-11-04 19:44:56
+(epstopdf)                    size: 14098 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/ResistormessH1-eps-c
 onverted-to.pdf ../FIG/ResistormessH1.eps>
 (epstopdf)             \includegraphics on input line 112.
-runsystem(epstopdf --outfile=../FIG/ResistormessH1-eps-converted-to.pdf ../FIG/
-ResistormessH1.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/ResistormessH1-eps-converted-to.pdf
->
-(epstopdf)                    date: 2012-11-04 14:32:40
-(epstopdf)                    size: 14236 bytes.
-
-<../FIG/ResistormessH1-eps-converted-to.pdf, id=483, 406.51875pt x 159.59625pt>
+<../FIG/ResistormessH1-eps-converted-to.pdf, id=479, 406.51875pt x 159.59625pt>
 File: ../FIG/ResistormessH1-eps-converted-to.pdf Graphic file (type pdf)
 <use ../FIG/ResistormessH1-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/ResistormessH1-eps-converted-to.pdf used on inp
-ut line 112.
-(pdftex.def)             Requested size: 406.51775pt x 159.59584pt.
 Package epstopdf Info: Source file: <../FIG/ResistormessH2.eps>
-(epstopdf)                    date: 2012-11-04 14:32:26
-(epstopdf)                    size: 34736 bytes
+(epstopdf)                    date: 2012-11-04 19:44:43
+(epstopdf)                    size: 34570 bytes
 (epstopdf)             Output file: <../FIG/ResistormessH2-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2012-11-04 14:31:33
-(epstopdf)                    size: 12945 bytes
+(epstopdf)                    date: 2012-11-04 19:44:56
+(epstopdf)                    size: 12849 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/ResistormessH2-eps-c
 onverted-to.pdf ../FIG/ResistormessH2.eps>
 (epstopdf)             \includegraphics on input line 119.
-runsystem(epstopdf --outfile=../FIG/ResistormessH2-eps-converted-to.pdf ../FIG/
-ResistormessH2.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/ResistormessH2-eps-converted-to.pdf
->
-(epstopdf)                    date: 2012-11-04 14:32:40
-(epstopdf)                    size: 12945 bytes.
-
-<../FIG/ResistormessH2-eps-converted-to.pdf, id=484, 406.51875pt x 159.59625pt>
+<../FIG/ResistormessH2-eps-converted-to.pdf, id=480, 406.51875pt x 159.59625pt>
 File: ../FIG/ResistormessH2-eps-converted-to.pdf Graphic file (type pdf)
-<use ../FIG/ResistormessH2-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/ResistormessH2-eps-converted-to.pdf used on inp
-ut line 119.
-(pdftex.def)             Requested size: 406.51775pt x 159.59584pt.
- [28 <../GNU/RLvlow-eps-converted-to.pdf> <../GNU/RLvhigh-eps-converted-to.pdf>
- <../FIG/ResistormessH1-eps-converted-to.pdf>] (../GNU/RHv.tex
+<use ../FIG/ResistormessH2-eps-converted-to.pdf> [28 <../GNU/RLvlow-eps-convert
+ed-to.pdf> <../GNU/RLvhigh-eps-converted-to.pdf> <../FIG/ResistormessH1-eps-con
+verted-to.pdf>] (../GNU/RHv.tex
 Package epstopdf Info: Source file: <../GNU/RHv.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20187 bytes
+(epstopdf)                    date: 2012-11-04 19:47:53
+(epstopdf)                    size: 20083 bytes
 (epstopdf)             Output file: <../GNU/RHv-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:33
-(epstopdf)                    size: 4332 bytes
+(epstopdf)                    date: 2012-11-04 19:47:54
+(epstopdf)                    size: 4317 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/RHv-eps-converted-to
 .pdf ../GNU/RHv.eps>
 (epstopdf)             \includegraphics on input line 110.
-runsystem(epstopdf --outfile=../GNU/RHv-eps-converted-to.pdf ../GNU/RHv.eps)...
-executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/RHv-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:41
-(epstopdf)                    size: 4332 bytes.
-
-<../GNU/RHv-eps-converted-to.pdf, id=507, 361.35pt x 252.945pt>
+<../GNU/RHv-eps-converted-to.pdf, id=503, 361.35pt x 252.945pt>
 File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/RHv-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/RHv-eps-converted-to.pdf used on input line 110
-.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [29 <../FIG/ResistormessH2-eps-converted-to.pdf> <../GNU/RHv-eps-converted-to
-.pdf>] (../GNU/Mega8res.tex
+<use ../GNU/RHv-eps-converted-to.pdf>) [29 <../FIG/ResistormessH2-eps-converted
+-to.pdf> <../GNU/RHv-eps-converted-to.pdf>] (../GNU/Mega8res.tex
 Package epstopdf Info: Source file: <../GNU/Mega8res.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 23382 bytes
+(epstopdf)                    date: 2012-11-04 19:47:58
+(epstopdf)                    size: 23278 bytes
 (epstopdf)             Output file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:33
-(epstopdf)                    size: 6875 bytes
+(epstopdf)                    date: 2012-11-04 19:47:55
+(epstopdf)                    size: 6860 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8res-eps-convert
 ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -950,23 +773,19 @@ runsystem(epstopdf --outfile=../GNU/Mega8res-eps-converted-to.pdf ../GNU/Mega8r
 es.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:41
-(epstopdf)                    size: 6875 bytes.
+(epstopdf)                    date: 2012-11-04 19:47:59
+(epstopdf)                    size: 6861 bytes.
 
-<../GNU/Mega8res-eps-converted-to.pdf, id=527, 361.35pt x 252.945pt>
+<../GNU/Mega8res-eps-converted-to.pdf, id=523, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega8res-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega8res-eps-converted-to.pdf used on input lin
-e 129.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega168res.tex
+<use ../GNU/Mega8res-eps-converted-to.pdf>) (../GNU/Mega168res.tex
 Package epstopdf Info: Source file: <../GNU/Mega168res.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22835 bytes
+(epstopdf)                    date: 2012-11-04 19:47:58
+(epstopdf)                    size: 22731 bytes
 (epstopdf)             Output file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:34
-(epstopdf)                    size: 6156 bytes
+(epstopdf)                    date: 2012-11-04 19:47:55
+(epstopdf)                    size: 6142 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168res-eps-conve
 rted-to.pdf ../GNU/Mega168res.eps>
 (epstopdf)             \includegraphics on input line 127.
@@ -974,143 +793,94 @@ runsystem(epstopdf --outfile=../GNU/Mega168res-eps-converted-to.pdf ../GNU/Mega
 168res.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:41
-(epstopdf)                    size: 6156 bytes.
+(epstopdf)                    date: 2012-11-04 19:47:59
+(epstopdf)                    size: 6138 bytes.
 
-<../GNU/Mega168res-eps-converted-to.pdf, id=528, 361.35pt x 252.945pt>
+<../GNU/Mega168res-eps-converted-to.pdf, id=524, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168res-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168res-eps-converted-to.pdf used on input l
-ine 127.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [30 <../GNU/Mega8res-eps-converted-to.pdf> <../GNU/Mega168res-eps-converted-t
-o.pdf>] (../GNU/m168res_all.tex
+<use ../GNU/Mega168res-eps-converted-to.pdf>) [30 <../GNU/Mega8res-eps-converte
+d-to.pdf> <../GNU/Mega168res-eps-converted-to.pdf>] (../GNU/m168res_all.tex
 Package epstopdf Info: Source file: <../GNU/m168res_all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22833 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22729 bytes
 (epstopdf)             Output file: <../GNU/m168res_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:34
-(epstopdf)                    size: 6437 bytes
+(epstopdf)                    date: 2012-11-04 19:44:57
+(epstopdf)                    size: 6425 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/m168res_all-eps-conv
 erted-to.pdf ../GNU/m168res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
-runsystem(epstopdf --outfile=../GNU/m168res_all-eps-converted-to.pdf ../GNU/m16
-8res_all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/m168res_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:41
-(epstopdf)                    size: 6437 bytes.
-
-<../GNU/m168res_all-eps-converted-to.pdf, id=546, 361.35pt x 252.945pt>
+<../GNU/m168res_all-eps-converted-to.pdf, id=542, 361.35pt x 252.945pt>
 File: ../GNU/m168res_all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/m168res_all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/m168res_all-eps-converted-to.pdf used on input 
-line 135.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/m168ares_all.tex
+<use ../GNU/m168res_all-eps-converted-to.pdf>) (../GNU/m168ares_all.tex
 Package epstopdf Info: Source file: <../GNU/m168ares_all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22790 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22686 bytes
 (epstopdf)             Output file: <../GNU/m168ares_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:34
-(epstopdf)                    size: 6377 bytes
+(epstopdf)                    date: 2012-11-04 19:44:58
+(epstopdf)                    size: 6358 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/m168ares_all-eps-con
 verted-to.pdf ../GNU/m168ares_all.eps>
 (epstopdf)             \includegraphics on input line 135.
-runsystem(epstopdf --outfile=../GNU/m168ares_all-eps-converted-to.pdf ../GNU/m1
-68ares_all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/m168ares_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:42
-(epstopdf)                    size: 6377 bytes.
-
-<../GNU/m168ares_all-eps-converted-to.pdf, id=547, 361.35pt x 252.945pt>
+<../GNU/m168ares_all-eps-converted-to.pdf, id=543, 361.35pt x 252.945pt>
 File: ../GNU/m168ares_all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/m168ares_all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/m168ares_all-eps-converted-to.pdf used on input
- line 135.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/m168ares_all-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 183--196
 [][]   [] 
  []
 
 (../GNU/m168pres_all.tex
 Package epstopdf Info: Source file: <../GNU/m168pres_all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22793 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22689 bytes
 (epstopdf)             Output file: <../GNU/m168pres_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:34
-(epstopdf)                    size: 6351 bytes
+(epstopdf)                    date: 2012-11-04 19:44:58
+(epstopdf)                    size: 6340 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/m168pres_all-eps-con
 verted-to.pdf ../GNU/m168pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
-runsystem(epstopdf --outfile=../GNU/m168pres_all-eps-converted-to.pdf ../GNU/m1
-68pres_all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/m168pres_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:42
-(epstopdf)                    size: 6351 bytes.
-
-<../GNU/m168pres_all-eps-converted-to.pdf, id=548, 361.35pt x 252.945pt>
+<../GNU/m168pres_all-eps-converted-to.pdf, id=544, 361.35pt x 252.945pt>
 File: ../GNU/m168pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/m168pres_all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/m168pres_all-eps-converted-to.pdf used on input
- line 135.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/m328res_all.tex
+<use ../GNU/m168pres_all-eps-converted-to.pdf>) (../GNU/m328res_all.tex
 Package epstopdf Info: Source file: <../GNU/m328res_all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22833 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22729 bytes
 (epstopdf)             Output file: <../GNU/m328res_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:35
-(epstopdf)                    size: 6475 bytes
+(epstopdf)                    date: 2012-11-04 19:44:58
+(epstopdf)                    size: 6465 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/m328res_all-eps-conv
 erted-to.pdf ../GNU/m328res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
-runsystem(epstopdf --outfile=../GNU/m328res_all-eps-converted-to.pdf ../GNU/m32
-8res_all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/m328res_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:42
-(epstopdf)                    size: 6475 bytes.
-
-<../GNU/m328res_all-eps-converted-to.pdf, id=549, 361.35pt x 252.945pt>
+<../GNU/m328res_all-eps-converted-to.pdf, id=545, 361.35pt x 252.945pt>
 File: ../GNU/m328res_all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/m328res_all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/m328res_all-eps-converted-to.pdf used on input 
-line 135.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/m328pres_all.tex
+<use ../GNU/m328res_all-eps-converted-to.pdf>) (../GNU/m328pres_all.tex
 Package epstopdf Info: Source file: <../GNU/m328pres_all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22820 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22716 bytes
 (epstopdf)             Output file: <../GNU/m328pres_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:35
-(epstopdf)                    size: 6473 bytes
+(epstopdf)                    date: 2012-11-04 19:44:58
+(epstopdf)                    size: 6455 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/m328pres_all-eps-con
 verted-to.pdf ../GNU/m328pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
-runsystem(epstopdf --outfile=../GNU/m328pres_all-eps-converted-to.pdf ../GNU/m3
-28pres_all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/m328pres_all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:42
-(epstopdf)                    size: 6473 bytes.
-
-<../GNU/m328pres_all-eps-converted-to.pdf, id=550, 361.35pt x 252.945pt>
+<../GNU/m328pres_all-eps-converted-to.pdf, id=546, 361.35pt x 252.945pt>
 File: ../GNU/m328pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/m328pres_all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/m328pres_all-eps-converted-to.pdf used on input
- line 135.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/m328pres_all-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 207--220
 [][]   [] 
  []
@@ -1129,363 +899,238 @@ $\T1/lmr/m/n/12 -Widerstand
  []
 
 Package epstopdf Info: Source file: <../FIG/Bigcap.eps>
-(epstopdf)                    date: 2012-11-04 14:32:28
-(epstopdf)                    size: 71602 bytes
+(epstopdf)                    date: 2012-11-04 19:44:45
+(epstopdf)                    size: 71436 bytes
 (epstopdf)             Output file: <../FIG/Bigcap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:35
-(epstopdf)                    size: 26577 bytes
+(epstopdf)                    date: 2012-11-04 19:44:59
+(epstopdf)                    size: 26435 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Bigcap-eps-converted
 -to.pdf ../FIG/Bigcap.eps>
 (epstopdf)             \includegraphics on input line 41.
-runsystem(epstopdf --outfile=../FIG/Bigcap-eps-converted-to.pdf ../FIG/Bigcap.e
-ps)...executed.
-
-Package epstopdf Info: Result file: <../FIG/Bigcap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:43
-(epstopdf)                    size: 26577 bytes.
-<../FIG/Bigcap-eps-converted-to.pdf, id=572, 406.51875pt x 546.04pt>
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/Bigcap-eps-converted-to.pdf, id=567, 406.51875pt x 546.04pt>
 File: ../FIG/Bigcap-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/Bigcap-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Bigcap-eps-converted-to.pdf used on input line 
-41.
-(pdftex.def)             Requested size: 406.51775pt x 546.03867pt.
- [33
+<use ../FIG/Bigcap-eps-converted-to.pdf> [33
 
 
 ]
-<../PNG/charge_229uF.png, id=582, 321.2pt x 234.8775pt>
+<../PNG/charge_229uF.png, id=577, 321.2pt x 234.8775pt>
 File: ../PNG/charge_229uF.png Graphic file (type png)
 
 <use ../PNG/charge_229uF.png>
-Package pdftex.def Info: ../PNG/charge_229uF.png used on input line 59.
-(pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 60.
 
-<../PNG/charge_5mF.png, id=583, 321.2pt x 234.8775pt>
+<../PNG/charge_5mF.png, id=578, 321.2pt x 234.8775pt>
 File: ../PNG/charge_5mF.png Graphic file (type png)
 
 <use ../PNG/charge_5mF.png>
-Package pdftex.def Info: ../PNG/charge_5mF.png used on input line 66.
-(pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
-
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 57--70
 [][]   [] 
  []
 
 [34 <../FIG/Bigcap-eps-converted-to.pdf>]
-<../PNG/charge_15mF.png, id=601, 321.2pt x 234.8775pt>
+<../PNG/charge_15mF.png, id=596, 321.2pt x 234.8775pt>
 File: ../PNG/charge_15mF.png Graphic file (type png)
 
-<use ../PNG/charge_15mF.png>
-Package pdftex.def Info: ../PNG/charge_15mF.png used on input line 75.
-(pdftex.def)             Requested size: 321.19922pt x 234.87692pt.
- [35 <../PNG/charge_229uF.png> <../PNG/charge_5mF.png> <../PNG/charge_15mF.png>
-]
+<use ../PNG/charge_15mF.png> [35 <../PNG/charge_229uF.png (PNG copy)> <../PNG/c
+harge_5mF.png (PNG copy)> <../PNG/charge_15mF.png (PNG copy)>]
 Package epstopdf Info: Source file: <../FIG/Comparat.eps>
-(epstopdf)                    date: 2012-11-04 14:32:28
-(epstopdf)                    size: 26057 bytes
+(epstopdf)                    date: 2012-11-04 19:44:45
+(epstopdf)                    size: 25891 bytes
 (epstopdf)             Output file: <../FIG/Comparat-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:36
-(epstopdf)                    size: 14051 bytes
+(epstopdf)                    date: 2012-11-04 19:44:59
+(epstopdf)                    size: 13895 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Comparat-eps-convert
 ed-to.pdf ../FIG/Comparat.eps>
 (epstopdf)             \includegraphics on input line 131.
-runsystem(epstopdf --outfile=../FIG/Comparat-eps-converted-to.pdf ../FIG/Compar
-at.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Comparat-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:43
-(epstopdf)                    size: 14051 bytes.
-
-<../FIG/Comparat-eps-converted-to.pdf, id=612, 375.4025pt x 188.705pt>
+<../FIG/Comparat-eps-converted-to.pdf, id=607, 375.4025pt x 188.705pt>
 File: ../FIG/Comparat-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Comparat-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Comparat-eps-converted-to.pdf used on input lin
-e 131.
-(pdftex.def)             Requested size: 375.40158pt x 188.70453pt.
-
-<../PNG/charge_22uF.png, id=613, 321.2pt x 234.8775pt>
+<../PNG/charge_22uF.png, id=608, 321.2pt x 234.8775pt>
 File: ../PNG/charge_22uF.png Graphic file (type png)
 
-<use ../PNG/charge_22uF.png>
-Package pdftex.def Info: ../PNG/charge_22uF.png used on input line 138.
-(pdftex.def)             Requested size: 321.19922pt x 234.87692pt.
- [36 <../FIG/Comparat-eps-converted-to.pdf>]
+<use ../PNG/charge_22uF.png> [36 <../FIG/Comparat-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/Cap_equiv.eps>
-(epstopdf)                    date: 2012-11-04 14:32:34
-(epstopdf)                    size: 15894 bytes
+(epstopdf)                    date: 2012-11-04 19:44:51
+(epstopdf)                    size: 15728 bytes
 (epstopdf)             Output file: <../FIG/Cap_equiv-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:36
-(epstopdf)                    size: 4848 bytes
+(epstopdf)                    date: 2012-11-04 19:44:59
+(epstopdf)                    size: 4779 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Cap_equiv-eps-conver
 ted-to.pdf ../FIG/Cap_equiv.eps>
 (epstopdf)             \includegraphics on input line 161.
-runsystem(epstopdf --outfile=../FIG/Cap_equiv-eps-converted-to.pdf ../FIG/Cap_e
-quiv.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Cap_equiv-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:43
-(epstopdf)                    size: 4848 bytes.
-
-<../FIG/Cap_equiv-eps-converted-to.pdf, id=636, 94.3525pt x 58.2175pt>
+<../FIG/Cap_equiv-eps-converted-to.pdf, id=631, 94.3525pt x 58.2175pt>
 File: ../FIG/Cap_equiv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_equiv-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Cap_equiv-eps-converted-to.pdf used on input li
-ne 161.
-(pdftex.def)             Requested size: 94.35225pt x 58.21735pt.
 Package epstopdf Info: Source file: <../FIG/Cap_esr.eps>
-(epstopdf)                    date: 2012-11-04 14:32:35
-(epstopdf)                    size: 53799 bytes
+(epstopdf)                    date: 2012-11-04 19:44:51
+(epstopdf)                    size: 53633 bytes
 (epstopdf)             Output file: <../FIG/Cap_esr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:37
-(epstopdf)                    size: 22208 bytes
+(epstopdf)                    date: 2012-11-04 19:45:00
+(epstopdf)                    size: 22065 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Cap_esr-eps-converte
 d-to.pdf ../FIG/Cap_esr.eps>
 (epstopdf)             \includegraphics on input line 181.
-runsystem(epstopdf --outfile=../FIG/Cap_esr-eps-converted-to.pdf ../FIG/Cap_esr
-.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Cap_esr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:44
-(epstopdf)                    size: 22208 bytes.
-
-<../FIG/Cap_esr-eps-converted-to.pdf, id=638, 406.51875pt x 360.34625pt>
+<../FIG/Cap_esr-eps-converted-to.pdf, id=633, 406.51875pt x 360.34625pt>
 File: ../FIG/Cap_esr-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/Cap_esr-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Cap_esr-eps-converted-to.pdf used on input line
- 181.
-(pdftex.def)             Requested size: 406.51775pt x 360.34537pt.
- [37 <../PNG/charge_22uF.png> <../FIG/Cap_equiv-eps-converted-to.pdf>] [38 <../
-FIG/Cap_esr-eps-converted-to.pdf>]
-(../GNU/Cesr.tex
+<use ../FIG/Cap_esr-eps-converted-to.pdf> [37 <../PNG/charge_22uF.png (PNG copy
+)> <../FIG/Cap_equiv-eps-converted-to.pdf>] [38 <../FIG/Cap_esr-eps-converted-t
+o.pdf>] (../GNU/Cesr.tex
 Package epstopdf Info: Source file: <../GNU/Cesr.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22653 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22549 bytes
 (epstopdf)             Output file: <../GNU/Cesr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:37
-(epstopdf)                    size: 9310 bytes
+(epstopdf)                    date: 2012-11-04 19:45:00
+(epstopdf)                    size: 9291 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Cesr-eps-converted-t
 o.pdf ../GNU/Cesr.eps>
 (epstopdf)             \includegraphics on input line 118.
-runsystem(epstopdf --outfile=../GNU/Cesr-eps-converted-to.pdf ../GNU/Cesr.eps).
-..executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Cesr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:44
-(epstopdf)                    size: 9310 bytes.
-
-<../GNU/Cesr-eps-converted-to.pdf, id=669, 361.35pt x 252.945pt>
+<../GNU/Cesr-eps-converted-to.pdf, id=664, 361.35pt x 252.945pt>
 File: ../GNU/Cesr-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Cesr-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Cesr-eps-converted-to.pdf used on input line 11
-8.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [39 <../GNU/Cesr-eps-converted-to.pdf>] (../GNU/Mega8cap.tex
+<use ../GNU/Cesr-eps-converted-to.pdf>) [39 <../GNU/Cesr-eps-converted-to.pdf>]
+(../GNU/Mega8cap.tex
 Package epstopdf Info: Source file: <../GNU/Mega8cap.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20810 bytes
+(epstopdf)                    date: 2012-11-04 19:44:40
+(epstopdf)                    size: 20706 bytes
 (epstopdf)             Output file: <../GNU/Mega8cap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:37
-(epstopdf)                    size: 5611 bytes
+(epstopdf)                    date: 2012-11-04 19:45:00
+(epstopdf)                    size: 5596 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8cap-eps-convert
 ed-to.pdf ../GNU/Mega8cap.eps>
 (epstopdf)             \includegraphics on input line 126.
-runsystem(epstopdf --outfile=../GNU/Mega8cap-eps-converted-to.pdf ../GNU/Mega8c
-ap.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega8cap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:44
-(epstopdf)                    size: 5611 bytes.
-
-<../GNU/Mega8cap-eps-converted-to.pdf, id=684, 361.35pt x 252.945pt>
+<../GNU/Mega8cap-eps-converted-to.pdf, id=679, 361.35pt x 252.945pt>
 File: ../GNU/Mega8cap-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega8cap-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega8cap-eps-converted-to.pdf used on input lin
-e 126.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega168cap.tex
+<use ../GNU/Mega8cap-eps-converted-to.pdf>) (../GNU/Mega168cap.tex
 Package epstopdf Info: Source file: <../GNU/Mega168cap.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20064 bytes
+(epstopdf)                    date: 2012-11-04 19:44:40
+(epstopdf)                    size: 19960 bytes
 (epstopdf)             Output file: <../GNU/Mega168cap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:38
-(epstopdf)                    size: 4707 bytes
+(epstopdf)                    date: 2012-11-04 19:45:01
+(epstopdf)                    size: 4688 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168cap-eps-conve
 rted-to.pdf ../GNU/Mega168cap.eps>
 (epstopdf)             \includegraphics on input line 124.
-runsystem(epstopdf --outfile=../GNU/Mega168cap-eps-converted-to.pdf ../GNU/Mega
-168cap.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168cap-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:45
-(epstopdf)                    size: 4707 bytes.
-
-<../GNU/Mega168cap-eps-converted-to.pdf, id=685, 361.35pt x 252.945pt>
+<../GNU/Mega168cap-eps-converted-to.pdf, id=680, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168cap-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168cap-eps-converted-to.pdf used on input l
-ine 124.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [40 <../GNU/Mega8cap-eps-converted-to.pdf> <../GNU/Mega168cap-eps-converted-t
-o.pdf>] (../GNU/capcompare.tex
+<use ../GNU/Mega168cap-eps-converted-to.pdf>) [40 <../GNU/Mega8cap-eps-converte
+d-to.pdf> <../GNU/Mega168cap-eps-converted-to.pdf>] (../GNU/capcompare.tex
 Package epstopdf Info: Source file: <../GNU/capcompare.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21648 bytes
+(epstopdf)                    date: 2012-11-04 19:44:40
+(epstopdf)                    size: 21544 bytes
 (epstopdf)             Output file: <../GNU/capcompare-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:38
-(epstopdf)                    size: 5966 bytes
+(epstopdf)                    date: 2012-11-04 19:45:01
+(epstopdf)                    size: 5948 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/capcompare-eps-conve
 rted-to.pdf ../GNU/capcompare.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/capcompare-eps-converted-to.pdf ../GNU/capc
-ompare.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/capcompare-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:45
-(epstopdf)                    size: 5966 bytes.
-
-<../GNU/capcompare-eps-converted-to.pdf, id=697, 361.35pt x 252.945pt>
+<../GNU/capcompare-eps-converted-to.pdf, id=691, 361.35pt x 252.945pt>
 File: ../GNU/capcompare-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/capcompare-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/capcompare-eps-converted-to.pdf used on input l
-ine 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega168all.tex
+<use ../GNU/capcompare-eps-converted-to.pdf>) (../GNU/Mega168all.tex
 Package epstopdf Info: Source file: <../GNU/Mega168all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21691 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21587 bytes
 (epstopdf)             Output file: <../GNU/Mega168all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:38
-(epstopdf)                    size: 6202 bytes
+(epstopdf)                    date: 2012-11-04 19:45:01
+(epstopdf)                    size: 6183 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168all-eps-conve
 rted-to.pdf ../GNU/Mega168all.eps>
 (epstopdf)             \includegraphics on input line 124.
-runsystem(epstopdf --outfile=../GNU/Mega168all-eps-converted-to.pdf ../GNU/Mega
-168all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:45
-(epstopdf)                    size: 6202 bytes.
-
-<../GNU/Mega168all-eps-converted-to.pdf, id=703, 361.35pt x 252.945pt>
+<../GNU/Mega168all-eps-converted-to.pdf, id=697, 361.35pt x 252.945pt>
 File: ../GNU/Mega168all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168all-eps-converted-to.pdf used on input l
-ine 124.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega168Aall.tex
+<use ../GNU/Mega168all-eps-converted-to.pdf>) (../GNU/Mega168Aall.tex
 Package epstopdf Info: Source file: <../GNU/Mega168Aall.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21982 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21878 bytes
 (epstopdf)             Output file: <../GNU/Mega168Aall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:38
-(epstopdf)                    size: 6222 bytes
+(epstopdf)                    date: 2012-11-04 19:45:01
+(epstopdf)                    size: 6204 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168Aall-eps-conv
 erted-to.pdf ../GNU/Mega168Aall.eps>
 (epstopdf)             \includegraphics on input line 128.
-runsystem(epstopdf --outfile=../GNU/Mega168Aall-eps-converted-to.pdf ../GNU/Meg
-a168Aall.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168Aall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:45
-(epstopdf)                    size: 6222 bytes.
-
-<../GNU/Mega168Aall-eps-converted-to.pdf, id=704, 361.35pt x 252.945pt>
+<../GNU/Mega168Aall-eps-converted-to.pdf, id=698, 361.35pt x 252.945pt>
 File: ../GNU/Mega168Aall-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168Aall-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168Aall-eps-converted-to.pdf used on input 
-line 128.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/Mega168Aall-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 288--301
 [][]   [] 
  []
 
 (../GNU/Mega168PAall.tex
 Package epstopdf Info: Source file: <../GNU/Mega168PAall.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21844 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21740 bytes
 (epstopdf)             Output file: <../GNU/Mega168PAall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:39
-(epstopdf)                    size: 6056 bytes
+(epstopdf)                    date: 2012-11-04 19:45:01
+(epstopdf)                    size: 6045 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168PAall-eps-con
 verted-to.pdf ../GNU/Mega168PAall.eps>
 (epstopdf)             \includegraphics on input line 126.
-runsystem(epstopdf --outfile=../GNU/Mega168PAall-eps-converted-to.pdf ../GNU/Me
-ga168PAall.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168PAall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:45
-(epstopdf)                    size: 6056 bytes.
-
-<../GNU/Mega168PAall-eps-converted-to.pdf, id=705, 361.35pt x 252.945pt>
+<../GNU/Mega168PAall-eps-converted-to.pdf, id=699, 361.35pt x 252.945pt>
 File: ../GNU/Mega168PAall-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168PAall-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168PAall-eps-converted-to.pdf used on input
- line 126.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [41 <../GNU/capcompare-eps-converted-to.pdf> <../GNU/Mega168all-eps-converted
--to.pdf> <../GNU/Mega168Aall-eps-converted-to.pdf>] (../GNU/Mega328all.tex
+<use ../GNU/Mega168PAall-eps-converted-to.pdf>) [41 <../GNU/capcompare-eps-conv
+erted-to.pdf> <../GNU/Mega168all-eps-converted-to.pdf> <../GNU/Mega168Aall-eps-
+converted-to.pdf>] (../GNU/Mega328all.tex
 Package epstopdf Info: Source file: <../GNU/Mega328all.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21960 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21856 bytes
 (epstopdf)             Output file: <../GNU/Mega328all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:39
-(epstopdf)                    size: 6245 bytes
+(epstopdf)                    date: 2012-11-04 19:45:02
+(epstopdf)                    size: 6226 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega328all-eps-conve
 rted-to.pdf ../GNU/Mega328all.eps>
 (epstopdf)             \includegraphics on input line 128.
-runsystem(epstopdf --outfile=../GNU/Mega328all-eps-converted-to.pdf ../GNU/Mega
-328all.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega328all-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:46
-(epstopdf)                    size: 6245 bytes.
-
-<../GNU/Mega328all-eps-converted-to.pdf, id=719, 361.35pt x 252.945pt>
+<../GNU/Mega328all-eps-converted-to.pdf, id=713, 361.35pt x 252.945pt>
 File: ../GNU/Mega328all-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega328all-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega328all-eps-converted-to.pdf used on input l
-ine 128.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega328Pall.tex
+<use ../GNU/Mega328all-eps-converted-to.pdf>) (../GNU/Mega328Pall.tex
 Package epstopdf Info: Source file: <../GNU/Mega328Pall.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22316 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22212 bytes
 (epstopdf)             Output file: <../GNU/Mega328Pall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:39
-(epstopdf)                    size: 6357 bytes
+(epstopdf)                    date: 2012-11-04 19:45:02
+(epstopdf)                    size: 6342 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega328Pall-eps-conv
 erted-to.pdf ../GNU/Mega328Pall.eps>
 (epstopdf)             \includegraphics on input line 134.
-runsystem(epstopdf --outfile=../GNU/Mega328Pall-eps-converted-to.pdf ../GNU/Meg
-a328Pall.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega328Pall-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:46
-(epstopdf)                    size: 6357 bytes.
-
-<../GNU/Mega328Pall-eps-converted-to.pdf, id=720, 361.35pt x 252.945pt>
+<../GNU/Mega328Pall-eps-converted-to.pdf, id=714, 361.35pt x 252.945pt>
 File: ../GNU/Mega328Pall-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega328Pall-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega328Pall-eps-converted-to.pdf used on input 
-line 134.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/Mega328Pall-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 312--325
 [][]   [] 
  []
@@ -1499,184 +1144,120 @@ n Kon-den-sa-to-ren. Der Spannungsanstiegs-
 [42 <../GNU/Mega168PAall-eps-converted-to.pdf> <../GNU/Mega328all-eps-converted
 -to.pdf> <../GNU/Mega328Pall-eps-converted-to.pdf>] (../GNU/Mega168cap_opt.tex
 Package epstopdf Info: Source file: <../GNU/Mega168cap_opt.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21705 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21601 bytes
 (epstopdf)             Output file: <../GNU/Mega168cap_opt-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2012-11-04 14:31:39
-(epstopdf)                    size: 6138 bytes
+(epstopdf)                    date: 2012-11-04 19:45:02
+(epstopdf)                    size: 6119 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168cap_opt-eps-c
 onverted-to.pdf ../GNU/Mega168cap_opt.eps>
 (epstopdf)             \includegraphics on input line 124.
-runsystem(epstopdf --outfile=../GNU/Mega168cap_opt-eps-converted-to.pdf ../GNU/
-Mega168cap_opt.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168cap_opt-eps-converted-to.pdf
->
-(epstopdf)                    date: 2012-11-04 14:32:46
-(epstopdf)                    size: 6138 bytes.
-
-<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=734, 361.35pt x 252.945pt>
+<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=728, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap_opt-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168cap_opt-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168cap_opt-eps-converted-to.pdf used on inp
-ut line 124.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/ComparatorAdjust.tex
+<use ../GNU/Mega168cap_opt-eps-converted-to.pdf>) (../GNU/ComparatorAdjust.tex
 Package epstopdf Info: Source file: <../GNU/ComparatorAdjust.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 18522 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 18418 bytes
 (epstopdf)             Output file: <../GNU/ComparatorAdjust-eps-converted-to.p
 df>
-(epstopdf)                    date: 2012-11-04 14:31:40
-(epstopdf)                    size: 3678 bytes
+(epstopdf)                    date: 2012-11-04 19:45:02
+(epstopdf)                    size: 3665 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/ComparatorAdjust-eps
 -converted-to.pdf ../GNU/ComparatorAdjust.eps>
 (epstopdf)             \includegraphics on input line 123.
-runsystem(epstopdf --outfile=../GNU/ComparatorAdjust-eps-converted-to.pdf ../GN
-U/ComparatorAdjust.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/ComparatorAdjust-eps-converted-to.p
-df>
-(epstopdf)                    date: 2012-11-04 14:32:46
-(epstopdf)                    size: 3678 bytes.
-
-<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=742, 361.35pt x 252.945pt>
+<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=736, 361.35pt x 252.945pt>
 File: ../GNU/ComparatorAdjust-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/ComparatorAdjust-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/ComparatorAdjust-eps-converted-to.pdf used on i
-nput line 123.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [43 <../GNU/Mega168cap_opt-eps-converted-to.pdf>] (../GNU/Mega168cal.tex
+<use ../GNU/ComparatorAdjust-eps-converted-to.pdf>) [43 <../GNU/Mega168cap_opt-
+eps-converted-to.pdf>] (../GNU/Mega168cal.tex
 Package epstopdf Info: Source file: <../GNU/Mega168cal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22329 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22225 bytes
 (epstopdf)             Output file: <../GNU/Mega168cal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:40
-(epstopdf)                    size: 6276 bytes
+(epstopdf)                    date: 2012-11-04 19:45:03
+(epstopdf)                    size: 6257 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168cal-eps-conve
 rted-to.pdf ../GNU/Mega168cal.eps>
 (epstopdf)             \includegraphics on input line 134.
-runsystem(epstopdf --outfile=../GNU/Mega168cal-eps-converted-to.pdf ../GNU/Mega
-168cal.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168cal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:47
-(epstopdf)                    size: 6276 bytes.
-
-<../GNU/Mega168cal-eps-converted-to.pdf, id=755, 361.35pt x 252.945pt>
+<../GNU/Mega168cal-eps-converted-to.pdf, id=749, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168cal-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168cal-eps-converted-to.pdf used on input l
-ine 134.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega168Acal.tex
+<use ../GNU/Mega168cal-eps-converted-to.pdf>) (../GNU/Mega168Acal.tex
 Package epstopdf Info: Source file: <../GNU/Mega168Acal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 22208 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 22104 bytes
 (epstopdf)             Output file: <../GNU/Mega168Acal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:40
-(epstopdf)                    size: 6167 bytes
+(epstopdf)                    date: 2012-11-04 19:45:03
+(epstopdf)                    size: 6153 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168Acal-eps-conv
 erted-to.pdf ../GNU/Mega168Acal.eps>
 (epstopdf)             \includegraphics on input line 132.
-runsystem(epstopdf --outfile=../GNU/Mega168Acal-eps-converted-to.pdf ../GNU/Meg
-a168Acal.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168Acal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:47
-(epstopdf)                    size: 6167 bytes.
-
-<../GNU/Mega168Acal-eps-converted-to.pdf, id=756, 361.35pt x 252.945pt>
+<../GNU/Mega168Acal-eps-converted-to.pdf, id=750, 361.35pt x 252.945pt>
 File: ../GNU/Mega168Acal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168Acal-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168Acal-eps-converted-to.pdf used on input 
-line 132.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/Mega168Acal-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 394--407
 [][]   [] 
  []
 
 (../GNU/Mega168PAcal.tex
 Package epstopdf Info: Source file: <../GNU/Mega168PAcal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21711 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21607 bytes
 (epstopdf)             Output file: <../GNU/Mega168PAcal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:40
-(epstopdf)                    size: 6004 bytes
+(epstopdf)                    date: 2012-11-04 19:45:03
+(epstopdf)                    size: 5992 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168PAcal-eps-con
 verted-to.pdf ../GNU/Mega168PAcal.eps>
 (epstopdf)             \includegraphics on input line 124.
-runsystem(epstopdf --outfile=../GNU/Mega168PAcal-eps-converted-to.pdf ../GNU/Me
-ga168PAcal.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega168PAcal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:47
-(epstopdf)                    size: 6004 bytes.
-
-<../GNU/Mega168PAcal-eps-converted-to.pdf, id=757, 361.35pt x 252.945pt>
+<../GNU/Mega168PAcal-eps-converted-to.pdf, id=751, 361.35pt x 252.945pt>
 File: ../GNU/Mega168PAcal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega168PAcal-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega168PAcal-eps-converted-to.pdf used on input
- line 124.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [44 <../GNU/ComparatorAdjust-eps-converted-to.pdf> <../GNU/Mega168cal-eps-con
-verted-to.pdf> <../GNU/Mega168Acal-eps-converted-to.pdf>] (../GNU/Mega328cal.te
-x
+<use ../GNU/Mega168PAcal-eps-converted-to.pdf>) [44 <../GNU/ComparatorAdjust-ep
+s-converted-to.pdf> <../GNU/Mega168cal-eps-converted-to.pdf> <../GNU/Mega168Aca
+l-eps-converted-to.pdf>] (../GNU/Mega328cal.tex
 Package epstopdf Info: Source file: <../GNU/Mega328cal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21830 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21726 bytes
 (epstopdf)             Output file: <../GNU/Mega328cal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:41
-(epstopdf)                    size: 6193 bytes
+(epstopdf)                    date: 2012-11-04 19:45:03
+(epstopdf)                    size: 6178 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega328cal-eps-conve
 rted-to.pdf ../GNU/Mega328cal.eps>
 (epstopdf)             \includegraphics on input line 126.
-runsystem(epstopdf --outfile=../GNU/Mega328cal-eps-converted-to.pdf ../GNU/Mega
-328cal.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega328cal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:47
-(epstopdf)                    size: 6193 bytes.
-
-<../GNU/Mega328cal-eps-converted-to.pdf, id=771, 361.35pt x 252.945pt>
+<../GNU/Mega328cal-eps-converted-to.pdf, id=765, 361.35pt x 252.945pt>
 File: ../GNU/Mega328cal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega328cal-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega328cal-eps-converted-to.pdf used on input l
-ine 126.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/Mega328Pcal.tex
+<use ../GNU/Mega328cal-eps-converted-to.pdf>) (../GNU/Mega328Pcal.tex
 Package epstopdf Info: Source file: <../GNU/Mega328Pcal.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21855 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21751 bytes
 (epstopdf)             Output file: <../GNU/Mega328Pcal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:41
-(epstopdf)                    size: 6220 bytes
+(epstopdf)                    date: 2012-11-04 19:45:03
+(epstopdf)                    size: 6205 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega328Pcal-eps-conv
 erted-to.pdf ../GNU/Mega328Pcal.eps>
 (epstopdf)             \includegraphics on input line 126.
-runsystem(epstopdf --outfile=../GNU/Mega328Pcal-eps-converted-to.pdf ../GNU/Meg
-a328Pcal.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/Mega328Pcal-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:48
-(epstopdf)                    size: 6220 bytes.
-
-<../GNU/Mega328Pcal-eps-converted-to.pdf, id=772, 361.35pt x 252.945pt>
+<../GNU/Mega328Pcal-eps-converted-to.pdf, id=766, 361.35pt x 252.945pt>
 File: ../GNU/Mega328Pcal-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/Mega328Pcal-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/Mega328Pcal-eps-converted-to.pdf used on input 
-line 126.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/Mega328Pcal-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 418--431
 [][]   [] 
  []
@@ -1686,164 +1267,112 @@ LaTeX Warning: Command \textgreater invalid in math mode on input line 440.
 
 (../GNU/MegaAuto.tex
 Package epstopdf Info: Source file: <../GNU/MegaAuto.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 21337 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 21233 bytes
 (epstopdf)             Output file: <../GNU/MegaAuto-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:41
-(epstopdf)                    size: 5359 bytes
+(epstopdf)                    date: 2012-11-04 19:45:04
+(epstopdf)                    size: 5341 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/MegaAuto-eps-convert
 ed-to.pdf ../GNU/MegaAuto.eps>
 (epstopdf)             \includegraphics on input line 130.
-runsystem(epstopdf --outfile=../GNU/MegaAuto-eps-converted-to.pdf ../GNU/MegaAu
-to.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/MegaAuto-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:48
-(epstopdf)                    size: 5359 bytes.
-
-<../GNU/MegaAuto-eps-converted-to.pdf, id=774, 361.35pt x 252.945pt>
+<../GNU/MegaAuto-eps-converted-to.pdf, id=768, 361.35pt x 252.945pt>
 File: ../GNU/MegaAuto-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/MegaAuto-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/MegaAuto-eps-converted-to.pdf used on input lin
-e 130.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)) [45 <../GNU/Mega168PAcal-eps-converted-to.pdf> <../GNU/Mega328cal-eps-conver
-ted-to.pdf> <../GNU/Mega328Pcal-eps-converted-to.pdf>] [46 <../GNU/MegaAuto-eps
--converted-to.pdf>]
+<use ../GNU/MegaAuto-eps-converted-to.pdf>)) [45 <../GNU/Mega168PAcal-eps-conve
+rted-to.pdf> <../GNU/Mega328cal-eps-converted-to.pdf> <../GNU/Mega328Pcal-eps-c
+onverted-to.pdf>] [46 <../GNU/MegaAuto-eps-converted-to.pdf>]
 \openout2 = `54-inductors.aux'.
 
 
 (./54-inductors.tex
 Package epstopdf Info: Source file: <../FIG/Inductance.eps>
-(epstopdf)                    date: 2012-11-04 14:32:34
-(epstopdf)                    size: 27159 bytes
+(epstopdf)                    date: 2012-11-04 19:44:50
+(epstopdf)                    size: 26993 bytes
 (epstopdf)             Output file: <../FIG/Inductance-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:42
-(epstopdf)                    size: 13207 bytes
+(epstopdf)                    date: 2012-11-04 19:45:04
+(epstopdf)                    size: 13096 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Inductance-eps-conve
 rted-to.pdf ../FIG/Inductance.eps>
 (epstopdf)             \includegraphics on input line 25.
-runsystem(epstopdf --outfile=../FIG/Inductance-eps-converted-to.pdf ../FIG/Indu
-ctance.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Inductance-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:48
-(epstopdf)                    size: 13207 bytes.
-
-<../FIG/Inductance-eps-converted-to.pdf, id=793, 375.4025pt x 222.8325pt>
+<../FIG/Inductance-eps-converted-to.pdf, id=787, 375.4025pt x 222.8325pt>
 File: ../FIG/Inductance-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/Inductance-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Inductance-eps-converted-to.pdf used on input l
-ine 25.
-(pdftex.def)             Requested size: 375.40158pt x 222.83195pt.
- [47
+<use ../FIG/Inductance-eps-converted-to.pdf> [47
 
 
  <../FIG/Inductance-eps-converted-to.pdf>] (../GNU/induct328p.tex
 Package epstopdf Info: Source file: <../GNU/induct328p.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 26765 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 26661 bytes
 (epstopdf)             Output file: <../GNU/induct328p-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:42
-(epstopdf)                    size: 15591 bytes
+(epstopdf)                    date: 2012-11-04 19:45:04
+(epstopdf)                    size: 15573 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/induct328p-eps-conve
 rted-to.pdf ../GNU/induct328p.eps>
 (epstopdf)             \includegraphics on input line 126.
-runsystem(epstopdf --outfile=../GNU/induct328p-eps-converted-to.pdf ../GNU/indu
-ct328p.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/induct328p-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:48
-(epstopdf)                    size: 15591 bytes.
-
-<../GNU/induct328p-eps-converted-to.pdf, id=809, 361.35pt x 252.945pt>
+<../GNU/induct328p-eps-converted-to.pdf, id=803, 361.35pt x 252.945pt>
 File: ../GNU/induct328p-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/induct328p-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/induct328p-eps-converted-to.pdf used on input l
-ine 126.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)) [48 <../GNU/induct328p-eps-converted-to.pdf>]
+<use ../GNU/induct328p-eps-converted-to.pdf>)) [48 <../GNU/induct328p-eps-conve
+rted-to.pdf>]
 \openout2 = `55-selftest.aux'.
 
  (./55-selftest.tex
 Package epstopdf Info: Source file: <../FIG/Test2.eps>
-(epstopdf)                    date: 2012-11-04 14:32:29
-(epstopdf)                    size: 49656 bytes
+(epstopdf)                    date: 2012-11-04 19:44:46
+(epstopdf)                    size: 49490 bytes
 (epstopdf)             Output file: <../FIG/Test2-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:42
-(epstopdf)                    size: 19923 bytes
+(epstopdf)                    date: 2012-11-04 19:45:05
+(epstopdf)                    size: 19775 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Test2-eps-converted-
 to.pdf ../FIG/Test2.eps>
 (epstopdf)             \includegraphics on input line 56.
-runsystem(epstopdf --outfile=../FIG/Test2-eps-converted-to.pdf ../FIG/Test2.eps
-)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Test2-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:49
-(epstopdf)                    size: 19923 bytes.
-
-<../FIG/Test2-eps-converted-to.pdf, id=820, 611.28375pt x 166.6225pt>
+<../FIG/Test2-eps-converted-to.pdf, id=813, 611.28375pt x 166.6225pt>
 File: ../FIG/Test2-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/Test2-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Test2-eps-converted-to.pdf used on input line 5
-6.
-(pdftex.def)             Requested size: 483.69684pt x 131.84389pt.
- [49
+<use ../FIG/Test2-eps-converted-to.pdf> [49
 
 
 ]
 Package epstopdf Info: Source file: <../FIG/Test7.eps>
-(epstopdf)                    date: 2012-11-04 14:32:29
-(epstopdf)                    size: 33443 bytes
+(epstopdf)                    date: 2012-11-04 19:44:47
+(epstopdf)                    size: 33277 bytes
 (epstopdf)             Output file: <../FIG/Test7-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:43
-(epstopdf)                    size: 15042 bytes
+(epstopdf)                    date: 2012-11-04 19:45:05
+(epstopdf)                    size: 14888 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Test7-eps-converted-
 to.pdf ../FIG/Test7.eps>
 (epstopdf)             \includegraphics on input line 84.
-runsystem(epstopdf --outfile=../FIG/Test7-eps-converted-to.pdf ../FIG/Test7.eps
-)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Test7-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:49
-(epstopdf)                    size: 15042 bytes.
-
-<../FIG/Test7-eps-converted-to.pdf, id=829, 375.4025pt x 166.6225pt>
+<../FIG/Test7-eps-converted-to.pdf, id=822, 375.4025pt x 166.6225pt>
 File: ../FIG/Test7-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Test7-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Test7-eps-converted-to.pdf used on input line 8
-4.
-(pdftex.def)             Requested size: 375.40158pt x 166.62209pt.
 Package epstopdf Info: Source file: <../FIG/Test8.eps>
-(epstopdf)                    date: 2012-11-04 14:32:30
-(epstopdf)                    size: 33446 bytes
+(epstopdf)                    date: 2012-11-04 19:44:47
+(epstopdf)                    size: 33280 bytes
 (epstopdf)             Output file: <../FIG/Test8-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:43
-(epstopdf)                    size: 14938 bytes
+(epstopdf)                    date: 2012-11-04 19:45:05
+(epstopdf)                    size: 14794 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/Test8-eps-converted-
 to.pdf ../FIG/Test8.eps>
 (epstopdf)             \includegraphics on input line 101.
-runsystem(epstopdf --outfile=../FIG/Test8-eps-converted-to.pdf ../FIG/Test8.eps
-)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../FIG/Test8-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:50
-(epstopdf)                    size: 14938 bytes.
-
-<../FIG/Test8-eps-converted-to.pdf, id=831, 373.395pt x 166.6225pt>
+<../FIG/Test8-eps-converted-to.pdf, id=824, 373.395pt x 166.6225pt>
 File: ../FIG/Test8-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../FIG/Test8-eps-converted-to.pdf>
-Package pdftex.def Info: ../FIG/Test8-eps-converted-to.pdf used on input line 1
-01.
-(pdftex.def)             Requested size: 373.39409pt x 166.62209pt.
- [50 <../FIG/Test2-eps-converted-to.pdf> <../FIG/Test7-eps-converted-to.pdf>] [
-51 <../FIG/Test8-eps-converted-to.pdf>]
+<use ../FIG/Test8-eps-converted-to.pdf> [50 <../FIG/Test2-eps-converted-to.pdf>
+ <../FIG/Test7-eps-converted-to.pdf>] [51 <../FIG/Test8-eps-converted-to.pdf>]
 Overfull \hbox (0.68799pt too wide) in paragraph at lines 152--154
 []\T1/lmr/m/n/12 Die Er-geb-nis-se des Selbst-tests der 9 ver-schie-de-nen ATme
 ga168-Prozessoren und der 6 ATmega328-
@@ -1851,130 +1380,85 @@ ga168-Prozessoren und der 6 ATmega328-
 
 (../GNU/SelfTref.tex
 Package epstopdf Info: Source file: <../GNU/SelfTref.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19237 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19133 bytes
 (epstopdf)             Output file: <../GNU/SelfTref-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:43
-(epstopdf)                    size: 3421 bytes
+(epstopdf)                    date: 2012-11-04 19:45:06
+(epstopdf)                    size: 3403 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTref-eps-convert
 ed-to.pdf ../GNU/SelfTref.eps>
 (epstopdf)             \includegraphics on input line 134.
-runsystem(epstopdf --outfile=../GNU/SelfTref-eps-converted-to.pdf ../GNU/SelfTr
-ef.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTref-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:50
-(epstopdf)                    size: 3421 bytes.
-
-<../GNU/SelfTref-eps-converted-to.pdf, id=893, 361.35pt x 252.945pt>
+<../GNU/SelfTref-eps-converted-to.pdf, id=886, 361.35pt x 252.945pt>
 File: ../GNU/SelfTref-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTref-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTref-eps-converted-to.pdf used on input lin
-e 134.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [52] (../GNU/SelfTMitL.tex
+<use ../GNU/SelfTref-eps-converted-to.pdf>) [52] (../GNU/SelfTMitL.tex
 Package epstopdf Info: Source file: <../GNU/SelfTMitL.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19813 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19709 bytes
 (epstopdf)             Output file: <../GNU/SelfTMitL-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:44
-(epstopdf)                    size: 4578 bytes
+(epstopdf)                    date: 2012-11-04 19:45:06
+(epstopdf)                    size: 4563 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTMitL-eps-conver
 ted-to.pdf ../GNU/SelfTMitL.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/SelfTMitL-eps-converted-to.pdf ../GNU/SelfT
-MitL.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTMitL-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:50
-(epstopdf)                    size: 4578 bytes.
-
-<../GNU/SelfTMitL-eps-converted-to.pdf, id=905, 361.35pt x 252.945pt>
+<../GNU/SelfTMitL-eps-converted-to.pdf, id=898, 361.35pt x 252.945pt>
 File: ../GNU/SelfTMitL-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTMitL-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTMitL-eps-converted-to.pdf used on input li
-ne 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/SelfTMitH.tex
+<use ../GNU/SelfTMitL-eps-converted-to.pdf>) (../GNU/SelfTMitH.tex
 Package epstopdf Info: Source file: <../GNU/SelfTMitH.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19813 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19709 bytes
 (epstopdf)             Output file: <../GNU/SelfTMitH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:44
-(epstopdf)                    size: 4628 bytes
+(epstopdf)                    date: 2012-11-04 19:45:06
+(epstopdf)                    size: 4616 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTMitH-eps-conver
 ted-to.pdf ../GNU/SelfTMitH.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/SelfTMitH-eps-converted-to.pdf ../GNU/SelfT
-MitH.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTMitH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:50
-(epstopdf)                    size: 4628 bytes.
-
-<../GNU/SelfTMitH-eps-converted-to.pdf, id=906, 361.35pt x 252.945pt>
+<../GNU/SelfTMitH-eps-converted-to.pdf, id=899, 361.35pt x 252.945pt>
 File: ../GNU/SelfTMitH-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTMitH-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTMitH-eps-converted-to.pdf used on input li
-ne 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/SelfTMitH-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 194--207
 [][]   [] 
  []
 
 (../GNU/SelfTbottomH.tex
 Package epstopdf Info: Source file: <../GNU/SelfTbottomH.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19819 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19715 bytes
 (epstopdf)             Output file: <../GNU/SelfTbottomH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:44
-(epstopdf)                    size: 4483 bytes
+(epstopdf)                    date: 2012-11-04 19:45:06
+(epstopdf)                    size: 4471 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTbottomH-eps-con
 verted-to.pdf ../GNU/SelfTbottomH.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/SelfTbottomH-eps-converted-to.pdf ../GNU/Se
-lfTbottomH.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTbottomH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:50
-(epstopdf)                    size: 4483 bytes.
-
-<../GNU/SelfTbottomH-eps-converted-to.pdf, id=907, 361.35pt x 252.945pt>
+<../GNU/SelfTbottomH-eps-converted-to.pdf, id=900, 361.35pt x 252.945pt>
 File: ../GNU/SelfTbottomH-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTbottomH-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTbottomH-eps-converted-to.pdf used on input
- line 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/SelfTtopH.tex
+<use ../GNU/SelfTbottomH-eps-converted-to.pdf>) (../GNU/SelfTtopH.tex
 Package epstopdf Info: Source file: <../GNU/SelfTtopH.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19790 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19686 bytes
 (epstopdf)             Output file: <../GNU/SelfTtopH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:44
-(epstopdf)                    size: 4465 bytes
+(epstopdf)                    date: 2012-11-04 19:45:07
+(epstopdf)                    size: 4453 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTtopH-eps-conver
 ted-to.pdf ../GNU/SelfTtopH.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/SelfTtopH-eps-converted-to.pdf ../GNU/SelfT
-topH.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTtopH-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:51
-(epstopdf)                    size: 4471 bytes.
-
-<../GNU/SelfTtopH-eps-converted-to.pdf, id=908, 361.35pt x 252.945pt>
+<../GNU/SelfTtopH-eps-converted-to.pdf, id=901, 361.35pt x 252.945pt>
 File: ../GNU/SelfTtopH-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTtopH-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTtopH-eps-converted-to.pdf used on input li
-ne 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/SelfTtopH-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 211--224
 [][]   [] 
  []
@@ -1982,133 +1466,89 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 211--224
 [53 <../GNU/SelfTref-eps-converted-to.pdf> <../GNU/SelfTMitL-eps-converted-to.p
 df> <../GNU/SelfTMitH-eps-converted-to.pdf>] (../GNU/SelfTRiLo.tex
 Package epstopdf Info: Source file: <../GNU/SelfTRiLo.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 20203 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 20099 bytes
 (epstopdf)             Output file: <../GNU/SelfTRiLo-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:45
-(epstopdf)                    size: 4840 bytes
+(epstopdf)                    date: 2012-11-04 19:45:07
+(epstopdf)                    size: 4831 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTRiLo-eps-conver
 ted-to.pdf ../GNU/SelfTRiLo.eps>
 (epstopdf)             \includegraphics on input line 142.
-runsystem(epstopdf --outfile=../GNU/SelfTRiLo-eps-converted-to.pdf ../GNU/SelfT
-RiLo.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTRiLo-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:51
-(epstopdf)                    size: 4840 bytes.
-
-<../GNU/SelfTRiLo-eps-converted-to.pdf, id=919, 361.35pt x 252.945pt>
+<../GNU/SelfTRiLo-eps-converted-to.pdf, id=912, 361.35pt x 252.945pt>
 File: ../GNU/SelfTRiLo-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTRiLo-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTRiLo-eps-converted-to.pdf used on input li
-ne 142.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/SelfTRiHi.tex
+<use ../GNU/SelfTRiLo-eps-converted-to.pdf>) (../GNU/SelfTRiHi.tex
 Package epstopdf Info: Source file: <../GNU/SelfTRiHi.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19811 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19707 bytes
 (epstopdf)             Output file: <../GNU/SelfTRiHi-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:45
-(epstopdf)                    size: 4764 bytes
+(epstopdf)                    date: 2012-11-04 19:45:07
+(epstopdf)                    size: 4754 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTRiHi-eps-conver
 ted-to.pdf ../GNU/SelfTRiHi.eps>
 (epstopdf)             \includegraphics on input line 136.
-runsystem(epstopdf --outfile=../GNU/SelfTRiHi-eps-converted-to.pdf ../GNU/SelfT
-RiHi.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTRiHi-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:51
-(epstopdf)                    size: 4764 bytes.
-
-<../GNU/SelfTRiHi-eps-converted-to.pdf, id=920, 361.35pt x 252.945pt>
+<../GNU/SelfTRiHi-eps-converted-to.pdf, id=913, 361.35pt x 252.945pt>
 File: ../GNU/SelfTRiHi-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTRiHi-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTRiHi-eps-converted-to.pdf used on input li
-ne 136.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
+<use ../GNU/SelfTRiHi-eps-converted-to.pdf>)
 Overfull \hbox (7.83318pt too wide) in paragraph at lines 228--241
 [][]   [] 
  []
 
 (../GNU/SelfTcap0.tex
 Package epstopdf Info: Source file: <../GNU/SelfTcap0.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19937 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19833 bytes
 (epstopdf)             Output file: <../GNU/SelfTcap0-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:45
-(epstopdf)                    size: 4652 bytes
+(epstopdf)                    date: 2012-11-04 19:45:07
+(epstopdf)                    size: 4634 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTcap0-eps-conver
 ted-to.pdf ../GNU/SelfTcap0.eps>
 (epstopdf)             \includegraphics on input line 138.
-runsystem(epstopdf --outfile=../GNU/SelfTcap0-eps-converted-to.pdf ../GNU/SelfT
-cap0.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTcap0-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:51
-(epstopdf)                    size: 4652 bytes.
-
-<../GNU/SelfTcap0-eps-converted-to.pdf, id=921, 361.35pt x 252.945pt>
+<../GNU/SelfTcap0-eps-converted-to.pdf, id=914, 361.35pt x 252.945pt>
 File: ../GNU/SelfTcap0-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTcap0-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTcap0-eps-converted-to.pdf used on input li
-ne 138.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) (../GNU/SelfTrefKorr.tex
+<use ../GNU/SelfTcap0-eps-converted-to.pdf>) (../GNU/SelfTrefKorr.tex
 Package epstopdf Info: Source file: <../GNU/SelfTrefKorr.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19683 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19579 bytes
 (epstopdf)             Output file: <../GNU/SelfTrefKorr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:46
-(epstopdf)                    size: 3756 bytes
+(epstopdf)                    date: 2012-11-04 19:45:07
+(epstopdf)                    size: 3737 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTrefKorr-eps-con
 verted-to.pdf ../GNU/SelfTrefKorr.eps>
 (epstopdf)             \includegraphics on input line 138.
-runsystem(epstopdf --outfile=../GNU/SelfTrefKorr-eps-converted-to.pdf ../GNU/Se
-lfTrefKorr.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTrefKorr-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:52
-(epstopdf)                    size: 3756 bytes.
-
-<../GNU/SelfTrefKorr-eps-converted-to.pdf, id=922, 361.35pt x 252.945pt>
+<../GNU/SelfTrefKorr-eps-converted-to.pdf, id=915, 361.35pt x 252.945pt>
 File: ../GNU/SelfTrefKorr-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTrefKorr-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTrefKorr-eps-converted-to.pdf used on input
- line 138.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-) [54 <../GNU/SelfTbottomH-eps-converted-to.pdf> <../GNU/SelfTtopH-eps-converte
-d-to.pdf> <../GNU/SelfTRiLo-eps-converted-to.pdf> <../GNU/SelfTRiHi-eps-convert
-ed-to.pdf> <../GNU/SelfTcap0-eps-converted-to.pdf>] (../GNU/SelfTrefDiff.tex
+<use ../GNU/SelfTrefKorr-eps-converted-to.pdf>) [54 <../GNU/SelfTbottomH-eps-co
+nverted-to.pdf> <../GNU/SelfTtopH-eps-converted-to.pdf> <../GNU/SelfTRiLo-eps-c
+onverted-to.pdf> <../GNU/SelfTRiHi-eps-converted-to.pdf> <../GNU/SelfTcap0-eps-
+converted-to.pdf>] (../GNU/SelfTrefDiff.tex
 Package epstopdf Info: Source file: <../GNU/SelfTrefDiff.eps>
-(epstopdf)                    date: 2012-11-04 14:32:23
-(epstopdf)                    size: 19821 bytes
+(epstopdf)                    date: 2012-11-04 19:44:41
+(epstopdf)                    size: 19717 bytes
 (epstopdf)             Output file: <../GNU/SelfTrefDiff-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:31:46
-(epstopdf)                    size: 3771 bytes
+(epstopdf)                    date: 2012-11-04 19:45:08
+(epstopdf)                    size: 3753 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/SelfTrefDiff-eps-con
 verted-to.pdf ../GNU/SelfTrefDiff.eps>
 (epstopdf)             \includegraphics on input line 140.
-runsystem(epstopdf --outfile=../GNU/SelfTrefDiff-eps-converted-to.pdf ../GNU/Se
-lfTrefDiff.eps)...executed.
+Package epstopdf Info: Output file is already uptodate.
 
-Package epstopdf Info: Result file: <../GNU/SelfTrefDiff-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-11-04 14:32:52
-(epstopdf)                    size: 3771 bytes.
-
-<../GNU/SelfTrefDiff-eps-converted-to.pdf, id=939, 361.35pt x 252.945pt>
+<../GNU/SelfTrefDiff-eps-converted-to.pdf, id=932, 361.35pt x 252.945pt>
 File: ../GNU/SelfTrefDiff-eps-converted-to.pdf Graphic file (type pdf)
 
-<use ../GNU/SelfTrefDiff-eps-converted-to.pdf>
-Package pdftex.def Info: ../GNU/SelfTrefDiff-eps-converted-to.pdf used on input
- line 140.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)) [55 <../GNU/SelfTrefKorr-eps-converted-to.pdf> <../GNU/SelfTrefDiff-eps-conv
-erted-to.pdf>]
+<use ../GNU/SelfTrefDiff-eps-converted-to.pdf>)) [55 <../GNU/SelfTrefKorr-eps-c
+onverted-to.pdf> <../GNU/SelfTrefDiff-eps-converted-to.pdf>]
 \openout2 = `60-errors.aux'.
 
  (./60-errors.tex
@@ -2141,50 +1581,37 @@ Underfull \hbox (badness 5475) in paragraph at lines 101--106
  wiki / Equivalent _ Series _ Resistance$[] \T1/lmr/m/it/12 Er-läu-te-rung
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 151.
 [60
 
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 151.
- (./ttester.aux (./00-preface.aux) (./10-features.aux) (./20-hardware.aux)
+] (./ttester.aux (./00-preface.aux) (./10-features.aux) (./20-hardware.aux)
 (./30-manual.aux) (./40-configuring.aux) (./50-measurement.aux)
 (./51-semicon.aux) (./52-resistors.aux) (./53-capacitors.aux)
 (./54-inductors.aux) (./55-selftest.aux) (./60-errors.aux) (./70-special.aux)
-(./80-todo.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 151.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 151.
-Package rerunfilecheck Info: File `ttester.out' has not changed.
-(rerunfilecheck)             Checksum: B8AAAA6E9E761047A453365A4B01EC31;2463.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 151.
- ) 
+(./80-todo.aux)) ) 
 Here is how much of TeX's memory you used:
- 8608 strings out of 493488
- 136360 string characters out of 3141346
- 228765 words of memory out of 3000000
- 11300 multiletter control sequences out of 15000+200000
+ 7705 strings out of 495021
+ 119891 string characters out of 1181035
+ 210966 words of memory out of 3000000
+ 10274 multiletter control sequences out of 15000+50000
  65069 words of font info for 51 fonts, out of 3000000 for 9000
- 957 hyphenation exceptions out of 8191
- 42i,12n,38p,850b,662s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2012/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/20
-12/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2012/texmf-dist/
-fonts/enc/dvips/lm/lm-mathsy.enc}</usr/local/texlive/2012/texmf-dist/fonts/type
-1/public/lm/lmbx12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/l
-m/lmmi10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmmi12.p
-fb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/lo
-cal/texlive/2012/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive
-/2012/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2012/texmf
--dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts
-/type1/public/lm/lmr17.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/publ
-ic/lm/lmr8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmri12
-.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr
-/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texl
-ive/2012/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on ttester.pdf (61 pages, 759161 bytes).
+ 28 hyphenation exceptions out of 8191
+ 41i,12n,38p,850b,662s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/te
+xmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm
+.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts
+/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type
+1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri1
+2.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/font
+s/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
+
+Output written on ttester.pdf (61 pages, 887258 bytes).
 PDF statistics:
- 1112 PDF objects out of 1200 (max. 8388607)
- 911 compressed objects within 10 object streams
+ 1101 PDF objects out of 1200 (max. 8388607)
  230 named destinations out of 1000 (max. 500000)
  574 words of extra memory for PDF output out of 10000 (max. 10000000)
 
