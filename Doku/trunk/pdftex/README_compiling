@@ -1,3 +1,6 @@
-there is a makefile available within the german/english subfolders. make it executable (chmod +x <file>) and run. it should compile the documentation without further user inputs.
+There is a Makefile available within the german / english subfolders.
+You should run this Makefile with a call of "make Makefile" within the previously selected subfolder.
 
-the makefile uses a conversion tool for eps files in the FIG directory. fig2ps has to be installed if it is not shipped with your latex installation. furthermore, it uses epstopdf and the pdflatex command, which should be built in and perhaps need symlinks to be accessible.
+The makefile uses a conversion tool for eps files in the FIG directory.
+fig2ps has to be installed if it is not shipped with your latex installation.
+Furthermore, it uses epstopdf and the pdflatex command, which should be built in and perhaps need symlinks to be accessible.

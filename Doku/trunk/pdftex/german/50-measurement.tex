@@ -1,12 +1,12 @@
 \chapter{Beschreibung des Messverfahrens}
 Ein vereinfachtes Schaltbild eines Eingangs-/Ausgangs-Pin des ATmega wird in Abbildung~\ref{fig:port} gezeigt.
-Der Schalter PUD schaltet die Versorgung f\"ur alle ,,Pull Up''-Widerst\"ande des ATmega ab.
+Der Schalter PUD schaltet die Versorgung für alle ,,Pull Up''-Widerstände des ATmega ab.
 Mit dem Schalter DD kann der Ausgang abgeschaltet werden, der Eingang funktioniert sowohl im Ausgabe- wie im
 Eingabe-Modus. Im Eingabe-Modus wird mit dem Ausgabewert (PORT) der ,,Pull Up''-Widerstand des Eingangs mit geschaltet.
-Die beiden Schalter PORT und DD k\"onnen nicht gleichzeitig, sondern nur nacheinander geschaltet werden.
-Weil beim Umschalten der ,,Pull Up'' Widerstand die Messung st\"oren k\"onnte, bevorzuge ich die komplette
-Abschaltung aller ,,Pull Up'' Widerst\"ande mit dem PUD-Schalter.
-Nat\"urlich sind die Schalter elektronisch und die Widerst\"ande \(19\Omega\) und \(22\Omega\) sind angen\"aherte Werte.
+Die beiden Schalter PORT und DD können nicht gleichzeitig, sondern nur nacheinander geschaltet werden.
+Weil beim Umschalten der ,,Pull Up'' Widerstand die Messung stören könnte, bevorzuge ich die komplette
+Abschaltung aller ,,Pull Up'' Widerstände mit dem PUD-Schalter.
+Natürlich sind die Schalter elektronisch und die Widerstände \(19\Omega\) und \(22\Omega\) sind angenäherte Werte.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/port.eps}
@@ -25,13 +25,13 @@ was im vereinfachten Schaltbild des Testpins TP2 (mittlerer der drei Pins) in Ab
 \end{figure}
 
 Jeder Testpin (Messport) kann als digitaler oder analoger Eingang benutzt werden.
-Diese Mess\-f\"ahig\-keit ist un\-abh\"an\-gig von der Verwendung des Ports als Ausgang.
+Diese Mess\-fähig\-keit ist un\-abhän\-gig von der Verwendung des Ports als Ausgang.
 Jeder Testpin kann als Ausgang verwendet werden und in diesem Zustand mit GND (0V) oder VCC (5V) verbunden werden,
-oder er kann \"uber die Widerstände (\(680\Omega\) oder \(470k\Omega\)) mit entweder GND oder VCC verbunden werden.
-Tabelle \ref{tab:case} zeigt alle denkbaren Messm\"oglichkeiten.
+oder er kann über die Widerstände (\(680\Omega\) oder \(470k\Omega\)) mit entweder GND oder VCC verbunden werden.
+Tabelle \ref{tab:case} zeigt alle denkbaren Messmöglichkeiten.
 Beachten Sie, dass der positive Zustand durch direktes Verbinden mit VCC (Port C) oder
 durch Verbinden mit dem \(680\Omega\) Widerstand mit VCC (Port B) erreicht werden kann.
-Die gleiche M\"oglichkeit hat der negative Zustand des Testpins zu der GND-Seite.
+Die gleiche Möglichkeit hat der negative Zustand des Testpins zu der GND-Seite.
 Der Test-Zustand meint, dass der Pin offen sein kann (Eingang), verbunden "uber den \(470k\Omega\)-Widerstand
 mit VCC oder GND, oder der Pin kann "uber den \(680\Omega\)-Widerstand mit VCC oder GND verbunden sein.
 
@@ -50,12 +50,12 @@ mit VCC oder GND, oder der Pin kann "uber den \(680\Omega\)-Widerstand mit VCC o
     \hline
     \end{tabular}
   \end{center}
-  \caption{alle Messm\"oglichkeiten}
+  \caption{alle Messmöglichkeiten}
   \label{tab:case} 
 \end{table}
 
 Wenn die Kondensatormessung des Testers konfiguriert ist, versucht der Tester vor allen Messungen erst einmal,
 die Kondensatoren an allen Anschlusspins zu entladen. Wenn das nicht gelingt, also die Restspannung zu hoch bleibt,
 wird das Entladen nach etwa 12 Sekunden mit der Meldung ,,Cell!'' abgebrochen. Dies kann auch dann vorkommen, wenn
-gar kein Kondensator angeschlossen ist. Die Ursache kann in diesem Fall sein, dass die Entlade-Grenzspannung f\"ur diesen
-ATmega zu niedrig gew\"ahlt ist. Man kann eine h\"ohere Restspannung mit der Makefile Option CAP\_EMPTY\_LEVEL w\"ahlen.
+gar kein Kondensator angeschlossen ist. Die Ursache kann in diesem Fall sein, dass die Entlade-Grenzspannung für diesen
+ATmega zu niedrig gewählt ist. Man kann eine höhere Restspannung mit der Makefile Option CAP\_EMPTY\_LEVEL wählen.

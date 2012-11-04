@@ -5,24 +5,24 @@ Ein anderer Pin wird als positive Seite des Bauteils angenommen.
 Als erster Test wird die positive Seite des Bauteils direkt mit VCC verbunden.
 Die negative Seite wird mit dem \(680\Omega\) Widerstand nach GND verbunden.
 Der Testpin (dritter Pin, auch TriStatePin genannt) wird zuerst mit dem \(680\Omega\)-Widerstand
-f\"ur 10ms mit GND verbunden.
-Die Spannung des negativen Testpins wird gemessen, w\"ahrend der TriStatePin auf Eingang
+für 10ms mit GND verbunden.
+Die Spannung des negativen Testpins wird gemessen, während der TriStatePin auf Eingang
 geschaltet ist.
 Es wird angenommen, dass das getestete Bauteil ein P-Kanal-MOSFET sein kann und dass das Gate
 entladen sein sollte.
-Wenn die gemessene Spannung \"uber 976mV ist, nimmt der n\"achste Test an. dass das getestete
-Bauteil auch ein P-Kanal-MOSFET sein k\"onnte und daf\"ur wird der \(680\Omega\) Widerstand
-f\"ur 10ms zur VCC-Seite geschaltet.
-Auch f\"ur diesen Fall wird die Spannung des negativen Pins mit stromlosen TriStatePin gemessen.
-Wenn die Spannung des negativen Pins gr\"osser als 92mV ist, werden zus\"atzliche Tests gemacht, 
+Wenn die gemessene Spannung über 976mV ist, nimmt der nächste Test an. dass das getestete
+Bauteil auch ein P-Kanal-MOSFET sein könnte und dafür wird der \(680\Omega\) Widerstand
+für 10ms zur VCC-Seite geschaltet.
+Auch für diesen Fall wird die Spannung des negativen Pins mit stromlosen TriStatePin gemessen.
+Wenn die Spannung des negativen Pins grösser als 92mV ist, werden zusätzliche Tests gemacht, 
 um N-Kanal JFET oder D-MOSFET (Verarmungs-Typ) und P-Kanal JFET oder P-MOSFET zu unterscheiden.
-Die MOSFET-Versionen k\"onnen unterschieden werden durch den stromlosen Zustand des
+Die MOSFET-Versionen können unterschieden werden durch den stromlosen Zustand des
 TriStatePins in jedem Zustand.
-Um Parameter dieser Verarmungstypen messen zu k\"onnen, werden sie mit einem \(680 \Omega\)-Widerstand am
+Um Parameter dieser Verarmungstypen messen zu können, werden sie mit einem \(680 \Omega\)-Widerstand am
 Source-Pin vermessen, wie in Abbildung \ref{fig:JFETcd} gezeigt wird. Diese Messung wird anstelle der
-\"ublichen Messung des Stromes bei einer Gate-Spannung auf Source-Potential gemacht, da wegen des
-relativ hohen \(680 \Omega\) Widerstandes in vielen F\"allen der Kennstrom \(I_\mathrm{DSS}\) 
-des FETs nicht erreicht w\"urde.
+üblichen Messung des Stromes bei einer Gate-Spannung auf Source-Potential gemacht, da wegen des
+relativ hohen \(680 \Omega\) Widerstandes in vielen Fällen der Kennstrom \(I_\mathrm{DSS}\) 
+des FETs nicht erreicht würde.
 
 \begin{figure}[H]
 \centering
@@ -32,20 +32,20 @@ des FETs nicht erreicht w\"urde.
 \end{figure}
 
 Wenn das Bauteil keinen Strom zwischen dem positiven Pin und dem negativen Pin ohne ein Signal
-auf dem TristatePin hat, sind die n\"achsten Tests im n\"achsten Unterkapitel \ref{sec:pnp} beschrieben.
-Wenn Strom festgestellt wird, sind die n\"achsten Tests in dem Dioden-Unterkapitel \ref{sec:diode} beschrieben.
+auf dem TristatePin hat, sind die nächsten Tests im nächsten Unterkapitel \ref{sec:pnp} beschrieben.
+Wenn Strom festgestellt wird, sind die nächsten Tests in dem Dioden-Unterkapitel \ref{sec:diode} beschrieben.
 
 \subsection{Messung eines PNP-Transistors oder eines P-Kanal MOSFETs}
 \label{sec:pnp}
-Zuerst wird der Stromverst\"arkungsfaktor in der Kollektor-Schaltung (Emitter-Folger) f\"ur den angenommenen
+Zuerst wird der Stromverstärkungsfaktor in der Kollektor-Schaltung (Emitter-Folger) für den angenommenen
 PNP-Transistor gemessen.
 Die Messsituation wird in Abbildung \ref{fig:pnpcc} gezeigt.
-Wenn die gemessene Basis-Spannung (\(UB\)) \"uber 9mV mit dem \(680\Omega\) Widerstand liegt,
-wird die Stromverst\"arkung hFE berechnet mit \(hFE = \frac{UE-UB}{UB}\). 
+Wenn die gemessene Basis-Spannung (\(UB\)) über 9mV mit dem \(680\Omega\) Widerstand liegt,
+wird die Stromverstärkung hFE berechnet mit \(hFE = \frac{UE-UB}{UB}\). 
 Die Spannung \(UE\) ist die Differenz der Emitter-Spannung zu VCC.
-Die Differenz des \(22\Omega\) und \(19\Omega\)-Widerstandes wird nicht ber\"ucksichtigt.
+Die Differenz des \(22\Omega\) und \(19\Omega\)-Widerstandes wird nicht berücksichtigt.
 Wenn die Spannung \(UB\) unter 10mV liegt, wird die Messung mit dem \(470k\Omega\)-Widerstand an der Basis gemacht.
-F\"ur diesen Fall wird der Stromverst\"arkungsfaktor mit \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\) gebildet.
+Für diesen Fall wird der Stromverstärkungsfaktor mit \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\) gebildet.
 
 \begin{figure}[H]
 \centering
@@ -54,22 +54,22 @@ F\"ur diesen Fall wird der Stromverst\"arkungsfaktor mit \(hFE = \frac{UE \cdot 
 \label{fig:pnpcc}
 \end{figure}
 
-Als N\"achstes werden die Tests in Emitter-Schaltung f\"ur den angenommenen PNP-Transistor gemacht.
+Als Nächstes werden die Tests in Emitter-Schaltung für den angenommenen PNP-Transistor gemacht.
 Die positive Seite wird jetzt direkt mit VCC verbunden, der \(680\Omega\)-Widerstand der negativen Seite wird 
 mit GND verbunden, wie es in Abbildung \ref{fig:pnpce} gezeigt wird. 
-Wenn die negative Seite des Bauteils eine Spannung \"uber 3,4V hat, wenn der \(680\Omega\)-Widerstand auf der Basis-Seite mit
+Wenn die negative Seite des Bauteils eine Spannung über 3,4V hat, wenn der \(680\Omega\)-Widerstand auf der Basis-Seite mit
 GND verbunden ist, muss es ein PNP-Transistor oder ein P-Kanal-FET sein.
-Das kann einfach unterschieden werden durch Pr\"ufen der Basis-Spannung: Wenn sie gr\"osser als 0,97V ist, muss es ein PNP sein.
-F\"ur die Messung des Stromverst\"arkungsfaktors wird anstelle des \(680\Omega\)-Widerstandes der
+Das kann einfach unterschieden werden durch Prüfen der Basis-Spannung: Wenn sie grösser als 0,97V ist, muss es ein PNP sein.
+Für die Messung des Stromverstärkungsfaktors wird anstelle des \(680\Omega\)-Widerstandes der
  \(470k\Omega\)-Widerstand als Basis-Widerstand genommen.
-Der Stromverst\"arkungsfaktor wird berechnet mit \(hFE = \frac{UC \cdot 470000}{UB \cdot (680+19)}\) .
-Der h\"ohere Stromverst\"arkungsfaktor wird als der richtige angenommen, dieser hier oder der
+Der Stromverstärkungsfaktor wird berechnet mit \(hFE = \frac{UC \cdot 470000}{UB \cdot (680+19)}\) .
+Der höhere Stromverstärkungsfaktor wird als der richtige angenommen, dieser hier oder der
 mit der Kollektor-Schaltung bestimmte.
 
-Die Werte, die f\"ur den PNP-Transistor herausgefunden wurden, sind nur g\"ultig, wenn ein zweiter Satz
+Die Werte, die für den PNP-Transistor herausgefunden wurden, sind nur gültig, wenn ein zweiter Satz
 von Messungen gemacht wurde.
 Um zu verhindern, dass der PNP-Transistor in der inversen Schaltung (Kollektor und Emitter vertauscht) erkannt
-wird, wird dann die Messung mit dem h\"oheren Stromverst\"arkungsfaktor als richtige Messung genommen.
+wird, wird dann die Messung mit dem höheren Stromverstärkungsfaktor als richtige Messung genommen.
 Wenn die Basis-Spannung kleiner als 0,97V ist, muss es ein P-E-MOS sein.
 In diesem Fall wird die Gate-Schwellwertspannung dadurch bestimmt, dass die Spannung am Gate langsam mit dem
  \(470k\Omega\)-Widerstand rauf und runter gezogen wird bis die Drain-Seite schaltet und dann
@@ -78,45 +78,45 @@ die Spannung am Gate gemessen wird.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/PNPce.eps}
-\caption{Pr\"ufung und hFE-Messung eines PNP-Transistors in der Emitter-Schaltung}
+\caption{Prüfung und hFE-Messung eines PNP-Transistors in der Emitter-Schaltung}
 \label{fig:pnpce}
 \end{figure}
 
 \subsection{Messung eines NPN-Transistors oder eines N-Kanal-MOSFET}
 Die Messung eines NPN-Transistors beginnt auf gleiche Weise wie die PNP-Transistor-Messung, nämlich
-mit der Messung des Stromverst\"arkungsfaktors in der Kollektor-Schaltung.
+mit der Messung des Stromverstärkungsfaktors in der Kollektor-Schaltung.
 Zuerst wird die Messung mit einem nach VCC geschalteten \(680\Omega\)-Basiswiderstand gemacht.
 Wenn die Spannung am Basis-Widerstand zu klein ist, wird stattdessen der \(470k\Omega\)-Widerstand genommen.
-Die Messungen werden dann in der Emitter-Schaltung fortgef\"uhrt, wie in Abbildung \ref{fig:npnce} gezeigt.
+Die Messungen werden dann in der Emitter-Schaltung fortgeführt, wie in Abbildung \ref{fig:npnce} gezeigt.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/NPNce.eps}
-\caption{Pr\"ufung und hFE-Messung eines NPN-Transistors in Emitter-Schaltung}
+\caption{Prüfung und hFE-Messung eines NPN-Transistors in Emitter-Schaltung}
 \label{fig:npnce}
 \end{figure}
 Wenn die Spannung auf der Kollektor Seite unter 1,6V liegt, während der \(680\Omega\)-Basiswiderstand mit
 VCC verbunden ist, muss es ein NPN, ein N-Kanal MOSFET oder ein Thyristor (TRIAC) sein.
 Mit zwei einfachen Tests kann ein Thyristor oder Triac erkannt werden.
-Wenn der Gate-Pin f\"ur 10ms mit GND verbunden wird und dann stromlos geschaltet wird, sollte
+Wenn der Gate-Pin für 10ms mit GND verbunden wird und dann stromlos geschaltet wird, sollte
 der Strom an der Anode bleiben.
-Wenn jetzt der Anoden-Widerstand kurz auf GND geschaltet und dann auf VCC zur\"uckgeschaltet wird,
-sollte der Thyristor nicht erneut z\"unden (stromlos bleiben).
-Beachten Sie, dass nur Kleinleistungs Thyristoren getestet werden k\"onnen, weil der Haltestrom des
+Wenn jetzt der Anoden-Widerstand kurz auf GND geschaltet und dann auf VCC zurückgeschaltet wird,
+sollte der Thyristor nicht erneut zünden (stromlos bleiben).
+Beachten Sie, dass nur Kleinleistungs Thyristoren getestet werden können, weil der Haltestrom des
 Testers nur 6mA erreichen kann.
-Wenn beide Tests einen Thyristor best\"atigen, werden weitere Tests in umgekehrter Polarit\"at gemacht,
-um ein TRIAC auszuschliessen oder zu best\"atigen.
+Wenn beide Tests einen Thyristor bestätigen, werden weitere Tests in umgekehrter Polarität gemacht,
+um ein TRIAC auszuschliessen oder zu bestätigen.
 
-Wenn weder Thyristor noch TRIAC best\"atigt wurden, kann es ein NPN oder ein N-Kanal E-MOSFET sein.
+Wenn weder Thyristor noch TRIAC bestätigt wurden, kann es ein NPN oder ein N-Kanal E-MOSFET sein.
 Die Basis-Spannung von einem NPN-Transistor wird nahe bei der Emitter-Spannung liegen, so dass dieser Typ sicher
 erkannt werden kann.
-Der Stromverst\"arkungsfaktor in der Emitter-Schaltung wird durch \(hFE = \frac{(VCC-UC)\cdot 470000}{(VCC-UB)\cdot (680+22)}\) 
+Der Stromverstärkungsfaktor in der Emitter-Schaltung wird durch \(hFE = \frac{(VCC-UC)\cdot 470000}{(VCC-UB)\cdot (680+22)}\) 
 gebildet.
-Wenn die Spannung an der Basis zeigt, dass kein oder wenig Strom flie"st, wird das Bauteil ein N-Kanal E-MOS
+Wenn die Spannung an der Basis zeigt, dass kein oder wenig Strom fließt, wird das Bauteil ein N-Kanal E-MOS
 (Anreicherungs-MOSFET) sein. In diesem Fall wird die Schwellspannung gemessen, indem die Spannung des Gates langsam mit
 dem \(470k\Omega\)-Widerstand nach VCC und GND gezogen wird, darauf wartend, dass das digitale
 Eingangs-Signal auf der Drain Seite schaltet, wobei dann die Gate-Spannung gelesen wird.
 Die Messung wird elf Mal wiederholt wie in Abbildung~\ref{fig:eleven} gezeigt und die Ergebnisse addiert.
-Diese Summe wird mit vier multipliziert und durch neun geteilt um eine Aufl\"osung in mV zu erhalten.
+Diese Summe wird mit vier multipliziert und durch neun geteilt um eine Auflösung in mV zu erhalten.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../PNG/IRFU120gate.png}
@@ -126,11 +126,11 @@ Diese Summe wird mit vier multipliziert und durch neun geteilt um eine Aufl\"osu
 
 \subsection{Messung von Dioden}
 \label{sec:diode}
-Wenn Strom bei den Vortests festgestellt wurde, wird das Bauteil auf Diodenverhalten gepr\"uft.
+Wenn Strom bei den Vortests festgestellt wurde, wird das Bauteil auf Diodenverhalten geprüft.
 Die Flussspannung mit dem \(680\Omega\)-Widerstand muss zwischen 0,15V und 4,64V liegen.
-Die Flussspannung mit dem \(680\Omega\)-Widerstand muss gr\"osser als 1,125 Mal der Flussspannung mit dem
+Die Flussspannung mit dem \(680\Omega\)-Widerstand muss grösser als 1,125 Mal der Flussspannung mit dem
  \(470k\Omega\)-Widerstand sein und acht Mal die Flussspannung mit dem \(470k\Omega\)-Widerstand muss
-gr\"osser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
+grösser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
 Ich hoffe, dass ein Bauteil mit diesem Verhalten immer eine Diode ist.
 
 \subsection{Ergebnisse der verschiedenen Messungen}
