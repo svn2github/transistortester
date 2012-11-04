@@ -81,7 +81,9 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/Cap_equiv.fig
 ../FIG/Cap_esr.eps: ../FIG/Cap_esr.fig
 	fig2eps ../FIG/Cap_esr.fig
-TEXLIST =  capacitors.tex configuring.tex errors.tex features.tex hardware.tex measurement.tex preface.tex resistors.tex selftest.tex semicon.tex special.tex todo.tex
+
+TEXLIST =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex \
+  54-inductors.tex 55-selftest.tex 60-errors.tex 70-special.tex 80-todo.tex
 ttester.pdf: ttester.tex $(LISTE) $(TEXLIST)
 	pdflatex --shell-escape ttester.tex
 	touch ttester.tex
