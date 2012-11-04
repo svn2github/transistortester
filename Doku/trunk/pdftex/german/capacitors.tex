@@ -1,12 +1,12 @@
 \section{Messen von Kondensatoren}
 Die Messung von Kapazit\"atswerten wird nach allen anderen Messungen als separater Teil mit einer Ladezeitmessung 
 durchgef\"uhrt.
-Die original Software vom Markus F. hat das mit einer Programm-Schleife gemacht, die den betreffenden digitalen
-Eingangs Pin bis zu einer Signal\"anderung gelesen hat und dabei die Schleifendurchl\"aufe gez\"ahlt.
-Dies hat den Nachteil, da"s die Aufl\"osung der Zeitmessung begrenzt ist durch die Gesamtzeit eines Schleifendurchlaufs.
+Die Originalsoftware vom Markus F. hat das mit einer Programmschleife gemacht, die den betreffenden digitalen
+Eingangs-Pin bis zu einer Signal\"anderung gelesen hat und dabei die Schleifendurchl\"aufe gez\"ahlt.
+Dies hat den Nachteil, dass die Aufl\"osung der Zeitmessung begrenzt ist durch die Gesamtzeit eines Schleifendurchlaufs.
 Dies wurde \"ublicherweise in allen sechs Kombinationsm\"oglichkeiten f\"ur die drei Testpins durchgef\"uhrt.
-Die aktuelle Software benutzt zwei verschiedene M\"oglichkeiten um die Ladezeit zu erhalten in nur drei
-Kombinationsm\"oglichkeiten f\"ur die drei Testpins.
+Die aktuelle Software benutzt zwei verschiedene M\"oglichkeiten, um die Ladezeit in nur drei
+Kombinationsm\"oglichkeiten f\"ur die drei Testpins zu erhalten.
 Die positive Seite ist nun immer die h\"ohere Testpin-Nummer.
 Nur wenn die Kapazit\"at zusammen mit einer parallel geschalteten Diode gemessen wird,
 kann die Polarit\"at die andere Richtung haben.
@@ -14,22 +14,22 @@ kann die Polarit\"at die andere Richtung haben.
 \subsection{Entladen der Kondensatoren}
 Sie sollten die Kapazit\"aten immer entladen, bevor sie mit dem Tester verbunden werden.
 Bevor irgendein Test gestartet wird, wird der Kondensator vom Tester immer noch einmal entladen.
-Wenn die Spannung unter 1300mV ist, wird der Kondensator daf\"ur mit den angeschlossenen ADC Ports (Port C) kurzgeschlossen.
-Ich glaube das ist legal, weil jeder Portausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
-Die Abbildung 149 (Seite 258) im Atmega8 Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
-Nat\"urlich kann ich nicht garantieren, da"s kein Schaden auftreten kann.
+Wenn die Spannung unter 1300mV ist, wird der Kondensator daf\"ur mit den angeschlossenen ADC-Ports (Port C) kurzgeschlossen.
+Ich glaube das ist in Ordnung, weil jeder Portausgang einen Innenwiderstand von ungef\"ahr \(20\Omega\) hat.
+Die Abbildung 149 (Seite 258) im Atmega8-Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
+Nat\"urlich kann ich nicht garantieren, dass kein Schaden auftreten kann.
 Ich habe die Funktion mit Kondensatoren von mehr als \(15 mF\) sehr oft getestet und ich habe noch nie ein Problem bemerkt.
 Der Strom sollte unter der spezifizierten Grenze von 40mA bleiben und reduziert sich schnell durch die Entladung.
-Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator nicht entladen bevor Sie ihn an den Tester anschlie"sen.
+Nat\"urlich kann ein Schaden entstehen, wenn Sie einen (Hochvolt-) Kondensator nicht vollständig entladen, bevor Sie ihn an den Tester anschlie"sen.
 
 \subsection{Messung von gro"sen Kapazit\"aten}
 \label{sec:bigcap}
-Eine Seite des Kondensators ist mit GND verbunden. Die andere Seite wird \"uber den \(680\Omega\) Widerstand f\"ur 10ms mit VCC verbunden.
-Danach wird dieser Messpin auf Eingang geschaltet (Hochohmig).
+Eine Seite des Kondensators ist mit GND verbunden. Die andere Seite wird \"uber den \(680\Omega\)-Widerstand f\"ur 10ms mit VCC verbunden.
+Danach wird dieser Messpin auf Eingang geschaltet (hochohmig).
 Nach diesem Strompuls wird die Spannung am Kondensator stromlos gemessen.
-Wenn die Spannung noch nicht den Minimalwert von 300mV erreicht hat, wird der 10 ms Ladepuls bis zu 499 Mal wiederholt.
+Wenn die Spannung noch nicht den Minimalwert von 300mV erreicht hat, wird dieser Ladepuls bis zu weiteren 499 Mal wiederholt.
 Wenn nach 127 Pulsen (ungef\"ahr 2s) noch nicht eine Minimalspannung von 75mV erreicht ist, wird der Ladevorgang abgebrochen,
- weil die 300mV mit den verbleibenden Ladepulsen nie erreicht werden kann.
+ weil die 300mV mit den verbleibenden Ladepulsen nie erreicht werden wird.
 Abbildung~\ref{fig:bigcap1} zeigt die drei Phasen der Kapazit\"atsbestimmung eines Kondensators.
 Der Kapazit\"atswert wird dann berechnet aus der Ladepuls-Anzahl und der erreichten Ladespannung \"uber eine Tabelle.
 Die Tabelle enth\"alt mit einem Spannungsabstand von 25mV die Faktoren, um aus der Ladezeit und der Spannung 
@@ -39,32 +39,32 @@ Zwischenwerte der Spannung werden interpoliert.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Bigcap.eps}
-\caption{Kondensator Entladung und Ladung mit 10ms Ladepulsen bis Spannung \textgreater 300mV}
+\caption{Kondensator-Entladung und -Ladung mit 10ms Ladepulsen bis zur Spannung \textgreater 300mV}
 \label{fig:bigcap1}
 \end{figure}
 
 Wegen der niedrigen Ladespannung wird die Messung viel schneller als bei der urspr\"unglichen Softwareversion,
-weil dieser Vorteil auch bei der Entladung wirkt. So k\"onnen auch gr\"o"sere Kondensatoren gemessen werden.
+weil dieser Vorteil auch bei der Entladung wirkt. So k\"onnen auch gr\"ossere Kondensatoren gemessen werden.
 Zus\"atzlich st\"ort in den meisten F\"allen eine parallel geschaltete Diode nicht die Messung, weil die Schwellspannung
 der Diode nicht erreicht wird.
-Abbildung~\ref{pic:c229} zeigt das Laden und Entladen eines \(229\mu F\) Kondensators.
-Das flache Dach der Me"skurve bis zum Entladebeginn ist durch die Me"szeit und Berechnungszeit des ATmega verursacht.
-Abbildung~\ref{pic:c5mF} zeigt die gleiche Messung mit einem~\(5mF\) Kondensator,
-beachte wie die Me"szeit inklusive Entladung auf ungef\"ahr 1,5 Sekunden angewachsen ist.
-Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\) Kondensators.
+Abbildung~\ref{pic:c229} zeigt das Laden und Entladen eines \(229\mu F\) gro"sen Kondensators.
+Das flache Dach der Messkurve bis zum Entladebeginn ist durch die Messzeit und Berechnungszeit des ATmega verursacht.
+Abbildung~\ref{pic:c5mF} zeigt die gleiche Messung mit einem~\(5mF\)-Kondensator,
+beachte wie die Messzeit inklusive Entladung auf ungef\"ahr 1,5 Sekunden angewachsen ist.
+Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\)-Kondensators.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/charge_229uF.png}
-    \caption{\(229\mu F\) Kondensator}
+    \caption{\(229\mu F\)-Kondensator}
     \label{pic:c229}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/charge_5mF.png}
-    \caption{\(5mF\) Kondensator}
+    \caption{\(5mF\)-Kondensator}
     \label{pic:c5mF}
   \end{subfigure}
   \caption{Laden und Entladen von gro"sen Kondensatoren f\"ur die Messung}
@@ -73,14 +73,14 @@ Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\
 \begin{figure}[H]
   \centering
     \includegraphics[]{../PNG/charge_15mF.png}
-  \caption{Laden und Entladen eines \(15mF\) Kondensators f\"ur die Messung}
+  \caption{Laden und Entladen eines \(15mF\)-Kondensators f\"ur die Messung}
   \label{pic:c15mF}
 \end{figure}
 
-Nach dieser Kondensatormessung wird die Selbstantladung des Kondensators untersucht, indem der
-Spannungsverlust  einer der Ladezeit proportionalen Zeit untersucht wird.
+Nach dieser Kondensatormessung wird die Selbstentladung des Kondensators untersucht, indem der
+Spannungsverlust in einer der Ladezeit proportionalen Zeit untersucht wird.
 Der gemessene Kapazit\"atswert wird entsprechend korrigiert. Ein Test mit einer Parallelschaltung von
-einem \(68 \mu F\) Kondensator mit einem \(2.2 k\Omega\) Widerstand zeigt die
+einem \(68 \mu F\)-Kondensator mit einem \(2.2 k\Omega\)-Widerstand zeigt die
 Wirksamkeit der Methode. Der ermittelte Kapazit\"atswert ohne den Widerstand betr\"agt \(66.5 \mu F\),
 mit dem parallelen \(2.2 k\Omega\) Widerstand wird ein Kapazit\"atswert von \(65.3 \mu F\) gemessen.
 Zum Vergleich m\"ochte ich die entsprechenden Ergebnisse mit einem Peaktech 3315 Multimeter angeben.
@@ -88,19 +88,19 @@ Ohne den Widerstand wird eine Kapazit\"at von \(68.2 \mu F\) gemessen, mit dem p
 Widerstand wird aber \(192 \mu F\) mit dem Multimeter gemessen.
 
 \subsection{Messen von kleinen Kapazit\"aten}
-Wenn der erste 10 ms Ladepuls den Kondensator zu hoch aufgeladen hat, wird eine andere Me"stechnik benutzt.
-Der ATmega Prozessor hat einen eingebauten 16-Bit Z\"ahler, der bei voller Taktfrequenz (1MHz oder 8MHz) arbeiten kann.
+Wenn der erste 10 ms Ladepuls den Kondensator zu hoch aufgeladen hat, wird eine andere Messtechnik benutzt.
+Der ATmega-Mikrocontroller hat einen eingebauten 16-Bit-Z\"ahler, der bei voller Taktfrequenz (1MHz oder 8MHz) arbeiten kann.
 Diese Z\"ahler hat auch die F\"ahigkeit aufgrund eines externen Ereignisses den Z\"ahlerstand zu sichern.
 Dieses Ereignis kann auch das Ausgangs-Signal des Komparators sein.
-Der Komparator kann mit jeden ADC Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
-Schaltbild~\ref{fig:comparat} zeigt ein vereinfachtes Diagram der Me"ssituation.
+Der Komparator kann mit jeden ADC-Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
+Das Schaltbild~\ref{fig:comparat} zeigt ein vereinfachtes Diagram der Messsituation.
 So entlade ich den Kondensator, bereite den Komparator f\"ur den richtigen Pin Eingang vor, starte den Z\"ahler bei 0 und
 starte sofort das Laden des Kondensators.
-Dabei ist eine Seite des Kondensators mit GND die andere Seite \"uber den \(470k\Omega\) Widerstand mit VCC verbunden.
+Dabei ist eine Seite des Kondensators mit GND, die andere Seite \"uber den \(470k\Omega\)-Widerstand mit VCC verbunden.
 Nun pr\"ufe ich in einer Programm-Schleife, ob der Z\"ahler ein \"Uberlauf-Ereignis (overflow) oder ein
  externes Ereignis (input capture) meldet.
 Die \"Uberlauf-Ereignisse z\"ahle ich, bis ich ein externes Ereignis feststelle.
-In diesem Fall halte ich den Z\"ahler an und pr\"ufe, ob ich noch einen zus\"atzlichen \"Uberlauf z\"ahlen mu"s, 
+In diesem Fall halte ich den Z\"ahler an und pr\"ufe, ob ich noch einen zus\"atzlichen \"Uberlauf z\"ahlen muss, 
 weil der Z\"ahler nicht mit dem externen Ereignis (input capture) angehalten werden kann.
 
 
@@ -108,22 +108,22 @@ Der Z\"ahlerstand des externen Ereignisses bildet zusammen mit dem \"Uberlaufz\"
 Kapazit\"at mit einem Faktor bestimmt wird.
 Die aktuelle Software kann eine Tabelle mit der theoretischen Abh\"angigkeit der Ladezeit in Bezug auf die gemessene
 Komparator-Spannung ber\"ucksichtigen.
-Die Tabelle hat einen Abstand von 50mV Schritten und wird interpoliert entsprechend der aktuellen Referenz-Spannung.
+Die Tabelle besitzt Einträge in Schritten von 50mV, Ergebnisse werden entsprechend der aktuellen Referenz-Spannung interpoliert.
 Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
 Vom Kapazit\"atswert ziehe ich eine experimentell herausgefundene vordefinierte Konstante oder eine im Selbsttest
-herausgefundene Konstante ab, um den Me"swerte-Offset zu beseitigen.
-Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden mu"s.
+herausgefundene Konstante ab, um den Messwerte-Offset zu beseitigen.
+Ich wei"s nicht, ob die vordefinierte Konstante f\"ur andere Leiterplatten angepasst werden muss.
 Mit einem Selbsttest bei gesetzter AUTO\_CAL Option wird diese Anpassung automatisch erledigt.
 
-Ich habe bemerkt, da"s die Referenz-Spannung meistens etwas zu klein gemessen wird,
+Ich habe bemerkt, dass die Referenz-Spannung meistens etwas zu klein gemessen wird,
  deshalb kann man einen Zusatz mit der Makefile Option REF\_C\_KORR angeben.
 Nach der Kalibration mit der AUTO\_CAL option ist der REF\_C\_KORR Wert nur ein Zusatz zu der automatisch
 gefundenen Differenz zwischen geladener Kondensator-Spannung und der internen Referenz-Spannung.
-Die gemessene Referenz-Spannung wird dann mit dem Korrekturwert (mV) korrigiert (addiert).
+Die gemessene Referenz-Spannung wird dann mit dem Korrekturwert (in mV) korrigiert (addiert).
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
-Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 Prozessoren ber\"ucksichtigt.
+Datenbl\"attern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 ber\"ucksichtigt.
 Eine Beispielmessung von diesem Typ ist in Abbildung~\ref{pic:c22uF} dargestellt.
-Die Me"szeit f\"ur den \(22 \mu F\) Kondensator ist ungef\"ahr 2,6s weil der \(470k\Omega\) Widerstand f\"ur das Laden benutzt wird.
+Die Messzeit f\"ur den \(22 \mu F\)-Kondensator beträgt ungef\"ahr 2,6s weil der \(470k\Omega\)-Widerstand f\"ur das Laden benutzt wird.
 Aber das Entladen geht in diesem Fall viel schneller als das Laden.
 
 \begin{figure}[H]
@@ -136,13 +136,13 @@ Aber das Entladen geht in diesem Fall viel schneller als das Laden.
 \begin{figure}[H]
   \centering
     \includegraphics[]{../PNG/charge_22uF.png}
-  \caption{Laden und Entladen eines \(22\mu F\) Kondensators f\"ur die Messung}
+  \caption{Laden und Entladen eines \(22\mu F\)-Kondensators f\"ur die Messung}
   \label{pic:c22uF}
 \end{figure}
 
 
-Im Prinzip kann diese Technik auch mit dem \(680\Omega\) Widerstand benutzt werden,
-aber weil w\"ahrend dem Komparatorbetrieb der ADC nicht benutzt werden kann, habe ich keine
+Im Prinzip kann diese Technik auch mit dem \(680\Omega\)-Widerstand benutzt werden,
+aber weil w\"ahrend dem Komparatorbetrieb der ADC nicht benutzt werden kann, besteht keine
 M\"oglichkeit die Ladespannung zu beobachten bis der Komparator angehalten wird.
 Wenn eine unentdeckte Diode mit dem Kondensator parallelgeschaltet ist, kann der Ladestrom
 von der Diode aufgenommen werden (Schwellspannung) und die Referenz-Spannung w\"urde nie erreicht.
@@ -150,8 +150,8 @@ Die Methode, die in der aktuellen Software f\"ur gro"se Kondensatoren in Kapitel
 verwendet wird, vermeidet diesen Konzeptfehler.
 
 \subsection{Messen des \"aquivalenten Serienwiderstandes ESR}
-Bei Kondensatoren mit mehr als etwa \(2 \mu F\) wird versucht den Serienwiderstand von Kondensatoren zu messen.
-Der ESR Widerstand \cite{ESR} stellt zum Beispiel ein Ma"s f\"ur die Alterung von Elektrolyt-Kondensatoren dar.
+Bei Kondensatoren mit mehr als etwa \(2 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
+Der ESR \cite{ESR} stellt zum Beispiel ein Ma"s f\"ur die Alterung von Elektrolyt-Kondensatoren dar.
 Die Abbildung~\ref{fig:Cap_equiv} zeigt ein Ersatzschaltbild eines Kondensators.
 Der Widerstand \(Rp\) stellt den Isolationswiderstand des Kondensators dar, \(ESL\) die \"aquivalente
 Serieninduktivit\"at und der Widerstand \(ESR\) stellt den \"aquivalenten Serienwiderstand dar.
@@ -163,32 +163,32 @@ Serieninduktivit\"at und der Widerstand \(ESR\) stellt den \"aquivalenten Serien
   \label{fig:Cap_equiv}
 \end{figure}
 
-Genau genommen ist der ESR Widerstand eines Kondensators abh\"angig von der Betriebsfrequenz und der Temperatur.
+Genau genommen ist der ESR eines Kondensators abh\"angig von der Betriebsfrequenz und der Temperatur.
 \"Ublicherweise wird der mit einem sinusf\"ormigen Signal bei \(100 kHz\) gemessene Wert in Datenbl\"attern angegeben.
 Bei dieser Frequenz kann der ATmega ohne externe Beschaltung keine Messung durchf\"uhren.
-Das nachfolgend beschriebene Verfahren erreicht nur eine Me"sfrequenz von unter 680 Hz mit n\"aherungsweise rechteckigem
+Das nachfolgend beschriebene Verfahren erreicht nur eine Messfrequenz von unter 680 Hz mit n\"aherungsweise rechteckigem
 Signal.
 Um den \"aquivalenten Serienwiderstand zu bestimmen,
  wird der Kondensator zuerst in einer Richtung geladen und an beiden Anschl\"ussen die Spannung mit der internen
 Referenzspannung (1.1 V) gemessen.
 Nach der Messung wird der Ladestrom abgeschaltet und die Spannung am Kondensator ohne den
-Ladestrom gemessen. Wenn die Spannung am Kondensator ohne Ladestrom geringer als 3 mV betr\"agt, wird
-diese Me"sfolge wiederholt.
+Ladestrom gemessen. Wenn die Spannung am Kondensator ohne Ladestrom weniger als 3 mV betr\"agt, wird
+diese Messfolge wiederholt.
 Die Abbildung~\ref{fig:Cap_esr} zeigt die entsprechenden Schaltungen.
 
 \begin{figure}[H]
   \centering
     \includegraphics[]{../FIG/Cap_esr.eps}
-  \caption{Schaltbild der ESR Messung eines Kondensators}
+  \caption{Schaltbild der ESR-Messung eines Kondensators}
   \label{fig:Cap_esr}
 \end{figure}
 
 Die Differenz der Spannung am Kondensator mit und ohne Strom ist ein Ma"s f\"ur den internen Widerstand des Kondensators.
-Die zu erwartende Spannungsdifferenz ist allerdings so gering, da"s mit einer Messung kein brauchbares Ergebnis erzielt
+Die zu erwartende Spannungsdifferenz ist allerdings so gering, dass mit einer Messung kein brauchbares Ergebnis erzielt
 werden kann.
 Aus diesem Grund wird danach der Strom umgekehrt und die Messung in der anderen Richtung wiederholt.
-Die gesamte Me"ssequenz wird 128 Mal durchgef\"uhrt und die Ergebnisse der Spannungsmessungen addiert.
-Danach hat man drei Spanungssummen, die Spannung \(Ulp\) am Minuspol des Kondensators mit Strom, die Spannung \(Uhp\) am
+Die gesamte Mess-Sequenz wird 128 Mal durchgef\"uhrt und die Ergebnisse der Spannungsmessungen addiert.
+Danach hat man drei Spannungssummen, die Spannung \(Ulp\) am Minuspol des Kondensators mit Strom, die Spannung \(Uhp\) am
 Pluspol des Kondensators mit Strom und die Spannung \(Uc\) am Pluspol des Kondensators ohne Strom.
 Die Spannungssumme am Minuspol des Kondensators repr\"asentiert den Spannungsabfall bei einem mittleren
 Ladestrom am Port-Ausgangswiderstand \(Rport\). Aus der Differenz der Spannungssumme am Pluspol und Minuspol des Kondensators
@@ -196,35 +196,35 @@ hat man ein Ma"s f\"ur die Spannung am Kondensator mit Ladestrom \(Udiff = Uhp -
 Die Differenz \(Uesr = Udiff - Uc\) soll jetzt den Spannungsabfall bei mittlerem Ladestrom am internen Widerstand des Kondensators
 repr\"asentieren.
 Der Widerstandswert wird aus dem Verh\"altnis dieser Spannung \(Uesr\) zu der Spannung \(Ulp\) skaliert mit dem
-bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, da"s eine Widerstandaufl\"osung von
+bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, dass eine Widerstandaufl\"osung von
 \(0.01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
-Die Genauigkeit der ESR Messung ist aus verschiedenen Gr\"unden nicht sehr hoch:
+Die Genauigkeit der ESR-Messung ist aus verschiedenen Gr\"unden nicht sehr hoch:
 \begin{enumerate}
 \item Die Spannungsmessung an den beiden Kondensator-Anschl\"ussen kann nicht gleichzeitig sondern nur nacheinander durchgef\"uhrt werden.
  In der Zwischenzeit hat sich der Ladestrom durch den Ladevorgang des Kondensators ge\"andert.
 Dies wird versucht mit einer kapazit\"atsabh\"angigen Korrektur der Minuspol-Spannung auszugleichen.
-\item Der ADC nimmt den Spannungswert 1.5 Takte nach dem Start des Wandlungsvorgangs. Der Wandelvorgang beginnt mit
+\item Der ADC nimmt den Spannungswert 1,5 Takte nach dem Start des Wandlungsvorgangs. Der Wandelvorgang beginnt mit
 der steigenden Flanke des ADC-Taktes, wenn das Startbit gesetzt ist. Wenn der Ladestrom des Kondensators zu fr\"uh abgeschaltet wird,
 nimmt der ADC die falsche Spannung f\"ur die strombehaftete Messung auf. Wird der Ladestrom zu sp\"at abgeschaltet, wird
 der Kondensator weiter geladen als es der strombehafteten Messung entspricht.
 Dann wird im stromlosen Zustand eine zu hohe Spannung gemessen.
 Es ist aber schwierig im Programm den genauen Zeitpunkt f\"ur die Stromabschaltung zu treffen.
 Um das \"Uberladen auszugleichen, wird die im stromlosen Zustand gemessene Spannung um 2 \% reduziert.
-\item Der Port-Ausgangswiderstand wird bei dieser Me"smethode als Referenz benutzt, dessen Widerstandwert
+\item Der Port-Ausgangswiderstand wird bei dieser Messmethode als Referenz benutzt, dessen Widerstandwert
 ist aber auch nicht exakt bekannt.
 \item Die Aufl\"osung des ADC reicht nicht aus, um eine Widerstandsaufl\"osung von \(0.01 \Omega\) zu erreichen.
 F\"ur alle Messungen wird die interne Spannungsreferenz (1.1 V) benutzt, um die best m\"ogliche Aufl\"osung zu verwenden.
 Zus\"atzlich wird versucht, den Aufl\"osungs-Mangel durch eine gro"se Zahl von Einzelmessungen abzumildern.
-\item Mit der Abfrage des Fertigsignals der ADC-Wandlung gelingt es nicht exakt, die Schaltzeiten der Port-Ausg\"ange mit dem
+\item Mit der Abfrage des Fertig-Signals der ADC-Wandlung gelingt es nicht exakt, die Schaltzeiten der Port-Ausg\"ange mit dem
 ADC-Takt zu synchronisieren.
 \end{enumerate}
 
 Trotz allen Schwierigkeiten scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Abbildung \ref{fig:Cesr} zeigt.
 Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken st\"arker als die Messungen des LCR-meters.
-Die Me"sergebnisse des LCR-Me"sger\"ates wurden bei einer Frequenz von 1 kHz gemessen.
-Beim Transistortester mu"s auf die Qualit\"at der Anschl\"usse geachtet werden. Verwendete Anschlu"skabel
+Die Messergebnisse des LCR-Messger\"ates wurden bei einer Frequenz von 1 kHz gemessen.
+Beim Transistortester muss auf die Qualit\"at der Anschl\"usse geachtet werden. Verwendete Anschlusskabel
 erh\"ohen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern k\"onnen die gemessenen
-Widerstandwerte erh"ohen. Das LCR-Me"sger\"at macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
+Widerstandwerte erh"ohen. Das LCR-Messger\"at macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
 
 \begin{figure}[H]
 \centering
@@ -235,14 +235,14 @@ Widerstandwerte erh"ohen. Das LCR-Me"sger\"at macht hier wegen den verwendeten K
 
 
 \subsection{Ergebnisse der Kondensator-Messung}
-Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} f\"ur den ATmega8 Prozessor ohne und mit
-der AUTOSCALE\_ADC Option dargestellt. Zus\"atzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
+Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} f\"ur den ATmega8 ohne und mit
+der AUTOSCALE\_ADC-Option dargestellt. Zus\"atzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
 von 0,88~(-12\%) dargestellt.
 Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
-Die Referenz f\"ur die Fehlerberechnung sind die Me"swerte eines PeakTech 2170 RCL-Me"sger\"ates, 
+Die Referenz f\"ur die Fehlerberechnung sind die Messwerte eines PeakTech 2170 LCR-Messger\"ates, 
  nicht die aufgedruckten Werte der Bauteile.
-Die gr\"o"seren relativen Me"sfehler bei gro"sen Kondensatoren liegen zum Teil an der zu hohen Me"sfrequenz (100 Hz) des
-RCL-Me"sger\"ates f\"ur gro"se Elektrolytkondensatoren, zum anderen spielt auch die schlechte G\"ute der
+Die gr\"osseren relativen Messfehler bei gro"sen Kondensatoren liegen zum Teil an der zu hohen Messfrequenz (100 Hz) des
+LCR-Messger\"ates f\"ur gro"se Elektrolytkondensatoren, zum anderen spielt auch die schlechte G\"ute der
 Elektrolytkondensatoren eine Rolle.
 
 \begin{figure}[H]
@@ -263,26 +263,26 @@ Wie schwierig es ist, f\"ur Kondensatormessungen den richtigen Bezugswert zu fin
 Als Bezugswert wurde hier eine beste Sch\"atzung genommen. Die Kurve ,,Multimeter'' zeigt die Abweichungen, die mit einem
 Peaktech~3315 Multimeter gemessen wurden.
 Die n\"achste Kurve ,,LCR'' zeigt die Abweichungen, die mit einem Peaktech~2170 LCR-Meter in dem jeweils g\"unstigsten Frequenzbereich gemessen wurden.
-Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Me"sabweichungen eines ATmega168 best\"ucktem Transistor-Testers gezeigt.
-Ob die gezeigten Fehler aber tats\"achliche Me"sfehler des jeweiligen Ger\"ates sind, mu"s bezweifelt werden, da auch die
+Zum Vergleich werden mit der Kurve ,,ATmega168as'' auch noch die Messabweichungen eines ATmega168 best\"ucktem Transistor-Testers gezeigt.
+Ob die gezeigten Fehler aber tats\"achliche Messfehler des jeweiligen Ger\"ates sind, muss bezweifelt werden, da auch die
 Sch\"atzung des Kapazit\"atswert nicht der wirklichen Kapazit\"at entspricht.
 
 \begin{figure}[H]
 \centering
 \input{../GNU/capcompare}
-\caption{Vergleich der Kondensator-Messungen mit Multimeter, LCR-meter und ATmega168}
+\caption{Vergleich der Kondensator-Messungen mit Multimeter, LCR-Meter und ATmega168}
 \label{fig:capcompare}
 \end{figure}
 
-Die Abweichungen der Me"sergebnisse von drei verschiedenen ATmega168 Prozessoren werden in Abbildung~\ref{fig:mega168all} dargestellt.
+Die Abweichungen der Messergebnisse von drei verschiedenen ATmega168 werden in Abbildung~\ref{fig:mega168all} dargestellt.
 Hier wurde die Messung des LCR-Meters als Vergleichsbasis genommen.
-Entsprechend werden die Me"sergebnisse von drei verschiedenen ATmega168A Prozessoren in Abbildung~\ref{fig:mega168Aall}, 
-von drei verschiedenen ATmega168PA Prozessoren in Abbildung~\ref{fig:mega168PAall} und von drei verschiedenen
+Entsprechend werden die Messergebnisse von drei verschiedenen ATmega168A in Abbildung~\ref{fig:mega168Aall}, 
+von drei verschiedenen ATmega168PA in Abbildung~\ref{fig:mega168PAall} und von drei verschiedenen
 ATmega328 in Abbildung~\ref{fig:mega328all} sowie von drei ATmega328P in Abbildung~\ref{fig:mega328Pall} gezeigt.
 Hierbei wurde nur der Nullwert der Kapazit\"atsmessung von 39pF ber\"ucksichtigt, alle anderen Korrekturm\"oglichkeiten wurden
-nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlu"sleitungen mit den
+nicht benutzt. Dieser Nullwert beinhaltet schon die 2-3pF, die durch die etwa 12~cm langen Anschlussleitungen mit den
 Klemmen verursacht werden.
-Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich mit der Board Version ,,DG2BRS V 5.2.1'' ermittelt.
+Auch das Board-Layout hat Einfluss auf diesen Nullwert. Diesen Nullwert habe ich mit der Boardversion ,,DG2BRS V 5.2.1'' ermittelt.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -325,18 +325,18 @@ Auch das Board Layout hat Einflu"s auf diesen Nullwert. Diesen Nullwert habe ich
   \caption{Kondensator-Messfehler, unkalibriert}
 \end{figure}
 
-Zum Erreichen der besten Me"sgenauigkeit mu"s die Software an die individuellen Eigenschaften des ATmega Exemplars
-angepa"st werden. Dazu kann die Korrekturspannung REF\_C\_KORR f\"ur den Komparator angegeben werden, der f\"ur die Messung der kleinen 
+Zum Erreichen der besten Messgenauigkeit muss die Software an die individuellen Eigenschaften des verwendeten ATmega
+angepasst werden. Dazu kann die Korrekturspannung REF\_C\_KORR f\"ur den Komparator angegeben werden, der f\"ur die Messung der kleinen 
 Kapazit\"aten eingesetzt wird. Eine Korrekturspannung von 1~mV f\"uhrt zu einer Verminderung der Kapazit\"atsanzeige von etwa 1,1~Promille.
 Bei einem automatischen Abgleich ist REF\_C\_KORR  nur ein Offset zu der gemessenen Differenzspannung von geladenem Kondensator
 und der internen Referenz.
 F\"ur die gro"sen Kapazit\"aten kann der Promillewert C\_H\_KORR angegeben werden, um den die Messungen
 zu gro"s sind.
 Da die gro"sen Kondensatoren meistens Elektrolytkondensatoren mit schechter G\"ute sind, ist die Bestimmung
-des wahren Kapazit\"atswertes und damit auch des Me"sfehlers hier besonders schwierig.
-Besonders bei den ATmega168 Prozessoren habe ich bei kleinen Kapazit\"atswerten einen Me"sfehler beobachtet, 
+des wahren Kapazit\"atswertes und damit auch des Messfehlers hier besonders schwierig.
+Besonders bei den ATmega168 habe ich bei kleinen Kapazit\"atswerten einen Messfehler beobachtet, 
 der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abh\"angig ist.
-Die Abbildung~\ref{fig:mega168optcap} zeigt die Me"sabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
+Die Abbildung~\ref{fig:mega168optcap} zeigt die Messabweichung bei Kondensatormessung nur mit der Ber\"ucksichtigung des
 Nullwertes (168-3-A), mit dem Korrekturfaktor f\"ur kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor f\"ur gro"se
 Kondensatoren C\_H\_KORR=5 (168-3-B), sowie zus\"atzlich als Kurve 168-3-C  mit der Ber\"ucksichtigung einer Spannungsanstiegskomponente 
 (COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbstentladeverhaltens der gro"sen Kondensatoren.
@@ -354,24 +354,24 @@ wobei cval der gemessene Kapazit\"atswert in pF ist.
 
 Der automatische Abgleich besteht aus zwei Teilen. Der erste Teil besteht darin, einen Nullabgleich der Kondensatormessung durchzuf\"uhren.
 Dazu wird in der Selbsttest-Routine der Mittelwert der gemessenen Kapazit\"at bei nicht angeschlossenem Kondensator bestimmt.
-Es werden die Mittelwerte aus jeweils 8 Messungen f\"ur alle 6 Me"skombinationen bestimmt.
+Es werden die Mittelwerte aus jeweils 8 Messungen f\"ur alle 6 Messkombinationen bestimmt.
 Nach erfolgreichem Abgleich werden die Korrekturwerte im EEprom festgehalten und f\"ur k\"unftige Messungen verwendet.
-Schwieriger war die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
+Schwieriger ist die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
 Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} gezeigt wurden.
-Als wesentliche Ursache wurde das unterschiedliche Verhalten (Offset Spannung) des analogen Komparators herausgefunden.
+Als wesentliche Ursache wurde das unterschiedliche Verhalten (Offset-Spannung) des analogen Komparators herausgefunden.
 
 In Abbildung \ref{fig:CompAdjust} werden die Daten von den neun untersuchten Prozessoren gezeigt.
 Die Punkte ,,diff2ref'' zeigen die Spannungsdifferenz, die sich nach dem Laden eines Kondensators mit \(660 nF\) zu der
 jeweiligen internen Referenzspannung ergibt. Idealerweise w\"are diese Spannung immer Null, wenn der analoge
 Komparator rechtzeitig das Signal zum Beenden des Ladevorganges gegeben h\"atte. Die kurze Verwaltungszeit des ATmega
-sollte bei der relativ gro"sen Kapazit\"at zu keiner me"sbaren Spannungserh\"ohung gef\"uhrt haben.
+sollte bei der relativ gro"sen Kapazit\"at zu keiner messbaren Spannungserh\"ohung gef\"uhrt haben.
 Die Punkte ,,CapErr'' zeigen die aus den Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} 
-gesch\"atzten Me"sfehler der einzelnen ATmega Exemplare in Promille.
+gesch\"atzten Messfehler der einzelnen ATmega-Exemplare in Promille.
 Auff\"allig ist, wie die ,,CapErr'' Punkte den ,,diff2ref'' Punkten folgen.
 Deshalb zeigen die Punkte ,,diff'' die Differenz zwischen den jeweiligen ,,CapErr'' und ,,diff2ref'' Punkten.
 Mit einem mittleren Wert f\"ur diff kann man also einen guten Sch\"atzwert f\"ur die Korrektur der Kondensatormessung aus der
 Differenz der Kondensatorspannung nach dem Laden zur internen Referenzspannung berechnen.
-Im zweiten Teil der Abgleichprozedur mu"s also ein Kondensator hoher G\"ute zwischen Pin~1 und Pin~3 mit einer
+Im zweiten Teil der Abgleichprozedur muss also ein Kondensator hoher G\"ute zwischen Pin~1 und Pin~3 mit einer
 Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) angeschlossen werden. 
 Es sollte ein Folienkondensator, nach M\"oglichkeit kein keramischer Kondensator und schon gar kein
 Elektrolyt-Kondensator sein. Der Kapazit\"atswert braucht aber f\"ur diesen Abgleich nicht genau bekannt zu sein.
@@ -379,15 +379,15 @@ Elektrolyt-Kondensator sein. Der Kapazit\"atswert braucht aber f\"ur diesen Abgl
 \begin{figure}[H]
 \centering
 \input{../GNU/ComparatorAdjust}
-\caption{Daten von neun ATmega168 Prozessoren}
+\caption{Daten von neun ATmega168-Prozessoren}
 \label{fig:CompAdjust}
 \end{figure}
 
 Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal},  \ref{fig:mega328cal} und
-\ref{fig:mega328Pcal} zeigen die Me"sergebnisse
+\ref{fig:mega328Pcal} zeigen die Messergebnisse
 der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
-Die Prozessoren wurden alle mit der selben Software programmiert, lediglich f\"ur die ATmega168PA mu"ste die
-Makefile wegen ,,PARTNO = m168p'' angepa"st werden. Nach der Programmierung wurde bei jedem ATmega ein
+Die Prozessoren wurden alle mit der selben Software programmiert, lediglich f\"ur die ATmega168PA musste die
+Makefile wegen ,,PARTNO = m168p'' angepasst werden. Nach der Programmierung wurde bei jedem ATmega ein
 Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
 
 \begin{figure}[H]
@@ -432,14 +432,14 @@ Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und 
 \end{figure}
 
 Zuletzt will ich die Wirkung der AUTO\_CAL Option im Selbstest noch einmal verdeutlichen.
-Die folgende Diagramm \ref{fig:MegaAuto}zeigt die Ergebnisse von drei ATmega Prozessoren 
-mit der gr\"o"sten Me"sabweichung noch einmal vor und nach der Kalibration.
-Die Punkte mit der Endung ,,unc'' zeigen die Me"sabweichungen ohne Kalibration.
-Die Linien mit der Endung ,,cal'' zeigen die Me"sabweichungen der gleichen Prozessoren
+Die folgende Diagramm \ref{fig:MegaAuto} zeigt die Ergebnisse von drei ATmega Prozessoren 
+mit der gr\"ossten Messabweichung noch einmal vor und nach der Kalibration.
+Die Punkte mit der Endung ,,unc'' zeigen die Messabweichungen ohne Kalibration.
+Die Linien mit der Endung ,,cal'' zeigen die Messabweichungen der gleichen Prozessoren
 mit der gleichen Software nach der Kalibration im Selbsttest-Zweig.
-Die Ursache der Me"sabweichungen f\"ur gro"se Kondensatoren (\textgreater \(40 \mu F\)) ist
-noch nicht bekannt. Alle verwendeten Kondensatoren f\"ur diese Me"sreihe waren
-Folien Kondensatoren oder keramische Kondensatoren (\(56 pF\), \(100 pF\) und \(3,3 nF\)), keine Elko's.
+Die Ursache der Messabweichungen f\"ur gro"se Kondensatoren (\( \textgreater 40 \mu F\)) ist
+noch nicht bekannt. Alle verwendeten Kondensatoren f\"ur diese Messreihe waren
+Folienkondensatoren oder keramische Kondensatoren (\(56 pF\), \(100 pF\) und \(3,3 nF\)), keine Elkos.
 
 \begin{figure}[H]
 \centering

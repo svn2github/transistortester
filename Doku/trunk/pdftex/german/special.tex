@@ -1,20 +1,20 @@
 
 %\newpage
-\chapter{Spezielle Software Teile}
+\chapter{Spezielle Softwareteile}
 
-Es wurden zahlreiche Ver\"anderungen durchgef\"uhrt um flash Speicherplatz zu sparen.
-Die LCD Ausgabe von Test-Anschlu"snummern wurde in der Form ,,lcd\_data('1'+Pin)'' durchgef\"uhrt.
+Es wurden zahlreiche Ver\"anderungen durchgef\"uhrt um Flashspeicher zu sparen.
+Die LCD-Ausgabe von Test-Anschlu"snummern wurde in der Form ,,lcd\_data('1'+Pin)'' durchgef\"uhrt.
 Um den Platz f\"ur die zus\"atzliche Addition f\"ur jeden Aufruf zu sparen, wurde die
 Funktion ,,lcd\_testpin(uint8\_t pin)'' in die Datei lcd\_routines.c eingef\"ugt.
 
 
-Die Pseudo Funktionen in der Form \_delay\_ms(200) sind keine Bibliotheksfunktionen
+Die Pseudofunktionen in der Form \_delay\_ms(200) sind keine Bibliotheksfunktionen
 sondern es werden f\"ur jede Aufrufstelle Warteschleifen in das Programm eingebaut.
 Das verbraucht viel Speicher, wenn man viele Aufrufe an unterschiedlichen Programmstellen hat.
 Alle solche Aufrufe wurden durch Aufrufe einer speziellen in Assembler-Sprache geschriebenen
-Bibliothek ersetzt, welche nur 74~Bytes des flash-Speichers (bei 8MHz) verbraucht, aber
+Bibliothek ersetzt, welche nur 74~Bytes des Flashspeichers (bei 8MHz) verbraucht, aber
 Aufrufe von wait1us() bis wait5s() in den Stufen 1,2,3,4,5,10,20\dots zur Verf\"ugung stellt.
-Die Routinen enthalten den Watch Dog Reset Befehl f\"ur alle Aufrufe \"uber 50ms.
+Die Routinen enthalten den ''Watch Dog Reset''-Befehl f\"ur alle Aufrufe \"uber 50ms.
 Jeder Aufruf ben\"otigt nur eine Anweisung (2~Byte). Warte-Aufrufe mit Zwischenwerten
 wie 8ms ben\"otigen zwei Aufrufe (wait5ms() und wait3ms() oder zwei mal wait4ms() Aufrufe).
 Ich kenne keine L\"osung, die \"okonomischer w\"are, wenn man viele Warteaufrufe im Programm benutzt.
@@ -40,6 +40,6 @@ Zus\"atzlich wurde die oft benutzte Folge ,,wait5ms(); ReadADC(\dots);'' durch e
 ,,W5msReadADC(\dots);'' ersetzt.
 Dasselbe wurde auch f\"ur die Folge ,,wait20ms(); ReadADC(\dots);'' gemacht, die durch den Aufruf
 ,,W20msReadADC(\dots);'' ersetzt wurde.
-Die Funktion ReadADC wurde zus\"atzlich in Assembler Sprache portiert, so da"s diese Erweiterung
+Die Funktion ReadADC wurde zus\"atzlich in Assembler portiert, so da"s diese Erweiterung
 sehr effektiv integriert werden konnte.
-Eine funktionell identische C-Version der ReadADC Funktion ist auch beigef\"ugt.
+Eine funktionell identische C-Version der ReadADC-Funktion ist auch beigef\"ugt.

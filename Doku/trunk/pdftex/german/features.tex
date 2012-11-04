@@ -2,18 +2,18 @@
 \chapter{Eigenschaften}
 \label{sec:features}
 \begin{enumerate}
-\item Arbeitet mit ATmega8, ATmega88, ATmega168 oder ATmega328 Mikrocontrollern.
-\item Anzeige der Me"sergebnisse auf einem 2x16 Zeichen LCD-Display.
-\item Ein Tasten Bedienung mit automatischer Abschaltfunktion.
+\item Arbeitet mit Mikrocontrollern vom Typ ATmega8, ATmega88, ATmega168 oder ATmega328.
+\item Anzeige der Messergebnisse auf einem 2x16 Zeichen großen LC-Display.
+\item Ein-Tasten-Bedienung mit automatischer Abschaltfunktion.
 \item Batterie-Betrieb ist m\"oglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA betr\"agt.
 \item Preisg\"unstige L\"osung ist m\"oglich ohne Quarz und ohne automatische Abschaltung.
 \item Automatische Erkennung von NPN und PNP bipolaren Transistoren, N- und P-Channel MOSFETs, JFETs,
 Dioden, Doppeldioden, Thyristors und Triacs.
-\item Automatische Erkennung der Pin Anschl\"usse der erkannten Bauteile.
-\item Messung des Stromverst\"arkungsfaktors und der Basis-Emitter Schwellspannung f\"ur bipolare Transistoren.
-\item Darlington Transistoren k\"onnen durch die h\"ohere Schwellspannung und durch den hohen Stromverst\"arkungsfaktor erkannt werden.
+\item Darstellung der Pin-Belegung der erkannten Bauteile.
+\item Messung des Stromverst\"arkungsfaktors und der Basis-Emitter-Schwellspannung f\"ur bipolare Transistoren.
+\item Darlington-Transistoren k\"onnen durch die h\"ohere Schwellspannung und durch den hohen Stromverst\"arkungsfaktor erkannt werden.
 \item Automatische Erkennung einer Schutzdiode bei bipolaren Transistoren und bei MOSFETs.
-\item Messung der Schwellwert-Spannungen und der Gate Kapazit\"atswerte von MOSFETs.
+\item Messung der Schwellwert-Spannungen und der Gate-Kapazit\"atswerte von MOSFETs.
 \item Bis zu zwei Widerst\"ande werden gemessen und mit Symbolen
 \setlength{\unitlength}{0.1mm}
 \linethickness{0.4mm}
@@ -28,7 +28,7 @@ Dioden, Doppeldioden, Thyristors und Triacs.
 und den Widerstands-Werten mit bis zu vier Dezimalstellen in der richtigen Dimension angezeigt.
 Alle Symbole werden eingerahmt mit den gefundenen Testpin Nummern des Testers (1-3).
 Deshalb k\"onnen auch Potentiometer gemessen werden. Wenn der Schleifer eines Potentiometers auf eine Endposition
-gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschlu"s und Endanschlu"s unterscheiden.
+gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschluss und Endanschluss unterscheiden.
 \item Die Aufl\"osung der Widerstandsmessung ist jetzt \(0,1\Omega\), Werte von bis zu \(50M\Omega\) werden erkannt.
 \item Ein Kondensator kann erkannt und gemessen werden. Der wird mit dem Symbol 
 \setlength{\unitlength}{0.1mm}
@@ -45,7 +45,7 @@ und Kapazit\"atswert mit bis zu vier Dezimalstellen in der richtigen Dimension a
 Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 100mF mit einer Aufl\"osung von bis zu 1pF (bei 8MHz Takt).
 \item Bei Kondensatoren mit einer Kapazit\"at \"uber \(2 \mu F\) wird zus\"atzlich der \"aquivalente Serienwiderstand (ESR) des Kondensators
 mit einer Aufl\"osung von \(0.01 \Omega\) gemessen und mit zwei Dezimalstellen angezeigt.
-Diese F\"ahigkeit steht nur zur Verf\"ugung, wenn der ATmega mindestens 16K Flash Speicher besitzt.
+Diese F\"ahigkeit steht nur zur Verf\"ugung, wenn der ATmega mindestens 16K Flashspeicher besitzt.
 \item Bis zu zwei Dioden werden mit dem Symbol
 \setlength{\unitlength}{0.1mm}
 \begin{picture}(60,30)
@@ -72,8 +72,8 @@ Zus\"atzlich werden die Schwellspannungen angezeigt.
 Doppeldioden werden als zwei Dioden erkannt.
 \item Zener-Dioden k\"onnen erkannt werden, wenn die Zener-Spannung unter 4,5V ist.
 Sie werden als zwei Dioden angezeigt, man kann das Bauelement nur mit den Spannungen erkennen.
-Die \"au"seren Testpin Nummern, welche die Dioden Symbole umgeben, sind in diesem Fall identisch.
-Man kann die wirkliche Anode der Diode nur durch diejenige Diode herausfinden, deren Schwellwert Spannung nahe bei 700mV liegt!
+Die \"au"seren Testpin-Nummern, welche die Dioden Symbole umgeben, sind in diesem Fall identisch.
+Man kann die wirkliche Anode der Diode nur durch diejenige Diode herausfinden, deren Schwellwert-Spannung nahe bei 700mV liegt!
 \item Wenn mehr als 3 Dioden erkannt werden, wird die gefundene Anzahl der Dioden zusammen mit der Fehlermeldung angezeigt.
 Das kann nur passieren, wenn Dioden an alle drei Test-Pins angeschlossen sind und wenigstens eine eine Zener-Diode ist.
 In diesem Fall sollte man nur zwei Test-Pins anschlie"sen und die Messung erneut starten, eine nach der anderen.
@@ -85,18 +85,18 @@ aber sie k\"onnen zusammen mit einer parallel geschalteten Diode oder mit einem 
 wenigstens 25pF gemessen werden.
 In diesem Fall mu"s der Kapazit\"atswert des parallel geschalteten Bauteils vom Me"sergebnis abgezogen werden.
 \item Bei Widerst\"anden unter \(2100~\Omega\) wird auch eine Induktivit\"atsmessung durchgef\"uhrt, wenn der
-ATmega mehr als 8K Flash Speicher besitzt.
+ATmega mehr als 8K Flashspeicher besitzt.
 Der Anzeigebereich ist etwa \(0.01~mH\) bis \"uber \(20~H\), die Genauigkeit ist allerdings nicht hoch.
 Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswert angezeigt.
-\item Die Me"szeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen und Induktivit\"atsmessungen k\"onnen l\"anger dauern.
-\item Die Software kann f\"ur Me"sserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
+\item Die Messzeit betr\"agt ungef\"ahr zwei Sekunden, nur Kapazit\"atsmessungen und Induktivit\"atsmessungen k\"onnen l\"anger dauern.
+\item Die Software kann f\"ur Messserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
 \item Eingebaute Selbsttest-Funktion inklusive einem optionalen 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz
 und der Verz\"ogerungszeiten zu \"uberpr\"ufen.
 \item W\"ahlbare M\"oglichkeit f\"ur ATmega168 oder ATmega328, den Nullabgleich f\"ur die Kondensatormessung und die Innenwiderst\"ande f\"ur die
 Portausg\"ange beim Selbsttest automatisch zu bestimmen.
 Ein externer Kondensator mit einer Kapazit\"at zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 ist notwendig, 
 um die Offset Spannung des analogens Komparators zu kompensieren.
-Dies kann den Me"sfehler bei Kapazit\"atsmessungen bis zu \(40~\mu F\) reduzieren.
+Dies kann den Messfehler bei Kapazit\"atsmessungen bis zu \(40~\mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verst\"arkung f\"ur
 die ADC Messung mit der internen Referenzspannung berechnet.
 \end{enumerate}
@@ -104,12 +104,12 @@ die ADC Messung mit der internen Referenzspannung berechnet.
 Thyristoren und Triacs k\"onnen nur erkannt werden, wenn der Test-Strom \"uber dem Halte-Strom liegt.
 Einige Thyristoren und Triacs brauchen auch einen h\"oheren Z\"undstrom als dieser Tester liefern kann.
 Der verf\"ugbare Teststrom ist nur ungef\"ahr 6mA!
-Es ist m\"oglich, da"s nicht alle Optionen in zuk\"unftigen Versionen erhalten bleiben, weil diese Software
+Es ist m\"oglich, dass nicht alle Optionen in zuk\"unftigen Versionen erhalten bleiben, weil diese Software
 immer noch im Teststadium ist.
-Alle M\"oglichkeiten sind nur bei Mikrocontrollern mit mehr Programmspeicher wie ATmega168 konfigurierbar.
+Alle M\"oglichkeiten sind nur bei Mikrocontrollern mit genug Programmspeicher (wie dem ATmega168) konfigurierbar.
 
 \vspace{1cm}
-\textbf{{\Large Achtung:}} Stellen Sie immer sicher, da"s Kondensatoren vor dem Anschlu"s an den Tester entladen sind!
+\textbf{{\Large Achtung:}} Stellen Sie immer sicher, dass Kondensatoren vor dem Anschluss an den Tester entladen sind!
 Der Tester k\"onnte sonst besch\"adigt werden bevor er eingeschaltet ist.
 Es gibt nur wenig Schutzfunktion der ATmega Anschl\"usse.
 

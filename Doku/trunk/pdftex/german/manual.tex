@@ -2,18 +2,18 @@
 \label{sec:manual}
 Die Bedienung des Transistortesters ist einfach.
 Trotzdem sind einige Hinweise erforderlich.
-Meistens sind an die drei Testports \"uber Stecker Leitungen mit Krokodilklemmen oder anderen Klemmen angeschlossen.
+Meistens sind an die drei Testports \"uber Stecker-Leitungen mit Krokodilklemmen oder anderen Klemmen angeschlossen.
 Es k\"onnen auch Fassungen f\"ur Transistoren angeschlossen sein.
 In jedem Fall k\"onnen Sie Bauteile mit drei Anschl\"ussen mit den drei Testports in beliebiger Reihenfolge verbinden.
 Bei zweipoligen Bauteilen k\"onnen Sie die beiden Anschl\"usse mit beliebigen Testports verbinden.
 Normalerweise spielt die Polarit\"at keine Rolle, auch Elektrolytkondensatoren k\"onnen beliebig angeschlossen werden.
-Die Messung der Kapazit\"at wird aber so durchgef\"uhrt, da"s der Minuspol am Testport mit der kleineren Nummer liegt.
-Da die Me"sspannung aber zwischen 0,3 V und maximal 1,3 V liegt, spielt auch hier die Polarit\"at keine wichtige Rolle.
+Die Messung der Kapazit\"at wird aber so durchgef\"uhrt, dass der Minuspol am Testport mit der kleineren Nummer liegt.
+Da die Messspannung aber zwischen 0,3 V und maximal 1,3 V liegt, spielt auch hier die Polarit\"at keine wichtige Rolle.
 Wenn das Bauteil angeschlossen ist, sollte es w\"ahrend der Messung nicht ber\"uhrt werden. Legen Sie es auf einen
-isolierenden Untergrund ab, wenn es nicht in einem Sockel steckt. Ber\"uhren Sie auch nicht die Isolation der Me"skabel,
-das Me"sergebnis kann beeinflu"st werden.
+isolierenden Untergrund ab, wenn es nicht in einem Sockel steckt. Ber\"uhren Sie auch nicht die Isolation der Messkabel,
+das Messergebnis kann beeinflusst werden.
 Dann sollte der Starttaster gedr\"uckt werden.
-Nach einer Startmeldung erscheint nach circa zwei Sekunden das Me"sergebnis. Bei einer Kondensatormessung kann es
+Nach einer Startmeldung erscheint nach circa zwei Sekunden das Messergebnis. Bei einer Kondensatormessung kann es
 abh\"angig von der Kapazit\"at auch deutlich l\"anger dauern.
 
 Was dann weiter geschieht, h\"angt von der Softwarekonfiguration des Testers ab.
@@ -33,18 +33,18 @@ Zahl von Messungen abgeschaltet. Im Standardfall wird der Tester nach f\"unf Mes
 abgeschaltet. Wird ein angeschlossenes Bauteil erkannt, wird erst bei der doppelten Anzahl, also zehn Messungen abgeschaltet.
 Eine einzige Messung mit nicht erkanntem Bauteil setzt die Z\"ahlung f\"ur erkannte Bauteile auf Null zur\"uck.
 Ebenso setzt eine einzige Messung mit erkannten Bauteil die Z\"ahlung f\"ur die nicht erkannten Bauteile auf Null zur\"uck.
-Dies hat zur Folge, da"s auch ohne Bet\"atigung des Starttasters immer weiter gemessen werden kann,
- wenn Bauteile regelm\"a"sig gewechselt werden.
+Dies hat zur Folge, dass auch ohne Bet\"atigung des Starttasters immer weiter gemessen werden kann,
+ wenn Bauteile regelm\"assig gewechselt werden.
 Ein Bauteilwechsel f\"uhrt in der Regel durch die zwischenzeitlich leeren Klemmen zu einer Messung ohne erkanntes Bauteil.\\
 
 Eine Besonderheit gibt es in diesem Betriebsmodus f\"ur die Anzeigezeit. Wenn beim Einschalten der Starttaster nur kurz
-gedr\"uckt wurde, betr\"agt die Anzeigezeit der Me"sergebnisse nur drei Sekunden. Wenn der Starttaster bis zum Erscheinen der
+gedr\"uckt wurde, betr\"agt die Anzeigezeit der Messergebnisse nur drei Sekunden. Wenn der Starttaster bis zum Erscheinen der
 ersten Meldung festgehalten wurde, betr\"agt die Anzeigezeit wie bei der Einzelmessung zehn Sekunden.
-Ein vorzeitiger neuer Me"sbeginn ist aber w\"ahrend der Anzeigezeit durch erneutes Dr\"ucken des Starttasters m\"oglich.\\
+Ein vorzeitiger neuer Messbeginn ist aber w\"ahrend der Anzeigezeit durch erneutes Dr\"ucken des Starttasters m\"oglich.\\
 
 \end{description}
 
-Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kurzschlu"s aller drei
+Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kurzschluss aller drei
 Testports gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgef\"uhrt. Die viermalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedr\"uckt gehalten wird. So kann man uninteressante Tests schnell beenden und
@@ -52,17 +52,16 @@ sich durch Loslassen des Starttasters interessante Tests viermal wiederholen las
 Wenn die Funktion AUTO\_CAL in der Makefile gew\"ahlt ist, wird beim Selbsttest
 eine Kalibration des Innenwiderstandes der Port-Ausg\"ange und
 eine Kalibration der Nullwertes f\"ur die Kondensatormessung durchgef\"uhrt.
-Wenn Sie einen Kondenstor mit einer beliebiger Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 
-w\"ahrend der Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) anschlie"sen,
+Wenn Sie während Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) einen Kondenstor mit einer beliebiger Kapazit\"at zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3  anschliessen,
 wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu k\"onnen.
 Die Verst\"arkung f\"ur ADC Messungen mit der internen Referenz-Spannung wird ebenfalls abgeglichen, um
-bessere Widerstands-Me"sergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
+bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
 
 
 Der Nullwert f\"ur die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt. Dieser Nullwert, der im
 Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt und wird bei jedem Selbsttest
 wieder auf diesen Wert zur\"uckgesetzt.
 Nach jeder ESR-Messung wird gepr\"uft, ob das Resultat negativ ist. In diesem Fall wird der Nullwert so weit
-reduziert, da"s sich bei der n\"achsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
+reduziert, dass sich bei der n\"achsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
 einem Elektrolytkondensator hoher Kapazit\"at und mit niedrigem ESR durchgef\"uhrt werden.
-Dieser Nullabgleich mu"s aber nach jedem Selbsttest wiederholt werden.
+Dieser Nullabgleich muss aber nach jedem Selbsttest wiederholt werden.
