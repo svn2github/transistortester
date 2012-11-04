@@ -2,7 +2,7 @@
 \special{papersize=210mm,297mm}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}		%umlaute!
-%\usepackage[latin1]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[cm]{fullpage}
 \usepackage[ngerman]{babel}
 \usepackage[pdftex]{graphicx}
@@ -20,33 +20,33 @@
 und ein wenig mehr\\
 Version 1.02k \\
 }
-\author{Karl-Heinz K\"ubbeler\\
+\author{Karl-Heinz Kübbeler\\
 \texttt{kh\_kuebbeler@web.de}}
 \date{\today}
 \maketitle
 \tableofcontents
 
-\include{preface}
+\include{00-preface}
 
-\include{features}
+\include{10-features}
 
-\include{hardware}
+\include{20-hardware}
 
-\include{manual}
+\include{30-manual}
 
-\include{configuring}
+\include{40-configuring}
 
-\include{measurement}
+\include{50-measurement}
 
- \include{semicon}
- \include{resistors}
- \include{capacitors}
- \include{inductors}
- \include{selftest}
+ \include{51-semicon}
+ \include{52-resistors}
+ \include{53-capacitors}
+ \include{54-inductors}
+ \include{55-selftest}
 
-\include{errors}
-\include{special}
-\include{todo}
+\include{60-errors}
+\include{70-special}
+\include{80-todo}
 
 \begin{thebibliography}{99}
 
@@ -100,7 +100,7 @@ Documentation for the plotting tool gnuplot,
 \bibitem{ESR}
 Wikipedia
 \url{http://de.wikipedia.org/wiki/Equivalent_Series_Resistance}
-\emph{Erl\"auterung zum ESR}.
+\emph{Erläuterung zum ESR}.
 Normung und Ersatzschaltbild eines Kondensators,
 2012
 
