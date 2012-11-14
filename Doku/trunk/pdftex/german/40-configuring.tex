@@ -51,11 +51,6 @@ Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieb
 Beispiel: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50 Hz Signal auf Port 2 und Port 3 erzeugt.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
-  \item[R\_MESS] schaltet die Widerstandsmessung ein.
- Diese Option sollte immer angegeben werden.\\
-Beispiel: CFLAGS += -DR\_MESS
-  \item[C\_MESS] schaltet die Kondensatormessung ein.
- Diese Option sollte immer angegeben werden.\\
   \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) für einen entladenen Kondensator fest.
 Der Wert kann höher als 3mV gesetzt werden, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach längerer Zeit ,,Cell!''.\\
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3

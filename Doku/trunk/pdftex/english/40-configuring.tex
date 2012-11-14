@@ -51,10 +51,6 @@ All found values will be written to EEprom and will be used for further measurem
 example: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
 example: CFLAGS += -DFREQUENCY\_50HZ
-  \item[R\_MESS] enables the resistor measurement. This option should allways be set.\\
-example: CFLAGS += -DR\_MESS
-  \item[C\_MESS] enables the capacity measurement. This option should allways be set.\\
-example: CFLAGS += -DC\_MESS
   \item[CAP\_EMPTY\_LEVEL]  This option defines the voltage level for discharged capacitor (mV units).
 You can set the level to higher value as 3mV, if the tester does not finish discharging of capacitors.
 In this case the tester ends after longer time with the message ``Cell!''.\\

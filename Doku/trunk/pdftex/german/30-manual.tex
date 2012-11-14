@@ -45,23 +45,26 @@ Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneute
 \end{description}
 
 Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kurzschluss aller drei
-Testports gestartet werden.
+Testports und drücken der Starttaste gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgeführt. Die viermalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedrückt gehalten wird. So kann man uninteressante Tests schnell beenden und
 sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
 Wenn die Funktion AUTO\_CAL in der Makefile gewählt ist, wird beim Selbsttest
 eine Kalibration des Innenwiderstandes der Port-Ausgänge und
 eine Kalibration der Nullwertes für die Kondensatormessung durchgeführt.
+Sie sollten während der Kalibration werder die Testports noch angeschlossene Kabel berühren. Die Ausrüstung
+sollte aber die gleiche sein, die später zum Messen verwendet wird.
+Anderenfalls wird der Nullwert der Kondensatormessung nicht richtig bestimmt.
 Wenn Sie während Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) einen Kondenstor mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3  anschliessen,
 wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu können.
-Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird ebenfalls abgeglichen, um
+Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird dann ebenfalls abgeglichen, um
 bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
 
 
 Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt. Dieser Nullwert, der im
 Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt und wird bei jedem Selbsttest
 wieder auf diesen Wert zurückgesetzt.
-Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist. In diesem Fall wird der Nullwert so weit
+Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist. In diesem Fall (Ausgabe von ,,ESR=0?'') wird der Nullwert so weit
 reduziert, dass sich bei der nächsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
 einem Elektrolytkondensator hoher Kapazität und mit niedrigem ESR durchgeführt werden.
-Dieser Nullabgleich muss aber nach jedem Selbsttest wiederholt werden.
+Dieser ESR-Nullabgleich muss aber nach jedem Selbsttest einige Male wiederholt werden.
