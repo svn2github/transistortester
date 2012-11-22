@@ -235,9 +235,9 @@ The LCR meter has the advantage of the used Kelvin terminals.
 
 
 \subsection{Results of Capacitor measurement}
-The results of my capacity measurements are shown in figure~\ref{fig:mega8cap} for ATmega8 processor without and 
-with the AUTOSCALE\_ADC option. Additionally some values of original software are shown with a correction factor
-of 0.88 (-12\%).
+The results of my capacity measurements are shown in figure~\ref{fig:mega8cap} for three ATmega8 processors.
+Additionally some values of original software are shown with a correction factor of 0.88 (-12\%).
+Other measurement results of different ATmega8 versions are shown in figure~\ref{fig:mega8Acap} and \ref{fig:mega8Lcap}.
 The results of the measurement of the same capacitors for a ATmega168 is shown in figure~\ref{fig:mega168cap}.
 The base for the error computing are the measurement results of a PeakTech 2170 RCL-meter, not the printed value
 of the parts.
@@ -250,6 +250,23 @@ another percentage.
 \input{../GNU/Mega8cap}
 \caption{Error in \% for capacitor measurements with ATmega8 }
 \label{fig:mega8cap}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Acap}}
+    \caption{with three ATmega8A}
+    \label{fig:mega8Acap}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Lcap}}
+    \caption{with three ATmega8L}
+    \label{fig:mega8Lcap}
+  \end{subfigure}
+  \caption{Relative error of capacitor measurement}
 \end{figure}
 
 \begin{figure}[H]

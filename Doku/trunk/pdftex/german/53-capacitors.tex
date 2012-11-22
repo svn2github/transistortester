@@ -235,9 +235,10 @@ Widerstandwerte erh"ohen. Das LCR-Messgerät macht hier wegen den verwendeten Ke
 
 
 \subsection{Ergebnisse der Kondensator-Messung}
-Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} für den ATmega8 ohne und mit
-der AUTOSCALE\_ADC-Option dargestellt. Zusätzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
+Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} für drei ATmega8 dargestellt.
+Zusätzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
 von 0,88~(-12\%) dargestellt.
+Weitere Ergebnisse von ATmega8 Versionen zeigen die Abbildungen~\ref{fig:mega8Acap} und \ref{fig:mega8Lcap}.
 Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
 Die Referenz für die Fehlerberechnung sind die Messwerte eines PeakTech 2170 LCR-Messgerätes, 
  nicht die aufgedruckten Werte der Bauteile.
@@ -248,8 +249,25 @@ Elektrolytkondensatoren eine Rolle.
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega8cap}
-\caption{Prozentualer Fehler der Kondensator-Messungen mit dem ATmega8}
+\caption{Prozentualer Fehler der Kondensator-Messungen mit drei ATmega8}
 \label{fig:mega8cap}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Acap}}
+    \caption{mit drei ATmega8A}
+    \label{fig:mega8Acap}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Lcap}}
+    \caption{mit drei ATmega8L}
+    \label{fig:mega8Lcap}
+  \end{subfigure}
+  \caption{Prozentualer Kondensator-Messfehler}
 \end{figure}
 
 \begin{figure}[H]

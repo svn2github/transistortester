@@ -100,6 +100,18 @@ set xtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set xtics autofreq  norangelimit
 set ylabel "Error / Percent"
 set yrange [-2 to 10]
-plot "../GNU/capmess8.dat" u 3:($4-$3)/$3*100 title "Mega8" ls 1,"../GNU/capmess8.dat" u 3:($5-$3)/$3*100 title "Mega8as" ls 2,"../GNU/capmessorig.dat" u 3:($4*0.88-$3)/$3*100 title "orig" ls 3
+plot "../GNU/capmess8.dat" u 3:($4-$3)/$3*100 title "Mega8-1" ls 1,\
+     "../GNU/capmess8.dat" u 3:($5-$3)/$3*100 title "Mega8-2" ls 2,\
+     "../GNU/capmess8.dat" u 3:($6-$3)/$3*100 title "Mega8-3" ls 3,\
+     "../GNU/capmessorig.dat" u 3:($4*0.88-$3)/$3*100 title "orig" ls 4
 set output
+set output "../GNU/Mega8Acap.eps"
+plot "../GNU/capmess8.dat" u 3:($7-$3)/$3*100 title "Mega8A-4" ls 1,\
+     "../GNU/capmess8.dat" u 3:($8-$3)/$3*100 title "Mega8A-5" ls 2,\
+     "../GNU/capmess8.dat" u 3:($9-$3)/$3*100 title "Mega8A-6" ls 3
+set output
+set output "../GNU/Mega8Lcap.eps"
+plot "../GNU/capmess8.dat" u 3:($10-$3)/$3*100 title "Mega8L-7" ls 1,\
+     "../GNU/capmess8.dat" u 3:($11-$3)/$3*100 title "Mega8L-8" ls 2,\
+     "../GNU/capmess8.dat" u 3:($12-$3)/$3*100 title "Mega8L-9" ls 3
 #    EOF
