@@ -129,11 +129,11 @@ Dieser Offset kann mit der Konstante RH\_OFFSET (define) in der Datei config.h a
 \end{figure}
 
 \subsection{Ergebnisse der Widerstands-Messung}
-Abbildung~\ref{fig:mega8res} zeigt den relativen Fehler der Widerstandmessung mit einem ATmega8. 
-,,Mega8'' sind die Ergebnisse ohne AUTOSCALE\_ADC Option,
-,,Mega8as'' sind die Ergebnisse mit der Option AUTOSCALE\_ADC und
-,,Mega8orig'' sind die gleichen Messungen mit der Originalsoftware von Markus F. ohne meine Verbesserungen.
-Die Ergebnisse für die AUTOSCALE\_ADC Version zeigen hier kaum Verbesserungs-Potential.
+Abbildung~\ref{fig:mega8res} zeigt den relativen Fehler der Widerstandmessung mit drei verschiedenen ATmega8. 
+Zusätzlich werden die Meßergebnisse einiger Widerstände mit der Originalsoftware von Markus F. als
+,,Mega8orig'' gezeigt.
+Die Meßergebnisse der gleichen Widerstände mit je drei ATmega8A und drei ATmega8L werden in den Abbildungen
+\ref{fig:mega8Ares} und \ref{fig:mega8Lres} gezeigt.
 Abbildung~\ref{fig:mega168res} zeigt die gleichen Messungen mit einem ATmega168.
 ,,Mega168'' sind die Ergebnisse ohne die AUTOSCALE\_ADC Option, ,,Mega168as'' die mit der
  AUTOSCALE\_ADC Option.
@@ -152,14 +152,31 @@ Unterhalb von einem Widerstandswert von \(10\Omega\) macht ein Auflösungs-Schri
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega8res}
-\caption{Relativer Fehler in \% für Widerstands-Messungen mit ATmega8 }
+\caption{Relativer Fehler für Widerstands-Messungen mit ATmega8 }
 \label{fig:mega8res}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Ares}}
+    \caption{mit drei ATmega8A}
+    \label{fig:mega8Ares}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Lres}}
+    \caption{mit drei ATmega8L}
+    \label{fig:mega8Lres}
+  \end{subfigure}
+\caption{Relativer Fehler für Widerstands-Messungen}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega168res}
-\caption{Relativer Fehler in \% für Widerstand-Messungen mit ATmega168 }
+\caption{Relativer Fehler für Widerstand-Messungen mit ATmega168 }
 \label{fig:mega168res}
 \end{figure}
 
@@ -193,13 +210,13 @@ Im AUTO\_CAL-Modus ist REF\_R\_KORR ein zusätzlicher Offset zur automatisch gef
     \caption{mit drei ATmega168A}
     \label{fig:m168ares_all}
   \end{subfigure}
-\caption{Relativer Fehler in \% für Widerstands-Messungen}
+\caption{Relativer Fehler für Widerstands-Messungen}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/m168pres_all}
-\caption{Relativer Fehler in \% für Widerstands-Messungen mit drei ATmega168P }
+\caption{Relativer Fehler für Widerstands-Messungen mit drei ATmega168P }
 \label{fig:m168pres_all}
 \end{figure}
 
@@ -217,6 +234,6 @@ Im AUTO\_CAL-Modus ist REF\_R\_KORR ein zusätzlicher Offset zur automatisch gef
     \caption{mit drei ATmega328P}
     \label{fig:m328pres_all}
   \end{subfigure}
-\caption{Relativer Fehler in \% für Widerstands-Messungen}
+\caption{Relativer Fehler für Widerstands-Messungen}
 \end{figure}
 

@@ -123,12 +123,11 @@ if a constant offset of \(350\Omega\) will be added. This offset can be adjusted
 \end{figure}
 
 \subsection{Results of the resistor measurements}
-Figure~\ref{fig:mega8res} shows the relative errors of the resistor measurements with the
-ATmega8 microcontroller. Mega8 are the results without AUTOSCALE\_ADC option,
-Mega8as are the results with the option AUTOSCALE\_ADC and
-Mega8orig are some results of the original software of Markus F. without my improvements.
-You can see, that it is difficult to make the resistor measurement better with the AUTOSCALE\_ADC mode
-of the ATmega8 processor.
+Figure~\ref{fig:mega8res} shows the relative errors of the resistor measurements with three
+ATmega8 microcontrollers. Additionally some results with the original software of Markus F.
+with one ATmega8 are shown as ''Mega8orig'' in this figure.
+More measurements results with ATmega8A and ATmega8L are shown in  figure~\ref{fig:mega8Ares} 
+and \ref{fig:mega8Lres}.
 Figure~\ref{fig:mega168res} shows the same measurements with a ATmega168 microcontroller.
 Mega168 are the results without the AUTOSCALE\_ADC option, Mega168as are the same
 measurements with the AUTOSCALE\_ADC option.
@@ -145,14 +144,32 @@ Below a resistance value of \(10\Omega\) one resolution step results to a error 
 \begin{figure}[H]
 \centering
 \input{../GNU/Mega8res}
-\caption{Relative error in \% for resistor measurements with ATmega8 }
+\caption{Relative error for resistor measurements with ATmega8 }
 \label{fig:mega8res}
 \end{figure}
 
 \begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Ares}}
+    \caption{with three ATmega8A}
+    \label{fig:mega8Ares}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Mega8Lres}}
+    \caption{with three ATmega8L}
+    \label{fig:mega8Lres}
+  \end{subfigure}
+\caption{Relative error for resistor measurements}
+\end{figure}
+
+
+\begin{figure}[H]
 \centering
 \input{../GNU/Mega168res}
-\caption{Relative error in \% for resistor measurements with ATmega168 }
+\caption{Relative error for resistor measurements with ATmega168 }
 \label{fig:mega168res}
 \end{figure}
 
@@ -187,13 +204,13 @@ With the AUTO\_CAL option the REF\_R\_KORR value is a additional offset to the a
     \caption{with three ATmega168A}
     \label{fig:m168ares_all}
   \end{subfigure}
-\caption{Relativ error in \% for resistor measurements}
+\caption{Relativ error for resistor measurements}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{../GNU/m168pres_all}
-\caption{Relativ error in \% for resistor measurements with three ATmega168P }
+\caption{Relativ error for resistor measurements with three ATmega168P }
 \label{fig:m168pres_all}
 \end{figure}
 
@@ -211,6 +228,6 @@ With the AUTO\_CAL option the REF\_R\_KORR value is a additional offset to the a
     \caption{with three ATmega328P}
     \label{fig:m328pres_all}
   \end{subfigure}
-\caption{Relativ error in \% for resistor measurements}
+\caption{Relativ error for resistor measurements}
 \end{figure}
 
