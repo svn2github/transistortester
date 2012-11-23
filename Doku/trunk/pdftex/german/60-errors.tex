@@ -1,12 +1,17 @@
 
 %\newpage
 \chapter{Bekannte Fehler und ungelöste Probleme}
-{\center Software-Version 1.02k}
+{\center Software-Version 1.03k}
 
 \begin{enumerate}
 
 \item Germanium-Dioden (AC128) werden nicht in allen Fällen entdeckt.
 \item Bei Leistungs-Doppeldioden vom Schottky-Typ wie MBR3045PT kann bei Anschlu"s einer Einzeldiode keine Kapazitätsmessung in Sperr-Richtung 
 durchgeführt werden. Der Grund ist ein zu hoher Reststrom. Der Fehler kann manchmal durch Kühlen (Kältespray) umgangen werden.
+\item Es ist gelegentlich zu einer Falscherkennung einer 2.5V Präzisionsreferenz gekommen, wenn der Anschluß PC4 (Pin 27) unbeschaltet ist.
+Abhilfe ist möglich mit einem zusätzlichen Pull Up Widerstand nach VCC.
+\item Vereinzelt ist von Problemen mit der Brown Out Schwelle 4.3V für ATmega168 oder ATmega328 Prozessoren berichtet worden.
+Dabei kommt es zu Resets bei der Kondensatormessung.  Eine Ursache ist nicht bekannt.
+Der Fehler verschwindet, wenn man die Brown Out Schwelle auf 2.7V einstellt. 
 
 \end{enumerate}
