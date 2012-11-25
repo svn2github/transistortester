@@ -18,7 +18,7 @@ abhängig von der Kapazität auch deutlich länger dauern.
 
 Was dann weiter geschieht, hängt von der Softwarekonfiguration des Testers ab.
 \begin{description}
-  \item[Einzelmessung] Wenn der Tester für Einzelmessung konfiguriert ist, schaltet der Tester nach einer Anzeigezeit von 10 Sekunden
+  \item[Einzelmessung] Wenn der Tester für Einzelmessung konfiguriert ist, schaltet der Tester nach einer Anzeigezeit von 14 Sekunden
 (konfigurierbar) wieder automatisch aus, um die Batterie zu schonen. Während der Anzeigezeit kann aber
 auch vorzeitig eine neue Messung gestartet werden. Nach der Abschaltung kann natürlich auch wieder eine
 neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem anderen Bauteil.\\
@@ -38,8 +38,8 @@ Dies hat zur Folge, dass auch ohne Betätigung des Starttasters immer weiter gem
 Ein Bauteilwechsel führt in der Regel durch die zwischenzeitlich leeren Klemmen zu einer Messung ohne erkanntes Bauteil.\\
 
 Eine Besonderheit gibt es in diesem Betriebsmodus für die Anzeigezeit. Wenn beim Einschalten der Starttaster nur kurz
-gedrückt wurde, beträgt die Anzeigezeit der Messergebnisse nur drei Sekunden. Wenn der Starttaster bis zum Erscheinen der
-ersten Meldung festgehalten wurde, beträgt die Anzeigezeit wie bei der Einzelmessung zehn Sekunden.
+gedrückt wurde, beträgt die Anzeigezeit der Messergebnisse nur 5 Sekunden. Wenn der Starttaster bis zum Erscheinen der
+ersten Meldung festgehalten wurde, beträgt die Anzeigezeit wie bei der Einzelmessung 14 Sekunden.
 Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneutes Drücken des Starttasters möglich.\\
 
 \end{description}
@@ -55,7 +55,8 @@ eine Kalibration der Nullwertes für die Kondensatormessung durchgeführt.
 Sie sollten während der Kalibration werder die Testports noch angeschlossene Kabel berühren. Die Ausrüstung
 sollte aber die gleiche sein, die später zum Messen verwendet wird.
 Anderenfalls wird der Nullwert der Kondensatormessung nicht richtig bestimmt.
-Wenn Sie während Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) einen Kondenstor mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3  anschliessen,
+Wenn Sie während Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) einen Kondenstor mit einer beliebiger
+Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3  anschliessen,
 wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu können.
 Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird dann ebenfalls abgeglichen, um
 bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
@@ -67,4 +68,5 @@ wieder auf diesen Wert zurückgesetzt.
 Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist. In diesem Fall (Ausgabe von ,,ESR=0?'') wird der Nullwert so weit
 reduziert, dass sich bei der nächsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
 einem Elektrolytkondensator hoher Kapazität und mit niedrigem ESR durchgeführt werden.
-Dieser ESR-Nullabgleich muss aber nach jedem Selbsttest einige Male wiederholt werden.
+Dieser ESR-Nullabgleich bleibt nach einer Abschaltung erhalten, muss aber nach jedem Selbsttest erneut durchgeführt werden und
+sollte dabei einige Male wiederholt werden.
