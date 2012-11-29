@@ -6,26 +6,32 @@ Die Schaltung des TransistorTesters in Abbildung~\ref{fig:ttester} basiert auf d
 Markus F., die er in Abb. 1 des AVR-Transistortester Reports \cite{Frejek} veröffentlicht hat.
 Geänderte oder verschobene Bauteile sind mit \textcolor{green}{grüner Farbe} markiert, optionale Teile sind
 mit \textcolor{red}{roter Farbe} gekennzeichnet.
+
 Einige Änderungen wurden gemacht, weil die Strom-Abschaltung in einigen Nachbauten Probleme
 bereitet hatte.
 Deshalb ist der Widerstand R7 auf \(3.3k\Omega\) reduziert. 
-Der Kondensator C2 ist auf 10nF verkleinert und der Widerstand R8 ist verschoben, sodass der
-Ausgang PD6 nicht versucht, den C2 Kondenstor direkt zu laden.
+Der Kondensator C2 ist auf 10nF verkleinert und der Widerstand R8 ist verschoben, so dass der
+Ausgang PD6 nicht versucht, den C2 Kondensator direkt zu laden.
 Zusätzliche Abblock-Kondensatoren wurden hinzugefügt und sollten nahe den Versorgungs-Anschlüssen
 des ATmega und nahe bei dem Spannungsregler plaziert werden.
+
 Weil der PD7-Eingang und der PC6-Anschluss (RESET) die einzigen Anschlüsse sind, wo
 ,,pull-up'' Widerstände gebraucht werden, wurde ein zusätzlicher \(27k\Omega\) Widerstand am PD7 (Pin 13) vorgesehen.
 Mit dieser Änderung können die internen ,,pull-up'' Widerstände des ATmega abgeschaltet werden.
+
 Ein Quarz mit seinen 22pF Kondensatoren wurde zusätzlich vorgesehen.
 Ein Quarz hat Vorteile für die Kapazitätsmessung wegen der genaueren Zeitmessung.
-Die neue Software kann den Bereich für den ADC umschalten. Die Umschalt-Geschwindigkeit
+
+Die neue Software kann den Spannungsbereich für den ADC umschalten. Die Um\-schalt-Ge\-schwin\-dig\-keit
 wird durch den externen Kondensator C1 am AREF-Pin (21) des ATmega reduziert.
 Um die Messung nicht langsamer als notwendig machen zu müssen, sollte der Kondensator auf
 1nF reduziert werden. Ein Entfernen des Kondensators ist ebenfalls möglich.
 Zum Anpassen der Software an die jeweilige Schaltung schauen Sie bitte in dem
-Konfigurations-Kapitel~\ref{sec:config} nach. 
+Kon\-fi\-gura\-tions-Kapitel~\ref{sec:config} nach. 
+
 Einige unterschiedliche Kombinationen von R11 / R12 zirkulieren im Internet.
 Ich habe die Software an den Original-Entwurf von Markus F.~\cite{Frejek} mit \(10k\Omega\) und \(3,3k\Omega\) angepasst.
+
 Die zusätzliche 2,5V Präzisions-Spannungsreferenz, die an Pin PC4 (ADC4) angeschlossen ist,
 wird für die Überprüfung und Kalibration der VCC Versorgungsspannung benutzt, ist aber nicht
 erforderlich.
@@ -68,15 +74,18 @@ Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatibl
 dem TransistorTester benutzt werden.
 Man sollte auf den Strombedarf der Hintergrundbeleuchtung achten, einige Anzeigen benötigen
 mehr Strom als andere.
-Ich habe OLED Anzeigen ausprobiert, aber diese Anzeigen haben die Messung des
-ATmega beeinflusst und werden nicht empfohlen.
+Ich habe OLED Anzeigen ausprobiert, aber diese Anzeigen haben teilweise die Messung des
+ATmega beeinflusst und werden nicht empfohlen. Auch das Laden der Spezialzeichen für die 
+Widerstandsdarstellung hat mit OLED's Schwierigkeiten ergeben.
+
 Die Widerstände R1 bis R6 sind kritisch für die Messungen und diese \(680\Omega\) und
 \(470k\Omega\) Widerstände sollten Messwiderstände sein (Toleranz von 0,1\%), um 
 die volle Genauigkeit zu erreichen.
 Man sollte Präzisions-Sockel für den ATmega Mikrocontroller verwenden um
 die Austauschbarkeit des Mikrocontrollers sicherzustellen.
-Es kann ein ATmega8, ATmega88, ATmega168 und ATmega328 Mikrocontroller verwendet werden.
+Es kann ein ATmega8, ATmega168 und ATmega328 Mikrocontroller verwendet werden.
 Empfohlen werden ATmega168 oder ATmega328, wenn man alle Funktionen nutzen möchte.
+
 Jedenfalls sollte man zuerst alle Bauteile ohne den Mikrocontroller bestücken.
 Es wird als IC2 ein moderner ,,low voltage drop'' Spannungsregler wie MCP1702-5002 empfohlen, weil
 dieser nur \(2\mu A\) Ruhestrom benötigt und auch noch 5V liefern kann, 
@@ -111,7 +120,7 @@ Die Entwicklung wurde mit dem Linux Betriebssystem (Ubuntu) gemacht
 und wird gesteuert mit einer Makefile.
 Die Makefile stellt sicher, dass die Software entsprechend der vorher in der Makefile 
 eingestellten Optionen übersetzt wird. Schauen Sie bitte in die LiesMich.txt Datei
-im Verzeichnis Sourcecode/default und in das Konfigurations-Kapitel~\ref{sec:config}.
+im Verzeichnis trunk/default und in das Konfigurations-Kapitel~\ref{sec:config}.
 Das Ergebnis der Übersetzung hat die Dateierweiterung .hex und .eep.
 Üblicherweise heißen die Dateien TransistorTester.hex und TransistorTester.eep .
 Die .hex Datei enthält die Daten für den Programmspeicher (Flash) des ATmega-Prozessors.
@@ -168,6 +177,7 @@ Wenn Sie ein Hochtemperatur-Display haben, brauchen Sie eine negative Kontrast-S
 den Betrieb.
 In diesem Fall kann man den ICL~7660 Baustein zum Erzeugen der negativen Spannung aus der
 positiven 5V verwenden.
+
 Wenn keine Anzeige auf dem LCD erkannt wird und wenn die Hintergrundbeleuchtung an ist,
 sollten Sie die Spannungsversorgung trennen und alle vier Datenverbindungen sowie die 
 beiden Steuersignale überprüfen.
@@ -199,6 +209,7 @@ oder zurückgebliebene Flussmittelreste können die Messung stören.
 Bitte prüfen Sie nach Möglichkeit mit der Selbsttest-Funktion der
 TransistorTester Software.
 Zu den Einzelheiten schauen Sie in das Selbsttest Kapitel \ref{sec:selftest}.
+
 Anderenfalls prüfen sie Ihre Platine visuell und prüfen Sie die Widerstandswerte
 mit einem Ohmmeter. Sie können die Pins des ATmega für diese Prüfung benutzen,
 zum Beispiel können Sie der Widerstand R1 zwischen Pin 23 und Pin 14 messen.

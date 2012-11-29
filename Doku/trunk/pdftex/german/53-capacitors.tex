@@ -92,7 +92,7 @@ Wenn der erste 10 ms Ladepuls den Kondensator zu hoch aufgeladen hat, wird eine 
 Der ATmega-Mikrocontroller hat einen eingebauten 16-Bit-Zähler, der bei voller Taktfrequenz (1MHz oder 8MHz) arbeiten kann.
 Diese Zähler hat auch die Fähigkeit aufgrund eines externen Ereignisses den Zählerstand zu sichern.
 Dieses Ereignis kann auch das Ausgangs-Signal des Komparators sein.
-Der Komparator kann mit jeden ADC-Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
+Der Komparator kann mit jedem ADC-Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
 Das Schaltbild~\ref{fig:comparat} zeigt ein vereinfachtes Diagram der Messsituation.
 So entlade ich den Kondensator, bereite den Komparator für den richtigen Pin Eingang vor, starte den Zähler bei 0 und
 starte sofort das Laden des Kondensators.
@@ -121,7 +121,7 @@ Nach der Kalibration mit der AUTO\_CAL option ist der REF\_C\_KORR Wert nur ein 
 gefundenen Differenz zwischen geladener Kondensator-Spannung und der internen Referenz-Spannung.
 Die gemessene Referenz-Spannung wird dann mit dem Korrekturwert (in mV) korrigiert (addiert).
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
-Datenblättern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega88, ATmega168 und ATmega328 berücksichtigt.
+Datenblättern ~\cite{ATmega8}~\cite{ATmega168} der ATmega8, ATmega168 und ATmega328 berücksichtigt.
 Eine Beispielmessung von diesem Typ ist in Abbildung~\ref{pic:c22uF} dargestellt.
 Die Messzeit für den \(22 \mu F\)-Kondensator beträgt ungefähr 2,6s weil der \(470k\Omega\)-Widerstand für das Laden benutzt wird.
 Aber das Entladen geht in diesem Fall viel schneller als das Laden.
@@ -146,8 +146,8 @@ aber weil während dem Komparatorbetrieb der ADC nicht benutzt werden kann, best
 Möglichkeit die Ladespannung zu beobachten bis der Komparator angehalten wird.
 Wenn eine unentdeckte Diode mit dem Kondensator parallelgeschaltet ist, kann der Ladestrom
 von der Diode aufgenommen werden (Schwellspannung) und die Referenz-Spannung würde nie erreicht.
-Die Methode, die in der aktuellen Software für große Kondensatoren in Kapitel~\ref{sec:bigcap}
-verwendet wird, vermeidet diesen Konzeptfehler.
+Dieser Konzeptfehler wird mit der Methode vermieden, die in der aktuellen Software für große Kondensatoren in Kapitel~\ref{sec:bigcap}
+verwendet wird.
 
 \subsection{Messen des äquivalenten Serienwiderstandes ESR}
 Bei Kondensatoren mit mehr als etwa \(2 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
@@ -224,7 +224,7 @@ Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken stärke
 Die Messergebnisse des LCR-Messgerätes wurden bei einer Frequenz von 1 kHz gemessen.
 Beim Transistortester muss auf die Qualität der Anschlüsse geachtet werden. Verwendete Anschlusskabel
 erhöhen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern können die gemessenen
-Widerstandwerte erh"ohen. Das LCR-Messgerät macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
+Widerstandwerte erhöhen. Das LCR-Messgerät macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
 
 \begin{figure}[H]
 \centering
@@ -350,15 +350,16 @@ Bei einem automatischen Abgleich ist REF\_C\_KORR  nur ein Offset zu der gemesse
 und der internen Referenz.
 Für die großen Kapazitäten kann der Promillewert C\_H\_KORR angegeben werden, um den die Messungen
 zu groß sind.
-Da die großen Kondensatoren meistens Elektrolytkondensatoren mit schechter Güte sind, ist die Bestimmung
+Da die großen Kondensatoren meistens Elektrolytkondensatoren mit schlechter Güte sind, ist die Bestimmung
 des wahren Kapazitätswertes und damit auch des Messfehlers hier besonders schwierig.
+
 Besonders bei den ATmega168 habe ich bei kleinen Kapazitätswerten einen Messfehler beobachtet, 
 der von der Anstiegsgeschwindigkeit der Spannung beim Ladevorgang abhängig ist.
 Die Abbildung~\ref{fig:mega168optcap} zeigt die Messabweichung bei Kondensatormessung nur mit der Berücksichtigung des
 Nullwertes (168-3-A), mit dem Korrekturfaktor für kleine Kondensatoren REF\_C\_KORR=66 sowie dem Korrekturfaktor für große
-Kondensatoren C\_H\_KORR=5 (168-3-B), sowie zusätzlich als Kurve 168-3-C  mit der Berücksichtigung einer Spannungsanstiegskomponente 
-(COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbstentladeverhaltens der großen Kondensatoren.
-Der Spannungsanstiegs-Korrekturfaktor berechnet sich nach \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
+Kondensatoren C\_H\_KORR=5 (168-3-B), sowie zusätzlich als Kurve 168-3-C  mit der Berücksichtigung einer Span\-nungs\-an\-stiegs\-kom\-po\-nen\-te 
+(COMP\_SLEW1=4000 und COMP\_SLEW2=220) und des Selbst\-ent\-lade\-ver\-hal\-tens der großen Kon\-den\-sa\-toren.
+Der Span\-nungs\-an\-stiegs-Kor\-rek\-tur\-faktor berechnet sich nach \(\frac{COMP\_SLEW1}{cval+COMP\_SLEW2} - \frac{COMP\_SLEW1}{COMP\_SLEW2}\),
 wobei cval der gemessene Kapazitätswert in pF ist.
 
 \begin{figure}[H]
@@ -389,6 +390,7 @@ Auffällig ist, wie die ,,CapErr'' Punkte den ,,diff2ref'' Punkten folgen.
 Deshalb zeigen die Punkte ,,diff'' die Differenz zwischen den jeweiligen ,,CapErr'' und ,,diff2ref'' Punkten.
 Mit einem mittleren Wert für diff kann man also einen guten Schätzwert für die Korrektur der Kondensatormessung aus der
 Differenz der Kondensatorspannung nach dem Laden zur internen Referenzspannung berechnen.
+
 Im zweiten Teil der Abgleichprozedur muss also ein Kondensator hoher Güte zwischen Pin~1 und Pin~3 mit einer
 Kapazität zwischen \(100 nF\) und \(20 \mu F\) angeschlossen werden. 
 Es sollte ein Folienkondensator, nach Möglichkeit kein keramischer Kondensator und schon gar kein

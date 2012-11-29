@@ -1,5 +1,6 @@
 \chapter{Bedienungshinweise}
 \label{sec:manual}
+\section{Der Meßbetrieb}
 Die Bedienung des Transistortesters ist einfach.
 Trotzdem sind einige Hinweise erforderlich.
 Meistens sind an die drei Testports über Stecker-Leitungen mit Krokodilklemmen oder anderen Klemmen angeschlossen.
@@ -21,12 +22,12 @@ Was dann weiter geschieht, hängt von der Softwarekonfiguration des Testers ab.
   \item[Einzelmessung] Wenn der Tester für Einzelmessung konfiguriert ist, schaltet der Tester nach einer Anzeigezeit von 14 Sekunden
 (konfigurierbar) wieder automatisch aus, um die Batterie zu schonen. Während der Anzeigezeit kann aber
 auch vorzeitig eine neue Messung gestartet werden. Nach der Abschaltung kann natürlich auch wieder eine
-neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem anderen Bauteil.\\
+neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem anderen Bauteil.
 
   \item[Dauermessung] Einen Sonderfall stellt die Konfiguration ohne die automatische Abschaltfunktion dar.
 Diese Konfiguration wird normalerweise nur ohne die Transistoren für die Abschaltung benutzt.
 Es wird stattdessen ein externer Ein-/Aus-Schalter benötigt. Hierbei wiederholt der Tester die
-Messungen solange, bis ausgeschaltet wird.\\
+Messungen solange, bis ausgeschaltet wird.
 
   \item[Serienmessung] In diesem Konfigurationsfall wird der Tester nicht nach einer Messung sondern erst nach einer konfigurierbaren
 Zahl von Messungen abgeschaltet. Im Standardfall wird der Tester nach fünf Messungen ohne erkanntes Bauteil
@@ -35,38 +36,85 @@ Eine einzige Messung mit nicht erkanntem Bauteil setzt die Zählung für erkannt
 Ebenso setzt eine einzige Messung mit erkannten Bauteil die Zählung für die nicht erkannten Bauteile auf Null zurück.
 Dies hat zur Folge, dass auch ohne Betätigung des Starttasters immer weiter gemessen werden kann,
  wenn Bauteile regelmässig gewechselt werden.
-Ein Bauteilwechsel führt in der Regel durch die zwischenzeitlich leeren Klemmen zu einer Messung ohne erkanntes Bauteil.\\
+Ein Bauteilwechsel führt in der Regel durch die zwischenzeitlich leeren Klemmen zu einer Messung ohne erkanntes Bauteil.
 
 Eine Besonderheit gibt es in diesem Betriebsmodus für die Anzeigezeit. Wenn beim Einschalten der Starttaster nur kurz
 gedrückt wurde, beträgt die Anzeigezeit der Messergebnisse nur 5 Sekunden. Wenn der Starttaster bis zum Erscheinen der
 ersten Meldung festgehalten wurde, beträgt die Anzeigezeit wie bei der Einzelmessung 14 Sekunden.
-Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneutes Drücken des Starttasters möglich.\\
+Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneutes Drücken des Starttasters möglich.
 
 \end{description}
+
+\section{Selbsttest und Kalibration}
 
 Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kurzschluss aller drei
 Testports und drücken der Starttaste gestartet werden.
 Hier werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgeführt. Die viermalige Testwiederholung
 kann vermieden werden, wenn der Starttaster gedrückt gehalten wird. So kann man uninteressante Tests schnell beenden und
 sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
+
 Wenn die Funktion AUTO\_CAL in der Makefile gewählt ist, wird beim Selbsttest
 eine Kalibration des Innenwiderstandes der Port-Ausgänge und
 eine Kalibration der Nullwertes für die Kondensatormessung durchgeführt.
-Sie sollten während der Kalibration werder die Testports noch angeschlossene Kabel berühren. Die Ausrüstung
-sollte aber die gleiche sein, die später zum Messen verwendet wird.
+Für die Kalibration ist wichtig, daß die Verbindung zwischen den Testpins (Kurzschluß) während des Tests 4 wieder gelöst wird!
+Sie sollten während der Kalibration (nach dem Test 6) weder die Testports noch angeschlossene Kabel berühren.
+Die Ausrüstung sollte aber die gleiche sein, die später zum Messen verwendet wird.
 Anderenfalls wird der Nullwert der Kondensatormessung nicht richtig bestimmt.
-Wenn Sie während Test Nummer 10 (nach der Ausgabe der Nullwerte der Kondensatormessung) einen Kondenstor mit einer beliebiger
-Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3  anschliessen,
-wird die Offset Spannung des analogen Komparators kompensiert, um genauere Kapazit"atswerte ermitteln zu können.
-Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird dann ebenfalls abgeglichen, um
+
+Für den letzten Teil der Kalibration ist der Anschluß eines Kondensators 
+mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 erforderlich.
+Dazu wird in Zeile 1 ein Kondensatorsymbol zwischen den Pinnummern 1 und 3 angezeigt, gefolgt von dem Text ,, >100nF''.
+Sie sollten den Kondensator erst nach dieser Ausgabe anschließen.
+Mit diesem Kondensator wird die Offset Spannung des analogen Komparators kompensiert,
+um genauere Kapazit"atswerte ermitteln zu können.
+Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird ebenfalls mit diesem Kondensator abgeglichen, um
 bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
 
-
-Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt. Dieser Nullwert, der im
-Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt und wird bei jedem Selbsttest
-wieder auf diesen Wert zurückgesetzt.
-Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist. In diesem Fall (Ausgabe von ,,ESR=0?'') wird der Nullwert so weit
-reduziert, dass sich bei der nächsten Messung ein ESR-Wert von Null ergibt. Damit kann ein Nullabgleich mit
-einem Elektrolytkondensator hoher Kapazität und mit niedrigem ESR durchgeführt werden.
+Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt.
+Dieser Nullwert, der im Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt,
+Mit jedem Selbsttest wird der ESR Nullwert wieder auf diesen Anfangswert zurückgesetzt.
+Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist (Ausgabe von ,,ESR=0?'').
+In diesem Fall wird der Nullwert so weit reduziert, dass sich bei der nächsten Messung ein ESR-Wert von Null ergibt.
+Damit kann ein Nullabgleich mit einem Elektrolytkondensator hoher Kapazität und mit niedrigem ESR durchgeführt werden.
 Dieser ESR-Nullabgleich bleibt nach einer Abschaltung erhalten, muss aber nach jedem Selbsttest erneut durchgeführt werden und
-sollte dabei einige Male wiederholt werden.
+sollte dann immer einige Male wiederholt werden.
+
+\section{Besondere Benutzungshinweise}
+Normalerweise wird beim Start des Testers die Batteriespannung angezeigt. Wenn die Spannung eine Grenze unterschreitet, 
+wird eine Warnung hinter der Batteriespannung ausgegeben. Wenn Sie eine aufladbare 9V Batterie benutzen, sollten Sie
+den Akku möglichst bald austauschen oder nachladen.
+Wenn Sie eine Version mit eingebauter 2.5V Präzisionsreferenz besitzen, wird beim Start für eine Sekunde die
+gemessene Betriebsspannung in der Zeile 2 mit ,,VCC=x.xxV'' angezeigt.
+
+Es kann nicht oft genug erwähnt werden, daß Kondensatoren vor dem Messen entladen sein müssen.
+Sonst kann der Tester schon defekt sein, bevor der Startknopf gedrückt ist.
+Wenn man versucht, Bauelemente im eingebauten Zustand zu messen, sollte das Gerät immer von
+der Stromquelle getrennt sein. Außerdem sollte man sicher sein, daß keine Restspannung mehr
+im Gerät vorhanden ist. Alle Geräte haben Kondensatoren verbaut!
+
+Beim Messen kleiner Widerstandswerte muß man besonders auf die Übergangswiderstände achten.
+Es spielt die Qualität und der Zustand von Steckverbindern eine große Rolle, genau so wie die
+Widerstandwerte von Meßkabeln. Dasselbe gilt auch für die Messung des ESR Wertes von Kondensatoren.
+Bei schlechten Anschlußkabeln mit Krokodilklemmen wird so aus einem ESR von \(0.02 \Omega\) leicht
+ein Wert von \(0.61 \Omega\).
+
+An die Genauigkeit der Meßwerte sollte man keine übertriebenen Erwartungen haben, dies gilt besonders
+für die ESR Messung und die Induktivitätsmessung.
+Die Ergebnisse meiner Meßreihen kann man im Kapitel \ref{sec:measurement} finden.
+
+
+\section{Problemfälle}
+Bei den Meßergebnissen sollten Sie immer im Gedächtnis behalten, daß die Schaltung des Transistortesters für
+Kleinsignal Bauelemente ausgelegt ist. Normalerweise beträgt der maximale Meßstrom etwa 6 mA.
+Leistungshalbleiter machen oft wegen hoher Reststöme Probleme bei der Erkennung oder beim Messen der
+Sperrschicht-Kapazität.
+Bei Thyristoren und Triacs werden oft die Zündströme oder die Halteströme nicht erreicht. Deswegen kann es
+vorkommen, daß ein Thyristor als NPN Transistor oder Diode erkannt wird. Ebeso ist es möglich, daß ein 
+Thyristor oder Triac gar nicht erkannt wird.
+
+Probleme bei der Erkennung machen auch Halbleiter mit integrierten Widerständen.
+So wird die Basis - Emitter Diode eines BU508D Transistors wegen eines parallel geschalteten internen
+\(42 \Omega\) Widerstandes nicht erkannt.
+Folglich kann auch die Transistorfunktion nicht geprüft werden.
+Probleme bei der Erkennung machen oft auch Darlington Transistoren höherer Leistung. Hier sind auch
+oft Basis - Emitter Widerstände verbaut, welche die Erkennung wegen der hier verwendeten kleinen Meßströme erschweren.

@@ -6,6 +6,7 @@ after switching on the current.
 The time constant \(\tau = \frac{L}{R}\) is proportional to the inductance~\(L\), but reverse proportional to the
 resistor~\(R\). 
 The current can only measured indirectly with the potential drop of a resistor.
+
 Unfortunately the time constant will be reduced additionally by the relative high resistance \(680~\Omega\),
 for that the measurement of little inductance values is additionally made difficult with the 8 MHz clock.
 To get the time constant, the voltage at the \(680~\Omega\) resistor will be monitored by the analog
@@ -32,6 +33,7 @@ that the percentage of the reference voltage to the maximum voltage at the \(680
 \(Umax~=~Imax~\cdot~(680~+~19)\) .
 With the formula \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) the inductance can be calculated.
 The natural logarithm will be taken out of a build in table.
+
 In order to also measure lower inductance values, the \(680 \Omega\) resistor will be omitted in the current loop,
 if the resistance value of the inductor is measured with less than \(24 \Omega\).
 Only the output resistance of the port (\(19 \Omega\)) will be used for measurement of the current.

@@ -42,10 +42,10 @@ the Tester cannot differ the middle pin and the end pin.
 \put(38,0){\line(0,1){30}}
 \end{picture}
 and value with up to four decimal digits in the right dimension. 
-The value can be from 25pF (8MHz clock, 50pF @1MHz clock) to 100mF with a resolution of up to 1 pF (@8MHz clock].
+The value can be from 25pF (8MHz clock, 50pF @1MHz clock) to 100mF. The resolution can be up to 1 pF (@8MHz clock].
 \item For capacitors with a capacity value above \(2 \mu F\) the Equivalent Serial Resistance (ESR) is measured 
 with a resolution of \(0.01 \Omega\) and shown with two significant decimal digits.
-This feature is only avaiable for ATmega with at least 16K flash memory.
+This feature is only avaiable for ATmega with at least 16K flash memory (ATmega168 or ATmega328).
 \item Up to two diodes are shown with symbol
 \setlength{\unitlength}{0.1mm}
 \begin{picture}(60,30)
@@ -88,10 +88,9 @@ The range will be from about \(0.01 mH\) to more than \(20 H\), but the accuracy
 The measurement result is only shown with a single component connected.
 \item Testing time is about two seconds, only capacity or inductance measurement can cause longer period.
 \item Software can be configured to enable series of measurements before power will be shut down.
-\item Build in selftest function with 50Hz Frequency generator to check the accuracy of clock frequency and wait calls.
-\item Selectable facility for ATmega168 or ATmega328, to calibrate
-the internal port resistance of port output and
-the zero offset of capacity measurement with the selftest.
+\item Build in selftest function with optional 50Hz Frequency generator to check the accuracy of clock frequency and wait calls (ATmega168 and ATmega328 only).
+\item Selectable facility to calibrate the internal port resistance of port output and
+the zero offset of capacity measurement with the selftest (ATmega168 and ATmega328 only).
 A external capacitor with a value between \(100 nF\) 
 and \(20 \mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
 This can reduce measurement errors of capacitors of up to \(40 \mu F\).
@@ -102,11 +101,13 @@ gain for ADC measuring with the internal reference.
 Thyristors and Triacs can only be detected, if the test current is above the holding current.
 Some Thyristors and Triacs need as higher gate trigger current, than this Tester can deliver.
 The available testing current is only about 6mA!
-It is possible that not all options remains in future releases, because this software is currently in a testing stage,
-You can select all features only for microcontroller with more program memory such as ATmega168.
+Notice that all features can only be used with microcontroller with more program memory such as ATmega168.
 
 \vspace{1cm}
-\textbf{{\Large Attention:}} Allways be shure to discharge capacitors before connecting them to the Tester!
+\textbf{{\Large Attention:}} Allways be shure to {\bf discharge capacitors} before connecting them to the Tester!
 The Tester may be damaged before you have switched it on. There is only a little protection at the ATmega ports.
 
+Extra causion is required if you try to test components mounted in a circuit.
+In either case the equipment should be disconnected from power source and you should be shure,
+that {\bf no residual voltage} remains in the equipment.
 

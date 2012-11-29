@@ -3,15 +3,14 @@
 \section{Selbsttest-Funktion}
 \label{sec:selftest}
 Beginnend mit Version 0.9k habe ich eine Selbsttest-Funktion eingebaut.
-Die Benutzung ist sehr einfach.
+Die Benutzung ist einfach.
 Wenn Sie Prüfspitzen mit Klemmen verwenden, klemmen Sie alle Klemmen auf ein unisoliertes Stück Draht und drücken Sie
 den Start-Taster.
 Das Programm bemerkt die kurzgeschlossenen Klemmen und startet den Selbsttest.
 Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
 Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
 Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
-Man kann die Selbsttest-Funktion zusammen mit allen anderen Optionen nur für einen ATmega168
-oder ATmega328 wählen.
+Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
 Die einzelnen Schritte der Selbsttestfunktion werden für Test~1 bis Test~6 in Zeile~1 des LC-Displays mit dem Buchstaben T
 gefolgt von der Schritt-Nummer dargestellt.
 Die Schritte 1 bis 6 wird viermal wiederholt, bevor das Programm zum nächsten Schritt geht.
@@ -23,7 +22,7 @@ Ohne die AUTO\_CAL Option werden in jedem Schritt nur Messergebnisse dargestellt
 Man  muss die Ergebnisse selbst interpretieren.
 An dieser Stelle möchte ich noch einen wichtigen Hinweis geben. Führen Sie niemals Messungen mit
 eingestecktem ISP-Stecker durch!
-Die ISP-Schnittstelle st"ort die Messungen.
+Die ISP-Schnittstelle stört die Messungen.
 
 \vspace{1cm}
 Hier ist die Liste der derzeit eingebauten Tests:
@@ -59,10 +58,10 @@ Der theoretische Wert ergibt sich im Hinblick auf die internen Port-Widerstände
 \end{figure}
 
 \item {\bf Vergleich der \(470k\Omega\) Widerstände.}
-Jetzt zeigt das Display in Zeile 1 ,,+RH- 12 13 23''. Das gleiche Verfahren wie in Schritt wird wiederholt mit den
+Jetzt zeigt das Display in Zeile 1 ,,+RH- 12 13 23''. Das gleiche Verfahren wie in Schritt~2 wird wiederholt mit den
  \(470k\Omega\)-Widerständen (Symbol RH).
 Die Ergebnisse werden als Differenz zu  \(\frac{VCC \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} \) für alle Kombinationen dargestellt.
-\item In diesem Schritt wird nichts gemessen, es erfolgt lediglich die {\bf Anweisung ,,isolate Probe''},
+\item In diesem Schritt wird nichts gemessen, es erfolgt lediglich die {\bf Anweisung ,,isolate Probe!''},
 was bedeutet, dass es nun Zeit ist die Klemmen zu trennen (vom blanken Draht lösen).
 \item Dieser Schritt testet die {\bf Fähigkeit von mit GND (-) verbundenen \(470k\Omega\)-Widerständen (H) die Testpins auf GND zu ziehen.}
 Zeile 1 zeigt den Text ,,RH-''.
@@ -70,7 +69,7 @@ Zeile 2 sollte für alle drei Pinne  Null mV anzeigen.
 \item Dieser Schritt testet die {\bf Fähigkeit von mit VCC (+) verbundenen \(470k\Omega\)-Widerständen (H) die Testpins auf VCC zu ziehen.}
 Zeile 1 zeigt den Text ,,RH+''.
 Der bestmögliche mV Wert für die drei Messungen wäre 0 in Zeile~2, da die Diffenz zu VCC dargestellt wird.
- große Abweichungen vom Idealwert für Schritt 5 und 6 sind Fehler wie Isolations-Problem, Flussmittelreste oder beschädigter Port.
+Große Abweichungen vom Idealwert für Schritt 5 und 6 sind Fehler wie Isolations-Problem, Flussmittelreste oder beschädigter Port.
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
 Dieser und die folgenden Schritte werden nur bei gewählter AUTO\_CAL Option durchgeführt.
 Die internen Port C Widerstände von auf GND (-) geschalteten Ausgängen werden mit dem Strom
@@ -93,7 +92,7 @@ Der Innenwiderstand wird wie folgt berechnet:
 Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
 Die Widerstandswerte ergeben sich, wenn die gemessene Spannung durch diesen Strom dividiert wird.
 Der gefundene Mittelwert der Innenwiderstände der Ausgabe-Ports wird im EEprom festgehalten.
-Das Ergebnis für diesen Test wird dann in Zeile~1 mit dem Text ,,RI\_Hi=''in \(\Omega\) angezeigt, der Innenwiderstand
+Das Ergebnis für diesen Test wird dann in Zeile~1 mit dem Text ,,RI\_Hi='' in \(\Omega\) angezeigt, der Innenwiderstand
 zur GND-Seite wird in Zeile~2 mit dem Text ,,RI\_Lo='' angezeigt.
 Diese Werte stehen dann für weitere Messungen zur Verfügung.
 \begin{figure}[H]
@@ -104,13 +103,14 @@ Diese Werte stehen dann für weitere Messungen zur Verfügung.
 \end{figure}
 
 \item {\bf Messung des Nulloffsets der Kondensatormessung.}
-Für die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF ausgegeben.
+Für die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF in Zeile~1
+hinter dem Text ,,C0 '' ausgegeben.
 In der Software wird ein Vorgabewert von circa 39~pF für die normale Messwertausgabe berücksichtigt.
 Für die Ausgabe dieses Tests ist keine Korrektur berücksichtigt, es wird auch kein Nulloffset abgezogen.
+Es werden auch die Nulloffsets für die umgekehrte Pinkombination ermittelt.
 Die gefundenen Nulloffsets werden im EEprom festgehalten, wenn alle Null Offsets kleiner als 70pF sind.
+In Zeile 2 wird dann ein ,,OK'' ausgegeben.
 Die gefundene Null Offsets werden für die weiteren Kapazitäts-Messungen Pin abhängig berücksichtigt.
-Angezeigt wird  die Ausgabe ,,C0''  in Zeile 1, gefolgt von den drei Null-Offsets für
-die Pin-Kombinationen 1:3, 2:3 und 1:2 .
 Bitte beachten Sie, dass Veränderungen des Messaufbaus einen Neuabgleich sinnvoll machen.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegenüber einem leeren
 Sockel erhöhen.
@@ -127,15 +127,16 @@ Um den Offset des analogen Komparators zu bestimmen, muss ein Kondensator an Pin
 Der Kondensator wird für die Pufferung der Ladespannung bei der Kondensatormessung benötigt, um den Unterschied der 
 Ladespannung zur internen Referenzspannung bestimmen zu können.
 Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,REF\_C='' angezeigt und in den EEprom-Speicher geschrieben.
+
 Wenn Sie die AUTOSCALE\_ADC-Option gewählt haben, wird die Verstärkung der ADC-Lesefunktion mit der
 internen Referenzspannung abgeglichen. Das geschieht durch den Vergleich der Kondensatorspannung von unter 1 V, einmal mit
 der VCC-Referenz gemessen und einmal mit der internen Referenz.
 Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEprom festgehalten.
-Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset f\"r diese automatisch gefundene Differenz.
+Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatisch gefundene Differenz.
 
 \end{enumerate}
 
-An Ende der Selbsttest-Funktion wird der Text ,,Auto Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
+An Ende der Selbsttest-Funktion wird der Text ,,Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
 Wenn gewählt, wird ein {\bf 50 Hz Rechtecksignal} auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
 Testpin~1 wird auf GND geschaltet. Der Strom für Testpin 2 und 3 wird mit \(680\Omega\) Widerständen begrenzt.
 Angezeigt wird das durch die Ausgabe von ''50Hz'' am Ende der Zeile~1.

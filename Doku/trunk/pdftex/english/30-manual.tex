@@ -1,5 +1,6 @@
 \chapter{Instructions for use}
 \label{sec:manual}
+\section{The measurement operation}
 Using of the Transistor-Tester is simple.
 Anyway some hints are required.
 In most cases are wires with alligator clips connected to the test ports with plugs.
@@ -22,12 +23,12 @@ How the transistor-tester continues, depends on the configuration of the softwar
 result for 10 seconds for a longer lifetime of battery. 
 During the display time a next measurement can be started by pressing the start button.
 After the shut off a next measurement can be started too of course.
-The next measurement can be done with the same or another part.\\
+The next measurement can be done with the same or another part.
 
   \item[Endless measurement mode] A special case is the configuration without automatical shut off.
 This configuration is normally only used without the transistors for the shut off function.
 A external off switch is necessary for this case. The tester will repeat measurements until power
-is switched off.\\
+is switched off.
 
   \item[Multi measurement mode] In this mode the tester will shut down not after the first measurement but 
 after a configurable series of measurements. In the standard case the tester will shut down after five
@@ -40,33 +41,78 @@ pressing the start button, if parts are disconnected and connected in periodical
 In this mode there is a special feature for the display period. If the start button is pressed only short for switching
 on the tester, the result of measurement ist only shown for 5 seconds. Buf if you press and hold the start button until
 the first message is shown, the further measurement results are shown for 14 seconds.
-The next measurement can started earlier by pressing the start button during the displaying of result.\\
+The next measurement can started earlier by pressing the start button during the displaying of result.
 
 \end{description}
 
-If the software is configured with the selftest function, the selftest can be started by connecting all three test ports together
-and pushing of the start button.
+\section{Selftest and Calibration}
+
+If the software is configured with the selftest function, the selftest can be started by connecting all three
+test ports together and pushing of the start button.
 In this case all of the documented tests in the Selftest chapter \ref{sec:selftest} will be done.
 The repetition of the tests can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
+
 If the function AUTO\_CAL is selected in the Makefile, there will be calibrated 
 the internal resistance of the port output and 
 the zero offset for the capacity measurement.
-You should not touch to any of the test ports or connected cables when calibration is done.
+It is important for the calibration task, that the connection between the three test ports is relased 
+during test number 4. 
+You should not touch to any of the test ports or connected cables when calibration (after test 6) is done.
 But the equipment should be the same used for further measurements. Otherwise the zero offset for
 capacity measurement is not detected correctly.
-If you connect a capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after the measurement of the capacity zero offset, 
-the offset voltage of the analog comparator will be compensated for better measurement of capacity values and 
-additionally the gain for ADC measurements with the internal reference voltage will be adjusted too 
-for better resistor measurement results with the AUTOSCALE\_ADC option.
 
+A capacitor with any capacity between \(100 nF\) and \(20 \mu F\) connected to pin~1 and pin~3 is
+required for the last task of calibration.
+To indicate that, a capacitor symbol is shown between the pin number 1 and 3, followed by the text '' >100nF''.
+You should connect the capacitor not before this text is shown.
+With this capacitor the offset voltage of the analog comparator will be compensated for better measurement
+of capacity values.  
+Additionally the gain for ADC measurements using the internal reference voltage will be adjusted too 
+with the same capacitor for better resistor measurement results with the AUTOSCALE\_ADC option.
 
-The zero offset for the ESR measurement will be preset as option ESR\_ZERO in the Makefile.
-This zero offset, which is set too high in normal case, will be preset in EEprom by the software and will be
-set to this initial value by every selftest.
-After every ESR measurement the result will be checked for negative value (output of ''ESR=0?''). In this case the zero offset will
-be reduced to get a zero result for next ESR measurement.
+The zero offset for the ESR measurement will be preset with the option ESR\_ZERO in the Makefile.
+This zero offset, which is set too high in normal case, will be preset in EEprom by the software.
+With every selftest the ESR zero offset will be reset to this initial value.
+After every ESR measurement the result will be checked for negative value (output of ''ESR=0?'').
+In this case the zero offset will be reduced to get a zero result for next ESR measurement.
 With this methode the zero offset can be adjusted with a electrolytical capacitor with high capacity value and
 low ESR value.
-This learned ESR zero offset remains active after power off, but the adjust procedure to get the zero offset of ESR measurement
-must be done after every selftest and you should repeat the measurement some times.
+This learned ESR zero offset remains active after power off, but the adjust procedure to get
+the zero offset of ESR measurement must be done after every selftest and
+in this case you should always repeat the measurement some times.
+
+\section{special using hints}
+Normally the Tester shows the battery voltage with every start. If the voltage fall below a limit,
+a warning is shown behind the battery voltage. If you use a rechargeable 9V battery, you should replace
+the battery as soon as possible or you should recharge.
+If you use a tester with attached 2.5V precision reference, the measured supply voltage will be shown
+in display row two for 1 second with ''VCC=x.xxV''.
+
+It can not repeat often enough, that capacitors should be discharged before measuring.
+Otherwise the Tester can be damaged before the start button is pressed.
+If you try to measure components in assembled condition, the equipment should be allways disconnected from power source.
+Furthermore you should be shure, that no residual voltage reside in the equipment.
+Every electronical equipment has capacitors inside!
+
+If you ty to measure little resistor values, you should keep the resistance of plug connectors and cables in mind.
+The quality and condition of plug connectors are important, also the resistance of cables used for measurement.
+The same is in force for the ESR measurement of capacitors.
+With poor connection cable a ESR value of \(0.02 \Omega\) can grow to \(0.61 \Omega\).
+
+You should not expect very good accuracy of measurement results, especially the ESR measurement and the results of inductance measurement are not very exact.
+You can find the results of my test series in chapter \ref{sec:measurement}.
+
+\section{Compoments with problems}
+You should keep in mind by interpreting the measurement results, that the circuit of the TransistorTester is
+designed for small signal semiconductors. In normal measurement condition the measurement current can only reach about 6 mA.
+Power semiconductors often make trouble by reason of residual current with the identification an the measurement of junction capacity value.
+The Tester often can not deliver enough ignition current or holding current for power Thyristors or Triacs.
+So a Thyristor can be detected as NPN transistor or diode. Also it is possible, that a Thyristor or Triac is detected as unknown.
+
+Another problem is the identification of semiconductors with integrated resistors.
+So the base - emitter diode of a BU508D transistor can not be detected by reason of the parallel connected
+internal \(42 \Omega\) resistor.
+Therefore the transistor function can not be tested also.
+Problem with detection is also given with power Darlington transistors. We can find often internal
+base - emitter resistors, which make it difficult to identify the component with the undersized measurement current.

@@ -119,7 +119,7 @@ I noticed that the reference voltage is permanently somewhat to low,
 After calibration with the AUTO\_CAL option , the REF\_C\_KORR will only be a offset to the measured difference voltage
 between loaded capacitor and internal reference.
 The measured reference voltage will then be corrected (added) by your value (mV units).
-If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega88, ATmega168 and ATmega328
+If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega168 and ATmega328
 are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
 A sample measurement of this type is shown in figure~\ref{pic:c22uF}.
 The measurement time for the \(22 \mu F\) capacitor is above 2.6s because the \(470k\Omega\) is
@@ -386,8 +386,9 @@ The ''CapErr'' points show the estimated measurement errors of each processor ou
 and \ref{fig:mega168PAall} with per mill units.
 It is noticeable, how the ''CapErr'' points will follow the ''diff2ref'' points.
 Therefore the ''diff'' points show the difference between the particular ''CapErr'' and ''diff2ref'' points.
-With a mean value of the ''diff'' points we can get a good estimation for the correction of the capacitor measurements 
-together with the difference voltage of the loaded capacitor and the internal reference.
+With a mean value of the ''diff'' points we can get a good estimation for the correction of the capacitor
+measurements together with the difference voltage of the loaded capacitor and the internal reference.
+
 For the second part of adjustment you must connect a capacitor to pin~1 and pin~3. This capacitor should have
 a good quality factor and should have a capacity between \(100 nF\) and \(20 \mu F\).
 It should be a film capacitor, as far as possible not a ceramic capacitor und in no case a electrolytic capacitor.

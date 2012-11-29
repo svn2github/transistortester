@@ -53,7 +53,7 @@ Now the display shows in row 1 ``+RH- 12 13 23''. The same procedure as done in 
 All results are shown as difference to the theoretical value.
 The theoretical value is this time \(\frac{5001 \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} = 2500\) for all combinations.
 
-\item In this step nothing is measured, but the {\bf order is displayed „ isolate Probe“},
+\item In this step nothing is measured, but the {\bf order is displayed „ isolate Probe!“},
 which means that it is time to separate the probes (release from wire).
 
 \item {\bf This step tests the capability of GND (-) connected \(470k\Omega\) resistors (H) to pull the test pins to GND.}
@@ -98,17 +98,19 @@ Both results will be written to the EEprom memory and will be used for further m
 \end{figure}
 
 \item {\bf Measurement of the zero offset of the capacitor measurement.}
-The zero offset for the capacity measurement with pin combinations 1:3, 2:3 and 1:2 is shown in that order.
+The zero offset for the capacity measurement with pin combinations 1:3, 2:3 and 1:2 is shown in that order
+in display row 1 following the ``C0 ''.
 Alls three values are shown in pF units.
 For this measurements no predefined zero offset is respected.
+The zero offsets of pin combinations in opposite order is also measured.
 The results will be written to the EEprom, if all values are less than \(70 pF\).
-This will be notified by the output of ''C0'' in row~1, followed by the results of
- the three zero offsets for pin combinations 1:3, 2:3 and 1:2 .
+This will be notified by the output of ``OK'' in row~2.
+The found zero offsets are used for further capacity measurements with respect to the pin combination.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
 \item {\bf Wait for the connection of a capacitor to pin~1 and pin~3.}
-The message ''1-C-3 \textgreater 100nF'' is shown in row 1 of LCD.
+The message ``1-C-3 \textgreater 100nF'' is shown in row 1 of LCD.
 To prepare the measurement of the comparator offset voltage, you must connect
 a sufficient big capacitor to pin~1 and pin~3.
 It should be a capacitor with a high quality factor and a capacity between \(100 nF\) and \(20 \mu F\).
@@ -118,18 +120,19 @@ You should never use electrolytical capacitors, use film capacitors instead.
 To get the offset of the analog comparator, a capacitor must already be connected to pin~1 and pin~3.
 The capacitor is needed for buffering the load voltage of a capacitor, in order to get the voltage
 difference of load voltage to the internal reference voltage (band gap).
-If measurement is successfull, the correction value is short shown with the text ''REF\_C='' in row~1 of 
+If measurement is successfull, the correction value is short shown with the text ``REF\_C='' in row~1 of 
 the LCD and written to the EEprom. You can give a additional offset to the automatic measured value
 with the REF\_C\_KORR option.
+
 If you have selected the AUTOSCALE\_ADC option, the gain of the ADC readings with the internal reference
 will be adjusted by comparing a capacitor voltage below 1 V once readed with VCC reference and once
 readed with the internal reference. 
-The measurement result is shown in row 2 with the text ''REF\_R=''. 
+The measurement result is shown in row 2 with the text ``REF\_R=''. 
 Your REF\_R\_KORR value is a additional offset to this automatic find out difference value.
 
 \end{enumerate}
 
-At the end of test function the text ``Auto Test End''  is shown in row~1 and the version number of software is shown in row~2.
+At the end of test function the text ``Test End''  is shown in row~1 and the version number of software is shown in row~2.
 If the Makefile option FREQUENCY\_50HZ is set, a {\bf 50Hz rectangle signal} is generated on pin~2 and 
 the same signal in opposite direction on pin~3.
 Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.

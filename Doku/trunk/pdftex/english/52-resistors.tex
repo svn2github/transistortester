@@ -59,7 +59,7 @@ For higher resistor values the measurements with the \(470k\Omega\) resistors ar
 measurements is taken as displayed resistor value, if all tests attests, that it is no other type of part.
 If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below 0.98V,
 a weighted average is build with factor four for this value. The other value is weighted with factor one.
-This is done to respect the factor four better resolution of this measurement. Factor four is only taken for ATmega88,
+This is done to respect the factor four better resolution of this measurement. Factor four is only taken for 
 ATmega168 and ATmega328 processors, for the ATmega8 two is taken as weighting factor if voltage is below 0.98V,
 because the reference voltage for the ADC is here 2.54V instead of 1.1V .
 If the ATmega has more than 8KByte flash memory, the voltage measurement at the resistors will be delayed until
@@ -99,7 +99,8 @@ The theoretical gradient in this diagram ends at \(100M\Omega\), but the resulti
 limited to \(60M\Omega\), otherwise the Tester assumes that no resistor is connected.
 The weighted average of both measurement types is taken as result with the same rules described for the measurements with the \(680\Omega\) resistors.
 For all ATmega processors I had found, that the measured results with the \(470k\Omega\) resistors are more exactly,
-if a constant offset of \(350\Omega\) will be added. This offset can be adjusted with the RH\_OFFSET define in the config.h file.
+if a constant offset of \(350\Omega\) will be added.
+This offset can be adjusted with the RH\_OFFSET define in the config.h file.
 
 \begin{figure}[H]
 \centering

@@ -7,6 +7,7 @@ Die Zeitkonstante \(\tau = \frac{L}{R}\) ist proportional zu der Induktivität~\
 proportional zum Widerstand~\(R\). 
 Der Strom kann hier nur indirekt über den Spannungsabfall an einem Widerstand
 gemessen werden.
+
 Leider wird durch den relativ hohen Widerstand \(680~\Omega\) die Zeitkonstante zusätzlich verringert, was
 wiederum die Messung von kleinen Induktivitäten mit dem Takt von 8 MHz zusätzlich erschwert.
 Um die Zeitkonstante zu bestimmen, wird die Spannung am \(680~\Omega\)-Widerstand als Stromsensor
@@ -32,6 +33,7 @@ daraus der Anteil der Vergleichsspannung im Verhältnis zur Maximalspannung am \
 \(Umax~=~Imax~\cdot~(680~+~19)\) bestimmt werden.
 Mit der Formel \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) kann die Induktivität bestimmt werden.
 Der natürliche Logarithmus wird im Programm mit einer Tabelle ermittelt.
+
 Um auch kleinere Induktivitäten messen zu können, wird der \(680 \Omega\)-Widerstand im Stromkreis weggelassen,
 wenn der Widerstandswert der Spule kleiner \(24 \Omega\) gemessen wurde. Als Messwiderstand für die Strom-Messung
 dient in diesem Fall der Ausgangswiderstand der Ausgabeports (\(19 \Omega\)). In diesem Fall wird der Spitzenstrom grösser

@@ -11,12 +11,13 @@ a N-Channel MOSFET and the gate should be discharged.
 If the readed voltage is above 976mV, the next test assume, that the tested part can
 also be a P-Channel MOSFET and for this a 10ms switch of the TriStatePin with the \(680\Omega\) resistor
 to the VCC side is done.
-Also for this case the voltage at the negative Probe pin is read.
-If the voltage of the negative pin is greater than 92mV with the
-currentless TriStatePin, additional tests are made to differ N-Channel JFET or D-MOSFET (depletion)
-and P-Channel JFET or P-MOSFET. MOSFET versions can be differed by the missing of current in any state
+Also for this case the voltage at the negative Probe pin is read with a currentless TriStatePin.
+If the voltage of the negative pin is greater than 92mV, additional tests are made to differ
+N-Channel JFET or D-MOSFET (depletion) and P-Channel JFET or P-MOSFET. 
+The MOSFET versions can be differed by the missing of gate current in any state
 of the TriStatePin.
-To get parameters of this depletion types, they will be measured with a \(680 \Omega\) resistor at
+
+To get parameters of the depletion types, they will be measured with a \(680 \Omega\) resistor at
 the source pin, as shown in figure \ref{fig:JFETcd} . This measurement will be done instead of the
 usually measurement of current with the gate hold at source level, because
 the \(I_\mathrm{DSS}\) current of the FET transistor can often not be reached
@@ -121,8 +122,12 @@ greater than the flux voltage with the \(680\Omega\) resistor.
 I hope, that this behavior is always a diode.
 
 \subsection{Results of different measurements}
-The following three tables shows results of different test probes with different
-software configurations with the ATmega8 and ATmega168 processors.
+The following three tables shows results of different test probes 
+with one ATmega8 processor and two different software versions of a ATmega168 processor.
+The measurement of the inverse capacity value for the double diode MBR4045PT is 
+only possible with cooling. This will be caused by high residual current of this 40A diode.
+Also the capacity value of the inverse base emitter diode of the germanium transistor AC128 can
+only be measured with cooling.
 
 \begin{table}[H]
   \begin{center}
@@ -134,23 +139,36 @@ software configurations with the ATmega8 and ATmega168 processors.
            &                 &  & AUTOSCALE\_ADC \\
     \hline
     \hline
-1N4148 & Diode, .71V, 1pF & Diode, .71V, 0pF & Diode, .72V, 1pF\\
+1N4148     & Diode, 715mV, 1pF    & Diode, 721mV, 0pF   & Diode, 714mV, 0pF  \\
     \hline
-1N4150 & Diode, .67V, 2pF & Diode, .67V, 0pF & Diode, .67V, 2pF\\
+1N4150     & Diode, 665mV, 1pF    & Diode, 672mV, 1pF   & Diode, 667mV, 0pF  \\
     \hline
-BA157 & Diode, .62V, 19pF & Diode, .62V, 19pF & Diode, .62V, 19pF\\
+BA157      & Diode, 619mV, 19pF   & Diode, 625V, 20pF   & Diode, 620mV, 18pF \\
     \hline
-BY398 & Diode, .54V, 17pF & Diode, .54V, 16pF & Diode, .54V, 16pF\\
+BY398      & Diode, 538mV, 16pF   & Diode, 541mV, 16pF  & Diode, 541mV, 15pF \\
     \hline
-1N4007 & Diode, .65V, 13pF & Diode, .65V, 12pF & Diode, .66V, 12pF\\
+1N4007     & Diode, 650mV, 13pF   & Diode, 660mV, 13pF  & Diode, 655mV, 10pF \\
     \hline
-LED green & Diode, 1.95V, 6pF & Diode, 1.95V, 6pF & Diode, 1.96V, 5pF\\
+LED green  & Diode, 1.96V, 5pF   & Diode, 1.95V, 6pF   & Diode, 1.95V, 4pF \\
     \hline
-ZPD2,7 & 2xDi, .74V, 2.53V & 2xDi, .74V, 2.53V & 2xDi, .74V, 2.52V \\
+ZPD2,7     & 2xDi, 743mV, 2.53V   & 2xDi, 743mV, 2.53V  & 2xDi, 736mV, 2.52V \\
     \hline
-BU508A B+E & Diode, .61V, 5190pF & Diode, .61V, 5374pF & Diode, .61V, 5232pF\\
+BU508A B+E & Diode, 609mV, 5.15nF & Diode, 614mV, 5.30nF & Diode, 609mV, 5.28nF\\
     \hline
-BU508A B+C & Diode, .58V, 257pF & Diode, .59V, 267pF & Diode, .59V, 260pF\\
+BU508A B+C & Diode, 582mV, 256pF  & Diode, 589mV, 264pF & Diode, 587mV, 260pF\\
+    \hline
+AC128 B+E  & Diode, 272mV, 0pF    & Diode, 277mV, 0pF   & Diode, 273mV, 0pF  \\
+    \hline
+AC128 B+E  &                      &    cooled          & Diode, 349mV, 140pF  \\
+    \hline
+MBR20100CT & 2xDi, 337mV, 337mV    & 2xDi, 341mV, 341mV  & 2xDi, 340mV, 338mV  \\
+    \hline
+MBR20100CT & Diode, 337mV, 345pF  & Diode, 341mV, 360pF & Diode, 338mV, 354pF\\
+    \hline
+MBR4045PT  & Diode, 243mV, 1.80nF & Diode, 239mV, 1.98nF & Diode, 235mV, 1.95nF\\
+cooled    &                      &                     &                   \\
+    \hline
+SF38G      & Diode, 519mV, 107pF  & Diode, 523mV, 108pF & Diode, 521mV, 108pF\\
     \hline
     \end{tabular}
   \end{center}
@@ -168,32 +186,42 @@ BU508A B+C & Diode, .58V, 257pF & Diode, .59V, 267pF & Diode, .59V, 260pF\\
            &                 &  & AUTOSCALE\_ADC \\
     \hline
     \hline
-BU508A & NPN, B=10, .60V & NPN, B=10, .61V & NPN, B=10, .61V\\
+BU508A      & NPN, B=9, 602mV     & NPN, B=9, 599mV     & NPN, B=9, 599mV   \\
     \hline
-2N3055 & NPN, B=21, .62V & NPN, B=22, .61V & NPN, B=22, .61V\\
+2N3055      & NPN, B=20, 553mV    & NPN, B=21, 551mV    & NPN, B=21, 551mV  \\
     \hline
-BC546B & NPN, B=385, .77V & NPN, B=386, .77V & NPN, B=384, .78V\\
+BC639       & NPN, B=180, 628mV   & NPN, B=215, 633mV   & NPN, B=215, 630mV \\
     \hline
-BC556B & PNP, B=306, .79V & PNP, B=429, .79V & PNP, B=262, .79V\\
+BC640       & PNP, B=216, 635mV   & PNP, B=226, 639mV   & PNP, B=180, 604mV \\
     \hline
-BC639 & NPN, B=180, .72V & NPN, B=228, .72V & NPN, B=228, .72V\\
-
+BC517       & NPN, B=26.1k, 1.20V & NPN, B=25.7k, 1.21V & NPN, B=26.2k, 1.22V\\
     \hline
-BC640 & PNP, B=216, .72V & PNP, B=240, .72V & PNP, B=185, .72V\\
+BC516       & PNP, B=77.6k, 1.20V & PNP, B=78.7k, 1.19V & PNP, B=76.3k, 1.19V\\
     \hline
-AC128 (Ge.) & PNP, B=64, .27V & PNP, B=65, .27V & PNP, B=58, .27V\\
+BC546B      & NPN, B=381, 659mV   & NPN, B=428, 686mV   & NPN, B=428, 687mV \\
     \hline
-BC517 & NPN, B=28296, 1.40V & NPN, B=29330, 1.41V & NPN, B=25.5k, 1.20V\\
+BC556B      & PNP, B=285, 689mV   & PNP, B=426, 696mV   & PNP, B=258, 667mV \\
     \hline
-BC516 & PNP, B=65535, 1.41V & PNP, B=65535, 1.41V & PNP, B=81.5k, 1.17V\\
+AC128 (Ge.) & PNP, B=63, 190mV    & PNP, B=63, 190mV    & PNP, B=59, 189mV  \\
     \hline
-BRY55/200 & Thyristor & Thyristor & Thyristor\\
+BRY55/200   & Thyristor           & Thyristor           & Thyristor        \\
+    \hline
+MAC97A6     & Triac               & Triac               & Triac        \\
     \hline
     \end{tabular}
   \end{center}
   \caption{measurement results of bipolar transistor testing}
   \label{tab:bipolar} 
 \end{table}
+
+Some results are different to the earlier results of the software of Markus Frejek.
+For example a darlington transistor BC517 has been measured by the older software
+with a hFE of 797 .
+and a base emitter voltage of 1438mV.
+This will be caused by the additional measurement of current amplification with common collector circuit.
+The base emitter voltage is measured by the older Version as separate diode test with 1438mV.
+Now the base emitter voltage is measured with the state of current amplification testing (1.20V).
+
 
 \begin{table}[H]
   \begin{center}
@@ -205,22 +233,50 @@ BRY55/200 & Thyristor & Thyristor & Thyristor\\
            &                 &  & AUTOSCALE\_ADC \\
     \hline
     \hline
-BS170 & N-E-MOS,D, 2.62V & N-E-MOS,D, 2.55V & N-E-MOS,D, 2.55V \\
-      &  71pF             &  73pF  &  72pF \\
+ZVNL120A     & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V \\
+             & 142pF            & 146pF            & 141pF \\
     \hline
-J310 & N-JFET & N-JFET & N-JFET\\
+IRF530N      & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V \\
+             & 1.55nF           & 1.56nF           & 1.55nF \\
     \hline
-IRFU120N & N-E-MOS,D, 4.14V & N-E-MOS,D, 4.14V & N-E-MOS,D, 4.14V\\
-     & 916pF  & 943pF  & 918pF \\
+BS170        & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V \\
+             &  71pF            &  73pF            &  70pF \\
     \hline
-IRFU9024 & P-E-MOS,D, 3.51V & P-E-MOS,D, 3.52V & P-E-MOS,D, 3.52V\\
-     & 956pF & 977pF & 942pF \\
+IRL3803      & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V \\
+             & 9.82nF           & 9.82nF           & 9.79nF \\
     \hline
-ZVP2106A & P-E-MOS,D, 3.20V & P-E-MOS,D, 3.22V & P-E-MOS,D, 3.21V\\
-  & 118pF & 122pF & 118pF \\
+IRFU120N     & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V \\
+             & 918pF            & 924pF            & 918pF \\
     \hline
-ZVNL120A & N-E-MOS,D, 1.56V & N-E-MOS,D, 1.52V & N-E-MOS,D, 1.51V \\
-  & 142pF & 147pF  & 143pF \\
+BUZ71A       & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V \\
+             & 710pF            & 718pF            & 712pF \\
+    \hline
+ZVP2106A     & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V \\
+             & 117pF            & 121pF            & 116pF \\
+    \hline
+IRF5305      & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V \\
+             & 2.23nF           & 2.25nF           & 2.24nF \\
+    \hline
+BS250        & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V \\
+             & 46pF             & 48pF             & 46pF \\
+    \hline
+IRFU9024     & P-E-MOS,D, 3.5V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.5V \\
+             & 954pF            & 954pF            & 951pF \\
+    \hline
+J310         & N-JFET           & N-JFET           & N-JFET\\
+Idss=24-60mA & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V \\
+    \hline
+BF256C       & N-JFET           & N-JFET           & N-JFET\\
+Idss=11-18mA & I=3.3mA Vgs=2.3V & I=3.4mA Vgs=2.3V & I=3.3mA Vgs=2.3V \\
+    \hline
+BF245A       & N-JFET           & N-JFET           & N-JFET\\
+Idss=2-6mA   & I=1.1mA Vgs=.75V & I=1.1mA Vgs=0.74V & I=1.1mA Vgs=0.75V \\
+    \hline
+BF245B       & N-JFET           & N-JFET           & N-JFET\\
+Idss=6-15mA  & I=2.4mA Vgs=1.7V & I=2.5mA Vgs=1.7V & I=2.4mA Vgs=1.7V \\
+    \hline
+BF245C       & N-JFET           & N-JFET           & N-JFET\\
+Idss=12-25mA & I=3.8mA Vgs=2.7V & I=3.9mA Vgs=2.7V & I=3.8mA Vgs=2.7V \\
     \hline
     \end{tabular}
   \end{center}

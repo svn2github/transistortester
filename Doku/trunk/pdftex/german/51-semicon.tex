@@ -16,9 +16,10 @@ für 10ms zur VCC-Seite geschaltet.
 Auch für diesen Fall wird die Spannung des negativen Pins mit stromlosen TriStatePin gemessen.
 Wenn die Spannung des negativen Pins grösser als 92mV ist, werden zusätzliche Tests gemacht, 
 um N-Kanal JFET oder D-MOSFET (Verarmungs-Typ) und P-Kanal JFET oder P-MOSFET zu unterscheiden.
-Die MOSFET-Versionen können unterschieden werden durch den stromlosen Zustand des
-TriStatePins in jedem Zustand.
-Um Parameter dieser Verarmungstypen messen zu können, werden sie mit einem \(680 \Omega\)-Widerstand am
+Die MOSFET-Versionen können erkannt werden durch das Fehlen von Steuerstrom in jedem 
+TriStatePins Zustand.
+
+Um Parameter der Verarmungstypen messen zu können, werden sie mit einem \(680 \Omega\)-Widerstand am
 Source-Pin vermessen, wie in Abbildung \ref{fig:JFETcd} gezeigt wird. Diese Messung wird anstelle der
 üblichen Messung des Stromes bei einer Gate-Spannung auf Source-Potential gemacht, da wegen des
 relativ hohen \(680 \Omega\) Widerstandes in vielen Fällen der Kennstrom \(I_\mathrm{DSS}\) 
@@ -134,8 +135,12 @@ grösser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
 Ich hoffe, dass ein Bauteil mit diesem Verhalten immer eine Diode ist.
 
 \subsection{Ergebnisse der verschiedenen Messungen}
-Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile mit
-verschiedenen Software-Konfigurationen von ATmega8- und ATmega168-Prozessoren.
+Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile 
+eines ATmega8-Prozessors und verschiedenen Softwareversionen eines ATmega168-Prozessoren.
+Die Messung der Sperrschichtkapazität für die Doppeldiode MBR4045PT gelingt
+nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der 40A Diode. Ebenso kann für die Basis - Emitter
+Strecke des Germanium Transistors AC128 die Sperrschichtkapazität nur im
+gekühlten Zustand gemessen werden. 
 
 \begin{table}[H]
   \begin{center}
@@ -147,33 +152,36 @@ verschiedenen Software-Konfigurationen von ATmega8- und ATmega168-Prozessoren.
            &                     &                     & AUTOSCALE\_ADC    \\
     \hline
     \hline
-1N4148     & Diode, .71V, 1pF    & Diode, 721mV, 0pF   & Diode, .72V, 0pF  \\
+1N4148     & Diode, 715mV, 1pF    & Diode, 721mV, 0pF   & Diode, 714mV, 0pF  \\
     \hline
-1N4150     & Diode, .67V, 2pF    & Diode, 672mV, 1pF   & Diode, .67V, 1pF  \\
+1N4150     & Diode, 665mV, 1pF    & Diode, 672mV, 1pF   & Diode, 667V, 0pF  \\
     \hline
-BA157      & Diode, .62V, 19pF   & Diode, 625V, 20pF   & Diode, .63V, 19pF \\
+BA157      & Diode, 619mV, 19pF   & Diode, 625V, 20pF   & Diode, 620mV, 18pF \\
     \hline
-BY398      & Diode, .54V, 17pF   & Diode, 541mV, 16pF  & Diode, .54V, 15pF \\
+BY398      & Diode, 538mV, 16pF   & Diode, 541mV, 16pF  & Diode, 541mV, 15pF \\
     \hline
-1N4007     & Diode, .65V, 13pF   & Diode, 660mV, 13pF  & Diode, .66V, 12pF \\
+1N4007     & Diode, 650mV, 13pF   & Diode, 660mV, 13pF  & Diode, 655mV, 10pF \\
     \hline
-LED green  & Diode, 1.95V, 6pF   & Diode, 1.95V, 6pF   & Diode, 1.95V, 6pF \\
+LED green  & Diode, 1.96V, 5pF    & Diode, 1.95V, 6pF   & Diode, 1.95V, 4pF \\
     \hline
-ZPD2,7     & 2xDi, .74V, 2.53V   & 2xDi, 743mV, 2.53V  & 2xDi, .74V, 2.52V \\
+ZPD2,7     & 2xDi, 743mV, 2.53V   & 2xDi, 743mV, 2.53V  & 2xDi, 736V, 2.52V \\
     \hline
-BU508A B+E & Diode, .61V, 5.20nF & Diode, 614mV, 5.30nF & Diode, .61V, 5.29nF\\
+BU508A B+E & Diode, 609mV, 5.15nF & Diode, 614mV, 5.30nF & Diode, 609mV, 5.28nF\\
     \hline
-BU508A B+C & Diode, .58V, 257pF  & Diode, 589mV, 264pF & Diode, .61V, 285pF\\
+BU508A B+C & Diode, 582mV, 256pF  & Diode, 589mV, 264pF & Diode, 587mV, 260pF\\
     \hline
-AC128 B+E  & Diode, .27V, 0pF    & Diode, 277mV, 0pF   & Diode, .28V, 0pF  \\
+AC128 B+E  & Diode, 272mV, 0pF    & Diode, 277mV, 0pF   & Diode, 273mV, 0pF  \\
     \hline
-MBR20100CT & 2xDi, .33V, .33V    & 2xDi, 341mV, 341mV  & 2xDi, .34V, .34V  \\
+AC128 B+E  &                      &    gekühlt          & Diode, 349mV, 140pF  \\
     \hline
-MBR20100CT & Diode, .33V, 358pF  & Diode, 341mV, 360pF & Diode, .34V, 358pF\\
+MBR20100CT & 2xDi, 337mV, 337mV   & 2xDi, 341mV, 341mV  & 2xDi, 340mV, 338mV  \\
     \hline
-MBR4045PT  & Diode, .23V, 1.94nF & Diode, 239mV, 1.98nF & Diode, .24V, 1.94nF\\
+MBR20100CT & Diode, 337mV, 345pF  & Diode, 341mV, 360pF & Diode, 338mV, 354pF\\
     \hline
-SF38G      & Diode, .52V, 107pF  & Diode, 523mV, 108pF & Diode, .53V, 108pF\\
+MBR4045PT  & Diode, 243mV, 1.80nF & Diode, 239mV, 1.98nF & Diode, 235mV, 1.95nF\\
+gekühlt    &                      &                     &                   \\
+    \hline
+SF38G      & Diode, 519mV, 107pF  & Diode, 523mV, 108pF & Diode, 521mV, 108pF\\
     \hline
     \end{tabular}
   \end{center}
@@ -191,32 +199,41 @@ SF38G      & Diode, .52V, 107pF  & Diode, 523mV, 108pF & Diode, .53V, 108pF\\
             &                     &                     & AUTOSCALE\_ADC   \\
     \hline
     \hline
-BU508A      & NPN, B=10, .60V     & NPN, B=9, 599mV     & NPN, B=9, .60V   \\
+BU508A      & NPN, B=9, 602mV     & NPN, B=9, 599mV     & NPN, B=9, 599mV   \\
     \hline
-2N3055      & NPN, B=21, .62V     & NPN, B=21, 551mV    & NPN, B=21, .55V  \\
+2N3055      & NPN, B=20, 553mV    & NPN, B=21, 551mV    & NPN, B=21, 551mV  \\
     \hline
-BC639       & NPN, B=180, .72V    & NPN, B=215, 633mV   & NPN, B=196, .64V \\
+BC639       & NPN, B=180, 628mV   & NPN, B=215, 633mV   & NPN, B=215, 630mV \\
     \hline
-BC640       & PNP, B=216, .72V    & PNP, B=226, 639mV   & PNP, B=178, .61V \\
+BC640       & PNP, B=216, 635mV   & PNP, B=226, 639mV   & PNP, B=180, 604mV \\
     \hline
-BC517       & NPN, B=28296, 1.40V & NPN, B=25.7k, 1.21V & NPN, B=25.4k, 1.23V\\
+BC517       & NPN, B=26.1k, 1.20V & NPN, B=25.7k, 1.21V & NPN, B=26.2k, 1.22V\\
     \hline
-BC516       & PNP, B=65535, 1.41V & PNP, B=78.7k, 1.19V & PNP, B=73.9k, 1.20V\\
+BC516       & PNP, B=77.6k, 1.20V & PNP, B=78.7k, 1.19V & PNP, B=76.3k, 1.19V\\
     \hline
-BC546B      & NPN, B=385, .77V    & NPN, B=428, 686mV   & NPN, B=428, .69V \\
+BC546B      & NPN, B=381, 659mV   & NPN, B=428, 686mV   & NPN, B=428, 687mV \\
     \hline
-BC556B      & PNP, B=306, .79V    & PNP, B=426, 696mV   & PNP, B=256, .67V \\
-
+BC556B      & PNP, B=285, 689mV   & PNP, B=426, 696mV   & PNP, B=258, 667mV \\
     \hline
-AC128 (Ge.) & PNP, B=64, .27V     & PNP, B=63, 190mV    & PNP, B=59, .19V  \\
+AC128 (Ge.) & PNP, B=63, 190mV    & PNP, B=63, 190mV    & PNP, B=59, 189mV  \\
     \hline
 BRY55/200   & Thyristor           & Thyristor           & Thyristor        \\
+    \hline
+MAC97A6     & Triac               & Triac               & Triac        \\
     \hline
     \end{tabular}
   \end{center}
   \caption{Messergebnisse der Tests mit bipolaren Transistoren}
   \label{tab:bipolar} 
 \end{table}
+
+Die Ergebnisse unterscheiden sich teilweise erheblich von den Werten der Version 
+von Markus Frejek. Zum Beispiel wird für den Darlington Transistor BC517 von
+der früheren Software ein hFE von nur 797 statt 77600 gemessen. 
+Dies hängt damit zusammen, dass die Stromverstärkung bei der neuen Version auch mit der
+Kollektorschaltung gemessen wird.
+Die Basis Emitter Spannung wurde früher mit einem separaten Diodentest mit 1438mV ermittelt.
+Jetzt wird die angegebene Basis Emitter Spannung im Zustand der Verstärkungsmessung (1.20V) ermittelt.
 
 \begin{table}[H]
   \begin{center}
@@ -229,49 +246,49 @@ BRY55/200   & Thyristor           & Thyristor           & Thyristor        \\
     \hline
     \hline
 ZVNL120A     & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V \\
-             & 142pF            & 146pF            & 144pF \\
+             & 142pF            & 146pF            & 141pF \\
     \hline
 IRF530N      & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V \\
              & 1.55nF           & 1.56nF           & 1.55nF \\
     \hline
 BS170        & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V \\
-             &  71pF            &  73pF            &  71pF \\
+             &  71pF            &  73pF            &  70pF \\
     \hline
 IRL3803      & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V \\
-             & 9.80nF           & 9.82nF           & 9.80nF \\
+             & 9.82nF           & 9.82nF           & 9.79nF \\
     \hline
 IRFU120N     & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V \\
-             & 916pF            & 924pF            & 911pF \\
+             & 918pF            & 924pF            & 918pF \\
     \hline
 BUZ71A       & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V \\
-             & 706pF            & 718pF            & 707pF \\
+             & 710pF            & 718pF            & 712pF \\
     \hline
 ZVP2106A     & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V \\
-             & 118pF            & 121pF            & 119pF \\
+             & 117pF            & 121pF            & 116pF \\
     \hline
 IRF5305      & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V \\
-             & 2.24nF           & 2.25nF           & 2.24nF \\
+             & 2.23nF           & 2.25nF           & 2.24nF \\
     \hline
 BS250        & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V \\
              & 46pF             & 48pF             & 46pF \\
     \hline
 IRFU9024     & P-E-MOS,D, 3.5V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.5V \\
-             & 956pF            & 954pF            & 943pF \\
+             & 954pF            & 954pF            & 951pF \\
     \hline
 J310         & N-JFET           & N-JFET           & N-JFET\\
 Idss=24-60mA & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V \\
     \hline
 BF256C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=11-18mA & I=3.1mA Vgs=2.2V & I=3.4mA Vgs=2.3V & I=3.3mA Vgs=2.3V \\
+Idss=11-18mA & I=3.3mA Vgs=2.3V & I=3.4mA Vgs=2.3V & I=3.3mA Vgs=2.3V \\
     \hline
 BF245A       & N-JFET           & N-JFET           & N-JFET\\
-Idss=2-6mA   & I=3.1mA Vgs=2.2V & I=1.1mA Vgs=0.74V & I=1.1mA Vgs=0.75V \\
+Idss=2-6mA   & I=1.1mA Vgs=.75V & I=1.1mA Vgs=0.74V & I=1.1mA Vgs=0.75V \\
     \hline
 BF245B       & N-JFET           & N-JFET           & N-JFET\\
-Idss=6-15mA  & I=3.1mA Vgs=2.2V & I=2.5mA Vgs=1.7V & I=2.5mA Vgs=1.7V \\
+Idss=6-15mA  & I=2.4mA Vgs=1.7V & I=2.5mA Vgs=1.7V & I=2.4mA Vgs=1.7V \\
     \hline
 BF245C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=12-25mA & I=3.1mA Vgs=2.2V & I=3.9mA Vgs=2.7V & I=3.9mA Vgs=2.7V \\
+Idss=12-25mA & I=3.8mA Vgs=2.7V & I=3.9mA Vgs=2.7V & I=3.8mA Vgs=2.7V \\
     \hline
     \end{tabular}
   \end{center}

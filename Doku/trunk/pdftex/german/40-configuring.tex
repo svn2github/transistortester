@@ -7,18 +7,21 @@ Es sollte möglich sein, ohne Schwierigkeiten andere Linux-Betriebssysteme zu be
 Um die übersetzen Daten in den Flash-Speicher oder den EEprom-Speicher zu laden, wird das
 Programm avrdude (Version 5.11svn) von der Makefile benutzt, wenn man ,,make upload'' aufruft.
 Das Programm avrdude ist für Linux und Windows verfügbar.
-Der GNU C-Kompiler wird auch von der AVR-studio-Software unter Windows benutzt.
+Der GNU C-Kompiler wird auch von der AVR-studio-Software unter Windows oder von
+der WinAVR \cite{winavr1},\cite{winavr2} Software benutzt.
 Sie können die Programmdaten (.hex und .eep) auch mit anderen Programmen in den ATmega laden,
 aber nur meine Makefile Version stellt sicher, dass die richtigen Daten in den gewählten Prozessor gelangen.
 Avrdude lädt Daten nur in den ATmega, wenn die Signaturbytes des angeschlossenen ATmega gleich mit dem ausgewählten sind.
 Wenn Sie die Makefile ändern, wird die Software komplett neu übersetzt, wenn man ,,make'' oder
 ,,make upload'' aufruft.
-Die Software, die für einen ATmega8 übersetzt wurde, läuft nicht auf einem ATmega88.
-Die Software, die für einen ATmega168 übersetzt wurde, läuft nicht auf einem ATmega88, sogar wenn
-der ATmega88 genug Speicher hat!
+Die Software, die für einen ATmega8 übersetzt wurde, läuft nicht auf einem ATmega168.
+Die Software, die für einen ATmega328 übersetzt wurde, läuft nicht auf einem ATmega168.
+Eine Ausnahme bildet Software, die für einen ATmega168 übersetzt wurde. Diese Programmdateien
+sind auch für einen ATmega328 brauchbar.
 Sind Sie vorsichtig, wenn Sie nicht das mitgelieferte Makefile benutzen.
+
 Mit den entsprechenden Optionen ist die Software auch auf dem unveränderten Hardware-Entwurf von
-Markus F. lauffähig (PARTNO=m8 , keine NO\_AREF\_CAP und keine PULLUP\_DISABLE Option).
+Markus F. lauffähig (PARTNO=m8 , {\bf keine} NO\_AREF\_CAP und {\bf keine} PULLUP\_DISABLE Option).
 Die Taktrate kann mit den fuses auch auf 8MHz gestellt werden, dazu ist kein Quarz erforderlich!
 
 
@@ -27,12 +30,11 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
 \begin{description}
   \item[PARTNO] beschreibt den Ziel-Prozessor:\\
          m8 = ATmega8\\
-         m88 or m88p = ATmega88\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
     Beispiel: PARTNO = m168
   \item[UI\_LANGUAGE] gibt die Sprache für den Tester an:\\
-    LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH,  LANG\_SLOVAK und  LANG\_SLOVENE sind derzeit verfügbar.\\
+    LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK, LANG\_SLOVENE und LANG\_DUTCH sind derzeit verfügbar.\\
     Beispiel: UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] wird nur gebraucht, wenn man ein LCD-Display mit kyrillischem Zeichensatz benutzt.
 Die Zeichen \(\mu\) und \(\Omega\) sind im kyrillischen Zeichensatz nicht enthalten.
@@ -130,11 +132,14 @@ Beispiel: CFLAGS += -DANZ\_MESS=44
 Wenn Sie diese Option weglassen, werden die Messungen in einer Schleife endlos wiederholt, bis die Betriebs-Spannung 
 unterbrochen wird (Ein/Aus Schalter).
 Wenn Sie einen Tester ohne die Schalttransistoren haben, können Sie diese Option weglassen.
-Wenn Sie mit den installierten Schalttransistoren die Option POWER\_OFF weggelassen haben,
-können Sie die Mess-Wiederholung dennoch abbrechen, wenn Sie den Start-Knopf einige Sekunden gedückt halten 
-w"ahrend das Messergebnis angezeigt wird bis die ,,Timeout'' Meldung erscheint. // unschöner Satz...
-Wenn Sie den Knopf loslassen, schaltet der Tester den Strom ab.
-Sie können auch angeben, nach wie vielen Messungen ohne gefundenes Bauteil der Tester ausschaltet.
+
+Wenn Sie mit den eingebauten Schalttransistoren die Option POWER\_OFF weggelassen haben,
+gibt es dennoch eine Möglichkeit für eine Abschaltung.
+Dazu müssen Sie bei der Anzeige des Meßergebnisses den Start-Knopf einige Sekunden gedrückt halten bis
+die ,,Timeout'' Meldung erscheint.
+Wenn Sie den Knopf jetzt loslassen, schaltet der Tester den Strom ab.
+
+Sie können mit der POWER\_OFF Option auch angeben, nach wie vielen Messungen ohne gefundenes Bauteil der Tester ausschaltet.
 Bei doppelt so viel aufeinanderfolgenden Messungen mit gefundenem Bauteil schaltet der Tester auch ab,
 wenn nicht zwischendurch eine Messung ohne gefundenes Bauteil war.
 Wenn Sie vergessen haben, ein angeschlossenes Bauteil abzuklemmen, wird so eine vollständige Batterie-Entladung
@@ -142,10 +147,10 @@ verhindert.
 Bei einer Options-Angabe in der Form von CFLAGS += -DPOWER\_OFF=5 wird nach 5 aufeinanderfolgenden Messungen ohne
 gefundenes Bauteil abschaltet. Aufeinanderfolgende 10 Messungen mit gefundenem Bauteil schalten ebenfalls aus.
 Nur wenn die jeweilige Mess-Serie durch den anderen Typ unterbrochen wird, wird die Messung fortgesetzt.
-Die Messresultate für eine Einzelmessung werden 10~Sekunden angezeigt, bei der Mehrfachmessung wird die
-Anzeigezeit auf 3~Sekunden reduziert (wird in config.h gesetzt).
+Die Messresultate für eine Einzelmessung werden 14~Sekunden angezeigt, bei der Mehrfachmessung wird die
+Anzeigezeit auf 5~Sekunden reduziert (wird in config.h gesetzt).
 Wenn der Startknopf beim ersten Einschalten lange gedrückt wird, wird das Messergebnis
- auch bei der Mehrfachmessung 10~Sekunden angezeigt.
+ auch bei der Mehrfachmessung 14~Sekunden angezeigt.
 Der Maximalwert für die Wiederholungen ist 255 (CFLAGS += -DPOWER\_OFF=255).\\
 Beispiel 1: CFLAGS += -DPOWER\_OFF=5 \\
 Beispiel 2: CFLAGS += -DPOWER\_OFF 

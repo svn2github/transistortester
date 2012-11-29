@@ -2,13 +2,13 @@
 \chapter{Eigenschaften}
 \label{sec:features}
 \begin{enumerate}
-\item Arbeitet mit Mikrocontrollern vom Typ ATmega8, ATmega88, ATmega168 oder ATmega328.
+\item Arbeitet mit Mikrocontrollern vom Typ ATmega8, ATmega168 oder ATmega328.
 \item Anzeige der Messergebnisse auf einem 2x16 Zeichen großen LC-Display.
 \item Ein-Tasten-Bedienung mit automatischer Abschaltfunktion.
 \item Batterie-Betrieb ist möglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA beträgt.
 \item Preisgünstige Lösung ist möglich ohne Quarz und ohne automatische Abschaltung.
 \item Automatische Erkennung von NPN und PNP bipolaren Transistoren, N- und P-Channel MOSFETs, JFETs,
-Dioden, Doppeldioden, Thyristors und Triacs.
+Dioden, Doppeldioden, Thyristoren und Triacs.
 \item Darstellung der Pin-Belegung der erkannten Bauteile.
 \item Messung des Stromverstärkungsfaktors und der Basis-Emitter-Schwellspannung für bipolare Transistoren.
 \item Darlington-Transistoren können durch die höhere Schwellspannung und durch den hohen Stromverstärkungsfaktor erkannt werden.
@@ -42,7 +42,7 @@ gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschluss und Endans
 \put(38,0){\line(0,1){30}}
 \end{picture}
 und Kapazitätswert mit bis zu vier Dezimalstellen in der richtigen Dimension angezeigt.
-Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 100mF mit einer Auflösung von bis zu 1pF (bei 8MHz Takt).
+Der Wert kann zwischen 25pF (bei 8MHz Takt, 50pF bei 1MHz Takt) bis 100mF liegen. Die Auflösung kann bis zu 1pF (bei 8MHz Takt) betragen.
 \item Bei Kondensatoren mit einer Kapazität über \(2 \mu F\) wird zusätzlich der äquivalente Serienwiderstand (ESR) des Kondensators
 mit einer Auflösung von \(0.01 \Omega\) gemessen und mit zwei Dezimalstellen angezeigt.
 Diese Fähigkeit steht nur zur Verfügung, wenn der ATmega mindestens 16K Flashspeicher besitzt.
@@ -76,7 +76,7 @@ Die äußeren Testpin-Nummern, welche die Dioden Symbole umgeben, sind in diesem
 Man kann die wirkliche Anode der Diode nur durch diejenige Diode herausfinden, deren Schwellwert-Spannung nahe bei 700mV liegt!
 \item Wenn mehr als 3 Dioden erkannt werden, wird die gefundene Anzahl der Dioden zusammen mit der Fehlermeldung angezeigt.
 Das kann nur passieren, wenn Dioden an alle drei Test-Pins angeschlossen sind und wenigstens eine eine Zener-Diode ist.
-In diesem Fall sollte man nur zwei Test-Pins anschließen und die Messung erneut starten, eine nach der anderen.
+In diesem Fall sollte man nur zwei Test-Pins anschließen und die Messung erneut starten, eine Diode nach der anderen.
 \item Der Kapazitätswert einer einzelnen Diode in Sperr-Richtung wird automatisch ermittelt.
 Bipolare Transistoren können auch untersucht werden, wenn nur die Basis und entweder Kollektor oder Emitter angeschlossen wird.
 \item Die Anschlüsse einer Gleichrichter-Brücke können mit nur einer Messung herausgefunden werden.
@@ -85,32 +85,33 @@ aber sie können zusammen mit einer parallel geschalteten Diode oder mit einem p
 wenigstens 25pF gemessen werden.
 In diesem Fall muß der Kapazitätswert des parallel geschalteten Bauteils vom Meßergebnis abgezogen werden.
 \item Bei Widerständen unter \(2100~\Omega\) wird auch eine Induktivitätsmessung durchgeführt, wenn der
-ATmega mehr als 8K Flashspeicher besitzt.
+ATmega mehr als 8K Flashspeicher besitzt (ATmega168 oder ATmega328).
 Der Anzeigebereich ist etwa \(0.01~mH\) bis über \(20~H\), die Genauigkeit ist allerdings nicht hoch.
 Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswert angezeigt.
 \item Die Messzeit beträgt ungefähr zwei Sekunden, nur Kapazitätsmessungen und Induktivitätsmessungen können länger dauern.
 \item Die Software kann für Messserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
 \item Eingebaute Selbsttest-Funktion inklusive einem optionalen 50Hz Frequenz-Generator um die Genauigkeit der Taktfrequenz
-und der Verzögerungszeiten zu überprüfen.
-\item Wählbare Möglichkeit für ATmega168 oder ATmega328, den Nullabgleich für die Kondensatormessung und die Innenwiderstände für die
-Portausgänge beim Selbsttest automatisch zu bestimmen.
+und der Verzögerungszeiten zu überprüfen (nur mit ATmega168 oder ATmega328).
+\item Wählbare Möglichkeit den Nullabgleich für die Kondensatormessung und die Innenwiderstände für die
+Portausgänge beim Selbsttest automatisch zu bestimmen (nur mit ATmega168 oder ATmega328).
 Ein externer Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 ist notwendig, 
 um die Offset Spannung des analogens Komparators zu kompensieren.
 Dies kann den Messfehler bei Kapazitätsmessungen bis zu \(40~\mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verstärkung für
-die ADC Messung mit der internen Referenzspannung berechnet.
+die ADC Messung mit der internen \(1.1V\) Referenzspannung berechnet.
 \end{enumerate}
 
 Thyristoren und Triacs können nur erkannt werden, wenn der Test-Strom über dem Halte-Strom liegt.
 Einige Thyristoren und Triacs brauchen auch einen höheren Zündstrom als dieser Tester liefern kann.
 Der verfügbare Teststrom ist nur ungefähr 6mA!
-Es ist möglich, dass nicht alle Optionen in zukünftigen Versionen erhalten bleiben, weil diese Software
-immer noch im Teststadium ist.
-Alle Möglichkeiten sind nur bei Mikrocontrollern mit genug Programmspeicher (wie dem ATmega168) konfigurierbar.
+Beachten Sie bitte, dass alle Möglichkeiten nur für Mikrocontroller mit genug Programmspeicher zur Verfügung stehen (ATmega168 oder ATmega328).
 
 \vspace{1cm}
-\textbf{{\Large Achtung:}} Stellen Sie immer sicher, dass Kondensatoren vor dem Anschluss an den Tester entladen sind!
+\textbf{{\Large Achtung:}} Stellen Sie immer sicher, dass {\bf Kondensatoren} vor dem Anschluss an den Tester {\bf entladen} sind!
 Der Tester könnte sonst beschädigt werden bevor er eingeschaltet ist.
 Es gibt nur wenig Schutzfunktion der ATmega Anschlüsse.
+Besondere Vorsicht ist auch geboten, wenn versucht wird, Bauelemente in einer Schaltung zu messen.
+Das Gerät sollte in jedem Fall vorher von der Strom\-ein\-spei\-sung getrennt sein und man sollte sicher sein,
+daß {\bf keine Restspannung} im Gerät vorhanden ist.
 
 

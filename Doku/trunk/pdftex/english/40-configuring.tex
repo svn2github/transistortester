@@ -7,17 +7,20 @@ It should be possible to use other Linux operating systems without problems.
 To load the compiled data to the flash memory or
 the EEprom memory, the tool avrdude (version 5.11svn) was taken by the Makefile, if you call ``make upload''.
  The program avrdude is available for Linux and Windows operating system.
-The gnu C-compiler gcc is also taken by the AVR studio software
-at the Windows operating system.
+The gnu C-compiler gcc is also taken by the AVR studio software and
+by the WinAVR \cite{winavr1},\cite{winavr2} software at the Windows operating system.
 You can load the program data (.hex and .eep) also with other tools to the ATmega,
 but only my Makefile version takes care to load the correct data to the choosed processor.
 Avrdude loads only data to the ATmega if the Signature Bytes of the connected ATmega is
 identical to the choosed one. 
 If you alter the Makefile, all the software will be compiled new, if you call a ``make'' or
-``make upload'' command. The software compiled for a ATmega8 does not run on a ATmega88.
-The software compiled for a ATmega168 does not run on the ATmega88, even if the ATmega88 has enough flash memory! 
+``make upload'' command. The software compiled for a ATmega8 does not run on a ATmega168.
+The software compiled for a ATmega328 does not run on the ATmega168! 
+A exeption fron this rule is the software compiled for ATmega168, this data can also be used
+for a ATmega328 without changes.
 Be careful, if you don't use my Makefile.
-With the correct options set, my software runs on the unchanged hardware of Markus F
+
+With the correct options set, my software runs on the unchanged hardware of Markus F.
 (PARTNO=M8, NO option NO\_AREF\_CAP and NO PULLUP\_DISABLE option).
 The clock rate can also be set to 8 MHz with fuses, no crystal is required!
 
@@ -27,12 +30,11 @@ The following options in the Makefile are avaiable to configure the software for
 \begin{description}
   \item[PARTNO] describes the target processor:\\
          m8 = ATmega8\\
-         m88 or m88p = ATmega88\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
     example:  PARTNO = m168
   \item[UI\_LANGUAGE] specifies the favored Language\\
-    LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK and LANG\_SLOVENE is currently avaiable \\
+    LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK, LANG\_SLOVENE and LANG\_DUTCH is currently avaiable \\
     example:  UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] is only needed for a LCD-display with cyrillic character set. The \(\mu\) and \(\Omega\) character
 is not avaiable with the cyrillic character set.
@@ -107,18 +109,21 @@ example: CFLAGS += -DANZ\_MESS=25
   \item[POWER\_OFF] This option enables the automatic power off function. If you don't specify this option,
  measurements are done in a loop infinitely  until power is disconnected with a ON/OFF switch.
 If you have the tester without the power off transistors, you can deselect the option POWER\_OFF.
+
 If you have NOT selected the POWER\_OFF option with the transistors installed,
-you can stop measuring by holding the key several seconds after a result is displayed until the time out message is shown.
-After releasing the key, the tester will be shut off by timeout.
+you can also shut down the tester.
+During displaying the measurement result you should hold the start key pressed for several seconds until
+the ''Timeout'' message is displayed.  If you then release the key, the tester will be shut off.
+
 You can also specify, after how many measurements without a founded part the tester will shut down.
 The tester will also shut down the power after twice as much measurements are done in sequence without a
 single failed part search. If you have forgotten to unconnect a test part, total discharging of battery is avoided. 
 Specify the option with a form like CFLAGS += -DPOWER\_OFF=5 for a shut off after 5 consecutive measurements
 without part found. Also 10~measurements with any founded part one after another will shut down.
 Only if any sequence is interrupted by the other type, measurement continues.
-The result of measurement stay on the display for 10~seconds for the single measurement, for the
-multiple measurement version display time is reduced to 3~seconds (set in config.h).
-If the start key is pressed a longer time on power on time, the display time is also 10~seconds for the multiple measurement.
+The result of measurement stay on the display for 14~seconds for the single measurement, for the
+multiple measurement version display time is reduced to 5~seconds (set in config.h).
+If the start key is pressed a longer time on power on time, the display time is also 14~seconds for the multiple measurement.
 The maximum value is 255 (CFLAGS += -DPOWER\_OFF=255).\\
 example 1: CFLAGS += -DPOWER\_OFF=5\\
 example 2: CFLAGS += -DPOWER\_OFF

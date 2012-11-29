@@ -1,7 +1,7 @@
 
 %\newpage
 \chapter{Known errors and unsolved problems}
-{\center Software Version 1.03k}
+{\center Software Version 1.04k}
 
 \begin{enumerate}
 
@@ -13,7 +13,7 @@ Sometimes the measurement is possible by cooling down the device (with  cooling 
 
 \item Here and there  a wrong detection of the 2.5V precision referenz is reported, when the PC4 pin (27) is unconnected.
 You can avoid this behaviour with a additional pull up resistor connected to VCC.
-
+\item The diode function of a triac gate can not be examined.
 \item Sometimes a problem with the Brown Out level of 4.3V is reported for ATmega168 or ATmega328 processors.
 This will cause a reset during capacity measurement. A reason is not known.
 The Resets will disappear, if the Brown Out level is set to 2.7V.
