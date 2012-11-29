@@ -97,9 +97,14 @@ example: OP\_MHZ = 8
   \item[USE\_EEPROM] specifies if you wish to locate fix text and tables in EEprom Memory. Otherwise the flash memory is used.
 Recommended is to use the EEprom (option set).\\
 example: CFLAGS += -DUSE\_EEPROM
-  \item[PULLUP\_DISABLE] specifies, that you don't need the internal pull-up resistors.
- You must have installed a external pull-up resistor at pin 13 (PD7) to VCC, if you use this option.
-This option prevents a possible influence of pull-up resistors at the measuring ports (Port B and Port C).\\
+\item[EBC\_STYLE] specifies, that the output of transistor pin layout is done with format ``EBC=...'' or ``GDS=...''.
+This way of output save program memory for the ATmega. Without this option the layout is shown with the
+format ``123=...'', where every point represent a E~(Emitter), B~(Base) or C~(Collector).
+For FET transistors every point can be a G~(Gate), D~(Drain) or S~(Source).\\
+Example: CFLAGS += EBC\_STYLE
+\item[PULLUP\_DISABLE] specifies, that you don't need the internal pull-up resistors.
+ You must have installed a external pull-up resistor at pin~13 (PD7) to VCC, if you use this option.
+This option prevents a possible influence of pull-up resistors at the measuring ports (Port~B and Port~C).\\
 example: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] this option specifies, how often an ADC value is read and accumulated.
 You can select any value between 5 and 200 for building mean value of one ADC measurement.
