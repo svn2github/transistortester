@@ -118,3 +118,47 @@ So wird die Basis - Emitter Diode eines BU508D Transistors wegen eines parallel 
 Folglich kann auch die Transistorfunktion nicht geprüft werden.
 Probleme bei der Erkennung machen oft auch Darlington Transistoren höherer Leistung. Hier sind auch
 oft Basis - Emitter Widerstände verbaut, welche die Erkennung wegen der hier verwendeten kleinen Meßströme erschweren.
+
+\section{Messung von PNP und NPN Transistoren}
+Normalerweise werden die drei Anschlüsse des Transistors in beliebiger Reihenfolge an die Meßeingänge des
+Transistortesters angeschlossen.
+Nach dem Drücken des Starttasters meldet der Tester in der Zeile 1 den Typ (NPN oder PNP), 
+eine eventuell vorhandene Schutzdiode der Kollektor - Emitter Strecke und
+die Anschlußbelegung. Das Diodensymbol wird  polungsrichtig angezeigt.
+In der Zeile 2 wird der Stromverstärkungsfaktor (B=...) und die Basis - Emitter Schwellspannung ausgegeben.
+Hierbei sollte man wissen, daß der Tester den Stromverstärkungsfaktor in zwei Schaltungsvarianten 
+ermittelt, der Emitterschaltung und der Kollektorschaltung (Emitterfolger).
+
+Bei der Emitterschaltung hat der Tester nur zwei Möglichkeiten, den Basisstrom einzustellen:
+\begin{enumerate}
+\item Mit dem \(680 \Omega\) Widerstand ergibt sich ein Basisstrom von etwa 6.1mA . Das ist für einen
+Kleinsignaltransistor mit hohem Verstärkungsfaktor meist zu viel, weil die Basis gesättigt ist.
+Da der Kollektorstrom ebenfalls mit einem \(680 \Omega\) Widerstand gemessen wird, kann der Kollektorstrom
+den um den Verstärkungsfaktor höheren Strom gar nicht erreichen. Die Softwareversion vom Markus F. hat
+in diesem Zustand die Basis - Emitter Spannung gemessen (Uf=...).\\
+\item Mit dem \(470 k\Omega\) Widerstand] ergibt sich ein Basisstrom von nur \(9.2 \mu A\) .
+Das ist für einen Leistungstransistor mit geringem Verstärkungsfaktor sehr wenig.
+Die Softwareversion von Markus F. hat in diesem Zustand den Stromverstärkungsfaktor bestimmt (hFE=...).\\
+\end{enumerate}
+
+Die Software des Testers bestimmt die Stromverstärkung jetzt auch in der Kollektorschaltung.
+Ausgegeben wird der höhere Wert der beiden Mess-Methoden.
+Die Kollektorschaltung hat den Vorteil, daß sich durch die Stromgegenkopplung der Basisstrom abhängig vom
+Verstärkungsfaktor reduziert. Dadurch kann für Leistungstransistoren mit dem \(680 \Omega\) und für Darlington Transistoren
+mit dem \(470 k\Omega\) Widerstand meist ein günstigerer Meßstrom ergeben.
+Die ausgegebene Basis Emitter Schwellspannung Uf ist jetzt die Spannung,
+die bei der Bestimmung des Stromverstärkungsfaktors gemessen wurde.
+Wenn man trotzdem eine Basis - Emitter Schwellspannung bei circa 6 mA ermitteln möchte, muß man den Kollektor
+vom Tester trennen und noch einmal messen.
+Dann wird die Schwellspannung bei etwa 6mA ausgegeben und die Kapazität der Diode in Sperr-Richtung ermittelt.
+Natürlich kann so auch die Basis - Kollektor Diode gemessen werden.
+
+\section{Messung von JFET und D-MOS Transistoren}
+Wegen des symmetrischen Aufbaus von JFET Transistoren kann Source und Drain nicht unterschieden werden.
+Normalerweise wird bei JFET als eine Kenngröße der Strom bei kurzgeschlossenem Gate - Source angegeben.
+Dieser Strom ist aber oft höher als der, der sich bei der Meßschaltung mit dem \(680 \Omega\) Widerstand erreichen läßt.
+Deswegen wird der \(680 \Omega\) Widerstand an den Source Anschluß geschaltet. Dadurch erhält das Gate
+stromabhängig eine negative Vorspannung. Als Kenngröße wird sowohl der ermittelte Strom als auch die
+Gate - Source Spannung ausgegeben. 
+Damit können verschiedene Typen unterschieden werden.
+Für D-MOS Transistoren (Verarmungs-Typ) wird das gleiche Meßverfahren verwendet.

@@ -116,3 +116,53 @@ internal \(42 \Omega\) resistor.
 Therefore the transistor function can not be tested also.
 Problem with detection is also given with power Darlington transistors. We can find often internal
 base - emitter resistors, which make it difficult to identify the component with the undersized measurement current.
+
+\section{Measurement of PNP and NPN transistors}
+For normal measurement the three pins of the transistor will be connectet in any order to the measurement
+inputs of the TransistorTester.
+After pushing the start button, the Tester shows in row 1 the type (NPN or PNP), 
+a possible integrated protecting diode of the Collector - Emitter path and the
+sequence of pins. The diode symbol is shown with correct polarity.
+Row 2 shows the current amplification factor (B=...) and the Base - Emitter threshold voltage.
+You shouls know, that the Tester can measure the amplification factor with two different circuits,
+the common Emitter and the common Collector circuit (Emitter follower).
+
+
+With the common Emitter circuit the tester has only two alternative to select the base current:
+\begin{enumerate}
+\item The \(680 \Omega\) resistor results to a base current of about 6.1mA. 
+This is too high for low level transistors with high amplification factor, because the base is saturated.
+Because the collector current is also measured with a \(680 \Omega\) resistor, the collector current
+can not reach the with the amplification factor higher value.
+The software version of Markus F. has measured the Base - Emitter threshold voltage in this ciruit (Uf=...).\\
+\item The \(470 k\Omega\) resistor results to a base current of only \(9.2 \mu A\) .
+This is very low for a power transistor with low current amplification factor.
+The software version of Markus F. has identified the current amplification factor with this circuit (hFE=...).\\
+\end{enumerate}
+
+The software of the Tester figure out the current amplification factor additionally with the common Collector circuit.
+The higher value of both measurement methodes is reported.
+The common collector circuit has the advantage, that the base current is reduced by negative current feedback corresponding
+to the amplification factor. 
+In most cases a better measurement current can be reached with this methode for power transistors
+with the \(680 \Omega\) resistor and for Darlington Transistors with \(470 k\Omega\) resistor.
+The reported Base - Emitter threshold voltage Uf is now measured with the same current used 
+for determination of the current amplification factor.
+However, if you want to know the Base - Emitter threshold voltage with a measurement current of about 6mA,
+you have to disconnect the Collector and to start a new measurement.
+With this connection, the Base - Emitter threshold voltage at 6 mA is reported. The capacity value
+in reverse direction of the diode is also reported.
+Of course you can also analyse the base - collector diode.
+
+\section{Measurement of JFET and D-MOS transistors}
+Because the structure of JFET type is symmetrical, the Source and Drain of this transistores can not
+be differed.
+Normally one of the parameter of this transistor is the current of the transistor with the Gate at the same level as Source.
+This current is often higher than the current, which can be reached with the measurement circuit of the TransistorTester
+with the \(680 \Omega\) resistor.
+For this reason the \(680 \Omega\) resistor is connected to the Source. Thus the Gate get with the growing of current a negative
+bias voltage.
+The Tester reports the Source current of this circuit and additionally the bias voltage of the Gate.
+So various models can be differed.
+The D-MOS transistors (depletion type) are measured with the same methode.
+
