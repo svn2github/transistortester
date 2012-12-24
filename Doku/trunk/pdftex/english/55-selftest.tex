@@ -139,6 +139,16 @@ Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
 This will be notified by the Output of ``50Hz'' at the end of row 1 of the LCD display.
 The 50Hz signal will be generated 30 times for 2~seconds each.
 You can check the time of the wait calls, if you have an oscilloscope or frequency counter.
+Figure \ref{fig:Frequency50} shows the oscillograph curves of both 50 Hz output pins with crystal operation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../PNG/Frequency50.png}
+\caption{Oscillograph curve with the 50Hz outputs of Port 2 and 3}
+\label{fig:Frequency50}
+\end{figure}
+
+
 If you don't use the crystal clock version, the result may be inexactly.
 A exactly clock frequency and wait time are important for measurement of capacity values.
 You can abort the generation of the 50Hz signal by long time pressing of the start button.
