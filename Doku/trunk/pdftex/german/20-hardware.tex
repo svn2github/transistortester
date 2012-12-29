@@ -188,7 +188,10 @@ des ATmega erwartet. Es könnte auch sein, dass der ATmega auf der falschen Takt
 Bitte überprüfen Sie für welche Taktrate die Software übersetzt ist und ob
 die fuses des ATmega für diese Geschwindigkeit richtig gesetzt sind.
 Sie finden die eingestellte Taktrate in der betreffenden Makefile.
-
+Wenn der Tester ohne die Abschalt-Elektronik aufgebaut ist, kann man mit einer
+an die Test Pins angeschlossenen LED testen, ob das Programm arbeitet.
+Wenn die LED flackert, läuft das Programm. Der Fehler muß in diesen Fall an
+dem Anschluß des LCD's liegen. 
 \item[Einiges, aber nicht alles ist auf der LCD-Anzeige lesbar] 
 Überprüfen Sie ob die .eep Daten in den EEprom Speicher des ATmega geladen wurden.
 Wenn alle Programmdaten richtig geladen wurden, sollten Sie die Taktrate ihrer
