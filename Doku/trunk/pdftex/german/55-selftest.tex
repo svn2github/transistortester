@@ -11,9 +11,9 @@ Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
 Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
 Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
 Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
-Die einzelnen Schritte der Selbsttestfunktion werden für Test~1 bis Test~6 in Zeile~1 des LC-Displays mit dem Buchstaben T
+Die einzelnen Schritte der Selbsttestfunktion werden für Test~1 bis Test~7 in Zeile~1 des LC-Displays mit dem Buchstaben T
 gefolgt von der Schritt-Nummer dargestellt.
-Die Schritte 1 bis 6 wird viermal wiederholt, bevor das Programm zum nächsten Schritt geht.
+Die Schritte 1 bis 7 werden viermal wiederholt, bevor das Programm zum nächsten Schritt geht.
 Aber wenn man den Start Taster gedrückt hält, wenn ein Durchlauf beendet wird, wird dieser Test nicht
 mehr wiederholt.
 Wenn man den Taster während dem gesamten Selbsttest gedrückt hält, wird jeder Schritt nur einmal ausgeführt.
@@ -27,12 +27,15 @@ Die ISP-Schnittstelle stört die Messungen.
 \vspace{1cm}
 Hier ist die Liste der derzeit eingebauten Tests:
 \vspace{1cm}
+
 \begin{enumerate}
+
 \item {\bf Messung der 1,3V (oder 1,1V) Referenzspannung (band gap Reference).} In Zeile~1 wird der Text ,,Ref='' und die
 gemessene Spannung in mV angezeigt.
 Für den ATmega8 sollte die gemessene Spannung nahe bei 1,3V liegen, für die anderen Prozessoren liegt
 die Referenzspannung normal um die 1,1V.
 Die zweite Zeile zeigt den resultierenden Faktor für die Kapazitäts-Messung mit dem \(470k\Omega\) Widerstand.
+
 \item {\bf Vergleich der \(680\Omega\) Widerstände.} 
 In Zeile~1 wird der kryptische Text  ,,+RL- 12 13 23'' angezeigt. Das bedeutet:
 RL ist eine Kurzform für Resistor Low, was die \(680\Omega\) Widerstände meint. Die ,,12'' steht für: 
@@ -61,15 +64,25 @@ Der theoretische Wert ergibt sich im Hinblick auf die internen Port-Widerstände
 Jetzt zeigt das Display in Zeile 1 ,,+RH- 12 13 23''. Das gleiche Verfahren wie in Schritt~2 wird wiederholt mit den
  \(470k\Omega\)-Widerständen (Symbol RH).
 Die Ergebnisse werden als Differenz zu  \(\frac{VCC \cdot (19 + 470000]}{ (19 + 470000 + 470000 + 22)} \) für alle Kombinationen dargestellt.
+
 \item In diesem Schritt wird nichts gemessen, es erfolgt lediglich die {\bf Anweisung ,,isolate Probe!''},
 was bedeutet, dass es nun Zeit ist die Klemmen zu trennen (vom blanken Draht lösen).
+
 \item Dieser Schritt testet die {\bf Fähigkeit von mit GND (-) verbundenen \(470k\Omega\)-Widerständen (H) die Testpins auf GND zu ziehen.}
 Zeile 1 zeigt den Text ,,RH-''.
 Zeile 2 sollte für alle drei Pinne  Null mV anzeigen.
+
 \item Dieser Schritt testet die {\bf Fähigkeit von mit VCC (+) verbundenen \(470k\Omega\)-Widerständen (H) die Testpins auf VCC zu ziehen.}
 Zeile 1 zeigt den Text ,,RH+''.
 Der bestmögliche mV Wert für die drei Messungen wäre 0 in Zeile~2, da die Diffenz zu VCC dargestellt wird.
 Große Abweichungen vom Idealwert für Schritt 5 und 6 sind Fehler wie Isolations-Problem, Flussmittelreste oder beschädigter Port.
+
+\item {\bf Dieser Schritt testet die Spannungen der \(470 k\Omega / 680 \Omega\)  Widerstandsteiler.}
+Zeile 1 zeigt den Text ,,RH/RL''.
+Für alle drei Testpins wird die Abweichung von der erwarteten Spannung eines \(470 k\Omega\) / \(680 \Omega\) 5V Teilers 
+in Zeile 2 des Displays ausgegeben.
+Abweichungen von mehr als einige mV weisen auf einen Bestückungsfehler der Widerstände hin.
+
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
 Dieser und die folgenden Schritte werden nur bei gewählter AUTO\_CAL Option durchgeführt.
 Die internen Port C Widerstände von auf GND (-) geschalteten Ausgängen werden mit dem Strom
@@ -87,9 +100,9 @@ Der Widerstandswert wird im nächsten Schritt mit ausgegeben.
 
 \item {\bf Messung des Innenwiderstandes von auf VCC geschalteten Port-Ausgängen.}
 Der benötigte Strom wird von auf GND geschalteten \(680\Omega\)-Widerständen geliefert.
-Es ist die gleiche Messung wie die in Test~7 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
+Es ist die gleiche Messung wie die in Test~8 zur anderen Seite, wie in Abbildung \ref{fig:test8} gezeigt wird.
 Der Innenwiderstand wird wie folgt berechnet:
-Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 7) - (Ergebnis von Test 8)) / 680\).
+Um den Strom zu berechnen: \((5001 - (Ergebnis von Test 8) - (Ergebnis von Test 9)) / 680\).
 Die Widerstandswerte ergeben sich, wenn die gemessene Spannung durch diesen Strom dividiert wird.
 Der gefundene Mittelwert der Innenwiderstände der Ausgabe-Ports wird im EEprom festgehalten.
 Das Ergebnis für diesen Test wird dann in Zeile~1 mit dem Text ,,RI\_Hi='' in \(\Omega\) angezeigt, der Innenwiderstand
@@ -179,13 +192,13 @@ Test 5 & RH Low &  0 & \ref{fig:SelfTlowH} \\
     \hline
 Test 6 & RH High & 0 & \ref{fig:SelfTtopH} \\
     \hline
-Test 7 & R out Lo & 131 & \ref{fig:SelfTRoL} \\
+Test 8 & R out Lo & 131 & \ref{fig:SelfTRoL} \\
     \hline
-Test 8 & R out Hi & 151 & \ref{fig:SelfTRoH} \\
+Test 9 & R out Hi & 151 & \ref{fig:SelfTRoH} \\
     \hline
-Test 9 & Cap0  & 30 & \ref{fig:SelfTcap} \\
+Test 10 & Cap0  & 30 & \ref{fig:SelfTcap} \\
     \hline
-Test 9 & Referenz-Korrektur  & 0 & \ref{fig:SelfTrefKorr} \\
+Test 11 & Referenz-Korrektur  & 0 & \ref{fig:SelfTrefKorr} \\
     \hline
     \end{tabular}
   \end{center}

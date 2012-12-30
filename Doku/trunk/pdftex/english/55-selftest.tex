@@ -8,7 +8,7 @@ The program notice the shorten probes and start the self test function.
 After finishing the self test the transistor tester will continue with normal measurement.
 If no equipment is connected, the program will end with ``part unknown or damaged''. 
 You can configure self test only for a ATmega168  or ATmega328.
-The separate steps of the self test function 1 to 6 is displayed on row~1 of the LCD display with the letter T
+The separate steps of the self test function 1 to 7 is displayed on row~1 of the LCD display with the letter T
 followed by the step number.
 Every step is repeated 4~times, before the program continues with the next step.
 But if you hold the start key pressed, when the test cycle is finished, this test is not repeated any more.
@@ -65,6 +65,11 @@ Row 1 shows the text ``RH+''.
 The results are shown als difference to VCC and should be near zero.
  Great differences from the best value for test 5 and 6 are errors  such as isolation problem, flux material or damaged port.
 
+\item {\bf This Step tests the voltages of the \(470 k\Omega / 680 \Omega\)  resistor divider.}
+The voltage difference to the expected voltage of the \(470 k\Omega\) / \(680 \Omega\) resistor dividers is shown
+in row 2 of the LCD for all three terminals.
+Differences of more than some mV can be caused by the assembly of wrong resistor values.
+
 \item {\bf Measuring of internal resistance of pin output switched to the GND signal.}
 This test and the follwing tests will only be done, if the option AUTO\_CAL is selected.
 The internal resistance of the port C outputs switched to GND (-) are measured with the current
@@ -82,10 +87,10 @@ The resistor value will be shown in the next test.
 
 \item {\bf Measuring of internal resistance of port outputs switched to the VCC (+)signal.}
 The needed current is generated with to GND connected \(680\Omega\) resistors .
-It are the same measurements as those in test~7 to the other side as you can see in Figure \ref{fig:test8}.
+It are the same measurements as those in test~8 to the other side as you can see in Figure \ref{fig:test8}.
 With the following steps the resistance is computed:
-To get the current, the following is computed:  \((VCC - (result of test 7) - (result of test 8)) / 680\).
-To get both resistor values, the voltage (result of test~7 or 8) is divided by this current.
+To get the current, the following is computed:  \((VCC - (result of test 8) - (result of test 9)) / 680\).
+To get both resistor values, the voltage (result of test~8 or 9) is divided by this current.
 The result for this test will then be notified in row 1 with the text ''RI\_Hi='', the resistance value (\(\Omega\)) to the GND side is
 displayed in row 2 with the text ''RI\_Lo=''.
 Both results will be written to the EEprom memory and will be used for further measurement.
@@ -176,11 +181,11 @@ Test 5 & RH-Low &  0 & \ref{fig:SelfTlowH} \\
     \hline
 Test 6 & RH-High & 0 & \ref{fig:SelfTtopH} \\
     \hline
-Test 7 & R out Lo & 131 & \ref{fig:SelfTRoL} \\
+Test 8 & R out Lo & 131 & \ref{fig:SelfTRoL} \\
     \hline
-Test 8 & R out Hi & 151 & \ref{fig:SelfTRoH} \\
+Test 9 & R out Hi & 151 & \ref{fig:SelfTRoH} \\
     \hline
-Test 9 & Cap zero offset & 30 & \ref{fig:SelfTcap} \\
+Test 10 & Cap zero offset & 30 & \ref{fig:SelfTcap} \\
     \hline
 Test 11 & Reference correction & 0 & \ref{fig:SelfTrefKorr} \\
     \hline
