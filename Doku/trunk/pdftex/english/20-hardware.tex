@@ -121,7 +121,7 @@ must be loaded to the correct memory.
 
 Additionally the operating state of the
 ATmega processor must be programmed with the ``fuses''.
-If you can use my Makefile and additionally the program avrdude, you need no exact
+If you can use my Makefile and additionally the program avrdude \cite{avrdude}, you need no exact
 knowledge of the details about the fuses. You have only to type ``make fuses'' if you
 have no crystal or ``make fuses-crystal'' if you have installed the 8MHz crystal to your printed board.
 With the ATmega168 series of the microcontroller you can also use ``make fuses-crystal-lp'' to use
@@ -132,6 +132,12 @@ set by manufactor and first bring the the tester to operation in this mode.
 Maybe your program runs too slow, if you use program data compiled for
 8MHz operation, but you can correct this later! But a wrong set of fuses may inhibit
 later ISP-programming.
+If you use the Windows operating system, the easiest way to get a correct programmed
+ATmega is to use the WinAVR package \cite{winavr1},\cite{winavr2}.
+With my patch \cite{winavr3} you can also set the fuses by using the Makefile.
+Of course the avrdude program must support your programmer and the configuration
+in the Makefile must match to your environment.
+
 
 \section{Troubleshooting}
 In most cases of problems you will miss the text output to the LCD-display.

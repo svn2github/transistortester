@@ -128,7 +128,7 @@ Die .eep Datei enthält die Daten für den EEprom-Speicher des ATmega.
 Beide Dateien müssen in den richtigen Speicher geladen werden.
 
 Zusätzlich muss der ATmega mit den ,,fuses'' richtig konfiguriert werden.
-Wenn Sie meine Makefile zusammen mit dem Programm avrdude benutzen, brauchen Sie
+Wenn Sie meine Makefile zusammen mit dem Programm avrdude \cite{avrdude} benutzen, brauchen Sie
 keine genaue Kenntnis über die Einzelheiten der fuses.
 Sie brauchen nur ,,make fuses'' aufrufen, wenn Sie keinen Quarz benutzen oder Sie
 müssen ,,make fuses-crystal'' aufrufen, wenn Sie einen 8MHz Quarz auf der Baugruppe installiert haben.
@@ -140,6 +140,11 @@ vom Werk gesetzt und bringen Sie den Tester in diesem Zustand zum Laufen.
 Es kann sein, dass das Programm zu langsam läuft, wenn Sie die für den 8MHz Betrieb 
 erzeugten Programmdaten benutzen, aber das kann man später korrigieren!
 Aber falsch gesetzte fuses können die spätere ISP-Programmierung verhindern.
+Wenn Sie unter dem Windows Betriebssystem arbeiten, ist der leichteste Weg zum
+richtig programmierten ATmega zu kommen, die Benutzung der WinAVR Paketes \cite{winavr1},\cite{winavr2}.
+Mit meinem Patch \cite{winavr3} können Sie auch die Fuses mit der Makefile setzen.
+Natürlich muß das avrdude Programm Ihren Programmer unterstützen und die Konfiguration muß in
+der Makefile richtig angepaßt sein.
 
 \section{Fehlersuche}
 Bei den meisten Problemen werden Sie den Text auf dem LCD-Display vermissen.

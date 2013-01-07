@@ -6,7 +6,7 @@ at the Ubuntu Linux operating system with the GNU toolchain (gcc version 4.5.3).
 It should be possible to use other Linux operating systems without problems.
 To load the compiled data to the flash memory or
 the EEprom memory, the tool avrdude (version 5.11svn) was taken by the Makefile, if you call ``make upload''.
- The program avrdude is available for Linux and Windows operating system.
+ The program avrdude \cite{avrdude} is available for Linux and Windows operating system.
 The gnu C-compiler gcc is also taken by the AVR studio software and
 by the WinAVR \cite{winavr1},\cite{winavr2} software at the Windows operating system.
 You can load the program data (.hex and .eep) also with other tools to the ATmega,
@@ -94,6 +94,10 @@ example: CFLAGS += -DREF\_R\_KORR=10
 The software is tested only for 1 MHz, 8MHz and additionally 16MHz. 
 The 8MHz operation is recommended for better resolution of capacity and inductance measurement.\\
 example: OP\_MHZ = 8
+  \item[RESTART\_DELAY\_TICS] must be set to 6, if the ATmega168 or ATmega328 is used with the internal RC-oszillator instead of
+the crystal oszillator.
+If this value is not preset, the software respects the 16384 clock tics delay for restart from sleep mode with the crystal operation.\\
+example: CFLAGS += -DRESTART\_DELAY\_TICS=6
   \item[USE\_EEPROM] specifies if you wish to locate fix text and tables in EEprom Memory. Otherwise the flash memory is used.
 Recommended is to use the EEprom (option set).\\
 example: CFLAGS += -DUSE\_EEPROM
@@ -144,7 +148,9 @@ Also the voltage loss of transistor T3 can be respected with this option.
 example 1: CFLAGS += -DBAT\_OUT=300\\
 example 2: CFLAGS += -DBAT\_OUT
   \item[BAT\_POOR] sets the poor level of battery voltage to the specified 100mV (1/10 Volt) value.
-The warning level of battery voltage is always 1V higher than the specified poor level.
+The warning level of battery voltage is 0.8V higher than the specified poor level, if the poor level is more than 5.3V.
+If the poor level is 5.3V or less, the warning level is 0.4V higher. If the poor level is below 3.0V, the
+warning level is only 0.2V higher than the selected poor level.
 Setting the poor level to low values such as 5.4V is not recommended for rechargeable 9V batteries,
 because this increase the risk of battery damage by the reason of the deep discharge!
 If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
