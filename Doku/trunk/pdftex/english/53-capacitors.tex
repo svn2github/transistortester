@@ -197,6 +197,16 @@ mean load current.
 We will get the resistance value with the relation of this voltage \(Uesr\) to the voltage \(Ulp\), scaled with the
 known resistance value of the port output \(Rport\).
 The scale factor is selected to get a resistance resolution of \(0.01 \Omega\):  \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\)
+The figure~\ref{pic:esr4} shows a part of the voltage curve of a \(4.2\mu F\) capacitor pin, measured to ground potential,
+ during the ESR measurement.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/ESR_4uF.png}
+  \caption{Voltage curve at one pin of a \(4.2\mu F\) capacitor during ESR measurement}
+  \label{pic:esr4}
+\end{figure}
+
 The accuracy of the ESR measurement is not very high by different reasons:
 \begin{enumerate}
 \item The voltage measurement at both pins of the capacitor can not be done at the same time, the only way is to do it in sequence.
@@ -208,7 +218,6 @@ If the charge current will be switched off to early, the ADC takes the wrong vol
 If the charge current will be switched off to late, the capacitor will take more electric charge, than that of the
 corresponding measurement with load current. This will cause a too high voltage of the measurement without current.
 But it is difficult to switch off the current at the right time by software. 
-The added voltage sum of the measurements without current is reduced by 2~\% to compensate the overloading.
 \item The port output resistance is used as a reference value by this measurement method, but this resistance value is
 not exacly known too.
 \item The resolution of the ADC is not sufficient to get a resolution of resistance of \(0.01 \Omega\).

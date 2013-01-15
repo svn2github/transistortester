@@ -65,6 +65,18 @@ The following table \ref{tab:grid-change} shows the modified assignments.
   \label{tab:grid-change}
 \end{table}
 
+For better protection of the ATmega inputs the additional circuit~ \ref{fig:relay_addon} 
+can be integrated. The de-energized contacts of the relay protect the ATmega without power.
+The contacts will be opened by software only for measurement.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{../FIG/relay_addon.eps}
+\caption{Additional protection of the ATmega inputs}
+\label{fig:relay_addon}
+\end{figure}
+
+
 
 \section{Hints for building the TransistorTester}
 Every LCD-display with at least 2x16 character and a HD44780 compatible controller

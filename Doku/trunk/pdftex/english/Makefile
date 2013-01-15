@@ -5,7 +5,7 @@ LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
-LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/Inductance.eps
+LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/relay_addon.eps ../FIG/Inductance.eps
 LISTE += ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps
 all: $(LISTE) ttester.pdf
 	
@@ -75,6 +75,8 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/JFETcd.fig
 ../FIG/ttester.eps: ../FIG/ttester.fig
 	fig2eps ../FIG/ttester.fig
+../FIG/relay_addon.eps: ../FIG/relay_addon.fig
+	fig2eps ../FIG/relay_addon.fig
 ../FIG/Inductance.eps: ../FIG/Inductance.fig
 	fig2eps ../FIG/Inductance.fig
 ../FIG/Cap_equiv.eps: ../FIG/Cap_equiv.fig

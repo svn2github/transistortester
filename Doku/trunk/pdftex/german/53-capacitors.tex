@@ -198,6 +198,16 @@ repräsentieren.
 Der Widerstandswert wird aus dem Verhältnis dieser Spannung \(Uesr\) zu der Spannung \(Ulp\) skaliert mit dem
 bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, dass eine Widerstandauflösung von
 \(0.01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
+Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs einer \(4.2\mu F\) Kondensator-Seite
+ während der ESR-Messung gegen Masse (GND) gemessen.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../PNG/ESR_4uF.png}
+  \caption{Spannungsverlauf eines Pins während der ESR-Messung eines \(4.2\mu F\) Kondensators}
+  \label{pic:esr4}
+\end{figure}
+
 Die Genauigkeit der ESR-Messung ist aus verschiedenen Gründen nicht sehr hoch:
 \begin{enumerate}
 \item Die Spannungsmessung an den beiden Kondensator-Anschlüssen kann nicht gleichzeitig sondern nur nacheinander durchgeführt werden.
@@ -209,7 +219,6 @@ nimmt der ADC die falsche Spannung für die strombehaftete Messung auf. Wird der
 der Kondensator weiter geladen als es der strombehafteten Messung entspricht.
 Dann wird im stromlosen Zustand eine zu hohe Spannung gemessen.
 Es ist aber schwierig im Programm den genauen Zeitpunkt für die Stromabschaltung zu treffen.
-Um das Überladen auszugleichen, wird die im stromlosen Zustand gemessene Spannung um 2 \% reduziert.
 \item Der Port-Ausgangswiderstand wird bei dieser Messmethode als Referenz benutzt, dessen Widerstandwert
 ist aber auch nicht exakt bekannt.
 \item Die Auflösung des ADC reicht nicht aus, um eine Widerstandsauflösung von \(0.01 \Omega\) zu erreichen.

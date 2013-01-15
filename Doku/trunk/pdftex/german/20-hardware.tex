@@ -69,6 +69,17 @@ Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegung
   \label{tab:grid-change}
 \end{table}
 
+Zum besseren Schutz der ATmega-Eingänge kann eine Erweiterung mit einem Relais nach Schaltbild~\ref{fig:relay_addon}
+angeschlossen werden. Die Ruhekontakte des Relais schützen den ATmega im spannungslosen Zustand.
+Die Konkakte werden von der Software nur für die Messung freigegeben.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{../FIG/relay_addon.eps}
+\caption{Zusätzlicher Schutz der ATmega Eingänge}
+\label{fig:relay_addon}
+\end{figure}
+
 \section{Hinweise für den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatiblen Kontroller kann mit
 dem TransistorTester benutzt werden.
