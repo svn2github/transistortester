@@ -198,13 +198,26 @@ repräsentieren.
 Der Widerstandswert wird aus dem Verhältnis dieser Spannung \(Uesr\) zu der Spannung \(Ulp\) skaliert mit dem
 bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, dass eine Widerstandauflösung von
 \(0.01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
-Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs einer \(4.2\mu F\) Kondensator-Seite
- während der ESR-Messung gegen Masse (GND) gemessen.
+Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs eines \(4.2\mu F\) Kondensators
+ während der ESR-Messung. Dem Kondensator wurde ein \(6.8 \Omega\) Widerstand in Serie geschaltet, um den ESR Einfluß
+zu verdeutlichen. Der kleine Spannungseinbruch nach dem Ladevorgang des Kondensators wird von der Software ausgewertet.
+Der größere Spannungseinbruch bei der Messung gegen GND kommt durch den Einfluß des Port-Ausgangswiderstands von etwa \(20 \Omega\) zustande.
+Das Ergebnis der ESR-Messung ist in diesem Fall \(7.5 \Omega\), ohne den \(6.8 \Omega\) Widerstand sind es \(0.56 \Omega\).
+
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[]{../PNG/ESR_4uF.png}
-  \caption{Spannungsverlauf eines Pins während der ESR-Messung eines \(4.2\mu F\) Kondensators}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_4uF.png}
+    \caption{Ein Pin gegen GND gemessen}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR4uF6R8.png}
+    \caption{Von Pin zu Pin gemessen}
+  \end{subfigure}
+  \caption{Spannungsverlauf eines \(4.2\mu F\) Kondensators während der ESR-Messung}
   \label{pic:esr4}
 \end{figure}
 

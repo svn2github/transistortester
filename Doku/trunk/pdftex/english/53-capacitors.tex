@@ -197,15 +197,30 @@ mean load current.
 We will get the resistance value with the relation of this voltage \(Uesr\) to the voltage \(Ulp\), scaled with the
 known resistance value of the port output \(Rport\).
 The scale factor is selected to get a resistance resolution of \(0.01 \Omega\):  \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\)
-The figure~\ref{pic:esr4} shows a part of the voltage curve of a \(4.2\mu F\) capacitor pin, measured to ground potential,
- during the ESR measurement.
+The figure~\ref{pic:esr4} shows a part of the voltage curve of a \(4.2\mu F\) capacitor during the ESR measurement.
+To explain the influence of the ESR, a series \(6.8 \Omega\) resistor is added to the capacitor.
+The little voltage break after loading the capacitor is interpreted by software to get the ESR.
+The greater voltage drop of the measurement to GND potential is caused by the port output resistance of about \(20 \Omega\).
+For this measurement a total ESR of \(7.5 \Omega\) is reported by the tester, without the series \(6.8 \Omega\) resistor a ESR of \(0.56 \Omega\) is found.
+
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[]{../PNG/ESR_4uF.png}
-  \caption{Voltage curve at one pin of a \(4.2\mu F\) capacitor during ESR measurement}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_4uF.png}
+    \caption{One pin to GND}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR4uF6R8.png}
+    \caption{Pin to Pin}
+  \end{subfigure}
+  \caption{Voltage curve of a \(4.2\mu F\) capacitor during the ESR measurement}
   \label{pic:esr4}
 \end{figure}
+
+
 
 The accuracy of the ESR measurement is not very high by different reasons:
 \begin{enumerate}
