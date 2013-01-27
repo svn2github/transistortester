@@ -125,6 +125,83 @@ Beachte, dass die Software für den Mikrocontroller für den richtigen
 Prozessor-Typ übersetzt sein muss. Ein Programm für den ATmega8 läuft
 nicht auf einem ATmega168!
 
+\section{Umrüstung von Tester Versionen nach Markus F.}
+\begin{description}
+
+\item[Spannungsüberwachung]  
+Das Problem zeigt sich durch sofortiges Abschalten beim Einschaltversuch.
+Bei den von mir empfohlenen Einstellungen der fuses (Makefile) wird die Spannungsüberwachung der
+verschiedenen ATmega Versionen auf 4V gesetzt (brown out level). Deswegen kann es beim
+Einschalten des Testers zu Problemen kommen, weil der Pin PD6 versucht den 100nF Kondensator C2
+direkt zu schalten. Dabei kann es zu einem unerwünschten 5V Spannungseinbruch kommen.
+Der Kondensator C2 kann problemlos auf <10nF verkleinert werden. Nach Möglichkeit sollte
+man statt der direkten Verbindung PD6 zum Kondensator einen Widerstand >\(220 \Omega\) 
+als Verbindung benutzen.
+\item[Verbessern des Einschaltverhaltens]
+Der Fehler zeigt sich oft, daß der Tester bei gedrücktem Taster zwar einschaltet, aber wieder
+abschaltet, wenn der Taster losgelassen wird. Das Problem tritt öfter auf, wenn die Hintergrund-
+Beleuchtung des LCD viel Strom braucht.
+Der Widerstand R7 zur Basis des PNP Transistors T3 war mit \(27k \Omega\) sehr auf Stromsparen
+optimiert. Der Widerstand sollte besser auf \(3.3k \Omega\) verkleinert werden um auch bei
+geringerer Batteriespannung oder bei geringem Stromverstärkungsfaktor des PNP Transistors T3
+ein sicheres Einschalten zu gewährleisten.
+\item[Zusätzlicher Pull-Up Widerstand an PD7]
+Der Fehler zeigt sich dadurch, daß der Tester nach einer kurzen Anzeigezeit mit der Meldung
+,,Timeout'' abschaltet. Die Software ist standardmäßig so konfiguriert (Option PULLUP\_DISABLE),
+daß die internen Pull-Up Widerstände abgeschaltet sind.
+Dadurch ist der Pegel am Pin PD7 nicht mehr definiert,
+wenn er nicht durch den Taster oder T2 auf GND Potential geschaltet ist. Ein externer
+Pull-Up Widerstand von \(27k \Omega\) nach VCC vermeidet diesen Fehler.
+\item[Kondensator C1 am AREF Pin]
+In vielen Entwürfen wird hier ein 100nF Kondensator verwendet, so auch im Entwurf vom Markus Frejek.
+Solange die Referenzspannung des ADC nicht verändert wird, ist das auch in Ordnung.
+Bei der Software für den Transistortester für den ATmega168/328 wird aber eine automatische
+Umschaltung der Referenzspannung von 5V auf die interne Referenzspannung von 1.1V vorgenommen,
+wenn die Eingangsspannung unter etwa 1V liegt. Damit wird eine bessere Auflösung erreicht.
+Leider erfolgt die Umschaltung von 5V auf die 1.1V sehr langsam, was eine zusätzliche
+Wartezeit von 10ms erfordert. Durch den Austausch des 100nF Kondensators gegen einen 1nF
+kann die Wartezeit deutlich verringert werden. Einen Einfluß des kleineren Kondensators
+auf die Qualität der Meßergebnisse habe ich nicht feststellen können. Selbst das Entfernen
+des Kondensators hat keinen wesentlichen Einfluß. Wer den 100nF Kondensator unbedingt
+beibehalten möchte, kann die Makefile Option NO\_AREF\_CAP entfernen, um die längere
+Wartezeit im Programm zu aktivieren.
+\item[Nachrüsten eines 8 MHz Quarz]
+Mit etwas Geschick kann auf der Lötseite der Platine ein 8MHz Quarz direkt an PB6 und PB7
+(Pin 9 und Pin 10) nachgerüstet werden.
+Bei meiner Nachrüstung habe ich auf die beiden 22pF Kondensatoren verzichtet.
+Bei allen eingesetzten Prozessoren hat diese Lösung problemlos funktioniert.
+Aber die Nachrüstung ist nicht unbedingt erforderlich. Die Taktfrequenz sollte aber
+wegen der besseren Zeitkonstanten-Auflösung (Kapazität) auf jeden Fall 8MHz betragen.
+Die Frequenz 8Mhz ist auch bei RC-Oszillator Betrieb durch Setzen der fuses möglich.
+\item[Abblocken der Betriebsspannung]
+Im Original Schaltbild vom Markus F. ist nur ein 100nF Kondensator zum Abblocken der
+VCC Spannung (5V) eingezeichnet. Das ist deutlich zu wenig. Es sollte sowohl ein
+100nF in unmittelbarer Nähe des ATmega als auch ein 100nF in unmittelbarer Nähe
+des Spannungsreglers vorhanden sein. Auch an den Eingang des Reglers gehört ein
+100nF Kondensator. Zusätzliche \(10\mu F\) Kondensatoren (Elektrolyt oder Keramik) am Eingang und
+Ausgang des Reglers können die Spannungsstabilität verbessern. Keramische \(10\mu F\)
+Kondensatoren in SMD Bauform sind zum Nachrüsten meist besser geeignet und
+haben üblicherweise einen niedrigeren ESR Wert.
+\item[Auswahl des ATmega Prozessors]
+Die Grundfunktion des Testers ist immer noch mit dem ATmega8 möglich.
+Dabei ist der Programmspeicher nahezu zu 100\% benutzt.
+Da die ATmega168 oder ATmega328 Prozessoren pinkompatibel zum ATmega8 sind,
+kann der Austausch nur empfohlen werden. Mittlerweile sind die Preise für
+den ATmega328 so günstig, daß eigentlich nichts mehr für den ATmega168 spricht.
+Mit dem ATmega168/328 gewinnt man folgende Vorteile:
+Selbsttestfunktion mit automatischem Abgleich.\\
+Erhöhung der Meßgenauigkeit durch automatische Umschaltung der ADC Referenzspannung.\\
+Messung von Induktivitäten, deren Widerstandswert < \(2100 \Omega\) ist.\\
+Messung des ESR Wertes von Kondensatoren > \(2 \mu F\).\\
+Der PC3 Pin kann für eine serielle Ausgabe genutzt werden.
+\item[Fehlende Präzisionsreferenz]
+Normalerweise sollte die fehlende Präzisionsreferenz auch bei unbeschaltetem PC4 Pin
+erkannt werden. In diesem Fall wird keine VCC=x.xV Anzeige in Zeile 2 beim Einschalten
+angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschalteter 
+\(2.2k \Omega\) Widerstand am PC4 Eingang.
+
+\end{description}
+
 \section{Programmierung des Mikrocontrollers}
 Ich gebe die Software für den Mikrocontroller in Quelltext heraus.
 Die Entwicklung wurde mit dem Linux Betriebssystem (Ubuntu) gemacht

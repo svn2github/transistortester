@@ -118,6 +118,84 @@ If you release the Test button, the LED should illuminate weak.
 Notice, that the software for the microcontroller must be compiled for the
 correct processor type. A program for the ATmega8 does not run on a ATmega168!
 
+\section{Changeover for tester versions designed by Markus F.}
+\begin{description}
+
+\item[Voltage control]
+If the problem exist, the tester will shut down immediately with every switch on.
+With imy suggested setting of the fuses (Makefile) the voltage control of the different
+ATmega versions is switched to 4V (brown out level).
+This may be the reason why the tester makes trouble with the power on sequence.
+The Pin PD6 tries to switch the 100nF capacitor C2 to VCC level causing a voltage
+breakdown of the VCC voltage (5V).
+The capacitor C2 can be reduced to \textless 10nF without problems.
+If possible, the direct connection of PD6 should be replaced by a resistor \textgreater \(220 \Omega\).
+\item[Improvement of power on circuit]
+Often this problem is the reason, if the tester starts with the button hold pressed, but switch off
+directly by releasing. The problem is enforced by a high current background light for the LCD.
+The resistor R7 to the base of the PNP transistor T3 was optimized with the value \(27k \Omega\) 
+too much to save power consuming.
+To improve the switching with lower battery voltage or lower current amplification factor of
+the PNP transistor T3, you should reduce the resistance to \(3.3k \Omega\).
+\item[Additional pull-up resistor at PD7]
+The missing pull-up resistor results to a switch off of the tester with the message ''Timeout''
+after a short display time.
+The software is configured with the option PULLUP\_DISABLE, that all internal pull-up
+resistors are switched off. For that reason the voltage of pin PD7 is not definded,
+if the level is not switched by the push button or transistor T2 to GND.
+One external pull-up resistor of \(27k \Omega\) to VCC avoid this error.
+\item[Capacitor C1 at the AREF pin]
+Many designs use a 100nF capacitor at the AREF pin, like the design of Markus F. too.
+As long as the reference voltage of the ADC is never changed, this is a good solution.
+The software of the TransistorTester for the ATmega168/328 uses a automatic selection
+of the internal 1.1 V reference voltage of the ADC, if the input voltage is below 1V.
+With this solution a better resolution of the ADC can be reached for little input voltages.
+Unfortunately the switching from 5V to 1.1V reference is very slowly. A additional
+wait time of 10ms must be respected for this reason.
+With changing the capacity value to 1nF this wait time can be reduced significant.
+I have not noticed any degration of measurement quality with this change.
+Even a removing of the capacitor has no significant change of measurement results.
+If you prefer to leve the capacitor unchanged, you can remove the option NO\_AREF\_CAP
+in the Makefile to activate longer wait times in the program.
+\item[Expanding of a 8MHz crystal]
+With some skill you can expand a 8MHz crystal to the backside of the printed board
+directly to the pins PB6 and PB7 (pin 9 and pin 10).
+My own expansion was done without the both 22pF capacitors.
+This solution has operated well with all tested ATmega.
+But it is not required to use a crystal. You can still use the 8MHz RC oszillator
+by setting the fuses to get the better resolution of time constant measuring (capacity value).
+\item[Smoothing of the operating voltage]
+The original circuit of Markus F. shows only one 100nF capacitor to block the VCC voltage.
+This is clearly too little smoothing. You should at least use one 100nF near the ATmega power pins
+and one near the voltage regulator. The input of the voltage regulator should be
+blocked with a 100nF too.
+Additional \(10\mu F\) capacitors (electrolytic or ceramic) at the input and
+output of the voltage regulator can stable the voltage level.
+Ceramic \(10\mu F\) capacitos with SMD mounting form are easier to use for backfitting
+and have usually a lower ESR value. 
+\item[Selection of the ATmega processor]
+The using of the base function of the tester is still possible with a ATmega8.
+The flash memory of that device is used near 100\% .
+Because the ATmega168 or ATmeg328 processors are pin-compatible to the ATmega8,
+I can recommend the replacement.
+Actually the price for ATmega328 is so cheap, that there is no reason to take
+a ATmega168 type.
+With a ATmega168/328 you get the following advantages:
+Self test with automatic calibration.\\
+Improvement of measurement quality by automatic switching of ADC scale.\\
+Measurement of inductors with resistance  below \(2100 \Omega\).\\
+Measurement of ESR value of capacitors with value of above  \(2 \mu F\).\\
+Using of pin PC4 as serial output.\\
+\item[Missing precision voltage reference]
+Usually the software should detect the missing voltage reference with the unconnected pin PC4.
+In this case no VCC=x.xV message should appear in row 2 of the LCD on power on.
+If this message appear without the reference, you should connect a \(2.2k \Omega\) resistor
+to the PC4 input and VCC.
+
+
+\end{description}
+
+
 \section{Programming of the microcontroller}
 I release the software for the microcontroller with source code.
 The developement is done with Linux operationg system (Ubuntu) and
