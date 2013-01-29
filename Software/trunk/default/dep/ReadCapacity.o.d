@@ -13,7 +13,7 @@ ReadCapacity.o: ../ReadCapacity.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h \
  /usr/lib/gcc/avr/4.5.3/include/stddef.h ../config.h \
- ../Transistortester.h ../lcd-routines.h ../wait1000ms.h \
+ ../Transistortester.h ../tt_function.h ../lcd-routines.h ../wait1000ms.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay_basic.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/math.h \
@@ -55,6 +55,8 @@ ReadCapacity.o: ../ReadCapacity.c \
 ../config.h:
 
 ../Transistortester.h:
+
+../tt_function.h:
 
 ../lcd-routines.h:
 

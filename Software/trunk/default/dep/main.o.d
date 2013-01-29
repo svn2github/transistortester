@@ -21,7 +21,7 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
- ../Transistortester.h \
+ ../Transistortester.h ../tt_function.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
  ../CheckPins.c ../AutoCheck.c
 
@@ -76,6 +76,8 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h:
 
 ../Transistortester.h:
+
+../tt_function.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h:
 

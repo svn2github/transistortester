@@ -13,7 +13,7 @@ GetESR.o: ../GetESR.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h \
  /usr/lib/gcc/avr/4.5.3/include/stddef.h ../config.h ../wait1000ms.h \
- ../lcd-routines.h ../Transistortester.h \
+ ../lcd-routines.h ../Transistortester.h ../tt_function.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay_basic.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/math.h \
@@ -59,6 +59,8 @@ GetESR.o: ../GetESR.c \
 ../lcd-routines.h:
 
 ../Transistortester.h:
+
+../tt_function.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h:
 
