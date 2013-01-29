@@ -126,6 +126,7 @@ Prozessor-Typ übersetzt sein muss. Ein Programm für den ATmega8 läuft
 nicht auf einem ATmega168!
 
 \section{Umrüstung von Tester Versionen nach Markus F.}
+\label{sec:change_markus}
 \begin{description}
 
 \item[Spannungsüberwachung]  
@@ -199,6 +200,44 @@ Normalerweise sollte die fehlende Präzisionsreferenz auch bei unbeschaltetem PC
 erkannt werden. In diesem Fall wird keine VCC=x.xV Anzeige in Zeile 2 beim Einschalten
 angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschalteter 
 \(2.2k \Omega\) Widerstand am PC4 Eingang.
+
+\section{Chinesische Nachbauten}
+Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen nachgebaut.
+Die erste Variante ist der Nachbau des ersten Entwurfs von Markus F. ohne ISP Schnittstelle.
+Der bestückte ATmega8 ist bei dieser Version gesockelt, kann also auch durch einen ATmega168/328 ausgetauscht werden.
+Für diese Version gelten alle Hinweise des Unterkapitels \ref{sec:change_markus}.
+Zusätzliche 100nF keramische Kondensatoren sollten in der Nähe des ATmega an die VCC-GND und
+AVCC-GND Anschlüsse zur besseren Spannungsstabilisierung angebraucht werden.
+Desweiteren muß beachtet werden, daß bei der Nachrüstung eines Quarzes der ISP-Programmer selbst
+einen externen Takt zuführen muß.\\
+
+Die zweite Variante ist weitgehend in SMD Technik aufgebaut. Auch der ATmega168 ist in einem 32TQFP
+Gehäuse fest verbaut.
+Dafür ist ein 10 poliger ISP Stecker für die Programmierung auf der Platine vorgesehen.
+Ich habe die Version ,,2.1 2012/11/06'' analysiert. Ein Fehler ist die Bestückung des Bauteils ,,D1'',
+welches eigentlich die 2.5V Präzisionsreferenz sein soll. Bestückt ist aber eine Zenerdiode.
+Dieses Bauteil sollte entfernt werden. Hier kann eine Präzisionsreferenz wie LM4040AIZ2.5 oder
+LT1004CZ-2.5 angeschlossen werden. Eine fehlende Präzisionsreferenz wird von der Software erkannt,
+so daß sie nicht unbedingt erforderlich ist.
+Bei meinem Exemplar war die Software Version 1.02k installiert. Der 10 polige ISP Stecker war nicht
+bestückt und ich mußte zusätzlich eine Brücke von Pin 10 nach Pin 6 nachlöten. Mein Programmer hat eine GND
+Verbindung an Pin 10 erwartet, der Tester hatte aber nur bei Pin 4 und Pin 6 eine GND Verbindung.
+Die Beschriftung des ATmega168 war abgeschliffen und es gab keine Dokumentation zum Gerät.
+Die Sicherheits Bits des ATmega waren gesetzt, so daß sich das Programm nicht auslesen ließ.
+Ich konnte aber problemlos die Software Version 1.05k installieren.
+Die gleiche Softwareversion 1.05k hat bei einem anderen Nutzer mit der China Version ,,2.2 2012/11/26'' Probleme
+gemacht. Die Software 1.05k lief hier erst, als ein weiterer 100nF SMD Kondensator zwischen die Pins 18-AVCC
+und 21-GND ergänzt wurde. Die Software 1.05k benutzt bei Wartezeiten den Schlafzustand des ATmega.
+Deswegen wechselt der Strombedarf häufiger und der Spannungsregler wird mehr beansprucht.
+Aufgefallen ist mir weiter, daß die VCC Spannung mit einem \(100nF\) keramischen Kondensator und mit
+einem \(220\mu F\) elektrolytischen Kondensator in der Nähe des 78L05 Spannungsreglers abgeblockt ist.
+Die 9V Spannungszufuhr ist mit den gleichen Kondensatoren abgeblockt, allerdings  am Emitter des PNP Transistor
+(parallel zur Batterie), nicht direkt am Reglereingang.
+Die Leiterbahnen vom ATmega zu den Testports sind teilweise sehr dünn, so daß ich einen Widerstand
+von etwa \(100m \Omega\) pro Signalweg messen konnte. Dies ist wohl mit der Grund dafür, daß zwei
+mit \(0 \Omega\) verbundene Pinne einen Widerstandswert von \(0.3 \Omega\) messen.
+Bei der ESR-Messung kann dies normalerweise durch den Nullabgleich kompensiert werden.
+Bei der Messung kleiner Widerstände wird ein Offset derzeit aber nicht berücksichtigt.
 
 \end{description}
 

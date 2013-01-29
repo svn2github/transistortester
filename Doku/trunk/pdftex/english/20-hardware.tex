@@ -119,6 +119,7 @@ Notice, that the software for the microcontroller must be compiled for the
 correct processor type. A program for the ATmega8 does not run on a ATmega168!
 
 \section{Changeover for tester versions designed by Markus F.}
+\label{sec:change_markus}
 \begin{description}
 
 \item[Voltage control]
@@ -194,6 +195,45 @@ to the PC4 input and VCC.
 
 
 \end{description}
+
+\section{Chinese clones}
+As I know, the tester is rebuild in China in two versions.
+The first model is rebuild from the first design of Markus F. without the ISP port.
+The assembled ATmega8 is placed in a socket, so you can replace it with a ATmega168 or ATmega328.
+For this version you should consider all the hints of section \ref{sec:change_markus}.
+Additional \(100nF\) ceramic cpacitors should be connected near by the VCC-GND and AVCC-GND pins of
+the ATmega for better stabilization of the power voltage.
+In addition you should notice, that if you expand the board with the additional 8 MHz crystal,
+your external ISP programmer must have a external clock for programming.\\
+
+The second version of rebuilded tester is build with SMD components. Also the fix installed ATmega168
+is a SMD type with 32TQFP body.
+Fortunately on the board is a 10-pole ISP connector provided for the programming.
+I have analysed the board version ''2.1 2012/11/06''. One error is the assembly of the part ''D1'',
+which should be a precision 2.5V voltage reference. Assembled is only a zener diode.
+This part should be removed. You can mount a LM4040AIZ2.5 or LT1004CZ-2.5 precision voltage reference
+at this place. A missing voltage reference is noticed by the software, so that you must not install
+the voltage reference.
+My exemplar was delivered with software version 1.02k. The 10-pole ISP plug was not assembled and I must
+install a jumper from ISP pin 6 to ISP pin 10. My programmer expect a GND connection at pin 10, but the
+board has GND level only on pin 4 and pin 6 of the ISP.
+The label of the ATmega168 was rub away and there was no documentation delivered with the part.
+The lock fuses of the ATmega were set, so no readout was possible.
+But I could install the software version 1.05k without any problems.
+Another user has problems with the same software version 1.05k. This user has the chinese board ''2.2 2012/11/26''.
+The software runs only without problems, if a additional \(100nF\) keramic capacitor was placed between
+the pin 18-AVCC and 21-GND near by the ATmega.
+The software 1.05k uses the sleep state of the ATmega for waiting time. For this reason the current alternates
+often and the voltage regulator is stressed more.
+Further I have noticed, that the VCC voltage is blocked with a \(100nF\) ceramic capacitor and with a
+\(220\mu F\) electrolytic capacitor nearby the 78L05 voltage regulator.
+The 9V supply voltage is blocked with the same capacitors, but not at the input of the regulator but
+at the emitter of the PNP transistor (parallel with the battery). 
+The printed circuit board track from the ATmega168 to the test port is very thin, so that a resistance
+of \(100m \Omega\) could be measured for one path. This will be the reason for measuring a resistance
+of \(0.3 \Omega\) for two direct connected pins.
+The ESR measuring can usually consider this by zero compensation.
+The current version of software does not respect this offset for measuring of resistors with low resistance.
 
 
 \section{Programming of the microcontroller}
