@@ -34,11 +34,6 @@ The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can 
 check and calibrate the VCC voltage, but is not required.
 A optional ISP connector has been added to easier load new software versions to the tester.
 
-If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
-input for measuring a external voltage. The voltage can be up to 50V with the optional 10:1 resistor
-divider and can be used for measuring the breakdown voltage of a zener diode. 
-
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=18cm]{../FIG/ttester.eps}
@@ -79,6 +74,22 @@ The contacts will be opened by software only for measurement.
 \caption{Additional protection of the ATmega inputs}
 \label{fig:relay_addon}
 \end{figure}
+
+If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
+input for measuring a external voltage. The voltage can be up to 50V with the optional 10:1 resistor
+divider and can be used for measuring the breakdown voltage of a zener diode. 
+A current limiting power supply with up to 50V can be switched on with low signal at PD7 pin of the
+ATmega to deliver current for testing the break down voltage of a zener diode.
+Figure~\ref{fig:zener} shows a suggestion for this expansion.
+The tester shows the external voltage as long as you hold the key pressed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../FIG/zener_exp.eps}
+\caption{Expansion for measuring of break down voltage of Zener diodes}
+\label{fig:zener}
+\end{figure}
+
 
 
 

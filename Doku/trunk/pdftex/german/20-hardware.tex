@@ -38,11 +38,6 @@ erforderlich.
 Ein zusätzlicher ISP-Anschluss wurde hinzugefügt, um leichter neue Software-Versionen
 laden zu können.
 
-Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
-einer externen Spannung benutzt werden. Die Spannung kann mit den optionalen 10:1 Widerstandsteiler
-bis zu 50V betragen und kann für die Messung der Zener Spannung einer Diode benutzt werden.
-
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=18cm]{../FIG/ttester.eps}
@@ -83,6 +78,21 @@ Die Konkakte werden von der Software nur für die Messung freigegeben.
 \includegraphics[width=7cm]{../FIG/relay_addon.eps}
 \caption{Zusätzlicher Schutz der ATmega Eingänge}
 \label{fig:relay_addon}
+\end{figure}
+
+Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
+einer externen Spannung benutzt werden. Die Spannung kann mit den optionalen 10:1 Widerstandsteiler
+bis zu 50V betragen und kann für die Messung der Zener Spannung einer Diode benutzt werden.
+Ein Strom begrenzendes Netzteil mit bis zu 50V Ausgangsspannung kann mit dem 0V Signal des ATmega PD7 Pins
+eingeschaltet werden, um zum Beispiel die Durchbruchspannung von Zenerdioden zu messen.
+Einen Vorschlag für diese Erweiterung zeigt Abbildung~\ref{fig:zener} .
+Der Tester zeigt die externe Spannung so lange an, wie man den Taster gedrückt läßt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../FIG/zener_exp.eps}
+\caption{Erweiterung zum Messen von Zener Spannungen}
+\label{fig:zener}
 \end{figure}
 
 \section{Hinweise für den Aufbau des TransistorTesters}
