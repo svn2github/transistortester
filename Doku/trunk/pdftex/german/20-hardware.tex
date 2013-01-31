@@ -38,6 +38,11 @@ erforderlich.
 Ein zusätzlicher ISP-Anschluss wurde hinzugefügt, um leichter neue Software-Versionen
 laden zu können.
 
+Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
+einer externen Spannung benutzt werden. Die Spannung kann mit den optionalen 10:1 Widerstandsteiler
+bis zu 50V betragen und kann für die Messung der Zener Spannung einer Diode benutzt werden.
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=18cm]{../FIG/ttester.eps}
@@ -351,5 +356,11 @@ zum Beispiel können Sie der Widerstand R1 zwischen Pin 23 und Pin 14 messen.
 Schauen Sie in das Schaltbild \ref{fig:ttester} für die Einzelheiten.
 Man braucht den Mikrocontroller nicht zu entfernen, nur die Stromversorgung sollte
 vorher getrennt werden.
+
+\item[Der Tester schaltet nach 2 Sekunden Anzeigezeit aus]  
+Dies ist dann der Fall, wenn der Pull-Up Widerstand am PD7 Eingang
+fehlt oder der Taster dauernd gedrückt wird. 
+Die Software schaltet die internen Pull-Up Widerstände ab, um eine Beeinflussung
+der Meßergebnisse auszuschließen. Deswegen ist ein externer Widerstand erforderlich.
 
 \end{description}

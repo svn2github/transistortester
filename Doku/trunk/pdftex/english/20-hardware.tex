@@ -34,6 +34,10 @@ The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can 
 check and calibrate the VCC voltage, but is not required.
 A optional ISP connector has been added to easier load new software versions to the tester.
 
+If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
+input for measuring a external voltage. The voltage can be up to 50V with the optional 10:1 resistor
+divider and can be used for measuring the breakdown voltage of a zener diode. 
+
 
 \begin{figure}[H]
 \centering
@@ -340,6 +344,13 @@ with a ohmmeter. You can use the pins of the ATmega for this check, for example
 to check the R1 you can measure between pin 23 and pin 14. Take a look at the
 circuit diagram \ref{fig:ttester} for details. There is no need to
 remove the microcontroller, only battery or power supply should be removed before.
+
+\item[The Tester switch off the power after 2 seconds display time] 
+This condition exists, if the external Pull-Up resistor at the PD7 input
+is missing or the key button is keep pressed.
+The software switch off the internal Pull-Up resistors to prevent a influence
+to the measurement results. Therefore a external Pull-Up resistor (27k) is required.
+
 
 
 \end{description}

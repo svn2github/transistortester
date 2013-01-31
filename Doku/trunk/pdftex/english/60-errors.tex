@@ -1,7 +1,7 @@
 
 %\newpage
 \chapter{Known errors and unsolved problems}
-{\center Software Version 1.05k}
+{\center Software Version 1.06k}
 
 \begin{enumerate}
 
@@ -19,5 +19,10 @@ You can avoid this behaviour with a additional pull up resistor connected to VCC
 \item Sometimes a problem with the Brown Out level of 4.3V is reported for ATmega168 or ATmega328 processors.
 This will cause a reset during capacity measurement. A reason is not known.
 The Resets will disappear, if the Brown Out level is set to 2.7V.
+
+\item With the using of the sleep state of the processor, current of VCC power is changing more than 
+using previous software versions. You should check the blocking capacitors, if you notice any problems.
+Ceramic capacitors with 100nF should be placed near the power pins of the ATmega. 
+The using of sleep state can be deselected by the Makefile option INHIBIT\_SLEEP\_MODE.
 
 \end{enumerate}

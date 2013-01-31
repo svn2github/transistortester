@@ -1,7 +1,7 @@
 
 %\newpage
 \chapter{Bekannte Fehler und ungelöste Probleme}
-{\center Software-Version 1.05k}
+{\center Software-Version 1.06k}
 
 \begin{enumerate}
 
@@ -17,6 +17,12 @@ Abhilfe ist möglich mit einem zusätzlichen Pull Up Widerstand nach VCC.
 
 \item Vereinzelt ist von Problemen mit der Brown Out Schwelle 4.3V für ATmega168 oder ATmega328 Prozessoren berichtet worden.
 Dabei kommt es zu Resets bei der Kondensatormessung.  Eine Ursache ist nicht bekannt.
-Der Fehler verschwindet, wenn man die Brown Out Schwelle auf 2.7V einstellt. 
+Der Fehler verschwindet, wenn man die Brown Out Schwelle auf 2.7V einstellt.
+
+\item Mit der Benutzung des Schlafzustandes des processors schwankt die VCC Stromaufnahme mehr als
+in vorigen Software Versionen. Sie sollten die Abblock-Kondensatoren überprüfen, wenn Sie irgendwelche
+Probleme feststellen. Keramische 100nF Kondensatoren sollten in der Nähe der Poweranschlüsse des ATmega
+angeschlossen sein. Sie können die Benutzung des Schlafzustandes auch mit der Makefile Option
+INHIBIT\_SLEEP\_MODE verhindern.
 
 \end{enumerate}

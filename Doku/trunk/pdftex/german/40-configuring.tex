@@ -68,6 +68,11 @@ Beispiel: CFLAGS += -DREF\_C\_KORR=14
   \item[C\_H\_KORR] gibt eine Korrektur der Messergebnisse für grosse Kondensatoren an.
 Eine Eingabe von 10 führt zu 1~Prozent kleineren Messergebnissen.\\
 Beispiel: CFLAGS += -DC\_H\_KORR=10
+  \item[WITH\_UART] benutzt den Pin PC3 zur Ausgabe der seriellen Texte (V24). Wenn die Option nicht
+benutzt wird, kann der PC3 Pin zum Anschluß einer externen Spannung mit einem 10:1 Widerstandsteiler benutzt
+werden. Damit können beispielsweise Zenerdioden mit höherer Durchbruchspannung getestet werden.
+Diese Messung wird so lange mit etwa 3 Messungen pro Sekunde wiederholt, solange der Starttaster gedrückt bleibt.\\
+Beispiel: CFLAGS += -DWITH\_UART
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC

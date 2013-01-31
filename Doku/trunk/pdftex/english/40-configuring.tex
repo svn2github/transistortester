@@ -68,6 +68,11 @@ example:  CFLAGS += -DREF\_C\_KORR=14
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
 A value of 10 results to 1~percent lower measurement results.\\
 example:  CFLAGS += -DC\_H\_KORR=10
+  \item[WITH\_UART] uses the pin PC3 as output for the serial text (V24).
+If the option is not set, the pin PC3 can be used for reading a external voltage with a 10:1 resistor divider.
+With this equipment you can check the breakdown voltage of zener diodes, which have more than 4.5V breakdown voltage.
+This measurement will repeat with 3 measurements per second until you release the Start button.\\
+example: CFLAGS += -DWITH\_UART
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
