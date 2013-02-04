@@ -5,13 +5,6 @@
 
 \begin{enumerate}
 \item Add more and better documentation.
-\item Check if transistor tester could get better “interpolated” ADC values if additional noise is added to the signal or to the ADC reference (see ATMEL document AVR121: Enhancing ADC resolution by oversampling).
-If all items are identical, there can't be any enhancement of resolution by oversampling. Can enough noise be generated with the ATmega counter?
-How additional noise affects  the upper and lower limit values?
-Of course this method can not eliminate all of the ADC errors. 
-\item This method can be tested by building a ramp input signal and monitoring this signal.
-The ramp signal can be build by slowly charging a big capacitor with the 470kΩ resistor.
-The growing of the voltage can then be monitored with the LCD display in a special part of self test.
 \item Think about how we can get the real internal resistance of port B output (resistor switching port) instead of assuming, that ports are equal.
 \item Can discharging of capacitors be made more quickly, if the minus pin is additionally raised
 with the \(680\Omega\) resistor to VCC (+)?
@@ -24,7 +17,6 @@ and the anode directly to VCC for a very short time?
 The current could reach more than 100mA. Will the port be damaged? What is with the power supply (voltage regulator)?
 \item Check the Port afterwards with self test function!
 \item Can voltage regulators be checked? (Input, Output, GND)
-\item Can optoelectronic couplers be checked?  
 \item Warning message, if the found reference voltage is not plausible in relation to ATmega model and VCC.
 \item What is about a second generation tester with a bigger ATmega which includes differential ADC-port, more flash memory …. ?
 There is no ATxmega which have supply voltage of 5V, only the ATmega line  is possible. 

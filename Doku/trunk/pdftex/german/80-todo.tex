@@ -5,15 +5,6 @@
 
 \begin{enumerate}
 \item Ergänze mehr und bessere Dokumentation.
-\item Prüfe, ob der TransistorTester besser ,,interpolierte''  ADC-Werte erhalten kann, wenn zusätz\-liches Rauschen zum Signal
-oder zur Referenz hinzugefügt wird (siehe ATMEL-Dokument AVR121 \cite{AVR121}: Enhancing ADC resolution by oversampling).
-Wenn alle Werte gleich sind, kann keine Verbesserung der Auflösung durch Überabtasten stattfinden.
-Kann genügend Rauschen mit den ATmega-Zählern erzeugt werden?
-Natürlich kann diese Methode nicht alle ADC-Fehler beseitigen.
-\item Diese Methode kann getestet werden, indem ein langsam ansteigendes Eingangssignal erzeugt wird und dieses
-Signal beobachtet wird.
-Das ansteigende Signal kann erzeugt werden indem ein großer Kondensator mit dem \(470k\Omega\)-Widerstand geladen wird.
-Das Anwachsen der Spannung kann dann mit dem LC-Display in einem speziellen Teil des Selbsttests beobachtet werden.
 \item Darüber nachdenken, wie man den wirklichen Innenwiderstand der Port-B-Aus\-gän\-ge (Wider\-stands-Schal\-ter) bestimmen kann,
 anstatt anzunehmen, dass die Ports gleich sind.
 \item Kann das Entladen von Kondensatoren beschleunigt werden, wenn der Minus-Pol zusätzlich mit dem \(680\Omega\)-
@@ -29,7 +20,6 @@ ist es ungefährlich für eine sehr kurze Zeit die Kathode direkt auf GND und di
 Der Strom kann mehr als 100mA erreichen. Wird der Port beschädigt? Was ist mit der Spannungsversorgung (Spannungsregler)?
 \item Prüfe die Ports nach dieser Aktion mit der Selbsttest-Funktion!
 \item Können Spannungsregler geprüft werden? (Eingang, Ausgang, GND)
-\item Können Optokoppler getestet werden?
 \item Ausgabe einer Warnung, wenn die relativ zu VCC gemessene Referenz-Spannung nicht plausibel im Hinblick auf das ATmega-Modell ist.
 \item Wie wäre es mit einem neuen Tester mit einem größeren ATmega, der differenzielle ADC-Ports hat,
 mehr Programmspeicher, ...?
