@@ -109,7 +109,10 @@ example: CFLAGS += -DUSE\_EEPROM
 \item[EBC\_STYLE] specifies, that the output of transistor pin layout is done with format ``EBC=...'' or ``GDS=...''.
 This way of output save program memory for the ATmega. Without this option the layout is shown with the
 format ``123=...'', where every point represent a E~(Emitter), B~(Base) or C~(Collector).
-For FET transistors every point can be a G~(Gate), D~(Drain) or S~(Source).\\
+For FET transistors every point can be a G~(Gate), D~(Drain) or S~(Source).
+If the sequence of the test pins is not 1, 2 and 3 in the reading direction, you can invert the sequence with the option
+EBC\_STYLE=321 . The pin assignment is then shown with style ''321=...'', which will better match the usual
+reading direction.\\
 Example: CFLAGS += EBC\_STYLE
 \item[PULLUP\_DISABLE] specifies, that you don't need the internal pull-up resistors.
  You must have installed a external pull-up resistor at pin~13 (PD7) to VCC, if you use this option.

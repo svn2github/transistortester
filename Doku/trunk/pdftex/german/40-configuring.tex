@@ -129,8 +129,11 @@ Es wird empfohlen, den EEprom zu benutzen (Option gesetzt).\\
 Beispiel: CFLAGS += -DUSE\_EEPROM
   \item[EBC\_STYLE] gibt an, daß die Ausgabe der Transistor Pinbelegung im Format ,,EBC=...'' bzw. ,,GDS=...'' erfolgen soll.
 Diese Darstellungsweise spart Programmplatz. Ohne diese Option wird die Belegung im Format ,,123=...'' angezeigt, wobei
-jeder Punkt ein E (Emitter), B (Basis) oder C (Collector) sein kann.
-Bei FET Transistoren kann jeder Punkt entsprechend ein G (Gate), D (Drain) oder S (Source) sein.\\
+jeder Punkt ein E (Emitter), B (Basis) oder K (Kollektor) sein kann.
+Bei FET Transistoren kann jeder Punkt entsprechend ein G (Gate), D (Drain) oder S (Source) sein.
+Wenn die Reihenfolge der Testpins nicht 1,2 und 3 in Leserichtung ist, kann die Reihenfolge mit der Option EBC\_STYLE=321 
+umgedreht werden. Dann wird die Pinbelegung in der Form ,,321=...'', was der gewohnten Leserichtung von links nach rechts
+entgegen kommt.\\
 Beispiel: CFLAGS += EBC\_STYLE
   \item[PULLUP\_DISABLE] gibt an, dass man die internen ,,pull-up'' Widerstände nicht benötigt.
  Sie müssen einen externen ,,pull-up'' Widerstand an Pin 13 (PD7) und VCC angeschlossen haben, um diese
