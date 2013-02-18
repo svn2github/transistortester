@@ -10,14 +10,14 @@ lcd-routines.o: ../lcd-routines.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/common.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/version.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h ../tt_function.h \
- ../config.h ../lcd-routines.h ../wait1000ms.h \
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay_basic.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/math.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.5.3/include/stddef.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h \
+ ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -43,14 +43,6 @@ lcd-routines.o: ../lcd-routines.c \
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h:
 
-../tt_function.h:
-
-../config.h:
-
-../lcd-routines.h:
-
-../wait1000ms.h:
-
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay_basic.h:
@@ -62,3 +54,11 @@ lcd-routines.o: ../lcd-routines.c \
 /usr/lib/gcc/avr/4.5.3/include/stddef.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h:
+
+../tt_function.h:
+
+../config.h:
+
+../lcd-routines.h:
+
+../wait1000ms.h:

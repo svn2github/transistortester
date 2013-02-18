@@ -12,8 +12,7 @@ ReadInductance.o: ../ReadInductance.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h \
- /usr/lib/gcc/avr/4.5.3/include/stddef.h ../config.h \
- ../Transistortester.h ../tt_function.h ../lcd-routines.h ../wait1000ms.h \
+ /usr/lib/gcc/avr/4.5.3/include/stddef.h ../Transistortester.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay_basic.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/math.h \
@@ -22,7 +21,8 @@ ReadInductance.o: ../ReadInductance.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
+ ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -52,15 +52,7 @@ ReadInductance.o: ../ReadInductance.c \
 
 /usr/lib/gcc/avr/4.5.3/include/stddef.h:
 
-../config.h:
-
 ../Transistortester.h:
-
-../tt_function.h:
-
-../lcd-routines.h:
-
-../wait1000ms.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h:
 
@@ -79,3 +71,11 @@ ReadInductance.o: ../ReadInductance.c \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h:
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h:
+
+../tt_function.h:
+
+../config.h:
+
+../lcd-routines.h:
+
+../wait1000ms.h:
