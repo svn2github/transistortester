@@ -53,14 +53,14 @@ In this case all of the documented tests in the Selftest chapter \ref{sec:selfte
 The repetition of the tests can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
 
-If the function AUTO\_CAL is selected in the Makefile, there will be calibrated 
-the internal resistance of the port output and 
-the zero offset for the capacity measurement.
+If the function AUTO\_CAL is selected in the Makefile, 
+the zero offset for the capacity measurement will be calibrated with the selftest.
 It is important for the calibration task, that the connection between the three test ports is relased 
 during test number 4. 
 You should not touch to any of the test ports or connected cables when calibration (after test 6) is done.
 But the equipment should be the same used for further measurements. Otherwise the zero offset for
 capacity measurement is not detected correctly.
+The resistance values of port outputs are determined at the beginning of every measurement with this option.
 
 A capacitor with any capacity between \(100 nF\) and \(20 \mu F\) connected to pin~1 and pin~3 is
 required for the last task of calibration.

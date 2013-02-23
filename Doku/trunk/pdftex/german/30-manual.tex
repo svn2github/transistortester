@@ -54,12 +54,14 @@ kann vermieden werden, wenn der Starttaster gedrückt gehalten wird. So kann man
 sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
 
 Wenn die Funktion AUTO\_CAL in der Makefile gewählt ist, wird beim Selbsttest
-eine Kalibration des Innenwiderstandes der Port-Ausgänge und
 eine Kalibration der Nullwertes für die Kondensatormessung durchgeführt.
-Für die Kalibration ist wichtig, daß die Verbindung zwischen den Testpins (Kurzschluß) während des Tests 4 wieder gelöst wird!
+Für die Kalibration des Nullwertes für die Kondensatormessung ist wichtig, 
+daß die Verbindung zwischen den Testpins (Kurzschluß) während des Tests 4 wieder gelöst wird!
 Sie sollten während der Kalibration (nach dem Test 6) weder die Testports noch angeschlossene Kabel berühren.
 Die Ausrüstung sollte aber die gleiche sein, die später zum Messen verwendet wird.
 Anderenfalls wird der Nullwert der Kondensatormessung nicht richtig bestimmt.
+Die Kalibration des Innenwiderstandes der Port-Ausgänge wird mit dieser Option vor jeder
+Messung durchgeführt.
 
 Für den letzten Teil der Kalibration ist der Anschluß eines Kondensators 
 mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 erforderlich.

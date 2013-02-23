@@ -45,11 +45,12 @@ You can find the details in the chapter hardware \ref{sec:hardware}.
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
 Selftest will be started, if you connect all three probes together and start measurement.\\
 example: CFLAGS += -DWITH\_SELFTEST
-  \item[AUTO\_CAL] The zero offset for capacity measurement and the port output resistor values will be written additionally
+  \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
 capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
-All found values will be written to EEprom and will be used for further measurements automatically.\\
+All found values will be written to EEprom and will be used for further measurements automatically.
+The port output resistance values will be determined at the beginning of each measurement.\\
 example: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
 example: CFLAGS += -DFREQUENCY\_50HZ
@@ -65,6 +66,12 @@ A correction value of 10 results to about 1~percent lower measurement results.
 If the option AUTO\_CAL is selected together with the WITH\_SELFTEST option, the REF\_C\_KORR will be
 a offset to the measured voltage difference of the test capacitor and the internal reference voltage.\\
 example:  CFLAGS += -DREF\_C\_KORR=14
+  \item[REF\_L\_KORR] specifies a additional offset in mV units to the reference voltage for the measurement of
+inductance values. 
+The REF\_C\_KORR offset is additionally used with the inductance measurement.
+The REF\_L\_KORR value will be subtracted for measurements without a \(680 \Omega\) resistor,
+for measurements with a \(680 \Omega\) resistor the value will be added.\\
+example: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
 A value of 10 results to 1~percent lower measurement results.\\
 example:  CFLAGS += -DC\_H\_KORR=10

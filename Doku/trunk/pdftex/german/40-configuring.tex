@@ -45,11 +45,12 @@ Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
-  \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung und der Innenwiderstand der Port-Ausgänge wird beim
+  \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim
 Selbsttest zusätzlich ins EEprom geschrieben und ist damit für die weiteren Messungen abgeglichen.
 Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 
 angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung für die AUTOSCALE\_ADC
-Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieben.\\
+Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEprom geschrieben.
+Die Port-Ausgangswiderstände werden zu Beginn jeder Messung neu bestimmt. \\
 Beispiel: CFLAGS += -DAUTO\_CAL
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50 Hz Signal auf Port 2 und Port 3 erzeugt.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
@@ -65,6 +66,11 @@ Wenn zusätzlich die AUTO\_CAL Option gewählt wurde, ist diese Angabe nur ein z
 den gefundenen Komparator-Offset.
 Ein Wert von 10 ergibt etwa 1~Prozent kleinere Messergebnisse.\\
 Beispiel: CFLAGS += -DREF\_C\_KORR=14
+  \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
+in mV-Einheiten an. Der REF\_C\_KORR Offset wird bei der Induktivitätsmessung ebenfalls berücksichtigt.
+Der REF\_L\_KORR Wert wird für die Messungen ohne \(680 \Omega\) Widerstand subtrahiert, bei Messungen mit einem
+\(680 \Omega\) Widerstand wird der Wert addiert.\\
+Beispiel: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] gibt eine Korrektur der Messergebnisse für grosse Kondensatoren an.
 Eine Eingabe von 10 führt zu 1~Prozent kleineren Messergebnissen.\\
 Beispiel: CFLAGS += -DC\_H\_KORR=10

@@ -93,7 +93,8 @@ To get the current, the following is computed:  \((VCC - (result of test 8) - (r
 To get both resistor values, the voltage (result of test~8 or 9) is divided by this current.
 The result for this test will then be notified in row 1 with the text ''RI\_Hi='', the resistance value (\(\Omega\)) to the GND side is
 displayed in row 2 with the text ''RI\_Lo=''.
-Both results will be written to the EEprom memory and will be used for further measurement.
+Beginning with version 1.06k of the software, the port output resistance values are determined at the beginning of every
+measurement. The values are only shown by this step.
 
 \begin{figure}[H]
 \centering
