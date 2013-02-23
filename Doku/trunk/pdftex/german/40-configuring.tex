@@ -67,7 +67,8 @@ den gefundenen Komparator-Offset.
 Ein Wert von 10 ergibt etwa 1~Prozent kleinere Messergebnisse.\\
 Beispiel: CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
-in mV-Einheiten an. Der REF\_C\_KORR Offset wird bei der Induktivitätsmessung ebenfalls berücksichtigt.
+in mV-Einheiten an. Der REF\_C\_KORR Offset beziehungsweise der gefundene Offset bei der Kalibration
+wird bei der Induktivitätsmessung ebenfalls berücksichtigt.
 Der REF\_L\_KORR Wert wird für die Messungen ohne \(680 \Omega\) Widerstand subtrahiert, bei Messungen mit einem
 \(680 \Omega\) Widerstand wird der Wert addiert.\\
 Beispiel: CFLAGS += -DREF\_L\_KORR=40
@@ -131,7 +132,7 @@ den Quarzbetrieb.\\
 Beispiel: CFLAGS += -DRESTART\_DELAY\_TICS = 6
   \item[USE\_EEPROM] gibt an, ob feste Texte und Tabellen im EEprom-Speicher abgelegt werden sollen.
 Anderenfalls wird der Programmspeicher (Flash) benutzt.
-Es wird empfohlen, den EEprom zu benutzen (Option gesetzt).\\
+Es wird empfohlen, den EEprom-Speicher zu benutzen (Option gesetzt).\\
 Beispiel: CFLAGS += -DUSE\_EEPROM
   \item[EBC\_STYLE] gibt an, daß die Ausgabe der Transistor Pinbelegung im Format ,,EBC=...'' bzw. ,,GDS=...'' erfolgen soll.
 Diese Darstellungsweise spart Programmplatz. Ohne diese Option wird die Belegung im Format ,,123=...'' angezeigt, wobei

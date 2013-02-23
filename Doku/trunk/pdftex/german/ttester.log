@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  23 FEB 2013 13:18
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  23 FEB 2013 22:04
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -509,12 +509,12 @@ Kapitel 3.
 
 
 ] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 136--141
+Underfull \hbox (badness 10000) in paragraph at lines 137--142
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--144
+Underfull \hbox (badness 10000) in paragraph at lines 142--145
 
  []
 
@@ -527,14 +527,20 @@ Kapitel 4.
 
 
 
-] [21] <../PNG/AREF2_1V.png, id=398, 321.2pt x 234.8775pt>
+]
+Overfull \hbox (21.2976pt too wide) in paragraph at lines 69--75
+\T1/lmr/m/n/12 bei der Ka-li-bra-ti-on wird bei der In-duk-ti-vi-täts-mes-sung 
+eben-falls be-rück-sich-tigt. Der REF_L_KORR
+ []
+
+[21] <../PNG/AREF2_1V.png, id=398, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
 
 <use ../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png, id=399, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
 
 <use ../PNG/AREF2VCC.png>
-Overfull \hbox (7.83318pt too wide) in paragraph at lines 102--115
+Overfull \hbox (7.83318pt too wide) in paragraph at lines 103--116
 [][]   [] 
  []
 
@@ -784,11 +790,11 @@ File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 <use ../GNU/RHv-eps-converted-to.pdf>) [37 <../FIG/ResistormessH2-eps-converted
 -to.pdf> <../GNU/RHv-eps-converted-to.pdf>] (../GNU/Mega8res.tex
 Package epstopdf Info: Source file: <../GNU/Mega8res.eps>
-(epstopdf)                    date: 2013-02-23 13:18:02
+(epstopdf)                    date: 2013-02-23 22:04:53
 (epstopdf)                    size: 22965 bytes
 (epstopdf)             Output file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:16:24
-(epstopdf)                    size: 7001 bytes
+(epstopdf)                    date: 2013-02-23 22:04:51
+(epstopdf)                    size: 6988 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8res-eps-convert
 ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 131.
@@ -796,19 +802,19 @@ runsystem(epstopdf --outfile=../GNU/Mega8res-eps-converted-to.pdf ../GNU/Mega8r
 es.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:18:02
-(epstopdf)                    size: 6992 bytes.
+(epstopdf)                    date: 2013-02-23 22:04:54
+(epstopdf)                    size: 6991 bytes.
 
 <../GNU/Mega8res-eps-converted-to.pdf, id=639, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8res-eps-converted-to.pdf>) (../GNU/Mega8Ares.tex
 Package epstopdf Info: Source file: <../GNU/Mega8Ares.eps>
-(epstopdf)                    date: 2013-02-23 13:18:02
+(epstopdf)                    date: 2013-02-23 22:04:53
 (epstopdf)                    size: 22303 bytes
 (epstopdf)             Output file: <../GNU/Mega8Ares-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:16:24
-(epstopdf)                    size: 6443 bytes
+(epstopdf)                    date: 2013-02-23 22:04:51
+(epstopdf)                    size: 6439 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8Ares-eps-conver
 ted-to.pdf ../GNU/Mega8Ares.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -816,19 +822,19 @@ runsystem(epstopdf --outfile=../GNU/Mega8Ares-eps-converted-to.pdf ../GNU/Mega8
 Ares.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8Ares-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:18:02
-(epstopdf)                    size: 6451 bytes.
+(epstopdf)                    date: 2013-02-23 22:04:54
+(epstopdf)                    size: 6443 bytes.
 
 <../GNU/Mega8Ares-eps-converted-to.pdf, id=640, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Ares-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Ares-eps-converted-to.pdf>) (../GNU/Mega8Lres.tex
 Package epstopdf Info: Source file: <../GNU/Mega8Lres.eps>
-(epstopdf)                    date: 2013-02-23 13:18:02
+(epstopdf)                    date: 2013-02-23 22:04:53
 (epstopdf)                    size: 22412 bytes
 (epstopdf)             Output file: <../GNU/Mega8Lres-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:16:24
-(epstopdf)                    size: 6394 bytes
+(epstopdf)                    date: 2013-02-23 22:04:51
+(epstopdf)                    size: 6389 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8Lres-eps-conver
 ted-to.pdf ../GNU/Mega8Lres.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -836,8 +842,8 @@ runsystem(epstopdf --outfile=../GNU/Mega8Lres-eps-converted-to.pdf ../GNU/Mega8
 Lres.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8Lres-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:18:03
-(epstopdf)                    size: 6394 bytes.
+(epstopdf)                    date: 2013-02-23 22:04:55
+(epstopdf)                    size: 6385 bytes.
 
 <../GNU/Mega8Lres-eps-converted-to.pdf, id=641, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Lres-eps-converted-to.pdf Graphic file (type pdf)
@@ -849,11 +855,11 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 160--173
 
 (../GNU/Mega168res.tex
 Package epstopdf Info: Source file: <../GNU/Mega168res.eps>
-(epstopdf)                    date: 2013-02-23 13:18:02
+(epstopdf)                    date: 2013-02-23 22:04:53
 (epstopdf)                    size: 21205 bytes
 (epstopdf)             Output file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:16:25
-(epstopdf)                    size: 5168 bytes
+(epstopdf)                    date: 2013-02-23 22:04:52
+(epstopdf)                    size: 5174 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168res-eps-conve
 rted-to.pdf ../GNU/Mega168res.eps>
 (epstopdf)             \includegraphics on input line 127.
@@ -861,8 +867,8 @@ runsystem(epstopdf --outfile=../GNU/Mega168res-eps-converted-to.pdf ../GNU/Mega
 168res.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-23 13:18:03
-(epstopdf)                    size: 5175 bytes.
+(epstopdf)                    date: 2013-02-23 22:04:55
+(epstopdf)                    size: 5172 bytes.
 
 <../GNU/Mega168res-eps-converted-to.pdf, id=642, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
@@ -1415,11 +1421,11 @@ File: ../FIG/Inductance-eps-converted-to.pdf Graphic file (type pdf)
 
  <../FIG/Inductance-eps-converted-to.pdf>] (../GNU/induct328p.tex
 Package epstopdf Info: Source file: <../GNU/induct328p.eps>
-(epstopdf)                    date: 2013-02-18 16:30:57
+(epstopdf)                    date: 2013-02-23 22:01:24
 (epstopdf)                    size: 26776 bytes
 (epstopdf)             Output file: <../GNU/induct328p-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-18 16:30:59
-(epstopdf)                    size: 15035 bytes
+(epstopdf)                    date: 2013-02-23 22:01:26
+(epstopdf)                    size: 15016 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/induct328p-eps-conve
 rted-to.pdf ../GNU/induct328p.eps>
 (epstopdf)             \includegraphics on input line 128.
@@ -1718,7 +1724,7 @@ mf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr1
 type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb><
 /usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/
 public/lm/lmtt12.pfb>
-Output written on ttester.pdf (72 pages, 978421 bytes).
+Output written on ttester.pdf (72 pages, 978526 bytes).
 PDF statistics:
  1260 PDF objects out of 1440 (max. 8388607)
  263 named destinations out of 1000 (max. 500000)

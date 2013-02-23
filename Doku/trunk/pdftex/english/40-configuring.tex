@@ -68,7 +68,7 @@ a offset to the measured voltage difference of the test capacitor and the intern
 example:  CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] specifies a additional offset in mV units to the reference voltage for the measurement of
 inductance values. 
-The REF\_C\_KORR offset is additionally used with the inductance measurement.
+The REF\_C\_KORR offset and respectively the offset value from the calibration is additionally used with the inductance measurement.
 The REF\_L\_KORR value will be subtracted for measurements without a \(680 \Omega\) resistor,
 for measurements with a \(680 \Omega\) resistor the value will be added.\\
 example: CFLAGS += -DREF\_L\_KORR=40
