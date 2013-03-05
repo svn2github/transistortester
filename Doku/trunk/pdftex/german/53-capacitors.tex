@@ -150,11 +150,16 @@ Dieser Konzeptfehler wird mit der Methode vermieden, die in der aktuellen Softwa
 verwendet wird.
 
 \subsection{Messen des äquivalenten Serienwiderstandes ESR}
-Bei Kondensatoren mit mehr als etwa \(2 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
 Der ESR \cite{ESR} stellt zum Beispiel ein Maß für die Alterung von Elektrolyt-Kondensatoren dar.
 Die Abbildung~\ref{fig:Cap_equiv} zeigt ein Ersatzschaltbild eines Kondensators.
 Der Widerstand \(Rp\) stellt den Isolationswiderstand des Kondensators dar, \(ESL\) die äquivalente
 Serieninduktivität und der Widerstand \(ESR\) stellt den äquivalenten Serienwiderstand dar.
+Bei Kondensatoren mit mehr als \(0.45 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
+Bei mehr als \(3.6 \mu F\) wird dazu die normale Taktrate von \(125 kHz\) für den Analog-Digital Wandler benutzt.
+Bei kleineren Kapazitäten wird eine erhöhte Taktrate von \(500 kHz\) benutzt, um die Messung zu beschleunigen.
+Die Genauigkeit der ADC-Ergebnisse wird bei der höheren Taktrate zwar schlechter, aber die größeren ESR-Werte
+bei kleineren Kondensatoren mildern die Auswirkung dieses Genauigkeitsverlusts ab. 
+Andererseits ist sonst nach diesem Verfahren keine ESR-Messung für Kondensatoren unter \(1.8 \mu F\) möglich.
 
 \begin{figure}[H]
   \centering
@@ -166,8 +171,8 @@ Serieninduktivität und der Widerstand \(ESR\) stellt den äquivalenten Serienwi
 Genau genommen ist der ESR eines Kondensators abhängig von der Betriebsfrequenz und der Temperatur.
 Üblicherweise wird der mit einem sinusförmigen Signal bei \(100 kHz\) gemessene Wert in Datenblättern angegeben.
 Bei dieser Frequenz kann der ATmega ohne externe Beschaltung keine Messung durchführen.
-Das nachfolgend beschriebene Verfahren erreicht nur eine Messfrequenz von unter 680 Hz mit näherungsweise rechteckigem
-Signal.
+Das nachfolgend beschriebene Verfahren erreicht bei der normalen ADC-Taktrate nur eine Messfrequenz von unter 640 Hz
+ mit näherungsweise rechteckigem Signal. Bei \(500 kHz\) ADC Taktrate wird etwa 2400 Hz Meßfrequenz erreicht.
 Um den äquivalenten Serienwiderstand zu bestimmen,
  wird der Kondensator zuerst in einer Richtung geladen und an beiden Anschlüssen die Spannung mit der internen
 Referenzspannung (1.1 V) gemessen.
@@ -203,6 +208,7 @@ Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs eines \(
 zu verdeutlichen. Der kleine Spannungseinbruch nach dem Ladevorgang des Kondensators wird von der Software ausgewertet.
 Der größere Spannungseinbruch bei der Messung gegen GND kommt durch den Einfluß des Port-Ausgangswiderstands von etwa \(20 \Omega\) zustande.
 Das Ergebnis der ESR-Messung ist in diesem Fall \(7.5 \Omega\), ohne den \(6.8 \Omega\) Widerstand sind es \(0.56 \Omega\).
+Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Meßfrequenz bei einem \(2.2 \mu F\) Elko mit einem ESR von \(6.5 \Omega\).
 
 
 \begin{figure}[H]
@@ -219,6 +225,22 @@ Das Ergebnis der ESR-Messung ist in diesem Fall \(7.5 \Omega\), ohne den \(6.8 \
   \end{subfigure}
   \caption{Spannungsverlauf eines \(4.2\mu F\) Kondensators während der ESR-Messung}
   \label{pic:esr4}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_2uF_pin2GND.png}
+    \caption{Ein Pin gegen GND gemessen}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_2uF_pin2pin.png}
+    \caption{Von Pin zu Pin gemessen}
+  \end{subfigure}
+  \caption{Spannungsverlauf eines \(2.2\mu F\) Kondensators während der ESR-Messung}
+  \label{pic:esr2}
 \end{figure}
 
 Die Genauigkeit der ESR-Messung ist aus verschiedenen Gründen nicht sehr hoch:
@@ -243,10 +265,14 @@ ADC-Takt zu synchronisieren.
 
 Trotz allen Schwierigkeiten scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Abbildung \ref{fig:Cesr} zeigt.
 Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken stärker als die Messungen des LCR-meters.
-Die Messergebnisse des LCR-Messgerätes wurden bei einer Frequenz von 1 kHz gemessen.
+Die Messergebnisse des LCR-Messgerätes wurden bei einer Frequenz von 1 kHz gemessen oder für kleine Kapazitäten auf
+2.4 kHz interpoliert.
 Beim Transistortester muss auf die Qualität der Anschlüsse geachtet werden. Verwendete Anschlusskabel
 erhöhen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern können die gemessenen
 Widerstandwerte erhöhen. Das LCR-Messgerät macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
+Bei den Kondensatoren mit einer Kapazität unter \(1 \mu F\) war ein \(500 nF\) keramischer 
+Kondensator (Z5U), alle anderen waren Folien-Kondensatoren. Der einzige Elektrolyt-Kondensator der Meßreihe unter \(9 \mu F\)  
+ist ein \(2.2 \mu F\) Kondensator.
 
 \begin{figure}[H]
 \centering
@@ -428,9 +454,10 @@ Elektrolyt-Kondensator sein. Der Kapazitätswert braucht aber für diesen Abglei
 Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal},  \ref{fig:mega328cal} und
 \ref{fig:mega328Pcal} zeigen die Messergebnisse
 der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
-Die Prozessoren wurden alle mit der selben Software programmiert, lediglich für die ATmega168PA musste die
-Makefile wegen ,,PARTNO = m168p'' angepasst werden. Nach der Programmierung wurde bei jedem ATmega ein
-Sebsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
+Die Prozessoren wurden alle mit der selben Software programmiert, lediglich die Makefile Option ,,PARTNO = '' musste 
+wegen dem avrdude Programm an den unterschiedlichen Prozessortyp (,,m168'', ,,m168p'', ,,m328'' oder ,,m328p'') angepaßt werden.
+Nach der Programmierung wurde bei jedem ATmega ein
+Selbsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}

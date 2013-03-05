@@ -33,16 +33,19 @@ that the percentage of the reference voltage to the maximum voltage at the \(680
 \(Umax~=~Imax~\cdot~(680~+~19)\) .
 With the formula \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) the inductance can be calculated.
 The natural logarithm will be taken out of a build in table.
+A inductance resolution of 0.1mH is taken for this type of measurement.
+
 
 In order to also measure lower inductance values, the \(680 \Omega\) resistor will be omitted in the current loop,
 if the resistance value of the inductor is measured with less than \(24 \Omega\).
 Only the output resistance of the port (\(19 \Omega\)) will be used for measurement of the current.
 In this special case the peak current will be greater than the value, that the specification of the ATmega allows.
 Because this will be true only for a very short time, I expect no damage of the ATmega ports.
+For this type of measurement a resolution of inductance of 0.01mH is selected.
 To avoid a longer time with excessive current, the additional measurement with delayed start of the counter will always be
 done with the \(680 \Omega\) resistor.
 To get better fitting measurement results, a zero offset of 6 is subtract from the counter reading, 
-if the measurement is done without the \(680 \Omega\) resistor. Otherwise a zero offset of 8 is subtracted.
+if the measurement is done without the \(680 \Omega\) resistor. Otherwise a zero offset of 7 or 8 is subtracted.
 
 
 With great inductance values the parasitic capacity can cause a quick rise of current, so that the comparator

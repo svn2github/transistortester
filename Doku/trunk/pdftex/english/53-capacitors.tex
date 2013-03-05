@@ -149,12 +149,18 @@ The method taken in actual software for big capacitors in section~\ref{sec:bigca
 avoids this conceptual bug.
 
 \subsection{Measurement of the Equivalent Series Resistance ESR}
-If the measured capacitor has a capacity of more than about \(2 \mu F\), the tester will try to measure
-the series resistance too.
 The series resistance ESR \cite{ESR} is a good indicator for the aging of electrolytical capacitors for example.
 The figure ~\ref{fig:Cap_equiv} shows a equivalent circuit of a capacitor.
 The resistor \(Rp\) represents the leakage resistance of the capacitor, \(ESL\) the equivalent series inductivity and
 the resistance \(ESR\) represents the equivalent series resistance.
+If the measured capacitor has a capacity of more than \(0.45 \mu F\), the tester will try to measure
+the series resistance too.
+For a capacity of more than \(3.6 \mu F\) the normal clock rate of \(125 kHz\) for the Analog-Digital converter is used.
+For lower capacities the higher clock rate of \(500 kHz\) is used to accelerate the measurement.
+The accuracy of the ADC results will be more worth by the higher clock rate, but this could be accepted by the
+higher ESR values of capacitors with lower capacity.
+Otherwise the measurement of ESR with this method is not possible for a capacity of less than \(1.8 \mu F\) at the normal
+clock rate of \(125 kHz\).
 
 \begin{figure}[H]
   \centering
@@ -166,7 +172,8 @@ the resistance \(ESR\) represents the equivalent series resistance.
 Strictly speaking the ESR of a capacitor depends on the operating frequency and temperature.
 Usually the value measured with sine wave-form signal of \(100 kHz\) is denoted in the data sheets.
 This measurement can not be done with the ATmega without external equipment.
-With the subsequent written method a measurement frequency will be below 680 Hz with nearly rectangular signal.
+With the subsequent written method the measurement frequency with the standard ADC clock rate will be below 640 Hz
+with nearly rectangular signal. With \(500 kHz\) ADC clock rate the measurement frequency will be 2400 Hz.
 To get the value of the equivalent series resistance,
 the voltage of both connections will be measured during loading in one direction with the ADC internal reference 
 voltage (1.1 V).
@@ -202,22 +209,41 @@ To explain the influence of the ESR, a series \(6.8 \Omega\) resistor is added t
 The little voltage break after loading the capacitor is interpreted by software to get the ESR.
 The greater voltage drop of the measurement to GND potential is caused by the port output resistance of about \(20 \Omega\).
 For this measurement a total ESR of \(7.5 \Omega\) is reported by the tester, without the series \(6.8 \Omega\) resistor a ESR of \(0.56 \Omega\) is found.
+The figure~\ref{pic:esr2} shows the same measurement with higher measurement frequency of a \(2.2 \mu F\) electrolytical capacitor
+with a ESR of \(6.5 \Omega\).
 
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/ESR_4uF.png}
-    \caption{One pin to GND}
+    \caption{measured one pin to GND}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/ESR4uF6R8.png}
-    \caption{Pin to Pin}
+    \caption{measured pin to pin}
   \end{subfigure}
   \caption{Voltage curve of a \(4.2\mu F\) capacitor during the ESR measurement}
   \label{pic:esr4}
+\end{figure}
+
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_2uF_pin2GND.png}
+    \caption{measured one pin to GND}
+  \end{subfigure}
+  ~ 
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/ESR_2uF_pin2pin.png}
+    \caption{measured pin to pin}
+  \end{subfigure}
+  \caption{Voltage curve of a \(2.2\mu F\) capacitor during the ESR measurement}
+  \label{pic:esr2}
 \end{figure}
 
 
@@ -243,10 +269,14 @@ The resolution deficit will be attenuated by accumulating a big number of single
 
 Anyway the results seems to be practical, as shown with the following figure \ref{fig:Cesr}.
 The ESR values of the same part measured with the Transistortester vary more than the values measured with the LCR meter.
-All ESR results from the LCR meter are measured with a frequency of 1 kHz.
+The ESR values from the LCR meter are measured with a frequency of 1 kHz or are interpolated for little capacities to
+2.4 kHz.
 You must respect the quality of all connection parts. The used cable connections can cause a higher measured resistance value.
 The plug connectors can also result a higher resistance value.
 The LCR meter has the advantage of the used Kelvin terminals.
+Only one capacitor with a capacity below \(1 \mu F\) was a \(500 nF\) ceramic type, all others were
+plastic film capacitors.
+The only electrolytical capacitor of the test series below \(9 \mu F\) was a \(2.2 \mu F\) capacitor.
 
 \begin{figure}[H]
 \centering
@@ -428,8 +458,8 @@ You don't need to know the exact value of this capacitor.
 The figures~\ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal}, \ref{fig:mega328cal} and \ref{fig:mega328Pcal}
  shows the measurement results
 of the different processors with a standard software after the auto calibration.
-The flash of the processors was loaded with the same software, only for the ATmega168PA the Makefile must be
-adapted with ''PARTNO = m168p''.
+The flash of the processors was loaded with the same software, only the Makefile  option ''PARTNO = '' must be
+adapted to the different processor type (''m168'', ''m168p'', ''m328'' or ''m328p'') for the avrdude program.
 After loading the data the selftest was started for each ATmega and a capacitor with \(330 nF\) was connected
 during test No.~10 to pin~1 and pin~3.
 
