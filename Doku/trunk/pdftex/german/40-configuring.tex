@@ -190,14 +190,15 @@ Auch der Spannungsverlust am Transistor T3 kann so mit dieser Option berücksich
 Die Angabe der Schwellspannung in mV beeinflusst nicht die Prüf\-span\-nungs Werte (BAT\_POOR).\\
 Beispiel 1: CFLAGS += -DBAT\_OUT=300 \\
 Beispiel 2: CFLAGS += -DBAT\_OUT
-  \item[BAT\_POOR] setzt die Leer-Spannung für die Batteriespannungs-Prüfung auf den angegebenen Wert in Einheiten von 100mV (0,1V).
+  \item[BAT\_POOR] setzt die Leer-Spannung für die Batteriespannungs-Prüfung auf den angegebenen Wert in Einheiten von 1mV.
 Die Warn-Spannung ist 0.8V höher als die angegebene Leer-Spannung, wenn die Leer-Spannung mehr als 5.3V beträgt.
-Sonst wird eine 0.4V höhere Warn-Spannung gewählt, bei unter 3.0V sogar nur eine 0.2V höhere Warn-Spannung.
+Sonst wird eine 0.4V höhere Warn-Spannung gewählt, bei unter 3.0V sogar nur eine 0.2V höhere Warn-Spannung und
+bei unter 1.3V nur eine 0.1V höhere Warnspannung als die angegebene Leer-Spannung.
 Das Setzen der Leer-Spannung auf Werte wie 5,4V wird für wiederaufladbare 9V Batterien nicht empfohlen,
 weil das die Gefahr von Batterie-Schäden wegen der Tief-Entladung erhöht!
 Wenn Sie wiederaufladbare 9V Batterien einsetzen, werden ,,Ready to Use'' Typen wegen der geringeren Selbstentladung empfohlen.\\
-Beispiel für low drop Regler (5.4V): CFLAGS += -DBAT\_POOR=54 \\
-Beispiel für 7805 type Regler (6.4V): CFLAGS += -DBAT\_POOR=64
+Beispiel für low drop Regler (5.4V): CFLAGS += -DBAT\_POOR=5400 \\
+Beispiel für 7805 type Regler (6.4V): CFLAGS += -DBAT\_POOR=6400
   \item[INHIBIT\_SLEEP\_MODE] sperrt die Benutzung des ,,Sleep Modus'' (Schafzustand) des Prozessors.
 Normalerweise wird von der Software für längere Pausen der Schlafzustand des Prozessors benutzt, um Strom zu sparen.
 Die Benutzung dieses Schlafzustandes mit dem Wiederaufwachen spart zwar Batteriekapazität, 

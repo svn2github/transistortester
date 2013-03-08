@@ -162,15 +162,16 @@ Also the voltage loss of transistor T3 can be respected with this option.
  threshold level does not affect the voltage checking levels (BAT\_POOR).\\
 example 1: CFLAGS += -DBAT\_OUT=300\\
 example 2: CFLAGS += -DBAT\_OUT
-  \item[BAT\_POOR] sets the poor level of battery voltage to the specified 100mV (1/10 Volt) value.
+  \item[BAT\_POOR] sets the poor level of battery voltage to the specified 1mV value.
 The warning level of battery voltage is 0.8V higher than the specified poor level, if the poor level is more than 5.3V.
 If the poor level is 5.3V or less, the warning level is 0.4V higher. If the poor level is below 3.0V, the
-warning level is only 0.2V higher than the selected poor level.
+warning level is only 0.2V higher than the selected poor level and if the poor level is below 1.3V, the
+warning level is only 0.1V higher than the specified poor level.
 Setting the poor level to low values such as 5.4V is not recommended for rechargeable 9V batteries,
 because this increase the risk of battery damage by the reason of the deep discharge!
 If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
-example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=54\\
-example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=64
+example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=5400\\
+example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=6400
   \item[INHIBIT\_SLEEP\_MODE] disable the use of the sleep mode of the processor.
 Normaly the software uses for longer work breaks the sleep mode to avoid unneeded current consumption.
 The usage of this sleep mode indeed spare battery capacity, but produce additional stress for the voltage regulator.\\
