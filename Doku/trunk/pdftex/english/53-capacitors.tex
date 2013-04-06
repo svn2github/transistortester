@@ -148,7 +148,7 @@ the band-gap voltage will never be reached.
 The method taken in actual software for big capacitors in section~\ref{sec:bigcap}
 avoids this conceptual bug.
 
-\subsection{Measurement of the Equivalent Series Resistance ESR}
+\subsection{Measurement of the Equivalent Series Resistance ESR, first way}
 The series resistance ESR \cite{ESR} is a good indicator for the aging of electrolytical capacitors for example.
 The figure ~\ref{fig:Cap_equiv} shows a equivalent circuit of a capacitor.
 The resistor \(Rp\) represents the leakage resistance of the capacitor, \(ESL\) the equivalent series inductivity and
@@ -284,6 +284,97 @@ The only electrolytical capacitor of the test series below \(9 \mu F\) was a \(2
 \caption{ESR measurement results of 15 different ATmega}
 \label{fig:Cesr}
 \end{figure}
+
+
+\subsection{Measurement of the Equivalent Series Resistance ESR, second way}
+From beginning with software version 1.07k the ESR measurement way is changed to a new measurement method.
+The different measurement steps are shown in figure~\ref{fig:Cap_esr2}. The difference to the previous way is that
+the period of current flow through the capacitor is essential shorter.
+The capacitor is preloaded with a half pulse to the negative direction and is than loaded in a cyclic way in both
+direction.
+The timing of the load pulse is so selected, that the middle of the load puls at sample 4 and 8 is
+pointed to the sample and hold time of the ADC (2.5 clock tics after start of ADC). 
+A complete measurement cycle is shown in figure~\ref{fig:Cap_esr2_timing}.
+The sums of 255 measurement cycle results is used for getting a result with adequate resolution. 
+A continuing charge of the capacitor in any direction is avoided by the same charge and discharge pulse length
+and the same circuit.
+By measuring the reference voltage the capacitoe remains currentless. By that this measurement are not time critital.
+It is only assumed, that the capacitor hold the voltage until the next charge or discharge pulse begins.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=18cm]{../FIG/Cap_esr2_timing.eps}
+  \caption{Timing of a measurement cycle for the new ESR-measurement way}
+  \label{fig:Cap_esr2_timing}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../FIG/Cap_esr2.eps}
+  \caption{More simple ESR measurement of a capacitor}
+  \label{fig:Cap_esr2}
+\end{figure}
+
+
+Due to the shorter load puls not only the ESR of capacitors with lower capacity can be measured, but this
+way of measurement can also be used for the measurement of resistors with little resistance, if they don't
+have a detectable inductance. By doing that, a resolution of \(0.01 \Omega\) for this resistors can be achieved.
+Also the zero resistance can be detected by the calibration part of the selftest for all three test pin combination.
+You should keep in mind, that stable plug sockets or clamping connectors are essential for stable results.
+The measurement periode is about \(900 \mu s\), which results to a frequency of about \(1.1 kHz\).
+Because the load pulse is very short, the measurement result is comparable to measurements with \(10 kHz\).
+A measurement example with a \(10 \mu F\) foil capacitor, once measured alone and once measures with a \(2.7 \Omega\)
+series resistor is shown in figure~\ref{pic:NewEsr10}.
+You can see the effect of the additional resistance by comparing both diagrams.
+You can see also, why the ADC measurement (SH) should point to the middle of the load pulse.
+With big capacity values the load current is nearly stable during the total pulse length,
+so you will get the middle voltage at the middle time of the load pulse. 
+With lower capacity values you will get a significant difference, which can be compensated by the
+known capacity value.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr10uF0R0.png}
+    \caption{without series resistance}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr10uF2R7.png}
+    \caption{with \(2.7\Omega\) series resistance}
+  \end{subfigure}
+  \caption{Voltage curve of a \(10\mu F\) capacitor during new ESRg}
+  \label{pic:NewEsr10}
+\end{figure}
+
+The measurement results of the new ESR measurement method is shown in figure~\ref{fig:Cesr2}.
+The ESR values are different from the results shown for the previous mesurement procedure in figure~\ref{fig:Cesr} because 
+the ESR is frequency dependence of the ESR.
+The reference values are determined with a LCR meter at a measurement frequency of \(10 kHz \).
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Cesr2}
+\caption{ESR results with 15 different ATmega, method 2}
+\label{fig:Cesr2}
+\end{figure}
+
+
+
+
+
+\subsection{Voltage loss after a load pulse, Vloss}
+With the measurement of capacitors with big capacity values the voltage loss after the loading is analysed.
+The reached load voltage is lost with electrolytic capacitors after a short periode.
+This voltage loss can be caused by a parallel connected resistor.
+But I assume, that this voltage loss of electrolytic capacitors is caused by a internal load dispersion directly
+after the load pulse. By loading the capacitors with the \(470 k\Omega\) resistor, as it is done for little
+capacity values, this dispersion is already done after switching off the current.
+No voltage loss is detectable for this case. But if you load the same capacitor with a short current pulse,
+you can also detect the voltage loss for capacitors with lower capacity.
+The same effect with lower loss can also be noticed for ceramic type capacitors. 
+I have noticed, that capacitors with more than some \% voltage loss are suspect.
 
 
 

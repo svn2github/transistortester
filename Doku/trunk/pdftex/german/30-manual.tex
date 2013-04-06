@@ -69,18 +69,14 @@ mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 un
 Dazu wird in Zeile 1 ein Kondensatorsymbol zwischen den Pinnummern 1 und 3 angezeigt, gefolgt von dem Text ,, >100nF''.
 Sie sollten den Kondensator erst nach dieser Ausgabe anschließen.
 Mit diesem Kondensator wird die Offset Spannung des analogen Komparators kompensiert,
-um genauere Kapazit"atswerte ermitteln zu können.
+um genauere Kapazitätswerte ermitteln zu können.
 Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird ebenfalls mit diesem Kondensator abgeglichen, um
 bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
 
 Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt.
-Dieser Nullwert, der im Normalfall zu hoch gesetzt ist, wird von der Software im EEprom vorbesetzt,
-Mit jedem Selbsttest wird der ESR Nullwert wieder auf diesen Anfangswert zurückgesetzt.
-Nach jeder ESR-Messung wird geprüft, ob das Resultat negativ ist (Ausgabe von ,,ESR=0?'').
-In diesem Fall wird der Nullwert so weit reduziert, dass sich bei der nächsten Messung ein ESR-Wert von Null ergibt.
-Damit kann ein Nullabgleich mit einem Elektrolytkondensator hoher Kapazität und mit niedrigem ESR durchgeführt werden.
-Dieser ESR-Nullabgleich bleibt nach einer Abschaltung erhalten, muss aber nach jedem Selbsttest erneut durchgeführt werden und
-sollte dann immer einige Male wiederholt werden.
+Mit jedem Selbsttest wird der ESR Nullwert für alle drei Pinkombinationen neu bestimmt.
+Das Verfahren der ESR-Messung wird auch für Widerstände mit Werten unter \(10 \Omega\) benutzt um
+hier eine Auflösung von \(0.01 \Omega\) zu erreichen.
 
 \section{Besondere Benutzungshinweise}
 Normalerweise wird beim Start des Testers die Batteriespannung angezeigt. Wenn die Spannung eine Grenze unterschreitet, 

@@ -211,7 +211,8 @@ Mit dem ATmega168/328 gewinnt man folgende Vorteile:
 Selbsttestfunktion mit automatischem Abgleich.\\
 Erhöhung der Meßgenauigkeit durch automatische Umschaltung der ADC Referenzspannung.\\
 Messung von Induktivitäten, deren Widerstandswert < \(2100 \Omega\) ist.\\
-Messung des ESR Wertes von Kondensatoren > \(2 \mu F\).\\
+Messung des ESR Wertes von Kondensatoren > \(0.18 \mu F\).\\
+Die Auflösung der Widerstandsmessung unter \(10 \Omega\) beträgt \(0.01 \Omega\).
 Der PC3 Pin kann für eine serielle Ausgabe genutzt werden.
 \item[Fehlende Präzisionsreferenz]
 Normalerweise sollte die fehlende Präzisionsreferenz auch bei unbeschaltetem PC4 Pin
@@ -255,7 +256,8 @@ Die Leiterbahnen vom ATmega zu den Testports sind teilweise sehr dünn, so daß 
 von etwa \(100m \Omega\) pro Signalweg messen konnte. Dies ist wohl mit der Grund dafür, daß zwei
 mit \(0 \Omega\) verbundene Pinne einen Widerstandswert von \(0.3 \Omega\) messen.
 Bei der ESR-Messung kann dies normalerweise durch den Nullabgleich kompensiert werden.
-Bei der Messung kleiner Widerstände wird ein Offset derzeit aber nicht berücksichtigt.
+Bei der Messung von Widerständen unter \(10 \Omega\) werden die im Selbsttest ermittelten Offsets 
+ab der Softwareversion 1.07k berücksichtigt.
 
 \end{description}
 

@@ -149,7 +149,7 @@ von der Diode aufgenommen werden (Schwellspannung) und die Referenz-Spannung wü
 Dieser Konzeptfehler wird mit der Methode vermieden, die in der aktuellen Software für große Kondensatoren in Kapitel~\ref{sec:bigcap}
 verwendet wird.
 
-\subsection{Messen des äquivalenten Serienwiderstandes ESR}
+\subsection{Messen des äquivalenten Serienwiderstandes ESR, Methode 1}
 Der ESR \cite{ESR} stellt zum Beispiel ein Maß für die Alterung von Elektrolyt-Kondensatoren dar.
 Die Abbildung~\ref{fig:Cap_equiv} zeigt ein Ersatzschaltbild eines Kondensators.
 Der Widerstand \(Rp\) stellt den Isolationswiderstand des Kondensators dar, \(ESL\) die äquivalente
@@ -280,6 +280,84 @@ ist ein \(2.2 \mu F\) Kondensator.
 \caption{Messergebnisse der ESR-Messungen mit 15 veschiedenen ATmega}
 \label{fig:Cesr}
 \end{figure}
+
+\newpage
+\subsection{Messen des äquivalenten Serienwiderstandes ESR, Methode 2}
+Ab der Softwareversion 1.07k wurde die ESR-Messung auf eine modifizierte Meßmethode umgestellt.
+Die einzelnen Meßschritte sind in Abbildung~\ref{fig:Cap_esr2} gezeigt. Das besondere an der Methode
+ist, daß die Zeit des Stromflusses durch den Kondensator wesentlich gegenüber der Methode 1 verringert wurde.
+Der Kondensator wird mit einem Puls der halben Breite negativ vorgeladen und wird dann zyklisch aufgeladen und in der
+Gegenrichtung wieder entladen.
+Dabei wird der Ladepuls zeitlich so gelegt, daß bei Sample 4 und 8 zur Pulsmitte
+die Spannung für den ADC abgegriffen wird (Sample and Hold, 2.5 ADC Takte nach dem Start).
+Ein kompletter Meßzyklus wird in Abbildung~\ref{fig:Cap_esr2_timing} gezeigt.
+Es werden auch bei dieser Meßmethode die Summen der Meßergebnisse aus 255 Zyklen ausgewertet,
+um eine ausreichende Auflösung zu erreichen.
+Eine fortlaufende Aufladung des Kondensators in die eine oder andere Richtung wird durch die kurzen und
+gleich langen Auflade- und Entlade-Pulse bei gleicher Beschaltung weitgehend vermieden.
+Bei der Messung der Referenzspannung fließt kein Strom durch den Kondensator. Dadurch ist diese Messung
+nicht zeitkritisch. Es wird lediglich vorausgesetzt, daß der Kondensator seine Spannung in der
+stromlosen Zeit beibehält.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=18cm]{../FIG/Cap_esr2_timing.eps}
+  \caption{Zeitlicher Ablauf eines Meßzyklus der neuen ESR-Messung}
+  \label{fig:Cap_esr2_timing}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../FIG/Cap_esr2.eps}
+  \caption{Vereinfachte ESR-Messung eines Kondensators}
+  \label{fig:Cap_esr2}
+\end{figure}
+
+
+Durch den kürzeren Ladepuls kann nicht nur der ESR von geringeren Kapazitätswerten gemessen werden, sondern
+diese Methode kann auch für die Messung kleiner Widerstandswerte benutzt werden, wenn die Widerstände
+keine meßbare Induktivität besitzen. Dadurch kann die Auflösung bei Widerstandswerten unter \(10 \Omega\) auf 
+\(0.01 \Omega\) gesenkt werden. Daneben kann auch der Nullwiderstand für die Widerstandsmessung als auch
+für die ESR-Messung im Selbsttestzweig der Kalibration für alle drei Testpin-Kombinationen bestimmt werden.
+Auf solide Steckverbindungen oder Klemmverbindungen sollte für stabile Ergebnisse geachtet werden.
+Die Meßperiode beträgt etwa \(900 \mu s\), was einer Frequenz von etwa \(1.1 kHz\) entspricht.
+Wegen der Kürze der Ladepulse entspricht das Ergebnis aber eher einer Messung mit \(10 kHz\).
+Als Beispiel wird die Messung eines \(10 \mu F\) Folienkondensators einmal direkt und einmal mit einem
+\(2.7 \Omega\) Serienwiderstand in Abbildung~\ref{pic:NewEsr10} gezeigt.
+Deutlich kann man den Einfluß des zusätzlichen Widerstandes beim Vergleich der beiden Diagramme erkennen.
+Hier wird auch verständlich, warum die ADC-Messung in der Mitte des Ladepulses erfolgen muß.
+Bei großen Kondensatoren bleibt der Ladestrom des Kondensators hinreichend gut konstant,
+so daß bei der zeitlichen Mitte des Ladepulses auch die mittlere Spannung gemessen wird.
+Bei keineren Kondensatoren ergibt sich ein deutlicherer Unterschied, der aber mit dem
+bekannten Kapazitätswert relativ gut kompensiert werden kann.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr10uF0R0.png}
+    \caption{ohne Serienwiderstand}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr10uF2R7.png}
+    \caption{mit \(2.7\Omega\) Serienwiderstand}
+  \end{subfigure}
+  \caption{Spannungsverlauf eines \(10\mu F\) Kondensators während der neuen ESR-Messung}
+  \label{pic:NewEsr10}
+\end{figure}
+
+Die Meßergebnisse der neuen ESR-Meßmethode sind in Abbildung~\ref{fig:Cesr2} dargestellt.
+Die ESR-Werte unterscheiden sich wegen der Frequenzabhängigkeit von den Ergebnissen der Abbildung~\ref{fig:Cesr}.
+Die Vergleichswerte des LCR-Meßgerätes sind bei \(10 kHz\) ermittelt worden.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Cesr2}
+\caption{Messergebnisse der ESR-Messungen mit 15 veschiedenen ATmega, Methode 2}
+\label{fig:Cesr2}
+\end{figure}
+
 
 \subsection{Spannungsverlust nach einem Ladepuls, Vloss}
 Beim Meßverfahren von großen Kapazitäten wird der Spannungsverlust nach einem Ladepuls im stromlosen Zustand untersucht.

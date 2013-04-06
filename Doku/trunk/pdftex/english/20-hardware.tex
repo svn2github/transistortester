@@ -202,7 +202,8 @@ With a ATmega168/328 you get the following advantages:
 Self test with automatic calibration.\\
 Improvement of measurement quality by automatic switching of ADC scale.\\
 Measurement of inductors with resistance  below \(2100 \Omega\).\\
-Measurement of ESR value of capacitors with value of above  \(2 \mu F\).\\
+Measurement of ESR value of capacitors with value of above  \(0.18 \mu F\).\\
+The resolution of resistor measurement below \(10 \Omega\) is \(0.01 \Omega\).
 Using of pin PC4 as serial output.\\
 \item[Missing precision voltage reference]
 Usually the software should detect the missing voltage reference with the unconnected pin PC4.
@@ -250,7 +251,7 @@ The printed circuit board track from the ATmega168 to the test port is very thin
 of \(100m \Omega\) could be measured for one path. This will be the reason for measuring a resistance
 of \(0.3 \Omega\) for two direct connected pins.
 The ESR measuring can usually consider this by zero compensation.
-The current version of software does not respect this offset for measuring of resistors with low resistance.
+The current version of software does respect this offset for measuring resistors below \(10 \Omega\) too.
 
 
 \section{Programming of the microcontroller}

@@ -74,15 +74,10 @@ Additionally the gain for ADC measurements using the internal reference voltage 
 with the same capacitor for better resistor measurement results with the AUTOSCALE\_ADC option.
 
 The zero offset for the ESR measurement will be preset with the option ESR\_ZERO in the Makefile.
-This zero offset, which is set too high in normal case, will be preset in EEprom by the software.
-With every selftest the ESR zero offset will be reset to this initial value.
-After every ESR measurement the result will be checked for negative value (output of ''ESR=0?'').
-In this case the zero offset will be reduced to get a zero result for next ESR measurement.
-With this methode the zero offset can be adjusted with a electrolytical capacitor with high capacity value and
-low ESR value.
-This learned ESR zero offset remains active after power off, but the adjust procedure to get
-the zero offset of ESR measurement must be done after every selftest and
-in this case you should always repeat the measurement some times.
+With every self test the ESR zero values for all three pin combinations are determined.
+The solution for the ESR measurement is also used to get the values of resistors below \(10 \Omega\) with
+a resolution of \(0.01 \Omega\).
+
 
 \section{special using hints}
 Normally the Tester shows the battery voltage with every start. If the voltage fall below a limit,
@@ -97,7 +92,7 @@ If you try to measure components in assembled condition, the equipment should be
 Furthermore you should be shure, that no residual voltage reside in the equipment.
 Every electronical equipment has capacitors inside!
 
-If you ty to measure little resistor values, you should keep the resistance of plug connectors and cables in mind.
+If you try to measure little resistor values, you should keep the resistance of plug connectors and cables in mind.
 The quality and condition of plug connectors are important, also the resistance of cables used for measurement.
 The same is in force for the ESR measurement of capacitors.
 With poor connection cable a ESR value of \(0.02 \Omega\) can grow to \(0.61 \Omega\).

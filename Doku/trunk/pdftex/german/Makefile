@@ -1,12 +1,12 @@
 LISTE = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/rmess.eps
 LISTE += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
 LISTE += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
-LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps
+LISTE += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Cesr2.eps
 LISTE += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.eps
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/relay_addon.eps ../FIG/zener_exp.eps 
-LISTE += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps
+LISTE += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
 all: $(LISTE) ttester.pdf
 	
 ../GNU/RLvtot.eps: ../GNU/RLvtot.gnu
@@ -41,6 +41,8 @@ all: $(LISTE) ttester.pdf
 	gnuplot ../GNU/inductors.gnu
 ../GNU/Cesr.eps: ../GNU/Cesr.gnu ../GNU/Cesr_all.dat
 	gnuplot ../GNU/Cesr.gnu
+../GNU/Cesr.eps: ../GNU/Cesr2.gnu ../GNU/Cesr2_all.dat
+	gnuplot ../GNU/Cesr2.gnu
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps ../FIG/Messung.fig
 ../FIG/port.eps: ../FIG/port.fig
@@ -85,6 +87,10 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/Cap_equiv.fig
 ../FIG/Cap_esr.eps: ../FIG/Cap_esr.fig
 	fig2eps ../FIG/Cap_esr.fig
+../FIG/Cap_esr2.eps: ../FIG/Cap_esr2.fig
+	fig2eps ../FIG/Cap_esr2.fig
+../FIG/Cap_esr2_timing.eps: ../FIG/Cap_esr2_timing.fig
+	fig2eps ../FIG/Cap_esr2_timing.fig
 
 TEXLIST =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex \
   54-inductors.tex 55-selftest.tex 60-errors.tex 70-special.tex 80-todo.tex

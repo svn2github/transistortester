@@ -22,7 +22,8 @@ ReadCapacity.o: ../ReadCapacity.c \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
- ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h
+ ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h \
+ ../part_defs.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -79,3 +80,5 @@ ReadCapacity.o: ../ReadCapacity.c \
 ../lcd-routines.h:
 
 ../wait1000ms.h:
+
+../part_defs.h:

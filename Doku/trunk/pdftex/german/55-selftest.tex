@@ -11,6 +11,9 @@ Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
 Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
 Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
 Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
+Bevor die Test Schritte durchgeführt werden, wird zuerst der Null-Widerstand für alle drei Testpin Kombinationen
+(T1:T3, T2:T3 und T1:T2) bestimmt. Diese Nullwiderstände werden für die zukünftigen ESR- und Widerstands-Messungen
+berücksichtigt.
 Die einzelnen Schritte der Selbsttestfunktion werden für Test~1 bis Test~7 in Zeile~1 des LC-Displays mit dem Buchstaben T
 gefolgt von der Schritt-Nummer dargestellt.
 Die Schritte 1 bis 7 werden viermal wiederholt, bevor das Programm zum nächsten Schritt geht.
