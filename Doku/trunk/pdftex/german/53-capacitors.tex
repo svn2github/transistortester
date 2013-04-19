@@ -381,6 +381,55 @@ der Ladung in der betrachteten Zeitspanne auf. Wird der gleiche Elektrolyt-Konde
 kurzem pulsförmigen Strom geladen, ist hier auch ein Spannungsverlust durch die nachträgliche Umverteilung
 der Ladung zu beobachten. Der gleiche Effekt ist in geringerem Umfang auch bei keramischen Kondensatoren zu beobachten. 
 Nach den bisherigen Beobachtungen sind Kondensatoren mit mehreren \% Spannungsverlust verdächtig.
+Besonders auffällig in Bezug auf den Spannungsverlust sind auch ältere Papierkondensatoren, die auch für andere Meßgeräte
+eine Herausforderung sind. Dies will ich in folgender Tabelle verdeutlichen.
+\vspace{0.5 cm}
+
+\begin{tabular}{| l | c | c | c | c | c | c |}
+   \hline
+Kondensator & Nenn-      & PeakTech     & Voltcraft & PeakTech & Transistor- \\
+Type        & Kapazität  & LCR 2170     & M2650-B   &  3315    & Tester      \\
+    \hline
+    \hline
+Papier     & 4700pF      & 6.75-10.36nF & 8.00nF    &  25.40nF &  10.71nF   \\
+           &             &  Q=2.5-32    &           &          &  Vloss=11 \% \\
+    \hline
+Papier     & 6800pF      & 9.40-11.40nF & 10.41nF   &  23.30nF &  11.65nF  \\
+           &             &  Q=5-25      &           &          &  Vloss=5.0 \% \\
+    \hline
+unbekannt  & 4700pF      & 5.85-6.33nF  & 6.12nF    &  6.90nF  &  6225pF  \\
+           &             &  Q=16-87     &           &          &  Vloss=1.7 \% \\
+    \hline
+Folie      & 7870pF      & 7.86-7.87nF  & 7.95nF    &  7.95nF  &  7872pF  \\
+           &             &  Q= >1540    &           &          &  Vloss=0 \% \\
+    \hline
+Papier     & 22000pF     & 37.4-57.5nF  & 52.8nF    &  112nF   &  118.5nF \\
+           &             &  Q=2.5-32    &           &          &  Vloss=12 \% \\
+    \hline
+Folie      & 22600pF     & 22.4-22.5nF  & 22.57nF   & 22.69nF  &  22.54nF \\
+           &             & Q= >1540     &           &          &  Vloss=0 \% \\
+    \hline
+Papier     & 100nF       & 144-256nF    & 177nF     &  318nF   &  529.7nF \\
+           &             & Q=2.6-28     &           &          &  Vloss=12 \% \\
+    \hline
+Keramisch  & 100nF       & 97.7-102nF   & 103.7nF   & 103.3nF  &  103.1nF \\
+           &             & Q=90-134     &           &          &  Vloss=0.1 \% \\
+    \hline
+Folie      & 100nF       & 98.0-101nF   & 101.4nF   & 102.2nF  &  101.6nF \\
+           &             & Q=58-700     &           &          &  Vloss=0 \% \\
+    \hline
+\end{tabular}
+\vspace{0.5 cm}
+
+
+In der Tabelle kann man sehen, daß die Kapazität aller Folienkondensatoren mit befriedigender Genauigkeit von allen
+Meßgeräten bestimmt werden. Die Kapazitäten und die Güten Q des PeakTech LCR-Meßgerätes sind Minumum
+und Maximum der Meßergebnisse im Frequenzbereich \(100 Hz\) bis \(100 kHz\).
+Bei allen Beispielen in der Tabelle ist der Spannungsverlust Vloss des TransistorTesters groß,
+wenn die Kondensatoren eine geringe Güte haben. Nur in diesem Fall sind auch große Abweichungen
+der gemessenen Kapazität zu beobachten. Damit der Spannungsverlust eines Kondensators vom
+Transistortester gemessen werden kann, muß die gemessene Kapazität größer als \(5000 pF\) sein.
+
 
 \subsection{Ergebnisse der Kondensator-Messung}
 Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} für drei ATmega8 dargestellt.

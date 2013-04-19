@@ -140,7 +140,10 @@ Wenn die Reihenfolge der Testpins nicht 1,2 und 3 in Leserichtung ist, kann die 
 umgedreht werden. Dann wird die Pinbelegung in der Form ,,321=...'', was der gewohnten Leserichtung von links nach rechts
 entgegen kommt.\\
 Beispiel: CFLAGS += EBC\_STYLE
-  \item[PULLUP\_DISABLE] gibt an, dass man die internen ,,pull-up'' Widerstände nicht benötigt.
+  \item[NO\_NANO] gibt an, daß der dezimal Präfix Nano nicht zur Darstellung von Meßergebnissen benutzt werden soll.
+So werden Kapazitätswerte in \(\mu F\) statt in \(nF\) angegeben.\\
+Beispiel: CFLAGS += NO\_NANO
+  \item[PULLUP\_DISABLE] gibt an, daß man die internen ,,pull-up'' Widerstände nicht benötigt.
  Sie müssen einen externen ,,pull-up'' Widerstand an Pin 13 (PD7) und VCC angeschlossen haben, um diese
 Option benutzen zu können.
 Mit dieser Option wird ein möglicher Einfluss der ,,pull-up'' Widerstände auf die Mess-Ports (Port B und Port C) verhindert.\\

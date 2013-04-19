@@ -344,7 +344,7 @@ known capacity value.
     \includegraphics[width=9cm]{../PNG/NewEsr10uF2R7.png}
     \caption{with \(2.7\Omega\) series resistance}
   \end{subfigure}
-  \caption{Voltage curve of a \(10\mu F\) capacitor during new ESRg}
+  \caption{Voltage curve of a \(10\mu F\) capacitor during new ESR measurement}
   \label{pic:NewEsr10}
 \end{figure}
 
@@ -385,6 +385,54 @@ No voltage loss is detectable for this case. But if you load the same capacitor 
 you can also detect the voltage loss for capacitors with lower capacity.
 The same effect with lower loss can also be noticed for ceramic type capacitors. 
 I have noticed, that capacitors with more than some \% voltage loss are suspect.
+Especially noticable with respect to the voltage loss are older paper type capacitors, which are for other measurement
+a problem too. Some measurement examples will be shown in the following table.
+\vspace{0.5 cm}
+
+\begin{tabular}{| l | c | c | c | c | c | c |}
+   \hline
+capacitor & Nenn-      & PeakTech      & Voltcraft & PeakTech & Transistor- \\
+type        & capacity  & LCR 2170     & M2650-B   &  3315    & Tester      \\
+    \hline
+    \hline
+paper     & 4700pF      & 6.75-10.36nF & 8.00nF    &  25.40nF & 10.71nF  \\
+          &             & Q=2.5-32     &           &          & Vloss=11\% \\
+    \hline
+paper     & 6800pF      & 9.40-11.40nF & 10.41nF   &  23.30nF & 11.65nF \\
+          &             & Q=5-25       &           &          & Vloss=5.0\% \\
+    \hline
+unknown  & 4700pF      & 5.85-6.33nF & 6.12nF    &  6.90nF  & 6225pF \\
+           &             & Q=16-87     &           &          & Vloss=1.7\% \\
+    \hline
+foil      & 7870pF      & 7.86-7.87nF  & 7.95nF    &  7.95nF  & 7872pF \\
+          &             & Q= >1540     &           &          & Vloss=0\% \\
+    \hline
+paper     & 22000pF     & 37.4-57.5nF  & 52.8nF    &  112nF   & 118.5nF \\
+          &             & Q=2.5-32     &           &          & Vloss=12\% \\
+    \hline
+foil      & 22600pF     & 22.4-22.5nF  & 22.57nF   & 22.69nF  & 22.54nF \\
+          &             & Q= >1540     &           &          & Vloss=0\% \\
+    \hline
+paper     & 100nF       & 144-256nF    & 177nF     &  318nF   & 529.7nF \\
+          &             & Q=2.6-28     &           &          & Vloss=12\% \\
+    \hline
+ceramic   & 100nF       & 97.7-102nF   & 103.7nF   & 103.3nF  & 103.1nF \\
+          &             & Q=90-134     &           &          & Vloss=0.1\% \\
+    \hline
+foil      & 100nF       & 98.0-101nF   & 101.4nF   & 102.2nF  & 101.6nF \\
+          &             & Q=58-700     &           &          & Vloss=0\% \\
+    \hline
+\end{tabular}
+\vspace{0.5 cm}
+
+In this table you will find, that the capacity of all foil type capacitors can be measured by all intruments
+with good precision.
+The capacity values and the quality factor Q of the PeakTech LCR meter are minimum and maximum values of the
+measurements in the frequency range \(100 Hz\) to \(100 kHz\).
+At all examples in the table the voltage loss Vloss of the TransistorTester is big,
+if the capacitors have a low quality factor.
+Only in this case the differences of the capacity measurement results are also big.
+The TransistorTester can only determine the voltage loss, if the measured capacity is more than \(5000 pF\).
 
 
 
