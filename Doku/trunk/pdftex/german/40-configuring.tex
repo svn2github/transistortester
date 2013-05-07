@@ -210,6 +210,8 @@ Eine richtige Einstellung des Programmer Typs (und Ports) ist notwendig, wenn Si
 ,,make fuses'' Aufruf dieser Makefile benutzen.
 Für weitere Informationen schauen Sie bitte in das Handbuch von avrdude oder in die Online-Dokumentation~\cite{avrdude}.\\
 Beispiel: PROGRAMMER=avrisp2
+  \item[BitClock] stellt die Bit Taktperiode für den Programmer ein. Siehe dazu die Beschreibung des -B Parameters von avrdude.\\
+Beispiel: BitClock=5.0
   \item[PORT] stellt die verwendete Schnittstelle ein, wo avrdude den Mikrocontroller (ATmega) erreichen kann.
 Für weitere Informationen schauen Sie bitte ins Handbuch von avrdude.\\
 Beispiel: PORT=usb
