@@ -59,9 +59,14 @@ was connected to GND, it must be a PNP transistor or a P-Channel FET. This can b
 analysing the base voltage. If the base voltage is greater 0.97V, it must be a PNP.
 For measuring the current amplification factor, the \(470k\Omega\) resistor is taken as Base resistor
 instead of the \(680\Omega\).
-The current amplification factor is build by \(hFE = \frac{UC \cdot 470000}{UB \cdot (680+19)}\) .
+The current amplification factor is build by \(hFE = \frac{(UC-UC0) \cdot 470000}{UB \cdot (680+19)}\) .
+The voltage UC0 is the voltage at the colletor resistor without base current.
 The higher current amplification factor is assumed to be the right one, this one or the one found with
 the common collector circuit.
+From version 1.08k the current amplification factor with common emitter circuit is only build for processors
+with more than 16k flash memory like ATmega328. For the other processors only the common collector circuit is used.
+
+
 The values found for the PNP are only valid, if a second
 set of measurements is done. In order to prevent detecting the PNP in the inverse mode
 (collector and emitter are swapped), the measurement with the higher current amplification is taken as
@@ -99,7 +104,7 @@ reverse polarity are done to exclude or confirm a Triac.
 
 If neither Thyristor nor Triac could be confirmed, it can be a NPN or N-Channel E-MOSFET.
 The Base voltage of a NPN Transistor will be near the Emitter voltage, so this type can be identified definitely.
-The current amplification factor in the common emitter circuit is build by \(hFE = \frac{(VCC-UC)\cdot 470000}{(VCC-UB)\cdot (680+22)}\).
+The current amplification factor in the common emitter circuit is build by \(hFE = \frac{(VCC-UC-UC0)\cdot 470000}{(VCC-UB)\cdot (680+22)}\).
 If the voltage of the Base or better Gate  shows, that there is no or little current, part will be a N-Channel E-MOS 
 (Enhancement MOSFET). In this case the threshold voltage is measured by switching the Gate slowly with
 the \(470k\Omega\) resistor to VCC and GND, waiting for a digital input signal change of the Drain side and
@@ -117,9 +122,18 @@ shown in Figure~\ref{fig:eleven}. The result is multiplied by four and divided b
 If current is detected with the pre-tests, the behavior of the part will be checked to
 be a diode. The flow voltage with the \(680\Omega\) resistor must be between 0.15V and 4.64V.
 The flux voltage with the \(680\Omega\) must be greater than 1.125 times the flux voltage with
-the \(470k\Omega\) resistor and eight times the flux voltage with the \(470k\Omega\) must be
+the \(470k\Omega\) resistor and sixteen times the flux voltage with the \(470k\Omega\) must be
 greater than the flux voltage with the \(680\Omega\) resistor.
-I hope, that this behavior is always a diode.
+I hope, that this behavior identifies always a diode. The identification of a diode by no current flow
+in the opposite direction is not possible with a inverse parallel diode.
+If only a single diode is detected, the residual current in reverse direction is measured with
+the \(470k\Omega\) resistor at 5V. The resolution is about \(2nA\).
+If the residual current is greater as \(5.3\mu A\) (voltage at
+the \(470k\Omega\) is more than 2.5V), the measurement is done with the \(680\Omega\) instead.
+Then the resolution is only about \(1\mu A\).
+Furthermore  the capacity in reverse direction is also measured for single diodes.
+
+
 
 \subsection{Results of different measurements}
 The following three tables shows results of different test probes 

@@ -63,9 +63,13 @@ GND verbunden ist, muss es ein PNP-Transistor oder ein P-Kanal-FET sein.
 Das kann einfach unterschieden werden durch Prüfen der Basis-Spannung: Wenn sie grösser als 0,97V ist, muss es ein PNP sein.
 Für die Messung des Stromverstärkungsfaktors wird anstelle des \(680\Omega\)-Widerstandes der
  \(470k\Omega\)-Widerstand als Basis-Widerstand genommen.
-Der Stromverstärkungsfaktor wird berechnet mit \(hFE = \frac{UC \cdot 470000}{UB \cdot (680+19)}\) .
+Der Stromverstärkungsfaktor wird berechnet mit \(hFE = \frac{(UC-UC0) \cdot 470000}{UB \cdot (680+19)}\) .
+Die Spannung UC0 ist die Spannung am Kollektorwiderstand ohne Basisstrom.
 Der höhere Stromverstärkungsfaktor wird als der richtige angenommen, dieser hier oder der
 mit der Kollektor-Schaltung bestimmte.
+Ab der Softwareversion 1.08k wird der Stromverstärkungsfaktor in der Emitterschaltung nur für Prozessoren mit mehr
+als 16k Flash Speicher wie dem ATmega328 gebildet. Für andere Prozessoren wird nur die Kollektorschaltung benutzt.
+
 
 Die Werte, die für den PNP-Transistor herausgefunden wurden, sind nur gültig, wenn ein zweiter Satz
 von Messungen gemacht wurde.
@@ -110,7 +114,7 @@ um ein TRIAC auszuschliessen oder zu bestätigen.
 Wenn weder Thyristor noch TRIAC bestätigt wurden, kann es ein NPN oder ein N-Kanal E-MOSFET sein.
 Die Basis-Spannung von einem NPN-Transistor wird nahe bei der Emitter-Spannung liegen, so dass dieser Typ sicher
 erkannt werden kann.
-Der Stromverstärkungsfaktor in der Emitter-Schaltung wird durch \(hFE = \frac{(VCC-UC)\cdot 470000}{(VCC-UB)\cdot (680+22)}\) 
+Der Stromverstärkungsfaktor in der Emitter-Schaltung wird durch \(hFE = \frac{(VCC-UC-UC0)\cdot 470000}{(VCC-UB)\cdot (680+22)}\) 
 gebildet.
 Wenn die Spannung an der Basis zeigt, dass kein oder wenig Strom fließt, wird das Bauteil ein N-Kanal E-MOS
 (Anreicherungs-MOSFET) sein. In diesem Fall wird die Schwellspannung gemessen, indem die Spannung des Gates langsam mit
@@ -130,9 +134,15 @@ Diese Summe wird mit vier multipliziert und durch neun geteilt um eine Auflösun
 Wenn Strom bei den Vortests festgestellt wurde, wird das Bauteil auf Diodenverhalten geprüft.
 Die Flussspannung mit dem \(680\Omega\)-Widerstand muss zwischen 0,15V und 4,64V liegen.
 Die Flussspannung mit dem \(680\Omega\)-Widerstand muss grösser als 1,125 Mal der Flussspannung mit dem
- \(470k\Omega\)-Widerstand sein und acht Mal die Flussspannung mit dem \(470k\Omega\)-Widerstand muss
+ \(470k\Omega\)-Widerstand sein und sechzehn Mal die Flussspannung mit dem \(470k\Omega\)-Widerstand muss
 grösser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
 Ich hoffe, dass ein Bauteil mit diesem Verhalten immer eine Diode ist.
+Die Erkennung des Diodenverhaltens durch den fehlenden Stromfluß in der Gegenrichtung ist nicht
+möglich bei antiparallelen Dioden.
+Bei einer Einzeldiode wird zusätzlich der Sperrstrom der Diode bei 5V mit dem \(470k\Omega\) Widerstand
+gemessen. Die Auflösung beträgt etwa \(2nA\). Bei größeren Restströmen als \(5.3\mu A\) (Spannung am Widerstand größer als 2.5V) wird
+ mit dem \(680\Omega\) Widerstand gemessen. Dann beträgt die Auflösung nur etwa \(1\mu A\).
+Außerdem wird bei Einzeldioden eine Kapazitätsmessung in Sperr-Richtung durchgeführt. 
 
 \subsection{Ergebnisse der verschiedenen Messungen}
 Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile 
