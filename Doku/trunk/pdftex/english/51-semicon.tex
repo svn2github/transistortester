@@ -124,6 +124,8 @@ be a diode. The flow voltage with the \(680\Omega\) resistor must be between 0.1
 The flux voltage with the \(680\Omega\) must be greater than 1.125 times the flux voltage with
 the \(470k\Omega\) resistor and sixteen times the flux voltage with the \(470k\Omega\) must be
 greater than the flux voltage with the \(680\Omega\) resistor.
+Additionally the afterward renewed measurement with the \(470k\Omega\) resistor should not have a higher voltage than
+the previous measurement with the \(680\Omega\) resistor.
 I hope, that this behavior identifies always a diode. The identification of a diode by no current flow
 in the opposite direction is not possible with a inverse parallel diode.
 If only a single diode is detected, the residual current in reverse direction is measured with
@@ -147,40 +149,51 @@ only be measured with cooling.
   \begin{center}
     \begin{tabular}{| l | c | c | c |}
     \hline
-     Diode & Mega8@8MHz & Mega168 @8MHz & Mega328 @8MHz \\
-     Type  &                  &                  &                  \\
+           & Mega8@8MHz & Mega168 @8MHz & Mega328 @8MHz \\
+ Diode Type  &                  &                  &                  \\
     \hline
     \hline
-1N4148     & Diode, 715mV, 1pF    & Diode, 718mV, 0pF, 2nA   & Diode, 715mV, 1pF, 4nA  \\
+1N4148     & Diode, 715mV,        & Diode, 718mV,            & Diode, 715mV,           \\
+           &               1pF    &               0pF, 2nA   &               1pF, 4nA  \\
     \hline
-1N4150     & Diode, 665mV, 1pF    & Diode, 672mV, 1pF, 4nA   & Diode, 666V, 2pF, 6nA  \\
+1N4150     & Diode, 665mV,        & Diode, 672mV,            & Diode, 666V,           \\
+           &               1pF    &               1pF, 4nA   &              2pF, 6nA  \\
     \hline
-BA157      & Diode, 619mV, 19pF   & Diode, 621V, 17pF, 12nA   & Diode, 615mV, 18pF, 12nA \\
+BA157      & Diode, 619mV,        & Diode, 621V,              & Diode, 615mV,            \\
+           &               19pF   &              17pF, 12nA   &               18pF, 12nA \\
     \hline
-BY398      & Diode, 538mV, 16pF   & Diode, 541mV, 14pF, 63nA  & Diode, 537mV, 15pF, 63nA \\
+BY398      & Diode, 538mV,        & Diode, 541mV,             & Diode, 537mV,            \\
+           &               16pF   &               14pF, 63nA  &               15pF, 63nA \\
     \hline
-1N4007     & Diode, 650mV, 13pF   & Diode, 655mV, 10pF, 6nA  & Diode, 650mV, 13pF, 6nA \\
+1N4007     & Diode, 650mV,        & Diode, 655mV,            & Diode, 650mV,           \\
+           &               13pF   &               10pF, 6nA  &               13pF, 6nA \\
     \hline
 LED green  & Diode, 1.96V, 5pF    & Diode, 1.95V, 4pF   & Diode, 1.95V, 4pF \\
     \hline
-ZPD2,7     & 2xDi, 743mV, 2.53V   & 2xDi, 737mV, 2.52V  & 2xDi, 733V, 2.51V \\
+ZPD2,7     & 2xDi, 743mV, 2.53V   & 2xDi, 737mV, 2.52V  & 2xDi, 733mV, 2.51V \\
     \hline
-BU508A B+E & Diode, 609mV, 5.15nF & Diode, 611mV, 5.20nF, 0.39uA & Diode, 606mV, 5.25nF, 0.4uA\\
+BU508A B+E & Diode, 609mV,        & Diode, 611mV,                & Diode, 606mV,              \\
+           &               5.15nF &               5.20nF, 0.39uA &               5.25nF, 0.4uA\\
     \hline
-BU508A B+C & Diode, 582mV, 256pF  & Diode, 586mV, 255pF, 21nA & Diode, 587mV, 259pF, 19nA\\
+BU508A B+C & Diode, 582mV,        & Diode, 586mV,             & Diode, 587mV,            \\
+           &               256pF  &               255pF, 21nA &               259pF, 19nA\\
     \hline
-AC128 B+E  & Diode, 272mV, 0pF    & Diode, 277mV, 0pF, 2.2uA   & Diode, 273mV, 0pF, 2.3uA  \\
+AC128 B+E  & Diode, 272mV,        & Diode, 277mV,              & Diode, 273mV,             \\
+           &               0pF    &               0pF, 2.2uA   &               0pF, 2.3uA  \\
     \hline
-AC128 B+E  &                      &    cooled           & Diode, 349mV, 140pF, 0.57uA \\
+AC128 B+E  &                      &                     & Diode, 349mV,               \\
+cooled     &                      &                     &               140pF, 0.57uA \\
     \hline
 MBR20100CT & 2xDi, 337mV, 337mV   & 2xDi, 338mV, 338mV  & 2xDi, 336mV, 335mV  \\
     \hline
-MBR20100CT & Diode, 337mV, 345pF  & Diode, 339mV, 351pF, 29nA & Diode, 337mV, 350pF, 25nA\\
+MBR20100CT & Diode, 337mV,        & Diode, 339mV,             & Diode, 337mV,            \\
+           &               345pF  &               351pF, 29nA &               350pF, 25nA\\
     \hline
-MBR4045PT  & Diode, 243mV, 1.80nF & Diode, 233mV, 1.94nF, 1.7uA & Diode, 235mV, 1.95nF, 1.8uA\\
-cooled     &                      &                     &                   \\
+MBR4045PT  & Diode, 243mV,        & Diode, 233mV,               & Diode, 235mV,              \\
+cooled     &               1.80nF &               1.94nF, 1.7uA &               1.95nF, 1.8uA\\
     \hline
-SF38G      & Diode, 519mV, 107pF  & Diode, 521mV, 105pF, 2nA & Diode, 516mV, 106pF, 2nA \\
+SF38G      & Diode, 519mV,        & Diode, 521mV,            & Diode, 516mV,            \\
+           &               107pF  &               105pF, 2nA &               106pF, 2nA \\
     \hline
     \end{tabular}
   \end{center}
@@ -243,22 +256,22 @@ The 1.08k version for the ATmega168 measures only with common collector circuit.
   \begin{center}
     \begin{tabular}{| l | c | c | c |}
     \hline
- Transistor & Mega8@1MHz          & Mega328 @8MHz       & Mega168 @8MHz    \\
+ Transistor & Mega8@1MHz          & Mega168 @8MHz       & Mega328 @8MHz    \\
     Type    & Original Version    & Version 1.08k       & Version 1.08k  \\
             & Markus F.           &                     &        \\
     \hline
     \hline
-AC128       & PNP, B=52, 279mV    & PNP, B=60, 190mV     & PNP, B=61, 185mV  \\
+AC128       & PNP, B=52, 279mV    & PNP, B=61, 185mV    & PNP, B=60, 190mV    \\
     \hline
-AC116-65    & PNP, B=505, 378mV   & PNP, B=76, 144mV    & PNP, B=56, 237mV  \\
+AC116-65    & PNP, B=505, 378mV   & PNP, B=56, 237mV    & PNP, B=76, 144mV    \\
     \hline
-AC116-145   & PNP, B=485, 294mV   & PNP, B=167, 156mV   & PNP, B=83, 212mV \\
+AC116-145   & PNP, B=485, 294mV   & PNP, B=83, 212mV    & PNP, B=167, 156mV   \\
     \hline
-AC176-65    & NPN, B=98, 235mV    & NPN, B=57, 97mV     & NPN, B=52, 146mV \\
+AC176-65    & NPN, B=98, 235mV    & NPN, B=52, 146mV    & NPN, B=57, 97mV     \\
     \hline
-GC122       & PNP, B=84, 368mV    & PNP, B=58, 117mV    & PNP, B=56, 186mV \\
+GC122       & PNP, B=84, 368mV    & PNP, B=56, 186mV    & PNP, B=58, 117mV    \\
     \hline
-GC301       & PNP, B=48, 289mV    & PNP, B=40, 189mV    & PNP, B=40, 183mV \\
+GC301       & PNP, B=48, 289mV    & PNP, B=40, 183mV    & PNP, B=40, 189mV    \\
     \hline
     \end{tabular}
   \end{center}
@@ -273,56 +286,64 @@ GC301       & PNP, B=48, 289mV    & PNP, B=40, 189mV    & PNP, B=40, 183mV \\
   \begin{center}
     \begin{tabular}{| l | c | c | c |}
     \hline
-     FET & Mega8@8MHz & Mega168 @8MHz & Mega168 @8MHz \\
-    Type    & signature 1E9307 & signature 1E9406 & signature 1E9406 \\
-           & WITH\_AUTO\_REF &  & WITH\_AUTO\_REF \\
-           &                 &  & AUTOSCALE\_ADC \\
+    \hline
+             & Mega8@8MHz       & Mega168 @8MHz    & Mega328 @8MHz \\
+ FET Type     &                  &                  &               \\
     \hline
     \hline
-ZVNL120A     & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V \\
-             & 142pF            & 146pF            & 141pF \\
+ZVNL120A     & N-E-MOS,D, 1.6V  & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V \\
+             & 147pF            & 139pF            & 140pF \\
     \hline
 IRF530N      & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V \\
-             & 1.55nF           & 1.56nF           & 1.55nF \\
+             & 1.55nF           & 1.54nF           & 1.56nF \\
     \hline
 BS170        & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V \\
-             &  71pF            &  73pF            &  70pF \\
+             &  78pF            &  68pF            &  70pF \\
     \hline
 IRL3803      & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V \\
-             & 9.82nF           & 9.82nF           & 9.79nF \\
+             & 9.81nF           & 9.71nF           & 9.80nF \\
     \hline
 IRFU120N     & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V \\
-             & 918pF            & 924pF            & 918pF \\
+             & 909pF            & 913pF            & 920pF \\
     \hline
 BUZ71A       & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V \\
-             & 710pF            & 718pF            & 712pF \\
+             & 714pF            & 708pF            & 714pF \\
     \hline
 ZVP2106A     & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V \\
-             & 117pF            & 121pF            & 116pF \\
+             & 122pF            & 115pF            & 117pF \\
     \hline
 IRF5305      & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V \\
-             & 2.23nF           & 2.25nF           & 2.24nF \\
+             & 2.22nF           & 2.22nF           & 2.24nF \\
     \hline
 BS250        & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V \\
-             & 46pF             & 48pF             & 46pF \\
+             & 53pF             & 43pF             & 44pF \\
     \hline
 IRFU9024     & P-E-MOS,D, 3.5V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.5V \\
-             & 954pF            & 954pF            & 951pF \\
+             & 937pF            & 945pF            & 952pF \\
     \hline
 J310         & N-JFET           & N-JFET           & N-JFET\\
 Idss=24-60mA & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V \\
     \hline
+2N5459       & N-JFET           & N-JFET           & N-JFET\\
+Idss=4-16mA & I=2.1mA Vgs=1.5V & I=2.1mA Vgs=1.5V & I=2.1mA Vgs=1.5V \\
+    \hline
 BF256C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=11-18mA & I=3.3mA Vgs=2.3V & I=3.4mA Vgs=2.3V & I=3.3mA Vgs=2.3V \\
+Idss=11-18mA & I=3.4mA Vgs=2.4V & I=3.4mA Vgs=2.4V & I=3.4mA Vgs=2.4V \\
     \hline
 BF245A       & N-JFET           & N-JFET           & N-JFET\\
-Idss=2-6mA   & I=1.1mA Vgs=.75V & I=1.1mA Vgs=0.74V & I=1.1mA Vgs=0.75V \\
+Idss=2-6mA   & I=1.1mA Vgs=.75V & I=1.1mA Vgs=0.75V & I=1.1mA Vgs=0.75V \\
     \hline
 BF245B       & N-JFET           & N-JFET           & N-JFET\\
-Idss=6-15mA  & I=2.4mA Vgs=1.7V & I=2.5mA Vgs=1.7V & I=2.4mA Vgs=1.7V \\
+Idss=6-15mA  & I=2.5mA Vgs=1.7V & I=2.5mA Vgs=1.7V & I=2.5mA Vgs=1.7V \\
     \hline
 BF245C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=12-25mA & I=3.8mA Vgs=2.7V & I=3.9mA Vgs=2.7V & I=3.8mA Vgs=2.7V \\
+Idss=12-25mA & I=3.9mA Vgs=2.7V & I=3.9mA Vgs=2.7V & I=3.9mA Vgs=2.7V \\
+    \hline
+J175        & P-JFET           & P-JFET           & P-JFET\\
+Idss=7-60mA & I=3.2mA Vgs=2.2V & I=3.2mA Vgs=2.2V & I=3.2mA Vgs=2.2V \\
+    \hline
+2N5460      & P-JFET           & P-JFET           & P-JFET\\
+Idss=1-5mA  & I=0.78mA Vgs=0.54V & I=0.77mA Vgs=0.54V & I=0.78mA Vgs=0.54V \\
     \hline
     \end{tabular}
   \end{center}
