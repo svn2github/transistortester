@@ -177,10 +177,10 @@ verhindert.
 Bei einer Options-Angabe in der Form von CFLAGS += -DPOWER\_OFF=5 wird nach 5 aufeinanderfolgenden Messungen ohne
 gefundenes Bauteil abschaltet. Aufeinanderfolgende 10 Messungen mit gefundenem Bauteil schalten ebenfalls aus.
 Nur wenn die jeweilige Mess-Serie durch den anderen Typ unterbrochen wird, wird die Messung fortgesetzt.
-Die Messresultate für eine Einzelmessung werden 14~Sekunden angezeigt, bei der Mehrfachmessung wird die
+Die Messresultate für eine Einzelmessung werden 28~Sekunden angezeigt, bei der Mehrfachmessung wird die
 Anzeigezeit auf 5~Sekunden reduziert (wird in config.h gesetzt).
 Wenn der Startknopf beim ersten Einschalten lange gedrückt wird, wird das Messergebnis
- auch bei der Mehrfachmessung 14~Sekunden angezeigt.
+ auch bei der Mehrfachmessung 28~Sekunden angezeigt.
 Der Maximalwert für die Wiederholungen ist 255 (CFLAGS += -DPOWER\_OFF=255).\\
 Beispiel 1: CFLAGS += -DPOWER\_OFF=5 \\
 Beispiel 2: CFLAGS += -DPOWER\_OFF 
