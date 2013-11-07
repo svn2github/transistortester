@@ -4,7 +4,9 @@
 \label{sec:selftest}
 Beginning with release 0.9k I have implemented a self test function. Usage is very simple.
 If you have installed  test terminal with clamps, put all clamps together to a piece of uninsulated wire and press the start button.
-The program notice the shorten probes and start the self test function.
+The program notice the shorten probes and start the self test function, if you confirm within two
+seconds with pressing the start key. This confirmation is implemented to prevent the tester
+going automatically to the self test by connecting a defect transistor.
 After finishing the self test the transistor tester will continue with normal measurement.
 If no equipment is connected, the program will end with ``part unknown or damaged''. 
 You can configure self test only for a ATmega168  or ATmega328.
