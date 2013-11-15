@@ -35,7 +35,7 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
     Beispiel: PARTNO = m168
   \item[UI\_LANGUAGE] gibt die Sprache für den Tester an:\\
     LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK, LANG\_SLOVENE, LANG\_DUTCH, LANG\_BRASIL,
- LANG\_RUSSIAN and LANG\_UKRAINIAN sind derzeit verfügbar.
+ LANG\_RUSSIAN, LANG\_UKRAINIAN and LANG\_LITHUANIAN sind derzeit verfügbar.
  Für die russische und ukrainische Sprache ist ein LCD mit kyrillischem Zeichensatz erforderlich.\\
     Beispiel: UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] wird nur gebraucht, wenn man ein LCD-Display mit kyrillischem Zeichensatz benutzt.
@@ -50,6 +50,22 @@ Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
+  \item[NO\_COMMON\_COLLECTOR\_HFE] verhindert die hFE Messung von Transistoren in der Kollektorschaltung.
+So können Sie Speicher sparen, um die erweiterten Selbsttest Routinen T1 bis T7 für den ATmega168 Prozessor zu ermöglichen.
+Standardmäßig sind beide Schaltungen für die hFE Messung eingeschaltet,
+aber da ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
+Beispiel: CFLAGS += -DNO\_COMMON\_COLLECTOR\_HFE
+  \item[NO\_COMMON\_EMITTER\_HFE] disables the hFE measurement of transistors with the common emitter circuit.
+So können Sie Speicher sparen, um die erweiterten Selbsttest Routinen T1 bis T7 für den ATmega168 Prozessor zu ermöglichen.
+Standardmäßig sind beide Schaltungen für die hFE Messung eingeschaltet,
+aber da ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
+Beispiel: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
+  \item[NO\_TEST\_T1\_T7] Diese Option verhindert die Ausführung der Selbsttest Teile T1 bis T7.
+Diese Tests sind nützlich um Fehler in der Schaltung wie falsche Meßwiderstände oder Isolationsprobleme zu finden.
+Wenn Ihre Schaltung fehlerfrei ist, können Sie die Selbsttest Teile T1 bis T7 durch das Setzen dieser Option weglassen, um eine
+schnellere Kalibration zu erreichen.
+Der ATmega168 Prozessor benutzt die Selbsttest Teile T1 bis T7 nicht, wenn beide Meßmethoden für die hFE Bestimmung benutzt werden.\\
+Beispiel: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim
 Selbsttest zusätzlich ins EEprom geschrieben und ist damit für die weiteren Messungen abgeglichen.
 Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 

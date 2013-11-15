@@ -35,7 +35,7 @@ The following options in the Makefile are avaiable to configure the software for
     example:  PARTNO = m168
   \item[UI\_LANGUAGE] specifies the favored Language\\
     LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK, LANG\_SLOVENE, LANG\_DUTCH, LANG\_BRASIL,
- LANG\_RUSSIAN and LANG\_UKRAINIAN is currently avaiable.
+ LANG\_RUSSIAN, LANG\_UKRAINIAN and LANG\_LITHUANIAN is currently avaiable.
  The russian or ukrainian language requires a LCD with cyrillic character set.\\
     example:  UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] is only needed for a LCD-display with cyrillic character set. The \(\mu\) and \(\Omega\) character
@@ -50,6 +50,21 @@ You can find the details in the chapter hardware \ref{sec:hardware}.
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
 Selftest will be started, if you connect all three probes together and start measurement.\\
 example: CFLAGS += -DWITH\_SELFTEST
+  \item[NO\_COMMON\_COLLECTOR\_HFE] disables the hFE measurement of transistors with the common collector circuit.
+You can save memory to enable the extended selftests T1 to T7 for a ATmega168 processor.
+By default both measurement circuits for the hFE measurement are enabled, 
+but there is no place in the program memory of the ATmega168 for the extended selftests.\\
+example: CFLAGS += -DNO\_COMMON\_COLLECTOR\_HFE
+  \item[NO\_COMMON\_EMITTER\_HFE] disables the hFE measurement of transistors with the common emitter circuit.
+You can save memory to enable the extended selftests T1 to T7 for a ATmega168 processor.
+By default both measurement circuits for the hFE measurement are enabled, 
+but there is no place in the program memory of the ATmega168 for the extended selftests.\\
+example: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
+  \item[NO\_TEST\_T1\_T7] This option disable the execution of the selftest parts T1 to T7.
+This tests are usefull to find errors in the hardware like incorrect measurement resistors or isolation problems.
+If your hardware is well, you can omitt this selftest parts T1 to T7 by setting this option to get a faster calibration.
+The ATmega168 processor does not use the selftest parts T1 to T7, if both measurement types for hFE determination are used.\\
+example: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
