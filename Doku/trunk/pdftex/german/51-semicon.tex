@@ -146,7 +146,7 @@ Außerdem wird bei Einzeldioden eine Kapazitätsmessung in Sperr-Richtung durchg
 
 \subsection{Ergebnisse der verschiedenen Messungen}
 Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile 
-eines ATmega8-Prozessors und verschiedenen Softwareversionen eines ATmega168-Prozessoren.
+eines ATmega8-Prozessors,eines ATmega168 und eines ATmega328 Prozessors.
 Die Messung der Sperrschichtkapazität für die Doppeldiode MBR4045PT gelingt
 nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der 40A Diode. Ebenso kann für die Basis - Emitter
 Strecke des Germanium Transistors AC128 die Sperrschichtkapazität nur im
@@ -154,7 +154,7 @@ gekühlten Zustand gemessen werden.
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| l | c | c | c |}
+    \begin{tabular}{| l | c | c | c | c |}
     \hline
            & Mega8@8MHz          & Mega168 @8MHz       & Mega328 @8MHz     \\
  Diode Typ &                     &                     &                   \\
@@ -210,33 +210,34 @@ SF38G      & Diode, 519mV,        & Diode, 521mV,            & Diode, 516mV,    
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| l | c | c | c |}
+    \begin{tabular}{| l | c | c | c | c | c |}
     \hline
- Transistor & Mega8@8MHz          & Mega168 @8MHz       & Mega328 @8MHz    \\
-    Typ     &                     &                     &                  \\
+ Transistor & Typ & Mega8           & Mega328        & Mega328         & Mega328 \\
+    Typ     &     &                 &                & common-         & common- \\
+            &     &                 &                & collector       & emitter \\
     \hline
     \hline
-BU508A      & NPN, B=9, 602mV     & NPN, B=10, 594mV    & NPN, B=9, 591mV   \\
+BU508A      & NPN & B=9, 602mV      &  B=9, 597mV    &   B=9, 594mV    & B=5, 470mV \\
     \hline
-2N3055      & NPN, B=20, 553mV    & NPN, B=22, 545mV    & NPN, B=21, 542mV  \\
+2N3055      & NPN & B=20, 553mV     &  B=21, 550mV   &   B=21, 546mV   & B=6, 427mV \\
     \hline
-BC639       & NPN, B=180, 628mV   & NPN, B=215, 623mV   & NPN, B=173, 620mV \\
+BC639       & NPN & B=180, 628mV    &  B=172, 629mV  &   B=172, 622mV  & B=171, 580mV \\
     \hline
-BC640       & PNP, B=216, 635mV   & PNP, B=178, 635mV   & PNP, B=183, 600mV \\
+BC640       & PNP & B=216, 635mV    &  B=176, 609mV  &   B=179, 640mV  & B=184, 594mV \\
     \hline
-BC517       & NPN, B=26.1k, 1.20V & NPN, B=27.8k, 1.21V & NPN, B=26.1k, 1.20V\\
+BC517       & NPN & B=26.1k, 1.20V  &  B=24.8k, 1.22V&   B=26.3k, 1.20V & B=765, 1.21V \\
     \hline
-BC516       & PNP, B=77.6k, 1.20V & PNP, B=81.1k, 1.19V & PNP, B=81.7k, 1.18V\\
+BC516       & PNP & B=77.6k, 1.20V  &  B=76.1k, 1.20V&   B=81.6k, 1.17V & B=754, 1.21V \\
     \hline
-BC546B      & NPN, B=381, 659mV   & NPN, B=380, 653mV   & NPN, B=430, 675mV \\
+BC546B      & NPN & B=381, 659mV    &  B=427, 687mV  &   B=428, 678mV   & B=380, 654mV \\
     \hline
-BC556B      & PNP, B=285, 689mV   & PNP, B=250, 688mV   & PNP, B=262, 654mV \\
+BC556B      & PNP & B=285, 689mV    &  B=254, 668mV  &   B=251, 684mV   & B=262, 653mV \\
     \hline
-AC128 (Ge.) & PNP, B=63, 190mV    & PNP, B=61, 184mV    & PNP, B=59, 182mV  \\
+AC128 (Ge.) & PNP & B=63, 190mV     &  B=59, 191mV   &   B=59, 184mV    & B=48, 114mV \\
     \hline
-BRY55/200   & Thyristor           & Thyristor           & Thyristor        \\
+BRY55/200   &     & Thyristor       & Thyristor      &  Thyristor       & Thyristor \\
     \hline
-MAC97A6     & Triac               & Triac               & Triac        \\
+MAC97A6     &     & Triac           & Triac          &  Triac           & Triac     \\
     \hline
     \end{tabular}
   \end{center}
@@ -244,41 +245,44 @@ MAC97A6     & Triac               & Triac               & Triac        \\
   \label{tab:bipolar} 
 \end{table}
 
-Die Ergebnisse unterscheiden sich teilweise erheblich von den Werten der Version 
+Die Ergebnisse der Transistormessungen unterscheiden sich teilweise erheblich von den Werten der Version 
 von Markus Frejek. Zum Beispiel wird für den Darlington Transistor BC517 von
 der früheren Software ein hFE von nur 797 statt 77600 gemessen. 
 Dies hängt damit zusammen, dass die Stromverstärkung bei der neuen Version auch mit der
 Kollektorschaltung gemessen wird.
+Dies zeigen auch die Ergebnisse der neuen Version in der Emitterschaltung (common emitter),
+wie man in der letzten Spalte der Tabelle \ref{tab:bipolar} sehen kann.
 Die Basis Emitter Spannung wurde früher mit einem separaten Diodentest mit 1438mV ermittelt.
 Jetzt wird die angegebene Basis Emitter Spannung im Zustand der Verstärkungsmessung (1.20V) ermittelt.
 
-In der folgenden Tabelle werden die Meßergebnisse von Germanium Transistoren gezeigt, die wegen den
+In der folgenden Tabelle \ref{tab:germanium} werden die Meßergebnisse von Germanium Transistoren gezeigt, die wegen den
 stark Temperatur abhängigen Kollektor Restströmen besonders problematisch sind.
-Es werden die Ergebnisse der Urversion von Markus F. und die Ergebnisse der aktuellen 1.08k Version
-miteinander verglichen. Die 1.08k Version mißt mit dem ATmega328 die Stromverstärkung sowohl in der
-Kollektorschaltung als auch in der Emitterschaltung, wobei die höhere Stromverstärkung ausgegeben wird.
-Bei der 1.08k Version für den ATmega168 wird nur in der Kollektorschaltung gemessen.
+Es werden die Ergebnisse der Urversion von Markus F. und die Ergebnisse der aktuellen 1.09k Version
+miteinander verglichen. Die 1.09k Version mißt die Stromverstärkung sowohl in der
+Kollektorschaltung als auch in der Emitterschaltung mit Berücksichtigung des Kollektor-Ruhestroms,
+ wobei die höhere Stromverstärkung ausgegeben wird. Der Kollektor-Ruhestrom wurde in älteren Versionen
+nicht berücksichtigt.
 
 \begin{table}[H]
   \begin{center}
     \begin{tabular}{| l | c | c | c |}
     \hline
  Transistor & Mega8@1MHz          & Mega168 @8MHz       & Mega328 @8MHz    \\
-    Typ     & Ur-Version          & Version 1.08k       & Version 1.08k  \\
+    Typ     & Ur-Version          & Version 1.09k       & Version 1.09k  \\
             & Markus F.           &                     &        \\
     \hline
     \hline
-AC128       & PNP, B=52, 279mV    & PNP, B=61, 185mV    & PNP, B=60, 190mV    \\
+AC128       & PNP, B=52, 279mV    & PNP, B=59, 190mV    & PNP, B=59, 191mV    \\
     \hline
-AC116-65    & PNP, B=505, 378mV   & PNP, B=56, 237mV    & PNP, B=76, 144mV    \\
+AC116-65    & PNP, B=505, 378mV   & PNP, B=71, 150mV    & PNP, B=72, 149mV    \\
     \hline
-AC116-145   & PNP, B=485, 294mV   & PNP, B=83, 212mV    & PNP, B=167, 156mV   \\
+AC116-145   & PNP, B=485, 294mV   & PNP, B=145, 161mV    & PNP, B=146, 163mV   \\
     \hline
-AC176-65    & NPN, B=98, 235mV    & NPN, B=52, 146mV    & NPN, B=57, 97mV     \\
+AC176-65    & NPN, B=98, 235mV    & NPN, B=55, 95mV    & NPN, B=56, 96mV     \\
     \hline
-GC122       & PNP, B=84, 368mV    & PNP, B=56, 186mV    & PNP, B=58, 117mV    \\
+GC122       & PNP, B=84, 368mV    & PNP, B=55, 194mV    & PNP, B=56, 117mV    \\
     \hline
-GC301       & PNP, B=48, 289mV    & PNP, B=40, 183mV    & PNP, B=40, 189mV    \\
+GC301       & PNP, B=48, 289mV    & PNP, B=38, 191mV    & PNP, B=39, 188mV    \\
     \hline
     \end{tabular}
   \end{center}
