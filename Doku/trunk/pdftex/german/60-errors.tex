@@ -1,14 +1,14 @@
 
 %\newpage
 \chapter{Bekannte Fehler und ungelöste Probleme}
-{\center Software-Version 1.08k}
+{\center Software-Version 1.10k}
 
 \begin{enumerate}
 
 \item Germanium-Dioden (AC128) werden nicht in allen Fällen entdeckt. Ursache ist vermutlich der Reststrom.
 Das Kühlen der Diode reduziert den Reststrom.
 
-\item Der Stromverstärkungsfaktor von Germanium Transistoren kann zu hoch gemessen werden wegen den hohen Reststrom.
+\item Der Stromverstärkungsfaktor von Germanium Transistoren kann zu hoch gemessen werden wegen dem hohen Reststrom.
 In diesem Fall ist die gemessene Basis Emitter Spannung auffällig klein.
 Das Kühlen des Transistors kann helfen, einen realistischeren Stromverstärkungsfaktor zu bestimmen.
 
@@ -25,9 +25,13 @@ Dabei kommt es zu Resets bei der Kondensatormessung.  Eine Ursache ist nicht bek
 Der Fehler verschwindet, wenn man die Brown Out Schwelle auf 2.7V einstellt.
 
 \item Mit der Benutzung des Schlafzustandes des processors schwankt die VCC Stromaufnahme mehr als
-in vorigen Software Versionen. Sie sollten die Abblock-Kondensatoren überprüfen, wenn Sie irgendwelche
-Probleme feststellen. Keramische 100nF Kondensatoren sollten in der Nähe der Poweranschlüsse des ATmega
-angeschlossen sein. Sie können die Benutzung des Schlafzustandes auch mit der Makefile Option
-INHIBIT\_SLEEP\_MODE verhindern.
+in älteren Software Versionen.
+Sie sollten die Abblock-Kondensatoren überprüfen, wenn Sie irgendwelche Probleme feststellen.
+Keramische 100nF Kondensatoren sollten in der Nähe der Poweranschlüsse des ATmega angeschlossen sein.
+Sie können die Benutzung des Schlafzustandes auch mit der Makefile Option INHIBIT\_SLEEP\_MODE verhindern.
+
+\item Das Messen von Tantal Elektrolyt-Kondensatoren macht oft Probleme.
+Sie können als Diode erkannt werden oder auch gar nicht erkannt werden.
+Manchmal hilft ein Polaritätswechsel.
 
 \end{enumerate}

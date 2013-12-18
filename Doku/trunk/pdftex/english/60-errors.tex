@@ -1,11 +1,11 @@
 
 %\newpage
 \chapter{Known errors and unsolved problems}
-{\center Software Version 1.08k}
+{\center Software Version 1.10k}
 
 \begin{enumerate}
 
-\item Germanium Diodes (AC128) are not detected in all cases.
+\item Germanium Diodes (AC128) are not detected in all cases. This is probably caused by the residual current.
 Cooling of the diode can help to reduce the residual current.
 
 \item The current amplification factor of germanium transistors can be measured too high because of
@@ -26,8 +26,13 @@ This will cause a reset during capacity measurement. A reason is not known.
 The Resets will disappear, if the Brown Out level is set to 2.7V.
 
 \item With the using of the sleep state of the processor, current of VCC power is changing more than 
-using previous software versions. You should check the blocking capacitors, if you notice any problems.
+using previous software versions.
+You should check the blocking capacitors, if you notice any problems.
 Ceramic capacitors with 100nF should be placed near the power pins of the ATmega. 
 The using of sleep state can be deselected by the Makefile option INHIBIT\_SLEEP\_MODE.
+
+\item The measurement of tantalum based electolytical capacitors often make trouble.
+They can be detected as diode or can also be not detected as known part.
+Sometimes the measurement with swapped connection can help.
 
 \end{enumerate}

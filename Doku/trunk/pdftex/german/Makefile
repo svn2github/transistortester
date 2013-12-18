@@ -8,6 +8,7 @@ LISTE += ../FIG/ResistormessL2.eps ../FIG/ResistormessRH1.eps ../FIG/terminal.ep
 LISTE += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/relay_addon.eps ../FIG/zener_exp.eps 
 LISTE += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
+LISTE += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps 
 all: $(LISTE) ttester.pdf
 	
 ../GNU/RLvtot.eps: ../GNU/RLvtot.gnu
@@ -96,6 +97,10 @@ all: $(LISTE) ttester.pdf
 	fig2eps ../FIG/Cap_esr2.fig
 ../FIG/Cap_esr2_timing.eps: ../FIG/Cap_esr2_timing.fig
 	fig2eps ../FIG/Cap_esr2_timing.fig
+../FIG/CheckSemi1.eps: ../FIG/CheckSemi1.fig
+	fig2eps ../FIG/CheckSemi1.fig
+../FIG/CheckSemi2.eps: ../FIG/CheckSemi2.fig
+	fig2eps ../FIG/CheckSemi2.fig
 
 TEXLIST =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex \
   54-inductors.tex 55-selftest.tex 60-errors.tex 70-special.tex 80-todo.tex
