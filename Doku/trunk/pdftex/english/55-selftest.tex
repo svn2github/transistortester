@@ -11,7 +11,11 @@ After finishing the self test the transistor tester will continue with normal me
 If no equipment is connected, the program will end with ``part unknown or damaged''. 
 You can configure self test only for a ATmega168  or ATmega328.
 Before the test steps begin, the zero resistance of the connected probes is determined for all three combinations
-(T1:T3, T2:T3 and T1:T2). This zero resistances will be subtracted for the future ESR and resistance measurements below \(10 \Omega\).
+(T1:T3, T2:T3 and T1:T2).
+This zero resistances will be subtracted for the future ESR and resistance measurements below \(10 \Omega\).
+If the later measured resistance results fall below the particular zero resistance for more than \(0.2 \Omega\),
+the tester will be resetted to ''uncalibrated''.
+This will be marked with a ! character in column 1 of the second LCD row during the tests.
 The separate steps of the self test function 1 to 7 is displayed on row~1 of the LCD display with the letter T
 followed by the step number.
 Every step is repeated 4~times, before the program continues with the next step.
@@ -114,9 +118,12 @@ in display row 1 following the ``C0 ''.
 Alls three values are shown in pF units.
 For this measurements no predefined zero offset is respected.
 The zero offsets of pin combinations in opposite order is also measured.
-The results will be written to the EEprom, if all values are less than \(70 pF\).
+The results will be written to the EEprom, if all values are less than \(190 pF\).
 This will be notified by the output of ``OK'' in row~2.
 The found zero offsets are used for further capacity measurements with respect to the pin combination.
+If there is any measurement found with a capacity value 20pF below the particular zero offset, the
+tester will be resetted to ''uncalibrated''.
+This will be noticed by a ! character in column one of the second LCD line during further tests.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
