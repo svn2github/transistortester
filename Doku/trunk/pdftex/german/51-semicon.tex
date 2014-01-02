@@ -1,21 +1,26 @@
 %\newpage
 \section{Messung von Halbleitern}
-Ein Testpin wird als negative Seite des Bauteils angenommen.
-Ein anderer Pin wird als positive Seite des Bauteils angenommen.
-Als erster Test wird die positive Seite des Bauteils direkt mit VCC verbunden.
+Als erster Test soll der Stromfluß des Bauteils bei stromlosen Steuerpin (dritter Pin, auch TriStatePin genannt)
+untersucht werden. Der Steuerpin ist beispielsweise das Gitter oder die Basis des Testobjektes.
+Ein Testpin wird die positive Seite des Bauteils angenommen und direkt mit VCC verbunden.
+Ein anderer Pin wird als negative Seite des Bauteils angenommen.
 Die negative Seite wird mit dem \(680\Omega\) Widerstand nach GND verbunden.
-Der Testpin (dritter Pin, auch TriStatePin genannt) wird zuerst mit dem \(680\Omega\)-Widerstand
-für 10ms mit GND verbunden.
-Die Spannung des negativen Testpins wird gemessen, während der TriStatePin auf Eingang
-geschaltet ist.
-Es wird angenommen, dass das getestete Bauteil ein P-Kanal-MOSFET sein kann und dass das Gate
-entladen sein sollte.
-Wenn die gemessene Spannung über 976mV ist, nimmt der nächste Test an. dass das getestete
-Bauteil auch ein P-Kanal-MOSFET sein könnte und dafür wird der \(680\Omega\) Widerstand
-für 10ms zur VCC-Seite geschaltet.
-Auch für diesen Fall wird die Spannung des negativen Pins mit stromlosen TriStatePin gemessen.
-Wenn die Spannung des negativen Pins grösser als 455mV ist, werden zusätzliche Tests gemacht, 
-um N-Kanal JFET oder D-MOSFET (Verarmungs-Typ) und P-Kanal JFET oder P-MOSFET zu unterscheiden.
+Bei Feldeffekt Transistoren ist der Zustand des Transistors von der Spannung des Gitters abhängig.
+Der Tristatepin wird zuerst mit dem \(680\Omega\)-Widerstand für 5ms mit GND verbunden und
+die Spannung an der negativen Seite gemessen.
+Danach wird die Spannung des negativen Testpins wieder gemessen, während der TriStatePin auf
+Eingang (hochohmig) geschaltet ist.
+Danach wird das angenommene Gate für 5ms mit dem \(680\Omega\)-Widerstand auf VCC geschaltet 
+und die Spannung an der negativen Seite noch einmal gemessen.
+Wenn die gemessene Spannung jetzt niedriger ist als bei der ersten Messung, wird diese Schaltung
+als richtig angenommen. Dann wird die Spannung noch einmal mit stromlosen TristatePin gemessen.
+
+Wenn die Spannungen des negativen Pins sowohl mit stromlosen TristatePin als auch mit
+dem festgehaltenen Pegel grösser als 455mV ist, wird ein Verarmungs-Typ angenommen.
+Durch die Überprüfung beider Pegel wird eine Falschdetektion von Germanium Transistoren mit
+höheren Kollektor-Reststroms als Verarmungs Transistoren (JFET) vermieden.
+Es werden dann weitere Tests gemacht,
+um N-Kanal JFET oder D-MOSFET  und P-Kanal JFET oder P-MOSFET zu unterscheiden.
 Die MOSFET-Versionen können erkannt werden durch das Fehlen von Steuerstrom in jedem 
 TriStatePins Zustand.
 

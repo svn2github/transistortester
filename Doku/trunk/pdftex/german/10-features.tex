@@ -103,6 +103,10 @@ um die Offset Spannung des analogens Komparators zu kompensieren.
 Dies kann den Messfehler bei Kapazitätsmessungen bis zu \(40~\mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verstärkung für
 die ADC Messung mit der internen \(1.1V\) Referenzspannung berechnet.
+\item Anzeige des Kollektor-Emitter Reststroms \(I_{CE0}\) mit stromloser Basis (\(10\mu A\) Auflösung) und
+des Kollektor-Emitter Reststroms \(I_{CES}\) mit der Basis auf Emitter Potential gehalten (nur für ATmega328).
+Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germanium Transistoren).
+
 \end{enumerate}
 
 Thyristoren und Triacs können nur erkannt werden, wenn der Test-Strom über dem Halte-Strom liegt.

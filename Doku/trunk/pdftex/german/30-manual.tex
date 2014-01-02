@@ -157,6 +157,12 @@ vom Tester trennen und noch einmal messen.
 Dann wird die Schwellspannung bei etwa 6mA ausgegeben und die Kapazität der Diode in Sperr-Richtung ermittelt.
 Natürlich kann so auch die Basis - Kollektor Diode gemessen werden.
 
+Bei Germanium Transistoren wird meistens ein Kolleḱtor-Emitter Reststrom \(I_{CE0}\) mit stromloser Basis oder
+ein Kollektor-Emitter Reststrom \(I_{CES}\) mit Basis auf Emitterpotential gemessen.
+In diesem Fall werden in Zeile 2 für ATmega328 für 5 Sekunden oder bis zum Tastendruck die Restströme
+vor der Stromverstärkung ausgegeben.
+Durch Kühlen kann der Reststrom bei Germanium Transistoren erheblich gesenkt werden. 
+
 \section{Messung von JFET und D-MOS Transistoren}
 Wegen des symmetrischen Aufbaus von JFET Transistoren kann Source und Drain nicht unterschieden werden.
 Normalerweise wird bei JFET als eine Kenngröße der Strom bei kurzgeschlossenem Gate - Source angegeben.

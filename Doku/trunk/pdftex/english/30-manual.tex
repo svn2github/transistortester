@@ -156,6 +156,13 @@ With this connection, the Base - Emitter threshold voltage at 6 mA is reported. 
 in reverse direction of the diode is also reported.
 Of course you can also analyse the base - collector diode.
 
+With Germanium transistors often a Collector cutoff current \(I_{CE0}\) with currentless base or 
+a Collector residual current \(I_{CES}\) with base hold to the emitter level is measured.
+Only for ATmega328 processors the Collector cutoff current is shown in this case at the row 2 of the LCD 
+for 5 seconds or until the next keypress before showing the current amplification factor. 
+With cooling the cutoff current can be reduced significant for Germanium transistors.
+
+
 \section{Measurement of JFET and D-MOS transistors}
 Because the structure of JFET type is symmetrical, the Source and Drain of this transistores can not
 be differed.

@@ -1,21 +1,30 @@
 %\newpage
 \section{Measurement of Semiconductors}
-One probe pin is assumed to be the negative side of the component.
-Another pin is assumed to be the positive side of the component.
-For a first test, the components positive side is directly connected to VCC.
+The currentflow of the device with currentless control gate (third pin, also called Tristate pin)
+is to be examined first.
+The Tristate pin of the device under test is the base or gate for example.
+One probe pin is selected as the positive side of the device and connected directly to VCC.
+The other probe pin  selectes as negative side of the device.
 The negative side is connected with the \(680\Omega\) resistor to GND.
-The test probe (third pin, also called TriStatePin) is first connected with the \(680\Omega\) resistor
-for 10 ms to GND.
-The voltage of the negative probe pin is read, during  the TriStatePin is
-switched to Input (High Impedance).
-It is assumed that the tested part can be
-a N-Channel MOSFET and the gate should be discharged.
-If the readed voltage is above 976mV, the next test assume, that the tested part can
-also be a P-Channel MOSFET and for this a 10ms switch of the TriStatePin with the \(680\Omega\) resistor
-to the VCC side is done.
-Also for this case the voltage at the negative Probe pin is read with a currentless TriStatePin.
-If the voltage of the negative pin is greater than 455mV, additional tests are made to differ
-N-Channel JFET or D-MOSFET (depletion) and P-Channel JFET or P-MOSFET. 
+With fieldeffect transistors the state of the device depends on the voltage of the gate.
+The Tristate pin is first connected with the \(680\Omega\) resistor for 5ms to the GND side and
+the voltage at the negative side is measured.
+After that the voltage of the negative side is measured again during the Tristate pin switched
+as input (High Impedance).
+Then the assumed gate is connected with the \(680\Omega\) resistor for 5ms to the VCC side and
+the voltage on the negative side is measured again.
+If the measured voltage is lower than the first measurement result, this circuit will
+be assumed as the right one. Then the voltage is measured again with currentless Tristate pin.
+
+If the voltages of the negative pin with currentless Tristate pin and also with the 
+fixed voltage of the Tristate pin is higher than 455mV, a depletion transistor type is assumed.
+With the checking of both voltages we can avoid the wrong detection of some Germanium transistors with a higher
+collector cutoff current as depletion transistors (JFET).
+
+Then additional tests are done 
+to differ N-channel JFET or N-D-MOSFET and P-channel JFET or P-D-MOSFET.
+Die MOSFET-Versionen können erkannt werden durch das Fehlen von Steuerstrom in jedem
+TriStatePins Zustand.
 The MOSFET versions can be differed by the missing of gate current in any state
 of the TriStatePin.
 
