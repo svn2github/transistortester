@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.21)  2 JAN 2014 22:48
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.4)  10 JAN 2014 22:22
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -6,8 +6,8 @@ entering extended mode
 (./ttester.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, ngerman, german, german-x-2009-06-19, ngerman-x-2009-06-19, loaded.
-
+yphenation, bulgarian, ukrainian, russian, ngerman, german, german-x-2009-06-19
+, ngerman-x-2009-06-19, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size12.clo
@@ -683,11 +683,11 @@ File: ../PNG/IRFU120gate.png Graphic file (type png)
 
 <use ../PNG/IRFU120gate.png> [32 <../FIG/NPNce-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/CheckSemi1.eps>
-(epstopdf)                    date: 2014-01-02 16:10:32
+(epstopdf)                    date: 2014-01-10 22:22:47
 (epstopdf)                    size: 58510 bytes
 (epstopdf)             Output file: <../FIG/CheckSemi1-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 16:10:35
-(epstopdf)                    size: 19782 bytes
+(epstopdf)                    date: 2014-01-10 22:22:49
+(epstopdf)                    size: 19784 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/CheckSemi1-eps-conve
 rted-to.pdf ../FIG/CheckSemi1.eps>
 (epstopdf)             \includegraphics on input line 140.
@@ -699,26 +699,26 @@ File: ../FIG/CheckSemi1-eps-converted-to.pdf Graphic file (type pdf)
 <use ../FIG/CheckSemi1-eps-converted-to.pdf> [33 <../PNG/IRFU120gate.png (PNG c
 opy)>]
 Package epstopdf Info: Source file: <../FIG/CheckSemi2.eps>
-(epstopdf)                    date: 2014-01-02 16:27:22
-(epstopdf)                    size: 83584 bytes
+(epstopdf)                    date: 2014-01-07 23:24:14
+(epstopdf)                    size: 86364 bytes
 (epstopdf)             Output file: <../FIG/CheckSemi2-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 16:27:23
-(epstopdf)                    size: 27285 bytes
+(epstopdf)                    date: 2014-01-07 23:24:16
+(epstopdf)                    size: 28338 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/CheckSemi2-eps-conve
 rted-to.pdf ../FIG/CheckSemi2.eps>
 (epstopdf)             \includegraphics on input line 147.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi2-eps-converted-to.pdf, id=570, 527.9725pt x 735.74875pt>
+<../FIG/CheckSemi2-eps-converted-to.pdf, id=570, 524.96124pt x 740.7675pt>
 File: ../FIG/CheckSemi2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi2-eps-converted-to.pdf>
-Overfull \hbox (15.82158pt too wide) in paragraph at lines 147--148
+Overfull \hbox (12.81033pt too wide) in paragraph at lines 147--148
  [][] 
  []
 
 [34 <../FIG/CheckSemi1-eps-converted-to.pdf>]
-Overfull \vbox (30.55833pt too high) has occurred while \output is active []
+Overfull \vbox (35.57707pt too high) has occurred while \output is active []
 
 
 [35 <../FIG/CheckSemi2-eps-converted-to.pdf>] [36] [37] [38]) [39] [40]
@@ -859,11 +859,11 @@ File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 <use ../GNU/RHv-eps-converted-to.pdf>) [44 <../FIG/ResistormessH2-eps-converted
 -to.pdf> <../GNU/RHv-eps-converted-to.pdf>] (../GNU/Mega8res.tex
 Package epstopdf Info: Source file: <../GNU/Mega8res.eps>
-(epstopdf)                    date: 2014-01-02 22:48:05
+(epstopdf)                    date: 2014-01-10 22:22:53
 (epstopdf)                    size: 22965 bytes
 (epstopdf)             Output file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:03
-(epstopdf)                    size: 6993 bytes
+(epstopdf)                    date: 2014-01-10 22:22:50
+(epstopdf)                    size: 6988 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8res-eps-convert
 ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 131.
@@ -871,19 +871,19 @@ runsystem(epstopdf --outfile=../GNU/Mega8res-eps-converted-to.pdf ../GNU/Mega8r
 es.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8res-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:06
-(epstopdf)                    size: 6991 bytes.
+(epstopdf)                    date: 2014-01-10 22:22:55
+(epstopdf)                    size: 6988 bytes.
 
 <../GNU/Mega8res-eps-converted-to.pdf, id=718, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8res-eps-converted-to.pdf>) (../GNU/Mega8Ares.tex
 Package epstopdf Info: Source file: <../GNU/Mega8Ares.eps>
-(epstopdf)                    date: 2014-01-02 22:48:05
+(epstopdf)                    date: 2014-01-10 22:22:53
 (epstopdf)                    size: 22303 bytes
 (epstopdf)             Output file: <../GNU/Mega8Ares-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:03
-(epstopdf)                    size: 6440 bytes
+(epstopdf)                    date: 2014-01-10 22:22:50
+(epstopdf)                    size: 6447 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8Ares-eps-conver
 ted-to.pdf ../GNU/Mega8Ares.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -891,19 +891,19 @@ runsystem(epstopdf --outfile=../GNU/Mega8Ares-eps-converted-to.pdf ../GNU/Mega8
 Ares.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8Ares-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:07
-(epstopdf)                    size: 6447 bytes.
+(epstopdf)                    date: 2014-01-10 22:22:55
+(epstopdf)                    size: 6443 bytes.
 
 <../GNU/Mega8Ares-eps-converted-to.pdf, id=719, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Ares-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Ares-eps-converted-to.pdf>) (../GNU/Mega8Lres.tex
 Package epstopdf Info: Source file: <../GNU/Mega8Lres.eps>
-(epstopdf)                    date: 2014-01-02 22:48:05
+(epstopdf)                    date: 2014-01-10 22:22:53
 (epstopdf)                    size: 22412 bytes
 (epstopdf)             Output file: <../GNU/Mega8Lres-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:03
-(epstopdf)                    size: 6389 bytes
+(epstopdf)                    date: 2014-01-10 22:22:50
+(epstopdf)                    size: 6390 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega8Lres-eps-conver
 ted-to.pdf ../GNU/Mega8Lres.eps>
 (epstopdf)             \includegraphics on input line 129.
@@ -911,8 +911,8 @@ runsystem(epstopdf --outfile=../GNU/Mega8Lres-eps-converted-to.pdf ../GNU/Mega8
 Lres.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega8Lres-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:07
-(epstopdf)                    size: 6389 bytes.
+(epstopdf)                    date: 2014-01-10 22:22:55
+(epstopdf)                    size: 6390 bytes.
 
 <../GNU/Mega8Lres-eps-converted-to.pdf, id=720, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Lres-eps-converted-to.pdf Graphic file (type pdf)
@@ -924,11 +924,11 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 160--173
 
 (../GNU/Mega168res.tex
 Package epstopdf Info: Source file: <../GNU/Mega168res.eps>
-(epstopdf)                    date: 2014-01-02 22:48:05
+(epstopdf)                    date: 2014-01-10 22:22:53
 (epstopdf)                    size: 21205 bytes
 (epstopdf)             Output file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:03
-(epstopdf)                    size: 5169 bytes
+(epstopdf)                    date: 2014-01-10 22:22:50
+(epstopdf)                    size: 5181 bytes
 (epstopdf)             Command: <epstopdf --outfile=../GNU/Mega168res-eps-conve
 rted-to.pdf ../GNU/Mega168res.eps>
 (epstopdf)             \includegraphics on input line 127.
@@ -936,8 +936,8 @@ runsystem(epstopdf --outfile=../GNU/Mega168res-eps-converted-to.pdf ../GNU/Mega
 168res.eps)...executed.
 
 Package epstopdf Info: Result file: <../GNU/Mega168res-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-02 22:48:07
-(epstopdf)                    size: 5172 bytes.
+(epstopdf)                    date: 2014-01-10 22:22:55
+(epstopdf)                    size: 5169 bytes.
 
 <../GNU/Mega168res-eps-converted-to.pdf, id=721, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
@@ -1878,12 +1878,12 @@ Underfull \hbox (badness 5475) in paragraph at lines 101--106
 (./53-capacitors.aux) (./54-inductors.aux) (./55-selftest.aux) (./60-errors.aux
 ) (./70-special.aux) (./80-todo.aux)) ) 
 Here is how much of TeX's memory you used:
- 8530 strings out of 495021
- 131744 string characters out of 1181035
- 215085 words of memory out of 3000000
- 10994 multiletter control sequences out of 15000+50000
+ 8530 strings out of 494781
+ 131744 string characters out of 1177156
+ 215363 words of memory out of 3000000
+ 10999 multiletter control sequences out of 15000+50000
  65069 words of font info for 51 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
+ 212 hyphenation exceptions out of 8191
  41i,12n,46p,850b,662s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-
 ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fon
@@ -1897,7 +1897,7 @@ mf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr1
 type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb><
 /usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/
 public/lm/lmtt12.pfb>
-Output written on ttester.pdf (85 pages, 1543264 bytes).
+Output written on ttester.pdf (85 pages, 1544328 bytes).
 PDF statistics:
  1419 PDF objects out of 1440 (max. 8388607)
  294 named destinations out of 1000 (max. 500000)
