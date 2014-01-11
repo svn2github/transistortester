@@ -362,66 +362,62 @@ Due to the symmetrical design of the JFET transistors, the drain and source can 
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| l | c | c | c |}
+    \begin{tabular}{| l | c | c | c | c |}
     \hline
     \hline
-             & Mega8@8MHz       & Mega168 @8MHz    & Mega328 @8MHz \\
- FET Type     &                  &                  &               \\
+             &         & Mega8@8MHz       & Mega168 @8MHz    & Mega328 @8MHz \\
+ Transistor  & Type    &                  &                  &               \\
     \hline
     \hline
-ZVNL120A     & N-E-MOS,D, 1.6V  & N-E-MOS,D, 1.5V  & N-E-MOS,D, 1.5V \\
-             & 147pF            & 139pF            & 140pF \\
+ZVNL120A     & N-E-MOS & D, 1.6V, 147pF   & D, 1.5V,141pF    & D, 1.5V, 140pF \\
     \hline
-IRF530N      & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V  & N-E-MOS,D, 3.6V \\
-             & 1.55nF           & 1.54nF           & 1.56nF \\
+IRF530N      & N-E-MOS & D, 3.6V, 1.55nF  & D, 3.6V, 1.54nF  & D, 3.6V, 1.54nF \\
     \hline
-BS170        & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V  & N-E-MOS,D, 2.6V \\
-             &  78pF            &  68pF            &  70pF \\
+BS170        & N-E-MOS & D, 2.6V, 78pF    & D, 2.6V, 68pF    & D, 2.6V, 68pF \\
     \hline
-IRL3803      & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V  & N-E-MOS,D, 2.3V \\
-             & 9.81nF           & 9.71nF           & 9.80nF \\
+IRL3803      & N-E-MOS & D, 2.3V, 9.81nF  & D, 2.3V, 9.71nF  & D, 2.3V, 9.74nF \\
     \hline
-IRFU120N     & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V  & N-E-MOS,D, 4.2V \\
-             & 909pF            & 913pF            & 920pF \\
+IRFU120N     & N-E-MOS & D, 4.2V, 909pF   & D, 4.2V, 913pF   & D, 4.2V, 911pF \\
     \hline
-BUZ71A       & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V  & N-E-MOS,D, 3.2V \\
-             & 714pF            & 708pF            & 714pF \\
+BUZ71A       & N-E-MOS & D, 3.2V, 714pF   & D, 3.2V, 708pF   & D, 3.2V, 705pF \\
     \hline
-ZVP2106A     & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V  & P-E-MOS,D, 3.2V \\
-             & 122pF            & 115pF            & 117pF \\
+ZVP2106A     & P-E-MOS & D, 3.2V, 122pF   & D, 3.2V,115pF    & D, 3.2V, 116pF \\
     \hline
-IRF5305      & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.6V \\
-             & 2.22nF           & 2.22nF           & 2.24nF \\
+IRF5305      & P-E-MOS & D, 3.6V, 2.22nF  & D, 3.6V, 2.22nF  & D, 3.6V, 2.22nF \\
     \hline
-BS250        & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V  & P-E-MOS,D, 2.6V \\
-             & 53pF             & 43pF             & 44pF \\
+BS250        & P-E-MOS & D, 2.6V, 53pF    & D, 2.6V, 43pF    & D, 2.6V, 44pF \\
     \hline
-IRFU9024     & P-E-MOS,D, 3.5V  & P-E-MOS,D, 3.6V  & P-E-MOS,D, 3.5V \\
-             & 937pF            & 945pF            & 952pF \\
+IRFU9024     & P-E-MOS & D, 3.5V, 937pF   & D, 3.6V, 945pF   & D, 3.5V, 933pF \\
     \hline
-J310         & N-JFET           & N-JFET           & N-JFET\\
-Idss=24-60mA & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V & I=3.1mA Vgs=2.2V \\
+J310         & N-JFET  & 3.1mA Vgs=2.2V   & 3.1mA Vgs=2.2V   & 3.1mA Vgs=2.2V \\
+Idss=24-60mA &         &                  &                  &              \\
     \hline
-2N5459       & N-JFET           & N-JFET           & N-JFET\\
-Idss=4-16mA & I=2.1mA Vgs=1.5V & I=2.1mA Vgs=1.5V & I=2.1mA Vgs=1.5V \\
+2N5459       & N-JFET  & 2.1mA Vgs=1.5V   & 2.1mA Vgs=1.5V   & 2.1mA Vgs=1.5V \\
+Idss=4-16mA &          &                  &                  &              \\
     \hline
-BF256C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=11-18mA & I=3.4mA Vgs=2.4V & I=3.4mA Vgs=2.4V & I=3.4mA Vgs=2.4V \\
+BF256C       & N-JFET  & 3.4mA Vgs=2.4V   & 3.4mA Vgs=2.4V   & 3.4mA Vgs=2.4V \\
+Idss=11-18mA &         &                  &                  &              \\
     \hline
-BF245A       & N-JFET           & N-JFET           & N-JFET\\
-Idss=2-6mA   & I=1.1mA Vgs=.75V & I=1.1mA Vgs=0.75V & I=1.1mA Vgs=0.75V \\
+BF245A       & N-JFET  & 1.1mA Vgs=.75V   & 1.1mA Vgs=0.75V  & 1.1mA Vgs=0.75V \\
+Idss=2-6mA   &         &                  &                  &              \\
     \hline
-BF245B       & N-JFET           & N-JFET           & N-JFET\\
-Idss=6-15mA  & I=2.5mA Vgs=1.7V & I=2.5mA Vgs=1.7V & I=2.5mA Vgs=1.7V \\
+BF245B       & N-JFET  & 2.5mA Vgs=1.7V   & 2.5mA Vgs=1.7V   & 2.5mA Vgs=1.7V \\
+Idss=6-15mA  &         &                  &                  &              \\
     \hline
-BF245C       & N-JFET           & N-JFET           & N-JFET\\
-Idss=12-25mA & I=3.9mA Vgs=2.7V & I=3.9mA Vgs=2.7V & I=3.9mA Vgs=2.7V \\
+BF245C       & N-JFET  & 3.9mA Vgs=2.7V   & 3.9mA Vgs=2.7V   & 3.9mA Vgs=2.7V \\
+Idss=12-25mA &         &                  &                  &              \\
     \hline
-J175        & P-JFET           & P-JFET           & P-JFET\\
-Idss=7-60mA & I=3.2mA Vgs=2.2V & I=3.2mA Vgs=2.2V & I=3.2mA Vgs=2.2V \\
+J175        & P-JFET   & 3.2mA Vgs=2.2V   & 3.2mA Vgs=2.2V   & 3.2mA Vgs=2.2V \\
+Idss=7-60mA &          &                  &                  &              \\
     \hline
-2N5460      & P-JFET           & P-JFET           & P-JFET\\
-Idss=1-5mA  & I=0.78mA Vgs=0.54V & I=0.77mA Vgs=0.54V & I=0.78mA Vgs=0.54V \\
+2N5460      & P-JFET   & 0.78mA Vgs=0.54V & 0.77mA Vgs=0.54V & 0.78mA Vgs=0.54V \\
+Idss=1-5mA  &          &                  &                  &              \\
+    \hline
+BSS139      & N-D-MOS  & 1.7mA Vgs=1.2V  & D, 1.7mA Vgs=1.2V & D, 1.7mA Vgs=1.2V \\
+    \hline
+BSS169      & N-D-MOS  & 2.6mA Vgs=1.8V  & D, 2.6mA Vgs=1.8V & D, 2.6mA Vgs=1.8V \\
+    \hline
+GP07N120    & N-E-IGBT & C=3.81nF Vt=4.2V & C=3.76nF Vt=4.2V & C=3.74nF Vt=4.2V \\
     \hline
     \end{tabular}
   \end{center}
