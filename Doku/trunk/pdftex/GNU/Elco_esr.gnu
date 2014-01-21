@@ -94,7 +94,7 @@ set ylabel "ESR / Ohm"
 #set y2label "Vloss / \%"
 #set title "ESR values for different capacitors"
 set output "../GNU/Elco_esr.eps"
-plot "Elco_esr.dat" u 1:4 title "LCR-100Hz" ls 1 with points,"Elco_esr.dat" u 1:8 title "LCR-1kHz" ls 4 with points, "Elco_esr.dat" u 1:10 title "LCR-10kHz" ls 3 with points, "Elco_esr.dat" u 1:12 title "LCR-100kHz" ls 5 with points, "Elco_esr.dat" u 1:17 title "TTester" ls 7 with points
-# "Elco_esr.dat" u 1:16 title "Vloss" ls 6 with points
+plot "../GNU/Elco_esr.dat" u 1:4 title "LCR-100Hz" ls 1 with points,"../GNU/Elco_esr.dat" u 1:8 title "LCR-1kHz" ls 4 with points, "../GNU/Elco_esr.dat" u 1:10 title "LCR-10kHz" ls 3 with points, "../GNU/Elco_esr.dat" u 1:12 title "LCR-100kHz" ls 5 with points, "../GNU/Elco_esr.dat" u 1:17 title "TTester" ls 7 with points
+# "../GNU/Elco_esr.dat" u 1:16 title "Vloss" ls 6 with points
 pause 10
 #    EOF
