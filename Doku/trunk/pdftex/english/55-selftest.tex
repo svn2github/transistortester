@@ -15,7 +15,7 @@ Before the test steps begin, the zero resistance of the connected probes is dete
 This zero resistances will be subtracted for the future ESR and resistance measurements below \(10 \Omega\).
 If the later measured resistance results fall below the particular zero resistance for more than \(0.2 \Omega\),
 the tester will be resetted to ''uncalibrated''.
-This will be marked with a ! character in column 1 of the second LCD row during the tests.
+This will be marked by a acticated cursor during the tests.
 The separate steps of the self test function 1 to 7 is displayed on row~1 of the LCD display with the letter T
 followed by the step number.
 Every step is repeated 4~times, before the program continues with the next step.
@@ -123,7 +123,7 @@ This will be notified by the output of ``OK'' in row~2.
 The found zero offsets are used for further capacity measurements with respect to the pin combination.
 If there is any measurement found with a capacity value 20pF below the particular zero offset, the
 tester will be resetted to ''uncalibrated''.
-This will be noticed by a ! character in column one of the second LCD line during further tests.
+This will be noticed by a activated LCD cursor during further tests.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
 
