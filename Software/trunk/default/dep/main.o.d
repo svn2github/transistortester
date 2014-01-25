@@ -22,8 +22,9 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
  ../Transistortester.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
- ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h \
- ../part_defs.h ../AutoCheck.c ../mark_as_uncalibrated.c ../GetIr.c
+ ../tt_function.h ../config.h ../autoconf.h ../lcd-routines.h \
+ ../lcd_defines.h ../wait1000ms.h ../part_defs.h ../AutoCheck.c \
+ ../mark_as_uncalibrated.c ../GetIr.c
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -77,7 +78,11 @@ main.o: ../main.c /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
 
 ../config.h:
 
+../autoconf.h:
+
 ../lcd-routines.h:
+
+../lcd_defines.h:
 
 ../wait1000ms.h:
 

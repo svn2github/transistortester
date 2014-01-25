@@ -10,7 +10,7 @@ GetESR.o: ../GetESR.S \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h ../config.h \
- ../part_defs.h
+ ../autoconf.h ../part_defs.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -35,5 +35,7 @@ GetESR.o: ../GetESR.S \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h:
 
 ../config.h:
+
+../autoconf.h:
 
 ../part_defs.h:

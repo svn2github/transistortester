@@ -9,7 +9,7 @@ UfAusgabe.o: ../UfAusgabe.S \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h ../config.h \
- ../part_defs.h
+ ../autoconf.h ../part_defs.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -32,5 +32,7 @@ UfAusgabe.o: ../UfAusgabe.S \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/eeprom.h:
 
 ../config.h:
+
+../autoconf.h:
 
 ../part_defs.h:

@@ -7,7 +7,8 @@ wait1000ms.o: ../wait1000ms.S \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/common.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/version.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h ../config.h
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h ../config.h \
+ ../autoconf.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -28,3 +29,5 @@ wait1000ms.o: ../wait1000ms.S \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h:
 
 ../config.h:
+
+../autoconf.h:

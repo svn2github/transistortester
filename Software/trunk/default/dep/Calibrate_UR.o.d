@@ -22,8 +22,8 @@ Calibrate_UR.o: ../Calibrate_UR.c ../Transistortester.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/wdt.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/interrupt.h \
- ../tt_function.h ../config.h ../lcd-routines.h ../wait1000ms.h \
- ../part_defs.h
+ ../tt_function.h ../config.h ../autoconf.h ../lcd-routines.h \
+ ../lcd_defines.h ../wait1000ms.h ../part_defs.h
 
 ../Transistortester.h:
 
@@ -77,7 +77,11 @@ Calibrate_UR.o: ../Calibrate_UR.c ../Transistortester.h \
 
 ../config.h:
 
+../autoconf.h:
+
 ../lcd-routines.h:
+
+../lcd_defines.h:
 
 ../wait1000ms.h:
 

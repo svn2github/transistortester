@@ -6,7 +6,8 @@ i2lcd.o: ../i2lcd.S /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/common.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/version.h \
  /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h \
- /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h ../config.h
+ /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h ../config.h \
+ ../autoconf.h
 
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h:
 
@@ -27,3 +28,5 @@ i2lcd.o: ../i2lcd.S /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h \
 /usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/lock.h:
 
 ../config.h:
+
+../autoconf.h:

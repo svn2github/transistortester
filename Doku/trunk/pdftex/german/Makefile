@@ -8,7 +8,7 @@ LISTE1 += ../FIG/ResistormessL2.eps ../FIG/terminal.eps
 LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
 LISTE1 += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/relay_addon.eps ../FIG/zener_exp.eps 
 LISTE1 += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
-LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps 
+LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps ../FIG/CheckSemi3.eps
 
 LISTE2 = ../FIG/BJT_AD161.eps ../FIG/BJT_AD162.eps ../FIG/BJT_BC639.eps ../FIG/BJT_BC640.eps ../FIG/BJT_BU508D.eps
 LISTE2 += ../FIG/BJT_BC516.eps ../FIG/BJT_BC517.eps ../FIG/BJT_BDV64.eps ../FIG/BJT_BDV65.eps
@@ -106,6 +106,8 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/CheckSemi1.eps: ../FIG/CheckSemi1.fig
 	fig2eps $<
 ../FIG/CheckSemi2.eps: ../FIG/CheckSemi2.fig
+	fig2eps $<
+../FIG/CheckSemi3.eps: ../FIG/CheckSemi3.fig
 	fig2eps $<
 
 ../FIG/BJT_AD161.eps: ../FIG/BJT_AD161.fig
