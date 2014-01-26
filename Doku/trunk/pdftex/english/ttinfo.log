@@ -1,0 +1,597 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.4)  26 JAN 2014 20:40
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**ttinfo.tex
+(./ttinfo.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, bulgarian, ukrainian, russian, ngerman, german, german-x-2009-06-19
+, ngerman-x-2009-06-19, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip43
+)
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
+Language: english 2005/03/30 v3.3o English support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+\Gread@gobject=\count89
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
+Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+
+(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+\captionmargin=\dimen106
+\captionmargin@=\dimen107
+\captionwidth=\dimen108
+\caption@indent=\dimen109
+\caption@parindent=\dimen110
+\caption@hangindent=\dimen111
+)
+\c@ContinuedFloat=\count90
+)
+(/usr/share/texmf-texlive/tex/latex/caption/subcaption.sty
+Package: subcaption 2008/08/31 v1.0b Adding subcaptions (AR)
+\c@subfigure=\count91
+\c@subtable=\count92
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2009/10/17 v2.4 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2009/10/17 v2.4 Base part for package epstopdf
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/grfext.sty
+Package: grfext 2007/09/30 v1.0 Managing graphics extensions (HO)
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 433.
+
+(/usr/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2009/10/26 v1.1 Configuration of epstopdf for TeX Live
+)))
+(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
+\@linkdim=\dimen112
+\Hy@linkcounter=\count93
+\Hy@pagecounter=\count94
+
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 3428.
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+))
+\Fld@menulength=\count95
+\Field@Width=\dimen113
+\Fld@charsize=\dimen114
+\Field@toks=\toks15
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring OFF on input line 4397.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count96
+\c@Item=\count97
+\c@Hfootnote=\count98
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count99
+)
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count100
+\float@exts=\toks16
+\float@box=\box26
+\@float@everytoks=\toks17
+\@floatcapt=\box27
+) (./ttinfo.aux
+(./BJT-transistors.aux) (./MOS-transistors.aux))
+\openout1 = `ttinfo.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count101
+\scratchdimen=\dimen115
+\scratchbox=\box28
+\nofMPsegments=\count102
+\nofMParguments=\count103
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen116
+\MPnumerator=\count105
+\everyMPtoPDFconversion=\toks19
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring OFF on input line 17.
+ (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count106
+)
+LaTeX Info: Redefining \ref on input line 17.
+LaTeX Info: Redefining \pageref on input line 17.
+ (./ttinfo.out)
+(./ttinfo.out)
+\@outlinefile=\write3
+\openout3 = `ttinfo.out'.
+
+\AtBeginShipoutBox=\box29
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 26.
+ [1
+
+
+Non-PDF special ignored!{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(./ttinfo.toc)
+\tf@toc=\write4
+\openout4 = `ttinfo.toc'.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.29 \include{BJT-transistors}
+                               [1
+
+]
+\openout2 = `BJT-transistors.aux'.
+
+ (./BJT-transistors.tex
+Chapter 1.
+Package epstopdf Info: Source file: <../FIG/BJT_BC640.eps>
+(epstopdf)                    date: 2014-01-19 18:15:04
+(epstopdf)                    size: 109512 bytes
+(epstopdf)             Output file: <../FIG/BJT_BC640-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:28
+(epstopdf)                    size: 9730 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC640-eps-conver
+ted-to.pdf ../FIG/BJT_BC640.eps>
+(epstopdf)             \includegraphics on input line 8.
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/BJT_BC640-eps-converted-to.pdf, id=26, 190.7125pt x 249.93375pt>
+File: ../FIG/BJT_BC640-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BC640-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/BJT_BC639.eps>
+(epstopdf)                    date: 2014-01-19 18:15:03
+(epstopdf)                    size: 109225 bytes
+(epstopdf)             Output file: <../FIG/BJT_BC639-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:28
+(epstopdf)                    size: 9891 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC639-eps-conver
+ted-to.pdf ../FIG/BJT_BC639.eps>
+(epstopdf)             \includegraphics on input line 15.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BC639-eps-converted-to.pdf, id=27, 185.69376pt x 243.91125pt>
+File: ../FIG/BJT_BC639-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BC639-eps-converted-to.pdf>
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 6--19
+[][]   [] 
+ []
+
+Package epstopdf Info: Source file: <../FIG/BJT_AD161.eps>
+(epstopdf)                    date: 2014-01-19 18:15:02
+(epstopdf)                    size: 277341 bytes
+(epstopdf)             Output file: <../FIG/BJT_AD161-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:28
+(epstopdf)                    size: 15342 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_AD161-eps-conver
+ted-to.pdf ../FIG/BJT_AD161.eps>
+(epstopdf)             \includegraphics on input line 25.
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/BJT_AD161-eps-converted-to.pdf, id=28, 410.53375pt x 216.81pt>
+File: ../FIG/BJT_AD161-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_AD161-eps-converted-to.pdf> [2
+
+
+ <../FIG/BJT_BC640-eps-converted-to.pdf> <../FIG/BJT_BC639-eps-converted-to.pdf
+>]
+Package epstopdf Info: Source file: <../FIG/BJT_AD162.eps>
+(epstopdf)                    date: 2014-01-19 18:15:03
+(epstopdf)                    size: 275165 bytes
+(epstopdf)             Output file: <../FIG/BJT_AD162-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:29
+(epstopdf)                    size: 15293 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_AD162-eps-conver
+ted-to.pdf ../FIG/BJT_AD162.eps>
+(epstopdf)             \includegraphics on input line 33.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_AD162-eps-converted-to.pdf, id=45, 416.55624pt x 223.83624pt>
+File: ../FIG/BJT_AD162-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_AD162-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/BJT_BC516.eps>
+(epstopdf)                    date: 2014-01-19 20:09:52
+(epstopdf)                    size: 119376 bytes
+(epstopdf)             Output file: <../FIG/BJT_BC516-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 20:09:52
+(epstopdf)                    size: 10251 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC516-eps-conver
+ted-to.pdf ../FIG/BJT_BC516.eps>
+(epstopdf)             \includegraphics on input line 41.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BC516-eps-converted-to.pdf, id=46, 182.6825pt x 281.05pt>
+File: ../FIG/BJT_BC516-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BC516-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/BJT_BC517.eps>
+(epstopdf)                    date: 2014-01-19 19:57:26
+(epstopdf)                    size: 119334 bytes
+(epstopdf)             Output file: <../FIG/BJT_BC517-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 19:57:27
+(epstopdf)                    size: 10100 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC517-eps-conver
+ted-to.pdf ../FIG/BJT_BC517.eps>
+(epstopdf)             \includegraphics on input line 48.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BC517-eps-converted-to.pdf, id=47, 182.6825pt x 281.05pt>
+File: ../FIG/BJT_BC517-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BC517-eps-converted-to.pdf>
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 39--52
+[][]   [] 
+ []
+
+[3 <../FIG/BJT_AD161-eps-converted-to.pdf> <../FIG/BJT_AD162-eps-converted-to.p
+df>]
+Package epstopdf Info: Source file: <../FIG/BJT_BU508D.eps>
+(epstopdf)                    date: 2014-01-21 12:55:54
+(epstopdf)                    size: 171700 bytes
+(epstopdf)             Output file: <../FIG/BJT_BU508D-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-21 12:55:55
+(epstopdf)                    size: 11116 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BU508D-eps-conve
+rted-to.pdf ../FIG/BJT_BU508D.eps>
+(epstopdf)             \includegraphics on input line 57.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BU508D-eps-converted-to.pdf, id=74, 235.88126pt x 199.74625pt>
+File: ../FIG/BJT_BU508D-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BU508D-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/BJT_BDV64.eps>
+(epstopdf)                    date: 2014-01-19 21:41:49
+(epstopdf)                    size: 122036 bytes
+(epstopdf)             Output file: <../FIG/BJT_BDV64-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 21:41:50
+(epstopdf)                    size: 11597 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BDV64-eps-conver
+ted-to.pdf ../FIG/BJT_BDV64.eps>
+(epstopdf)             \includegraphics on input line 65.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BDV64-eps-converted-to.pdf, id=75, 182.6825pt x 284.06125pt>
+File: ../FIG/BJT_BDV64-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BDV64-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/BJT_BDV65.eps>
+(epstopdf)                    date: 2014-01-21 02:17:08
+(epstopdf)                    size: 121506 bytes
+(epstopdf)             Output file: <../FIG/BJT_BDV65-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-21 02:17:09
+(epstopdf)                    size: 11432 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BDV65-eps-conver
+ted-to.pdf ../FIG/BJT_BDV65.eps>
+(epstopdf)             \includegraphics on input line 72.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/BJT_BDV65-eps-converted-to.pdf, id=76, 182.6825pt x 284.06125pt>
+File: ../FIG/BJT_BDV65-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/BJT_BDV65-eps-converted-to.pdf>
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 63--76
+[][]   [] 
+ []
+
+) [4 <../FIG/BJT_BC516-eps-converted-to.pdf> <../FIG/BJT_BC517-eps-converted-to
+.pdf> <../FIG/BJT_BU508D-eps-converted-to.pdf>] [5 <../FIG/BJT_BDV64-eps-conver
+ted-to.pdf> <../FIG/BJT_BDV65-eps-converted-to.pdf>]
+\openout2 = `MOS-transistors.aux'.
+
+ (./MOS-transistors.tex
+Chapter 2.
+Package epstopdf Info: Source file: <../FIG/MOS_BUZ71.eps>
+(epstopdf)                    date: 2014-01-19 18:19:26
+(epstopdf)                    size: 235653 bytes
+(epstopdf)             Output file: <../FIG/MOS_BUZ71-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:30
+(epstopdf)                    size: 12833 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_BUZ71-eps-conver
+ted-to.pdf ../FIG/MOS_BUZ71.eps>
+(epstopdf)             \includegraphics on input line 8.
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/MOS_BUZ71-eps-converted-to.pdf, id=119, 162.6075pt x 263.98625pt>
+File: ../FIG/MOS_BUZ71-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/MOS_BUZ71-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/MOS_IRF5305.eps>
+(epstopdf)                    date: 2014-01-19 18:19:27
+(epstopdf)                    size: 223419 bytes
+(epstopdf)             Output file: <../FIG/MOS_IRF5305-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:30
+(epstopdf)                    size: 12923 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_IRF5305-eps-conv
+erted-to.pdf ../FIG/MOS_IRF5305.eps>
+(epstopdf)             \includegraphics on input line 15.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/MOS_IRF5305-eps-converted-to.pdf, id=120, 162.6075pt x 260.975pt>
+File: ../FIG/MOS_IRF5305-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/MOS_IRF5305-eps-converted-to.pdf>
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 6--19
+[][]   [] 
+ []
+
+Package epstopdf Info: Source file: <../FIG/MOS_BSS169.eps>
+(epstopdf)                    date: 2014-01-19 18:19:26
+(epstopdf)                    size: 213941 bytes
+(epstopdf)             Output file: <../FIG/MOS_BSS169-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:31
+(epstopdf)                    size: 11790 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_BSS169-eps-conve
+rted-to.pdf ../FIG/MOS_BSS169.eps>
+(epstopdf)             \includegraphics on input line 26.
+Package epstopdf Info: Output file is already uptodate.
+<../FIG/MOS_BSS169-eps-converted-to.pdf, id=121, 235.88126pt x 214.8025pt>
+File: ../FIG/MOS_BSS169-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/MOS_BSS169-eps-converted-to.pdf> [6
+
+
+
+ <../FIG/MOS_BUZ71-eps-converted-to.pdf> <../FIG/MOS_IRF5305-eps-converted-to.p
+df>]
+Package epstopdf Info: Source file: <../FIG/JFET_BF245.eps>
+(epstopdf)                    date: 2014-01-19 18:19:25
+(epstopdf)                    size: 110892 bytes
+(epstopdf)             Output file: <../FIG/JFET_BF245-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:31
+(epstopdf)                    size: 8131 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/JFET_BF245-eps-conve
+rted-to.pdf ../FIG/JFET_BF245.eps>
+(epstopdf)             \includegraphics on input line 34.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/JFET_BF245-eps-converted-to.pdf, id=146, 170.6375pt x 169.63374pt>
+File: ../FIG/JFET_BF245-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/JFET_BF245-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <../FIG/JFET_J175.eps>
+(epstopdf)                    date: 2014-01-19 18:19:25
+(epstopdf)                    size: 110933 bytes
+(epstopdf)             Output file: <../FIG/JFET_J175-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-19 18:19:32
+(epstopdf)                    size: 7951 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/JFET_J175-eps-conver
+ted-to.pdf ../FIG/JFET_J175.eps>
+(epstopdf)             \includegraphics on input line 41.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/JFET_J175-eps-converted-to.pdf, id=147, 165.61874pt x 169.63374pt>
+File: ../FIG/JFET_J175-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/JFET_J175-eps-converted-to.pdf>
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 32--45
+[][]   [] 
+ []
+
+) [7 <../FIG/MOS_BSS169-eps-converted-to.pdf> <../FIG/JFET_BF245-eps-converted-
+to.pdf> <../FIG/JFET_J175-eps-converted-to.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 60.
+Missing character: There is no Ã in font cmti12!
+Missing character: There is no ¤ in font cmti12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+[]\OT1/cmr/m/n/12 Wikipedia []$\OT1/cmtt/m/n/12 http : / / de . wikipedia . org
+ / wiki / Equivalent _ Series _ Resistance$[] \OT1/cmr/m/it/12 Er-luterung
+ []
+
+[8
+
+
+] (./ttinfo.aux (./BJT-transistors.aux) (./MOS-transistors.aux)) ) 
+Here is how much of TeX's memory you used:
+ 5787 strings out of 494781
+ 88634 string characters out of 1177156
+ 162969 words of memory out of 3000000
+ 8846 multiletter control sequences out of 15000+50000
+ 9486 words of font info for 34 fonts, out of 3000000 for 9000
+ 212 hyphenation exceptions out of 8191
+ 41i,8n,38p,280b,452s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmt
+i12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on ttinfo.pdf (9 pages, 236783 bytes).
+PDF statistics:
+ 225 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
+ 87 words of extra memory for PDF output out of 10000 (max. 10000000)
+

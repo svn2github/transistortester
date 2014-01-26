@@ -36,10 +36,10 @@ lcd_data:
  	push	r17
  	mov	r17, r24
  	ldi	r24, 0x01	; 1
+#ifdef WITH_UART
  	mov	r22, r17
  	RCALL	_lcd_hw_write		; lcd_write_data(temp1);	// set RS to 1
  	RCALL	wait50us
-#ifdef WITH_UART
 ; switch(temp1) {
  	cpi	r17, 0x08	; 8
  	brcc	ad246 
@@ -67,25 +67,25 @@ ad254:
  	ldi	r24, '|'	; 0x7C
  	RCALL	uart_putc	; uart_putc('|');
  	ldi	r24, '<'	; 0x3C	
- 	rjmp	ad282		; uart_putc('<');
+ 	rjmp	d_putc_ret		; uart_putc('<');
 ad25e:
 ;   case LCD_CHAR_CAP:
  	ldi	r24, '|'	; 0x7C  uart_putc('|');
 ad260:
  	RCALL	uart_putc
  	ldi	r24, '|'	; 0x7C	
- 	rjmp	ad282		; uart_putc('|');
+ 	rjmp	d_putc_ret		; uart_putc('|');
 ad268:
 ;   case LCD_CHAR_RESIS1:
 ;   case LCD_CHAR_RESIS2:
  	ldi	r24, 'R'	; 0x52
- 	rjmp	ad282		; uart_putc('R');
+ 	rjmp	d_putc_ret		; uart_putc('R');
 ;//    case LCD_CHAR_DEGREE:	// degree sign
 ;//    	uart_putc(0xf8);	// codepage 437 or 850 has degree
 ad26c:
 ;    case LCD_CHAR_U:		//µ
  	ldi	r24, 'u'	; 0x75	
- 	rjmp	ad282		; uart_putc('u');	// better use the ASCII u , uart_putc(0xe6);	// codepage 437 or 850 has my
+ 	rjmp	d_putc_ret		; uart_putc('u');	// better use the ASCII u , uart_putc(0xe6);	// codepage 437 or 850 has my
 ad270:
 ;    case LCD_CHAR_OMEGA:	//Omega
 //	uart_putc(0xea);	// only codepage 437 has Omega
@@ -94,16 +94,18 @@ ad270:
  	ldi	r24, 'h'	; 0x68
  	RCALL	uart_putc	; uart_putc('h');
  	ldi	r24, 'm'	; 0x6D
- 	rjmp	ad282		; uart_putc('m');
+ 	rjmp	d_putc_ret		; uart_putc('m');
 
 ;    default:
 ad280:
  	mov	r24, r17	; uart_putc(temp1);
-ad282:
+d_putc_ret:
  	RCALL	uart_putc
-#endif
  	pop	r17
  	ret
+#else
+        rjmp	to_hw_write		; lcd_write_data(temp1); return;
+#endif
  .endfunc
 
 
@@ -131,6 +133,7 @@ lcd_command:
  	push	r17
  	mov	r17, r24
  	ldi	r24, 0x00	; 0
+to_hw_write:
  	mov	r22, r17
  	RCALL	_lcd_hw_write	; lcd_write_cmd(temp1);		// set RS to 0
  	RCALL	wait50us
@@ -138,11 +141,11 @@ lcd_command:
  	cpi	r17, 0x80	; 128
  	breq	ad2c0		; if((temp1 == 0x80)  ||
  	cpi	r17, 0xC0	; 192
- 	brne	ad2c4		; if(                 || (temp1 == 0xC0)) 
+ 	brne	c_putc_ret	; if(                 || (temp1 == 0xC0)) 
 ad2c0:
  	RCALL	uart_newline	; uart_newline();
 #endif
-ad2c4:
+c_putc_ret:
  	pop	r17
  	ret
  .endfunc
@@ -159,8 +162,7 @@ lcd_clear:
 #ifdef INHIBIT_SLEEP_MODE
 	RCALL	wait10ms		; wait10ms()
 #else
- 	ldi	r24, lo8(2)	; 2
- 	ldi	r25, hi8(2)	; 0
+ 	ldi	r24, 2		; 2
  	RCALL	sleep_5ms	; wait_about10ms();
 #endif
 #ifdef WITH_UART
@@ -182,8 +184,7 @@ lcd_init:
 #ifdef INHIBIT_SLEEP_MODE
 	RCALL	wait30ms	; wait30ms();
 #else
- 	ldi	r24, lo8(6)	; 0x06
- 	ldi	r25, hi8(6)	; 0
+ 	ldi	r24, 6		; 0x06
  	RCALL	sleep_5ms	; wait_about30ms();
 #endif
 ;  // to initialise, send 3 times to be shure to be in 8 Bit mode
@@ -193,8 +194,7 @@ lcd_init:
 #ifdef INHIBIT_SLEEP_MODE
 	RCALL	wait5ms		; wait5ms();
 #else
- 	ldi	r24, lo8(1)	; 0x01
- 	ldi	r25, hi8(1)	; 0
+ 	ldi	r24, 1		; 0x01
  	RCALL	sleep_5ms	; wait_about5ms();
 #endif
    
@@ -214,8 +214,7 @@ lcd_init:
 #ifdef INHIBIT_SLEEP_MODE
 	RCALL	wait10ms		; wait10ms();
 #else
- 	ldi	r24, lo8(2)	; 0x02	
- 	ldi	r25, hi8(2)	; 0
+ 	ldi	r24, 2		; 0x02	
  	RCALL	sleep_5ms	; wait_about10ms();
 #endif
 #ifdef LCD_DOGM
