@@ -415,4 +415,11 @@ fehlt oder der Taster dauernd gedrückt wird.
 Die Software schaltet die internen Pull-Up Widerstände ab, um eine Beeinflussung
 der Meßergebnisse auszuschließen. Deswegen ist ein externer Widerstand erforderlich.
 
+\item[Der Tester zeigt immer nur Vext=xx.xV in Zeile 2 an]
+Dies ist dann der Fall, wenn der Pull-Up Widerstand am PD7 Eingang
+fehlt oder der Taster dauernd gedrückt wird.
+Die Software ist außerdem ohne seriellen Ausgang (ohne Option WITH\_UART) und
+ohne interne Pull-Up Widerstände (mit Option PULLUP\_DISABLE) konfiguriert.
+Installieren Sie einen Pull-Up Widerstand an PD7.
+
 \end{description}

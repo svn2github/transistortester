@@ -404,6 +404,12 @@ is missing or the key button is keep pressed.
 The software switch off the internal Pull-Up resistors to prevent a influence
 to the measurement results. Therefore a external Pull-Up resistor (27k) is required.
 
+\item[Der Tester shows only Vext=xx.xV in row 2]
+This problem exists, if the Pull-Up resistor at the PD7 input
+is missing or the key button is keep pressed.
+Additionally the software is configured without the serial output (without option WITH\_UART) and
+without the internal Pull-Up resistors (with option PULLUP\_DISABLE).
+You should install the Pull-Up resistor at pin PD7.
 
 
 \end{description}

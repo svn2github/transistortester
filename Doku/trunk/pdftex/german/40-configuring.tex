@@ -55,10 +55,10 @@ So können Sie Speicher sparen, um die erweiterten Selbsttest Routinen T1 bis T7
 Standardmäßig sind beide Schaltungen für die hFE Messung eingeschaltet,
 aber da ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
 Beispiel: CFLAGS += -DNO\_COMMON\_COLLECTOR\_HFE
-  \item[NO\_COMMON\_EMITTER\_HFE] disables the hFE measurement of transistors with the common emitter circuit.
+  \item[NO\_COMMON\_EMITTER\_HFE] schaltet die hFE Messung von Transistoren in Emitterschaltung ab.
 So können Sie Speicher sparen, um die erweiterten Selbsttest Routinen T1 bis T7 für den ATmega168 Prozessor zu ermöglichen.
 Standardmäßig sind beide Schaltungen für die hFE Messung eingeschaltet,
-aber da ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
+aber dann ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
 Beispiel: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
   \item[NO\_TEST\_T1\_T7] Diese Option verhindert die Ausführung der Selbsttest Teile T1 bis T7.
 Diese Tests sind nützlich um Fehler in der Schaltung wie falsche Meßwiderstände oder Isolationsprobleme zu finden.

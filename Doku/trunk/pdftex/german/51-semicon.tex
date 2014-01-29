@@ -15,8 +15,11 @@ und die Spannung an der negativen Seite noch einmal gemessen.
 Wenn die gemessene Spannung jetzt niedriger ist als bei der ersten Messung, wird diese Schaltung
 als richtig angenommen. Dann wird die Spannung noch einmal mit stromlosen TristatePin gemessen.
 
-Wenn die Spannungen des negativen Pins sowohl mit stromlosen TristatePin als auch mit
-dem festgehaltenen Pegel grösser als 455mV ist, wird ein Verarmungs-Typ angenommen.
+Wenn die Spannung des negativen Pins mit festgehaltenem Pegel größer als \(115 mV\) ist
+und dieser Pegel nicht \(100 mV\) niedriger als der Pegel mit stromlosen TristatePin ist,
+wird ein Verarmungs-Typ angenommen.
+Bei bipolaren Transistoren mit hohem Reststrom ist
+der Kollektor-Reststrom bei stromloser Basis deutlich höher.
 Durch die Überprüfung beider Pegel wird eine Falschdetektion von Germanium Transistoren mit
 höheren Kollektor-Reststroms als Verarmungs Transistoren (JFET) vermieden.
 Es werden dann weitere Tests gemacht,

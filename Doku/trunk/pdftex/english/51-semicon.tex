@@ -16,8 +16,11 @@ the voltage on the negative side is measured again.
 If the measured voltage is lower than the first measurement result, this circuit will
 be assumed as the right one. Then the voltage is measured again with currentless Tristate pin.
 
-If the voltages of the negative pin with currentless Tristate pin and also with the 
-fixed voltage of the Tristate pin is higher than 455mV, a depletion transistor type is assumed.
+If the voltage of the negative pin with fixed Tristate pin is higher than \(115 mV\) and
+this level is not \(100 mV\) lower than the voltage measured with currentless Tristatepin,
+a depletion transistor type is assumed.
+With bipolar transistors, which have a high collector residual current,
+the residual current with currentless base is usually significant higher.
 With the checking of both voltages we can avoid the wrong detection of some Germanium transistors with a higher
 collector cutoff current as depletion transistors (JFET).
 
