@@ -175,6 +175,14 @@ lcd_clear:
 
  .global lcd_init
  .func lcd_init
+ .extern wait1ms
+#ifdef INHIBIT_SLEEP_MODE
+ .extern wait30ms
+ .extern wait10ms
+ .extern wait5ms
+#else
+ .extern sleep_5ms
+#endif
  
 ;// Initialise: 
 ;// Must be called first .
@@ -244,6 +252,7 @@ lcd_init:
  
  .global lcd_string
  .func lcd_string
+ .extern lcd_data
  
 ;// writes a string to the LCD 
  
@@ -277,6 +286,8 @@ ad352:
 #ifdef use_lcd_pgm
  .global lcd_pgm_string
  .func lcd_pgm_string
+ .extern lcd_data
+
 ;//Load string from PGM  and send to LCD 
 ;void lcd_pgm_string(const unsigned char *data) {
 lcd_pgm_string:
@@ -305,6 +316,7 @@ str_end:
 #ifdef USE_EEPROM
  .global lcd_fix_string
  .func lcd_fix_string
+ .extern eeprom_read_byte
 
 ;//Load string from PGM or EEprom and send to LCD 
 ; void lcd_fix_string(const unsigned char *data) 
@@ -337,6 +349,8 @@ fix_end:
 
  .global lcd_fix_customchar
  .func lcd_fix_customchar
+ .extern lcd_data
+ .extern eeprom_read_byte
 
 ;// load custom character from PGM or EEprom and send to LCD
 ;void lcd_fix_customchar(const unsigned char *chardata) 
@@ -379,6 +393,7 @@ ad3b2:
 
  .global lcd_clear_line
  .func lcd_clear_line
+ .extern lcd_space
 
 ; // writes 20 spaces to LCD-Display, Cursor must be positioned to first column
 ; void lcd_clear_line(void) {
