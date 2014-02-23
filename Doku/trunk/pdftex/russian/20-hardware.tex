@@ -64,11 +64,21 @@ PD6 был подключен к конденсатору C2 через него, а не непосредственно.\\
 как только начнется измерение.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=7cm]{../FIG/relay_addon.eps}
-\caption{Защита входов ATmega}
-\label{fig:relay_addon}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/relay_addon.eps}
+    \caption{with Relay}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/diode_addon.eps}
+    \caption{with Diodes}
+  \end{subfigure}
+  \caption{Защита входов ATmega}
+  \label{fig:relay_addon}
 \end{figure}
+
 
 Если UART не требуется, порт PC3 может использоваться в качестве аналогового входа для измерения внешнего напряжения. 
 Напряжение может составить до \(50~V\) с дополнительным резистивным делителем 10:1. На рисунке ~\ref{fig:zener} 

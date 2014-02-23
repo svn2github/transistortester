@@ -65,15 +65,27 @@ The following table \ref{tab:grid-change} shows the modified assignments.
   \label{tab:grid-change}
 \end{table}
 
-For better protection of the ATmega inputs the additional circuit~ \ref{fig:relay_addon} 
+For better protection of the ATmega inputs one of the additional circuits~ \ref{fig:relay_addon} 
 can be integrated. The de-energized contacts of the relay protect the ATmega without power.
 The contacts will be opened by software only for measurement.
+Also with the additional diode protection the chance of the ATmega will be better to survive the connection
+of a capacitor with higher residual voltage.
+A complete protection is not possible. Therefore capacitors should always be discharged before measuring.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=7cm]{../FIG/relay_addon.eps}
-\caption{Additional protection of the ATmega inputs}
-\label{fig:relay_addon}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/relay_addon.eps}
+    \caption{with Relay}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/diode_addon.eps}
+    \caption{with Diodes}
+  \end{subfigure}
+  \caption{Additional protection of the ATmega inputs}
+  \label{fig:relay_addon}
 \end{figure}
 
 If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog

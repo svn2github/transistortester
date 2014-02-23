@@ -71,16 +71,31 @@ Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegung
   \label{tab:grid-change}
 \end{table}
 
-Zum besseren Schutz der ATmega-Eingänge kann eine Erweiterung mit einem Relais nach Schaltbild~\ref{fig:relay_addon}
-angeschlossen werden. Die Ruhekontakte des Relais schützen den ATmega im spannungslosen Zustand.
+Zum besseren Schutz der ATmega-Eingänge kann eine Erweiterung mit einem Relais oder mit Dioden
+nach Schaltbild~\ref{fig:relay_addon} angeschlossen werden.
+Die Ruhekontakte des Relais schützen den ATmega im spannungslosen Zustand.
 Die Konkakte werden von der Software nur für die Messung freigegeben.
+Auch der Einbau von einem Überspannungsschutz mit Dioden verbessert die Chancen des ATmega
+den Anschluß eines Kondensators mit höherer Restspannung zu überleben.
+Ein vollständiger Schutz ist aber nicht möglich. Deshalb sollten Kondensatoren vor dem Messen immer
+entladen werden.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=7cm]{../FIG/relay_addon.eps}
-\caption{Zusätzlicher Schutz der ATmega Eingänge}
-\label{fig:relay_addon}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/relay_addon.eps}
+    \caption{mit Relais}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=7cm]{../FIG/diode_addon.eps}
+    \caption{mit Dioden}
+  \end{subfigure}
+  \caption{Zusätzlicher Schutz der ATmega Eingänge}
+  \label{fig:relay_addon}
 \end{figure}
+
 
 Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
 einer externen Spannung benutzt werden. Die Spannung kann mit den optionalen 10:1 Widerstandsteiler
