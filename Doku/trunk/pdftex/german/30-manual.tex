@@ -47,6 +47,31 @@ Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneute
 
 \end{description}
 
+\section{Optionale Menüfunktionen für den ATmega328}
+Wenn die Menü Funktion eingeschaltet ist, startet der Tester nach einem längeren Tastendruck (> 300ms) ein Auswahlmenüs
+für zusätzliche Funktionen.
+Die wählbaren Funktionen erscheinen in Zeile~2 des Displays. Nach 5~Sekunden wechselt die wählbare Funktion automatisch.
+Nach Anzeige der letzten Funktion wird wieder die erste angezeigt.
+Durch kurzen Tastendruck kann die nächste Auswahl auch schneller gewechselt werden. Mit einem längeren Tastendruck startet
+die angezeigte Zusatzfunktion.\\
+
+Bei der Zusatzfunktion f-Generator (Frequenz Generator) werden die wählbaren Frequenzen durch kurzen Tastendruck gewechselt.
+Ein längerer Tastendruck kehrt wieder zur Auswahl der Funktionen zurück.\\
+
+Die Zusatzfunktion Frequenz (Frequenzmessung) benutzt den PD4 Pin des ATmega, der auch an das LCD angeschlossen ist.
+Es wird immer zunächst die Frequenz gemessen, bei Frequenzen unter \(10 kHz\) wird auch die Periode des Eingangssignals bestimmt
+und daraus die Frequenz mit einer Auflösung von bis zu \(0.001 Hz\) berechnet.
+Die Frequenzmessung wird durch Tastendruck beendet und in das Auswahlmenü zurückgekehrt.\\
+
+Die Zusatzfunktion Spannung (Spannungsmessung) ist nur möglich, wenn die serielle Ausgabe deaktiviert wurde.
+Da am Port PC3 ein 10:1 Spannungsteiler vorgesehen ist, können Spannungen bis 50V gemessen werden.
+Die Messung kann auch wieder durch Tastendruck beendet werden.\\
+
+Mit der Zusatzfunktion ,,Schalte aus'' kann der Transistortester abgeschaltet werden.\\
+
+Natürlich kann mit der Funktion Transistor (Transistor Tester) wieder zu der normalen Transistortester Funktion
+zurückgekehrt werden. Derzeit sind alle Zusatzfunktionen zeitbeschränkt, damit die Batterie nicht verbraucht wird.
+
 \section{Selbsttest und Kalibration}
 
 Wenn die Software mit der Selbsttestfunktion konfiguriert ist, kann der Selbsttest durch einen Kurzschluss aller drei

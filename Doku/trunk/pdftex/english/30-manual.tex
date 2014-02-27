@@ -47,6 +47,32 @@ The next measurement can started earlier by pressing the start button during the
 
 \end{description}
 
+\section{Optional menu functions for the ATmega328}
+If the menu function is selected, the tester start a selection menu after a long key press (> 300ms) for additional
+functions.
+The selectable functions are shown in row two of the display. After 5 seconds the selectable function changes automatically.
+After showing the last function, the first will be shown next.
+With a short key press the next selection can also be shown quicker.
+With a long key press you will start the shown function.\\
+
+With the additional function  f-generator (frequency generator) the selectable frequencies can be switched with short key presses.
+With a long key press you will stop the frequency generator and return to the function menu.\\
+
+The additional function frequency (frequency measurement) uses the ATmega Pin PD4, which is also connected to the LCD.
+First is always the frequency measured. If the measured frequency is below 10 kHz, additionally the period of the input signal
+is measured and with this value the frequency is computed with a resolution of up to 0.001 Hz.
+The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
+
+The additional function Vext (Voltage measurement) is only possible, if the serial output is deselected.
+Because a 10:1 voltage divides is connected to PC3, the maximum external voltage can be 50V.
+This measurement can also be finished with a key press.\\
+
+With the additional function ''Switch off'' the tester can be switched off immediately.\\
+
+Of course you can also select the function Transistor (Transistor tester) to return to a normal Transistor tester measurement. 
+Currently all additional functions are limited in time to prevent a discharged battery.
+
+
 \section{Selftest and Calibration}
 
 If the software is configured with the selftest function, the selftest can be prepared by connecting all three

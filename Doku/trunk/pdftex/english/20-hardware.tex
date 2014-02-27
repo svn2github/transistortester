@@ -104,6 +104,37 @@ About 40mA more battery current is used by this expansion during key pressing.
 \label{fig:zener}
 \end{figure}
 
+The 10:1 voltage divider can be used with the optional dialog part for the ATmega328 without the 
+activated DC-DC converter for the zener diode measurement.
+Without the pressed key the voltage converter is not powered. For that the external voltage 
+(for example battery voltage) can be measured at the zener diode port.
+You can only measure positiv DC voltages up to 50V.
+You have also to respect the correct polarity.
+
+With the dialog part of the ATmega328 you can also select a frequency generator, which supports
+currently a selection of frequencies from \(10 Hz\) up to \(2 MHz\).
+The output of the 5V signal is done with a \(680\Omega\) resistor to test port TP2.
+You can use the GND signal from the minus pin of the zener diode extension or the test port TP1.
+The test port TP3 is connected to GND with a \(680\Omega\) resistor.
+
+For using the with the dialog selectable frequency measurement is a little hardware extension
+necessary. The input pin PD4 (T0/PCINT20) of the ATmega is used for the frequency measurement.
+The same pin is also used for the connection of the LCD. With normal layout, the PD4 pin is connected
+to the LCD-RS signal, with the strip grid design it is connected to LCD-D4.
+For both signals the PD4 pin can be switched to input as long as no output to the LCD is
+required. The LCD respect the input value only, if the LCD-E signal is switched to GND.
+For driving the input pin from external clock source at least one serial resistor of \(270\Omega\) should be used.
+Better you should use the circuit of figure~\ref{fig:FreqMes} .
+The voltage at the PD4 pin (LCD-RS or LCD-D4) should be adjusted to \(2.4V\) without the assembled ATmega
+or during frequency measurement of the ATmega, to get the best sensivity for the input frequency signal.
+The LCD should always be installed for adjusting, because the pull up resistor of the LCD change the voltage.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{../FIG/Frequency_addon.eps}
+\caption{Extension for measurement of frequency}
+\label{fig:FreqMes}
+\end{figure}
 
 
 

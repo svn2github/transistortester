@@ -47,6 +47,9 @@ Der LCD-Kontrast wird dann mit Software-Befehlen eingestellt.
 Beispiel: CFLAGS += -DLCD\_DOGM
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
+  \item[WITH\_MENU] aktiviert eine Menü Funktion für einen ATmega328.  Man kann einige Zusatzfunktionen über ein
+Auswahlmenü benutzen, welches man über einen langen Tastendruck (>300ms) erreichen kann.\\
+Beispiel: CFLAGS += -DWITH\_MENU
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST

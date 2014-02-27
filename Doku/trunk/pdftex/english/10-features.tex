@@ -104,6 +104,16 @@ gain for ADC measuring with the internal reference.
 \item Display the Collector cutoff current \(I_{CE0}\) with currentless base (\(10\mu A\) units) and
 Collector residual current \(I_{CES}\) with base hold to emitter level (ATmega328 only).
 This values are only shown, if they are not zero (especially for Germanium transistors).
+\item For the ATmega328 a dialog function can be selected, which enable additional functions. Of course you can return from dialog to the
+normal Transistor Tester function.
+\item With dialog function you can use a frequency measurement at port PD4 of the ATmega.
+The resolution is 1~Hz for input frequencies above 10~kHz.
+For lower frequencies the resolution can be up to 0.0001~Hz with measurement of the period.
+\item With dialog function and without serial output a external voltage of up to 50V can be measured with
+the 10:1 voltage divider at the PC3 port.
+\item With dialog function a frequency output can be selected at the TP2 pin (PB2 Port of the ATmega).
+Currently a preselection of frequencies from 10~Hz up to 2~MHz can be selected.
+
 \end{enumerate}
 
 Thyristors and Triacs can only be detected, if the test current is above the holding current.

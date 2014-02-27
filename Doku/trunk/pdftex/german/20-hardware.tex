@@ -71,6 +71,8 @@ Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegung
   \label{tab:grid-change}
 \end{table}
 
+\section{Erweiterungen für den TransistorTester}
+
 Zum besseren Schutz der ATmega-Eingänge kann eine Erweiterung mit einem Relais oder mit Dioden
 nach Schaltbild~\ref{fig:relay_addon} angeschlossen werden.
 Die Ruhekontakte des Relais schützen den ATmega im spannungslosen Zustand.
@@ -98,7 +100,7 @@ entladen werden.
 
 
 Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
-einer externen Spannung benutzt werden. Die Spannung kann mit den optionalen 10:1 Widerstandsteiler
+einer externen Spannung benutzt werden. Die Spannung kann mit dem optionalen 10:1 Widerstandsteiler
 bis zu 50V betragen und kann für die Messung der Zener Spannung einer Diode benutzt werden.
 Ein Strom begrenzendes Netzteil mit bis zu 50V Ausgangsspannung kann mit dem 0V Signal des ATmega PD7 Pins
 eingeschaltet werden, um zum Beispiel die Durchbruchspannung von Zenerdioden zu messen.
@@ -108,10 +110,43 @@ Ungefähr 40mA mehr Batteriestrom wird für diese Erweiterung bei gedrückter Ta
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{../FIG/zener_exp.eps}
+\includegraphics[width=18cm]{../FIG/zener_exp.eps}
 \caption{Erweiterung zum Messen von Zener Spannungen}
 \label{fig:zener}
 \end{figure}
+
+Der 10:1 Spannungsteiler kann mit dem optionalen Dialogteil für den ATmega328 auch ohne 
+den Spannungswandler benutzt werden. Ohne die gedrückte Taste ist der Spannungswandler nicht in 
+Betrieb, so daß eine externe Spannung (z.B. Batteriespannung) am Zenerdioden-Port gemessen werden kann.
+Es können nur positive Gleichspannungen bis 50V gemessen werden.
+Man muß also auf die richtige Polarität zu achten.
+
+Mit dem Dialogteil des ATmega kann außerdem ein Frequenzgenerator angewählt werden, der derzeit
+Frequenzen von \(2 MHz\) bis \(10 Hz\) ausgeben kann. Der Ausgang des 5V Signals erfolgt über
+einen \(680\Omega\) Widerstand auf den Testport TP2. Als Masse Signal kann der Minus Anschluß
+der Zenerdiodenerweiterung oder Anschluß TP1 benutzt werden.
+Auch TP3 ist über den \(680\Omega\) Widerstand mit Masse verbunden.
+
+Für die ebenfalls über die Dialogfunktion wählbare Frequenz-Messung ist eine kleine Erweiterung
+der Schaltung erforderlich. Als Eingang für die Frequenzmessung wird der PD4 Pin (T0/PCINT20) des
+ATmega benutzt. Der gleiche Pin wird auch zum Anschluß des LCD benutzt. Bei dem normalen Layout
+ist dies LCD-RS, beim Streifenraster-Layout ist dies LCD-D4. Für beide Signale kann der PD4 Pin
+auf Eingang geschaltet werden und für die Messung benutzt werden, solange keine Ausgabe auf das
+LCD erfolgt. Das LCD interessiert sich für das Signal nur, wenn LCD-E auf GND geschaltet wird.
+Für die Einspeisung des Testsignals ist mindestens ein Serienwiderstand von \(270\Omega\) erforderlich.
+Besser ist eine Schaltung nach Abbildung~\ref{fig:FreqMes} zu benutzen. Die Spannung am PD4 Pin (LCD-RS oder
+(LCD-D4) sollte ohne eingesteckten ATmega oder im Frequenz-Meßbetrieb auf etwa 2.4V eingestellt sein,
+damit die größte Emfindlichkeit für das Eingangssignal erzielt wird. Das LCD sollte aber eingesteckt sein,
+weil dessen Pull-Up Widerstände die Spannung verändern.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{../FIG/Frequency_addon.eps}
+\caption{Erweiterung zum Messen von Frequenzen}
+\label{fig:FreqMes}
+\end{figure}
+
+
 
 \section{Hinweise für den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatiblen Kontroller kann mit
