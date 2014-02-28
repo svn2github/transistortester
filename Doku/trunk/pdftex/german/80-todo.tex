@@ -11,7 +11,7 @@ anstatt anzunehmen, dass die Ports gleich sind.
 Widerstand nach VCC (+) geschaltet wird?
 \item Prüfe, ob der Tester Fließkommadarstellung von Werten gebrauchen kann.
 Das Überlaufsrisiko (overflow) ist geringer.
-Man braucht keinen Konstruktion mit Multiplikation oder Division, um einen Faktor mit einer gebrochenen Zahl nachzubilden.
+Man braucht keine Konstruktion mit Multiplikation oder Division, um einen Faktor mit einer gebrochenen Zahl nachzubilden.
 Aber ich weiß nicht, wieviel Platz für die Bibliothek gebraucht wird.
 \item Schreibe eine Gebrauchsanweisung zum Konfigurieren des Testers mit den Makefile-Optionen und beschreibe
 den Ablauf bis zum fertigen Prozessor.
@@ -24,4 +24,9 @@ Der Strom kann mehr als 100mA erreichen. Wird der Port beschädigt? Was ist mit 
 mehr Programmspeicher, ...?
 Es gibt keinen ATxmega, der eine Versorgungs-Spannung von 5V hat, nur die ATmega Linie ist möglich.
 \item Idee für ein neues Projekt: USB-Version ohne LC-Display, Power vom USB-Port, Kommunikation zum PC über eine USB-Serial-Brücke.
+\item Pulsweiten Steuerung mit fester Frequenz auf TP2.
+\item Kalibration der Quarzfrequenz. Mit 1PPS  von GPS? Tuning mit einstellbarer Kapazität?
+\item Wählbare getrennte ESR Messung. Ist damit ,,in circuit'' Messung möglich?
+\item Wählbare getrennte 2-Pin Messung zum schnelleren Selektieren von Bauteilen (Widerstände und Kondensatoren).
+\item Unterstützung von 20x4 Zeichen Displays.
 \end{enumerate}
