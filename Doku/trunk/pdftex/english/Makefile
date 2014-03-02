@@ -145,7 +145,7 @@ all: ttester.pdf ttinfo.pdf
 	fig2eps $<
 
 TEXLIST1 =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex
-TEXLIST1 += 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex 54-inductors.tex 55-selftest.tex
+TEXLIST1 += 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex 54-inductors.tex 55-selftest.tex 56-frequency.tex
 TEXLIST1 += 60-errors.tex 70-special.tex 80-todo.tex
 
 TEXLIST2 = BJT-transistors.tex MOS-transistors.tex

@@ -2,7 +2,7 @@ LISTE1 = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps .
 LISTE1 += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
 LISTE1 += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
 LISTE1 += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Cesr2.eps ../GNU/res_esr.eps
-LISTE1 += ../GNU/Elco_esr.eps
+LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE1 += ../FIG/ResistormessL2.eps ../FIG/terminal.eps
 LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
@@ -55,6 +55,8 @@ all: ttester.pdf ttinfo.pdf
 	gnuplot ../GNU/rmess_esr.gnu
 ../GNU/Elco_esr.eps: ../GNU/Elco_esr.gnu ../GNU/Elco_esr.dat
 	gnuplot ../GNU/Elco_esr.gnu
+../GNU/frequency-ppm.eps: ../GNU/frequency-ppm.gnu ../GNU/frequency-ppm.dat
+	gnuplot ../GNU/frequency-ppm.gnu
 
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps $<
@@ -145,7 +147,7 @@ all: ttester.pdf ttinfo.pdf
 	fig2eps $<
 
 TEXLIST1 =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex
-TEXLIST1 += 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex 54-inductors.tex 55-selftest.tex
+TEXLIST1 += 50-measurement.tex 51-semicon.tex 52-resistors.tex 53-capacitors.tex 54-inductors.tex 55-selftest.tex 56-frequency.tex
 TEXLIST1 += 60-errors.tex 70-special.tex 80-todo.tex
 
 TEXLIST2 = BJT-transistors.tex MOS-transistors.tex

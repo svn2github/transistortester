@@ -1,0 +1,48 @@
+
+%\newpage
+\section{Frequenzmessung}
+\label{sec:frequency}
+
+Beginnend mit Version 1.10k kann die Frequenzmessung mit einem Bedienmenü angewählt werden.
+Die normale Frequenzmessung wird durch Zählen der fallenden Flanken des Eingangssignals T0 (PD4)
+mit dem Zähler 0 (COUNTER0) für eine Sekunde erledigt. Für die Einhaltung einer exakten Sekunde
+wird der Zähler 1 mit einem 256:1 Vorteiler der CPU-Frequenz benutzt. Der 16-Bit Zähler des ATmega
+kann mit dem Vorteiler auch bei 16 Mhz CPU-Frequenz in einem Durchlauf eine Sekunde auszählen.
+Für das Starten und das Stoppen des Zählers 0 werden die Vergleichregister B und A des Zählers 1
+benutzt. Damit keine zusätzliche Zeitunsicherheit bei den Abfragen entsteht, werden die
+Interrupt Service Routinen für beide Vergleichs-Ereignisse benutzt.
+Die Zeitverzögerung durch die beiden Interrupt Service Routinen ist ungefähr gleich.
+Für die Einhaltung der exakten Sekunde ist eine konstante Zeitverzögerung unerheblich.
+Durch Analyse des Assembler Codes kann die Zeitungleichheit ausgeglichen werden.\\
+
+Bei Frequenzen unter \(10 kHz\) wird die Messung durch die Messung einer Periodendauer
+ergänzt. Diese Messung wird im Anschluß an eine normale Frequenzmessung durchgeführt.
+Dabei werden die Zeit einer bestimmten Anzahl von Pegelwechsel des PCINT20 (PD4) Eingangs
+mit dem Zähler 0 gemessen. 
+Der Zähler 0 läuft dabei mit voller CPU-Taktrate und das ergibt für eine Periode eine
+Aulösung von \(125 ns\). Durch eine größere Anzahl von gemessenen Perioden kann die Auflösung
+verbessert werden. Bei 125 Perioden (250 Pegelwechsel) ergeben sich so schon eine mittlere
+Auflösung für eine Periode von \(1 ns\). Damit keine Ungenauigkeit beim Starten und
+Stoppen von Zähler 0 entsteht, wird der Zähler 0 mit dem ersten Pegelwechsel von
+PCINT20 gestartet und nach der vorgegebenen Zahl über die gleiche Interrupt Service Routine
+wieder gestoppt.
+Die Zahl der Perioden wird so gewählt, daß die Meßzeit etwa 10 Millionen Takte beträgt.
+Der Fehleranteil eines Taktes macht dann 0.1ppm aus.
+Bei \(8MHz\) beträgt die Meßzeit also etwa 1.25 Sekunden.
+Aus der so ermittelten mittleren Periode wird dann eine Frequenz mit höherer Auflösung berechnet.
+
+Zur Kontrolle wurden zwei Tester gegeneinander gemessen.
+Erst wurden mit Tester 2 die Testfrequenzen erzeugt und mit Tester 1 die Frequenzen gemessen.
+Danach wurde die Messung mit vertauschten Testern wiederholt.
+Abbildung \ref{fig:freq-ppm} zeigt die Ergebnisse.
+Die nahezu konstanten relativen Abweichungen sind durch die geringen Frequenzunterschiede der beiden Quarze zu erklären.
+Eine Abstimmung der Quarzfrequenz wäre mit einstellbaren Kondensatoren am Quarz möglich.
+Als Referenz zum Abstimmen könnte beispielsweise das Sekundensignal eines GPS Empfängers dienen.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/frequency-ppm}
+\caption{Relativer Fehler für Frequenzmessung }
+\label{fig:freq-ppm}
+\end{figure}
+

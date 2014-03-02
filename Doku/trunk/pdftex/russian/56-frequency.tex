@@ -1,0 +1,50 @@
+
+%\newpage
+\section{Measurement of frequency}
+\label{sec:frequency}
+
+Beginning with Version 1.10k the frequency measurement can be selected with a control menu.
+The normal frequency measurement is done with counting the falling edges of input signal T0 (PD4)
+with counter 0 für one second. For maintaining of a accurate second, the counter 1 is used
+with a 256:1 prescaler of the CPU frequency. 
+The 16 bit counter of the ATmega can be used up to 16 MHz CPU frequency with the prescaler to
+serve the second period in one pass.
+For the start and stop of the counter 0 ist the compare register B and A of the counter 1 used.
+To prevent a unstable delay by polling the compare event signals, for starting and stopping the
+Interrupt Service of both counter 1 compare events is used.
+The time delay of both Interrupt Service Routines is nearly equal.
+To maintain a accurate second period is a constant delay insignificant.
+With analysing the assembler code, the difference in time can be adjusted.\\
+
+For frequencies below \(10 kHz\) the normal measurement is followed by a measurement of
+period time. This additional measurement is only followed after a normal frequency measurement.
+This will be done by measuring the time of a selectable count of the Pin Change interrupts
+of the PCINT20 (PD4) input with the counter 0.
+The counter 0 is used with full clock rate. This results to a resolution of \(125 ns\) for
+\(8 MHz\). With a greater count of measurements periods the resolution can be reduced.
+By using a measurement period of 125 periods, the middle resolution for one period is \(1 ns\).
+To prevent the inexactness of start and stop the counter 0, the start of counter 0 is started
+within the first pin change interrupt of PCINT20 and will be stopped with the last pin change interrupt
+with the same interrupt service routine.
+The count of periodes is choosed, that the measurement time is about 10 million clock tics.
+The part of error from one clock is only 0.1ppm with this choise.
+With a \(8 MHz\) clock the measurement time is about 1.25 seconds.
+Aus der so ermittelten mittleren Periode wird dann eine Frequenz mit höherer Auflösung berechnet.
+From this mean value of one period a frequency with better resolution is computed too.
+
+For checking the procedure, two testers are measured against each other.
+First the test frequencies are generated with tester 2 and measured with tester 1.
+After that the testers are swapped and the measurement is repeated.
+Figure \ref{fig:freq-ppm} shows the results of both measurement series.
+The nearly constant errors can be explained with a little frequency difference of both crystals.
+It is possible to tune the frequency offset with adjustable capacitors at the crystal.
+A one puls per second (1PPS) from a GPS receiver can be used to tune the crystal frequency for example.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/frequency-ppm}
+\caption{Relativ erros of frequency measurement}
+\label{fig:freq-ppm}
+\end{figure}
+
+
