@@ -1,49 +1,45 @@
 
 %\newpage
-\section{Measurement of frequency}
+\section{Измерение частоты}
 \label{sec:frequency}
 
-Beginning with Version 1.10k the frequency measurement can be selected with a control menu.
-The normal frequency measurement is done with counting the falling edges of input signal T0 (PD4)
-with counter 0 fГјr one second. For maintaining of a accurate second, the counter 1 is used
-with a 256:1 prescaler of the CPU frequency. 
-The 16 bit counter of the ATmega can be used up to 16 MHz CPU frequency with the prescaler to
-serve the second period in one pass.
-For the start and stop of the counter 0 ist the compare register B and A of the counter 1 used.
-To prevent a unstable delay by polling the compare event signals, for starting and stopping the
-Interrupt Service of both counter 1 compare events is used.
-The time delay of both Interrupt Service Routines is nearly equal.
-To maintain a accurate second period is a constant delay insignificant.
-With analysing the assembler code, the difference in time can be adjusted.\\
+Начиная с версии 1.10k в меню дополнительных функций можно выбрать пункт «Frequency» (измерение частоты). 
+Стандартное измерение частоты осуществляется подсчетом количества задних фронтов входного сигнала по входу 
+T0 (PD4) за одну секунду. Для получения периода счета в 1 секунду счетчик 1 используется с 
+предделителем 256:1 частоты процессора.  
+Для получения 1 секундного интервала за один проход можно использовать 16 разрядный счетчик ATmega 
+с частотой процессора \(16~MHz\) и с предделителем.
+Для запуска и остановки счетчика 0 используются регистры сравнения B и A счетчика 1. Чтобы избежать 
+ошибки задержки при опросе результата сравнения сигналов событий, используются обработчики прерываний 
+событий запуска и остановки счетчика 1. Времена задержек в обеих подпрограммах обслуживания прерываний 
+практически равны. Для поддержания точности периода 1 секунда постоянная задержка незначительна. 
+При анализе на ассемблере, разница во времени может быть скорректирована.\\
 
-For frequencies below \(10 kHz\) the normal measurement is followed by a measurement of
-period time. This additional measurement is only followed after a normal frequency measurement.
-This will be done by measuring the time of a selectable count of the Pin Change interrupts
-of the PCINT20 (PD4) input with the counter 0.
-The counter 0 is used with full clock rate. This results to a resolution of \(125 ns\) for
-\(8 MHz\). With a greater count of measurements periods the resolution can be reduced.
-By using a measurement period of 125 periods, the middle resolution for one period is \(1 ns\).
-To prevent the inexactness of start and stop the counter 0, the start of counter 0 is started
-within the first pin change interrupt of PCINT20 and will be stopped with the last pin change interrupt
-with the same interrupt service routine.
-The count of periodes is choosed, that the measurement time is about 10 million clock tics.
-The part of error from one clock is only 0.1ppm with this choise.
-With a \(8 MHz\) clock the measurement time is about 1.25 seconds.
-Aus der so ermittelten mittleren Periode wird dann eine Frequenz mit hГ¶herer AuflГ¶sung berechnet.
-From this mean value of one period a frequency with better resolution is computed too.
+Для частот ниже \(10~kHz\) проводится стандартное измерение с последующим измерением периода времени. 
+Это дополнительное измерение следует только после стандартного измерения частоты. Измерение времени 
+будет сделано путем подсчета количества прерываний по входу PCINT20 (PD4) счетчиком 0. Счетчик 0 
+используется на максимальной тактовой частоте. Разрешение составляет  \(125~ns\) для
+\(8~MHz\). При превышении подсчета периодов измерений разрешение может быть уменьшено. 
+При использовании 125 периодов измерения, среднее разрешение для одного периода составит \(1~ns\). 
+Для предотвращения неточности запуска и остановки счетчика 0, запуск будет
+произведен по первому, а останов по последнему изменению на контакте прерывания PCINT20 по той же 
+самой процедуре обслуживания прерывания. Количество периодов выбрано так, чтобы можно было измерить 
+время около 10 миллионов тактов частоты процессора. При таком выборе ошибка составит 
+всего \(0.1~ppm\). С тактовой частотой \(8~MHz\) время измерения составляет около 1,25 секунды. 
+При определенной, таким образом, средней величине периода, частота вычисляется 
+затем с более высоким разрешением.\\
 
-For checking the procedure, two testers are measured against each other.
-First the test frequencies are generated with tester 2 and measured with tester 1.
-After that the testers are swapped and the measurement is repeated.
-Figure \ref{fig:freq-ppm} shows the results of both measurement series.
-The nearly constant errors can be explained with a little frequency difference of both crystals.
-It is possible to tune the frequency offset with adjustable capacitors at the crystal.
-A one puls per second (1PPS) from a GPS receiver can be used to tune the crystal frequency for example.
+Процедуру проверки проводили так: два Тестера измеряли друг друга. Первый тест: частоты генерируются 
+Тестером 2 и измеряются Тестером 1. После этого Тестеры меняются местами, и измерения повторяются. 
+На рисунке \ref{fig:freq-ppm} представлены результаты обеих серий измерений. Почти постоянные 
+отклонения можно объяснить небольшой разницей частот двух кварцев. Частоту кварца можно точно 
+установить при помощи подстроечного конденсатора. В качестве эталона для настройки может служить, 
+например, сигнал один импульс в секунду (\(1~PPS\)) от приемника GPS.
 
 \begin{figure}[H]
 \centering
 \input{../GNU/frequency-ppm}
-\caption{Relativ erros of frequency measurement}
+\caption{Относительная погрешность измерения частоты}
 \label{fig:freq-ppm}
 \end{figure}
 
