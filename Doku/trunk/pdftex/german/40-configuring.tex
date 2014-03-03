@@ -104,6 +104,19 @@ benutzt wird, kann der PC3 Pin zum Anschluß einer externen Spannung mit einem 1
 werden. Damit können beispielsweise Zenerdioden mit höherer Durchbruchspannung getestet werden.
 Diese Messung wird so lange mit etwa 3 Messungen pro Sekunde wiederholt, solange der Starttaster gedrückt bleibt.\\
 Beispiel: CFLAGS += -DWITH\_UART
+  \item[TQFP\_ADC6] Die Option TQFP\_ADC6 benutzt anstelle des PC3 Pins (ADC3) den zusätzlichen ADC-Eingang ADC6
+des ATmegas im TQFP Gehäuse oder QFN Gehäuse.
+Dadurch kann dieser Eingang unabhängig von der seriellen Ausgabe auf dem PC3 Pin genutzt werden. Dieser Pin wird
+dann für die Zenerdioden Messung und für die Messung einer externen Spannung über den Dialog des ATmega328 genutzt.\\
+Beispiel: CFLAGS += -DTQFP\_ADC6
+  \item[TQFP\_ADC7] Die Option TQFP\_ADC7 benutzt anstelle des PC3 Pins (ADC3) den zusätzlichen ADC-Eingang ADC7
+des ATmegas im TQFP Gehäuse und QFN Gehäuse.
+Dadurch kann dieser Pin unabhängig von der seriellen Ausgabe auf den PC3 Pin genutzt werden. Wenn diese Option 
+ohne die Option TQFP\_ADC6 genutzt wird, erfolgt sowohl die Zenerdioden Messung als auch die Messung einer externen
+Spannung über den Dialog des ATmega328 genutzt. Wenn die Option zusätzlich zur TQFP\_ADC6 Option gesetzt wird,
+erfolgt die Zenerdioden Messung mit dem ADC6 Pin und bei der über den Dialog wählbaren Spannungsmessung werden
+beide Eingänge gemessen. Beide Pinne sollten dann an einen 10:1 Spannungsteiler angeschlossen sein.\\
+Beispiel: CFLAGS += -DTQFP\_ADC7
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC

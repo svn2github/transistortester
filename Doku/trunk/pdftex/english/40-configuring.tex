@@ -103,6 +103,21 @@ If the option is not set, the pin PC3 can be used for reading a external voltage
 With this equipment you can check the breakdown voltage of zener diodes, which have more than 4.5V breakdown voltage.
 This measurement will repeat with 3 measurements per second until you release the Start button.\\
 example: CFLAGS += -DWITH\_UART
+  \item[TQFP\_ADC6] The Option TQFP\_ADC6 uses the additional input ADC6 of the ATmega with TQFP or QFN package instead of
+the PC3 pin (ADC3).
+With this option the external voltage input can be used independent of the usage of PC3 pin for serial output.
+The ADC6 input is then used for the zener diode measurement and for the dialog selectable external voltage measurement
+for a ATmega328.\\
+Example: CFLAGS += -DTQFP\_ADC6
+  \item[TQFP\_ADC7] The Option TQFP\_ADC7 uses the additional input ADC6 of the ATmega with TQFP or QFN package instead of
+the PC3 pin (ADC3).
+With this option the external voltage input can be used independent of the usage of PC3 pin for serial output.
+If this option is used without the option TQFP\_ADC6, both the zener diode measurement and the measurement of external voltage
+with the dialog is done with the ADC7 analog input.
+If this option is used together with the TQFP\_ADC6 option, is the zener diode measurement done with the ADC6 pin and
+both pins are used for voltage measurement with the dialog of the ATmega328.
+Both ADC input pins shouls be assembled with a 10:1 voltage divider.\\
+Example: CFLAGS += -DTQFP\_ADC7
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
