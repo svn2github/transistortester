@@ -16,10 +16,12 @@ The time delay of both Interrupt Service Routines is nearly equal.
 To maintain a accurate second period is a constant delay insignificant.
 With analysing the assembler code, the difference in time can be adjusted.\\
 
-For frequencies below \(10 kHz\) the normal measurement is followed by a measurement of
+For frequencies below \(25 kHz\) the normal measurement is followed by a measurement of
 period time. This additional measurement is only followed after a normal frequency measurement.
 This will be done by measuring the time of a selectable count of the Pin Change interrupts
 of the PCINT20 (PD4) input with the counter 0.
+By measuring the period both, the negative puls width and the positive puls width, should be
+at least \(10\mu s\) .
 The counter 0 is used with full clock rate. This results to a resolution of \(125 ns\) for
 \(8 MHz\). With a greater count of measurements periods the resolution can be reduced.
 By using a measurement period of 125 periods, the middle resolution for one period is \(1 ns\).
@@ -29,7 +31,6 @@ with the same interrupt service routine.
 The count of periodes is choosed, that the measurement time is about 10 million clock tics.
 The part of error from one clock is only 0.1ppm with this choise.
 With a \(8 MHz\) clock the measurement time is about 1.25 seconds.
-Aus der so ermittelten mittleren Periode wird dann eine Frequenz mit höherer Auflösung berechnet.
 From this mean value of one period a frequency with better resolution is computed too.
 
 For checking the procedure, two testers are measured against each other.

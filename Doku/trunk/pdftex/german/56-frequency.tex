@@ -15,10 +15,12 @@ Die Zeitverzögerung durch die beiden Interrupt Service Routinen ist ungefähr g
 Für die Einhaltung der exakten Sekunde ist eine konstante Zeitverzögerung unerheblich.
 Durch Analyse des Assembler Codes kann die Zeitungleichheit ausgeglichen werden.\\
 
-Bei Frequenzen unter \(10 kHz\) wird die Messung durch die Messung einer Periodendauer
+Bei Frequenzen unter \(25 kHz\) wird die Messung durch die Messung einer Periodendauer
 ergänzt. Diese Messung wird im Anschluß an eine normale Frequenzmessung durchgeführt.
 Dabei werden die Zeit einer bestimmten Anzahl von Pegelwechsel des PCINT20 (PD4) Eingangs
 mit dem Zähler 0 gemessen. 
+Bei der Periodenmessung sollte sowohl die negative Pulsweite als auch die positive Pulsweite
+in jeder Periode mindestens \(10\mu s\) betragen.
 Der Zähler 0 läuft dabei mit voller CPU-Taktrate und das ergibt für eine Periode eine
 Aulösung von \(125 ns\). Durch eine größere Anzahl von gemessenen Perioden kann die Auflösung
 verbessert werden. Bei 125 Perioden (250 Pegelwechsel) ergeben sich so schon eine mittlere

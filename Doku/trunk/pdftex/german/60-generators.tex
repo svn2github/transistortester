@@ -1,0 +1,36 @@
+\chapter{Signal Erzeugung}
+
+Die verschiedenen Signal Erzeugungungs-Betriebsarten können nur für einen ATmega328 Prozessor
+gewählt werden.
+Sie müssen außerdem die Dialog Funktion mit der Makefile Option WITH\_MENU eingeschaltet haben.
+Das Bedienmenü kann mit einem langen Tastendruck aufgerufen werden.
+Die wählbaren Funktionen werden in der zweiten Zeile des LCD angezeigt.
+Die angezeigte Funktion kann man mit einem langen Tastendruck anwählen.
+Die nächste Funktion wird automatisch in 5 Sekunden oder nach einem kurzen Tastendruck
+angezeigt.
+
+\label{sec:generation}
+
+\section{Frequenz Erzeugung}
+Die Frequenz-Erzeugung wird gestartet, wenn die Menü-Funktion ,,f-Generator'' mit einem
+langen Tastendruck angewählt wird.
+Die Ausgabe der Frequenz erfolgt über den \(680\Omega\) Widerstand auf den Meßport TP2.
+Der Meßport TP1 wird auf GND geschaltet.
+Die Frequenzen werden mit dem 16-Bit Zähler aus der CPU Taktfrequenz erzeugt (8 MHz oder 16 MHz).
+Zur Zeit kann eine vordefinierte Liste von Frequenzen (2 MHz runter bis zu 1 Hz) mit einem kurzen
+Tastendruck gewählt werden. Ein langer Tastendruck kehrt zu der Dialog-Funktion zurück,
+wo die gleiche oder eine andere Funktion gewählt werden kann.
+
+\section{Pulsweiten Erzeugung}
+Die Pulsweiten-Erzeugung wird gestartet, wenn Sie die Funktion ,,10-Bit PWM'' mit einem
+langen Tastendruck anwählen.
+Die Ausgabe der Frequenz erfolgt über den \(680\Omega\) Widerstand auf den Meßport TP2.
+Der Meßport TP1 wird auf GND geschaltet.
+Die Ausgabefrequenz ist fest und ergibt sich aus der CPU-Taktrate dividiert durch 1024.
+Das ergibt eine Frequenz von \(7812.5 Hz\) für die Taktrate 8 MHz.
+Nur die positive Pulsweite kann mit einem Tastendruck verändert werden. Mit einem
+kurzen Tastendruck wird die positive Pulsweite um 1\% bis zu 99\% erhöht.
+Mit einem längeren Tastendruck wird die Pulsweite um 10\% erhöht.
+Wenn die Pulsweite Werte über 99\% erreicht, wird 100 vom Ergebnis abgezogen.
+Die Pulsweite 0\% erzeugt einen sehr kurzen positiven Puls.
+
