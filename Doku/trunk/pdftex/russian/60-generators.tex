@@ -1,33 +1,36 @@
-\chapter{Signal generation}
+\chapter{Генератор сигналов}
 
-The different signal generation modes are only available with a ATmega328 processor.
-You must also enable the dialog function with the Makefile option WITH\_MENU.
-The menu is called by a long key press. The available functions are shown in the
-second row of the LCD. You can select the shown function by a long key press.
-The next function in automatically shown after 5 seconds or after a short key press.
+Режимы генерации различных сигналов доступны только для ATmega328.
+Итак, Вы должны включить меню дополнительных функций опцией WITH\_MENU в Makefile.
+Меню дополнительных функций вызывается продолжительным (>~\(300~ms\)) нажатием на кнопку 
+{\bf TEST}. Функции дополнительного меню отображаются во второй строке дисплея. Вы можете 
+выбрать отображаемую функцию длительным нажатием кнопки {\bf TEST}. 
+Следующая функция дополнительного меню отображается автоматически через 5 секунд автоматически 
+или после короткого нажатия кнопки {\bf TEST}.
 
 \label{sec:generation}
-\section{Frequency Generation}
-The frequency generation is started, if you select the ''f-Generator'' function by
-a long key press.
-The frequency output is done with the \(680\Omega\) resistor at measurement port TP2.
-The measurement port TP1 is switched to GND.
-The frequencies are build with the 16 bit counter from the CPU clock frequency 
-(8 MHz or 16 MHz).
-Currently a list of predefined frequencies (2 MHz down to 1 Hz) can be selected with short key press.
-If you hold the key pressed for a long time, you can return to the dialog function and select
-the same or another function.
+\section{Генератор частоты}
+Генератор частоты запускается, если Вы выбрали «f-Generator» (Генератор частоты) длительным 
+нажатием кнопки {\bf TEST} из меню дополнительных функций.  
+Сигнал частоты выводится через резистор \(680~\Omega\) на тестовый контакт TP2.
+Тестовый контакт TP1 программно подключается к GND.
 
-\section{Puls width generation}
-The Puls Width generator is started, if you select the ''10-Bit PWM'' function by
-a long key press.
-The frequency output is done with the \(680\Omega\) resistor at measurement port TP2.
-The measurement port TP1 is switched to GND.
-The frequency of the output signal is always the CPU clock divided by 1024.
-This gives a result of \(7812.5 Hz\) for the 8 MHz CPU clock.
-Only the positive pulse width can be changed by a key press. With a short key press
-you can increase the positive puls width up to 99\% in 1\% increments.
-With a longer key press you can increase the pulse width in 10\% increments.
-The pulse width reaches a value above 99\% 100 is subtract from the result.
-The pulse width 0\% generates a very small positive puls width.
+Частоты создаются при помощи 16-разрядного счетчика из тактовой частоты CPU (\(8~MHz\) или \(16~MHz\)).
+В настоящее время кратковременным нажатием кнопки {\bf TEST} можно выбрать предопределённую 
+частоту (от \(2~MHz\) до \(1~Hz\)).
+При длительном нажатии кнопки {\bf TEST}, осуществляется возврат в меню для выбора 
+других дополнительных функций.  
 
+\section{Широтно-импульсный генератор}
+Широтно-импульсный генератор запускается, если Вы выбрали функцию «10-Bit PWM» (16-битный ШИМ)
+длительным нажатием кнопки {\bf TEST} из меню дополнительных функций.
+Частота через резистор \(680~\Omega\) выводится на тестовый контакт TP2.
+Тестовый контакт TP1 программно подключается к GND.
+Частота выходного сигнала всегда равна частоте CPU разделенной на 1024.
+Для CPU с тактовой частотой \(8~MHz\) частота выходного сигнала составляет \(7812.5~Hz\).
+При нажатии кнопки {\bf TEST}, возможно изменение ширины только положительного импульса.
+При кратковременном нажатии кнопки {\bf TEST}, Вы можете увеличивать ширину импульса до 
+\(99~\%\) с шагом \(1~\%\). При более длительном удержании кнопки, изменение ширины 
+импульса происходит с шагом 10~\%.   
+Если значение ширины импульса достигает \(99~\%\), то из результата вычитается 100.
+При значении ширины импульса \(0~\%\) генерируется положительный импульс самой малой ширины. 
