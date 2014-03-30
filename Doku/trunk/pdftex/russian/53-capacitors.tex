@@ -268,6 +268,7 @@ ESR \(6.5~\Omega\) на более высокой частоте измерения.
 
 
 \subsection{Измерение ESR, второй метод}
+\label{sec:ESR2}
 Начиная с версии 1.07k программного обеспечения, применен новый метод измерения ESR. Последовательные шаги измерения 
 показаны на рисунке ~\ref{fig:Cap_esr2}. Отличие от предыдущего метода в том, что длительность протекания тока через 
 конденсатор существенно короче. Конденсатор предварительно заряжен половиной импульса в отрицательном направлении и 
@@ -419,6 +420,32 @@ ESR \(6.5~\Omega\) на более высокой частоте измерения.
 Во всех примерах в таблице потеря напряжения Vloss, замеренная Тестером, велика, если конденсаторы низкокачественные. 
 Только в этих случаях различие результатов измерения ёмкости также большие. Тестер может определить потерю напряжения, 
 если измеренное значение ёмкости больше \(5000~pF\).
+
+\subsection{Separate capacity and ESR measurement}
+The separate capacity measurement and the afterwards measured ESR is only available for ATmega with sufficient
+memory with the handling dialog. This way of measurement is usefull for measurement of capacitors in the
+circuit without desoldering.
+Please take care, that all capacitors of the printed board are discharched before starting any measurement!
+To realize the measurement in the soldered state, the measurement voltage is hold
+to a low level of a little above 300mV only.
+In addition to that the measurement is only done with the \(680 \Omega\) resistor to prevent a
+big effect of connected components on the printed board.
+To enable the measurement of capacitors with little capacity value, the first load puls is only
+\(200 \mu s\) short. If the loaded voltage let expect, that the \(300 mV\) would not be reached with
+a load pulse of \(2 ms\), the next load pulse is done with \(2 ms\) length.
+When the capacity value of the measured capacitor is very high, the voltage grow is still low
+with the \(2 ms\) pulse. In this case the next load pulse(s) will be done with \(20 ms\) length.
+If the loaded Voltage grow near to \(300mV\), the shorter load pulses will be used again.
+The total time of load pulses is added and after the load voltage has passed over \(300 mV\), the
+capacity value is computed from load time and the loaded voltage.
+With this method capacity values of below \(2 \mu F\) can be measured. The upper limit for the capacity
+values is given with the restricted load time of \(2.5 s\) to about \(50 mF\).
+If the capacity value is successfully measured, the ESR value of the capacitor is measured with the
+method already described in section~\ref{sec:ESR2}.
+The result is shown only short and then the next measurement is started immediately.
+The series of mesurement is stopped after 250 measurements or after pressing the start key.
+
+
 
 
 \subsection{Результаты измерения ёмкости конденсаторов}

@@ -283,6 +283,7 @@ ist ein \(2.2 \mu F\) Kondensator.
 
 \newpage
 \subsection{Messen des äquivalenten Serienwiderstandes ESR, Methode 2}
+\label{sec:ESR2}
 Ab der Softwareversion 1.07k wurde die ESR-Messung auf eine modifizierte Meßmethode umgestellt.
 Die einzelnen Meßschritte sind in Abbildung~\ref{fig:Cap_esr2} gezeigt. Das besondere an der Methode
 ist, daß die Zeit des Stromflusses durch den Kondensator wesentlich gegenüber der Methode 1 verringert wurde.
@@ -444,6 +445,29 @@ wenn die Kondensatoren eine geringe Güte haben. Nur in diesem Fall sind auch gr
 der gemessenen Kapazität zu beobachten. Damit der Spannungsverlust eines Kondensators vom
 Transistortester gemessen werden kann, muß die gemessene Kapazität größer als \(5000 pF\) sein.
 
+\subsection{Separate Kapazitäts- und ESR-Messung}
+Die separate Kapazitätsmessung mit anschließender ESR-Messung ist nur für ATmega mit genügend Speicher
+über den Bediendialog wählbar. Diese Art der Messung ist dafür gedacht, Kondensatoren im eingelöteten
+Zustand messen zu können. 
+Bitte sorgen Sie dafür, daß alle Kondensatoren auf der Leiterplatte entladen sind, bevor Sie mit den
+Messungen beginnen.
+Um die Messung im eingebauten Zustand zu ermöglichen, wird dafür gesorgt,
+daß die Meßspannung möglichst nur knapp über 300mV beträgt.
+Außerdem wird für die Messung nur mit dem \(680 \Omega\) Widerstand durchgeführt um den Einfluß von
+Restströmen der angeschlossenen Bauteilen auf der Leiterplatte gering zu halten.
+Um möglichst kleine Kapazitätswerte messen zu können, wird mit einem nur \(200 \mu s\) kurzen Ladepuls
+begonnen. Wenn die Ladespannung erwarten läßt, daß auch bei einem \(2 ms\) langen Ladepuls die Ladespannung
+von \(300 mV\) nicht überschritten wird, wird danach \(2 ms\) lang weitergeladen. Wenn bei sehr großen
+Kapazitätswerten auch dann noch kein deutlicher Spannungszuwachs festzustellen ist, wird sogar mit
+\(20 ms\) langen Ladepulsen weitergeladen. Bei Annäherung der Spannung an die \(300 mV\) wird wieder
+mit den kürzeren Ladepulsen weitergeladen. Die gesamte Ladezeit wird dabei zusammengezählt und nach
+Überschreitung der \(300 mV\) die Kapazität aus der geladenen Spannung und der Ladezeit bestimmt.
+Mit diesem Verfahren sind Kapazitätswerte von unter \(2 \mu F\) meßbar. Die Obergrenze der Kapazität
+bei dieser Messung beträgt wegen einer Ladezeitbegrenzung auf \(2.5 s\) etwa \(50 mF\).
+Wenn ein Kapazitätswert gemessen wurde, wird danach der ESR-Wert des Kondensators mit dem schon
+im Kapitel~\ref{sec:ESR2} beschriebenen Verfahren gemessen.
+Die Ergebnisse werden nur kurz angezeigt und danach sofort mit der nächsten Messung begonnen.
+Die Meßserie wird nach 250 Messungen oder auf Tastendruck abgebrochen und dann zum Bedienmenü zurückgekehrt.
 
 \subsection{Ergebnisse der Kondensator-Messung}
 Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} für drei ATmega8 dargestellt.
