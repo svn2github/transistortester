@@ -62,7 +62,7 @@
     \caption{\(5~mF\) конденсатор}
     \label{pic:c5mF}
   \end{subfigure}
-  \caption{Зарядка и разрядка конденсатора большой емкости для измерения}
+  \caption{Зарядка и разрядка конденсатора большой ёмкости для измерения}
 \end{figure}
 
 \begin{figure}[H]
@@ -75,10 +75,10 @@
 После измерения ёмкости конденсатора будет проверен саморазряд ожиданием пропорционально периоду, который 
 потребовала зарядка, и снова будет осуществлено считывание напряжения заряда. Взвешенная полная ёмкость будет 
 скорректирована из-за этого падения напряжения. Тест с параллельно подключенными конденсатором \(68~\mu F\) и 
-резистором \(2.2~k\Omega\) показывает эффективность этого метода. Измеренное  значение емкости без 
-резистора \(66.5~\mu F\), с параллельным резистором \(2.2~k\Omega\) измеренное значение емкости \(66.3~\mu F\).
-Для сравнения, результаты, измеренные мультиметром  PeakTech 3315. Без резистора значение емкости \(68.2~\mu F\) с 
-параллельным резистором \(2.2~k\Omega\) значение емкости \(192~\mu F\).
+резистором \(2.2~k\Omega\) показывает эффективность этого метода. Измеренное  значение ёмкости без 
+резистора \(66.5~\mu F\), с параллельным резистором \(2.2~k\Omega\) измеренное значение ёмкости \(66.3~\mu F\).
+Для сравнения, результаты, измеренные мультиметром  PeakTech 3315. Без резистора значение ёмкости \(68.2~\mu F\) с 
+параллельным резистором \(2.2~k\Omega\) значение ёмкости \(192~\mu F\).
 
 
 \subsection{Измерение конденсаторов малой ёмкости}
@@ -117,7 +117,7 @@
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Comparat.eps}
-\caption{Измерение малой емкости с компаратором}
+\caption{Измерение малой ёмкости с компаратором}
 \label{fig:comparat}
 \end{figure}
 
@@ -381,7 +381,7 @@ ESR \(6.5~\Omega\) на более высокой частоте измерения.
 \begin{tabular}{| l | c | c | c | c | c | c |}
    \hline
 Тип           & Величина      & PeakTech      & Voltcraft & PeakTech & Transistor- \\
-конденсатора & емкости & LCR 2170     & M2650-B   &  3315    & Tester      \\
+конденсатора & ёмкости & LCR 2170     & M2650-B   &  3315    & Tester      \\
     \hline
     \hline
 бумажный     & 4700pF      & 6.75-10.36nF & 8.00nF    &  25.40nF & 10.71nF  \\
@@ -421,31 +421,31 @@ ESR \(6.5~\Omega\) на более высокой частоте измерения.
 Только в этих случаях различие результатов измерения ёмкости также большие. Тестер может определить потерю напряжения, 
 если измеренное значение ёмкости больше \(5000~pF\).
 
-\subsection{Separate capacity and ESR measurement}
-The separate capacity measurement and the afterwards measured ESR is only available for ATmega with sufficient
-memory with the handling dialog. This way of measurement is usefull for measurement of capacitors in the
-circuit without desoldering.
-Please take care, that all capacitors of the printed board are discharched before starting any measurement!
-To realize the measurement in the soldered state, the measurement voltage is hold
-to a low level of a little above 300mV only.
-In addition to that the measurement is only done with the \(680 \Omega\) resistor to prevent a
-big effect of connected components on the printed board.
-To enable the measurement of capacitors with little capacity value, the first load puls is only
-\(200 \mu s\) short. If the loaded voltage let expect, that the \(300 mV\) would not be reached with
-a load pulse of \(2 ms\), the next load pulse is done with \(2 ms\) length.
-When the capacity value of the measured capacitor is very high, the voltage grow is still low
-with the \(2 ms\) pulse. In this case the next load pulse(s) will be done with \(20 ms\) length.
-If the loaded Voltage grow near to \(300mV\), the shorter load pulses will be used again.
-The total time of load pulses is added and after the load voltage has passed over \(300 mV\), the
-capacity value is computed from load time and the loaded voltage.
-With this method capacity values of below \(2 \mu F\) can be measured. The upper limit for the capacity
-values is given with the restricted load time of \(2.5 s\) to about \(50 mF\).
-If the capacity value is successfully measured, the ESR value of the capacitor is measured with the
-method already described in section~\ref{sec:ESR2}.
-The result is shown only short and then the next measurement is started immediately.
-The series of mesurement is stopped after 250 measurements or after pressing the start key.
-After finishing the measurements the program returns to the handling dialog.
-
+\subsection{Отдельное измерение ёмкости и ESR}
+Отдельное измерение ёмкости с последующей оценкой ESR можно выбрать из диалогового меню дополнительных функций
+только для ATmega с достаточным объемом памяти. Этот тип измерения предназначен для тестирования конденсаторов
+без демонтажа.
+Пожалуйста, убедитесь, что все конденсаторы на плате разряжены, прежде чем начать измерение!
+Испытание установленных в плату копонентов производится низким, насколько это возможно,
+напряжением, лишь немного больше \(300~mV\).
+Кроме того, измерение производится с использованием только резистора \(680~\Omega\) для 
+уменьшения влияния связанных компонентов печатной платы.
+Для определения конденсаторов малых ёмкостей, измерение начинается с коротких импульсов 
+зарядки \(200~\mu s\). Если заряд конденсатора короткими импульсами не достигнет \(300~mV\) 
+за \(2~ms\), то последующий заряд осуществляется импульсами \(2~ms\).
+Когда ёмкость измеряемого конденсатора большая, напряжение заряда импульсами \(2~ms\) увеличивается медленно,
+то, в этом случае, ширина импульса(ов) заряда увеличится до \(20~ms\).
+Если напряжение на измеряемом конденсаторе приближается к \(300~mV\), снова используются
+короткие импульсы заряда.
+Общее время импульсов суммируется после достижения напряжения заряда больше \(300~mV\),
+ёмкость вычисляется по времени и уровню заряда конденсатора.
+С помощью этого метода возможно измерение ёмкости от \(2~\mu F\). Верхний предел измеряемой ёмкости
+ограничен временем заряда \(2.5~s\), примерно \(50~mF\).
+После успешного измерения ёмкости, измеряется ESR конденсатора по описанному 
+в разделе~\ref{sec:ESR2} методу.
+Результат кратковременно отображается на дисплее, а затем сразу же начинается следующее измерение.        
+Измерения останавливаются после серии из 250 измерений или по нажатию кнопки {\bf TEST},
+после чего программа возвращается в диалоговое меню дополнительных функций.
 
 
 
