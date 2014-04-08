@@ -19,7 +19,7 @@ If capacitors are measured, the time to result can be longer corresponding to th
 
 How the transistor-tester continues, depends on the configuration of the software.
 \begin{description}
-  \item[Single measurement mode] If the tester is configured for single measurement mode, the tester shut off automatical 
+  \item[Single measurement mode] If the tester is configured for single measurement mode (POWER\_OFF option), the tester shut off automatical 
 after displaying the result for 28 seconds for a longer lifetime of battery. 
 During the display time a next measurement can be started by pressing the start button.
 After the shut off a next measurement can be started too of course.
@@ -28,12 +28,15 @@ If you have not installed the electronic for automatic shut down, your
 last measurement result will be displayed until you start the next measurement.
 
   \item[Endless measurement mode] A special case is the configuration without automatical shut off.
+For this case the POWER\_OFF option is not set in the Makefile.
 This configuration is normally only used without the transistors for the shut off function.
 A external off switch is necessary for this case. The tester will repeat measurements until power
 is switched off.
 
   \item[Multi measurement mode] In this mode the tester will shut down not after the first measurement but 
-after a configurable series of measurements. In the standard case the tester will shut down after five
+after a configurable series of measurements.
+For this condition a number (e.g.~5) is assigned to the POWER\_OFF option.
+In the standard case the tester will shut down after five
 measurements without found part. If any part is identified by test, the tester is shut down after double of
 five (ten) measurements. A single measurement with unknown part after a series of measurement of known parts will
 reset the counter of known measuerements to zero. Also a single measurement of known part will reset the counter
@@ -48,29 +51,58 @@ The next measurement can started earlier by pressing the start button during the
 \end{description}
 
 \section{Optional menu functions for the ATmega328}
-If the menu function is selected, the tester start a selection menu after a long key press (> 300ms) for additional
-functions.
-The selectable functions are shown in row two of the display. After 5 seconds the selectable function changes automatically.
-After showing the last function, the first will be shown next.
-With a short key press the next selection can also be shown quicker.
-With a long key press you will start the shown function.\\
+If the menu function is selected, the tester start a selection menu after a long key press (> 500ms)
+for additional functions.
+The selectable functions are shown in row two of the display.
+With the POWER\_OFF option in the Makefile the shown function changes after 5 seconds automatically.
+With a short key press the next selection can be shown.
+A longer key press starts the shown function.
+After showing the last function ''switch off'', the first function will be shown next.
 
-With the additional function  f-generator (frequency generator) the selectable frequencies can be switched with short key presses.
-With a long key press you will stop the frequency generator and return to the function menu.\\
-
-The additional function frequency (frequency measurement) uses the ATmega Pin PD4, which is also connected to the LCD.
-First is always the frequency measured. If the measured frequency is below 10 kHz, additionally the period of the input signal
-is measured and with this value the frequency is computed with a resolution of up to 0.001 Hz.
+The additional function ''frequency'' (frequency measurement) uses the ATmega Pin PD4, which is also connected to the LCD.
+First the frequency is allways measured by counting.
+If the measured frequency is below \(25 kHz\), additionally the mean period of the input signal
+is measured and with this value the frequency is computed with a resolution of up to \(0.001 Hz\).
+By selecting the POWER\_OFF option in the Makefile, the period of frequency measurement is limited to 8~minutes.
 The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
 
-The additional function Vext (Voltage measurement) is only possible, if the serial output is deselected.
-Because a 10:1 voltage divides is connected to PC3, the maximum external voltage can be 50V.
-This measurement can also be finished with a key press.\\
+The additional function ''Voltage'' (Voltage measurement) is only possible, if the serial output is deselected
+or the ATmega has at least 32 pins (PLCC) and one of the additional pins ADC6 or ADC7 is used for the measurement.
+Because a 10:1 voltage divides is connected to PC3 (or ADC6/7), the maximum external voltage can be 50V.
+A installed DC-DC converter for zener diode measurement can be switched on by pressing the key.
+Thus connected zener diodes can be measured also.
+By selecting the POWER\_OFF option in the Makefile and without key pressing, the period of voltage measurement is limited to 4~minutes.
+The measurement can also be finished with a extra long key press (>~4~seconds).
+
+With the additional function ''f-Generator'' (frequency generator) the selectable frequencies can be switched with key presses.
+After selecting the last choise of frequencies, the generator is switched back to
+the first frequency next (cyclical choise).
+If the POWER\_OFF option is selected in the Makefile, the key must be pressed longer, because a
+short key press (<~0.2~s) only reset the time limit of 4~minutes.
+With periodical short key press you can prevent the time out of the frequency generation.
+With a long key press (>~0.8~s) you will stop the frequency generator and return to the function menu.\\
+
+The additional function ''10-bit PWM'' (Pulse Width Modulation) generates a fixed frequency with selectable
+puls width at the pin TP2.
+With a short key press (<~0.5~s) the pulse width is increased by \(1 \%\), with a longer key press the pulse width
+is increased by \(10 \%\).
+If \(99 \%\) is overstepped, \(100 \%\) is subtracted from the result.
+If the POWER\_OFF option is selected in the Makefile, the frequency generation is finished after 8~minutes without any key press.
+The frequency generation can also be finished with a very long key press (>~1.3~s).\\
+
+The additional function ''C+ESR@TP1:3'' selects a stand-alone capacity measurement with 
+ESR (Equivalent Series Resistance) measurement at the test pins TP1 and TP3. 
+Capacities from \(2 \mu F\) up to \(50 mF\) can be measured. 
+Because the measurement voltage is only about \(300 mV\), in most cases the capacitor can be
+measured ''in circuit'' without previous disassembling.
+If the POWER\_OFF option is selected in the Makefile, the count of measurements is limited
+to 250, but can be started immediately again.
+The series of measurements can be finished with a long key press.\\
 
 With the additional function ''Switch off'' the tester can be switched off immediately.\\
 
-Of course you can also select the function Transistor (Transistor tester) to return to a normal Transistor tester measurement. 
-Currently all additional functions are limited in time to prevent a discharged battery.
+Of course you can also select the function ''Transistor'' (Transistor tester) to return to a normal Transistor tester measurement. 
+With the selected POWER\_OFF option in the Makefile, all additional functions are limited in time without interaction to prevent a discharged battery.
 
 
 \section{Selftest and Calibration}

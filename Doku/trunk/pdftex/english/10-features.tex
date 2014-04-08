@@ -47,7 +47,7 @@ the Tester cannot differ the middle pin and the end pin.
 and value with up to four decimal digits in the right dimension. 
 The value can be from \(25 pF\) (8MHz clock, \(50 pF\) @1MHz clock) to \(100 mF\). The resolution can be up to \(1 pF\) (@8MHz clock].
 \item For capacitors with a capacity value above \(0.18 \mu F\) the Equivalent Serial Resistance (ESR) is measured 
-with a resolution of \(0.01 \Omega\) and shown with two significant decimal digits.
+with a resolution of \(0.01 \Omega\) and is shown with two significant decimal digits.
 This feature is only avaiable for ATmega with at least 16K flash memory (ATmega168 or ATmega328).
 \item For capacitors with a capacity value above \(5000 pF\) the voltage loss after a load pulse can be determined.
 The voltage loss give a hint for the quality factor of the capacitor.
@@ -104,15 +104,24 @@ gain for ADC measuring with the internal reference.
 \item Display the Collector cutoff current \(I_{CE0}\) with currentless base (\(10\mu A\) units) and
 Collector residual current \(I_{CES}\) with base hold to emitter level (ATmega328 only).
 This values are only shown, if they are not zero (especially for Germanium transistors).
-\item For the ATmega328 a dialog function can be selected, which enable additional functions. Of course you can return from dialog to the
-normal Transistor Tester function.
+\item For the ATmega328 a dialog function can be selected, which enable additional functions.
+Of course you can return from dialog to the normal Transistor Tester function.
 \item With dialog function you can use a frequency measurement at port PD4 of the ATmega.
-The resolution is 1~Hz for input frequencies above 10~kHz.
-For lower frequencies the resolution can be up to 0.0001~Hz with measurement of the period.
-\item With dialog function and without serial output a external voltage of up to 50V can be measured with
-the 10:1 voltage divider at the PC3 port.
-\item With dialog function a frequency output can be selected at the TP2 pin (PB2 Port of the ATmega).
-Currently a preselection of frequencies from 10~Hz up to 2~MHz can be selected.
+The resolution is 1~Hz for input frequencies above 25~kHz.
+For lower frequencies the resolution can be up to 0.0001~Hz by measuring the mean period.
+\item With the dialog function and without the activated serial output a external voltage of up to 50V can be measured with
+the 10:1 voltage divider at the PC3 port. If the PLCC-Version of the ATmega328 is used, one of the additional
+pins can be used for the voltage measurement together with the serial output.
+If the zener diode measurement extension (DC-DC converter) is assembled, the measurement of
+zener diodes is also possible with this function by pressing the key.
+\item With the dialog function a frequency output can be selected at the TP2 pin (PB2 Port of the ATmega).
+Currently a preselection of frequencies from 1~Hz up to 2~MHz can be selected.
+\item With the dialog function a fixed frequency output with selectable pulse width can be activated at the TP2 pin
+(PB2 port of the ATmega). The width can be enhanced with 1\% by a short key press or with 10\% by a longer key press.
+\item With the dialog function can be started a separated capacity measurement with ESR measurement.
+Capacities from about \(2 \mu F\) up to \(50 mF\) can most be measured in circuit, because only a little
+measurement voltage of about \(300 mV\) is used.
+You should make shure, that all capacitors have no residual charge before starting any measurement.
 
 \end{enumerate}
 

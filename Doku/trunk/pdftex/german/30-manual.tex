@@ -19,7 +19,8 @@ abhängig von der Kapazität auch deutlich länger dauern.
 
 Was dann weiter geschieht, hängt von der Softwarekonfiguration des Testers ab.
 \begin{description}
-  \item[Einzelmessung] Wenn der Tester für Einzelmessung konfiguriert ist, schaltet der Tester nach einer Anzeigezeit
+  \item[Einzelmessung] Wenn der Tester für Einzelmessung konfiguriert ist (POWER\_OFF Option),
+ schaltet der Tester nach einer Anzeigezeit
 von 28 Sekunden (konfigurierbar) wieder automatisch aus, um die Batterie zu schonen.
 Während der Anzeigezeit kann aber auch vorzeitig eine neue Messung gestartet werden.
 Nach der Abschaltung kann natürlich auch wieder eine
@@ -27,13 +28,15 @@ neue Messung gestartet werden, entweder mit dem gleichen Bauteil oder mit einem 
 Wenn die Elektronik zum Abschalten fehlt, wird das letzte Meßergebnis weiter angezeigt.
 
   \item[Dauermessung] Einen Sonderfall stellt die Konfiguration ohne die automatische Abschaltfunktion dar.
+Hierfür wird die POWER\_OFF Option in der Makefile nicht gesetzt.
 Diese Konfiguration wird normalerweise nur ohne die Transistoren für die Abschaltung benutzt.
 Es wird stattdessen ein externer Ein-/Aus-Schalter benötigt. Hierbei wiederholt der Tester die
 Messungen solange, bis ausgeschaltet wird.
 
   \item[Serienmessung] In diesem Konfigurationsfall wird der Tester nicht nach einer Messung sondern erst nach einer konfigurierbaren
-Zahl von Messungen abgeschaltet. Im Standardfall wird der Tester nach fünf Messungen ohne erkanntes Bauteil
-abgeschaltet. Wird ein angeschlossenes Bauteil erkannt, wird erst bei der doppelten Anzahl, also zehn Messungen abgeschaltet.
+Zahl von Messungen abgeschaltet. Hierfür wird der POWER\_OFF Option in der Makefile eine Wiederholzahl (z.B. 5) zugewiesen.
+Im Standardfall wird der Tester nach fünf Messungen ohne erkanntes Bauteil abgeschaltet.
+Wird ein angeschlossenes Bauteil erkannt, wird erst bei der doppelten Anzahl, also zehn Messungen abgeschaltet.
 Eine einzige Messung mit nicht erkanntem Bauteil setzt die Zählung für erkannte Bauteile auf Null zurück.
 Ebenso setzt eine einzige Messung mit erkannten Bauteil die Zählung für die nicht erkannten Bauteile auf Null zurück.
 Dies hat zur Folge, dass auch ohne Betätigung des Starttasters immer weiter gemessen werden kann,
@@ -48,29 +51,56 @@ Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneute
 \end{description}
 
 \section{Optionale Menüfunktionen für den ATmega328}
-Wenn die Menü Funktion eingeschaltet ist, startet der Tester nach einem längeren Tastendruck (> 300ms) ein Auswahlmenüs
+Wenn die Menü Funktion eingeschaltet ist, startet der Tester nach einem längeren Tastendruck (>~500ms) ein Auswahlmenü
 für zusätzliche Funktionen.
-Die wählbaren Funktionen erscheinen in Zeile~2 des Displays. Nach 5~Sekunden wechselt die wählbare Funktion automatisch.
-Nach Anzeige der letzten Funktion wird wieder die erste angezeigt.
-Durch kurzen Tastendruck kann die nächste Auswahl auch schneller gewechselt werden. Mit einem längeren Tastendruck startet
-die angezeigte Zusatzfunktion.\\
+Die wählbaren Funktionen erscheinen in Zeile~2 des Displays.
+Mit der POWER\_OFF Option in der Makefile wechselt die wählbare Funktion nach 5~Sekunden automatisch.
+Nachdem die Auswahlmöglichkeiten zehn mal ohne Tastendruck angezeigt wurde, wird die Menüfunktion beendet.
+Durch kurzen Tastendruck kann zur nächsten Auswahl gewechselt werden.
+Mit einem längeren Tastendruck startet die angezeigte Zusatzfunktion.
+Nach Anzeige der letzten Funktion ,,Schalte aus'' wird wieder die erste Funktion angezeigt.\\
 
-Bei der Zusatzfunktion f-Generator (Frequenz Generator) werden die wählbaren Frequenzen durch kurzen Tastendruck gewechselt.
-Ein längerer Tastendruck kehrt wieder zur Auswahl der Funktionen zurück.\\
-
-Die Zusatzfunktion Frequenz (Frequenzmessung) benutzt den PD4 Pin des ATmega, der auch an das LCD angeschlossen ist.
-Es wird immer zunächst die Frequenz gemessen, bei Frequenzen unter \(10 kHz\) wird auch die Periode des Eingangssignals bestimmt
-und daraus die Frequenz mit einer Auflösung von bis zu \(0.001 Hz\) berechnet.
+Die Zusatzfunktion ,,Frequenz'' (Frequenzmessung) benutzt als Eingang den PD4 Pin des ATmega, der auch an das LCD angeschlossen ist.
+Es wird immer zunächst die Frequenz gemessen, bei Frequenzen unter \(25 kHz\) wird auch die mittlere Periode des Eingangssignals
+bestimmt und daraus die Frequenz mit einer Auflösung von bis zu \(0.001 Hz\) berechnet.
+Bei gesetzter POWER\_OFF Option in der Makefile wird die Dauer der Frequenzmessung auf 8~Minuten beschränkt.
 Die Frequenzmessung wird durch Tastendruck beendet und in das Auswahlmenü zurückgekehrt.\\
 
-Die Zusatzfunktion Spannung (Spannungsmessung) ist nur möglich, wenn die serielle Ausgabe deaktiviert wurde.
-Da am Port PC3 ein 10:1 Spannungsteiler vorgesehen ist, können Spannungen bis 50V gemessen werden.
-Die Messung kann auch wieder durch Tastendruck beendet werden.\\
+Die Zusatzfunktion ,,Spannung'' (Spannungsmessung) ist nur möglich, wenn die serielle Ausgabe deaktiviert wurde
+oder der ATmega mindestens 32 Pinne hat (PLCC) und einer der zusätzlichen Pinne ADC6 oder ADC7 für die Messung benutzt wird.
+Da am Port PC3 (oder ADC6/7) ein 10:1 Spannungsteiler vorgesehen ist, können Spannungen bis 50V gemessen werden.
+Ein installierter DC-DC Wandler für die Zenerdioden-Messung wird durch Tastendruck eingeschaltet.
+So können auch angeschlossene Zenerdioden gemessen werden.
+Bei gesetzter POWER\_OFF Option in der Makefile und ohne Bedienung wird die Messung nach 4~Minuten beendet.
+Die Messung kann aber durch einen besonders langen Tastendruck (>~4~Sekunden) vorher beendet werden.\\
+
+Bei der Zusatzfunktion ,,f-Generator'' (Frequenz Generator) können die Frequenzen durch einen Tastendruck 
+ gewechselt werden.
+Nachdem aus der Liste die letzte Frequenz gewählt wurde, wird als nächstes die erste Frequenz
+ wieder ausgegeben (zyklische Wahl).
+Bei gesetzter POWER\_OFF Option in der Makefile muß für den Frequenzwechsel die Taste länger gedrückt werden, da
+durch einen kurzen Tastendruck (<~0.2~s) nur die Zeitüberwachung von 4~Minuten zurückgesetzt wird.
+Durch einen regelmäßigen kurzen Tastendruck kann die vorzeitige Abschaltung der Frequenzerzeugung verhindert werden.
+Ein längerer Tastendruck (>~0.8~s) kehrt wieder zur Auswahl der Funktionen zurück.\\
+
+Bei der Zusatzfunktion ,,10-bit PWM'' (Pulsweitenmodulation) wird eine feste Frequenz mit einstellbarer Pulsweite an Pin TP2 erzeugt.
+Mit einem kurzen Tastendruck (<~0.5~s) wird die Pulsweite um \(1 \%\) erhöht, mit einem längeren Tastendruck um \(10 \%\).
+Bei Überschreiten von \(99 \%\) werden \(100 \%\) vom erhöhten Wert abgezogen.
+Bei gesetzter POWER\_OFF Option in der Makefile wird die Frequenzerzeugung nach 8 Minuten ohne Bedienung beendet.
+Durch sehr langen Tastendruck (>~1.3~s) kann die Frequenzerzeugung auch beendet werden.
+
+Bei der Zusatzfunktion ,,C+ESR@TP1:3'' wird eine separate Kondensatormessung mit ESR-Messung an TP1 und TP3 gestartet.
+Meßbar sind Kondensatoren mit mehr als \(2 \mu F\) bis zu \(50 mF\). Wegen der geringen Meßspannung von etwa 300mV sollte
+in vielen Fällen die Messung in der Schaltung ohne vorherigen Ausbau möglich sein.
+Bei gesetzter POWER\_OFF Option in der Makefile ist die Anzahl der Messungen auf 250 beschränkt,
+kann aber sofort wieder gestartet werden.
+Die Mess-Serie kann durch einen längeren Tastendruck  beendet werden.\\
 
 Mit der Zusatzfunktion ,,Schalte aus'' kann der Transistortester abgeschaltet werden.\\
 
-Natürlich kann mit der Funktion Transistor (Transistor Tester) wieder zu der normalen Transistortester Funktion
-zurückgekehrt werden. Derzeit sind alle Zusatzfunktionen zeitbeschränkt, damit die Batterie nicht verbraucht wird.
+Natürlich kann mit der Funktion ,,Transistor'' (Transistor Tester) wieder zu der normalen Transistortester Funktion
+zurückgekehrt werden.
+Bei gesetzter POWER\_OFF Option in der Makefile sind alle Zusatzfunktionen zeitbeschränkt, damit die Batterie nicht verbraucht wird.
 
 \section{Selbsttest und Kalibration}
 

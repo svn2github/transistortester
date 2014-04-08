@@ -109,12 +109,21 @@ Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germa
 \item Für ATmega328 kann eine Dialogfunktion gewählt werden, die weitere Einsatzmöglichkeiten zugänglich machen kann.
 Natürlich kann über den Dialog auch zu der Transistortester-Funktion zurückgekehrt werden.
 \item Mit Dialogfunktion kann am PD4 Port des ATmega eine Frequenzmessung vorgenommen werden.
-Die Auflösung beträgt bei Eingangfrequenzen über 10~kHz ein Hertz.
+Die Auflösung beträgt bei Eingangfrequenzen über 25~kHz ein Hertz.
 Bei niedrigeren Frequenzen kann die Auflösung bis zu 0.0001~Hz betragen.
 \item Mit Dialogfunktion und ohne serielle Ausgabe kann eine externe Spannung bis 50V über einen
-10:1 Spannungteiler am PC3 Pin gemessen werden.
+10:1 Spannungteiler am PC3 Pin gemessen werden. Bei der PLCC-Version des ATmega328 kann auch einer der beiden
+zusätzlichen Pinne für die Spannungsmessung zusammen mit der seriellen Ausgabe benutzt werden.
+Wenn die Erweiterung für die Zenerdiodenmessung (DC-DC Konverter)
+eingebaut ist, können in diesen Zweig auch Zenerdioden bei gedrückter Taste getestet werden.
 \item Mit Dialogfunktion kann eine Frequenzausgabe auf dem TP2 Pin (PB2 Port des ATmega) erfolgen.
-Derzeit ist eine Auswahl von Frequenzen von 10 Hz bis 2 MHz wählbar.
+Derzeit ist eine Auswahl von Frequenzen von 1 Hz bis 2 MHz wählbar.
+\item Mit Dialogfunktion eine feste Frequenz mit einstellbarer Pulsweite auf dem TP2 Pin (PB2 Port des ATmega) erfolgen.
+Die Breite kann mit kurzem Tastendruck um 1\% und mit längerem Tastendruck um 10\% erhöht werden.
+\item Mit Dialogfunktion kann eine separte Kondensatormessung mit ESR-Messung gestartet werden.
+ Kapazitäten ab etwa \(2 \mu F\) bis zu \(50 mF\) können meistens wegen der geringen Meßspannung von etwa \(300 mV\)
+ im eingebauten Zustand gemessen werden.
+ Hierbei sollte besonders darauf geachtet werden, daß die Kondensatoren vor der Messung keine Restladung mehr haben.
 
 \end{enumerate}
 
