@@ -122,7 +122,7 @@ Es können nur positive Gleichspannungen bis 50V gemessen werden.
 Man muß also auf die richtige Polarität zu achten.
 
 Mit dem Dialogteil des ATmega kann außerdem ein Frequenzgenerator angewählt werden, der derzeit
-Frequenzen von \(2 MHz\) bis \(10 Hz\) ausgeben kann. Der Ausgang des 5V Signals erfolgt über
+Frequenzen von \(2 MHz\) bis \(1 Hz\) ausgeben kann. Der Ausgang des 5V Signals erfolgt über
 einen \(680\Omega\) Widerstand auf den Testport TP2. Als Masse Signal kann der Minus Anschluß
 der Zenerdiodenerweiterung oder Anschluß TP1 benutzt werden.
 Auch TP3 ist über den \(680\Omega\) Widerstand mit Masse verbunden.
@@ -203,8 +203,8 @@ Bei den von mir empfohlenen Einstellungen der fuses (Makefile) wird die Spannung
 verschiedenen ATmega Versionen auf 4V gesetzt (brown out level). Deswegen kann es beim
 Einschalten des Testers zu Problemen kommen, weil der Pin PD6 versucht den 100nF Kondensator C2
 direkt zu schalten. Dabei kann es zu einem unerwünschten 5V Spannungseinbruch kommen.
-Der Kondensator C2 kann problemlos auf <10nF verkleinert werden. Nach Möglichkeit sollte
-man statt der direkten Verbindung PD6 zum Kondensator einen Widerstand >\(220 \Omega\) 
+Der Kondensator C2 kann problemlos auf \textless~10nF verkleinert werden. Nach Möglichkeit sollte
+man statt der direkten Verbindung PD6 zum Kondensator einen Widerstand \textgreater~\(220 \Omega\) 
 als Verbindung benutzen.
 \item[Verbessern des Einschaltverhaltens]
 Der Fehler zeigt sich oft, daß der Tester bei gedrücktem Taster zwar einschaltet, aber wieder
@@ -260,8 +260,8 @@ den ATmega328 so günstig, daß eigentlich nichts mehr für den ATmega168 sprich
 Mit dem ATmega168/328 gewinnt man folgende Vorteile:
 Selbsttestfunktion mit automatischem Abgleich.\\
 Erhöhung der Meßgenauigkeit durch automatische Umschaltung der ADC Referenzspannung.\\
-Messung von Induktivitäten, deren Widerstandswert < \(2100 \Omega\) ist.\\
-Messung des ESR Wertes von Kondensatoren > \(0.18 \mu F\).\\
+Messung von Induktivitäten, deren Widerstandswert \textless~\(2100 \Omega\) ist.\\
+Messung des ESR Wertes von Kondensatoren \textgreater~\(0.18 \mu F\).\\
 Die Auflösung der Widerstandsmessung unter \(10 \Omega\) beträgt \(0.01 \Omega\).\\
 Der PC3 Pin kann für eine serielle Ausgabe genutzt werden.
 \item[Fehlende Präzisionsreferenz]
