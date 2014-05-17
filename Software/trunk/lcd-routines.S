@@ -412,3 +412,41 @@ clr_lop:
  .endfunc
 #endif
 
+ .global lcd_line1
+lcd_line1:
+ .func lcd_line1
+ 	ldi	r24, 0x80	; 128
+ 	RCALL	lcd_command	; lcd_line1();	// set cursor to Line1
+ 	ret
+ .endfunc
+
+ .global lcd_line2
+ .func lcd_line2
+lcd_line2:
+ 	ldi	r24, 0xc0	; 192
+ 	RCALL	lcd_command	; lcd_line2();	// set cursor to Line2
+ 	ret
+ .endfunc
+
+ .global lcd_line3
+ .func lcd_line3
+lcd_line3:
+ 	ldi	r24, 0x94	; 148
+ 	RCALL	lcd_command	; lcd_line3();	// set cursor to Line3
+ 	ret
+ .endfunc
+
+ .global lcd_line4
+ .func lcd_line4
+lcd_line4:
+ 	ldi	r24, 0xd4	; 212
+ 	RCALL	lcd_command	; lcd_line4();	// set cursor to Line4
+ 	ret
+ .endfunc
+
+ .global lcd_powersave
+ .func lcd_powersave
+lcd_powersave:
+ 	ret
+ .endfunc
+
