@@ -1,4 +1,4 @@
-GetFrequency.o: ../GetFrequency.c \
+CheckRotaryEncoder.o: ../CheckRotaryEncoder.c \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/sfr_defs.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/inttypes.h \
