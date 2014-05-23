@@ -8,6 +8,10 @@
 #include "part_defs.h"
 #include "lcd_defines.h"
 
+#ifdef LCD_ST7565
+ # warning "use lcd-routines.c instead of lcd-routines.S for ST7565 controller support!"
+#endif
+
 #define RCALL rcall
  .section .text
 

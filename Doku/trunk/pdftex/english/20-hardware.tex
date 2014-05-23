@@ -33,6 +33,9 @@ in the internet. I~have adapted my software to the original of Markus F. \cite{F
 The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can be used to
 check and calibrate the VCC voltage, but is not required. You can use a LM4040-AIZ2.5 (0.1\%),
 a LT1004CZ-2.5 (0.8\%) or a LM336-Z2.5 (0.8\%) as voltage reference.
+If you don't install the precision voltage reference and you don't add the relay extension,
+you should install a pull up resistor R16 to PC4 with a higher resistance value (\(47k\Omega\)).
+This helps the software to detect the missing voltage reference.
 A optional ISP connector has been added to easier load new software versions to the tester.
 
 \begin{figure}[H]
@@ -147,6 +150,12 @@ illumination, some LCD need lower current than others.
 I had tried OLED type displays, but this type cause interference with measurements
 of the ATmega and are {\bf not} recommended. Also loading of special characters
 for displaying the resistor symbol has caused problems with the OLED.
+By now you can also connect a graphical 128x64 picel LCD with a ST7565 controller.
+Many thanks to Wolfgang Sch. for his work to support a chinese version with ST7565 controller.
+Because the ST7565 controller is connected with a serial interface, only four signal
+lines are required. Two port D pins of the ATmega can be used otherwise.
+However the ST7565 controller requires a 3.3V power voltage and tolerates
+no 5V signal level!
 
 The resistors R1 to R6 are critical for measurements and this \(680\Omega\) and
 \(470k\Omega\) resistors should be measurement type resistors (tolerance of 0.1\%) to

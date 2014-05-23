@@ -45,10 +45,32 @@ Beispiel: CFLAGS += -DLCD\_CYRILLIC
   \item[LCD\_DOGM] muß angegeben werden, wenn ein LCD mit ST7036 Controller (Typ DOG-M) zur Anzeige verwendet wird.
 Der LCD-Kontrast wird dann mit Software-Befehlen eingestellt.
 Beispiel: CFLAGS += -DLCD\_DOGM
+  \item[FOUR\_LINE\_LCD] kann bei einem 4x20 Zeichen Display verwendet werden, um den Platz auf dem Display
+besser auszunutzen. Zusätzliche Parameter, welche sonst nur kurz in Zeile 2 angezeigt werden, werden dann in
+den Zeilen 3 und 4 angezeigt.\\
+Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
+  \item[WITH\_LCD\_ST7665] Diese Option muß verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
+Schnittstelle angeschlossen ist. Für diesen Display Typ müssen weitere Optionen gesetzt werden, die im Folgenden
+beschrieben werden.\\
+Beispiel: WITH\_LCD\_ST7565 = 1 
+  \item[LCD\_ST7565\_RESISTOR\_RATIO] Mit dieser Option wird das Widerstands Teilerverhältnis für den
+Spannungsregler des ST7565 controller eingestellt. Brauchbare Werte liegen im allgemeinen zwischen 4 und 7.
+Einstellbar sind Werte zwischen 0 und 7.\\
+Beispiel: LCD\_ST7564\_RESISTOR\_RATIO = 4
+  \item[WITH\_LCD\_ST7565\_HV\_FLIP] Mit dieser Option kann die Anzeige sowohl horizontal als auch vertikal
+umgedreht werden.\\
+Beispiel: WITH\_LCD\_ST7565\_HV\_FLIP = 1
+  \item[FONT\_6X8] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
+Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 und FONT\_16X16.
+Derzeit wird nur der 6x8 Font vollständig unterstützt.\\
+Beispiel: FONT\_6X8
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
   \item[WITH\_MENU] aktiviert eine Menü Funktion für einen ATmega328.  Man kann einige Zusatzfunktionen über ein
-Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0.5~s) erreichen kann.\\
+Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0.5~s) erreichen kann.
+Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest Start mit kurzgeschlossenen Testpins
+ nur der Kalibrationsteil des Selbsttests ausgeführt.
+Die Tests T1-T7 werden nur beim Selbsttest ausgeführt, der als Menüfunktion ausgewählt werden kann.\\
 Beispiel: CFLAGS += -DWITH\_MENU
   \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
@@ -67,6 +89,7 @@ Beispiel: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
 Diese Tests sind nützlich um Fehler in der Schaltung wie falsche Meßwiderstände oder Isolationsprobleme zu finden.
 Wenn Ihre Schaltung fehlerfrei ist, können Sie die Selbsttest Teile T1 bis T7 durch das Setzen dieser Option weglassen, um eine
 schnellere Kalibration zu erreichen.
+Bei eingeschalteter Menüfunktion werden die Selbsttest Teile T1 bis T7 nur bei Aufruf der Menüfunktion ,,Selbsttest'' ausgeführt.
 Der ATmega168 Prozessor benutzt die Selbsttest Teile T1 bis T7 nicht, wenn beide Meßmethoden für die hFE Bestimmung benutzt werden.\\
 Beispiel: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim

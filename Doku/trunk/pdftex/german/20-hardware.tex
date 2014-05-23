@@ -37,6 +37,10 @@ wird für die Überprüfung und Kalibration der VCC Versorgungsspannung benutzt,
 erforderlich.
 Sie können eine LM4040-AIZ2.5 (0.1\%),
 eine LT1004CZ-2.5 (0.8\%) oder eine LM336-Z2.5 (0.8\%) Spannungsreferenz benutzen.
+Wenn sie weder die Präzisionsreferenz noch die Relais-Erweiterung zum Schutz der Eingänge benutzen,
+sollten Sie wenigstens einen ,,Pull Up'' Widerstand R16 an PC4 istallieren mit einem
+höheren Widerstandswert (\(47k\Omega\)).
+Dies hilft der Software, die fehlende Spannungsreferenz zu entdecken.
 Ein zusätzlicher ISP-Anschluss wurde hinzugefügt, um leichter neue Software-Versionen
 laden zu können.
 
@@ -156,6 +160,13 @@ mehr Strom als andere.
 Ich habe OLED Anzeigen ausprobiert, aber diese Anzeigen haben teilweise die Messung des
 ATmega beeinflusst und werden nicht empfohlen. Auch das Laden der Spezialzeichen für die 
 Widerstandsdarstellung hat mit OLED's Schwierigkeiten ergeben.
+Dank der Arbeit von Wolfgang Sch. für die Unterstützung der chinesischen Version mit
+grafischem 128x64 Pixel LCD, kann mittlerweile auch ein grafisches LCD
+mit ST7565 Kontroller angeschlossen werden. Da der ST7565 Kontroller seriell angesteuert wird,
+werden nur vier Signalleitungen benötigt.
+Dadurch werden zwei Pinne des Port D für andere Verwendung frei.
+Allerdings verlangt der ST7565 Kontroller eine 3.3V Betriebsspannung und verträgt keine
+5V Signalpegel!
 
 Die Widerstände R1 bis R6 sind kritisch für die Messungen und diese \(680\Omega\) und
 \(470k\Omega\) Widerstände sollten Messwiderstände sein (Toleranz von 0,1\%), um 

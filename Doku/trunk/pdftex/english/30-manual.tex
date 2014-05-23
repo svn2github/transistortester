@@ -66,19 +66,12 @@ is measured and with this value the frequency is computed with a resolution of u
 By selecting the POWER\_OFF option in the Makefile, the period of frequency measurement is limited to 8~minutes.
 The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
 
-The additional function ''Voltage'' (Voltage measurement) is only possible, if the serial output is deselected
-or the ATmega has at least 32 pins (PLCC) and one of the additional pins ADC6 or ADC7 is used for the measurement.
-Because a 10:1 voltage divides is connected to PC3 (or ADC6/7), the maximum external voltage can be 50V.
-A installed DC-DC converter for zener diode measurement can be switched on by pressing the key.
-Thus connected zener diodes can be measured also.
-By selecting the POWER\_OFF option in the Makefile and without key pressing, the period of voltage measurement is limited to 4~minutes.
-The measurement can also be finished with a extra long key press (\textgreater~4~seconds).
-
 With the additional function ''f-Generator'' (frequency generator) the selectable frequencies can be switched with key presses.
 After selecting the last choise of frequencies, the generator is switched back to
 the first frequency next (cyclical choise).
 If the POWER\_OFF option is selected in the Makefile, the key must be pressed longer, because a
 short key press (\textless~0.2~s) only reset the time limit of 4~minutes.
+The elapsed time is shown with a point for every 30 seconds in row 1 of the display.
 With periodical short key press you can prevent the time out of the frequency generation.
 With a long key press (\textgreater~0.8~s) you will stop the frequency generator and return to the function menu.\\
 
@@ -99,6 +92,26 @@ If the POWER\_OFF option is selected in the Makefile, the count of measurements 
 to 250, but can be started immediately again.
 The series of measurements can be finished with a long key press.\\
 
+With the function ''rotary encoder'' a rotary encoder can be checked.
+The three pins of the rotary encoder must be connected to the three probes of the transistor tester 
+before the start of the function. 
+After starting the function the rotary knob must be turned.
+The tester finds out the common contact of the two switches and shows, if the indexed position has
+both contacts in open state ('o') or in closed state ('C').
+If the indexed position has both states, both characters ('o' and 'C') are shown alternating.\\
+
+Mit der Zusatzfunktion ,,Selbsttest'' wird ein vollständiger Selbsttest mit Kalibration durchgeführt.
+Dabei werden sowohl die Testfunktionen T1 bis T7 als auch die Kalibration mit dem externen Kondensator
+durchgeführt.\\
+
+The additional function ''Voltage'' (Voltage measurement) is only possible, if the serial output is deselected
+or the ATmega has at least 32 pins (PLCC) and one of the additional pins ADC6 or ADC7 is used for the measurement.
+Because a 10:1 voltage divides is connected to PC3 (or ADC6/7), the maximum external voltage can be 50V.
+A installed DC-DC converter for zener diode measurement can be switched on by pressing the key.
+Thus connected zener diodes can be measured also.
+By selecting the POWER\_OFF option in the Makefile and without key pressing, the period of voltage measurement is limited to 4~minutes.
+The measurement can also be finished with a extra long key press (\textgreater~4~seconds).
+
 With the additional function ''Switch off'' the tester can be switched off immediately.\\
 
 Of course you can also select the function ''Transistor'' (Transistor tester) to return to a normal Transistor tester measurement. 
@@ -113,7 +126,13 @@ To begin the self test, the start butten must be pressed again within 2 seconds,
 with a normal measurement.
 
 If the self test is started, all of the documented tests in the Selftest chapter \ref{sec:selftest} will be done.
-The repetition of the tests can be avoided, if the start button is hold pressed.
+If the tester is configured with the menu function (option WITH\_MENU), 
+the full selftest with the tests T1 to T7 are only done with the ''Selftest'' function, 
+which is selectable as menu function.
+In addition the calibration with the external capacitor is done with every call from function menu,
+otherwise this part of calibration is only done first time.
+Thus the calibration with the automatically started selftest (shorted probes) can be done faster.
+The repetition of the tests T1 to T7 can be avoided, if the start button is hold pressed.
 So you can skip uninteresting tests fast and you can watch interresting tests by releasing the start button.
 The test 4 will finish only automatically if you separate the test ports (release connection).
 
@@ -134,6 +153,9 @@ With this capacitor the offset voltage of the analog comparator will be compensa
 of capacity values.  
 Additionally the gain for ADC measurements using the internal reference voltage will be adjusted too 
 with the same capacitor for better resistor measurement results with the AUTOSCALE\_ADC option.
+If the menu option is selected for the tester and the selftest is not started as menu function,
+the calibration with the external capacitor is only done for the first time calibration.
+The calibration  with the external capacitor can be repeated with a selftest call as menu selection.
 
 The zero offset for the ESR measurement will be preset with the option ESR\_ZERO in the Makefile.
 With every self test the ESR zero values for all three pin combinations are determined.

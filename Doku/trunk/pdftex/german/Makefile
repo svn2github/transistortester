@@ -14,6 +14,7 @@ LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps ../FIG/CheckSemi3.eps
 LISTE2 = ../FIG/BJT_AD161.eps ../FIG/BJT_AD162.eps ../FIG/BJT_BC639.eps ../FIG/BJT_BC640.eps ../FIG/BJT_BU508D.eps
 LISTE2 += ../FIG/BJT_BC516.eps ../FIG/BJT_BC517.eps ../FIG/BJT_BDV64.eps ../FIG/BJT_BDV65.eps
 LISTE2 += ../FIG/JFET_BF245.eps ../FIG/JFET_J175.eps ../FIG/MOS_BSS169.eps ../FIG/MOS_BUZ71.eps ../FIG/MOS_IRF5305.eps
+LISTE2 += ../FIG/GPS_UP501.eps ../FIG/GPS_GNS701.eps
 
 all: ttester.pdf ttinfo.pdf
 	
@@ -146,6 +147,10 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/MOS_BUZ71.eps: ../FIG/MOS_BUZ71.fig
 	fig2eps $<
 ../FIG/MOS_IRF5305.eps: ../FIG/MOS_IRF5305.fig
+	fig2eps $<
+../FIG/GPS_UP501.eps: ../FIG/GPS_UP501.fig
+	fig2eps $<
+../FIG/GPS_GNS701.eps: ../FIG/GPS_GNS701.fig
 	fig2eps $<
 
 TEXLIST1 =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex

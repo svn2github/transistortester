@@ -21,11 +21,11 @@ main.o: ../main.c /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/wdt.h \
  ../Transistortester.h \
- /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h \
- ../tt_function.h ../config.h ../autoconf.h ../lcd-routines.h \
- ../lcd_defines.h ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h \
- ../bitmaps.h ../Ru-Ua-TransistorTester.txt ../AutoCheck.c \
- ../mark_as_uncalibrated.c ../GetIr.c
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h ../config.h \
+ ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
+ ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h ../bitmaps.h \
+ ../Ru-Ua-TransistorTester.txt ../AutoCheck.c ../mark_as_uncalibrated.c \
+ ../GetIr.c
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h:
 
@@ -75,11 +75,11 @@ main.o: ../main.c /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h:
 
-../tt_function.h:
-
 ../config.h:
 
 ../autoconf.h:
+
+../tt_function.h:
 
 ../lcd-routines.h:
 

@@ -45,13 +45,34 @@ example: CFLAGS += -DLCD\_CYRILLIC
  \item[LCD\_DOGM] must be set, if a LCD with ST7036 controller (Type DOG-M) is used for displaying.
 The LCD-contrast is then set with software commands.\\
 example: CFLAGS += -DLCD\_DOGM
+ \item[FOUR\_LINE\_LCD] can be used with a 4x20 character display for better using the additional space.
+Additional parameters, which are shown only short in row 2, will be shown in row 3 and 4 with this option.\\
+example: CFLAGS += -DFOUR\_LINE\_LCD
+  \item[WITH\_LCD\_ST7665] This option must be used, if a 128x64 pixel LCD is connected with serial
+interface. For this display type must be set further options, which are described later.\\
+example: WITH\_LCD\_ST7565 = 1 
+  \item[LCD\_ST7565\_RESISTOR\_RATIO] With this option the resistor ratio for the voltage regulator of
+the ST7565 controller is set.
+Usually values between 4 and 7 are practical.
+The value can be set between 0 and 7.\\
+example: LCD\_ST7564\_RESISTOR\_RATIO = 4
+  \item[WITH\_LCD\_ST7565\_HV\_FLIP] With this option the display content can be flipped in both,
+the horizontal and vertical direction.\\
+example: WITH\_LCD\_ST7565\_HV\_FLIP = 1
+  \item[FONT\_6X8] You must select one font size for the ST7565 controller.
+Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 and FONT\_16X16.
+Currently only the 6x8 font size is fully supported.\\
+example: FONT\_6X8
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.
 You can find the details in the chapter hardware \ref{sec:hardware}.
+example: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] activated a menu function for a ATmega328. You can select some additional functions with a
 selection menu, which you can call with a long key press (\textgreater~0.5~s).\\
 example: CFLAGS += -DWITH\_MENU
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
-Selftest will be started, if you connect all three probes together and start measurement.\\
+Selftest will be started, if you connect all three probes together and start measurement.
+If the menu function is selected, only the calibration part of the self test is executed by automatic start with
+shorted probes. The selftest parts T1 to T7 are only executed, if the selftest is started with menu selection.\\
 example: CFLAGS += -DWITH\_SELFTEST
   \item[NO\_COMMON\_COLLECTOR\_HFE] disables the hFE measurement of transistors with the common collector circuit.
 You can save memory to enable the extended selftests T1 to T7 for a ATmega168 processor.
@@ -66,6 +87,7 @@ example: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
   \item[NO\_TEST\_T1\_T7] This option disable the execution of the selftest parts T1 to T7.
 This tests are usefull to find errors in the hardware like incorrect measurement resistors or isolation problems.
 If your hardware is well, you can omitt this selftest parts T1 to T7 by setting this option to get a faster calibration.
+With enabled menu function the selftest parts T1 to T7 are only started by selection of the menu function ''Selftest''.
 The ATmega168 processor does not use the selftest parts T1 to T7, if both measurement types for hFE determination are used.\\
 example: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally

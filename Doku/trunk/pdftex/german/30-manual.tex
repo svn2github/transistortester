@@ -66,20 +66,13 @@ bestimmt und daraus die Frequenz mit einer Auflösung von bis zu \(0.001 Hz\) be
 Bei gesetzter POWER\_OFF Option in der Makefile wird die Dauer der Frequenzmessung auf 8~Minuten beschränkt.
 Die Frequenzmessung wird durch Tastendruck beendet und in das Auswahlmenü zurückgekehrt.\\
 
-Die Zusatzfunktion ,,Spannung'' (Spannungsmessung) ist nur möglich, wenn die serielle Ausgabe deaktiviert wurde
-oder der ATmega mindestens 32 Pinne hat (PLCC) und einer der zusätzlichen Pinne ADC6 oder ADC7 für die Messung benutzt wird.
-Da am Port PC3 (oder ADC6/7) ein 10:1 Spannungsteiler vorgesehen ist, können Spannungen bis 50V gemessen werden.
-Ein installierter DC-DC Wandler für die Zenerdioden-Messung wird durch Tastendruck eingeschaltet.
-So können auch angeschlossene Zenerdioden gemessen werden.
-Bei gesetzter POWER\_OFF Option in der Makefile und ohne Bedienung wird die Messung nach 4~Minuten beendet.
-Die Messung kann aber durch einen besonders langen Tastendruck (\textgreater~4~Sekunden) vorher beendet werden.\\
-
 Bei der Zusatzfunktion ,,f-Generator'' (Frequenz Generator) können die Frequenzen durch einen Tastendruck 
  gewechselt werden.
 Nachdem aus der Liste die letzte Frequenz gewählt wurde, wird als nächstes die erste Frequenz
  wieder ausgegeben (zyklische Wahl).
 Bei gesetzter POWER\_OFF Option in der Makefile muß für den Frequenzwechsel die Taste länger gedrückt werden, da
 durch einen kurzen Tastendruck (\textless~0.2~s) nur die Zeitüberwachung von 4~Minuten zurückgesetzt wird.
+Die abgelaufene Zeit wird in Zeile 1 durch einen Punkt für jede abgelaufene 30 Sekunden angezeigt.
 Durch einen regelmäßigen kurzen Tastendruck kann die vorzeitige Abschaltung der Frequenzerzeugung verhindert werden.
 Ein längerer Tastendruck (\textgreater~0.8~s) kehrt wieder zur Auswahl der Funktionen zurück.\\
 
@@ -87,7 +80,7 @@ Bei der Zusatzfunktion ,,10-bit PWM'' (Pulsweitenmodulation) wird eine feste Fre
 Mit einem kurzen Tastendruck (\textless~0.5~s) wird die Pulsweite um \(1 \%\) erhöht, mit einem längeren Tastendruck um \(10 \%\).
 Bei Überschreiten von \(99 \%\) werden \(100 \%\) vom erhöhten Wert abgezogen.
 Bei gesetzter POWER\_OFF Option in der Makefile wird die Frequenzerzeugung nach 8 Minuten ohne Bedienung beendet.
-Durch sehr langen Tastendruck (\textgreater~1.3~s) kann die Frequenzerzeugung auch beendet werden.
+Durch sehr langen Tastendruck (\textgreater~1.3~s) kann die Frequenzerzeugung auch beendet werden.\\
 
 Bei der Zusatzfunktion ,,C+ESR@TP1:3'' wird eine separate Kondensatormessung mit ESR-Messung an TP1 und TP3 gestartet.
 Meßbar sind Kondensatoren mit mehr als \(2 \mu F\) bis zu \(50 mF\). Wegen der geringen Meßspannung von etwa 300mV sollte
@@ -95,6 +88,27 @@ in vielen Fällen die Messung in der Schaltung ohne vorherigen Ausbau möglich s
 Bei gesetzter POWER\_OFF Option in der Makefile ist die Anzahl der Messungen auf 250 beschränkt,
 kann aber sofort wieder gestartet werden.
 Die Mess-Serie kann durch einen längeren Tastendruck  beendet werden.\\
+
+Mit der Zusatzfunktion ,,Impulsdrehgeber'' kann ein Drehgeber untersucht werden.
+Die drei Kontakte des Impulsdrehgebers müssen vor dem Start der Zusatzfunktion an die drei Testpins
+ des Transistortesters angeschlossen werden.
+Nach dem Start der Funktion muß der Drehknopf gedreht werden.
+Dabei wird der gemeinsame Anschluß herausgefunden und angezeigt, ob jede Raststellung beide Kontake offen ('o')
+oder beide Kontakte geschlossen ('C') hat.
+Wenn beide Schalterstellungen an den Raststellungen vorkommen,
+werden beide Zeichen alternierend angezeigt.\\
+
+Mit der Zusatzfunktion ,,Selbsttest'' wird ein vollständiger Selbsttest mit Kalibration durchgeführt.
+Dabei werden sowohl die Testfunktionen T1 bis T7 als auch die Kalibration mit dem externen Kondensator
+durchgeführt.\\
+
+Die Zusatzfunktion ,,Spannung'' (Spannungsmessung) ist nur möglich, wenn die serielle Ausgabe deaktiviert wurde
+oder der ATmega mindestens 32 Pinne hat (PLCC) und einer der zusätzlichen Pinne ADC6 oder ADC7 für die Messung benutzt wird.
+Da am Port PC3 (oder ADC6/7) ein 10:1 Spannungsteiler vorgesehen ist, können Spannungen bis 50V gemessen werden.
+Ein installierter DC-DC Wandler für die Zenerdioden-Messung wird durch Tastendruck eingeschaltet.
+So können auch angeschlossene Zenerdioden gemessen werden.
+Bei gesetzter POWER\_OFF Option in der Makefile und ohne Bedienung wird die Messung nach 4~Minuten beendet.
+Die Messung kann aber durch einen besonders langen Tastendruck (\textgreater~4~Sekunden) vorher beendet werden.\\
 
 Mit der Zusatzfunktion ,,Schalte aus'' kann der Transistortester abgeschaltet werden.\\
 
@@ -109,7 +123,13 @@ Testports und drücken der Starttaste eingeleitet werden.
 Für den Start des Selbsttests muß die Starttaste innerhalb von 2 Sekunden noch einmal gedrückt werden,
 sonst wird mit einer normalen Messung fortgefahren.
 Beim Selbsttest werden die im Selbsttest-Kapitel \ref{sec:selftest} beschriebenen Tests ausgeführt.
-Die viermalige Testwiederholung kann vermieden werden, wenn der Starttaster gedrückt gehalten wird.
+Wenn der Tester mit einer Menüfunktion (Option WITH\_MENU) konfiguriert ist, 
+wird der vollständige Selbsttest mit den Tests T1 bis T7 nur bei dem ,,Selbsttest'' ausgeführt, 
+der als Menüfunktion ausgewählt werden kann.
+Außerdem wird beim Aufruf über die Menü Funktion der Abgleich mit dem externen Kondensator jedesmal durchgeführt,
+sonst nur für den ersten Aufruf.
+Damit kann der durch die kurgeschlossenen Testports automatisch gestartete Abgleich schneller durchgeführt werden. 
+Die viermalige Testwiederholung bei T1 bis T7 kann vermieden werden, wenn der Starttaster gedrückt gehalten wird.
 So kann man uninteressante Tests schnell beenden und
 sich durch Loslassen des Starttasters interessante Tests viermal wiederholen lassen.
 Der Test 4 läuft nur automatisch weiter, wenn die Verbindung zwischen den Testports gelöst wird.
@@ -132,6 +152,11 @@ Mit diesem Kondensator wird die Offset Spannung des analogen Komparators kompens
 um genauere Kapazitätswerte ermitteln zu können.
 Die Verstärkung für ADC Messungen mit der internen Referenz-Spannung wird ebenfalls mit diesem Kondensator abgeglichen, um
 bessere Widerstands-Messergebnisse mit der AUTOSCALE\_ADC Option zu erreichen.
+Wenn die Menü Funktion beim Tester ausgewählt wurde (Option WITH\_MENU) und der Selbsttest
+nicht als Menü Funktion gestarte wurde, wird der Abgleich mit dem externen Kondensator nur bei
+der ersten Kalibration durchgeführt.
+Die Kalibration mit dem externen Kondensator kann nur wiederholt werden, wenn der Selbsttest
+als Menü Funktion ausgewählt wird.
 
 Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt.
 Mit jedem Selbsttest wird der ESR Nullwert für alle drei Pinkombinationen neu bestimmt.

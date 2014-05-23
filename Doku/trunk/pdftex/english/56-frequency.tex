@@ -38,8 +38,6 @@ First the test frequencies are generated with tester 2 and measured with tester 
 After that the testers are swapped and the measurement is repeated.
 Figure \ref{fig:freq-ppm} shows the results of both measurement series.
 The nearly constant errors can be explained with a little frequency difference of both crystals.
-It is possible to tune the frequency offset with adjustable capacitors at the crystal.
-A one puls per second (1PPS) from a GPS receiver can be used to tune the crystal frequency for example.
 
 \begin{figure}[H]
 \centering
@@ -48,4 +46,34 @@ A one puls per second (1PPS) from a GPS receiver can be used to tune the crystal
 \label{fig:freq-ppm}
 \end{figure}
 
+Tuning of the cystal frequency is possible with a adjustable capacitor (5-25 pF) at the crystal.
+The one pulse per second (1PPS) from the GPS receiver {\bf UP501} from {\bf Fastrax Ltd.} and from the GPS/GLONASS receiver
+{\bf GNS701} from {\bf Global Navigation Systems GmbH} has been tested successfully for the calibration of the
+crystal frequency.
+The measured period could be adjusted to exactly \(1000.000 ms\).
+Only the last digit can toggle with one unit.
+Of course the frequency of the crystal is temperature dependent.
+Therefore you can not expect a very good long time stability.
 
+The figure \ref{fig:GPS-1PPS} shows the used circuits with a UM232 USB-serial converter
+as connection of the receiver modules to a computer.
+The UM232 converter support the circuit sowohl with both, the 5V and the 3.3V supply voltage
+from the USB supply voltage.
+No connection to a computer is required for operating the receivers.
+Only the 5V supply voltage must be provided to the USB connector.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8.5cm]{../FIG/GPS_UP501.eps}
+    \caption{GPS}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8.5cm]{../FIG/GPS_GNS701.eps}
+    \caption{GPS/GLONASS}
+  \end{subfigure}
+  \caption{Generation of a 1PPS signal with GPS receiver }
+  \label{fig:GPS-1PPS}
+\end{figure}

@@ -3,7 +3,7 @@
 \label{sec:features}
 \begin{enumerate}
 \item Arbeitet mit Mikrocontrollern vom Typ ATmega8, ATmega168 oder ATmega328. Auch ATmega1280 oder ATmega2560 können verwendet werden.
-\item Anzeige der Messergebnisse auf einem 2x16 Zeichen großen LC-Display.
+\item Anzeige der Messergebnisse auf einem 2x16 oder 4x20 Zeichen großen LC-Display.
 \item Ein-Tasten-Bedienung mit automatischer Abschaltfunktion.
 \item Batterie-Betrieb ist möglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA beträgt.
 Ab Softwareversion 1.05k wird nach Möglichkeit in den Meßpausen der Schlafzustand des ATmega168 oder ATmega328
@@ -109,8 +109,8 @@ Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germa
 \item Für ATmega328 kann eine Dialogfunktion gewählt werden, die weitere Einsatzmöglichkeiten zugänglich machen kann.
 Natürlich kann über den Dialog auch zu der Transistortester-Funktion zurückgekehrt werden.
 \item Mit Dialogfunktion kann am PD4 Port des ATmega eine Frequenzmessung vorgenommen werden.
-Die Auflösung beträgt bei Eingangfrequenzen über 25~kHz ein Hertz.
-Bei niedrigeren Frequenzen kann die Auflösung bis zu 0.0001~Hz betragen.
+Die Auflösung beträgt bei Eingangfrequenzen über \(25~kHz\) ein Hertz.
+Bei niedrigeren Frequenzen kann die Auflösung bis zu \(0.001~mHz\) betragen.
 \item Mit Dialogfunktion und ohne serielle Ausgabe kann eine externe Spannung bis 50V über einen
 10:1 Spannungteiler am PC3 Pin gemessen werden. Bei der PLCC-Version des ATmega328 kann auch einer der beiden
 zusätzlichen Pinne für die Spannungsmessung zusammen mit der seriellen Ausgabe benutzt werden.

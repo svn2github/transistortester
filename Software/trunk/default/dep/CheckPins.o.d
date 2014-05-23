@@ -21,10 +21,9 @@ CheckPins.o: ../CheckPins.c \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/wdt.h \
- /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h \
- ../tt_function.h ../config.h ../autoconf.h ../lcd-routines.h \
- ../lcd_defines.h ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h \
- ../bitmaps.h
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h ../config.h \
+ ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
+ ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h ../bitmaps.h
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h:
 
@@ -74,11 +73,11 @@ CheckPins.o: ../CheckPins.c \
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h:
 
-../tt_function.h:
-
 ../config.h:
 
 ../autoconf.h:
+
+../tt_function.h:
 
 ../lcd-routines.h:
 

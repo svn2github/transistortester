@@ -38,13 +38,42 @@ Erst wurden mit Tester 2 die Testfrequenzen erzeugt und mit Tester 1 die Frequen
 Danach wurde die Messung mit vertauschten Testern wiederholt.
 Abbildung \ref{fig:freq-ppm} zeigt die Ergebnisse.
 Die nahezu konstanten relativen Abweichungen sind durch die geringen Frequenzunterschiede der beiden Quarze zu erklären.
-Eine Abstimmung der Quarzfrequenz wäre mit einstellbaren Kondensatoren am Quarz möglich.
-Als Referenz zum Abstimmen könnte beispielsweise das Sekundensignal eines GPS Empfängers dienen.
 
 \begin{figure}[H]
 \centering
 \input{../GNU/frequency-ppm}
 \caption{Relativer Fehler für Frequenzmessung }
 \label{fig:freq-ppm}
+\end{figure}
+
+Eine Abstimmung der Quarzfrequenz ist mit einem einstellbaren Kondensator (5-25pF Trimmer) am Quarz möglich.
+Als Referenz zum Abstimmen habe ich das Sekundensignal (1PPS) mit dem GPS Empfänger {\bf UP501} von {\bf Fastrax Ltd.} und
+mit dem GPS/GLONASS Empfänger {\bf GNS701} von {\bf Global Navigation Systems GmbH} erfolgreich getestet.
+Die gemessene Periode ließ sich mit dem Trimmer auf exakt \(1000.000 ms\) abgleichen.
+Lediglich die letzte angezeigte Ziffer kann um 1 schwanken.
+Natürlich ist die Frequenz des Quarzes temperaturabhängig.
+Deswegen kann man keine sehr gute Langzeitstabilität erwarten.
+
+Die Abbildung \ref{fig:GPS-1PPS} zeigt die verwendeten Schaltungen mit einem
+UM232 USB-seriell Wandler als Verbindung der Empfänger-Module mit einem Computer.
+Der UM232 Wandler versorgt die Schaltung sowohl mit 5V als auch mit 3.3V Betriebsspannung
+aus der USB Versorgung.
+Für den Betrieb der Empfänger ist eine Verbindung zum Rechner nicht erforderlich.
+Lediglich die 5V Versorgung der USB-Steckbuchse muß gewährleitet sein.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8.5cm]{../FIG/GPS_UP501.eps}
+    \caption{GPS}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8.5cm]{../FIG/GPS_GNS701.eps}
+    \caption{GPS/GLONASS}
+  \end{subfigure}
+  \caption{Sekundenpuls Erzeugung mit GPS Empfängern }
+  \label{fig:GPS-1PPS}
 \end{figure}
 
