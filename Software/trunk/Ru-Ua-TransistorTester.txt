@@ -32,8 +32,8 @@
    const unsigned char PWM_10bit_str[] MEM2_TEXT = "10-bit PWM";
    const unsigned char RotaryEncoder_str[] MEM2_TEXT = {'T','e','c',Cyr_t,' ',Cyr_e,Cyr_n,Cyr_k,'o',Cyr_d,'e','p','a',0};	// Тест энкодера
    const unsigned char TURN_str[] MEM2_TEXT = {'K','p','y',Cyr_t,Cyr_i,Cyr_t,'e','!',0}; // Крутите!
-   const unsigned char FULLCHECK_str[] MEM2_TEXT = "Selftest";		// ???
-   const unsigned char SHORT_PROBES_str[] MEM2_TEXT = "short Probes!";	// ???
+   const unsigned char FULLCHECK_str[] MEM2_TEXT = {'P','e',Cyr_zsch,Cyr_i,Cyr_m,' ','c','a',Cyr_m,'o',Cyr_t,'e','c',Cyr_t,'a',0}; //Режим самотеста
+   const unsigned char SHORT_PROBES_str[] MEM2_TEXT = {Cyr_Z,'a',Cyr_k,'o','p','o',Cyr_t,Cyr_i,Cyr_t,'e','!',0}; // Закоротите!
   #if PROCESSOR_TYP == 644
    const unsigned char HFREQ_str[] MEM2_TEXT = {Cyr_Tsch,'a','c',Cyr_t,'o',Cyr_t,'o',Cyr_m,'e','p',' ','>',' ','2','M','H','z',0};
    const unsigned char H_CRYSTAL_str[] MEM2_TEXT = {'H','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; // HF кварц
@@ -77,8 +77,8 @@
    const unsigned char PWM_10bit_str[] MEM2_TEXT = "10-bit PWM";
    const unsigned char RotaryEncoder_str[] MEM2_TEXT = {'T','e','c',Cyr_t,' ','e',Cyr_n,Cyr_k,'o',Cyr_d,'e','p','a',0};	// Тест енкодера
    const unsigned char TURN_str[] MEM2_TEXT = {'K','p','y',Cyr_t,'i',Cyr_t,Cyr_ww,'!',0}; // Крутiть!
-   const unsigned char FULLCHECK_str[] MEM2_TEXT = "Selftest";		// ???
-   const unsigned char SHORT_PROBES_str[] MEM2_TEXT = "short Probes!";	// ???
+   const unsigned char FULLCHECK_str[] MEM2_TEXT = {'P','e',Cyr_zsch,Cyr_i,Cyr_m,' ','c','a',Cyr_m,'o',Cyr_t,'e','c',Cyr_t,'y',0}; //Режим самотесту
+   const unsigned char SHORT_PROBES_str[] MEM2_TEXT = {Cyr_Z,'a',Cyr_k,'o','p','o',Cyr_t,'i',Cyr_t,Cyr_ww,'!',0}; // Закоротiть!
   #if PROCESSOR_TYP == 644
    const unsigned char HFREQ_str[] MEM2_TEXT = {Cyr_Tsch,'a','c',Cyr_t,'o',Cyr_t,'o',Cyr_m,'i','p',' ','>',' ','2','M','H','z',0};
    const unsigned char H_CRYSTAL_str[] MEM2_TEXT = {'H','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; //HF кварц
