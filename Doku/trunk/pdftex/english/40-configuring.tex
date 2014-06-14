@@ -33,9 +33,10 @@ The following options in the Makefile are avaiable to configure the software for
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
     example:  PARTNO = m168
-  \item[UI\_LANGUAGE] specifies the favored Language\\
-    LANG\_ENGLISH, LANG\_GERMAN, LANG\_POLISH, LANG\_CZECH, LANG\_SLOVAK, LANG\_SLOVENE, LANG\_DUTCH, LANG\_BRASIL,
- LANG\_RUSSIAN, LANG\_UKRAINIAN and LANG\_LITHUANIAN is currently avaiable.
+   \item[UI\_LANGUAGE] specifies the favored Language\\
+    LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, LANG\_HUNGARIAN, LANG\_ITALIAN,
+    LANG\_LITHUANIAN, LANG\_POLISH, LANG\_RUSSIAN , LANG\_SLOVAK, LANG\_SLOVENE and LANG\_UKRAINIAN
+    is currently avaiable.
  The russian or ukrainian language requires a LCD with cyrillic character set.\\
     example:  UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] is only needed for a LCD-display with cyrillic character set. The \(\mu\) and \(\Omega\) character
@@ -69,6 +70,15 @@ example: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] activated a menu function for a ATmega328. You can select some additional functions with a
 selection menu, which you can call with a long key press (\textgreater~0.5~s).\\
 example: CFLAGS += -DWITH\_MENU
+  \item[WITH\_ROTARY\_SWITCH] The menu function can be easier controlled with a the extension of a rotary pulse encoder.
+See the description~\ref{fig:RotExt} in the Hardware section for details of the required extension.
+If your rotary pulse encoder has the same count of indexed positions (detent) as pulses of the switch for every turn, you must
+set the  option WITH\_ROTARY\_SWITCH to 2. If the rotary pulse encoder has twice the count of indexed position, you must
+set the option WITH\_ROTARY\_SWITCH to 1.\\
+example: CFLAGS += -DWITH\_ROTARY\_ENCODER=1
+  \item[CHANGE\_ROTARY\_DIRECTION] You can change the direction of the detected rotary direction by hardware swap of
+the two switch signals or by setting the option CHANGE\_ROTARY\_DIRECTION.\\
+example: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
 Selftest will be started, if you connect all three probes together and start measurement.
 If the menu function is selected, only the calibration part of the self test is executed by automatic start with

@@ -141,6 +141,36 @@ The LCD should always be installed for adjusting, because the pull up resistor o
 \label{fig:FreqMes}
 \end{figure}
 
+For easier control of the menu function for the ATmega328 you can expand the circuit 
+by a rotary pulse encoder with a push button.
+The circuit~\ref{fig:RotExt} shows a standard expansion for a normal character LCD.
+If a graphical display with a ST7565 controller is used,
+you must use the ATmega pin PD5 instead of the PD2 pin.
+All signals for the connection of the rotary pulse encoder are available at the plug connector
+for the LCD. For this reason the expansion can also be easy upgraded for many existing testers.
+In many cases the graphical LCD is assembled on a adapter board with some connection pins
+of the character LCD. Also in this cases the upgrade with a rotary encoder is not very difficult to do.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{../FIG/rotary_extension.eps}
+\caption{Expansion with a rotary pulse encoder}
+\label{fig:RotExt}
+\end{figure}
+
+The figure~\ref{fig:RotEnc} shows the feature of two different rotary pulse encoder.
+The version 1 has twice as much indexed positions (detents) per turn as pulses per turn.
+The version 2 has the same count of detents as pulses per turn.
+The slope of one of the two switch signals is sometimes exactly at the detent of the 
+rotary pulse encoder.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/rotary_encoder.eps}
+\caption{Feature of two different rotary pulse encoder}
+\label{fig:RotEnc}
+\end{figure}
+
 
 
 \section{Hints for building the TransistorTester}

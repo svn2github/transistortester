@@ -53,12 +53,22 @@ The next measurement can started earlier by pressing the start button during the
 \section{Optional menu functions for the ATmega328}
 If the menu function is selected, the tester start a selection menu after a long key press (\textgreater 500ms)
 for additional functions.
-The selectable functions are shown in row two of the display.
-With the POWER\_OFF option in the Makefile the shown function changes after 5 seconds automatically.
+The selectable functions are shown in row two of a 2-line display or as marked function in row 3 of a 4-line display.
+The previous and next function is also shown in row 2 and 4 of the display in this case.
+After a longer wait time without any interaction the program leave the menu and returns to the normal transistor tester function.
 With a short key press the next selection can be shown.
-A longer key press starts the shown function.
+A longer key press starts the shown or marked function.
 After showing the last function ''switch off'', the first function will be shown next.
 
+If your tester has also the rotary pulse encoder installed, you can call the menu with the additional functions
+also with a fast rotation of the encoder during the result of a previous test is shown.
+The menu functions can be selected with slow rotation of the encoder in every direction.
+Starting of the selected menu function can only be done with a key press.
+Within a selected function parameters can be selected with slow rotation of the encoder.
+A fast rotarion of the encoder will return to the selection menu.
+
+\begin{description}
+ \item[frequency]
 The additional function ''frequency'' (frequency measurement) uses the ATmega Pin PD4, which is also connected to the LCD.
 First the frequency is allways measured by counting.
 If the measured frequency is below \(25 kHz\), additionally the mean period of the input signal
@@ -66,6 +76,7 @@ is measured and with this value the frequency is computed with a resolution of u
 By selecting the POWER\_OFF option in the Makefile, the period of frequency measurement is limited to 8~minutes.
 The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
 
+ \item[f-Generator]
 With the additional function ''f-Generator'' (frequency generator) the selectable frequencies can be switched with key presses.
 After selecting the last choise of frequencies, the generator is switched back to
 the first frequency next (cyclical choise).
@@ -75,6 +86,7 @@ The elapsed time is shown with a point for every 30 seconds in row 1 of the disp
 With periodical short key press you can prevent the time out of the frequency generation.
 With a long key press (\textgreater~0.8~s) you will stop the frequency generator and return to the function menu.\\
 
+\item[10-bit PWM]
 The additional function ''10-bit PWM'' (Pulse Width Modulation) generates a fixed frequency with selectable
 puls width at the pin TP2.
 With a short key press (\textless~0.5~s) the pulse width is increased by \(1 \%\), with a longer key press the pulse width
@@ -83,6 +95,7 @@ If \(99 \%\) is overstepped, \(100 \%\) is subtracted from the result.
 If the POWER\_OFF option is selected in the Makefile, the frequency generation is finished after 8~minutes without any key press.
 The frequency generation can also be finished with a very long key press (\textgreater~1.3~s).\\
 
+\item[C+ESR@TP1:3]
 The additional function ''C+ESR@TP1:3'' selects a stand-alone capacity measurement with 
 ESR (Equivalent Series Resistance) measurement at the test pins TP1 and TP3. 
 Capacities from \(2 \mu F\) up to \(50 mF\) can be measured. 
@@ -92,6 +105,7 @@ If the POWER\_OFF option is selected in the Makefile, the count of measurements 
 to 250, but can be started immediately again.
 The series of measurements can be finished with a long key press.\\
 
+\item[rotary encoder]
 With the function ''rotary encoder'' a rotary encoder can be checked.
 The three pins of the rotary encoder must be connected to the three probes of the transistor tester 
 before the start of the function. 
@@ -100,10 +114,12 @@ The tester finds out the common contact of the two switches and shows, if the in
 both contacts in open state ('o') or in closed state ('C').
 If the indexed position has both states, both characters ('o' and 'C') are shown alternating.\\
 
+\item[Selftest]
 With the menu function ''Selftest'' a full selftest with calibration is done.
 With that call all the test functions T1 to T7 (if not inhibited with the NO\_TEST\_T1\_T7 option) 
 and also the calibration with external capacitor is done every time.\\
 
+\item[Voltage]
 The additional function ''Voltage'' (Voltage measurement) is only possible, if the serial output is deselected
 or the ATmega has at least 32 pins (PLCC) and one of the additional pins ADC6 or ADC7 is used for the measurement.
 Because a 10:1 voltage divides is connected to PC3 (or ADC6/7), the maximum external voltage can be 50V.
@@ -112,9 +128,13 @@ Thus connected zener diodes can be measured also.
 By selecting the POWER\_OFF option in the Makefile and without key pressing, the period of voltage measurement is limited to 4~minutes.
 The measurement can also be finished with a extra long key press (\textgreater~4~seconds).
 
+\item[Switch off]
 With the additional function ''Switch off'' the tester can be switched off immediately.\\
 
+\item[Transistor]
 Of course you can also select the function ''Transistor'' (Transistor tester) to return to a normal Transistor tester measurement. 
+\end{description}
+
 With the selected POWER\_OFF option in the Makefile, all additional functions are limited in time without interaction to prevent a discharged battery.
 
 

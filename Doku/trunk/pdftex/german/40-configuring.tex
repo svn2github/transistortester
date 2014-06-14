@@ -72,7 +72,17 @@ Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest Sta
  nur der Kalibrationsteil des Selbsttests ausgeführt.
 Die Tests T1-T7 werden nur beim Selbsttest ausgeführt, der als Menüfunktion ausgewählt werden kann.\\
 Beispiel: CFLAGS += -DWITH\_MENU
-  \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
+  \item[WITH\_ROTARY\_SWITCH] Die Menü Funktion kann leicher bedient werden, wenn ein Impulsdrehgeber als Erweiterung
+benutzt wird.
+Für die Details der notwendigen Erweiterung sehen Sie bitte die Beschreibung~\ref{fig:RotExt} in dem Hardware Kapitel.
+Wenn der Impulsdrehgeber die gleiche Anzahl von Raststellungen wie Impulse für jede Umdrehung hat,
+muß die Option WITH\_ROTARY\_SWITCH auf 2 gesetzt werden.
+Wenn der Impulsdrehgeber doppelt so viele Raststellungen hat, muß die Option WITH\_ROTARY\_SWITCH auf 1 gesetzt werden.
+Beispiel: CFLAGS += -DWITH\_ROTARY\_ENCODER=1
+  \item[CHANGE\_ROTARY\_DIRECTION] Man kann die erkannte Drehrichtung des Impulsdrehgebers durch Vertauschen
+der beiden Schalter-Signale oder durch Setzen der Option CHANG\_ROTARY\_DIRECTION ändern.
+Beispiel: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
+ \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
   \item[NO\_COMMON\_COLLECTOR\_HFE] verhindert die hFE Messung von Transistoren in der Kollektorschaltung.

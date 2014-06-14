@@ -150,6 +150,35 @@ weil dessen Pull-Up Widerstände die Spannung verändern.
 \label{fig:FreqMes}
 \end{figure}
 
+Zur leichteren Bedienung der Menüfunktion für den ATmega328 kann die Schaltung um einen
+Impulsdrehgeber mit Taster erweitert werden. Die Schaltung~\ref{fig:RotExt} gibt die Standard-Belegung
+für ein normales LCD an. Wenn ein graphisches Display mit einem ST7565 Kontroller benutzt wird,
+muß statt PD2 der Anschluß PD5 des ATmega benutzt werden. Alle Anschlüsse für den Impulsdrehgeber
+sind an der Steckerleiste für das LCD verfügbar. Deswegen kann der Impulsdrehgeber in vielen Fällen 
+leicht nachgerüstet werden. Vielfach ist das graphische Display auch mit einem Adapter-Board an die
+Steckerleiste des LCD angeschlossen. Deswegen ist auch hier die Nachrüstung des Impulsdrehgebers nicht
+sehr schwierig.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{../FIG/rotary_extension.eps}
+\caption{Erweiterung um einen Impulsdrehgeber}
+\label{fig:RotExt}
+\end{figure}
+
+Die Abbildung~\ref{fig:RotEnc} zeigt zwei Versionen von Drehgebern.
+Die Version 1 hat doppelt so viele Raststellungen (detent) pro Umdrehung
+wie Pulse pro Umdrehung.
+Die Version 2 hat gleich viele Pulse pro Umdrehung wie Raststellungen.
+Manchmal liegt bei einigen Drehgebern die Schaltflanke eines der beiden Schalter genau an der
+Raststellung.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/rotary_encoder.eps}
+\caption{Zwei unterschiedliche Versionen eines Impulsdrehgeber}
+\label{fig:RotEnc}
+\end{figure}
 
 
 \section{Hinweise für den Aufbau des TransistorTesters}
