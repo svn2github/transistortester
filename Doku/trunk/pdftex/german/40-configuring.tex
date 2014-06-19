@@ -78,6 +78,12 @@ Für die Details der notwendigen Erweiterung sehen Sie bitte die Beschreibung~\r
 Wenn der Impulsdrehgeber die gleiche Anzahl von Raststellungen wie Impulse für jede Umdrehung hat,
 muß die Option WITH\_ROTARY\_SWITCH auf 2 gesetzt werden.
 Wenn der Impulsdrehgeber doppelt so viele Raststellungen hat, muß die Option WITH\_ROTARY\_SWITCH auf 1 gesetzt werden.
+Das Setzen der Optione \_WITH\_ROTARY\_SWITCH auf 5 wählt die höchste Auflösung für den Impulsdrehgeber.
+Jeder Zyklus der beiden Schalter-Zustände wird als 4 gezählt. Normalerweise ist diese Einstellung nur für
+Impulsdrehgeber ohne Raststellung sinnvoll.
+Ein Setzen der Option WITH\_ROTARY\_SWITCH auf 4 ist notwendig für die korrekte Behandlung von zwei separaten
+Rauf (Up) und Runter (Down) Tastern, die anstelle der beiden Schalter eines Impulsdrehgebers eingebaut sind.
+Verwenden Sie nicht die Einstellung 4 mit normalen Impulsdrehgebern!\\
 Beispiel: CFLAGS += -DWITH\_ROTARY\_ENCODER=1
   \item[CHANGE\_ROTARY\_DIRECTION] Man kann die erkannte Drehrichtung des Impulsdrehgebers durch Vertauschen
 der beiden Schalter-Signale oder durch Setzen der Option CHANG\_ROTARY\_DIRECTION ändern.

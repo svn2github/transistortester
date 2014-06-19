@@ -171,6 +171,33 @@ rotary pulse encoder.
 \label{fig:RotEnc}
 \end{figure}
 
+The figure~\ref{fig:RotBounce} shows a rotary pulse encoder, which has not only
+bouncing contacts, but also has a unstable state of one of the switches at the indexed
+position (detent). Every change of the state of the switches is detected by the program
+and saved in a cyclic buffer. Therefore the last three states of the switches can be checked
+after every status change.
+For every cycle of switch states a total of four sequences of state can be defined for every direction of rotation.
+If there is only one indexed position (detent) for every cycle of switch states, only
+one of the state sequence pair must be monitored (WITH\_ROTARY\_SWITCH=2 or 3) for correct counting.
+If there are two indexed positions for every cycle of the switch states, as shown in figure~\ref{fig:RotBounce},
+you must monitor two pairs of switch state sequences (WITH\_ROTARY\_SWITCH=1).
+You can choise any resolution for the WITH\_ROTARY\_SWITCH for a rotary pulse encoder without
+indexed positions. A value of 2 or 3 selects the lowest resolution, 1 selects a middle resolution
+and 5 selects the highest resulution.
+A oscillation of the selection (counter up, counter down) can be avoided with the type of monitoring,
+but sometimes a count can be missed with a bad placement of the indexed position.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/rotary_bouncing.eps}
+\caption{A rotary pulse encoder with bouncing switches}
+\label{fig:RotBounce}
+\end{figure}
+
+In place of the two switches of a rotary switch encoder you can also install two seperate
+key buttons for Up and Down movement, if no rotation switch encoder is present or favored.
+In this case the option WITH\_ROTARY\_SWITCH must be set to 4 for a correct handling of
+the program.
 
 
 \section{Hints for building the TransistorTester}

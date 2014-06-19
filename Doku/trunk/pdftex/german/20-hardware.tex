@@ -180,6 +180,34 @@ Raststellung.
 \label{fig:RotEnc}
 \end{figure}
 
+Die Abbildung~\ref{fig:RotBounce} zeigt einen Impulsdrehgeber, der nicht nur
+prellende Kontakte hat, sondern auch an den Raststellungen (intent) eine unsicheren Zustand
+eines der Kontakte besitzt. Jeder Wechsel eines Schalterzustandes wird vom Programm 
+überwacht und in einem zyklischen Puffer gespeichert. Damit kann bei einem Wechsel des
+Zustandes auch die beiden vorigen Zustände geprüft werden.
+Insgesamt können für einen Zyklus der Schaltzustände vier Zustandsfolgen für jede Drehrichtung
+festgelegt werden. Wenn nur eine Raststellung pro Zyklus vorhanden ist, reicht die Abfrage eines
+Paares dieser Zustandsfolgen für das Zählen der Raststellung in beide Richtungen aus (WITH\_ROTARY\_SWITCH=2 oder 3).
+Bei zwei Raststellungen, wie in der Abbildung~\ref{fig:RotBounce} gezeigt ist,
+müssen zwei Paare abgefragt werden (WITH\_ROTARY\_SWITCH=1).
+Für Impulsdrehgeber ohne Rasterung kann die Einstellung für WITH\_ROTARY\_SWITCH beliebig auf
+2 oder 3 für die niedrigste Empfindlichkeit, auf 1 für eine mittlere Empfindlichkeit und auf 5 für
+die höchste Empfindlichkeit gesetzt werden. 
+Ein Pendeln der Einstellung (Zähler rauf, Zähler runter) wird durch die Art der Abfrage vermieden, bei
+ungünstiger Lage der Schaltflanken kann aber ein Zählpuls für eine Raststellung ausbleiben.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/rotary_bouncing.eps}
+\caption{Ein Impulsdrehgeber mit prellenden Kontakten}
+\label{fig:RotBounce}
+\end{figure}
+
+Anstelle der beiden Kontakte für den Impulsdrehgeber können auch zwei Taster für Rauf (Up)  und Runter (Down)
+eingebaut werden, wenn kein Impulsdrehgeber vorhanden oder gewünscht ist.
+Für diesen Fall muß die Option WITH\_ROTARY\_SWITCH auf 4 gesetzt werden, damit das Programm
+entsprechend reagiert.
+
 
 \section{Hinweise für den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatiblen Kontroller kann mit

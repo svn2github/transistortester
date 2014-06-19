@@ -10,7 +10,7 @@ LISTE1 += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps 
 LISTE1 += ../FIG/diode_addon.eps ../FIG/zener_exp.eps ../FIG/Frequency_addon.eps
 LISTE1 += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
 LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps ../FIG/CheckSemi3.eps
-LISTE1 += ../FIG/rotary_extension.eps ../FIG/rotary_encoder.eps
+LISTE1 += ../FIG/rotary_extension.eps ../FIG/rotary_encoder.eps	../FIG/rotary_bouncing.eps
 
 LISTE2 = ../FIG/BJT_AD161.eps ../FIG/BJT_AD162.eps ../FIG/BJT_BC639.eps ../FIG/BJT_BC640.eps ../FIG/BJT_BU508D.eps
 LISTE2 += ../FIG/BJT_BC516.eps ../FIG/BJT_BC517.eps ../FIG/BJT_BDV64.eps ../FIG/BJT_BDV65.eps
@@ -156,6 +156,8 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/rotary_encoder.eps: ../FIG/rotary_encoder.fig
 	fig2eps $<
 ../FIG/rotary_extension.eps: ../FIG/rotary_extension.fig
+	fig2eps $<
+../FIG/rotary_bouncing.eps: ../FIG/rotary_bouncing.fig
 	fig2eps $<
 
 TEXLIST1 =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex
