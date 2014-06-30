@@ -31,7 +31,7 @@ lcd_space:
 ;// from binary 0 we send ASCII 1 ....
 ;void lcd_testpin(unsigned char temp) {
 lcd_testpin:
- 	subi	r24, -'1'	; 0xCF
+ 	subi	r24, -'1'-TP_OFFSET	; 0xCF
 ;       run to lcd_data ....
 
 ;// sends data byte to the LCD 

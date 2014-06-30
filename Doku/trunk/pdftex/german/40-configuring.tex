@@ -156,6 +156,10 @@ Spannung über den Dialog des ATmega328 genutzt. Wenn die Option zusätzlich zur
 erfolgt die Zenerdioden Messung mit dem ADC6 Pin und bei der über den Dialog wählbaren Spannungsmessung werden
 beide Eingänge gemessen. Beide Pinne sollten dann an einen 10:1 Spannungsteiler angeschlossen sein.\\
 Beispiel: CFLAGS += -DTQFP\_ADC7
+  \item[WITH\_VEXT] ermöglicht die Messung einer externen Spannung über einen 10:1 Spannungsteiler.
+Für den ATmega168 oder ATmega328 wird normalerweise der PC3 Pin benutzt, wenn keine Option TQFP\_ADC6 oder
+TQFP\_ADC7 gesetzt ist. Dann ist diese Option aber nur möglich, wenn die WITH\_UART Option nicht gesetzt ist.\\
+Beispiel: CFLAGS += -DWITH\_VEXT 
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC

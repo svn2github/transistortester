@@ -155,6 +155,10 @@ If this option is used together with the TQFP\_ADC6 option, is the zener diode m
 both pins are used for voltage measurement with the dialog of the ATmega328.
 Both ADC input pins shouls be assembled with a 10:1 voltage divider.\\
 Example: CFLAGS += -DTQFP\_ADC7
+  \item[WITH\_VEXT] enables the measurement of a external voltage with a 10:1 voltage divider.
+For the ATmega168 or ATmega328 processor usually the PC3 pin is used as input, if no option TQFP\_ADC6 or
+TQFP\_ADC7 is set. In this case this option is only possible, if the WITH\_UART option is not set.\\
+Example: CFLAGS += -DWITH\_VEXT 
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
 Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
