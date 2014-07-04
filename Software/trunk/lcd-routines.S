@@ -241,6 +241,8 @@ lcd_init:
  	ldi	r24, (CMD1_SetContrast | 0x04)	; // set contrast C3:0 = 4
  	RCALL	lcd_command	; lcd_command(CMD1_SetContrast | 0x04);	// set contrast C3:0 = 4
 #endif
+#if 0
+	// old intitialize without OLED display
  	ldi	r24, (CMD_SetIFOptions | 0x08) ; 0x28  4Bit / 2 rows / 5x7
  	RCALL	lcd_command	; lcd_command(CMD_SetIFOptions | 0x08);	// 4Bit / 2 rows / 5x7
 
@@ -250,6 +252,32 @@ lcd_init:
  	ldi	r24, (CMD_SetEntryMode | 0x02)	; 0x06 // increment / no Scroll    
  	RCALL	lcd_command	; lcd_command(CMD_SetEntryMode | 0x02);	// increment / no Scroll    
  	RCALL	lcd_clear	; lcd_clear();
+#else
+	// new initialize with OLED display
+	ldi	r24, (CMD_SetIFOptions) ; 0x20                          //Add for OLED
+	RCALL	lcd_command	; lcd_command(CMD_SetIFOptions);        //Add for OLED
+
+	ldi	r24, (CMD_SetIFOptions) ; 0x20                          //Add for OLED
+	RCALL	lcd_command	; lcd_command(CMD_SetIFOptions);        //Add for OLED
+
+	ldi	r24, (CMD_SetIFOptions | 0x0A) ; //0x2A  4Bit / 2 rows / 5x7/ table3 /Add for OLED
+	RCALL	lcd_command	; lcd_command(CMD_SetIFOptions | 0x0A); // 4Bit / 2 rows / 5x7 / table3 /Add fo OLED
+
+	ldi	r24, (CMD_SetDisplayAndCursor) ; 0x08  //Display off/ Cursor off / no Blinking  //Add for OLED
+	RCALL	lcd_command	; lcd_command(CMD_SetDisplayAndCursor); // // Display off / Cursor off / no Blinking OLED
+
+ 	RCALL	lcd_clear	; lcd_clear();
+
+ 	ldi	r24, (CMD_SetEntryMode | 0x02)	; 0x06 // increment / no Scroll    
+ 	RCALL	lcd_command	; lcd_command(CMD_SetEntryMode | 0x02);	// increment / no Scroll    
+
+	ldi	r24, 2		; 0x02 // Home Command //Add fo OLED    
+	RCALL	lcd_command	; lcd_command(0x02);    //Home Command //Add for OLED          
+
+	ldi	r24, (CMD_SetDisplayAndCursor | 0x04) ; 0x0c // Display on / Cursor off / no Blinking
+	RCALL	lcd_command	; lcd_command(CMD_SetDisplayAndCursor | 0x04); // Display on / Cursor off / no Blinking
+#endif
+
  	ret
  .endfunc
 
