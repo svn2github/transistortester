@@ -273,6 +273,12 @@ lcd_init:
 
 	ldi	r24, 2		; 0x02 // Home Command //Add fo OLED    
 	RCALL	lcd_command	; lcd_command(0x02);    //Home Command //Add for OLED          
+#ifdef INHIBIT_SLEEP_MODE
+	RCALL	wait5ms		; wait5ms();
+#else
+ 	ldi	r24, 1		; 0x01	
+ 	RCALL	sleep_5ms	; wait_about5ms();
+#endif
 
 	ldi	r24, (CMD_SetDisplayAndCursor | 0x04) ; 0x0c // Display on / Cursor off / no Blinking
 	RCALL	lcd_command	; lcd_command(CMD_SetDisplayAndCursor | 0x04); // Display on / Cursor off / no Blinking
