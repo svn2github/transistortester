@@ -8,8 +8,11 @@
 #include "part_defs.h"
 #include "lcd_defines.h"
 
-#ifdef LCD_ST7565
+#if (LCD_ST_TYPE == 7565)
  # warning "use lcd-routines.c instead of lcd-routines.S for ST7565 controller support!"
+#endif
+#if (LCD_ST_TYPE == 7920)
+ # warning "use lcd-routines.c instead of lcd-routines.S for ST7920 controller support!"
 #endif
 
 #define RCALL rcall

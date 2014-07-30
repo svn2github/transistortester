@@ -71,7 +71,7 @@
 
    const unsigned char VOLTAGE_str[] MEM2_TEXT = {'B','o',Cyr_l,Cyr_ww,Cyr_t,Cyr_m,'e',Cyr_t,'p',0}; //"Voltage"
 
-   const unsigned char OFF_str[] MEM2_TEXT = {'B',Cyr_y,Cyr_m,Cyr_k,Cyr_n,'y',Cyr_t,Cyr_i,0}; //"Switch off"
+   const unsigned char OFF_str[] MEM2_TEXT = {'B',Cyr_i,Cyr_m,Cyr_k,Cyr_n,'y',Cyr_t,Cyr_i,0}; //"Switch off"
 
    const unsigned char F_GEN_str[] MEM2_TEXT = {'f','-',Cyr_G,'e',Cyr_n,'e','p','a',Cyr_t,'o','p',0}; //"f-Generator"
    const unsigned char PWM_10bit_str[] MEM2_TEXT = "10-bit PWM";
