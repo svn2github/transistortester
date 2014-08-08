@@ -70,6 +70,8 @@ The following table \ref{tab:grid-change} shows the modified assignments.
 
 \section{Extensions for the Transistor Tester}
 
+\subsection{Protection of the ATmega inputs}
+
 For better protection of the ATmega inputs one of the additional circuits~ \ref{fig:relay_addon} 
 can be integrated. The de-energized contacts of the relay protect the ATmega without power.
 The contacts will be opened by software only for measurement.
@@ -92,6 +94,8 @@ A complete protection is not possible. Therefore capacitors should always be dis
   \caption{Additional protection of the ATmega inputs}
   \label{fig:relay_addon}
 \end{figure}
+
+\subsection{Measurement of zener voltage above 4 Volt}
 
 If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
 input for measuring a external voltage. The voltage can be up to 50V with the optional 10:1 resistor
@@ -116,11 +120,15 @@ Without the pressed key the voltage converter is not powered. For that the exter
 You can only measure positiv DC voltages up to 50V.
 You have also to respect the correct polarity.
 
+\subsection{Frequency generator}
+
 With the dialog part of the ATmega328 you can also select a frequency generator, which supports
 currently a selection of frequencies from \(1 Hz\) up to \(2 MHz\).
 The output of the 5V signal is done with a \(680\Omega\) resistor to test port TP2.
 You can use the GND signal from the minus pin of the zener diode extension or the test port TP1.
 The test port TP3 is connected to GND with a \(680\Omega\) resistor.
+
+\subsection{Frequency measurement}
 
 For using the with the dialog selectable frequency measurement is a little hardware extension
 necessary. The input pin PD4 (T0/PCINT20) of the ATmega is used for the frequency measurement.
@@ -140,6 +148,8 @@ The LCD should always be installed for adjusting, because the pull up resistor o
 \caption{Extension for measurement of frequency}
 \label{fig:FreqMes}
 \end{figure}
+
+\subsection{Using of a rotary pulse encoder}
 
 For easier control of the menu function for the ATmega328 you can expand the circuit 
 by a rotary pulse encoder with a push button.
@@ -199,6 +209,30 @@ key buttons for Up and Down movement, if no rotation switch encoder is present o
 In this case the option WITH\_ROTARY\_SWITCH must be set to 4 for a correct handling of
 the program.
 
+\subsection{Connection of a graphical display}
+
+Many thanks to Wolfgang Sch. for his work to support a chinese version with ST7565 controller.
+By now you can also connect a graphical 128x64 pixel LCD with a ST7565 controller.
+Because the ST7565 controller is connected with a serial interface, only four signal
+lines are required. Two port D pins of the ATmega can be used otherwise.
+The ATmega processor should have at least 32k flash memory for the support of a graphical display.
+The ST7565 controller works with a operating voltage of 3.3V .
+Therefore a additional 3.3V voltage regulator is required.
+The data sheet of the ST7565 controller does not allow the direct connection of input pins to
+5V signal level. So the extension of figure \ref{fig:ST7565lcd} uses a additional 74HC4050 CMOS
+device for the conversion of the voltage level.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/ST7565lcd.eps}
+\caption{Connection of a  graphical display}
+\label{fig:ST7565lcd}
+\end{figure}
+
+For connection to the ATmega644 series of processors the pins PB2 to PB5 instead of PD0 to PD3 are used.
+The exchange of a text display to a graphical display is possible with a adapter printed board because
+all required data signals and power signals are available at the LCD connector.
+
 
 \section{Hints for building the TransistorTester}
 Every LCD-display with at least 2x16 character and a HD44780 compatible controller
@@ -207,12 +241,6 @@ illumination, some LCD need lower current than others.
 I had tried OLED type displays, but this type cause interference with measurements
 of the ATmega and are {\bf not} recommended. Also loading of special characters
 for displaying the resistor symbol has caused problems with the OLED.
-By now you can also connect a graphical 128x64 picel LCD with a ST7565 controller.
-Many thanks to Wolfgang Sch. for his work to support a chinese version with ST7565 controller.
-Because the ST7565 controller is connected with a serial interface, only four signal
-lines are required. Two port D pins of the ATmega can be used otherwise.
-However the ST7565 controller requires a 3.3V power voltage and tolerates
-no 5V signal level!
 
 The resistors R1 to R6 are critical for measurements and this \(680\Omega\) and
 \(470k\Omega\) resistors should be measurement type resistors (tolerance of 0.1\%) to
@@ -220,7 +248,7 @@ get the full accuracy.
 You should use a precision socket for the ATmega microcontroller to enable
 the replacement of the microcontroller.
 The microcontroller ATmega8, ATmega168 and ATmega328 can be used.
-Recommended is a ATmega168 or ATmega328, if you wish to use all features.
+Recommended is a ATmega328, if you wish to use all features.
 
 Anyway you should assemble all parts to printed board without the microcontroller.
 A up-to-date low voltage drop regulator like MCP1702-5002 is recommended as IC2, because it
@@ -363,6 +391,55 @@ of \(100m \Omega\) could be measured for one path. This will be the reason for m
 of \(0.3 \Omega\) for two direct connected pins.
 The ESR measuring can usually consider this by zero compensation.
 Beginning with version 1.07k  the software does respect this offset for measuring resistors below \(10 \Omega\) too.
+
+Newer rebuilds of the tester like a version from Fish8840  use a 128x64 pixel graphical display.
+This version use a modified circuit for the switch on logic. 
+The figure \ref{fig:Fish8840} shows a part of the modified circuit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../FIG/Fish8840.eps}
+\caption{Part of the circuit from the Fish8840 version}
+\label{fig:Fish8840}
+\end{figure}
+
+How you can see at the values of resistor R8 and R15,
+a 2:1 scaling factor for the battery voltage measurement is used instead of the original scaling factor.
+In addition R15 is direct connected to the battery, what results to a power consumption in the switch off state.
+The R15 should better be connected to the drain of Q1 or the input of the voltage regulator to prevent this
+unneeded battery power consumption.
+The scaling factor of the battery voltage must be specified in any case in the Makefile before any
+attempt can be done to replace the original software (BAT\_NUMERATOR=66 for example).
+All attempt to replace the original software is allways done at one's own risk.
+No guaranty can be given for operational capability of newer software versions.
+Unfortunately the original state of the chinese software can not be saved because the 
+security bits of the ATmega328 are set. So there is no way to get back to the original state.
+
+\section{Extented circuit with ATmega644 or ATmega1284}
+
+A extended circuit for ATmega644/1284 processors was developed with Nick L. from the Ukraine.
+The circuit \ref{fig:t644tester} enables a additional test of crystals and a extended range
+for the frequency measurement.
+Although the basic circuit is very simular to the circuit \ref{fig:ttester}, the
+port assignment is different.
+A rotary pulse encoder with circuit \ref{fig:RotExt} can be connected here at the pins PB6 and PB7 (instead of PD2 and PD3).
+Both signals and also the power signals VCC and GND are available at the ISP connector,
+so that the extension can also be connected here.\\
+
+The 16:1 frequency divider of the 74HC4060 is allways used for frequencies above 2 MHz.
+The frequency divider can also be used for frequencies between 25kHz and 400kHz to
+upgrade the frequency resolution by using the period measurement.
+For switching between the operational states (frequency divider and crystal oszillator)
+the analog switches 74HC4052 are used.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/t644tester.eps}
+\caption{Extended Transistor Tester circuit with ATmega644}
+\label{fig:t644tester}
+\end{figure}
+
 
 
 \section{Programming of the microcontroller}

@@ -1,6 +1,6 @@
 LISTE1 = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps ../GNU/Mega8res.eps
 LISTE1 += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
-LISTE1 += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
+LISTE1 += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/Mega1284.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
 LISTE1 += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Cesr2.eps ../GNU/res_esr.eps
 LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
@@ -11,6 +11,7 @@ LISTE1 += ../FIG/diode_addon.eps ../FIG/zener_exp.eps ../FIG/Frequency_addon.eps
 LISTE1 += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
 LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps ../FIG/CheckSemi3.eps
 LISTE1 += ../FIG/rotary_extension.eps ../FIG/rotary_encoder.eps	../FIG/rotary_bouncing.eps
+LISTE1 += ../FIG/Fish8840.eps ../FIG/ST7565lcd.eps
 
 LISTE2 = ../FIG/BJT_AD161.eps ../FIG/BJT_AD162.eps ../FIG/BJT_BC639.eps ../FIG/BJT_BC640.eps ../FIG/BJT_BU508D.eps
 LISTE2 += ../FIG/BJT_BC516.eps ../FIG/BJT_BC517.eps ../FIG/BJT_BDV64.eps ../FIG/BJT_BDV65.eps
@@ -39,6 +40,8 @@ all: ttester.pdf ttinfo.pdf
 	gnuplot ../GNU/capmess168all.gnu
 ../GNU/Mega328all.eps: ../GNU/capmess328all.gnu ../GNU/capmess328-all.dat ../GNU/capmess328-autocal.dat
 	gnuplot ../GNU/capmess328all.gnu
+../GNU/Mega1284.eps: ../GNU/capmess1284.gnu ../GNU/capmess1284.dat
+	gnuplot ../GNU/capmess1284.gnu
 ../GNU/ComparatorAdjust.eps: ../GNU/comparator_diff.gnu ../GNU/comparator_cap.dat
 	gnuplot ../GNU/comparator_diff.gnu
 ../GNU/SelfTref.eps: ../GNU/selftest.gnu ../GNU/selftest.dat
@@ -158,6 +161,10 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/rotary_extension.eps: ../FIG/rotary_extension.fig
 	fig2eps $<
 ../FIG/rotary_bouncing.eps: ../FIG/rotary_bouncing.fig
+	fig2eps $<
+../FIG/Fish8840.eps: ../FIG/Fish8840.fig
+	fig2eps $<
+../FIG/ST7565lcd.eps: ../FIG/ST7565lcd.fig
 	fig2eps $<
 
 TEXLIST1 =  00-preface.tex 10-features.tex 20-hardware.tex 30-manual.tex 40-configuring.tex

@@ -77,6 +77,9 @@ Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegung
 
 \section{Erweiterungen für den TransistorTester}
 
+
+\subsection{Schutz der ATmega-Eingänge}  
+
 Zum besseren Schutz der ATmega-Eingänge kann eine Erweiterung mit einem Relais oder mit Dioden
 nach Schaltbild~\ref{fig:relay_addon} angeschlossen werden.
 Die Ruhekontakte des Relais schützen den ATmega im spannungslosen Zustand.
@@ -102,6 +105,7 @@ entladen werden.
   \label{fig:relay_addon}
 \end{figure}
 
+\subsection{Zenerspannungsmessung}
 
 Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
 einer externen Spannung benutzt werden. Die Spannung kann mit dem optionalen 10:1 Widerstandsteiler
@@ -125,11 +129,15 @@ Betrieb, so daß eine externe Spannung (z.B. Batteriespannung) am Zenerdioden-Po
 Es können nur positive Gleichspannungen bis 50V gemessen werden.
 Man muß also auf die richtige Polarität zu achten.
 
+\subsection{Frequenzgenerator}
+
 Mit dem Dialogteil des ATmega kann außerdem ein Frequenzgenerator angewählt werden, der derzeit
 Frequenzen von \(2 MHz\) bis \(1 Hz\) ausgeben kann. Der Ausgang des 5V Signals erfolgt über
 einen \(680\Omega\) Widerstand auf den Testport TP2. Als Masse Signal kann der Minus Anschluß
 der Zenerdiodenerweiterung oder Anschluß TP1 benutzt werden.
 Auch TP3 ist über den \(680\Omega\) Widerstand mit Masse verbunden.
+
+\subsection{Frequenzzähler}
 
 Für die ebenfalls über die Dialogfunktion wählbare Frequenz-Messung ist eine kleine Erweiterung
 der Schaltung erforderlich. Als Eingang für die Frequenzmessung wird der PD4 Pin (T0/PCINT20) des
@@ -149,6 +157,8 @@ weil dessen Pull-Up Widerstände die Spannung verändern.
 \caption{Erweiterung zum Messen von Frequenzen}
 \label{fig:FreqMes}
 \end{figure}
+
+\subsection{Impulsdrehgeber}
 
 Zur leichteren Bedienung der Menüfunktion für den ATmega328 kann die Schaltung um einen
 Impulsdrehgeber mit Taster erweitert werden. Die Schaltung~\ref{fig:RotExt} gibt die Standard-Belegung
@@ -208,6 +218,30 @@ eingebaut werden, wenn kein Impulsdrehgeber vorhanden oder gewünscht ist.
 Für diesen Fall muß die Option WITH\_ROTARY\_SWITCH auf 4 gesetzt werden, damit das Programm
 entsprechend reagiert.
 
+\subsection{Anschluß eines graphischen Displays}
+
+Dank der Arbeit von Wolfgang Sch. für die Unterstützung der chinesischen Version mit
+grafischem 128x64 Pixel LCD, kann mittlerweile auch ein grafisches LCD
+mit ST7565 Kontroller angeschlossen werden. Da der ST7565 Kontroller seriell angesteuert wird,
+werden nur vier Signalleitungen benötigt.
+Dadurch werden zwei Pinne des Port D für andere Verwendung frei.
+Der ATmega Prozessor sollte mindestens 32k Flash Speicher besitzen.
+Der ST7565 Kontroller wird mit einer Betriebsspannung von 3.3V betrieben.
+Deswegen ist ein zusätzlicher Spannungsregler notwendig.
+Nach dem Kontroller Datenblatt dürfen keine 5V Signale direkt mit den Kontroller-Eingängen verbunden
+werden. Deshalb ist in der Erweiterung nach Bild \ref{fig:ST7565lcd} ein zusätzlicher CMOS 74HC4050
+für die Pegelanpassung vorgesehen. 
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/ST7565lcd.eps}
+\caption{Anschluß eines graphischen Displays}
+\label{fig:ST7565lcd}
+\end{figure}
+
+Bei der ATmega644 Prozessor Serie werden die Pinne PB2 bis PB5 anstelle PD0 bis PD3 für den Anschluß benutzt.
+Ein Austausch des Text Displays gegen ein grafisches Display ist mit einer Adapterplatine möglich, da
+alle notwendigen Datensignale und Versorgungssignale an der LCD Steckerleiste vorhanden sind.
 
 \section{Hinweise für den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatiblen Kontroller kann mit
@@ -217,13 +251,6 @@ mehr Strom als andere.
 Ich habe OLED Anzeigen ausprobiert, aber diese Anzeigen haben teilweise die Messung des
 ATmega beeinflusst und werden nicht empfohlen. Auch das Laden der Spezialzeichen für die 
 Widerstandsdarstellung hat mit OLED's Schwierigkeiten ergeben.
-Dank der Arbeit von Wolfgang Sch. für die Unterstützung der chinesischen Version mit
-grafischem 128x64 Pixel LCD, kann mittlerweile auch ein grafisches LCD
-mit ST7565 Kontroller angeschlossen werden. Da der ST7565 Kontroller seriell angesteuert wird,
-werden nur vier Signalleitungen benötigt.
-Dadurch werden zwei Pinne des Port D für andere Verwendung frei.
-Allerdings verlangt der ST7565 Kontroller eine 3.3V Betriebsspannung und verträgt keine
-5V Signalpegel!
 
 Die Widerstände R1 bis R6 sind kritisch für die Messungen und diese \(680\Omega\) und
 \(470k\Omega\) Widerstände sollten Messwiderstände sein (Toleranz von 0,1\%), um 
@@ -231,7 +258,7 @@ die volle Genauigkeit zu erreichen.
 Man sollte Präzisions-Sockel für den ATmega Mikrocontroller verwenden um
 die Austauschbarkeit des Mikrocontrollers sicherzustellen.
 Es kann ein ATmega8, ATmega168 und ATmega328 Mikrocontroller verwendet werden.
-Empfohlen werden ATmega168 oder ATmega328, wenn man alle Funktionen nutzen möchte.
+Empfohlen wird ein ATmega328, wenn man alle Funktionen nutzen möchte.
 
 Jedenfalls sollte man zuerst alle Bauteile ohne den Mikrocontroller bestücken.
 Es wird als IC2 ein moderner ,,low voltage drop'' Spannungsregler wie MCP1702-5002 empfohlen, weil
@@ -337,6 +364,7 @@ Normalerweise sollte die fehlende Präzisionsreferenz auch bei unbeschaltetem PC
 erkannt werden. In diesem Fall wird keine VCC=x.xV Anzeige in Zeile 2 beim Einschalten
 angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschalteter 
 \(2.2k \Omega\) Widerstand am PC4 Eingang.
+\end{description}
 
 \section{Chinesische Nachbauten}
 Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen nachgebaut.
@@ -376,7 +404,54 @@ Bei der ESR-Messung kann dies normalerweise durch den Nullabgleich kompensiert w
 Bei der Messung von Widerständen unter \(10 \Omega\) werden die im Selbsttest ermittelten Offsets 
 ab der Softwareversion 1.07k berücksichtigt.
 
-\end{description}
+Neuere Nachbauten verwenden ein 128x64 Pixel graphisches Display wie zum Beispiel eine Version von Fish8840.
+Bei dieser Version wird eine veränderte Schaltung für das Einschalten benutzt. Die Abbildung \ref{fig:Fish8840}
+zeigt einen Ausschnitt der Schaltung.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../FIG/Fish8840.eps}
+\caption{Ausschnitt aus der Schaltung von Fish8840}
+\label{fig:Fish8840}
+\end{figure}
+
+Wie an den Widerständen R8 und R15 zu erkennen ist, 
+wird mit 2:1 ein anderes Teilerverhältnis für die Batteriespannung wie im Original verwendet.
+Außerdem ist R15 direkt an die Batterie angeschlossen, was zu einem geringen Stromverbrauch im
+ausgeschalteten Zustand führt. Hier sollte R15 besser an das Drain von Q1 beziehungsweise an den
+Eingang des Spannungsreglers angeschlossen werden um den unnötigen Batterieverbrauch zu vermeiden.
+Das Verhältnis des Spannungsteilers muß bei der Konfiguration in der Makefile auf jeden Fall angegeben
+werden bevor eine Software aufgespielt wird (z.B. mit BAT\_NUMERATOR=66).
+Das Testen neuerer Softwareversionen geschieht immer auf eigenes Risiko.
+Für die Funktionsfähigkeit kann natürlich keine Gewähr gegeben werden.
+Leider kann der Originalzustand der chinesischen Software-Variante auch nicht gesichert werden,
+da die Sicherheits-Bits des ATmega328 gesetzt sind.
+Es gibt also keinen Weg zurück zur Originalversion der Software. 
+
+\section{Erweiterte Schaltung mit ATmega644 oder ATmega1284}
+
+Eine erweiterte Schaltung für ATmega644/1284 Prozessoren wurde in Zusammenarbeit mit Nick L. aus
+der Ukraine entwickelt. Die Schaltung nach Abbildung \ref{fig:t644tester} ermöglicht zusätzlich
+einen Test von Quarzen und einen erweiterten Frequenzbereich für die Frequenzmessung.
+Obwohl die Grundschaltung sehr ähnlich der Schaltung \ref{fig:ttester} ist, werden hier
+andere Portbelegungen benutzt.
+Ein Impulsdrehgeber nach Schaltung \ref{fig:RotExt} kann hier an PB6 und PB7 (statt PD2 und PD3) angeschlossen werden.
+Beide Signale und auch die Versorgungssignale VCC und GND sind am ISP Stecker verfügbar,
+so daß die Erweiterung auch hier angeschlossen werden kann.\\
+
+Der 16:1 Frequenzteiler 74HC4060 wird für höhere Frequenzen als 2 MHz immer benutzt.
+Der Teiler kann aber auch für Frequenzen von 25kHz bis 400kHz benutzt werden, um mit der
+Periodenmessung die Auflösung der Frequenzmessung zu verbessern.
+Für die Umschaltung der Betriebszustände (Frequenzteiler und Quarz-Oszillator) werden
+die Analogschalter 74HC4052 benutzt.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/t644tester.eps}
+\caption{Erweiterte Transistortester Schaltung mit ATmega644}
+\label{fig:t644tester}
+\end{figure}
 
 \section{Programmierung des Mikrocontrollers}
 Ich gebe die Software für den Mikrocontroller in Quelltext heraus.

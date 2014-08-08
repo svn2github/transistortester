@@ -3,49 +3,56 @@
 \contentsline {chapter}{\numberline {2}Hardware}{8}{chapter.2}
 \contentsline {section}{\numberline {2.1}Circuit of the TransistorTester}{8}{section.2.1}
 \contentsline {section}{\numberline {2.2}Extensions for the Transistor Tester}{9}{section.2.2}
-\contentsline {section}{\numberline {2.3}Hints for building the TransistorTester}{13}{section.2.3}
-\contentsline {section}{\numberline {2.4}Changeover for tester versions designed by Markus F.}{14}{section.2.4}
-\contentsline {section}{\numberline {2.5}Chinese clones}{15}{section.2.5}
-\contentsline {section}{\numberline {2.6}Programming of the microcontroller}{16}{section.2.6}
-\contentsline {section}{\numberline {2.7}Troubleshooting}{18}{section.2.7}
-\contentsline {chapter}{\numberline {3}Instructions for use}{20}{chapter.3}
-\contentsline {section}{\numberline {3.1}The measurement operation}{20}{section.3.1}
-\contentsline {section}{\numberline {3.2}Optional menu functions for the ATmega328}{21}{section.3.2}
-\contentsline {section}{\numberline {3.3}Selftest and Calibration}{22}{section.3.3}
-\contentsline {section}{\numberline {3.4}special using hints}{23}{section.3.4}
-\contentsline {section}{\numberline {3.5}Compoments with problems}{23}{section.3.5}
-\contentsline {section}{\numberline {3.6}Measurement of PNP and NPN transistors}{24}{section.3.6}
-\contentsline {section}{\numberline {3.7}Measurement of JFET and D-MOS transistors}{25}{section.3.7}
-\contentsline {chapter}{\numberline {4}Configuring the TransistorTester}{26}{chapter.4}
-\contentsline {chapter}{\numberline {5}Description of the measurement procedures}{33}{chapter.5}
-\contentsline {section}{\numberline {5.1}Measurement of Semiconductors}{35}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Measurement of PNP Transistor or P-Channel-MOSFET}{36}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Measurement of NPN Transistor or N-Channel-MOSFET}{38}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Simplified flowchart of the transistors tests}{41}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}Measurement of Diodes}{43}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {5.1.5}Results of different measurements}{44}{subsection.5.1.5}
-\contentsline {section}{\numberline {5.2}Resistor Measurement}{48}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Resistor Measurement with 680 Ohm Resistors}{48}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Resistor Measurement with 470 kOhm resistors}{50}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Results of the resistor measurements}{51}{subsection.5.2.3}
-\contentsline {section}{\numberline {5.3}Measurement of Capacitors}{56}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Discharging of Capacitors}{56}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Measurement of big Capacitors}{56}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Measurement of small Capacitors}{58}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {5.3.4}Measurement of the Equivalent Series Resistance ESR, first way}{60}{subsection.5.3.4}
-\contentsline {subsection}{\numberline {5.3.5}Measurement of the Equivalent Series Resistance ESR, second way}{63}{subsection.5.3.5}
-\contentsline {subsection}{\numberline {5.3.6}Voltage loss after a load pulse, Vloss}{68}{subsection.5.3.6}
-\contentsline {subsection}{\numberline {5.3.7}Separate capacity and ESR measurement}{69}{subsection.5.3.7}
-\contentsline {subsection}{\numberline {5.3.8}Results of Capacitor measurement}{70}{subsection.5.3.8}
-\contentsline {subsection}{\numberline {5.3.9}Automatic calibration of the capacitor measurement}{74}{subsection.5.3.9}
-\contentsline {section}{\numberline {5.4}Measurement of inductance}{78}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Results of the inductance measurements}{79}{subsection.5.4.1}
-\contentsline {section}{\numberline {5.5}Selftest Function}{80}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Some Results of the Selftest Function}{84}{subsection.5.5.1}
-\contentsline {section}{\numberline {5.6}Measurement of frequency}{87}{section.5.6}
-\contentsline {chapter}{\numberline {6}Signal generation}{89}{chapter.6}
-\contentsline {section}{\numberline {6.1}Frequency Generation}{89}{section.6.1}
-\contentsline {section}{\numberline {6.2}Puls width generation}{89}{section.6.2}
-\contentsline {chapter}{\numberline {7}Known errors and unsolved problems}{90}{chapter.7}
-\contentsline {chapter}{\numberline {8}Special Software Parts}{91}{chapter.8}
-\contentsline {chapter}{\numberline {9}To Do List and new ideas}{92}{chapter.9}
+\contentsline {subsection}{\numberline {2.2.1}Protection of the ATmega inputs}{9}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Measurement of zener voltage above 4 Volt}{10}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Frequency generator}{10}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Frequency measurement}{10}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Using of a rotary pulse encoder}{11}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Connection of a graphical display}{13}{subsection.2.2.6}
+\contentsline {section}{\numberline {2.3}Hints for building the TransistorTester}{14}{section.2.3}
+\contentsline {section}{\numberline {2.4}Changeover for tester versions designed by Markus F.}{15}{section.2.4}
+\contentsline {section}{\numberline {2.5}Chinese clones}{16}{section.2.5}
+\contentsline {section}{\numberline {2.6}Extented circuit with ATmega644 or ATmega1284}{17}{section.2.6}
+\contentsline {section}{\numberline {2.7}Programming of the microcontroller}{18}{section.2.7}
+\contentsline {section}{\numberline {2.8}Troubleshooting}{20}{section.2.8}
+\contentsline {chapter}{\numberline {3}Instructions for use}{22}{chapter.3}
+\contentsline {section}{\numberline {3.1}The measurement operation}{22}{section.3.1}
+\contentsline {section}{\numberline {3.2}Optional menu functions for the ATmega328}{23}{section.3.2}
+\contentsline {section}{\numberline {3.3}Selftest and Calibration}{24}{section.3.3}
+\contentsline {section}{\numberline {3.4}special using hints}{25}{section.3.4}
+\contentsline {section}{\numberline {3.5}Compoments with problems}{25}{section.3.5}
+\contentsline {section}{\numberline {3.6}Measurement of PNP and NPN transistors}{26}{section.3.6}
+\contentsline {section}{\numberline {3.7}Measurement of JFET and D-MOS transistors}{27}{section.3.7}
+\contentsline {chapter}{\numberline {4}Configuring the TransistorTester}{28}{chapter.4}
+\contentsline {chapter}{\numberline {5}Description of the measurement procedures}{35}{chapter.5}
+\contentsline {section}{\numberline {5.1}Measurement of Semiconductors}{37}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Measurement of PNP Transistor or P-Channel-MOSFET}{38}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Measurement of NPN Transistor or N-Channel-MOSFET}{40}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Simplified flowchart of the transistors tests}{43}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}Measurement of Diodes}{45}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Results of different measurements}{46}{subsection.5.1.5}
+\contentsline {section}{\numberline {5.2}Resistor Measurement}{50}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Resistor Measurement with 680 Ohm Resistors}{50}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Resistor Measurement with 470 kOhm resistors}{52}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Results of the resistor measurements}{53}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}Measurement of Capacitors}{58}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Discharging of Capacitors}{58}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Measurement of big Capacitors}{58}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Measurement of small Capacitors}{60}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Measurement of the Equivalent Series Resistance ESR, first way}{62}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Measurement of the Equivalent Series Resistance ESR, second way}{65}{subsection.5.3.5}
+\contentsline {subsection}{\numberline {5.3.6}Voltage loss after a load pulse, Vloss}{70}{subsection.5.3.6}
+\contentsline {subsection}{\numberline {5.3.7}Separate capacity and ESR measurement}{71}{subsection.5.3.7}
+\contentsline {subsection}{\numberline {5.3.8}Results of Capacitor measurement}{72}{subsection.5.3.8}
+\contentsline {subsection}{\numberline {5.3.9}Automatic calibration of the capacitor measurement}{76}{subsection.5.3.9}
+\contentsline {section}{\numberline {5.4}Measurement of inductance}{80}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Results of the inductance measurements}{81}{subsection.5.4.1}
+\contentsline {section}{\numberline {5.5}Selftest Function}{82}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Some Results of the Selftest Function}{86}{subsection.5.5.1}
+\contentsline {section}{\numberline {5.6}Measurement of frequency}{89}{section.5.6}
+\contentsline {chapter}{\numberline {6}Signal generation}{91}{chapter.6}
+\contentsline {section}{\numberline {6.1}Frequency Generation}{91}{section.6.1}
+\contentsline {section}{\numberline {6.2}Puls width generation}{91}{section.6.2}
+\contentsline {chapter}{\numberline {7}Known errors and unsolved problems}{92}{chapter.7}
+\contentsline {chapter}{\numberline {8}Special Software Parts}{93}{chapter.8}
+\contentsline {chapter}{\numberline {9}To Do List and new ideas}{94}{chapter.9}

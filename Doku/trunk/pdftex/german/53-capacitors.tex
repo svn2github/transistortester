@@ -703,3 +703,16 @@ Folienkondensatoren oder keramische Kondensatoren (\(56 pF\), \(100 pF\) und \(3
 \caption{Kondensator-Messfehler von drei ATmega, vor und nach der Kalibration}
 \label{fig:MegaAuto}
 \end{figure}
+
+Die Schaltung mit dem ATmega644 oder ATmega1284 sieht einen Kondensator auf der Platine für den Abgleich
+vor. Das Diagramm \ref{fig:Mega1284} zeigt die Ergebnisse der Kondensatormessung mit einem ATmega1284,
+sowohl mit dem 100nF keramischem Kondensator auf der Platine (1284-int) abgeglichen als auch mit
+einem externen 220nF Folien-Kondensator abgeglichen, im Vergleich zu den Ergebnissen eines ATmega328 auf einer
+anderen Platine.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/Mega1284}
+\caption{Kondensator-Messfehler von einem ATmega1284 im Vergleich zu einem ATmega328}
+\label{fig:Mega1284}
+\end{figure}
