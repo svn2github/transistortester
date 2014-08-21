@@ -10,7 +10,7 @@
 // Bitmap:       bmp_two
 // Width:        5
 // Height:       8
-// Memory usage: 9 bytes
+// Memory usage: 7 bytes
 //*****************************************************************************
 
 //*****************************************************************************
@@ -30,11 +30,6 @@ static const unsigned char bmp_two_data[5 * 1] PROGMEM ={
 const struct tbitmap g_bmp_two PROGMEM =
 {
 	//
-	// The format of the bitmap
-	//
-	BITMAP_UNCOMPRESSED,
-
-	//
 	// The width of the bitmap.
 	//
 	5,
@@ -43,11 +38,6 @@ const struct tbitmap g_bmp_two PROGMEM =
 	// The height of the bitmap.
 	//
 	8,
-
-	//
-	// A stuffing byte for 4-byte alignment
-	//
-	0,
 
 	//
 	// A pointer to the table containing the bitmap data.

@@ -10,7 +10,7 @@
 // Bitmap:       bmp_vakdiode
 // Width:        8
 // Height:       32
-// Memory usage: 36 bytes
+// Memory usage: 34 bytes
 //*****************************************************************************
 
 //*****************************************************************************
@@ -33,11 +33,6 @@ static const unsigned char bmp_vakdiode_data[8 * 4] PROGMEM ={
 const struct tbitmap g_bmp_vakdiode PROGMEM =
 {
 	//
-	// The format of the bitmap
-	//
-	BITMAP_UNCOMPRESSED,
-
-	//
 	// The width of the bitmap.
 	//
 	8,
@@ -46,11 +41,6 @@ const struct tbitmap g_bmp_vakdiode PROGMEM =
 	// The height of the bitmap.
 	//
 	32,
-
-	//
-	// A stuffing byte for 4-byte alignment
-	//
-	0,
 
 	//
 	// A pointer to the table containing the bitmap data.

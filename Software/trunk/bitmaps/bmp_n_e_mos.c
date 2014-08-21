@@ -10,7 +10,7 @@
 // Bitmap:       bmp_n_e_mos
 // Width:        24
 // Height:       32
-// Memory usage: 100 bytes
+// Memory usage: 98 bytes
 //*****************************************************************************
 
 //*****************************************************************************
@@ -41,11 +41,6 @@ static const unsigned char bmp_n_e_mos_data[24 * 4] PROGMEM ={
 const struct tbitmap g_bmp_n_e_mos PROGMEM =
 {
 	//
-	// The format of the bitmap
-	//
-	BITMAP_UNCOMPRESSED,
-
-	//
 	// The width of the bitmap.
 	//
 	24,
@@ -54,11 +49,6 @@ const struct tbitmap g_bmp_n_e_mos PROGMEM =
 	// The height of the bitmap.
 	//
 	32,
-
-	//
-	// A stuffing byte for 4-byte alignment
-	//
-	0,
 
 	//
 	// A pointer to the table containing the bitmap data.

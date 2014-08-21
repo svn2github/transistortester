@@ -10,7 +10,7 @@
 // Bitmap:       bmp_thyristor
 // Width:        19
 // Height:       32
-// Memory usage: 80 bytes
+// Memory usage: 78 bytes
 //*****************************************************************************
 
 //*****************************************************************************
@@ -39,11 +39,6 @@ static const unsigned char bmp_thyristor_data[19 * 4] PROGMEM ={
 const struct tbitmap g_bmp_thyristor PROGMEM =
 {
 	//
-	// The format of the bitmap
-	//
-	BITMAP_UNCOMPRESSED,
-
-	//
 	// The width of the bitmap.
 	//
 	19,
@@ -52,11 +47,6 @@ const struct tbitmap g_bmp_thyristor PROGMEM =
 	// The height of the bitmap.
 	//
 	32,
-
-	//
-	// A stuffing byte for 4-byte alignment
-	//
-	0,
 
 	//
 	// A pointer to the table containing the bitmap data.
