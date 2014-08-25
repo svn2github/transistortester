@@ -23,7 +23,7 @@ ReadCapacity.o: ../ReadCapacity.c \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/wdt.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h ../config.h \
  ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
- ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h ../bitmaps.h
+ ../wait1000ms.h ../part_defs.h
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h:
 
@@ -83,10 +83,6 @@ ReadCapacity.o: ../ReadCapacity.c \
 
 ../lcd_defines.h:
 
-../bitmaps/tbitmap.h:
-
 ../wait1000ms.h:
 
 ../part_defs.h:
-
-../bitmaps.h:

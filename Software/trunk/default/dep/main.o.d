@@ -23,9 +23,8 @@ main.o: ../main.c /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
  ../Transistortester.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h ../config.h \
  ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
- ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h ../bitmaps.h \
- ../Ru-Ua-TransistorTester.txt ../AutoCheck.c ../mark_as_uncalibrated.c \
- ../GetIr.c
+ ../wait1000ms.h ../part_defs.h ../Ru-Ua-TransistorTester.txt \
+ ../AutoCheck.c ../mark_as_uncalibrated.c ../GetIr.c
 
 /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h:
 
@@ -85,13 +84,9 @@ main.o: ../main.c /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
 
 ../lcd_defines.h:
 
-../bitmaps/tbitmap.h:
-
 ../wait1000ms.h:
 
 ../part_defs.h:
-
-../bitmaps.h:
 
 ../Ru-Ua-TransistorTester.txt:
 

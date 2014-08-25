@@ -23,7 +23,7 @@ Calibrate_UR.o: ../Calibrate_UR.c ../Transistortester.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/wdt.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/interrupt.h ../config.h \
  ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
- ../bitmaps/tbitmap.h ../wait1000ms.h ../part_defs.h ../bitmaps.h
+ ../wait1000ms.h ../part_defs.h
 
 ../Transistortester.h:
 
@@ -83,10 +83,6 @@ Calibrate_UR.o: ../Calibrate_UR.c ../Transistortester.h \
 
 ../lcd_defines.h:
 
-../bitmaps/tbitmap.h:
-
 ../wait1000ms.h:
 
 ../part_defs.h:
-
-../bitmaps.h:
