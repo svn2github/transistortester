@@ -53,25 +53,35 @@ laden zu können.
 
 Um einen einfacheren Anschluss des Displays an den ATmega auf Streifenleiterplatinen zu erreichen,
 kann die Software auch eine andere Port-D-Belegung berücksichtigen.
-Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegungen.
+Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegungen und den
+Anschluß eines graphischen Displays für die ATmega8/168/328 Mikrokontroller.
+Außerdem werden die Belegungen der Port-Eingänge für zusätzliche Funktionen gezeigt. 
+
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c | c |}
+    \begin{tabular}{| c || c | c | c | c |}
     \hline
-       Signal & Schaltbild & Streifenleiter\\
+      Port & Schaltbild & Streifenleiter & ST7565    & Zusatzfunktion \\
     \hline
-    Tastensignal  &  PD7   &  PD0 \\
-    LCD-RS    &  PD4      & PD7 \\
-    LCD-E     &  PD5   & PD5 \\
-    LCD-D4    &  PD0   & PD4 \\
-    LCD-D5    &  PD1   & PD3 \\
-    LCD-D6    &  PD2   & PD2 \\
-    LCD-D7    &  PD3   & PD1 \\
+    \hline
+    PD0    &  LCD-D4    &  Tastensignal  &  LCD-REST &       \\
+    \hline
+    PD1    &  LCD-D5    &  LCD-D7        &  LCD-RS   & Drehgeber-2 \\
+    \hline
+    PD2    &  LCD-D6    &  LCD-D6        &  LCD-SCLK &  \\
+    \hline
+    PD3    &  LCD-D7    &  LCD-D5        &  LCD-SI   & Drehgeber-1 \\
+    \hline
+    PD4    &  LCD-RS    &  LCD-D4        &           & Frequenzzähler \\
+    \hline
+    PD5    &  LCD-E     &  LCD-E         &           &  \\
+    \hline
+    PD7    &  Tastensignal & LCD-RS      &           &               \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Änderungen für Streifenleiter-Platine}
+  \caption{Verschiedene Varianten der Pinbelegungen für das Display }
   \label{tab:grid-change}
 \end{table}
 
@@ -162,8 +172,7 @@ weil dessen Pull-Up Widerstände die Spannung verändern.
 
 Zur leichteren Bedienung der Menüfunktion für den ATmega328 kann die Schaltung um einen
 Impulsdrehgeber mit Taster erweitert werden. Die Schaltung~\ref{fig:RotExt} gibt die Standard-Belegung
-für ein normales LCD an. Wenn ein graphisches Display mit einem ST7565 Kontroller benutzt wird,
-muß statt PD2 der Anschluß PD5 des ATmega benutzt werden. Alle Anschlüsse für den Impulsdrehgeber
+für ein normales LCD an. Alle Anschlüsse für den Impulsdrehgeber
 sind an der Steckerleiste für das LCD verfügbar. Deswegen kann der Impulsdrehgeber in vielen Fällen 
 leicht nachgerüstet werden. Vielfach ist das graphische Display auch mit einem Adapter-Board an die
 Steckerleiste des LCD angeschlossen. Deswegen ist auch hier die Nachrüstung des Impulsdrehgebers nicht
@@ -435,7 +444,7 @@ der Ukraine entwickelt. Die Schaltung nach Abbildung \ref{fig:t644tester} ermög
 einen Test von Quarzen und einen erweiterten Frequenzbereich für die Frequenzmessung.
 Obwohl die Grundschaltung sehr ähnlich der Schaltung \ref{fig:ttester} ist, werden hier
 andere Portbelegungen benutzt.
-Ein Impulsdrehgeber nach Schaltung \ref{fig:RotExt} kann hier an PB6 und PB7 (statt PD2 und PD3) angeschlossen werden.
+Ein Impulsdrehgeber nach Schaltung \ref{fig:RotExt} kann hier an PB5 und PB7 (statt PD1 und PD3) angeschlossen werden.
 Beide Signale und auch die Versorgungssignale VCC und GND sind am ISP Stecker verfügbar,
 so daß die Erweiterung auch hier angeschlossen werden kann.\\
 
@@ -444,6 +453,37 @@ Der Teiler kann aber auch für Frequenzen von 25kHz bis 400kHz benutzt werden, u
 Periodenmessung die Auflösung der Frequenzmessung zu verbessern.
 Für die Umschaltung der Betriebszustände (Frequenzteiler und Quarz-Oszillator) werden
 die Analogschalter 74HC4052 benutzt.
+Die Tabelle \ref{tab:mega644-display} zeigt die Pinbelegung für den ATmega324/624/1284 Mikrocontroller für verschiedene Display Anschlüsse.
+
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+      Port & Character LCD &              & Graphik LCD  & Zusatzfunktion      \\
+           &               &              &  ST7565      &                     \\
+    \hline
+    \hline
+    PB2    &  LCD-RS         &            &             &       \\
+    \hline
+    PB3    &  LCD-E          &            &             &       \\
+    \hline
+    PB4    &  LCD-D4         &            &  LCD-REST   &       \\
+    \hline
+    PB5    &  LCD-D5         &            &  LCD-RS     & ISP-MOSI \\
+           &                 &            &             & Drehgeber 2 \\
+    \hline
+    PB6    &  LCD-D6         &            &  LCD-SCLK   & ISP-MISO \\
+    \hline
+    PB7    &  LCD-D7         &            &  LCD-SI     & ISP-SCK  \\
+           &                 &            &             & Drehgeber 1 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Verschiedene Varianten der Display-Anschlüsse}
+  \label{tab:mega644-display}
+\end{table}
+
 
 
 \begin{figure}[H]

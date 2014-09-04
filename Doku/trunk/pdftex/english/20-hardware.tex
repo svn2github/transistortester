@@ -46,29 +46,38 @@ A optional ISP connector has been added to easier load new software versions to 
 \end{figure}
 The software can follow to another pin assignment of port D for a simpler connection of the
 LCD display. 
-The following table \ref{tab:grid-change} shows the modified assignments.
+The following table \ref{tab:grid-change} shows the modifies assignments for the strip grid layout and
+the connection of a graphical display for the micocontrollers ATmega8/168/328.
+Also the using of port inputs for additional functions is shown.
+
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c | c |}
+    \begin{tabular}{| c || c | c | c | c |}
     \hline
-       Signal & circuit diagram & strip grid board version\\
+      Port & circuit diagram & strip grid board & ST7565    & additional function\\
     \hline
-    pushbutton input  &  PD7   &  PD0 \\
-    LCD-RS    &  PD4      & PD7 \\
-    LCD-E     &  PD5   & PD5 \\
-    LCD-D4    &  PD0   & PD4 \\
-    LCD-D5    &  PD1   & PD3 \\
-    LCD-D6    &  PD2   & PD2 \\
-    LCD-D7    &  PD3   & PD1 \\
+    \hline
+    PD0    &  LCD-D4    &  pushbutton    &  LCD-REST &       \\
+    \hline
+    PD1    &  LCD-D5    &  LCD-D7        &  LCD-RS   & rotary encoder 2  \\
+    \hline
+    PD2    &  LCD-D6    &  LCD-D6        &  LCD-SCLK &        \\
+    \hline
+    PD3    &  LCD-D7    &  LCD-D5        &  LCD-SI   & rotary encoder 1 \\
+    \hline
+    PD4    &  LCD-RS    &  LCD-D4        &           & frequency counter \\
+    \hline
+    PD5    &  LCD-E     &  LCD-E         &           &         \\
+    \hline
+    PD7    &  pushbutton & LCD-RS        &           &               \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Changes for strip grid board}
+  \caption{Different variations of the display port assignments}
   \label{tab:grid-change}
 \end{table}
 
-\section{Extensions for the Transistor Tester}
 
 \subsection{Protection of the ATmega inputs}
 
@@ -154,8 +163,6 @@ The LCD should always be installed for adjusting, because the pull up resistor o
 For easier control of the menu function for the ATmega328 you can expand the circuit 
 by a rotary pulse encoder with a push button.
 The circuit~\ref{fig:RotExt} shows a standard expansion for a normal character LCD.
-If a graphical display with a ST7565 controller is used,
-you must use the ATmega pin PD5 instead of the PD2 pin.
 All signals for the connection of the rotary pulse encoder are available at the plug connector
 for the LCD. For this reason the expansion can also be easy upgraded for many existing testers.
 In many cases the graphical LCD is assembled on a adapter board with some connection pins
@@ -422,7 +429,7 @@ The circuit \ref{fig:t644tester} enables a additional test of crystals and a ext
 for the frequency measurement.
 Although the basic circuit is very simular to the circuit \ref{fig:ttester}, the
 port assignment is different.
-A rotary pulse encoder with circuit \ref{fig:RotExt} can be connected here at the pins PB6 and PB7 (instead of PD2 and PD3).
+A rotary pulse encoder with circuit \ref{fig:RotExt} can be connected here at the pins PB5 and PB7 (instead of PD1 and PD3).
 Both signals and also the power signals VCC and GND are available at the ISP connector,
 so that the extension can also be connected here.\\
 
@@ -431,6 +438,36 @@ The frequency divider can also be used for frequencies between 25kHz and 400kHz 
 upgrade the frequency resolution by using the period measurement.
 For switching between the operational states (frequency divider and crystal oszillator)
 the analog switches 74HC4052 are used.
+The table \ref{tab:mega644-display} shows the pin assignments for the ATmega324/644/1284
+microcontrollers for different display connections.
+
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+      Port & Character LCD &              & Graphik LCD  & additional function\\
+    \hline
+    \hline
+    PB2    &  LCD-RS         &            &             &       \\
+    \hline
+    PB3    &  LCD-E          &            &             &       \\
+    \hline
+    PB4    &  LCD-D4         &            &  LCD-REST   &       \\
+    \hline
+    PB5    &  LCD-D5         &            &  LCD-RS     & ISP-MOSI \\
+           &                 &            &             & Rotary encoder 2 \\
+    \hline
+    PB6    &  LCD-D6         &            &  LCD-SCLK   & ISP-MISO \\
+    \hline
+    PB7    &  LCD-D7         &            &  LCD-SI     & ISP-SCK  \\
+           &                 &            &             & Rotary encoder 1 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Different variations of the display port assignments}
+  \label{tab:mega644-display}
+\end{table}
 
 
 \begin{figure}[H]

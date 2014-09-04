@@ -25,6 +25,7 @@
    const unsigned char FREQ_str[] MEM2_TEXT = {Cyr_Tsch,'a','c',Cyr_t,'o',Cyr_t,'o',Cyr_m,'e','p',0};
 
    const unsigned char VOLTAGE_str[] MEM2_TEXT = {'B','o',Cyr_l,Cyr_ww,Cyr_t,Cyr_m,'e',Cyr_t,'p',0}; //"Voltage"
+   const unsigned char SHOW_str[] MEM2_TEXT = "Show data";
 
    const unsigned char OFF_str[] MEM2_TEXT = {'B',Cyr_y,Cyr_k,Cyr_l,Cyr_ju,Cyr_tsch,Cyr_i,Cyr_t,Cyr_ww,0}; //"Switch off"
 
@@ -73,6 +74,7 @@
    const unsigned char FREQ_str[] MEM2_TEXT = {Cyr_Tsch,'a','c',Cyr_t,'o',Cyr_t,'o',Cyr_m,'i','p',0};
 
    const unsigned char VOLTAGE_str[] MEM2_TEXT = {'B','o',Cyr_l,Cyr_ww,Cyr_t,Cyr_m,'e',Cyr_t,'p',0}; //"Voltage"
+   const unsigned char SHOW_str[] MEM2_TEXT = "Show data";
 
    const unsigned char OFF_str[] MEM2_TEXT = {'B',Cyr_i,Cyr_m,Cyr_k,Cyr_n,'y',Cyr_t,Cyr_i,0}; //"Switch off"
 
