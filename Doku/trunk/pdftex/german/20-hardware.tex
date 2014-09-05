@@ -56,28 +56,32 @@ kann die Software auch eine andere Port-D-Belegung berücksichtigen.
 Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegungen und den
 Anschluß eines graphischen Displays für die ATmega8/168/328 Mikrokontroller.
 Außerdem werden die Belegungen der Port-Eingänge für zusätzliche Funktionen gezeigt. 
+Bei der Belegung für das grafische Display mit der Streifenraster Option (STRIP\_GRID\_BOARD)
+kann die Frequenzzähler-Funktion nicht benutzt werden, da diese den Port PD4 (T0) benutzt.
+Diese Belegung wird aber von einer chinesischen Version mit graphischem Display benutzt.
 
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c || c | c | c | c |}
+    \begin{tabular}{| c || c | c | c | c | c |}
     \hline
-      Port & Schaltbild & Streifenleiter & ST7565    & Zusatzfunktion \\
+           & Character LCD & Character LCD  & ST7565 LCD & ST7565 LCD     & Zusatzfunktion \\
+      Port &               & Streifenraster &            & Streifenraster &  \\
     \hline
     \hline
-    PD0    &  LCD-D4    &  Tastensignal  &  LCD-REST &       \\
+    PD0    &  LCD-D4       &  Tastensignal  &  LCD-REST  &                &  \\
     \hline
-    PD1    &  LCD-D5    &  LCD-D7        &  LCD-RS   & Drehgeber-2 \\
+    PD1    &  LCD-D5       &  LCD-D7        &  LCD-RS    & LCD-SI         & Drehgeber-2 \\
     \hline
-    PD2    &  LCD-D6    &  LCD-D6        &  LCD-SCLK &  \\
+    PD2    &  LCD-D6       &  LCD-D6        &  LCD-SCLK  & LCD-SCLK       &  \\
     \hline
-    PD3    &  LCD-D7    &  LCD-D5        &  LCD-SI   & Drehgeber-1 \\
+    PD3    &  LCD-D7       &  LCD-D5        &  LCD-SI    & LCD-A0 (RS)    & Drehgeber-1 \\
     \hline
-    PD4    &  LCD-RS    &  LCD-D4        &           & Frequenzzähler \\
+    PD4    &  LCD-RS       &  LCD-D4        &            & LCD-REST       & Frequenzzähler \\
     \hline
-    PD5    &  LCD-E     &  LCD-E         &           &  \\
+    PD5    &  LCD-E        &  LCD-E         &            &                &  \\
     \hline
-    PD7    &  Tastensignal & LCD-RS      &           &               \\
+    PD7    &  Tastensignal & LCD-RS         &            &                &  \\
     \hline
     \end{tabular}
   \end{center}
