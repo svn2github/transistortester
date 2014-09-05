@@ -42,33 +42,39 @@ R16 к PC4 с высоким номиналом (\(47~k\Omega\)). Это поможет программному обеспеч
 В таблице \ref{tab:grid-change} показано варианты подключения для версии Strip Grid и подключения графического 
 индикатора к микроконтроллеру ATmega8/168/328.
 Также указано использование входов портов для дополнительных функций.
+При подсоединении графического адаптера к плате версии Strip Grid (опция STRIP\_GRID\_BOARD)
+функция измерения частоты не может быть использована, потому что порт PD4 (T0) используется.
+Но это соединение используется в китайской версии с графическим дисплеем.
+
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c || c | c | c | c |}
+    \begin{tabular}{| c || c | c | c | c | c |}
     \hline
-      Порт & Стандартная схема & Версия схемы strip grid & ST7565    & Дополнительные функции\\
+           & символьный  & символьный LCD  & ST7565 LCD & ST7576 LCD       & дополнительные \\
+      порт & LCD         & strip grid плата &            & strip grid плата & функции \\
     \hline
     \hline
-    PD0    &  LCD-D4    &  вход кнопки   &  LCD-REST &       \\
+    PD0    &  LCD-D4     &  вход кнопки   &  LCD-REST    &                  &  \\
     \hline
-    PD1    &  LCD-D5    &  LCD-D7        &  LCD-RS   & поворотный энкодер 2  \\
+    PD1    &  LCD-D5     &  LCD-D7        &  LCD-RS      & LCD-SI           & 2 канал энкодера \\
     \hline
-    PD2    &  LCD-D6    &  LCD-D6        &  LCD-SCLK &        \\
+    PD2    &  LCD-D6     &  LCD-D6        &  LCD-SCLK    & LCD-SCLK         &  \\
     \hline
-    PD3    &  LCD-D7    &  LCD-D5        &  LCD-SI   & поворотный энкодер 1 \\
+    PD3    &  LCD-D7     &  LCD-D5        &  LCD-SI      & LCD-A0 (RS)      & 1 канал энкодера \\
     \hline
-    PD4    &  LCD-RS    &  LCD-D4        &           & измерение частоты \\
+    PD4    &  LCD-RS     &  LCD-D4        &              & LCD-REST         & внешняя частота \\
     \hline
-    PD5    &  LCD-E     &  LCD-E         &           &         \\
+    PD5    &  LCD-E      &  LCD-E         &              &                  &  \\
     \hline
-    PD7    &  вход кнопки & LCD-RS        &           &               \\
+    PD7    & вход кнопки &  LCD-RS        &              &                  &  \\
     \hline
     \end{tabular}
   \end{center}
   \caption{Подключения дисплеев к портам ATmega8/168/328}
   \label{tab:grid-change}
 \end{table}
+
 
 \section{Улучшения и расширения к прибору}
 
