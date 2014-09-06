@@ -128,6 +128,24 @@ Thus connected zener diodes can be measured also.
 By selecting the POWER\_OFF option in the Makefile and without key pressing, the period of voltage measurement is limited to 4~minutes.
 The measurement can also be finished with a extra long key press (\textgreater~4~seconds).
 
+\item[Contrast] 
+This function can select the contrast value for a graphic display with a st7565 controller.
+The value can be decreased by a very short key press or left turn with the rotary encoder.
+A longer key press (\textgreater 0.4s) or a right turn of the rotary encoder will increase the value.
+The function will be finished and the selected value will be saved nonvolatile in the EEprom memory 
+by a very long key press (\textgreater 1.3s).
+
+ \item[Show data]
+The function ,,Show Data'' shows besides the version number of the software the data of the calibration.
+These are the zero resistance (R0) of the pin combination 1:3, 2:3 and 1:2 .
+In addition the resistance of the port outputs to the 5V side (RiHi) and
+to the 0V side (RiLo) are shown.
+The zero capacity values (C0) are also shown with all pin combinations (1:3, 2:3, 1:2 and 3:1, 3:2 2:1).
+At last the correction values for the comparator (REF\_C) and for the reference voltage (REF\_R) are also shown.
+Every page is shown for 15 seconds, but you can select the next page by a key press or a right turn of the rotary encoder.
+With a left turn of the rotary encoder you can repeat the output of the last page or return to the previous page.
+
+
 \item[Switch off]
 With the additional function ''Switch off'' the tester can be switched off immediately.\\
 

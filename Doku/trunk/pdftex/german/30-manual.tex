@@ -125,6 +125,25 @@ So können auch angeschlossene Zenerdioden gemessen werden.
 Bei gesetzter POWER\_OFF Option in der Makefile und ohne Bedienung wird die Messung nach 4~Minuten beendet.
 Die Messung kann aber durch einen besonders langen Tastendruck (\textgreater~4~Sekunden) vorher beendet werden.\\
 
+\item[Kontrast] 
+Diese Funktion kann den Kontrast für ein graphisches Display mit st7565 Kontroller einstellen.
+Der Einstellwert kann mit einem sehr kurzen Tastendruck oder einer Linksdrehung des Impulsdrehgebers verringert werden.
+Ein längerer Tastendruck oder eine Rechtsdrehung des Impulsdrehgebers vergrößert den Einstellwert.
+Die Funktion wird beendet und der eingestellte Wert wird permanent in den EEprom Speicher geschrieben, 
+wenn die Taste noch länger gedrückt wird.
+
+ \item[Zeige Daten]
+Die Funktion ,,Zeige Daten'' zeigt neben der Software-Versionsnummer die Daten des Abgleichs an.
+Dies sind die Nullwiderstände R0 von Pin 1:3, 2:3 und 1:2 .
+Außerdem werden die Ausgangswiderstände der Ports zur 5V Seite (RiHi) und 
+zur 0V Seite (RiLo) angezeigt.
+Die Nullkapazitätswerte (C0) werden ebenfalls in allen Pinkombibationen angezeigt (1:3, 2:3, 1:2 und 3:1, 3:2 2:1).
+Zuletzt werden auch die Spannungskorrekturen für die Komparatorspannung (REF\_C) und für die Referenzspannung (REF\_R) angezeigt.
+Jede Seite wird 15 Sekunden angezeigt.
+Es kann aber auch durch Tastendruck oder einer Rechtsdrehung des Impulsdrehgebers
+zur nächsten Seite geblättert werden.
+Mit einer Linksdrehung des Impulsdrehgebers kann die Ausgabe wiederholt werden oder zur vorigen Seite zurückgeblättert werden.
+
  \item[Schalte aus]
 Mit der Zusatzfunktion ,,Schalte aus'' kann der Transistortester abgeschaltet werden.\\
 
