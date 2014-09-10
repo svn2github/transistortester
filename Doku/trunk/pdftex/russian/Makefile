@@ -3,6 +3,7 @@ LISTE1 += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ..
 LISTE1 += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/Mega1284.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
 LISTE1 += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Cesr2.eps ../GNU/res_esr.eps
 LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
+LISTE1 += ../GNU/Cap_FC_data.eps ../GNU/Cap_FR_data.eps ../GNU/Cap_FC_FR_data.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE1 += ../FIG/ResistormessL2.eps ../FIG/terminal.eps
 LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
@@ -62,6 +63,12 @@ all: ttester.pdf ttinfo.pdf
 	gnuplot ../GNU/Elco_esr.gnu
 ../GNU/frequency-ppm.eps: ../GNU/frequency-ppm.gnu ../GNU/frequency-ppm.dat
 	gnuplot ../GNU/frequency-ppm.gnu
+../GNU/Cap_FC_data.eps: ../GNU/Cap_FC_data.gnu ../GNU/Cap6_FC_ESR.dat ../GNU/Cap16_FC_ESR.dat ../GNU/Cap35_FC_ESR.dat ../GNU/Cap63_FC_ESR.dat
+	gnuplot ../GNU/Cap_FC_data.gnu
+../GNU/Cap_FR_data.eps: ../GNU/Cap_FR_data.gnu ../GNU/Cap6_FR_ESR.dat ../GNU/Cap16_FR_ESR.dat ../GNU/Cap35_FR_ESR.dat ../GNU/Cap63_FR_ESR.dat
+	gnuplot ../GNU/Cap_FR_data.gnu
+../GNU/Cap_FC_FR_data.eps: ../GNU/Cap_FC_FR_data.gnu ../GNU/Cap25_FC_ESR.dat ../GNU/Cap25_FR_ESR.dat
+	gnuplot ../GNU/Cap_FC_FR_data.gnu
 
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps $<

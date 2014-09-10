@@ -148,11 +148,102 @@ the band-gap voltage will never be reached.
 The method taken in actual software for big capacitors in section~\ref{sec:bigcap}
 avoids this conceptual bug.
 
-\subsection{Measurement of the Equivalent Series Resistance ESR, first way}
+
+\subsection{Measurement of the Equivalent Series Resistance ESR}
 The series resistance ESR \cite{ESR} is a good indicator for the aging of electrolytical capacitors for example.
 The figure ~\ref{fig:Cap_equiv} shows a equivalent circuit of a capacitor.
 The resistor \(Rp\) represents the leakage resistance of the capacitor, \(ESL\) the equivalent series inductivity and
 the resistance \(ESR\) represents the equivalent series resistance.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[]{../FIG/Cap_equiv.eps}
+  \caption{Equivalent circuit of a capacitor}
+  \label{fig:Cap_equiv}
+\end{figure}
+
+Usually the data sheets publish ESR values, which are measured with a frequency of 100 kHz and a temperture 
+of \(20\textdegree C\) .
+The figures \ref{fig:Cap_FC_data} and \ref{fig:Cap_FR_data} shows the ESR values of the Panasonic series FC and 
+the ''low ESR'' series FR.
+Both series are able to operate up to a temperature of \(105\textdegree C\).
+The figure \ref{fig:Cap_FC_FR_data} shows the data of both series with a allowable working stress of 25V.
+If the series have different types with the same capacity and voltage range, the one with the lowest ESR is
+taken for the diagram.
+The values of capacity and ESR of electrolytic capacitors change significant with there operating temperature.
+
+\begin{figure}[H]
+  \centering
+    \resizebox{14cm}{!}{\input{../GNU/Cap_FC_data}}
+  \caption{ESR data from the Panasonic data sheet of the series FC}
+  \label{fig:Cap_FC_data}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \resizebox{14cm}{!}{\input{../GNU/Cap_FR_data}}
+  \caption{ESR data from the Panasonic data sheet of the series FR}
+  \label{fig:Cap_FR_data}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \resizebox{14cm}{!}{\input{../GNU/Cap_FC_FR_data}}
+  \caption{Comparison of the ESR data from series FC with series FR}
+  \label{fig:Cap_FC_FR_data}
+\end{figure}
+
+There is no simple way to measure the ESR with a frequency of 100 kHz with the ATmega hardware,
+because neither the ADC can sample a so high input frequency, nor the existing circuit can support
+with a 100 kHz signal.
+At next there will be introduced two method's for the measurement of the ESR, which both manage on 
+the existing circuit.
+Both method's use a rectangular signal for the measurement, so that the results will never be
+the same with the values measured with sinusoidal signal.
+With the first method the measured values are close to those values, which are measured with a
+1 kHz signal. 
+But the second method has the advantage, that the zero value can be determined with shorted test pads and
+that additionally the measured ESR is more close to the value measured with 10 kHz signal.
+Currently I have no idea for a measurement method, which can produce a ESR value close to the
+value of a 100 kHz measurement.
+
+The following table \ref{tab:capESR} should show the dependency of the ESR results from measurement frequency.
+All capacitors without the \(47 \mu F\) capacitor are from the same FC series of manufactor Panasonic.
+The reference values are measured with a Peaktech 2170 LCR meter.
+All results of the TransistorTester are measured with the method 2 of subchapter \ref{sec:ESR2} .
+Capacitors with big capacity values are difficult to measure with higher frequencies like 100 kHz because
+the inductance ESL make trouble.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c | c | c |}
+   \hline
+            & Data sheet & PeakTech  & Peaktech & PeakTech & Transistor- \\
+Capacitor   & 100 kHz    & 100 kHz   & 10 kHz   & 1 kHz    & tester  \\
+    \hline
+    \hline
+1uF / 50V    & 2.4       & 1.27      & 1.75     & 4.31     &  2.1 \\
+    \hline
+2.2uF / 50V  & 1.8       & 1.07      & 1.34     & 2.76     &  1.6 \\
+    \hline
+4.7uF / 50V  & 1.3       & 1.19      & 1.40     & 2.37     &  1.5 \\
+    \hline
+4.7uF / 50V  & 1.3       & 1.19      & 1.40     & 2.37     &  1.5 \\
+    \hline
+10uF / 50V   & 1.3       & 1.26      & 1.45     & 2.05     &  1.5 \\
+    \hline
+22uF / 10V   & 2.0       & 1.52      & 1.76     & 2.24     &  1.9 \\
+    \hline
+47uF / 63V   & ?         & 0.46      & 0.50     & 0.63     &  0.52 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{ESR values of different electrolytical capacitors}
+  \label{tab:capESR} 
+\end{table}
+
+
+\subsection{Measurement of the Equivalent Series Resistance ESR, first way}
 If the measured capacitor has a capacity of more than \(0.45 \mu F\), the tester will try to measure
 the series resistance too.
 For a capacity of more than \(3.6 \mu F\) the normal clock rate of \(125 kHz\) for the Analog-Digital converter is used.
@@ -161,13 +252,6 @@ The accuracy of the ADC results will be more worth by the higher clock rate, but
 higher ESR values of capacitors with lower capacity.
 Otherwise the measurement of ESR with this method is not possible for a capacity of less than \(1.8 \mu F\) at the normal
 clock rate of \(125 kHz\).
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[]{../FIG/Cap_equiv.eps}
-  \caption{Equivalent circuit of a capacitor}
-  \label{fig:Cap_equiv}
-\end{figure}
 
 Strictly speaking the ESR of a capacitor depends on the operating frequency and temperature.
 Usually the value measured with sine wave-form signal of \(100 kHz\) is denoted in the data sheets.
