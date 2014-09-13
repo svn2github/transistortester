@@ -243,8 +243,6 @@ lcd_init:
  	RCALL	lcd_command	; lcd_command(CMD1_FollowerControl | 0x09);	// Follower on / Rab2:0 = 1
  	ldi	r24, (CMD1_SetContrast | 0x04)	; // set contrast C3:0 = 4
  	RCALL	lcd_command	; lcd_command(CMD1_SetContrast | 0x04);	// set contrast C3:0 = 4
-#endif
-#if 0
 	// old intitialize without OLED display
  	ldi	r24, (CMD_SetIFOptions | 0x08) ; 0x28  4Bit / 2 rows / 5x7
  	RCALL	lcd_command	; lcd_command(CMD_SetIFOptions | 0x08);	// 4Bit / 2 rows / 5x7
