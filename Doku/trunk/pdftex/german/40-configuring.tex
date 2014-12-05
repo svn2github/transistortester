@@ -57,9 +57,15 @@ Beispiel: WITH\_LCD\_ST7565 = 1
 Spannungsregler des ST7565 controller eingestellt. Brauchbare Werte liegen im allgemeinen zwischen 4 und 7.
 Einstellbar sind Werte zwischen 0 und 7.\\
 Beispiel: LCD\_ST7564\_RESISTOR\_RATIO = 4
-  \item[WITH\_LCD\_ST7565\_HV\_FLIP] Mit dieser Option kann die Anzeige sowohl horizontal als auch vertikal
-umgedreht werden.\\
-Beispiel: WITH\_LCD\_ST7565\_HV\_FLIP = 1
+  \item[LCD\_ST7565\_H\_FLIP] Mit dieser Option kann die Anzeige horizontal umgedreht werden.\\
+Beispiel: LCD\_ST7565\_H\_FLIP = 1
+  \item[LCD\_ST7565\_H\_OFFSET] Diese Option kann den für die Ausgabe benutzten Speicher an das Anzeigefenster des
+ Displays anpassen. Der Kontroller benutzt mehr horizontale Pixel (132) als angezeigt (128) werden.
+ Je nach Lage des Anzeigefenster muß der Offset bei gedrehter oder normaler horizontaler Anzeigerichtung
+ berücksichtigt werden.\\
+Beispiel: LCD\_ST7565\_H\_OFFSET = 4
+  \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
+Beispiel: LCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_6X8] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
 Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 und FONT\_16X16.
 Derzeit wird nur der 6x8 Font vollständig unterstützt.\\

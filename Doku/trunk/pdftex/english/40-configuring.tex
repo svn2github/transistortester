@@ -57,9 +57,14 @@ the ST7565 controller is set.
 Usually values between 4 and 7 are practical.
 The value can be set between 0 and 7.\\
 example: LCD\_ST7564\_RESISTOR\_RATIO = 4
-  \item[WITH\_LCD\_ST7565\_HV\_FLIP] With this option the display content can be flipped in both,
-the horizontal and vertical direction.\\
-example: WITH\_LCD\_ST7565\_HV\_FLIP = 1
+  \item[LCD\_ST7565\_H\_FLIP] With this option the display content can be flipped in horizontal direction.\\
+example: LCD\_ST7565\_H\_FLIP = 1
+  \item[LCD\_ST7565\_H\_OFFSET] This option can be used to adapt the display window to the used memory area.
+ The controller uses more horizontal pixel as the display window shows.
+ An offset is required depending of the position of the display window for the flipped or normal horizontal direction.\\
+example: LCD\_ST7565\_H\_OFFSET = 4
+  \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
+example: LCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_6X8] You must select one font size for the ST7565 controller.
 Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 and FONT\_16X16.
 Currently only the 6x8 font size is fully supported.\\
