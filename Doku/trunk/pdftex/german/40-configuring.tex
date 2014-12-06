@@ -66,10 +66,15 @@ Beispiel: LCD\_ST7565\_H\_FLIP = 1
 Beispiel: LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
 Beispiel: LCD\_ST7565\_V\_FLIP = 1
-  \item[FONT\_6X8] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
+  \item[FONT\_8X16] You must select one font size for the ST7565 controller.
+Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X16 and FONT\_16X16.
+Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
+example: FONT\_8X16
+  \item[FONT\_8X16] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
 Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 und FONT\_16X16.
-Derzeit wird nur der 6x8 Font vollständig unterstützt.\\
-Beispiel: FONT\_6X8
+Derzeit wird nur der 6x8 und der 8x16 Font vollständig unterstützt.
+Die Font Größe 8X16 ist die effizienteste Wahl für das graphische 128x64 LCD.\\
+Beispiel: FONT\_8X16
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
   \item[WITH\_MENU] aktiviert eine Menü Funktion für einen ATmega328.  Man kann einige Zusatzfunktionen über ein

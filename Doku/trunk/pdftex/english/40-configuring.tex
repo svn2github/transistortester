@@ -65,10 +65,11 @@ example: LCD\_ST7565\_H\_FLIP = 1
 example: LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
 example: LCD\_ST7565\_V\_FLIP = 1
-  \item[FONT\_6X8] You must select one font size for the ST7565 controller.
-Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 and FONT\_16X16.
-Currently only the 6x8 font size is fully supported.\\
-example: FONT\_6X8
+  \item[FONT\_8X16] You must select one font size for the ST7565 controller.
+Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X16 and FONT\_16X16.
+Currently only the 6X8 and the 8X16 font is fully supported.
+Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
+example: FONT\_8X16
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.
 You can find the details in the chapter hardware \ref{sec:hardware}.
 example: CFLAGS += -DSTRIP\_GRID\_BOARD
