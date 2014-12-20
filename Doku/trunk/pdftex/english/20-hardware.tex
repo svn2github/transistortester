@@ -57,25 +57,25 @@ But this connection is used by a chinese version with graphical display.
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c || c | c | c | c | c |}
+    \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & character LCD & character LCD    & ST7565 LCD & ST7565 LCD       & additional function \\
-      Port &               & strip grid board &            & strip grid board &  \\
+           & character  & char. LCD    & ST7565     & ST7565       & SSD1306     & additional function \\
+      Port &   LCD      & STRIP\_GRID  &   LCD      & STRIP\_GRID  &   I2C       & \\
     \hline
     \hline
-    PD0    &  LCD-D4       &  pushbutton    &  LCD-REST    &                  &  \\
+    PD0    &  LCD-D4    &  pushbutton  &  LCD-REST    &            &           & \\
     \hline
-    PD1    &  LCD-D5       &  LCD-D7        &  LCD-RS      & LCD-SI           & rotary encoder 2  \\
+    PD1    &  LCD-D5    &  LCD-D7      &  LCD-RS      & LCD-SI     &           &  rotary encoder 2  \\
     \hline
-    PD2    &  LCD-D6       &  LCD-D6        &  LCD-SCLK    & LCD-SCLK         &  \\
+    PD2    &  LCD-D6    &  LCD-D6      &  LCD-SCLK    & LCD-SCLK   &  LCD-SDA  & \\
     \hline
-    PD3    &  LCD-D7       &  LCD-D5        &  LCD-SI      & LCD-A0 (RS)      & rotary encoder 1 \\
+    PD3    &  LCD-D7    &  LCD-D5      &  LCD-SI      & LCD-A0 (RS) &           & rotary encoder 1 \\
     \hline
-    PD4    &  LCD-RS       &  LCD-D4        &              & LCD-REST         & frequency counter \\
+    PD4    &  LCD-RS    &  LCD-D4      &              & LCD-REST    &           & frequency counter \\
     \hline
-    PD5    &  LCD-E        &  LCD-E         &              &                  &  \\
+    PD5    &  LCD-E     &  LCD-E       &              &             &  LCD-SCL  & \\
     \hline
-    PD7    &  pushbutton   &  LCD-RS        &              &                  &  \\
+    PD7    & pushbutton &  LCD-RS      &              &             &           &  \\
     \hline
     \end{tabular}
   \end{center}
@@ -141,6 +141,9 @@ currently a selection of frequencies from \(1 Hz\) up to \(2 MHz\).
 The output of the 5V signal is done with a \(680\Omega\) resistor to test port TP2.
 You can use the GND signal from the minus pin of the zener diode extension or the test port TP1.
 The test port TP3 is connected to GND with a \(680\Omega\) resistor.
+Of course you can also connect a driver circuit to the ATmega port PB2 with a separate output
+driver circuit and a additional output terminal. But the input of this circuit should not insert a
+big capacity load for the ATmega output.
 
 \subsection{Frequency measurement}
 
@@ -233,6 +236,12 @@ Therefore a additional 3.3V voltage regulator is required.
 The data sheet of the ST7565 controller does not allow the direct connection of input pins to
 5V signal level. So the extension of figure \ref{fig:ST7565lcd} uses a additional 74HC4050 CMOS
 device for the conversion of the voltage level.
+Normally the ST7565 or SSD1306 controller is connected with a 4-wire SPI interface.
+But with the SSD1306 controller you can also use a I2C interface with PD2 as SDA and PD5 as SCL signal.
+The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to 3.3V.
+The outputs of the ATmega is only switched to 0V for the I2C signals.
+Before connecting the pull-up resistors to 5V you must check, if your display module can tolerate
+a 5V signal level.
 
 \begin{figure}[H]
 \centering
@@ -445,27 +454,31 @@ For switching between the operational states (frequency divider and crystal oszi
 the analog switches 74HC4052 are used.
 The table \ref{tab:mega644-display} shows the pin assignments for the ATmega324/644/1284
 microcontrollers for different display connections.
+The using of the I2C interface is only possible with the SSD1306 controller.
+The signals of the I2C interface require a pull-up resistor of \(4.7k\Omega\) to 3.3V.
+The outputs of the ATmega is only switched to 0V for the I2C signals.
 
 
 \begin{table}[H]
   \begin{center}
     \begin{tabular}{| c || c | c | c | c |}
     \hline
-      Port & Character LCD &              & Graphik LCD  & additional function\\
+      Port & Character LCD &  Graphik LCD  & Graphik LCD  & additional function\\
+           &               &  SPI 4-wire   &   I2C        &            \\
     \hline
     \hline
     PB2    &  LCD-RS         &            &             &       \\
     \hline
-    PB3    &  LCD-E          &            &             &       \\
+    PB3    &  LCD-E          &            &  LCD-SCL    &       \\
     \hline
-    PB4    &  LCD-D4         &            &  LCD-REST   &       \\
+    PB4    &  LCD-D4         &  LCD-REST  &  LCD-SDA    &       \\
     \hline
-    PB5    &  LCD-D5         &            &  LCD-RS     & ISP-MOSI \\
+    PB5    &  LCD-D5         &  LCD-RS    &             & ISP-MOSI \\
            &                 &            &             & Rotary encoder 2 \\
     \hline
-    PB6    &  LCD-D6         &            &  LCD-SCLK   & ISP-MISO \\
+    PB6    &  LCD-D6         &  LCD-SCLK  &             & ISP-MISO \\
     \hline
-    PB7    &  LCD-D7         &            &  LCD-SI     & ISP-SCK  \\
+    PB7    &  LCD-D7         &  LCD-SI    &             & ISP-SCK  \\
            &                 &            &             & Rotary encoder 1 \\
     \hline
     \end{tabular}

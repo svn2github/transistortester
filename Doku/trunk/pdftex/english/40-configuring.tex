@@ -50,21 +50,30 @@ example: CFLAGS += -DLCD\_DOGM
 Additional parameters, which are shown only short in row 2, will be shown in row 3 and 4 with this option.\\
 example: CFLAGS += -DFOUR\_LINE\_LCD
   \item[WITH\_LCD\_ST7665] This option must be used, if a 128x64 pixel LCD is connected with serial
-interface. For this display type must be set further options, which are described later.\\
+interface. For this display type further options must be set, which are described later.
+You can also use the simular SSD1306 controller instead of the ST7565 controller.
+This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.\\
 example: WITH\_LCD\_ST7565 = 1 
+ \item[LCD\_INTERFACE\_MODE] For the SSD1306 controller also the I2C type interface with address 0x3c
+can be used  instead of the 4-wire SPI interface by setting the constant LCD\_INTERFACE\_MODE to 2.\\
+example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
+  \item[LCD\_I2C\_ADDR] The I2C address of the SSD1306 controller can be selected to 0x3d by presetting
+the constant LCD\_I2C\_ADDR to 0x3d.\\
+example: CFLAGS += -DLCD\_I2C\_ADDR=0x3d
   \item[LCD\_ST7565\_RESISTOR\_RATIO] With this option the resistor ratio for the voltage regulator of
 the ST7565 controller is set.
 Usually values between 4 and 7 are practical.
 The value can be set between 0 and 7.\\
 example: LCD\_ST7564\_RESISTOR\_RATIO = 4
   \item[LCD\_ST7565\_H\_FLIP] With this option the display content can be flipped in horizontal direction.\\
-example: LCD\_ST7565\_H\_FLIP = 1
+example: CFLAGS += -DLCD\_ST7565\_H\_FLIP = 1
   \item[LCD\_ST7565\_H\_OFFSET] This option can be used to adapt the display window to the used memory area.
- The controller uses more horizontal pixel as the display window shows.
- An offset is required depending of the position of the display window for the flipped or normal horizontal direction.\\
-example: LCD\_ST7565\_H\_OFFSET = 4
+ The controller uses more horizontal pixel (132) as the display window showsi (128).
+ An offset is required depending of the position of the display window for the flipped or normal horizontal direction.
+ Depending of your display module a value of 0, 2 or 4 can be required for proper presentation.\\
+example: CFLAGS += -DLCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
-example: LCD\_ST7565\_V\_FLIP = 1
+example: CFLAGS += -DLCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_8X16] You must select one font size for the ST7565 controller.
 Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X16 and FONT\_16X16.
 Currently only the 6X8 and the 8X16 font is fully supported.

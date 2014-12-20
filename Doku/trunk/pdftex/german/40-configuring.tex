@@ -51,32 +51,38 @@ den Zeilen 3 und 4 angezeigt.\\
 Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
   \item[WITH\_LCD\_ST7665] Diese Option muß verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
 Schnittstelle angeschlossen ist. Für diesen Display Typ müssen weitere Optionen gesetzt werden, die im Folgenden
-beschrieben werden.\\
+beschrieben werden.
+Anstelle des ST7565 Kontrollers kann auch der ähnliche SSD1306 Kontroller konfiguriert werden.
+Dafür muß die Variable WITH\_LCD\_ST7565 auf 1306 gesetzt werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
+ \item[LCD\_INTERFACE\_MODE] Beim SSD1306 Kontroller kann anstelle des Standard SPI 4-wire Interface auch das
+I2C Interface benutzt werden. Dafür muß die Konstante LCD\_INTERFACE\_MODE auf 2 gesetzt werden.\\
+Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
+ \item[LCD\_I2C\_ADDR] Die I2C Adresse des SSD1306 Kontrollers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
+auf 0x3D geändert werden.\\
+Beispiel: CFLAGS += -DLCD\_I2C\_ADDR=0x3d
   \item[LCD\_ST7565\_RESISTOR\_RATIO] Mit dieser Option wird das Widerstands Teilerverhältnis für den
 Spannungsregler des ST7565 controller eingestellt. Brauchbare Werte liegen im allgemeinen zwischen 4 und 7.
 Einstellbar sind Werte zwischen 0 und 7.\\
 Beispiel: LCD\_ST7564\_RESISTOR\_RATIO = 4
   \item[LCD\_ST7565\_H\_FLIP] Mit dieser Option kann die Anzeige horizontal umgedreht werden.\\
-Beispiel: LCD\_ST7565\_H\_FLIP = 1
+Beispiel: CFLAGS += LCD\_ST7565\_H\_FLIP = 1
   \item[LCD\_ST7565\_H\_OFFSET] Diese Option kann den für die Ausgabe benutzten Speicher an das Anzeigefenster des
  Displays anpassen. Der Kontroller benutzt mehr horizontale Pixel (132) als angezeigt (128) werden.
  Je nach Lage des Anzeigefenster muß der Offset bei gedrehter oder normaler horizontaler Anzeigerichtung
- berücksichtigt werden.\\
-Beispiel: LCD\_ST7565\_H\_OFFSET = 4
+ berücksichtigt werden.
+ Ein Wert von 0, 2 oder 4 kann je nach verwendetem Display-Modul für eine korrekte Darstellung notwendig sein.\\
+Beispiel: CFLAGS += LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
-Beispiel: LCD\_ST7565\_V\_FLIP = 1
-  \item[FONT\_8X16] You must select one font size for the ST7565 controller.
-Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X16 and FONT\_16X16.
-Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
-example: FONT\_8X16
+Beispiel: CFLAGS += LCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_8X16] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
 Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 und FONT\_16X16.
 Derzeit wird nur der 6x8 und der 8x16 Font vollständig unterstützt.
 Die Font Größe 8X16 ist die effizienteste Wahl für das graphische 128x64 LCD.\\
-Beispiel: FONT\_8X16
+Beispiel: CFLAGS += FONT\_8X16
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
+Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] aktiviert eine Menü Funktion für einen ATmega328.  Man kann einige Zusatzfunktionen über ein
 Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0.5~s) erreichen kann.
 Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest Start mit kurzgeschlossenen Testpins
@@ -95,9 +101,9 @@ Impulsdrehgeber ohne Raststellung sinnvoll.
 Ein Setzen der Option WITH\_ROTARY\_SWITCH auf 4 ist notwendig für die korrekte Behandlung von zwei separaten
 Rauf (Up) und Runter (Down) Tastern, die anstelle der beiden Schalter eines Impulsdrehgebers eingebaut sind.
 Verwenden Sie nicht die Einstellung 4 mit normalen Impulsdrehgebern!\\
-Beispiel: CFLAGS += -DWITH\_ROTARY\_ENCODER=1
+Beispiel: CFLAGS += -DWITH\_ROTARY\_SWITCH=1
   \item[CHANGE\_ROTARY\_DIRECTION] Man kann die erkannte Drehrichtung des Impulsdrehgebers durch Vertauschen
-der beiden Schalter-Signale oder durch Setzen der Option CHANG\_ROTARY\_DIRECTION ändern.
+der beiden Schalter-Signale oder durch Setzen der Option CHANGE\_ROTARY\_DIRECTION ändern.
 Beispiel: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
  \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\

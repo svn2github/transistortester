@@ -40,7 +40,7 @@
    const unsigned char H_CRYSTAL_str[] MEM2_TEXT = {'H','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; // HF кварц
    const unsigned char L_CRYSTAL_str[] MEM2_TEXT = {'L','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; // LF кварц
   #endif
-  #if (LCD_ST_TYPE == 7565)
+  #if ((LCD_ST_TYPE == 7565) || (LCD_ST_TYPE == 1306))
    const unsigned char CONTRAST_str[] MEM2_TEXT = {'K','o',Cyr_n,Cyr_t,'p','a','c',Cyr_t,Cyr_n,'o','c',Cyr_t,Cyr_ww,0}; //Kontrast
   #endif
  #endif
@@ -89,7 +89,7 @@
    const unsigned char H_CRYSTAL_str[] MEM2_TEXT = {'H','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; //HF кварц
    const unsigned char L_CRYSTAL_str[] MEM2_TEXT = {'L','F',' ',Cyr_k,Cyr_v,'a','p',Cyr_c,0}; //LF кварц
   #endif
-  #if (LCD_ST_TYPE == 7565)
+  #if ((LCD_ST_TYPE == 7565) || (LCD_ST_TYPE == 1306))
    const unsigned char CONTRAST_str[] MEM2_TEXT = {'K','o',Cyr_n,Cyr_t,'p','a','c',Cyr_t,Cyr_n,'i','c',Cyr_t,Cyr_ww,0}; //Kontrast
   #endif
  #endif
