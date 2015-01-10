@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.2.3)  20 JUN 2014 13:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  5 JAN 2015 20:23
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
 **ttinfo.tex
 (./ttinfo.tex
 LaTeX2e <2011/06/27>
-Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
@@ -90,13 +90,13 @@ Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip43
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2013/05/16 v3.9f The Babel package
+Package: babel 2013/12/03 3.9h The Babel package
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2012/08/20 v3.3p English support from the babel system
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2013/05/16 v3.9f Babel common definitions
+File: babel.def 2013/12/03 3.9h Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen103
 )
@@ -105,9 +105,10 @@ File: babel.def 2013/05/16 v3.9f Babel common definitions
 \l@newzealand = a dialect from \language\l@british 
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
-Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
+Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
 \l@naustrian = a dialect from \language\l@ngerman 
-Package babel Info: Making " an active character on input line 92.
+\l@nswissgerman = a dialect from \language\l@ngerman 
+Package babel Info: Making " an active character on input line 88.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
@@ -288,7 +289,7 @@ Package hyperref Info: Bookmarks ON on input line 4688.
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
 \XeTeXLinkMargin=\dimen114
@@ -469,11 +470,11 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 Package epstopdf Info: Source file: <../FIG/BJT_BC640.eps>
-(epstopdf)                    date: 2014-01-19 18:15:04
-(epstopdf)                    size: 109512 bytes
+(epstopdf)                    date: 2015-01-05 20:23:06
+(epstopdf)                    size: 109678 bytes
 (epstopdf)             Output file: <../FIG/BJT_BC640-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:28
-(epstopdf)                    size: 9730 bytes
+(epstopdf)                    date: 2015-01-05 20:23:11
+(epstopdf)                    size: 9749 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC640-eps-conver
 ted-to.pdf ../FIG/BJT_BC640.eps>
 (epstopdf)             \includegraphics on input line 8.
@@ -486,11 +487,11 @@ Package pdftex.def Info: ../FIG/BJT_BC640-eps-converted-to.pdf used on input li
 ne 8.
 (pdftex.def)             Requested size: 256.0748pt x 335.63408pt.
 Package epstopdf Info: Source file: <../FIG/BJT_BC639.eps>
-(epstopdf)                    date: 2014-01-19 18:15:03
-(epstopdf)                    size: 109225 bytes
+(epstopdf)                    date: 2015-01-05 20:23:05
+(epstopdf)                    size: 109391 bytes
 (epstopdf)             Output file: <../FIG/BJT_BC639-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:28
-(epstopdf)                    size: 9891 bytes
+(epstopdf)                    date: 2015-01-05 20:23:12
+(epstopdf)                    size: 9911 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC639-eps-conver
 ted-to.pdf ../FIG/BJT_BC639.eps>
 (epstopdf)             \includegraphics on input line 15.
@@ -509,11 +510,11 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 6--19
  []
 
 Package epstopdf Info: Source file: <../FIG/BJT_AD161.eps>
-(epstopdf)                    date: 2014-01-19 18:15:02
-(epstopdf)                    size: 277341 bytes
+(epstopdf)                    date: 2015-01-05 20:23:05
+(epstopdf)                    size: 277507 bytes
 (epstopdf)             Output file: <../FIG/BJT_AD161-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:28
-(epstopdf)                    size: 15342 bytes
+(epstopdf)                    date: 2015-01-05 20:23:12
+(epstopdf)                    size: 15347 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_AD161-eps-conver
 ted-to.pdf ../FIG/BJT_AD161.eps>
 (epstopdf)             \includegraphics on input line 25.
@@ -539,10 +540,10 @@ Package babel Info: Redefining ngerman shorthand "~
  <../FIG/BJT_BC640-eps-converted-to.pdf> <../FIG/BJT_BC639-eps-converted-to.pdf
 >]
 Package epstopdf Info: Source file: <../FIG/BJT_AD162.eps>
-(epstopdf)                    date: 2014-01-19 18:15:03
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 275165 bytes
 (epstopdf)             Output file: <../FIG/BJT_AD162-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:29
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 15293 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_AD162-eps-conver
 ted-to.pdf ../FIG/BJT_AD162.eps>
@@ -557,10 +558,10 @@ Package pdftex.def Info: ../FIG/BJT_AD162-eps-converted-to.pdf used on input li
 ne 33.
 (pdftex.def)             Requested size: 416.55522pt x 223.8357pt.
 Package epstopdf Info: Source file: <../FIG/BJT_BC516.eps>
-(epstopdf)                    date: 2014-01-19 20:09:52
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 119376 bytes
 (epstopdf)             Output file: <../FIG/BJT_BC516-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 20:09:52
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 10251 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC516-eps-conver
 ted-to.pdf ../FIG/BJT_BC516.eps>
@@ -575,11 +576,11 @@ Package pdftex.def Info: ../FIG/BJT_BC516-eps-converted-to.pdf used on input li
 ne 41.
 (pdftex.def)             Requested size: 256.0748pt x 394.01622pt.
 Package epstopdf Info: Source file: <../FIG/BJT_BC517.eps>
-(epstopdf)                    date: 2014-01-19 19:57:26
-(epstopdf)                    size: 119334 bytes
+(epstopdf)                    date: 2015-01-05 20:23:07
+(epstopdf)                    size: 119500 bytes
 (epstopdf)             Output file: <../FIG/BJT_BC517-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 19:57:27
-(epstopdf)                    size: 10100 bytes
+(epstopdf)                    date: 2015-01-05 20:23:13
+(epstopdf)                    size: 10121 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BC517-eps-conver
 ted-to.pdf ../FIG/BJT_BC517.eps>
 (epstopdf)             \includegraphics on input line 48.
@@ -608,10 +609,10 @@ Package babel Info: Redefining ngerman shorthand "~
 [3 <../FIG/BJT_AD161-eps-converted-to.pdf> <../FIG/BJT_AD162-eps-converted-to.p
 df>]
 Package epstopdf Info: Source file: <../FIG/BJT_BU508D.eps>
-(epstopdf)                    date: 2014-01-21 12:55:54
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 171700 bytes
 (epstopdf)             Output file: <../FIG/BJT_BU508D-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-21 12:55:55
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 11116 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BU508D-eps-conve
 rted-to.pdf ../FIG/BJT_BU508D.eps>
@@ -626,10 +627,10 @@ Package pdftex.def Info: ../FIG/BJT_BU508D-eps-converted-to.pdf used on input l
 ine 57.
 (pdftex.def)             Requested size: 235.88068pt x 199.74576pt.
 Package epstopdf Info: Source file: <../FIG/BJT_BDV64.eps>
-(epstopdf)                    date: 2014-01-19 21:41:49
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 122036 bytes
 (epstopdf)             Output file: <../FIG/BJT_BDV64-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 21:41:50
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 11597 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BDV64-eps-conver
 ted-to.pdf ../FIG/BJT_BDV64.eps>
@@ -644,11 +645,11 @@ Package pdftex.def Info: ../FIG/BJT_BDV64-eps-converted-to.pdf used on input li
 ne 65.
 (pdftex.def)             Requested size: 256.0748pt x 398.23781pt.
 Package epstopdf Info: Source file: <../FIG/BJT_BDV65.eps>
-(epstopdf)                    date: 2014-01-21 02:17:08
-(epstopdf)                    size: 121506 bytes
+(epstopdf)                    date: 2015-01-05 20:23:07
+(epstopdf)                    size: 121672 bytes
 (epstopdf)             Output file: <../FIG/BJT_BDV65-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-21 02:17:09
-(epstopdf)                    size: 11432 bytes
+(epstopdf)                    date: 2015-01-05 20:23:13
+(epstopdf)                    size: 11449 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/BJT_BDV65-eps-conver
 ted-to.pdf ../FIG/BJT_BDV65.eps>
 (epstopdf)             \includegraphics on input line 72.
@@ -696,11 +697,11 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 Package epstopdf Info: Source file: <../FIG/MOS_BUZ71.eps>
-(epstopdf)                    date: 2014-01-19 18:19:26
-(epstopdf)                    size: 235653 bytes
+(epstopdf)                    date: 2015-01-05 20:23:09
+(epstopdf)                    size: 235819 bytes
 (epstopdf)             Output file: <../FIG/MOS_BUZ71-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:30
-(epstopdf)                    size: 12833 bytes
+(epstopdf)                    date: 2015-01-05 20:23:14
+(epstopdf)                    size: 12831 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_BUZ71-eps-conver
 ted-to.pdf ../FIG/MOS_BUZ71.eps>
 (epstopdf)             \includegraphics on input line 8.
@@ -713,11 +714,11 @@ Package pdftex.def Info: ../FIG/MOS_BUZ71-eps-converted-to.pdf used on input li
 ne 8.
 (pdftex.def)             Requested size: 256.0748pt x 415.76039pt.
 Package epstopdf Info: Source file: <../FIG/MOS_IRF5305.eps>
-(epstopdf)                    date: 2014-01-19 18:19:27
-(epstopdf)                    size: 223419 bytes
+(epstopdf)                    date: 2015-01-05 20:23:10
+(epstopdf)                    size: 223585 bytes
 (epstopdf)             Output file: <../FIG/MOS_IRF5305-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:30
-(epstopdf)                    size: 12923 bytes
+(epstopdf)                    date: 2015-01-05 20:23:14
+(epstopdf)                    size: 12935 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_IRF5305-eps-conv
 erted-to.pdf ../FIG/MOS_IRF5305.eps>
 (epstopdf)             \includegraphics on input line 15.
@@ -736,11 +737,11 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 6--19
  []
 
 Package epstopdf Info: Source file: <../FIG/MOS_BSS169.eps>
-(epstopdf)                    date: 2014-01-19 18:19:26
-(epstopdf)                    size: 213941 bytes
+(epstopdf)                    date: 2015-01-05 20:23:09
+(epstopdf)                    size: 214107 bytes
 (epstopdf)             Output file: <../FIG/MOS_BSS169-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:31
-(epstopdf)                    size: 11790 bytes
+(epstopdf)                    date: 2015-01-05 20:23:15
+(epstopdf)                    size: 11814 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/MOS_BSS169-eps-conve
 rted-to.pdf ../FIG/MOS_BSS169.eps>
 (epstopdf)             \includegraphics on input line 26.
@@ -767,11 +768,11 @@ Package babel Info: Redefining ngerman shorthand "~
  <../FIG/MOS_BUZ71-eps-converted-to.pdf> <../FIG/MOS_IRF5305-eps-converted-to.p
 df>]
 Package epstopdf Info: Source file: <../FIG/JFET_BF245.eps>
-(epstopdf)                    date: 2014-01-19 18:19:25
-(epstopdf)                    size: 110892 bytes
+(epstopdf)                    date: 2015-01-05 20:23:08
+(epstopdf)                    size: 111058 bytes
 (epstopdf)             Output file: <../FIG/JFET_BF245-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:31
-(epstopdf)                    size: 8131 bytes
+(epstopdf)                    date: 2015-01-05 20:23:15
+(epstopdf)                    size: 8149 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/JFET_BF245-eps-conve
 rted-to.pdf ../FIG/JFET_BF245.eps>
 (epstopdf)             \includegraphics on input line 34.
@@ -785,10 +786,10 @@ Package pdftex.def Info: ../FIG/JFET_BF245-eps-converted-to.pdf used on input l
 ine 34.
 (pdftex.def)             Requested size: 256.0748pt x 254.58456pt.
 Package epstopdf Info: Source file: <../FIG/JFET_J175.eps>
-(epstopdf)                    date: 2014-01-19 18:19:25
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 110933 bytes
 (epstopdf)             Output file: <../FIG/JFET_J175-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-01-19 18:19:32
+(epstopdf)                    date: 2015-01-05 19:26:01
 (epstopdf)                    size: 7951 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/JFET_J175-eps-conver
 ted-to.pdf ../FIG/JFET_J175.eps>
@@ -852,10 +853,10 @@ Package rerunfilecheck Info: File `ttinfo.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 7948 strings out of 493307
- 121657 string characters out of 6139906
- 209144 words of memory out of 5000000
- 11207 multiletter control sequences out of 15000+600000
+ 7963 strings out of 493304
+ 121919 string characters out of 6139872
+ 209705 words of memory out of 5000000
+ 11225 multiletter control sequences out of 15000+600000
  52453 words of font info for 45 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  42i,8n,39p,331b,662s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -864,7 +865,7 @@ public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/tex
 mf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on ttinfo.pdf (9 pages, 280729 bytes).
+Output written on ttinfo.pdf (9 pages, 280675 bytes).
 PDF statistics:
  229 PDF objects out of 1000 (max. 8388607)
  172 compressed objects within 2 object streams

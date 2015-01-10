@@ -236,6 +236,12 @@ Therefore a additional 3.3V voltage regulator is required.
 The data sheet of the ST7565 controller does not allow the direct connection of input pins to
 5V signal level. So the extension of figure \ref{fig:ST7565lcd} uses a additional 74HC4050 CMOS
 device for the conversion of the voltage level.
+You can try to exchange the four 74HC4050 gates with four resistors of about \(2.7k\Omega\).
+With the voltage drop at the resistors you will prevent the increase of the 3.3V controller power voltage 
+across the diodes of the controller inputs from the 5V ATmega outputs signals.
+You have to try, if the signal form with the resistors can be accepted from the ST7565 controller inputs.
+The signal form at the controller inputs will be more simular to the output shape of the ATmega with the 74HC4050 gates in any case.\\
+
 Normally the ST7565 or SSD1306 controller is connected with a 4-wire SPI interface.
 But with the SSD1306 controller you can also use a I2C interface with PD2 as SDA and PD5 as SCL signal.
 The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to 3.3V.

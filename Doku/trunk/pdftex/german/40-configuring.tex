@@ -150,7 +150,8 @@ Beispiel: CFLAGS += -DREF\_C\_KORR=14
 in mV-Einheiten an. Der REF\_C\_KORR Offset beziehungsweise der gefundene Offset bei der Kalibration
 wird bei der Induktivitätsmessung ebenfalls berücksichtigt.
 Der REF\_L\_KORR Wert wird für die Messungen ohne \(680 \Omega\) Widerstand subtrahiert, bei Messungen mit einem
-\(680 \Omega\) Widerstand wird der Wert addiert.\\
+\(680 \Omega\) Widerstand wird der Wert addiert.
+Ein Wert von 10 führt zu einer Änderung des Ergebnisses um 1 Prozent.\\
 Beispiel: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] gibt eine Korrektur der Messergebnisse für grosse Kondensatoren an.
 Eine Eingabe von 10 führt zu 1~Prozent kleineren Messergebnissen.\\

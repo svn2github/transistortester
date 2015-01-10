@@ -35,4 +35,11 @@ The using of sleep state can be deselected by the Makefile option INHIBIT\_SLEEP
 They can be detected as diode or can also be not detected as known part.
 Sometimes the measurement with swapped connection can help.
 
+\item The Source and Drain pins can not be detected correctly with JFET's.
+The reason is the symmetrical structure of this semiconductors.
+You can notice this problem with the effect, that the display shows the same layout with the same parameters,
+if the Source and Drain pins are swapped.
+I see no way to detect the Source and Drain pin correctly.
+But interchanging of Source and Drain in any circuit should usually not cause any problem.
+
 \end{enumerate}
