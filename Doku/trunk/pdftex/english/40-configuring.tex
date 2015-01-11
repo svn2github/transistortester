@@ -145,7 +145,8 @@ example:  CFLAGS += -DREF\_C\_KORR=14
 inductance values. 
 The REF\_C\_KORR offset and respectively the offset value from the calibration is additionally used with the inductance measurement.
 The REF\_L\_KORR value will be subtracted for measurements without a \(680 \Omega\) resistor,
-for measurements with a \(680 \Omega\) resistor the value will be added.\\
+for measurements with a \(680 \Omega\) resistor the value will be added.
+A correction value of 10 will change the result about 1 percent.\\
 example: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
 A value of 10 results to 1~percent lower measurement results.\\
