@@ -433,6 +433,48 @@ bekannten Kapazitätswert relativ gut kompensiert werden kann.
   \label{pic:NewEsr10}
 \end{figure}
 
+Bei Verwendung von \(27 \mu s\) langen Strompulsen kann der ESR von Kondensatoren ab etwa \(180 nF\) bestimmt werden.
+Um noch kleinere Kondensatoren messen zu können, wurde der Strompuls bei Version 1.11k weiter auf \(8 \mu s\) verkleinert.
+Die Abbildungen~\ref{pic:NewEsr2} zeigen den Spannungsverlauf an einem \(2.2 \mu F\) Kondensator ohne und mit
+einem \(2.7 \Omega\) Serienwiderstand.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F0R0.png}
+    \caption{ohne Serienwiderstand}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7.png}
+    \caption{mit \(2.7\Omega\) Serienwiderstand}
+  \end{subfigure}
+  \caption{Spannungsverlauf eines \(2.2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
+  \label{pic:NewEsr2}
+\end{figure}
+
+Weil in den Abbildungen \ref{pic:NewEsr2} der Zeitpunkt der Spannungsübernahme des ADC nicht zu erkennen ist,
+wird in den Abbildungen \ref{pic:NewEsr2zoom} der Ladepuls gedehnt dargestellt. Der Zeitpunkt der Spannungsübernahme
+des ADC ist hier etwa in der Bildmitte.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F0R0zoom.png}
+    \caption{ohne Serienwiderstand}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7zoom.png}
+    \caption{mit \(2.7\Omega\) Serienwiderstand}
+  \end{subfigure}
+  \caption{Ausschnitt des Spannungsverlaufs eines \(2.2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
+  \label{pic:NewEsr2zoom}
+\end{figure}
+ 
+
 Die Meßergebnisse der neuen ESR-Meßmethode sind in Abbildung~\ref{fig:Cesr2} dargestellt.
 Die ESR-Werte unterscheiden sich wegen der Frequenzabhängigkeit von den Ergebnissen der Abbildung~\ref{fig:Cesr}.
 Die Vergleichswerte des LCR-Meßgerätes sind bei \(10 kHz\) ermittelt worden.

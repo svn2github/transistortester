@@ -383,7 +383,7 @@ A complete measurement cycle is shown in figure~\ref{fig:Cap_esr2_timing}.
 The sums of 255 measurement cycle results is used for getting a result with adequate resolution. 
 A continuing charge of the capacitor in any direction is avoided by the same charge and discharge pulse length
 and the same circuit.
-By measuring the reference voltage the capacitoe remains currentless. By that this measurement are not time critital.
+By measuring the reference voltage the capacitor remains currentless. By that this measurement are not time critital.
 It is only assumed, that the capacitor hold the voltage until the next charge or discharge pulse begins.
 
 \begin{figure}[H]
@@ -432,6 +432,48 @@ known capacity value.
   \caption{Voltage curve of a \(10\mu F\) capacitor during new ESR measurement}
   \label{pic:NewEsr10}
 \end{figure}
+
+
+By using the \(27 \mu s\) long charge pulses the ESR of capacitors above \(180 nF\) can be determined.
+For measuring of capacitors with lower capacity the current pulse is shortened to \(8 \mu s\) for version 1.11k.
+The figures~\ref{pic:NewEsr2} show the voltage curve of a \(2.2 \mu F\) capacitor without and with
+a \(2.7 \Omega\) series resistor.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F0R0.png}
+    \caption{without series resistance}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7.png}
+    \caption{with \(2.7\Omega\) series resistance}
+  \end{subfigure}
+  \caption{Voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8 \mu s\) charge pulses}
+  \label{pic:NewEsr2}
+\end{figure}
+
+Because you can not see the sample and hold time of the ADC in the figures \ref{pic:NewEsr2},  the voltage curve is shown zoomed
+in figures~\ref{pic:NewEsr2zoom}. The sample and hold time is approximately in the middle of the screen picture.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F0R0zoom.png}
+    \caption{without series resistance}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7zoom.png}
+    \caption{with \(2.7\Omega\) series resistance}
+  \end{subfigure}
+  \caption{Zoomed voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8 \mu s\) charge pulses}
+  \label{pic:NewEsr2zoom}
+\end{figure}
+ 
 
 The measurement results of the new ESR measurement method is shown in figure~\ref{fig:Cesr2}.
 The ESR values are different from the results shown for the previous mesurement procedure in figure~\ref{fig:Cesr} because 
