@@ -517,7 +517,7 @@ Die Ausgänge des ATmega werden für die I2C Signale nur nach 0V geschaltet.
 
 \section{Programmierung des Mikrocontrollers}
 Ich gebe die Software für den Mikrocontroller in Quelltext heraus.
-Die Entwicklung wurde mit dem Linux Betriebssystem (Ubuntu) gemacht
+Die Entwicklung wurde mit dem Linux Betriebssystem (Ubuntu bzw. Mint) gemacht
 und wird gesteuert mit einer Makefile.
 Die Makefile stellt sicher, dass die Software entsprechend der vorher in der Makefile 
 eingestellten Optionen übersetzt wird. Schauen Sie bitte in die LiesMich.txt Datei
@@ -541,6 +541,27 @@ vom Werk gesetzt und bringen Sie den Tester in diesem Zustand zum Laufen.
 Es kann sein, dass das Programm zu langsam läuft, wenn Sie die für den 8MHz Betrieb 
 erzeugten Programmdaten benutzen, aber das kann man später korrigieren!
 Aber falsch gesetzte fuses können die spätere ISP-Programmierung verhindern.
+
+\subsection{Benutzung der Makefile unter Linux}
+Pakete können unter Debian basierten Linux-Versionen mit einer Paketverwaltung wie synaptic oder dpkg installiert werden.
+Sie benötigen das Paket ,,subversion'' zum Download der Quellen und der
+Dokumentation aus dem SVN-Archiv.
+So wird mit einer Anweisung ,,svn checkout svn://www.mikrocontroller.net/transistortester''
+das komplette Archiv heruntergeladen. Natürlich können auch nur einzelne Unterverzeichnisse
+heruntergeladen werden.
+Für die Benutzung der Makefile in einem Unterverzeichnis müssen die Pakete
+make, binutils-avr, avrdude, avr-libc und gcc-avr installiert sein.
+In einem Konsol-Fenster müssen Sie zuserst mit ,,Change Directory'' Kommando cd in das passende 
+Unterverzeichnis vom Verzeichnis trunk wechseln.
+Hier können Sie mit einem Texteditor die Makefile an ihre Konfiguration anpassen.
+Zum Übersetzen reicht ein einfacher ,,make'' Aufruf im Konsolfenster.
+Wenn auch der ISP-Programmer in der Makefile konfiguriert ist, sollte ein Aufruf von ,,make upload''
+reichen, um das übersetzte Programm über die ISP-Schnittstelle in den ATmega zu laden.
+Auch die ,,fuses'' des ATmega müssen einmal richtig gesetzt werden.
+Dazu reicht ein Aufruf von ,,make fuses'' oder ,,make fuses-crystal'' aus.
+
+
+\subsection{Benutzung des WinAVR Paketes unter Windows}
 Wenn Sie unter dem Windows Betriebssystem arbeiten, ist der leichteste Weg zum
 richtig programmierten ATmega zu kommen, die Benutzung der WinAVR Paketes \cite{winavr1},\cite{winavr2}.
 Mit meinem Patch \cite{winavr3} können Sie auch die Fuses mit der Makefile setzen.

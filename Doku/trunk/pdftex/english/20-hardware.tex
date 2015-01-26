@@ -529,6 +529,26 @@ set by manufactor and first bring the the tester to operation in this mode.
 Maybe your program runs too slow, if you use program data compiled for
 8MHz operation, but you can correct this later! But a wrong set of fuses may inhibit
 later ISP-programming.
+
+\subsection{Using the Makefile with Linux}
+You can install packages with Debian based Linux versions by using a package manager as synaptic or dpkg.
+The package ``subversion'' must be installed for downloading the sources or the documentation from the SVN archive.
+With the command ``svn checkout svn://www.mikrocontroller.net/transistortester''
+you can download the complete archive.
+Of course you can also download only subdirectories of the archive.
+For using the Makefile in one of the subdirectories you must install the packages
+make, binutils-avr, avrdude, avr-libc and gcc-avr.
+In a console window you must first change the directory with the command ``cd'' to a proper
+subdirectory of the directory trunk.
+Now you can change options of the Makefile with any text editor.
+For compiling the source you must only type the simple command ``make''.
+If the ISP programmer is configured proper in the Makefile, a command ``make upload''
+should result to load the program with the ISP interface to the ATmega.
+The ``fuses'' of the ATmega nust also be set correctly once.
+You can achieve this with the command ``make fuses'' or ``make fuses-crystal''.
+Dazu reicht ein Aufruf von ,,make fuses'' oder ,,make fuses-crystal'' aus.
+
+\subsection{Using the WinAVR package with Windows}
 If you use the Windows operating system, the easiest way to get a correct programmed
 ATmega is to use the WinAVR package \cite{winavr1},\cite{winavr2}.
 With my patch \cite{winavr3} you can also set the fuses by using the Makefile.
