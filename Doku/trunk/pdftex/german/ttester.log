@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  27 JAN 2015 21:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  30 JAN 2015 15:36
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -483,13 +483,13 @@ Package babel Info: Redefining ngerman shorthand "~
 
  (./00-preface.tex
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 59.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 59.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 59.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 59.
 
 [3
 
@@ -512,35 +512,35 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 51.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 51.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 51.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 51.
+(babel)             in language  on input line 50.
 [5
 
 
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 102.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 102.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 102.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 102.
+(babel)             in language  on input line 101.
  [6]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 146.
+(babel)             in language  on input line 145.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 146.
+(babel)             in language  on input line 145.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 146.
+(babel)             in language  on input line 145.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 146.
+(babel)             in language  on input line 145.
  [7])
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 31.
@@ -1065,6 +1065,12 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 53.
 
+Overfull \hbox (11.76006pt too wide) in paragraph at lines 54--62
+\T1/lmr/m/n/12 Wenn die Menü-funk-ti-on ein-ge-schal-tet ist, star-tet der Tes-
+ter nach ei-nem län-ge-ren Tas-ten-druck (> 500ms)
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 54--62
 
  []
@@ -1168,9 +1174,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 262--265
 
  []
 
-(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-30.def
-File: uni-30.def 2013/05/13 UCS: Unicode data U+1E00..U+1EFF
-)
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 285.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1187,8 +1190,7 @@ Package babel Info: Redefining ngerman shorthand "~
  [30]
 \openout2 = `40-configuring.aux'.
 
-
-(./40-configuring.tex
+ (./40-configuring.tex
 Kapitel 4.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 1.
@@ -1213,15 +1215,21 @@ Package babel Info: Redefining ngerman shorthand "~
 
 
 ]
-Overfull \hbox (2.8546pt too wide) in paragraph at lines 52--58
-\T1/lmr/m/n/12 ähn-li-che SSD1306 Kon-trol-ler kon-fi-gu-riert wer-den. Da-für 
-muÿ die Va-ria-ble WITH_LCD_ST7565
+Overfull \hbox (7.23195pt too wide) in paragraph at lines 52--58
+\T1/lmr/m/n/12 ähn-li-che SSD1306-Controller kon-fi-gu-riert wer-den. Da-für mu
+ss die Va-ria-ble WITH_LCD_ST7565
  []
 
 
-Overfull \hbox (40.9834pt too wide) in paragraph at lines 58--61
-\T1/lmr/m/n/12 In-ter-face auch das I2C In-ter-face be-nutzt wer-den. Da-für mu
-ÿ die Kon-stan-te LCD_INTERFACE_MODE
+Overfull \hbox (1.23172pt too wide) in paragraph at lines 58--61
+[]\T1/lmr/m/n/12 Beim SSD1306-Controller kann an-stel-le des Standard-SPI (4-Wi
+re)
+ []
+
+
+Overfull \hbox (45.68466pt too wide) in paragraph at lines 58--61
+\T1/lmr/m/n/12 In-ter-face auch das I2C-Interface be-nutzt wer-den. Da-für muss
+ die Kon-stan-te LCD_INTERFACE_MODE
  []
 
 Package babel Info: Redefining ngerman shorthand "|
@@ -1614,6 +1622,12 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 181.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 181.
+
+Overfull \hbox (2.60648pt too wide) in paragraph at lines 182--188
+\T1/lmr/m/n/12 und ATmega328-Prozessors. Die Mes-sung der Sperr-schicht-ka-pa-z
+i-tät für die Dop-pel-di-ode MBR4045PT
+ []
+
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 290.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1622,7 +1636,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 290.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 290.
- [49]
+[49]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 349.
 Package babel Info: Redefining ngerman shorthand "~
@@ -3705,6 +3719,12 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 3.
+
+Overfull \hbox (11.09268pt too wide) in paragraph at lines 23--26
+[]\T1/lmr/m/n/12 Vereinzelt ist von Pro-ble-men mit der Brown-Out-Schwelle 4,3V
+ für ATmega168- oder ATmega328-
+ []
+
 )
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 49.
@@ -3780,6 +3800,11 @@ Package babel Info: Redefining ngerman shorthand "~
 
 
 ]
+Underfull \hbox (badness 6078) in paragraph at lines 170--174
+[][]$\T1/lmtt/m/n/12 http : / / www . orientdisplay . com / pdf / ST7565 . pdf$
+[] \T1/lmr/m/it/12 Da-ten-blatt des gra-fi-schen Con-trol-lers
+ []
+
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 177.
@@ -3789,25 +3814,24 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 177.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 177.
- [103]
+[103]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
- (./ttester.aux (./00-preface.aux) (./10-features.aux)
-(./20-hardware.aux) (./30-manual.aux) (./40-configuring.aux)
-(./50-measurement.aux) (./51-semicon.aux) (./52-resistors.aux)
-(./53-capacitors.aux) (./54-inductors.aux) (./55-selftest.aux)
-(./56-frequency.aux) (./60-generators.aux) (./70-errors.aux) (./80-special.aux)
-(./90-todo.aux))
+ (./ttester.aux (./00-preface.aux) (./10-features.aux) (./20-hardware.aux) (./3
+0-manual.aux) (./40-configuring.aux) (./50-measurement.aux)
+(./51-semicon.aux) (./52-resistors.aux) (./53-capacitors.aux)
+(./54-inductors.aux) (./55-selftest.aux) (./56-frequency.aux)
+(./60-generators.aux) (./70-errors.aux) (./80-special.aux) (./90-todo.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `ttester.out' has not changed.
-(rerunfilecheck)             Checksum: AFF38A1CB55EC68FBE8177EACD841FA3;4840.
+(rerunfilecheck)             Checksum: 1A172D55588266ED83416BE1122720DA;4838.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 9794 strings out of 493304
- 155135 string characters out of 6139872
- 239155 words of memory out of 5000000
- 12423 multiletter control sequences out of 15000+600000
+ 9206 strings out of 493304
+ 148578 string characters out of 6139872
+ 239143 words of memory out of 5000000
+ 11838 multiletter control sequences out of 15000+600000
  65069 words of font info for 51 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  42i,12n,39p,895b,662s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -3822,7 +3846,7 @@ usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/shar
 e/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on ttester.pdf (104 pages, 1575790 bytes).
+Output written on ttester.pdf (104 pages, 1575221 bytes).
 PDF statistics:
  1774 PDF objects out of 2073 (max. 8388607)
  1450 compressed objects within 15 object streams

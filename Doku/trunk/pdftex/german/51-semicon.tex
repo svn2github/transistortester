@@ -1,31 +1,31 @@
 %\newpage
 \section{Messung von Halbleitern}
-Als erster Test soll der Stromfluß des Bauteils bei stromlosen Steuerpin (dritter Pin, auch TriStatePin genannt)
+Als erster Test soll der Stromfluß des Bauteils bei stromlosen Steuerpin (dritter Pin, auch TriState-Pin genannt)
 untersucht werden. Der Steuerpin ist beispielsweise das Gitter oder die Basis des Testobjektes.
 Ein Testpin wird die positive Seite des Bauteils angenommen und direkt mit VCC verbunden.
 Ein anderer Pin wird als negative Seite des Bauteils angenommen.
 Die negative Seite wird mit dem \(680\Omega\) Widerstand nach GND verbunden.
-Bei Feldeffekt Transistoren ist der Zustand des Transistors von der Spannung des Gitters abhängig.
-Der Tristatepin wird zuerst mit dem \(680\Omega\)-Widerstand für 5ms mit GND verbunden und
+Bei Feldeffekttransistoren ist der Zustand des Transistors von der Spannung des Gitters abhängig.
+Der TriState-Pin wird zuerst mit dem \(680\Omega\)-Widerstand für 5ms mit GND verbunden und
 die Spannung an der negativen Seite gemessen.
-Danach wird die Spannung des negativen Testpins wieder gemessen, während der TriStatePin auf
+Danach wird die Spannung des negativen Testpins wieder gemessen, während der TriState-Pin auf
 Eingang (hochohmig) geschaltet ist.
 Danach wird das angenommene Gate für 5ms mit dem \(680\Omega\)-Widerstand auf VCC geschaltet 
 und die Spannung an der negativen Seite noch einmal gemessen.
 Wenn die gemessene Spannung jetzt niedriger ist als bei der ersten Messung, wird diese Schaltung
-als richtig angenommen. Dann wird die Spannung noch einmal mit stromlosen TristatePin gemessen.
+als richtig angenommen. Dann wird die Spannung noch einmal mit stromlosem Tristate-Pin gemessen.
 
 Wenn die Spannung des negativen Pins mit festgehaltenem Pegel größer als \(115 mV\) ist
-und dieser Pegel nicht \(100 mV\) niedriger als der Pegel mit stromlosen TristatePin ist,
+und dieser Pegel nicht \(100 mV\) niedriger als der Pegel mit stromlosen Tristate-Pin ist,
 wird ein Verarmungs-Typ angenommen.
 Bei bipolaren Transistoren mit hohem Reststrom ist
 der Kollektor-Reststrom bei stromloser Basis deutlich höher.
-Durch die Überprüfung beider Pegel wird eine Falschdetektion von Germanium Transistoren mit
-höheren Kollektor-Reststroms als Verarmungs Transistoren (JFET) vermieden.
+Durch die Überprüfung beider Pegel wird eine Falschdetektion von Germanium-Transistoren mit
+höheren Kollektor-Restströmen als Verarmungs-Transistoren (JFET) vermieden.
 Es werden dann weitere Tests gemacht,
-um N-Kanal JFET oder D-MOSFET  und P-Kanal JFET oder P-MOSFET zu unterscheiden.
+um N-Kanal JFET oder D-MOSFET und P-Kanal JFET oder P-MOSFET zu unterscheiden.
 Die MOSFET-Versionen können erkannt werden durch das Fehlen von Steuerstrom in jedem 
-TriStatePins Zustand.
+TriState-Pin-Zustand.
 
 Um Parameter der Verarmungstypen messen zu können, werden sie mit einem \(680 \Omega\)-Widerstand am
 Source-Pin vermessen, wie in Abbildung \ref{fig:JFETcd} gezeigt wird. Diese Messung wird anstelle der
@@ -41,7 +41,7 @@ des FETs nicht erreicht würde.
 \end{figure}
 
 Wenn das Bauteil keinen Strom zwischen dem positiven Pin und dem negativen Pin ohne ein Signal
-auf dem TristatePin hat, sind die nächsten Tests im nächsten Unterkapitel \ref{sec:pnp} beschrieben.
+auf dem Tristate-Pin hat, sind die nächsten Tests im nächsten Unterkapitel \ref{sec:pnp} beschrieben.
 Wenn Strom festgestellt wird, sind die nächsten Tests in dem Dioden-Unterkapitel \ref{sec:diode} beschrieben.
 
 \subsection{Messung eines PNP-Transistors oder eines P-Kanal MOSFETs}
@@ -83,7 +83,7 @@ Um zu verhindern, dass der PNP-Transistor in der inversen Schaltung (Kollektor u
 wird, wird dann die Messung mit dem höheren Stromverstärkungsfaktor als richtige Messung genommen.
 Wenn die Basis-Spannung kleiner als 0,97V ist, muss es ein P-E-MOS sein.
 In diesem Fall wird die Gate-Schwellwertspannung dadurch bestimmt, dass die Spannung am Gate langsam mit dem
- \(470k\Omega\)-Widerstand rauf und runter gezogen wird bis die Drain-Seite schaltet und dann
+ \(470k\Omega\)-Widerstand rauf und runter gezogen wird, bis die Drain-Seite schaltet und dann
 die Spannung am Gate gemessen wird.
 
 \begin{figure}[H]
@@ -107,12 +107,12 @@ Die Messungen werden dann in der Emitter-Schaltung fortgeführt, wie in Abbildun
 \end{figure}
 Wenn die Spannung auf der Kollektor Seite unter 1,6V liegt, während der \(680\Omega\)-Basiswiderstand mit
 VCC verbunden ist, muss es ein NPN, ein N-Kanal MOSFET oder ein Thyristor (TRIAC) sein.
-Mit zwei einfachen Tests kann ein Thyristor oder Triac erkannt werden.
+Mit zwei einfachen Tests kann ein Thyristor oder TRIAC erkannt werden.
 Wenn der Gate-Pin für 10ms mit GND verbunden wird und dann stromlos geschaltet wird, sollte
 der Strom an der Anode bleiben.
 Wenn jetzt der Anoden-Widerstand kurz auf GND geschaltet und dann auf VCC zurückgeschaltet wird,
 sollte der Thyristor nicht erneut zünden (stromlos bleiben).
-Beachten Sie, dass nur Kleinleistungs Thyristoren getestet werden können, weil der Haltestrom des
+Beachten Sie, dass nur Kleinleistungs-Thyristoren getestet werden können, weil der Haltestrom des
 Testers nur 6mA erreichen kann.
 Wenn beide Tests einen Thyristor bestätigen, werden weitere Tests in umgekehrter Polarität gemacht,
 um ein TRIAC auszuschliessen oder zu bestätigen.
@@ -126,9 +126,9 @@ Wenn die Spannung an der Basis zeigt, dass kein oder wenig Strom fließt, wird d
 (Anreicherungs-MOSFET) sein.
 In diesem Fall wird die Schwellspannung gemessen, indem die Spannung des Gates langsam mit
 dem \(470k\Omega\)-Widerstand nach VCC und GND gezogen wird, darauf wartend, dass das digitale
-Eingangs-Signal auf der Drain Seite schaltet, wobei dann die Gate-Spannung gelesen wird.
+Eingangs-Signal auf der Drain-Seite schaltet, wobei dann die Gate-Spannung gelesen wird.
 Die Messung wird elf Mal wiederholt wie in Abbildung~\ref{fig:eleven} gezeigt und die Ergebnisse addiert.
-Diese Summe wird mit vier multipliziert und durch neun geteilt um eine Auflösung in mV zu erhalten.
+Diese Summe wird mit Vier multipliziert und durch Neun geteilt, um eine Auflösung in mV zu erhalten.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../PNG/IRFU120gate.png}
@@ -166,7 +166,7 @@ Die Flussspannung mit dem \(680\Omega\)-Widerstand muss zwischen 0,15V und 4,64V
 Die Flussspannung mit dem \(680\Omega\)-Widerstand muss grösser als 1,125 Mal der Flussspannung mit dem
  \(470k\Omega\)-Widerstand sein und sechzehn Mal die Flussspannung mit dem \(470k\Omega\)-Widerstand muss
 grösser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
-Zusätzlich darf die anschließende nochmalige Messung mit dem \(470k\Omega\)-Widerstand  keine höhere Spannung als die
+Zusätzlich darf die anschließende nochmalige Messung mit dem \(470k\Omega\)-Widerstand keine höhere Spannung als die
 Messung mit dem \(680\Omega\)-Widerstand ergeben.
 Ich hoffe, dass ein Bauteil mit diesem Verhalten immer eine Diode ist.
 Die Erkennung des Diodenverhaltens durch den fehlenden Stromfluß in der Gegenrichtung ist nicht
@@ -180,10 +180,10 @@ Außerdem wird bei Einzeldioden eine Kapazitätsmessung in Sperr-Richtung durchg
 
 \subsection{Ergebnisse der verschiedenen Messungen}
 Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile 
-eines ATmega8-Prozessors, eines ATmega168 und eines ATmega328 Prozessors.
+eines ATmega8-, ATmega168- und ATmega328-Prozessors.
 Die Messung der Sperrschichtkapazität für die Doppeldiode MBR4045PT gelingt
-nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der 40A Diode. Ebenso kann für die Basis - Emitter
-Strecke des Germanium Transistors AC128 die Sperrschichtkapazität nur im
+nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der 40A-Diode. Ebenso kann für die Basis-Emitter-Strecke 
+des Germanium-Transistors AC128 die Sperrschichtkapazität nur im
 gekühlten Zustand gemessen werden. 
 
 \begin{table}[H]
@@ -289,28 +289,28 @@ MAC97A6     & Triac &   0.92V        &  0.90V        &  0.91V           &  0.90V
 \end{table}
 
 Die Ergebnisse der Transistormessungen unterscheiden sich teilweise erheblich von den Werten der Version 
-von Markus Frejek. Zum Beispiel wird für den Darlington Transistor BC517 von
+von Markus Frejek. Zum Beispiel wird für den Darlington-Transistor BC517 von
 der früheren Software ein hFE von nur 797 statt 77200 gemessen. 
 Dies hängt damit zusammen, dass die Stromverstärkung bei der neuen Version auch mit der
 Kollektorschaltung gemessen wird.
 Dies zeigen auch die Ergebnisse der neuen Version in der Emitterschaltung (common emitter),
 wie man in der letzten Spalte der Tabelle \ref{tab:bipolar} sehen kann.
-Die Basis Emitter Spannung wurde früher mit einem separaten Diodentest mit 1438mV ermittelt.
-Jetzt wird die angegebene Basis Emitter Spannung im Zustand der Verstärkungsmessung (1.20V) ermittelt.
-Der BUL38D Transistor enthält eine Schutzdiode über der Anode und dem Kollektor des NPN Transistors,
-wodurch ein parasitärer PNP Transistor mit vertauschtem Basis - Kollektor Anschluß entsteht.
+Die Basis-Emitter-Spannung wurde früher mit einem separaten Diodentest mit 1438mV ermittelt.
+Jetzt wird die angegebene Basis-Emitter-Spannung im Zustand der Verstärkungsmessung (1,20V) ermittelt.
+Der BUL38D-Transistor enthält eine Schutzdiode über der Anode und dem Kollektor des NPN-Transistors,
+wodurch ein parasitärer PNP-Transistor mit vertauschtem Basis-Kollektor Anschluss entsteht.
 In der Softwareversion 1.10k werden beide Transistoren erkannt und durch das angehängte p auf
 den weiteren Transistor hingewiesen.
 Der richtige Transistor (NPN) wird durch einen Vergleich der Sperrschichtkapazitäten herausgefunden.
-Es wird angenommen, daß der mit der höheren Sperrschichtkapazität der richtige Transistor ist.
+Es wird angenommen, dass der mit der höheren Sperrschichtkapazität der richtige Transistor ist.
 Wenn während der Ergebnisanzeige die Start-Taste gedrückt ist, werden die Parameter des parasitären Transistors
 angezeigt. Dabei wird wieder mit PNPn auf die andere Transistorstruktur hingewiesen.
 Die weitere Transistorstruktur entsteht nur bei der Integration der Schutzdiode in unmittelbarer
 Nachbarschaft des Transistors in das gleiche Halbleitermaterial, nicht bei einer externen Diode.
 
-In der folgenden Tabelle \ref{tab:germanium} werden die Meßergebnisse von Germanium Transistoren gezeigt, die wegen den
-stark Temperatur abhängigen Kollektor Restströmen besonders problematisch sind.
-Es werden die Ergebnisse der Urversion von Markus F. und die Ergebnisse der aktuellen 1.10k Version
+In der folgenden Tabelle \ref{tab:germanium} werden die Messergebnisse von Germanium-Transistoren gezeigt, die wegen den
+stark temperaturabhängigen Kollektor-Restströmen besonders problematisch sind.
+Es werden die Ergebnisse der Urversion von Markus F. und die Ergebnisse der 1.10k Version
 miteinander verglichen. Die 1.10k Version mißt die Stromverstärkung sowohl in der
 Kollektorschaltung als auch in der Emitterschaltung mit Berücksichtigung des Kollektor-Ruhestroms,
  wobei die höhere Stromverstärkung ausgegeben wird.
@@ -320,7 +320,7 @@ Der Kollektor-Ruhestrom wurde in älteren Versionen nicht berücksichtigt.
   \begin{center}
     \begin{tabular}{| l | c | c | c |}
     \hline
- Transistor & Mega8@1MHz          & Mega168 @8MHz       & Mega328 @8MHz    \\
+ Transistor & Mega8 @1MHz          & Mega168 @8MHz       & Mega328 @8MHz    \\
     Typ     & Ur-Version          & Version 1.10k       & Version 1.10k  \\
             & Markus F.           &                     &        \\
     \hline
@@ -343,32 +343,32 @@ AD162       & PNP, B=2127, 280mV  & PNP, B=89, 107mV    & PNP, B=89, 107mV    \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Messergebnisse der Tests mit bipolaren Germanium Transistoren}
+  \caption{Messergebnisse der Tests mit bipolaren Germanium-Transistoren}
   \label{tab:germanium} 
 \end{table}
 
-In der Tabelle \ref{tab:mos} werden die Ergebnisse einiger Feldeffekt-Transistoren Messungen gezeigt.
-Ein gemessenen Parameter der E-MOS Typen ist Gate-Source Schaltspannung,
-bei der das digitale Eingangssignal des ATmega eines am \(680\Omega\) Drain Widerstand 
+In der Tabelle \ref{tab:mos} werden die Ergebnisse einiger Feldeffekttransistoren-Messungen gezeigt.
+Ein gemessenen Parameter der E-MOS-Typen ist Gate-Source-Schaltspannung,
+bei der das digitale Eingangssignal des ATmega eines am \(680\Omega\) Drain-Widerstand 
 angeschlossenen Signals schaltet.
-Der andere Parameter ist die gemessenen Gate Kapazität.
-Bei sehr schneller Änderung der Gate Spannung wegen einer kleinen Gate Kapazität 
+Der andere Parameter ist die gemessenen Gatekapazität.
+Bei sehr schneller Änderung der Gatespannung wegen einer kleinen Gatekapazität 
 ist die ermittelte Spannung etwas ungenau.
-Beim BS250 ändert sich die Gate Spannung von 2.6V auf 2.5V, wenn man einen zusätzlichen
-\(10nF\) Kondensator an das gate - source anschließt.
-Bei JFET Transistoren wird in den Datenblättern oft der Idss Kennstrom genannt,
-der Strom im Drain bei Gate-Source Spannung 0V.
+Beim BS250 ändert sich die Gatespannung von 2,6V auf 2,5V, wenn man einen zusätzlichen
+\(10nF\) Kondensator an Gate-Source anschließt.
+Bei JFET-Transistoren wird in den Datenblättern oft der Idss-Kennstrom genannt,
+der Strom im Drain bei einer Gate-Source-Spannung von 0V.
 Hier wird aber der Strom angegeben, der sich durch einen \(680\Omega\) Lastwiderstand auf der
-Source Seite des JFET ergibt.
+Source-Seite des JFET ergibt.
 Der Lastwiderstand erzeugt für das Gate eine Gegenspannung Vgs,
 die ebenfalls angegeben wird.
-Wegen des symmetrischen Aufbaus der JFET Transistoren kann Drain und Source nicht unterschieden werden.
+Wegen des symmetrischen Aufbaus der JFETs kann Drain und Source nicht unterschieden werden.
 
 \begin{table}[H]
   \begin{center}
     \begin{tabular}{| l | l | c | c | c |}
     \hline
-             &         & Mega8@8MHz       & Mega168 @8MHz    & Mega328 @8MHz \\
+             &         & Mega8 @8MHz       & Mega168 @8MHz    & Mega328 @8MHz \\
  Transistor  & Typ     &                  &                  &               \\
     \hline
     \hline
@@ -424,6 +424,6 @@ GP07N120    & N-E-IGBT & C=3.81nF Vt=4.2V & C=3.76nF Vt=4.2V & C=3.74nF Vt=4.2V 
     \hline
     \end{tabular}
   \end{center}
-  \caption{Messergebnisse der FET-Transistor-Tests}
+  \caption{Messergebnisse der FET-Tests}
   \label{tab:mos} 
 \end{table}

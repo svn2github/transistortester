@@ -4,32 +4,31 @@
 Jeder Bastler kennt das folgende Problem: Man baut einen Transistor aus oder man nimmt einen aus einer Bastelkiste.
 Wenn man die Typenbezeichnung erkennen kann und man bereits ein Datenblatt hat oder eins bekommen kann, ist alles in Ordnung.
 Aber wenn man keine Datenblätter findet, hat man keine Idee, was das für ein Bauteil sein kann.
-Mit den konventionellen Meßmethoden ist es schwierig und zeitaufwändig den Typ des Bauteils und dessen Parameter herauszufinden.
+Mit den konventionellen Messmethoden ist es schwierig und zeitaufwändig den Typ des Bauteils und dessen Parameter herauszufinden.
 Es könnte ein NPN, PNP, N- oder P-Kanal-MOSFET usw. sein. 
 Es war die Idee von Markus F., diese Arbeit von einem AVR-Mikrocontroller erledigen zu lassen.
 
 \subsection*{Wie meine Arbeit begann}
 Meine Beschäftigung mit der Software des TransistorTesters von Markus F. \cite{Frejek} hat begonnen, als ich Probleme mit
 meinem Programmer hatte.
-Ich hatte eine Platine und Komponenten gekauft, aber ich war mit dem Windows-Treiber nicht in der Lage den EEprom-Speicher des ATmega8
+Ich hatte eine Platine und Komponenten gekauft, aber ich war mit dem Windows-Treiber nicht in der Lage den EEPROM des ATmega8
 ohne Fehlermeldungen zu beschreiben.
-Deshalb habe ich die Software von Markus F. genommen und habe alle Zugriffe auf den EEprom-Speicher durch
+Deshalb habe ich die Software von Markus F. genommen und habe alle Zugriffe auf den EEPROM-Speicher durch
 Zugriffe auf den Programm-Speicher (Flash) ersetzt.
-Bei der Durchsicht der Software, um an anderer Stelle Programmspeicher (Flash) einzusparen, hatte ich die Idee,
-das Ergebnis der ReadADC Funktion von ADC-Einheiten in eine Millivolt (mV) Auflösung zu ändern.
-Die mV Auflösung wird für die Ausgabe von Spannungswerten gebraucht.
-Wenn die ReadADC-Funktion direkt die mV Auflösung liefert, kann man die Umwandlung für jeden
-Ausgabewert einsparen.
+Bei der Durchsicht der Software, um an anderer Stelle Programmspeicher einzusparen, hatte ich die Idee,
+das Ergebnis der ReadADC-Funktion von ADC-Einheiten in eine Millivolt (mV) Auflösung zu ändern.
+Die mV-Auflösung wird für die Ausgabe von Spannungswerten gebraucht.
+Wenn die ReadADC-Funktion direkt die mV-Auflösung liefert, kann man die Umwandlung für jeden Ausgabewert einsparen.
 Diese mV-Auflösung kann man erhalten, wenn man zuerst die Ergebnisse von 22 ADC-Einlesungen addiert.
-Die Summe muß mit zwei multipliziert und durch neun geteilt werden.
+Die Summe muss mit Zwei multipliziert und durch Neun geteilt werden.
 Das ergibt einen Maximalwert von \begin{math}\frac{1023\cdot22\cdot2}{9} = 5001\end{math},
-welcher hervorragend zu der gewünschten mV Auflösung passt.
+welcher hervorragend zu der gewünschten mV-Auflösung passt.
 So hatte ich zusätzlich die Hoffnung, dass die Erhöhung der ADC-Auflösung durch Überabtastung helfen
-könnte, die Spannungs-Einlesung zu verbessern, wie es in dem Atmel Report AVR121 \cite{AVR121} beschrieben ist.
+könnte, die Spannungs-Einlesung zu verbessern, wie es in dem Atmel-Report AVR121 \cite{AVR121} beschrieben ist.
 Die Original-Version von ReadADC hat die Ergebnisse von 20 ADC-Einlesungen addiert und danach durch 20 dividiert,
 so dass das Ergebnis wieder die Original-Auflösung des ADC hat. Deshalb konnte niemals eine Erhöhung der ADC-Auflösung
 durch Überabtastung stattfinden.
-So hatte ich wenig Arbeit, die ReadADC Funktion zu ändern, aber dies erforderte die Analyse des kompletten
+So hatte ich wenig Arbeit, die ReadADC-Funktion zu ändern, aber dies erforderte die Analyse des kompletten
 Programms und Änderung aller ,,if''-Abfragen im Programm, wo Spannungswerte geprüft wurden.
 Aber dies war nur der Beginn meiner Arbeit!
 
@@ -39,7 +38,7 @@ Das Ausgabe-Format für das LC-Display wurde verändert, so wurden Symbole für 
 Dioden, Widerständen und Kondensatoren verwendet.
 Für weitere Einzelheiten schauen Sie in das aktuelle Eigenschaften-Kapitel \ref{sec:features}.
 Geplante Arbeiten und neue Ideen wurden im Arbeitslisten-Kapitel \ref{sec:todo} gesammelt.
-Inzwischen kann ich unter dem Linux-Betriebssystem auch den EEprom-Speicher des ATmega8 einwandfrei beschreiben.
+Inzwischen kann ich unter dem Linux-Betriebssystem auch den EEPROM des ATmega8 einwandfrei beschreiben.
 
 Danken möchte ich hier dem Erfinder und Softwareautor Markus Frejek, der mit seinem Projekt die Weiterführung erst
 möglich gemacht hat.
@@ -48,13 +47,13 @@ Fehler zu finden.
 Weiter gilt mein Dank auch Markus Reschke, der mir die Erlaubnis gegeben hat, seine aufgeräumte Versionen im
 SVN-Server zu veröffentlichen. Außerdem sind einige Ideen und Softwareteile von Markus R. in meine Version eingeflossen,
 auch hierfür herzlichen Dank.
-Auch hat Wolfgang Sch. eine große Leistung vollbracht, das grafische Display mit ST7565 Kontroller zu unterstützen.
-Vielen Dank für den Patch für die 1.10k Software Version und für die Integration in die aktuelle Entwicklerversion.
+Auch hat Wolfgang Sch. eine große Leistung vollbracht, das grafische Display mit ST7565-Controller zu unterstützen.
+Vielen Dank für den Patch für die 1.10k Softwareversion und für die Integration in die aktuelle Entwicklerversion.
 Bedanken möchte ich mich auch bei Asco B., der eine Platine für Nachbauwillige entwickelt hat und bei Dirk W. , der sich
 um die Sammelbestellungen für diese Platine gekümmert hat. Ich hätte unmöglich selbst die Zeit dafür aufbringen können, sonst
 wäre die Weiterentwicklung der Software noch nicht so weit gekommen.
 Auch bei den Mitgliedern des Ortsverbandes Lennestadt des Deutschen Amateur Radio Clubs (DARC) möchte ich mich für zahlreiche
 Anregungen und Verbesserungsvorschläge bedanken.
-Nicht zuletzt möchte ich mich bei Nick L. aus der Ukraine bedanken, der mich mit Prototyp Leiterplatten unterstützt hat,
-einige Hardware Erweiterungen vorgeschlagen hat und für die russische Übersetzung dieser Beschreibung gesorgt hat.
+Nicht zuletzt möchte ich mich bei Nick L. aus der Ukraine bedanken, der mich mit Prototyp-Leiterplatten unterstützt hat,
+einige Hardware-Erweiterungen vorgeschlagen hat und für die russische Übersetzung dieser Beschreibung gesorgt hat.
 

@@ -3,7 +3,7 @@
 \chapter{Spezielle Softwareteile}
 
 Es wurden zahlreiche Veränderungen durchgeführt um Flashspeicher zu sparen.
-Die LCD-Ausgabe von Test-Anschlußnummern wurde in der Form ,,lcd\_data('1'+Pin)'' durchgeführt.
+Die LCD-Ausgabe von Test-Anschlussnummern wurde in der Form ,,lcd\_data('1'+Pin)'' durchgeführt.
 Um den Platz für die zusätzliche Addition für jeden Aufruf zu sparen, wurde die
 Funktion ,,lcd\_testpin(uint8\_t pin)'' in die Datei lcd\_routines.c eingefügt.
 
@@ -16,7 +16,7 @@ Bibliothek ersetzt, welche nur 74~Bytes des Flashspeichers (bei 8MHz) verbraucht
 Aufrufe von wait1us() bis wait5s() in den Stufen 1,2,3,4,5,10,20\dots zur Verfügung stellt.
 Die Routinen enthalten den ''Watch Dog Reset''-Befehl für alle Aufrufe über 50ms.
 Jeder Aufruf benötigt nur eine Anweisung (2~Byte). Warte-Aufrufe mit Zwischenwerten
-wie 8ms benötigen zwei Aufrufe (wait5ms() und wait3ms() oder zwei mal wait4ms() Aufrufe).
+wie 8ms benötigen zwei Aufrufe (wait5ms() und wait3ms() oder zwei wait4ms()-Aufrufe).
 Ich kenne keine Lösung, die ökonomischer wäre, wenn man viele Warteaufrufe im Programm benutzt.
 Die Aufrufe benutzen keine Register, nur der Stapelzeiger (Stack Pointer) wird für die Rückkehr-Adressen
 im RAM (maximal 28 Byte Stack-Platz) benutzt.
@@ -40,6 +40,6 @@ Zusätzlich wurde die oft benutzte Folge ,,wait5ms(); ReadADC(\dots);'' durch ei
 ,,W5msReadADC(\dots);'' ersetzt.
 Dasselbe wurde auch für die Folge ,,wait20ms(); ReadADC(\dots);'' gemacht, die durch den Aufruf
 ,,W20msReadADC(\dots);'' ersetzt wurde.
-Die Funktion ReadADC wurde zusätzlich in Assembler portiert, so daß diese Erweiterung
+Die Funktion ReadADC wurde zusätzlich in Assembler portiert, sodass diese Erweiterung
 sehr effektiv integriert werden konnte.
 Eine funktionell identische C-Version der ReadADC-Funktion ist auch beigefügt.

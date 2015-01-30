@@ -13,7 +13,7 @@ Nach Beenden des Selbsttestes wird der Tester mit normaler Messung fortfahren.
 Wenn kein Bauteil angeschlossen ist, wird der TransistorTester mit der
 Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
 Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
-Bevor die Test Schritte durchgeführt werden, wird zuerst der Null-Widerstand für alle drei Testpin Kombinationen
+Bevor die Testschritte durchgeführt werden, wird zuerst der Null-Widerstand für alle drei Testpin-Kombinationen
 (T1:T3, T2:T3 und T1:T2) bestimmt. Diese Nullwiderstände werden für die zukünftigen ESR- und Widerstands-Messungen
 unter \(10 \Omega\) berücksichtigt.
 Falls die später gemessenen Widerstandswerte den jeweiligen Nullwiderstand um mehr als \(0.2 \Omega\) unterschreiten,
@@ -26,7 +26,7 @@ Aber wenn man den Start Taster gedrückt hält, wenn ein Durchlauf beendet wird,
 mehr wiederholt.
 Wenn man den Taster während dem gesamten Selbsttest gedrückt hält, wird jeder Schritt nur einmal ausgeführt.
 
-Ohne die AUTO\_CAL Option werden in jedem Schritt nur Messergebnisse dargestellt, es wird keine Fehleranalyse durchgeführt.
+Ohne die AUTO\_CAL-Option werden in jedem Schritt nur Messergebnisse dargestellt, es wird keine Fehleranalyse durchgeführt.
 Man  muss die Ergebnisse selbst interpretieren.
 An dieser Stelle möchte ich noch einen wichtigen Hinweis geben. Führen Sie niemals Messungen mit
 eingestecktem ISP-Stecker durch!
@@ -88,13 +88,13 @@ Große Abweichungen vom Idealwert für Schritt 5 und 6 sind Fehler wie Isolation
 
 \item {\bf Dieser Schritt testet die Spannungen der \(470 k\Omega / 680 \Omega\)  Widerstandsteiler.}
 Zeile 1 zeigt den Text ,,RH/RL''.
-Für alle drei Testpins wird die Abweichung von der erwarteten Spannung eines \(470 k\Omega\) / \(680 \Omega\) 5V Teilers 
+Für alle drei Testpins wird die Abweichung von der erwarteten Spannung eines \(470 k\Omega\) / \(680 \Omega\) 5V-Teilers 
 in Zeile 2 des Displays ausgegeben.
 Abweichungen von mehr als einige mV weisen auf einen Bestückungsfehler der Widerstände hin.
 
 \item {\bf Messung des Innenwiderstandes eines auf GND geschalteten Ausgangs.}
-Dieser und die folgenden Schritte werden nur bei gewählter AUTO\_CAL Option durchgeführt.
-Die internen Port C Widerstände von auf GND (-) geschalteten Ausgängen werden mit dem Strom
+Dieser und die folgenden Schritte werden nur bei gewählter AUTO\_CAL-Option durchgeführt.
+Die internen Port-C-Widerstände von auf GND (-) geschalteten Ausgängen werden mit dem Strom
 der nach VCC (+) geschalteten \(680\Omega\) Widerstände gemessen, siehe Abbildung~\ref{fig:test7}.
 Es werden nur die drei Pins des ADC-Ports vermessen, die Widerstands-Ports  PB0, PB2 und PB4 können nicht
 ohne Veränderung der Hardware gemessen werden.
@@ -129,13 +129,13 @@ hinter dem Text ,,C0 '' ausgegeben.
 In der Software wird ein Vorgabewert von circa 39~pF für die normale Messwertausgabe berücksichtigt.
 Für die Ausgabe dieses Tests ist keine Korrektur berücksichtigt, es wird auch kein Nulloffset abgezogen.
 Es werden auch die Nulloffsets für die umgekehrte Pinkombination ermittelt.
-Die gefundenen Nulloffsets werden im EEprom festgehalten, wenn alle Null Offsets kleiner als 190pF sind.
+Die gefundenen Nulloffsets werden im EEPROM festgehalten, wenn alle Nulloffsets kleiner als 190pF sind.
 In Zeile 2 wird dann ein ,,OK'' ausgegeben.
-Die gefundene Null Offsets werden für die weiteren Kapazitäts-Messungen Pin abhängig berücksichtigt.
-Dabei wird überwacht, of die gemessene Kapazität die festgehaltene Nullkapazität um mehr als 20pF unterschreitet.
+Die gefundene Nulloffsets werden für die weiteren Kapazitäts-Messungen pinabhängig berücksichtigt.
+Dabei wird überwacht, ob die gemessene Kapazität die festgehaltene Nullkapazität um mehr als 20pF unterschreitet.
 Wenn dies der Fall sein sollte, wird der Tester auf ,,unkalibriert'' zurückgesetzt.
 Dies wird durch die Aktivierung des LCD-Positionszeigers (Cursor) beim nächsten Testen angezeigt.
-Bitte beachten Sie, dass Veränderungen des Messaufbaus einen Neuabgleich sinnvoll machen.
+Bitte beachten Sie, dass bei Veränderungen des Messaufbaus ein Neuabgleich sinnvoll ist.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegenüber einem leeren
 Sockel erhöhen.
 
@@ -150,12 +150,12 @@ Auf keinen Fall sollte man Elektrolyt-Kondensatoren verwenden.
 Um den Offset des analogen Komparators zu bestimmen, muss ein Kondensator an Pin~1 und Pin~3 angeschlossen sein.
 Der Kondensator wird für die Pufferung der Ladespannung bei der Kondensatormessung benötigt, um den Unterschied der 
 Ladespannung zur internen Referenzspannung bestimmen zu können.
-Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,REF\_C='' angezeigt und in den EEprom-Speicher geschrieben.
+Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,REF\_C='' angezeigt und in den EEPROM geschrieben.
 
 Wenn Sie die AUTOSCALE\_ADC-Option gewählt haben, wird die Verstärkung der ADC-Lesefunktion mit der
 internen Referenzspannung abgeglichen. Das geschieht durch den Vergleich der Kondensatorspannung von unter 1 V, einmal mit
 der VCC-Referenz gemessen und einmal mit der internen Referenz.
-Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEprom festgehalten.
+Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEPROM festgehalten.
 Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatisch gefundene Differenz.
 
 \end{enumerate}

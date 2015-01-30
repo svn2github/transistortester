@@ -19,7 +19,7 @@ Wenn die Spannung grösser ist, wird der Zähler sofort angehalten und aus dem f
 dem Überlaufzähler die Gesamtzeit bestimmt.
 Der Anschluss der Spule wird wieder von VCC auf GND geschaltet, und über eine Spannungsüberwachung beider
 Anschlüsse gewartet, bis kein Strom mehr festgestellt wird.
-Das Schaltbild~\ref{fig:Inductance} zeigt ein vereinfachtes Diagram der Meßsituation.
+Das Schaltbild~\ref{fig:Inductance} zeigt ein vereinfachtes Diagram der Messsituation.
 
 \begin{figure}[H]
 \centering
@@ -42,7 +42,7 @@ als es die Spezifikation des ATmega erlaubt. Da das nur für eine sehr kurze Zei
 Um eine längere Zeitdauer mit überhöhtem Strom auszuschliessen, wird die zusätzliche Messung mit 
 verzögertem Zählerstart immer mit \(680 \Omega\)-Widerstand durchgeführt.
 Für diesen Typ der Messung wird die Auflösung der Induktivität auf 0.01mH gesetzt.
-Um die Meßergebnisse an den tatsächlichen Induktivitätswert anzugleichen, wird vom Zählerstand ein
+Um die Messergebnisse an den tatsächlichen Induktivitätswert anzugleichen, wird vom Zählerstand ein
 Nulloffset von 6 abgezogen, wenn ohne \(680 \Omega\) gemessen wurde. Sonst wird ein Nulloffset von 7 oder 8 berücksichtigt.
 
 
@@ -57,7 +57,7 @@ Von den Messungen in verschiedenen Stromrichtungen wird der kleinere Wert als Re
 
 \subsection{Ergebnisse der Induktivitäts-Messungen}
 Die Abbildung~\ref{fig:Induct328p} zeigt die Messergebnisse verschiedener Induktivitäten.
-Die Induktivitäten über \(1 H\) sind Relays und Primärwicklungen von Netztrafos, die wegen
+Die Induktivitäten über \(1 H\) sind Relais und Primärwicklungen von Netztrafos, die wegen
 der Remanenz des Eisenkerns schwierig zu messen sind.
 
 \begin{figure}[H]

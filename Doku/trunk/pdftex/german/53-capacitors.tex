@@ -16,7 +16,7 @@ Sie sollten die Kapazitäten immer entladen, bevor sie mit dem Tester verbunden 
 Bevor irgendein Test gestartet wird, wird der Kondensator vom Tester immer noch einmal entladen.
 Wenn die Spannung unter 1300mV ist, wird der Kondensator dafür mit den angeschlossenen ADC-Ports (Port C) kurzgeschlossen.
 Ich glaube das ist in Ordnung, weil jeder Portausgang einen Innenwiderstand von ungefähr \(20\Omega\) hat.
-Die Abbildung 149 (Seite 258) im Atmega8-Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
+Die Abbildung 149 (Seite 258) im ATmega8-Datenblatt \cite{ATmega8} zeigt einen Spannungsabfall an Ausgabe-Pins von bis zu 2V.
 Natürlich kann ich nicht garantieren, dass kein Schaden auftreten kann.
 Ich habe die Funktion mit Kondensatoren von mehr als \(15 mF\) sehr oft getestet und ich habe noch nie ein Problem bemerkt.
 Der Strom sollte unter der spezifizierten Grenze von 40mA bleiben und reduziert sich schnell durch die Entladung.
@@ -94,7 +94,7 @@ Diese Zähler hat auch die Fähigkeit aufgrund eines externen Ereignisses den Z�
 Dieses Ereignis kann auch das Ausgangs-Signal des Komparators sein.
 Der Komparator kann mit jedem ADC-Eingangspin und der Spannungsreferenz (Band Gap Reference) arbeiten.
 Das Schaltbild~\ref{fig:comparat} zeigt ein vereinfachtes Diagram der Messsituation.
-So entlade ich den Kondensator, bereite den Komparator für den richtigen Pin Eingang vor, starte den Zähler bei 0 und
+So entlade ich den Kondensator, bereite den Komparator für den richtigen Pin-Eingang vor, starte den Zähler bei 0 und
 starte sofort das Laden des Kondensators.
 Dabei ist eine Seite des Kondensators mit GND, die andere Seite über den \(470k\Omega\)-Widerstand mit VCC verbunden.
 Nun prüfe ich in einer Programm-Schleife, ob der Zähler ein Überlauf-Ereignis (overflow) oder ein
@@ -113,11 +113,11 @@ Diese Tabelle wird nur mit der Makefile Option WITH\_AUTO\_REF aktiviert.
 Vom Kapazitätswert ziehe ich eine experimentell herausgefundene vordefinierte Konstante oder eine im Selbsttest
 herausgefundene Konstante ab, um den Messwerte-Offset zu beseitigen.
 Ich weiß nicht, ob die vordefinierte Konstante für andere Leiterplatten angepasst werden muss.
-Mit einem Selbsttest bei gesetzter AUTO\_CAL Option wird diese Anpassung automatisch erledigt.
+Mit einem Selbsttest bei gesetzter AUTO\_CAL-Option wird diese Anpassung automatisch erledigt.
 
 Ich habe bemerkt, dass die Referenz-Spannung meistens etwas zu klein gemessen wird,
  deshalb kann man einen Zusatz mit der Makefile Option REF\_C\_KORR angeben.
-Nach der Kalibration mit der AUTO\_CAL option ist der REF\_C\_KORR Wert nur ein Zusatz zu der automatisch
+Nach der Kalibration mit der AUTO\_CAL-Option ist der REF\_C\_KORR-Wert nur ein Zusatz zu der automatisch
 gefundenen Differenz zwischen geladener Kondensator-Spannung und der internen Referenz-Spannung.
 Die gemessene Referenz-Spannung wird dann mit dem Korrekturwert (in mV) korrigiert (addiert).
 Wenn die Option WITH\_AUTO\_REF nicht benutzt wird, werden die Referenz-Spannungen entsprechend den Angaben in den
@@ -165,12 +165,12 @@ Serieninduktivität und der Widerstand \(ESR\) stellt den äquivalenten Serienwi
 Es ist in Datenblättern üblich, den ESR gemessen bei einer Frequenz von 100 kHz und
 einer Temperatur von \(20\textdegree C\) anzugeben.
 Die Abbildungen \ref{fig:Cap_FC_data} und \ref{fig:Cap_FR_data} zeigen die vom Hersteller Panasonic 
-angegebenen ESR Werte für die Elektrolytkondensatoren verschiedener Betriebs-Spannungen für die FC und die ,,low ESR'' FR Reihe.
+angegebenen ESR-Werte für die Elektrolytkondensatoren verschiedener Betriebs-Spannungen für die FC- und die ,,low ESR'' FR-Reihe.
 Beide Serien sind für eine maximale Temperatur von \(105\textdegree C\) ausgelegt.
 Die Abbildung \ref{fig:Cap_FC_FR_data} stellt die angegebenen Daten beider Serien bei einer zulässigen Betriebsspannung
 von 25V dar. Wenn in der Baureihe verschiedene Ausführungen mit gleicher Kapazität und Spannung zur Verfügung stehen,
 werden die Daten mit dem niedrigsten ESR dargestellt.
-Bei Elektrolytkondensatoren sind sowohl der ESR Wert als auch die Kapazität relativ stark von der Betriebstemperatur
+Bei Elektrolytkondensatoren sind sowohl der ESR-Wert als auch die Kapazität relativ stark von der Betriebstemperatur
 abhängig.
 
 \begin{figure}[H]
@@ -199,18 +199,18 @@ eine direkte Abtastung einer so hohen Eingangsfrequenz zuläßt, noch ein 100 kH
 Verfügung steht. 
 Als nächstes werden hier zwei Methoden für die Bestimmung des ESR vorgestellt, die mit der vohandenen
 Schaltung auskommen. 
-Beide Methoden verwenden für die Messung ein rechteckförmiges Meßsignal, so daß die Ergebnisse nie
-exakt mit den Angaben übereinstimmen können, die bei einem sinus-förmigen Signal gemessen werden.
+Beide Methoden verwenden für die Messung ein rechteckförmiges Messsignal, sodass die Ergebnisse nie
+exakt mit den Angaben übereinstimmen können, die bei einem sinusförmigen Signal gemessen werden.
 Bei der ersten Methode liegen die Ergebnisse nahe bei den ESR-Werten, die bei 1 kHz ermittelt werden.
-Die zweite Methode hat aber den Vorteil, daß der Nullwert mit kurzgeschlossenen Testpins ermittelt werden kann
-und daß zusätzlich der ermittelte ESR sich dem bei 10 kHz Meßfrequenz gemessenen Wert nähert.
-Ich habe derzeit keine Idee für eine Meßmethode, die einen direkt zu der 100 kHz Messung einen 
+Die zweite Methode hat aber den Vorteil, dass der Nullwert mit kurzgeschlossenen Testpins ermittelt werden kann
+und dass zusätzlich der ermittelte ESR sich dem bei 10 kHz Messfrequenz gemessenen Wert nähert.
+Ich habe derzeit keine Idee für eine Messmethode, die einen direkt zu der 100kHz-Messung einen 
 vergleichbaren ESR-Wert liefern kann.
 
 Die folgende Tabelle \ref{tab:capESR} soll die Abhängigkeit des ESR von der Frequenz zeigen.
 Außer dem \(47 \mu F\) Kondensator sind alle Kondensatoren aus der Baureihe FC von Panasonic.
-Die Referenzwerte wurden mit einem Peaktech 2170 LCR-Meßgerät ermittelt.
-Alle TransistorTester Resultate in dieser Tabelle wurden mit der im Unterkapitel \ref{sec:ESR2} 
+Die Referenzwerte wurden mit einem Peaktech 2170 LCR-Messgerät ermittelt.
+Alle TransistorTester-Resultate in dieser Tabelle wurden mit der im Unterkapitel \ref{sec:ESR2} 
 beschriebenen Methode 2 gemessen.
 Bei großen Kapazitätswerten macht die ebenfalls vorhandene Induktivität ESL das Messen bei höheren Frequenzen 
 wie 100 kHz schwierig.
@@ -257,10 +257,10 @@ Genau genommen ist der ESR eines Kondensators abhängig von der Betriebsfrequenz
 Üblicherweise wird der mit einem sinusförmigen Signal bei \(100 kHz\) gemessene Wert in Datenblättern angegeben.
 Bei dieser Frequenz kann der ATmega ohne externe Beschaltung keine Messung durchführen.
 Das nachfolgend beschriebene Verfahren erreicht bei der normalen ADC-Taktrate nur eine Messfrequenz von unter 640 Hz
- mit näherungsweise rechteckigem Signal. Bei \(500 kHz\) ADC Taktrate wird etwa 2400 Hz Meßfrequenz erreicht.
+ mit näherungsweise rechteckigem Signal. Bei \(500 kHz\) ADC-Taktrate wird etwa 2400 Hz Messfrequenz erreicht.
 Um den äquivalenten Serienwiderstand zu bestimmen,
  wird der Kondensator zuerst in einer Richtung geladen und an beiden Anschlüssen die Spannung mit der internen
-Referenzspannung (1.1 V) gemessen.
+Referenzspannung (1,1 V) gemessen.
 Nach der Messung wird der Ladestrom abgeschaltet und die Spannung am Kondensator ohne den
 Ladestrom gemessen. Wenn die Spannung am Kondensator ohne Ladestrom weniger als 3 mV beträgt, wird
 diese Messfolge wiederholt.
@@ -289,11 +289,11 @@ Der Widerstandswert wird aus dem Verhältnis dieser Spannung \(Uesr\) zu der Spa
 bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, dass eine Widerstandauflösung von
 \(0.01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
 Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs eines \(4.2\mu F\) Kondensators
- während der ESR-Messung. Dem Kondensator wurde ein \(6.8 \Omega\) Widerstand in Serie geschaltet, um den ESR Einfluß
+ während der ESR-Messung. Dem Kondensator wurde ein \(6.8 \Omega\) Widerstand in Serie geschaltet, um den ESR-Einfluß
 zu verdeutlichen. Der kleine Spannungseinbruch nach dem Ladevorgang des Kondensators wird von der Software ausgewertet.
 Der größere Spannungseinbruch bei der Messung gegen GND kommt durch den Einfluß des Port-Ausgangswiderstands von etwa \(20 \Omega\) zustande.
 Das Ergebnis der ESR-Messung ist in diesem Fall \(7.5 \Omega\), ohne den \(6.8 \Omega\) Widerstand sind es \(0.56 \Omega\).
-Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Meßfrequenz bei einem \(2.2 \mu F\) Elko mit einem ESR von \(6.5 \Omega\).
+Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Messfrequenz bei einem \(2.2 \mu F\) Elko mit einem ESR von \(6.5 \Omega\).
 
 
 \begin{figure}[H]
@@ -342,53 +342,53 @@ Es ist aber schwierig im Programm den genauen Zeitpunkt für die Stromabschaltun
 \item Der Port-Ausgangswiderstand wird bei dieser Messmethode als Referenz benutzt, dessen Widerstandwert
 ist aber auch nicht exakt bekannt.
 \item Die Auflösung des ADC reicht nicht aus, um eine Widerstandsauflösung von \(0.01 \Omega\) zu erreichen.
-Für alle Messungen wird die interne Spannungsreferenz (1.1 V) benutzt, um die best mögliche Auflösung zu verwenden.
+Für alle Messungen wird die interne Spannungsreferenz (1,1 V) benutzt, um die best mögliche Auflösung zu verwenden.
 Zusätzlich wird versucht, den Auflösungs-Mangel durch eine große Zahl von Einzelmessungen abzumildern.
 \item Mit der Abfrage des Fertig-Signals der ADC-Wandlung gelingt es nicht exakt, die Schaltzeiten der Port-Ausgänge mit dem
 ADC-Takt zu synchronisieren.
 \end{enumerate}
 
 Trotz allen Schwierigkeiten scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Abbildung \ref{fig:Cesr} zeigt.
-Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken stärker als die Messungen des LCR-meters.
+Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken stärker als die Messungen des LCR-Meters.
 Die Messergebnisse des LCR-Messgerätes wurden bei einer Frequenz von 1 kHz gemessen oder für kleine Kapazitäten auf
 2.4 kHz interpoliert.
 Beim Transistortester muss auf die Qualität der Anschlüsse geachtet werden. Verwendete Anschlusskabel
 erhöhen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern können die gemessenen
 Widerstandwerte erhöhen. Das LCR-Messgerät macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
 Bei den Kondensatoren mit einer Kapazität unter \(1 \mu F\) war ein \(500 nF\) keramischer 
-Kondensator (Z5U), alle anderen waren Folien-Kondensatoren. Der einzige Elektrolyt-Kondensator der Meßreihe unter \(9 \mu F\)  
+Kondensator (Z5U), alle anderen waren Folien-Kondensatoren. Der einzige Elektrolyt-Kondensator der Messreihe unter \(9 \mu F\)  
 ist ein \(2.2 \mu F\) Kondensator.
 
 \begin{figure}[H]
 \centering
 \input{../GNU/Cesr}
-\caption{Messergebnisse der ESR-Messungen mit 15 veschiedenen ATmega}
+\caption{Messergebnisse der ESR-Messungen mit 15 verschiedenen ATmega}
 \label{fig:Cesr}
 \end{figure}
 
 \newpage
 \subsection{Messen des äquivalenten Serienwiderstandes ESR, Methode 2}
 \label{sec:ESR2}
-Ab der Softwareversion 1.07k wurde die ESR-Messung auf eine modifizierte Meßmethode umgestellt.
-Die einzelnen Meßschritte sind in Abbildung~\ref{fig:Cap_esr2} gezeigt. Das besondere an der Methode
-ist, daß die Zeit des Stromflusses durch den Kondensator wesentlich gegenüber der Methode 1 verringert wurde.
+Ab der Softwareversion 1.07k wurde die ESR-Messung auf eine modifizierte Messmethode umgestellt.
+Die einzelnen Messschritte sind in Abbildung~\ref{fig:Cap_esr2} gezeigt. Das Besondere an der Methode
+ist, dass die Zeit des Stromflusses durch den Kondensator wesentlich gegenüber der Methode 1 verringert wurde.
 Der Kondensator wird mit einem Puls der halben Breite negativ vorgeladen und wird dann zyklisch aufgeladen und in der
 Gegenrichtung wieder entladen.
-Dabei wird der Ladepuls zeitlich so gelegt, daß bei Sample 4 und 8 zur Pulsmitte
-die Spannung für den ADC abgegriffen wird (Sample and Hold, 2.5 ADC Takte nach dem Start).
-Ein kompletter Meßzyklus wird in Abbildung~\ref{fig:Cap_esr2_timing} gezeigt.
-Es werden auch bei dieser Meßmethode die Summen der Meßergebnisse aus 255 Zyklen ausgewertet,
+Dabei wird der Ladepuls zeitlich so gelegt, dass bei Sample 4 und 8 zur Pulsmitte
+die Spannung für den ADC abgegriffen wird (Sample and Hold, 2.5 ADC-Takte nach dem Start).
+Ein kompletter Messzyklus wird in Abbildung~\ref{fig:Cap_esr2_timing} gezeigt.
+Es werden auch bei dieser Messmethode die Summen der Messergebnisse aus 255 Zyklen ausgewertet,
 um eine ausreichende Auflösung zu erreichen.
 Eine fortlaufende Aufladung des Kondensators in die eine oder andere Richtung wird durch die kurzen und
 gleich langen Auflade- und Entlade-Pulse bei gleicher Beschaltung weitgehend vermieden.
 Bei der Messung der Referenzspannung fließt kein Strom durch den Kondensator. Dadurch ist diese Messung
-nicht zeitkritisch. Es wird lediglich vorausgesetzt, daß der Kondensator seine Spannung in der
+nicht zeitkritisch. Es wird lediglich vorausgesetzt, dass der Kondensator seine Spannung in der
 stromlosen Zeit beibehält.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=18cm]{../FIG/Cap_esr2_timing.eps}
-  \caption{Zeitlicher Ablauf eines Meßzyklus der neuen ESR-Messung}
+  \caption{Zeitlicher Ablauf eines Messzyklus der neuen ESR-Messung}
   \label{fig:Cap_esr2_timing}
 \end{figure}
 
@@ -402,18 +402,18 @@ stromlosen Zeit beibehält.
 
 Durch den kürzeren Ladepuls kann nicht nur der ESR von geringeren Kapazitätswerten gemessen werden, sondern
 diese Methode kann auch für die Messung kleiner Widerstandswerte benutzt werden, wenn die Widerstände
-keine meßbare Induktivität besitzen. Dadurch kann die Auflösung bei Widerstandswerten unter \(10 \Omega\) auf 
+keine messbare Induktivität besitzen. Dadurch kann die Auflösung bei Widerstandswerten unter \(10 \Omega\) auf 
 \(0.01 \Omega\) gesenkt werden. Daneben kann auch der Nullwiderstand für die Widerstandsmessung als auch
 für die ESR-Messung im Selbsttestzweig der Kalibration für alle drei Testpin-Kombinationen bestimmt werden.
 Auf solide Steckverbindungen oder Klemmverbindungen sollte für stabile Ergebnisse geachtet werden.
-Die Meßperiode beträgt etwa \(900 \mu s\), was einer Frequenz von etwa \(1.1 kHz\) entspricht.
+Die Messperiode beträgt etwa \(900 \mu s\), was einer Frequenz von etwa \(1.1 kHz\) entspricht.
 Wegen der Kürze der Ladepulse entspricht das Ergebnis aber eher einer Messung mit \(10 kHz\).
 Als Beispiel wird die Messung eines \(10 \mu F\) Folienkondensators einmal direkt und einmal mit einem
 \(2.7 \Omega\) Serienwiderstand in Abbildung~\ref{pic:NewEsr10} gezeigt.
 Deutlich kann man den Einfluß des zusätzlichen Widerstandes beim Vergleich der beiden Diagramme erkennen.
-Hier wird auch verständlich, warum die ADC-Messung in der Mitte des Ladepulses erfolgen muß.
+Hier wird auch verständlich, warum die ADC-Messung in der Mitte des Ladepulses erfolgen muss.
 Bei großen Kondensatoren bleibt der Ladestrom des Kondensators hinreichend gut konstant,
-so daß bei der zeitlichen Mitte des Ladepulses auch die mittlere Spannung gemessen wird.
+sodass bei der zeitlichen Mitte des Ladepulses auch die mittlere Spannung gemessen wird.
 Bei keineren Kondensatoren ergibt sich ein deutlicherer Unterschied, der aber mit dem
 bekannten Kapazitätswert relativ gut kompensiert werden kann.
 
@@ -475,9 +475,9 @@ des ADC ist hier etwa in der Bildmitte.
 \end{figure}
  
 
-Die Meßergebnisse der neuen ESR-Meßmethode sind in Abbildung~\ref{fig:Cesr2} dargestellt.
+Die Messergebnisse der neuen ESR-Messmethode sind in Abbildung~\ref{fig:Cesr2} dargestellt.
 Die ESR-Werte unterscheiden sich wegen der Frequenzabhängigkeit von den Ergebnissen der Abbildung~\ref{fig:Cesr}.
-Die Vergleichswerte des LCR-Meßgerätes sind bei \(10 kHz\) ermittelt worden.
+Die Vergleichswerte des LCR-Messgerätes sind bei \(10 kHz\) ermittelt worden.
 
 \begin{figure}[H]
 \centering
@@ -486,11 +486,11 @@ Die Vergleichswerte des LCR-Meßgerätes sind bei \(10 kHz\) ermittelt worden.
 \label{fig:Cesr2}
 \end{figure}
 
-Eine Meßreihe mit Elektrolyt-Kondensatoren verschiedener Größen zeigt die Abbildung \ref{fig:ElcoESR}.
-Es werden die Ergebnisse von einem PeakTech 3315 LCR-Meßgerät bei verschiedenen Meßfrequenzen und die
-Ergebnisse des TransistorTesters gegenübergestellt. Die Widerstandswerte sind in diesem Diagram lograrithmisch dargestellt.
+Eine Messreihe mit Elektrolyt-Kondensatoren verschiedener Größen zeigt die Abbildung \ref{fig:ElcoESR}.
+Es werden die Ergebnisse von einem PeakTech 3315 LCR-Messgerät bei verschiedenen Messfrequenzen und die
+Ergebnisse des TransistorTesters gegenübergestellt. Die Widerstandswerte sind in diesem Diagram logarithmisch dargestellt.
 In allen Fällen liegen die Ergebnisse des TransistorTesters
-nahe an den Ergebnissen des LCR-Meßgerätes bei 10kHz Meßfrequenz. 
+nahe an den Ergebnissen des LCR-Messgerätes bei 10kHz Messfrequenz. 
 Nur der \(500 \mu F/3V\) Kondensator war ein älteres Exemplar, alle anderen waren neuwertig.
 
 \begin{figure}[H]
@@ -501,7 +501,7 @@ Nur der \(500 \mu F/3V\) Kondensator war ein älteres Exemplar, alle anderen war
 \end{figure}
 
 Da mit der neuen Methode auch Widerstände gemessen werden können, werden in Abbildung~\ref{fig:res_esr} die
-Meßfehler der Messung von einigen Widerständen unter \(10 \Omega\) mit jeweils drei Exemplaren verschiedener
+Messfehler der Messung von einigen Widerständen unter \(10 \Omega\) mit jeweils drei Exemplaren verschiedener
 ATmega gezeigt.  
 
 \begin{figure}[H]
@@ -513,17 +513,17 @@ ATmega gezeigt.
 
 
 \subsection{Spannungsverlust nach einem Ladepuls, Vloss}
-Beim Meßverfahren von großen Kapazitäten wird der Spannungsverlust nach einem Ladepuls im stromlosen Zustand untersucht.
+Beim Messverfahren von großen Kapazitäten wird der Spannungsverlust nach einem Ladepuls im stromlosen Zustand untersucht.
 Die erreichte Ladespannung sinkt bei Elektrolyt-Kondensatoren nach kurzer Zeit wieder etwas ab.
 Dieser Spannungsverlust kann durch einen parallel geschalteten Widerstand verursacht werden.
-Ich nehme an, daß der Spannungsverlust bei Elektrolyt-Kondensatoren durch eine interne Ladungsverteilung nach
+Ich nehme an, dass der Spannungsverlust bei Elektrolyt-Kondensatoren durch eine interne Ladungsverteilung nach
 dem Ladepuls verursacht wird. Bei einem langsamen Ladevorgang, wie er bei kleineren Kapazitäten mit dem \(470 k\Omega\) Widerstand
-gemacht wird, ist diese Umverteilung schon während des Ladevorgangs abgeschlossen. Dann tritt kein meßbarer Spannungsverlust nach
+gemacht wird, ist diese Umverteilung schon während des Ladevorgangs abgeschlossen. Dann tritt kein messbarer Spannungsverlust nach
 der Ladung in der betrachteten Zeitspanne auf. Wird der gleiche Elektrolyt-Kondensator aber mit einem
 kurzem pulsförmigen Strom geladen, ist hier auch ein Spannungsverlust durch die nachträgliche Umverteilung
 der Ladung zu beobachten. Der gleiche Effekt ist in geringerem Umfang auch bei keramischen Kondensatoren zu beobachten. 
 Nach den bisherigen Beobachtungen sind Kondensatoren mit mehreren \% Spannungsverlust verdächtig.
-Besonders auffällig in Bezug auf den Spannungsverlust sind auch ältere Papierkondensatoren, die auch für andere Meßgeräte
+Besonders auffällig in Bezug auf den Spannungsverlust sind auch ältere Papierkondensatoren, die auch für andere Messgeräte
 eine Herausforderung sind. Dies will ich in folgender Tabelle verdeutlichen.
 \vspace{0.5 cm}
 
@@ -564,43 +564,43 @@ Folie      & 100nF       & 98.0-101nF   & 101.4nF   & 102.2nF  &  101.6nF \\
 \vspace{0.5 cm}
 
 
-In der Tabelle kann man sehen, daß die Kapazität aller Folienkondensatoren mit befriedigender Genauigkeit von allen
-Meßgeräten bestimmt werden. Die Kapazitäten und die Güten Q des PeakTech LCR-Meßgerätes sind Minumum
-und Maximum der Meßergebnisse im Frequenzbereich \(100 Hz\) bis \(100 kHz\).
+In der Tabelle kann man sehen, dass die Kapazität aller Folienkondensatoren mit befriedigender Genauigkeit von allen
+Messgeräten bestimmt werden. Die Kapazitäten und die Güten Q des PeakTech LCR-Messgerätes sind Minumum
+und Maximum der Messergebnisse im Frequenzbereich \(100 Hz\) bis \(100 kHz\).
 Bei allen Beispielen in der Tabelle ist der Spannungsverlust Vloss des TransistorTesters groß,
 wenn die Kondensatoren eine geringe Güte haben. Nur in diesem Fall sind auch große Abweichungen
 der gemessenen Kapazität zu beobachten. Damit der Spannungsverlust eines Kondensators vom
-Transistortester gemessen werden kann, muß die gemessene Kapazität größer als \(5000 pF\) sein.
+Transistortester gemessen werden kann, muss die gemessene Kapazität größer als \(5000 pF\) sein.
 
 \subsection{Separate Kapazitäts- und ESR-Messung}
 Die separate Kapazitätsmessung mit anschließender ESR-Messung ist nur für ATmega mit genügend Speicher
 über den Bediendialog wählbar. Diese Art der Messung ist dafür gedacht, Kondensatoren im eingelöteten
 Zustand messen zu können. 
-Bitte sorgen Sie dafür, daß alle Kondensatoren auf der Leiterplatte entladen sind, bevor Sie mit den
+Bitte sorgen Sie dafür, dass alle Kondensatoren auf der Leiterplatte entladen sind, bevor Sie mit den
 Messungen beginnen.
 Um die Messung im eingebauten Zustand zu ermöglichen, wird dafür gesorgt,
-daß die Meßspannung möglichst nur knapp über 300mV beträgt.
-Außerdem wird für die Messung nur mit dem \(680 \Omega\) Widerstand durchgeführt um den Einfluß von
+dass die Messspannung möglichst nur knapp über 300mV beträgt.
+Außerdem wird für die Messung nur mit dem \(680 \Omega\) Widerstand durchgeführt um den Einfluss von
 Restströmen der angeschlossenen Bauteilen auf der Leiterplatte gering zu halten.
 Um möglichst kleine Kapazitätswerte messen zu können, wird mit einem nur \(200 \mu s\) kurzen Ladepuls
-begonnen. Wenn die Ladespannung erwarten läßt, daß auch bei einem \(2 ms\) langen Ladepuls die Ladespannung
+begonnen. Wenn die Ladespannung erwarten läßt, dass auch bei einem \(2 ms\) langen Ladepuls die Ladespannung
 von \(300 mV\) nicht überschritten wird, wird danach \(2 ms\) lang weitergeladen. Wenn bei sehr großen
 Kapazitätswerten auch dann noch kein deutlicher Spannungszuwachs festzustellen ist, wird sogar mit
 \(20 ms\) langen Ladepulsen weitergeladen. Bei Annäherung der Spannung an die \(300 mV\) wird wieder
 mit den kürzeren Ladepulsen weitergeladen. Die gesamte Ladezeit wird dabei zusammengezählt und nach
 Überschreitung der \(300 mV\) die Kapazität aus der geladenen Spannung und der Ladezeit bestimmt.
-Mit diesem Verfahren sind Kapazitätswerte von unter \(2 \mu F\) meßbar. Die Obergrenze der Kapazität
-bei dieser Messung beträgt wegen einer Ladezeitbegrenzung auf \(2.5 s\) etwa \(50 mF\).
+Mit diesem Verfahren sind Kapazitätswerte von unter \(2 \mu F\) messbar. Die Obergrenze der Kapazität
+bei dieser Messung beträgt wegen einer Ladezeitbegrenzung auf \(2,5 s\) etwa \(50 mF\).
 Wenn ein Kapazitätswert gemessen wurde, wird danach der ESR-Wert des Kondensators mit dem schon
 im Kapitel~\ref{sec:ESR2} beschriebenen Verfahren gemessen.
 Die Ergebnisse werden nur kurz angezeigt und danach sofort mit der nächsten Messung begonnen.
-Die Meßserie wird nach 250 Messungen oder auf Tastendruck abgebrochen und dann zum Bedienmenü zurückgekehrt.
+Die Messserie wird nach 250 Messungen oder auf Tastendruck abgebrochen und dann zum Bedienmenü zurückgekehrt.
 
 \subsection{Ergebnisse der Kondensator-Messung}
 Die Ergebnisse meiner Messungen werden in Abbildung~\ref{fig:mega8cap} für drei ATmega8 dargestellt.
 Zusätzlich sind einige Werte der Original-Software mit einem Korrekturfaktor
 von 0,88~(-12\%) dargestellt.
-Weitere Ergebnisse von ATmega8 Versionen zeigen die Abbildungen~\ref{fig:mega8Acap} und \ref{fig:mega8Lcap}.
+Weitere Ergebnisse von ATmega8-Versionen zeigen die Abbildungen~\ref{fig:mega8Acap} und \ref{fig:mega8Lcap}.
 Die Ergebnisse der Messung der gleichen Kondensatoren mit einem ATmega168 werden in Abbildung~\ref{fig:mega168cap} gezeigt.
 Die Referenz für die Fehlerberechnung sind die Messwerte eines PeakTech 2170 LCR-Messgerätes, 
  nicht die aufgedruckten Werte der Bauteile.
@@ -736,7 +736,7 @@ wobei cval der gemessene Kapazitätswert in pF ist.
 Der automatische Abgleich besteht aus zwei Teilen. Der erste Teil besteht darin, einen Nullabgleich der Kondensatormessung durchzuführen.
 Dazu wird in der Selbsttest-Routine der Mittelwert der gemessenen Kapazität bei nicht angeschlossenem Kondensator bestimmt.
 Es werden die Mittelwerte aus jeweils 8 Messungen für alle 6 Messkombinationen bestimmt.
-Nach erfolgreichem Abgleich werden die Korrekturwerte im EEprom festgehalten und für künftige Messungen verwendet.
+Nach erfolgreichem Abgleich werden die Korrekturwerte im EEPROM festgehalten und für künftige Messungen verwendet.
 Schwieriger ist die Beseitigung der Exemplarstreuungen bei der Messung von Kondensatoren bis etwa \(40 \mu F\), wie sie in den 
 Abbildungen \ref{fig:mega168all}, \ref{fig:mega168Aall} und \ref{fig:mega168PAall} gezeigt wurden.
 Als wesentliche Ursache wurde das unterschiedliche Verhalten (Offset-Spannung) des analogen Komparators herausgefunden.
@@ -769,7 +769,7 @@ Die Diagramme \ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal
 \ref{fig:mega328Pcal} zeigen die Messergebnisse
 der gleichen Prozessoren in einer Standard-Softwarekonfiguration nach der Autokalibration.
 Die Prozessoren wurden alle mit der selben Software programmiert, lediglich die Makefile Option ,,PARTNO = '' musste 
-wegen dem avrdude Programm an den unterschiedlichen Prozessortyp (,,m168'', ,,m168p'', ,,m328'' oder ,,m328p'') angepaßt werden.
+wegen dem avrdude-Programm an den unterschiedlichen Prozessortyp (,,m168'', ,,m168p'', ,,m328'' oder ,,m328p'') angepasst werden.
 Nach der Programmierung wurde bei jedem ATmega ein
 Selbsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und Pin~3 angeschlossen.
 
@@ -814,8 +814,8 @@ Selbsttest gestartet und bei Test~10 ein Kondensator mit \(330 nF\) an Pin~1 und
   \caption{Kondensator-Messfehler, kalibriert}
 \end{figure}
 
-Zuletzt will ich die Wirkung der AUTO\_CAL Option im Selbstest noch einmal verdeutlichen.
-Die folgende Diagramm \ref{fig:MegaAuto} zeigt die Ergebnisse von drei ATmega Prozessoren 
+Zuletzt will ich die Wirkung der AUTO\_CAL-Option im Selbstest noch einmal verdeutlichen.
+Die folgende Diagramm \ref{fig:MegaAuto} zeigt die Ergebnisse von drei ATmega-Prozessoren 
 mit der grössten Messabweichung noch einmal vor und nach der Kalibration.
 Die Punkte mit der Endung ,,unc'' zeigen die Messabweichungen ohne Kalibration.
 Die Linien mit der Endung ,,cal'' zeigen die Messabweichungen der gleichen Prozessoren

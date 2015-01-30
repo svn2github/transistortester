@@ -5,12 +5,11 @@
 \item Arbeitet mit Mikrocontrollern vom Typ ATmega8, ATmega168 oder ATmega328. Auch ATmega644 und ATmega1284 oder ATmega1280 und ATmega2560 können verwendet werden.
 \item Anzeige der Messergebnisse auf einem 2x16 oder 4x20 Zeichen großen LC-Display.
  Alternativ kann bei Verwendung eines Prozessors mit mindestens 32k Flash Speicher auch ein graphisches Display
- mit 128x64 Pixel und ST7565 oder SSD1306 Kontroller benutzt werden. Dabei wird anstelle der Standard 4-Bit Parallel-Schnittstelle
- entweder eine 4-Wire SPI Schnittstelle oder ein I2C-Bus benutzt.
+ mit 128x64 Pixel und ST7565- oder SSD1306-Controller benutzt werden. Dabei wird anstelle der Standard 4-Bit Parallel-Schnittstelle
+ entweder eine 4-Wire SPI-Schnittstelle oder ein I2C-Bus benutzt.
 \item Ein-Tasten-Bedienung mit automatischer Abschaltfunktion.
 \item Batterie-Betrieb ist möglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA beträgt.
-Ab Softwareversion 1.05k wird nach Möglichkeit in den Meßpausen der Schlafzustand des ATmega168 oder ATmega328
- zum Stromsparen benutzt.
+Ab Softwareversion 1.05k wird nach Möglichkeit in den Messpausen der Schlafzustand des ATmega168 oder ATmega328 zum Stromsparen benutzt.
 \item Preisgünstige Lösung ist möglich ohne Quarz und ohne automatische Abschaltung.
 \item Automatische Erkennung von NPN und PNP bipolaren Transistoren, N- und P-Channel MOSFETs, JFETs,
 Dioden, Doppeldioden, Thyristoren und Triacs.
@@ -90,7 +89,7 @@ Bipolare Transistoren können auch untersucht werden, wenn nur die Basis und ent
 \item Kondensatoren mit Kapazitätswerten von unter 25pF werden normalerweise nicht erkannt, 
 aber sie können zusammen mit einer parallel geschalteten Diode oder mit einem parallel geschaltetem Kondensator mit
 wenigstens 25pF gemessen werden.
-In diesem Fall muß der Kapazitätswert des parallel geschalteten Bauteils vom Meßergebnis abgezogen werden.
+In diesem Fall muss der Kapazitätswert des parallel geschalteten Bauteils vom Messergebnis abgezogen werden.
 \item Bei Widerständen unter \(2100~\Omega\) wird auch eine Induktivitätsmessung durchgeführt, wenn der
 ATmega mehr als 8K Flashspeicher besitzt (ATmega168 oder ATmega328).
 Der Anzeigebereich ist etwa \(0.01~mH\) bis über \(20~H\), die Genauigkeit ist allerdings nicht hoch.
@@ -102,31 +101,31 @@ und der Verzögerungszeiten zu überprüfen (nur mit ATmega168 oder ATmega328).
 \item Wählbare Möglichkeit den Nullabgleich für die Kondensatormessung und die Innenwiderstände für die
 Portausgänge beim Selbsttest automatisch zu bestimmen (nur mit ATmega168 oder ATmega328).
 Ein externer Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 ist notwendig, 
-um die Offset Spannung des analogens Komparators zu kompensieren.
+um die Offset-Spannung des analogen Komparators zu kompensieren.
 Dies kann den Messfehler bei Kapazitätsmessungen bis zu \(40~\mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verstärkung für
 die ADC Messung mit der internen \(1.1V\) Referenzspannung berechnet.
-\item Anzeige des Kollektor-Emitter Reststroms \(I_{CE0}\) mit stromloser Basis (\(10\mu A\) Auflösung) und
-des Kollektor-Emitter Reststroms \(I_{CES}\) mit der Basis auf Emitter Potential gehalten (nur für ATmega328).
-Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germanium Transistoren).
+\item Anzeige des Kollektor-Emitter-Reststroms \(I_{CE0}\) mit stromloser Basis (\(10\mu A\) Auflösung) und
+des Kollektor-Emitter Reststroms \(I_{CES}\) mit der Basis auf Emitter-Potential gehalten (nur für ATmega328).
+Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germanium-Transistoren).
 \item Für ATmega328 kann eine Dialogfunktion gewählt werden, die weitere Einsatzmöglichkeiten zugänglich machen kann.
 Natürlich kann über den Dialog auch zu der Transistortester-Funktion zurückgekehrt werden.
-\item Mit Dialogfunktion kann am PD4 Port des ATmega eine Frequenzmessung vorgenommen werden.
+\item Mit Dialogfunktion kann am PD4-Port des ATmega eine Frequenzmessung vorgenommen werden.
 Die Auflösung beträgt bei Eingangfrequenzen über \(25~kHz\) ein Hertz.
 Bei niedrigeren Frequenzen kann die Auflösung bis zu \(0.001~mHz\) betragen.
 \item Mit Dialogfunktion und ohne serielle Ausgabe kann eine externe Spannung bis 50V über einen
 10:1 Spannungteiler am PC3 Pin gemessen werden. Bei der PLCC-Version des ATmega328 kann auch einer der beiden
 zusätzlichen Pinne für die Spannungsmessung zusammen mit der seriellen Ausgabe benutzt werden.
-Wenn die Erweiterung für die Zenerdiodenmessung (DC-DC Konverter)
+Wenn die Erweiterung für die Zenerdiodenmessung (DC-DC-Konverter)
 eingebaut ist, können in diesen Zweig auch Zenerdioden bei gedrückter Taste getestet werden.
-\item Mit Dialogfunktion kann eine Frequenzausgabe auf dem TP2 Pin (PB2 Port des ATmega) erfolgen.
+\item Mit Dialogfunktion kann eine Frequenzausgabe auf dem TP2-Pin (PB2-Port des ATmega) erfolgen.
 Derzeit ist eine Auswahl von Frequenzen von 1 Hz bis 2 MHz wählbar.
-\item Mit Dialogfunktion eine feste Frequenz mit einstellbarer Pulsweite auf dem TP2 Pin (PB2 Port des ATmega) erfolgen.
+\item Mit Dialogfunktion eine feste Frequenz mit einstellbarer Pulsweite auf dem TP2-Pin (PB2-Port des ATmega) erfolgen.
 Die Breite kann mit kurzem Tastendruck um 1\% und mit längerem Tastendruck um 10\% erhöht werden.
-\item Mit Dialogfunktion kann eine separte Kondensatormessung mit ESR-Messung gestartet werden.
- Kapazitäten ab etwa \(2 \mu F\) bis zu \(50 mF\) können meistens wegen der geringen Meßspannung von etwa \(300 mV\)
+\item Mit Dialogfunktion kann eine separate Kondensatormessung mit ESR-Messung gestartet werden.
+ Kapazitäten ab etwa \(2 \mu F\) bis zu \(50 mF\) können meistens wegen der geringen Messspannung von etwa \(300 mV\)
  im eingebauten Zustand gemessen werden.
- Hierbei sollte besonders darauf geachtet werden, daß die Kondensatoren vor der Messung keine Restladung mehr haben.
+ Hierbei sollte besonders darauf geachtet werden, dass die Kondensatoren vor der Messung keine Restladung mehr haben.
 
 \end{enumerate}
 
@@ -139,9 +138,9 @@ Alle Eigenschaften sind sogar nur für Prozessoren mit wenigstens 32k Programmsp
 \vspace{1cm}
 \textbf{{\Large Achtung:}} Stellen Sie immer sicher, dass {\bf Kondensatoren} vor dem Anschluss an den Tester {\bf entladen} sind!
 Der Tester könnte sonst beschädigt werden bevor er eingeschaltet ist.
-Es gibt nur wenig Schutzfunktion der ATmega Anschlüsse.
+Es gibt nur wenig Schutzfunktion der ATmega-Anschlüsse.
 Besondere Vorsicht ist auch geboten, wenn versucht wird, Bauelemente in einer Schaltung zu messen.
 Das Gerät sollte in jedem Fall vorher von der Strom\-ein\-spei\-sung getrennt sein und man sollte sicher sein,
-daß {\bf keine Restspannung} im Gerät vorhanden ist.
+dass {\bf keine Restspannung} im Gerät vorhanden ist.
 
 
