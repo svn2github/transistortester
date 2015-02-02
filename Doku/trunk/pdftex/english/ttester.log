@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  27 JAN 2015 21:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  2 FEB 2015 20:42
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -796,31 +796,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 99--107
  []
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 109--116
+
+LaTeX Warning: Command \textless invalid in math mode on input line 122.
+
+
+LaTeX Warning: Command \textless invalid in math mode on input line 122.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--127
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--121
+Underfull \hbox (badness 10000) in paragraph at lines 129--132
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 150--151
-
- []
-
-[26] [27]
-Underfull \hbox (badness 10000) in paragraph at lines 253--258
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--261
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 264--269
 
  []
 
-[28]) [29]
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 269--272
+
+ []
+
+) [29]
 \openout2 = `40-configuring.aux'.
 
  (./40-configuring.tex
@@ -2723,7 +2730,7 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on ttester.pdf (104 pages, 1511626 bytes).
+Output written on ttester.pdf (104 pages, 1512618 bytes).
 PDF statistics:
  1766 PDF objects out of 2073 (max. 8388607)
  1442 compressed objects within 15 object streams

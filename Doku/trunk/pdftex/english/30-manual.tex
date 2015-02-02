@@ -107,12 +107,23 @@ The series of measurements can be finished with a long key press.\\
 
 \item[rotary encoder]
 With the function ''rotary encoder'' a rotary encoder can be checked.
-The three pins of the rotary encoder must be connected to the three probes of the transistor tester 
+The three pins of the rotary encoder must be connected in any order to the three probes of the transistor tester 
 before the start of the function. 
-After starting the function the rotary knob must be turned.
+After starting the function the rotary knob must be turned not too fast.
+If the test is finished successfully, the connection of the encoder switches  is shown symbolic in display row 2.
 The tester finds out the common contact of the two switches and shows, if the indexed position has
 both contacts in open state ('o') or in closed state ('C').
-If the indexed position has both states, both characters ('o' and 'C') are shown alternating.\\
+A rotary encoder with open switches at the indexed positions is shows in row 2 for two seconds as ''1-/-2-/-3 o''.
+This type of encoder has the same count of indexed positions as count of pulses for every turn. 
+Of course the pin number of the right common contact is shown in the middle instead of '2'.
+If also the closed switches state is detected at the indexed positions, the row 2 of the display is also
+shown as ''1---2---3 C'' for two seconds.
+I don't know any rotary encoder, which have the switches always closed at any indexed position.
+The interim state of the switches between the indexed positions is also shown in row 2 for a short time (\(\textless~0.5s\))
+without the characters 'o' or 'C'.
+If you will use the rotary encoder for handling the tester, you should set the Makefile option WITH\_ROTARY\_SWITCH=2
+for encoders with only the open state ('o') and set the option WITH\_ROTARY\_SWITCH=1 for encoders 
+with the open ('o') and closed ('C') state at the indexed positions.\\
 
 \item[Selftest]
 With the menu function ''Selftest'' a full selftest with calibration is done.

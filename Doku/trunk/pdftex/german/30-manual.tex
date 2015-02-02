@@ -103,13 +103,22 @@ Die Mess-Serie kann durch einen längeren Tastendruck beendet werden.\\
 
  \item[Impulsdrehgeber]
 Mit der Zusatzfunktion ,,Impulsdrehgeber'' kann ein Drehgeber untersucht werden.
-Die drei Kontakte des Impulsdrehgebers müssen vor dem Start der Zusatzfunktion an die drei Testpins
+Die drei Kontakte des Impulsdrehgebers müssen vor dem Start der Zusatzfunktion beliebig an die drei Testpins
  des Transistortesters angeschlossen werden.
-Nach dem Start der Funktion muss der Drehknopf gedreht werden.
-Dabei wird der gemeinsame Anschluss herausgefunden und angezeigt, ob jede Raststellung beide Kontake offen ('o')
-oder beide Kontakte geschlossen ('C') hat.
-Wenn beide Schalterstellungen an den Raststellungen vorkommen,
-werden beide Zeichen alternierend angezeigt.\\
+Nach dem Start der Funktion muss der Drehknopf nicht zu schnell gedreht werden.
+Wenn der Test erfolgreich abgeschlossen ist, wird die Pinbelegung der Kontakte symbolisch in Zeile 2 dargestellt.
+Dabei wird der gemeinsame Anschluss herausgefunden und für etwa zwei Sekunden angezeigt, ob an den Raststellung beide Kontake offen ('o')
+oder beide Kontakte geschlossen ('C') sind.
+Ein Impulsdrehgeber mit offenen Kontakten an den Raststellungen wird so mit der Zeile 2 ,,1-/-2-/-3~o'' zwei Sekunden lang angezeigt.
+Natürlich wird die richtige Pinnummer des gemeinsamen Kontaktes in der Mitte anstelle der '2' angezeigt.
+Wenn auch die geschlossene Schalterstellung an den Raststellungen vorkommt,
+wird außerdem in Zeile 2 ,,1---2---3 C'' zwei Sekunden lang angezeigt.
+Mir ist kein Impulsdrehgeber bekannt, der immer nur geschlossene Kontakte an jeder Raststellung hat.
+Die Stellungen der Kontakte zwischen den Raststellungen werden nur kurz (\(\textless~0.5s\)) ohne die Kennbuchstaben 'o' oder 'C' 
+in Zeile 2 angezeigt.
+Wenn der Impulsdrehgeber für die Bedienung des Testers eingesetzt werden soll, muß die Makefile Option WITH\_ROTARY\_SWITCH=2
+für Drehgeber mit nur den offenen Kontakten ('o') und die Option WITH\_ROTARY\_SWITCH=1 für Drehgeber mit
+offenen ('o') und geschlossenen ('C') Kontakten an den Raststellungen.\\
 
  \item[Selbsttest]
 Mit der Zusatzfunktion ,,Selbsttest'' wird ein vollständiger Selbsttest mit Kalibration durchgeführt.

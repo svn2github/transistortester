@@ -90,12 +90,12 @@ See the description~\ref{fig:RotExt} in the Hardware section for details of the 
 If your rotary pulse encoder has the same count of indexed positions (detent) as pulses of the switch for every turn, you must
 set the  option WITH\_ROTARY\_SWITCH to 2. If the rotary pulse encoder has twice the count of indexed position, you must
 set the option WITH\_ROTARY\_SWITCH to 1.
-Setting the WITH\_ROTARY\_SWITCH to 5 selects the highest resolution for the rorary switch. Every cycle of the two switches results
-to a count of 4. Usually this setting is onle usefull for rotary switch encoders without indexed positions.
+Setting the WITH\_ROTARY\_SWITCH to 5 selects the highest resolution for the rotary switch. Every cycle of the two switches results
+to a count of 4. Usually this setting is only usefull for rotary switch encoders without indexed positions.
 A setting of the WITH\_ROTARY\_SWITCH to 4 is required for correct handling of two separate push buttons for Up and Down,
 which are installed instead of the normal rotary encoder switches.
 Do not use a setting of 4 for normal rotary encoders!\\
-example: CFLAGS += -DWITH\_ROTARY\_ENCODER=1
+example: CFLAGS += -DWITH\_ROTARY\_SWITCH=1
   \item[CHANGE\_ROTARY\_DIRECTION] You can change the direction of the detected rotary direction by hardware swap of
 the two switch signals or by setting the option CHANGE\_ROTARY\_DIRECTION.\\
 example: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
