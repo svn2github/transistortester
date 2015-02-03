@@ -66,7 +66,7 @@ Diese Belegung wird aber von einer chinesischen Version mit graphischem Display 
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
            & Character     & Char. LCD      & ST7565     & ST7565 LCD     & SSD1306     & Zusatzfunktion \\
-      Port & LCD           & STRIP\_GRID    &   LCD      & STRIP\_GRID    &    I2C      & \\
+      Port & LCD           & STRIP\_GRID    &   LCD      & STRIP\_GRID    &    I\textsuperscript{2}C      & \\
     \hline
     \hline
     PD0    &  LCD-D4       &  Tastensignal  &  LCD-REST  &                &             & \\
@@ -253,11 +253,11 @@ der Controllereingänge von den 5V ATmega-Ausgängen über die 3.3V-Grenze angeh
 Ob die Signalform für den ST7565-Controller so noch akzeptiert wird, sollte man vorher testen.
 Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
 
-Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire SPI-Schnittstelle angeschlossen.
-Beim SSD1306-Controller kann auch eine I2C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
+Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire \(SPI\)-Schnittstelle angeschlossen.
+Beim SSD1306-Controller kann auch eine I\textsuperscript{2}C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
 Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4.7k\Omega\) nach 3.3V versehen sein.
-Die Ausgänge des ATmega werden für die I2C-Signale nur nach 0V geschaltet.
-Bitte prüfen Sie, ob die I2C-Signale Ihres Display-Moduls auch einen 5V-Signalpegel vertragen, bevor Sie die
+Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
+Bitte prüfen Sie, ob die I\textsuperscript{2}C-Signale Ihres Display-Moduls auch einen 5V-Signalpegel vertragen, bevor Sie die
 "Pull-Up"-Widerstände an 5V anschließen!
  
 \begin{figure}[H]
@@ -473,9 +473,9 @@ Periodenmessung die Auflösung der Frequenzmessung zu verbessern.
 Für die Umschaltung der Betriebszustände (Frequenzteiler und Quarz-Oszillator) werden
 die Analogschalter 74HC4052 benutzt.
 Die Tabelle \ref{tab:mega644-display} zeigt die Pinbelegung für den ATmega324/624/1284 Mikrocontroller für verschiedene Displayanschlüsse.
-Die I2C-Schnittstelle ist nur mit dem SSD1306-Controller möglich.
-Die Signale der I2C-Schnittstelle erfordern einen ,,Pull-Up''-Widerstand von etwa \(4.7k\Omega\) nach 3.3V.
-Die Ausgänge des ATmega werden für die I2C-Signale nur nach 0V geschaltet.
+Die I\textsuperscript{2}C-Schnittstelle ist nur mit dem SSD1306-Controller möglich.
+Die Signale der I\textsuperscript{2}C-Schnittstelle erfordern einen ,,Pull-Up''-Widerstand von etwa \(4.7k\Omega\) nach 3.3V.
+Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
 
 
 \begin{table}[H]
@@ -483,7 +483,7 @@ Die Ausgänge des ATmega werden für die I2C-Signale nur nach 0V geschaltet.
     \begin{tabular}{| c || c | c | c | c |}
     \hline
       Port & Character LCD &  Graphik LCD & Graphik LCD  & Zusatzfunktion      \\
-           &               &  SPI 4-Wire  &  I2C         &                     \\
+           &               &  SPI 4-Wire  &  I\textsuperscript{2}C         &                     \\
     \hline
     \hline
     PB2    &  LCD-RS         &            &             &       \\

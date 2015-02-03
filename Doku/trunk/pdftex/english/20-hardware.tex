@@ -60,7 +60,7 @@ But this connection is used by a chinese version with graphical display.
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
            & character  & char. LCD    & ST7565     & ST7565       & SSD1306     & additional function \\
-      Port &   LCD      & STRIP\_GRID  &   LCD      & STRIP\_GRID  &   I2C       & \\
+      Port &   LCD      & STRIP\_GRID  &   LCD      & STRIP\_GRID  &   I\textsuperscript{2}C       & \\
     \hline
     \hline
     PD0    &  LCD-D4    &  pushbutton  &  LCD-REST    &            &           & \\
@@ -243,10 +243,10 @@ across the diodes of the controller inputs from the 5V ATmega outputs signals.
 You have to try, if the signal form with the resistors can be accepted from the ST7565 controller inputs.
 The signal form at the controller inputs will be more simular to the output shape of the ATmega with the 74HC4050 gates in any case.\\
 
-Normally the ST7565 or SSD1306 controller is connected with a 4-wire SPI interface.
-But with the SSD1306 controller you can also use a I2C interface with PD2 as SDA and PD5 as SCL signal.
+Normally the ST7565 or SSD1306 controller is connected with a 4-wire \(SPI\) interface.
+But with the SSD1306 controller you can also use a I\textsuperscript{2}C interface with PD2 as SDA and PD5 as SCL signal.
 The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to 3.3V.
-The outputs of the ATmega is only switched to 0V for the I2C signals.
+The outputs of the ATmega is only switched to 0V for the I\textsuperscript{2}C signals.
 Before connecting the pull-up resistors to 5V you must check, if your display module can tolerate
 a 5V signal level.
 
@@ -461,9 +461,9 @@ For switching between the operational states (frequency divider and crystal oszi
 the analog switches 74HC4052 are used.
 The table \ref{tab:mega644-display} shows the pin assignments for the ATmega324/644/1284
 microcontrollers for different display connections.
-The using of the I2C interface is only possible with the SSD1306 controller.
-The signals of the I2C interface require a pull-up resistor of \(4.7k\Omega\) to 3.3V.
-The outputs of the ATmega is only switched to 0V for the I2C signals.
+The using of the I\textsuperscript{2}C interface is only possible with the SSD1306 controller.
+The signals of the I\textsuperscript{2}C interface require a pull-up resistor of \(4.7k\Omega\) to 3.3V.
+The outputs of the ATmega is only switched to 0V for the I\textsuperscript{2}C signals.
 
 
 \begin{table}[H]
@@ -471,7 +471,7 @@ The outputs of the ATmega is only switched to 0V for the I2C signals.
     \begin{tabular}{| c || c | c | c | c |}
     \hline
       Port & Character LCD &  Graphik LCD  & Graphik LCD  & additional function\\
-           &               &  SPI 4-wire   &   I2C        &            \\
+           &               &  SPI 4-wire   &   I\textsuperscript{2}C        &            \\
     \hline
     \hline
     PB2    &  LCD-RS         &            &             &       \\

@@ -55,10 +55,10 @@ beschrieben werden.
 Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss die Variable WITH\_LCD\_ST7565 auf 1306 gesetzt werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
- \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-SPI (4-Wire) Interface auch das
-I2C-Interface benutzt werden. Dafür muss die Konstante LCD\_INTERFACE\_MODE auf 2 gesetzt werden.\\
+ \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-\(SPI\) (4-Wire) Interface auch das
+I\textsuperscript{2}C-Interface benutzt werden. Dafür muss die Konstante LCD\_INTERFACE\_MODE auf 2 gesetzt werden.\\
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
- \item[LCD\_I2C\_ADDR] Die I2C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
+ \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
 auf 0x3D geändert werden.\\
 Beispiel: CFLAGS += -DLCD\_I2C\_ADDR=0x3d
   \item[LCD\_ST7565\_RESISTOR\_RATIO] Mit dieser Option wird das Widerstands-Teilerverhältnis für den
