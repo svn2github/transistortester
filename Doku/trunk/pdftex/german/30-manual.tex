@@ -71,7 +71,7 @@ Eine schnelle Drehung des Encoders kehrt zur Menü-Auswahl zurück.
  \item[Frequenz]
 Die Zusatzfunktion ,,Frequenz'' (Frequenzmessung) benutzt als Eingang den PD4-Pin des ATmega, der auch an das LCD angeschlossen ist.
 Es wird immer zunächst die Frequenz gemessen, bei Frequenzen unter \(25 kHz\) wird auch die mittlere Periode des Eingangssignals
-bestimmt und daraus die Frequenz mit einer Auflösung von bis zu \(0.001 Hz\) berechnet.
+bestimmt und daraus die Frequenz mit einer Auflösung von bis zu \(0,001 Hz\) berechnet.
 Bei gesetzter POWER\_OFF-Option in der Makefile wird die Dauer der Frequenzmessung auf 8~Minuten beschränkt.
 Die Frequenzmessung wird durch Tastendruck beendet und in das Auswahlmenü zurückgekehrt.\\
 
@@ -81,17 +81,17 @@ Bei der Zusatzfunktion ,,f-Generator'' (Frequenz-Generator) können die Frequenz
 Nachdem aus der Liste die letzte Frequenz gewählt wurde, wird als nächstes die erste Frequenz
  wieder ausgegeben (zyklische Wahl).
 Bei gesetzter POWER\_OFF-Option in der Makefile muss für den Frequenzwechsel die Taste länger gedrückt werden, da
-durch einen kurzen Tastendruck (\textless~0.2~s) nur die Zeitüberwachung von 4~Minuten zurückgesetzt wird.
+durch einen kurzen Tastendruck (\textless~0,2~s) nur die Zeitüberwachung von 4~Minuten zurückgesetzt wird.
 Die abgelaufene Zeit wird in Zeile 1 durch einen Punkt für jede abgelaufene 30 Sekunden angezeigt.
 Durch einen regelmäßigen kurzen Tastendruck kann die vorzeitige Abschaltung der Frequenzerzeugung verhindert werden.
-Ein längerer Tastendruck (\textgreater~0.8~s) kehrt wieder zur Auswahl der Funktionen zurück.\\
+Ein längerer Tastendruck (\textgreater~0,8~s) kehrt wieder zur Auswahl der Funktionen zurück.\\
 
  \item[10-bit PWM]
 Bei der Zusatzfunktion ,,10-bit PWM'' (Pulsweitenmodulation) wird eine feste Frequenz mit einstellbarer Pulsweite an Pin TP2 erzeugt.
-Mit einem kurzen Tastendruck (\textless~0.5~s) wird die Pulsweite um \(1 \%\) erhöht, mit einem längeren Tastendruck um \(10 \%\).
+Mit einem kurzen Tastendruck (\textless~0,5~s) wird die Pulsweite um \(1 \%\) erhöht, mit einem längeren Tastendruck um \(10 \%\).
 Bei Überschreiten von \(99 \%\) werden \(100 \%\) vom erhöhten Wert abgezogen.
 Bei gesetzter POWER\_OFF-Option in der Makefile wird die Frequenzerzeugung nach 8 Minuten ohne Bedienung beendet.
-Durch sehr langen Tastendruck (\textgreater~1.3~s) kann die Frequenzerzeugung auch beendet werden.\\
+Durch sehr langen Tastendruck (\textgreater~1,3~s) kann die Frequenzerzeugung auch beendet werden.\\
 
  \item[C+ESR@TP1:3]
 Bei der Zusatzfunktion ,,C+ESR@TP1:3'' wird eine separate Kondensatormessung mit ESR-Messung an TP1 und TP3 gestartet.
@@ -114,7 +114,7 @@ Natürlich wird die richtige Pinnummer des gemeinsamen Kontaktes in der Mitte an
 Wenn auch die geschlossene Schalterstellung an den Raststellungen vorkommt,
 wird außerdem in Zeile 2 ,,1---2---3 C'' zwei Sekunden lang angezeigt.
 Mir ist kein Impulsdrehgeber bekannt, der immer nur geschlossene Kontakte an jeder Raststellung hat.
-Die Stellungen der Kontakte zwischen den Raststellungen werden nur kurz (\(\textless~0.5s\)) ohne die Kennbuchstaben 'o' oder 'C' 
+Die Stellungen der Kontakte zwischen den Raststellungen werden nur kurz (\(\textless~0,5s\)) ohne die Kennbuchstaben 'o' oder 'C' 
 in Zeile 2 angezeigt.
 Wenn der Impulsdrehgeber für die Bedienung des Testers eingesetzt werden soll, muß die Makefile Option WITH\_ROTARY\_SWITCH=2
 für Drehgeber mit nur den offenen Kontakten ('o') und die Option WITH\_ROTARY\_SWITCH=1 für Drehgeber mit
@@ -209,13 +209,13 @@ als Menüfunktion ausgewählt wird.
 Der Nullwert für die ESR-Messung wird als Option ESR\_ZERO in der Makefile vorbesetzt.
 Mit jedem Selbsttest wird der ESR Nullwert für alle drei Pinkombinationen neu bestimmt.
 Das Verfahren der ESR-Messung wird auch für Widerstände mit Werten unter \(10 \Omega\) benutzt um
-hier eine Auflösung von \(0.01 \Omega\) zu erreichen.
+hier eine Auflösung von \(0,01 \Omega\) zu erreichen.
 
 \section{Besondere Benutzungshinweise}
 Normalerweise wird beim Start des Testers die Batteriespannung angezeigt. Wenn die Spannung eine Grenze unterschreitet, 
 wird eine Warnung hinter der Batteriespannung ausgegeben. Wenn Sie eine aufladbare 9V-Batterie benutzen, sollten Sie
 den Akku möglichst bald austauschen oder nachladen.
-Wenn Sie eine Version mit eingebauter 2.5V-Präzisionsreferenz besitzen, wird beim Start für eine Sekunde die
+Wenn Sie eine Version mit eingebauter 2,5V-Präzisionsreferenz besitzen, wird beim Start für eine Sekunde die
 gemessene Betriebsspannung in der Zeile 2 mit ,,VCC=x.xxV'' angezeigt.
 
 Es kann nicht oft genug erwähnt werden, dass Kondensatoren vor dem Messen entladen sein müssen.
@@ -227,8 +227,8 @@ im Gerät vorhanden ist. Alle Geräte haben Kondensatoren verbaut!
 Beim Messen kleiner Widerstandswerte muss man besonders auf die Übergangswiderstände achten.
 Es spielt die Qualität und der Zustand von Steckverbindern eine große Rolle, genau so wie die
 Widerstandwerte von Messkabeln. Dasselbe gilt auch für die Messung des ESR-Wertes von Kondensatoren.
-Bei schlechten Anschlusskabeln mit Krokodilklemmen wird so aus einem ESR von \(0.02 \Omega\) leicht
-ein Wert von \(0.61 \Omega\).
+Bei schlechten Anschlusskabeln mit Krokodilklemmen wird so aus einem ESR von \(0,02 \Omega\) leicht
+ein Wert von \(0,61 \Omega\).
 
 An die Genauigkeit der Messwerte sollte man keine übertriebenen Erwartungen haben, dies gilt besonders
 für die ESR Messung und die Induktivitätsmessung.
@@ -263,12 +263,12 @@ ermittelt, der Emitterschaltung und der Kollektorschaltung (Emitterfolger).
 
 Bei der Emitterschaltung hat der Tester nur zwei Möglichkeiten, den Basisstrom einzustellen:
 \begin{enumerate}
-\item Mit dem \(680 \Omega\) Widerstand ergibt sich ein Basisstrom von etwa 6.1mA. Das ist für einen
+\item Mit dem \(680 \Omega\) Widerstand ergibt sich ein Basisstrom von etwa 6,1mA. Das ist für einen
 Kleinsignaltransistor mit hohem Verstärkungsfaktor meist zu viel, weil die Basis gesättigt ist.
 Da der Kollektorstrom ebenfalls mit einem \(680 \Omega\) Widerstand gemessen wird, kann der Kollektorstrom
 den um den Verstärkungsfaktor höheren Strom gar nicht erreichen. Die Softwareversion vom Markus F. hat
 in diesem Zustand die Basis-Emitter Spannung gemessen (Uf=...).\\
-\item Mit dem \(470 k\Omega\) Widerstand] ergibt sich ein Basisstrom von nur \(9.2 \mu A\) .
+\item Mit dem \(470 k\Omega\) Widerstand] ergibt sich ein Basisstrom von nur \(9,2 \mu A\) .
 Das ist für einen Leistungstransistor mit geringem Verstärkungsfaktor sehr wenig.
 Die Softwareversion von Markus F. hat in diesem Zustand den Stromverstärkungsfaktor bestimmt (hFE=...).\\
 \end{enumerate}
@@ -304,4 +304,4 @@ Für D-MOS-Transistoren (Verarmungs-Typ) wird das gleiche Messverfahren verwende
 Für Anreicherungs-MOS-Transistoren (P-E-MOS oder N-E-MOS) sollte man wissen, dass die Bestimmung der Gate-Schwellspannung (Vth)
 bei kleiner Gatekapazität schwierig wird. Hier können mit dem Tester genauere Spannungswerte ermittelt werden, wenn ein
 Kondensator mit einigen nF parallel zum Gate / Source angeschlossen wird.
-Die Schwellspannung wird bei Drain-Strömen von etwa 3.6mA für P-E-MOS und bei etwa 4mA für N-E-MOS bestimmt.
+Die Schwellspannung wird bei Drain-Strömen von etwa 3,6mA für P-E-MOS und bei etwa 4mA für N-E-MOS bestimmt.

@@ -80,11 +80,11 @@ Das letzte Beispiel in Abbildung~\ref{pic:c15mF} zeigt die Messung eines \(15mF\
 Nach dieser Kondensatormessung wird die Selbstentladung des Kondensators untersucht, indem der
 Spannungsverlust in einer der Ladezeit proportionalen Zeit untersucht wird.
 Der gemessene Kapazitätswert wird entsprechend korrigiert. Ein Test mit einer Parallelschaltung von
-einem \(68 \mu F\)-Kondensator mit einem \(2.2 k\Omega\)-Widerstand zeigt die
-Wirksamkeit der Methode. Der ermittelte Kapazitätswert ohne den Widerstand beträgt \(66.5 \mu F\),
-mit dem parallelen \(2.2 k\Omega\) Widerstand wird ein Kapazitätswert von \(65.3 \mu F\) gemessen.
+einem \(68 \mu F\)-Kondensator mit einem \(2,2 k\Omega\)-Widerstand zeigt die
+Wirksamkeit der Methode. Der ermittelte Kapazitätswert ohne den Widerstand beträgt \(66,5 \mu F\),
+mit dem parallelen \(2,2 k\Omega\) Widerstand wird ein Kapazitätswert von \(65,3 \mu F\) gemessen.
 Zum Vergleich möchte ich die entsprechenden Ergebnisse mit einem Peaktech 3315 Multimeter angeben.
-Ohne den Widerstand wird eine Kapazität von \(68.2 \mu F\) gemessen, mit dem parallelen \(2.2 k\Omega\)
+Ohne den Widerstand wird eine Kapazität von \(68,2 \mu F\) gemessen, mit dem parallelen \(2,2 k\Omega\)
 Widerstand wird aber \(192 \mu F\) mit dem Multimeter gemessen.
 
 \subsection{Messen von kleinen Kapazitäten}
@@ -246,12 +246,12 @@ Kondensator & 100 kHz    & 100 kHz   & 10 kHz   & 1 kHz    & tester  \\
 
 
 \subsection{Messen des äquivalenten Serienwiderstandes ESR, Methode 1}
-Bei Kondensatoren mit mehr als \(0.45 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
-Bei mehr als \(3.6 \mu F\) wird dazu die normale Taktrate von \(125 kHz\) für den Analog-Digital Wandler benutzt.
+Bei Kondensatoren mit mehr als \(0,45 \mu F\) wird versucht, den Serienwiderstand von Kondensatoren zu messen.
+Bei mehr als \(3,6 \mu F\) wird dazu die normale Taktrate von \(125 kHz\) für den Analog-Digital Wandler benutzt.
 Bei kleineren Kapazitäten wird eine erhöhte Taktrate von \(500 kHz\) benutzt, um die Messung zu beschleunigen.
 Die Genauigkeit der ADC-Ergebnisse wird bei der höheren Taktrate zwar schlechter, aber die größeren ESR-Werte
 bei kleineren Kondensatoren mildern die Auswirkung dieses Genauigkeitsverlusts ab. 
-Andererseits ist sonst nach diesem Verfahren keine ESR-Messung für Kondensatoren unter \(1.8 \mu F\) möglich.
+Andererseits ist sonst nach diesem Verfahren keine ESR-Messung für Kondensatoren unter \(1,8 \mu F\) möglich.
 
 Genau genommen ist der ESR eines Kondensators abhängig von der Betriebsfrequenz und der Temperatur.
 Üblicherweise wird der mit einem sinusförmigen Signal bei \(100 kHz\) gemessene Wert in Datenblättern angegeben.
@@ -287,13 +287,13 @@ Die Differenz \(Uesr = Udiff - Uc\) soll jetzt den Spannungsabfall bei mittlerem
 repräsentieren.
 Der Widerstandswert wird aus dem Verhältnis dieser Spannung \(Uesr\) zu der Spannung \(Ulp\) skaliert mit dem
 bekannten Widerstandwert des Port-Ausgangs \(Rport\). Dabei wird so skaliert, dass eine Widerstandauflösung von
-\(0.01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
-Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs eines \(4.2\mu F\) Kondensators
- während der ESR-Messung. Dem Kondensator wurde ein \(6.8 \Omega\) Widerstand in Serie geschaltet, um den ESR-Einfluß
+\(0,01 \Omega\) erreicht wird \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\).
+Die Abbildung~\ref{pic:esr4} zeigt den Ausschnitt des Spannungsverlaufs eines \(4,2\mu F\) Kondensators
+ während der ESR-Messung. Dem Kondensator wurde ein \(6,8 \Omega\) Widerstand in Serie geschaltet, um den ESR-Einfluß
 zu verdeutlichen. Der kleine Spannungseinbruch nach dem Ladevorgang des Kondensators wird von der Software ausgewertet.
 Der größere Spannungseinbruch bei der Messung gegen GND kommt durch den Einfluß des Port-Ausgangswiderstands von etwa \(20 \Omega\) zustande.
-Das Ergebnis der ESR-Messung ist in diesem Fall \(7.5 \Omega\), ohne den \(6.8 \Omega\) Widerstand sind es \(0.56 \Omega\).
-Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Messfrequenz bei einem \(2.2 \mu F\) Elko mit einem ESR von \(6.5 \Omega\).
+Das Ergebnis der ESR-Messung ist in diesem Fall \(7,5 \Omega\), ohne den \(6,8 \Omega\) Widerstand sind es \(0,56 \Omega\).
+Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Messfrequenz bei einem \(2,2 \mu F\) Elko mit einem ESR von \(6.5 \Omega\).
 
 
 \begin{figure}[H]
@@ -308,7 +308,7 @@ Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Messfrequenz
     \includegraphics[width=9cm]{../PNG/ESR4uF6R8.png}
     \caption{Von Pin zu Pin gemessen}
   \end{subfigure}
-  \caption{Spannungsverlauf eines \(4.2\mu F\) Kondensators während der ESR-Messung}
+  \caption{Spannungsverlauf eines \(4,2\mu F\) Kondensators während der ESR-Messung}
   \label{pic:esr4}
 \end{figure}
 
@@ -324,7 +324,7 @@ Die Abbildung~\ref{pic:esr2} zeigt die gleiche Messung mit höherer Messfrequenz
     \includegraphics[width=9cm]{../PNG/ESR_2uF_pin2pin.png}
     \caption{Von Pin zu Pin gemessen}
   \end{subfigure}
-  \caption{Spannungsverlauf eines \(2.2\mu F\) Kondensators während der ESR-Messung}
+  \caption{Spannungsverlauf eines \(2,2\mu F\) Kondensators während der ESR-Messung}
   \label{pic:esr2}
 \end{figure}
 
@@ -341,7 +341,7 @@ Dann wird im stromlosen Zustand eine zu hohe Spannung gemessen.
 Es ist aber schwierig im Programm den genauen Zeitpunkt für die Stromabschaltung zu treffen.
 \item Der Port-Ausgangswiderstand wird bei dieser Messmethode als Referenz benutzt, dessen Widerstandwert
 ist aber auch nicht exakt bekannt.
-\item Die Auflösung des ADC reicht nicht aus, um eine Widerstandsauflösung von \(0.01 \Omega\) zu erreichen.
+\item Die Auflösung des ADC reicht nicht aus, um eine Widerstandsauflösung von \(0,01 \Omega\) zu erreichen.
 Für alle Messungen wird die interne Spannungsreferenz (1,1 V) benutzt, um die best mögliche Auflösung zu verwenden.
 Zusätzlich wird versucht, den Auflösungs-Mangel durch eine große Zahl von Einzelmessungen abzumildern.
 \item Mit der Abfrage des Fertig-Signals der ADC-Wandlung gelingt es nicht exakt, die Schaltzeiten der Port-Ausgänge mit dem
@@ -351,13 +351,13 @@ ADC-Takt zu synchronisieren.
 Trotz allen Schwierigkeiten scheinen die Ergebnisse brauchbar zu sein, wie die nachfolgende Abbildung \ref{fig:Cesr} zeigt.
 Die ESR-Werte eines Bauteils gemessen mit dem Transistortester schwanken stärker als die Messungen des LCR-Meters.
 Die Messergebnisse des LCR-Messgerätes wurden bei einer Frequenz von 1 kHz gemessen oder für kleine Kapazitäten auf
-2.4 kHz interpoliert.
+2,4 kHz interpoliert.
 Beim Transistortester muss auf die Qualität der Anschlüsse geachtet werden. Verwendete Anschlusskabel
 erhöhen den gemessenen Widerstandswert. Auch die Kontakte von Steckverbindern können die gemessenen
 Widerstandwerte erhöhen. Das LCR-Messgerät macht hier wegen den verwendeten Kelvin-Klemmen weniger Probleme.
 Bei den Kondensatoren mit einer Kapazität unter \(1 \mu F\) war ein \(500 nF\) keramischer 
 Kondensator (Z5U), alle anderen waren Folien-Kondensatoren. Der einzige Elektrolyt-Kondensator der Messreihe unter \(9 \mu F\)  
-ist ein \(2.2 \mu F\) Kondensator.
+ist ein \(2,2 \mu F\) Kondensator.
 
 \begin{figure}[H]
 \centering
@@ -375,7 +375,7 @@ ist, dass die Zeit des Stromflusses durch den Kondensator wesentlich gegenüber 
 Der Kondensator wird mit einem Puls der halben Breite negativ vorgeladen und wird dann zyklisch aufgeladen und in der
 Gegenrichtung wieder entladen.
 Dabei wird der Ladepuls zeitlich so gelegt, dass bei Sample 4 und 8 zur Pulsmitte
-die Spannung für den ADC abgegriffen wird (Sample and Hold, 2.5 ADC-Takte nach dem Start).
+die Spannung für den ADC abgegriffen wird (Sample and Hold, 2,5 ADC-Takte nach dem Start).
 Ein kompletter Messzyklus wird in Abbildung~\ref{fig:Cap_esr2_timing} gezeigt.
 Es werden auch bei dieser Messmethode die Summen der Messergebnisse aus 255 Zyklen ausgewertet,
 um eine ausreichende Auflösung zu erreichen.
@@ -403,13 +403,13 @@ stromlosen Zeit beibehält.
 Durch den kürzeren Ladepuls kann nicht nur der ESR von geringeren Kapazitätswerten gemessen werden, sondern
 diese Methode kann auch für die Messung kleiner Widerstandswerte benutzt werden, wenn die Widerstände
 keine messbare Induktivität besitzen. Dadurch kann die Auflösung bei Widerstandswerten unter \(10 \Omega\) auf 
-\(0.01 \Omega\) gesenkt werden. Daneben kann auch der Nullwiderstand für die Widerstandsmessung als auch
+\(0,01 \Omega\) gesenkt werden. Daneben kann auch der Nullwiderstand für die Widerstandsmessung als auch
 für die ESR-Messung im Selbsttestzweig der Kalibration für alle drei Testpin-Kombinationen bestimmt werden.
 Auf solide Steckverbindungen oder Klemmverbindungen sollte für stabile Ergebnisse geachtet werden.
-Die Messperiode beträgt etwa \(900 \mu s\), was einer Frequenz von etwa \(1.1 kHz\) entspricht.
+Die Messperiode beträgt etwa \(900 \mu s\), was einer Frequenz von etwa \(1,1 kHz\) entspricht.
 Wegen der Kürze der Ladepulse entspricht das Ergebnis aber eher einer Messung mit \(10 kHz\).
 Als Beispiel wird die Messung eines \(10 \mu F\) Folienkondensators einmal direkt und einmal mit einem
-\(2.7 \Omega\) Serienwiderstand in Abbildung~\ref{pic:NewEsr10} gezeigt.
+\(2,7 \Omega\) Serienwiderstand in Abbildung~\ref{pic:NewEsr10} gezeigt.
 Deutlich kann man den Einfluß des zusätzlichen Widerstandes beim Vergleich der beiden Diagramme erkennen.
 Hier wird auch verständlich, warum die ADC-Messung in der Mitte des Ladepulses erfolgen muss.
 Bei großen Kondensatoren bleibt der Ladestrom des Kondensators hinreichend gut konstant,
@@ -427,7 +427,7 @@ bekannten Kapazitätswert relativ gut kompensiert werden kann.
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/NewEsr10uF2R7.png}
-    \caption{mit \(2.7\Omega\) Serienwiderstand}
+    \caption{mit \(2,7\Omega\) Serienwiderstand}
   \end{subfigure}
   \caption{Spannungsverlauf eines \(10\mu F\) Kondensators während der neuen ESR-Messung}
   \label{pic:NewEsr10}
@@ -435,8 +435,8 @@ bekannten Kapazitätswert relativ gut kompensiert werden kann.
 
 Bei Verwendung von \(27 \mu s\) langen Strompulsen kann der ESR von Kondensatoren ab etwa \(180 nF\) bestimmt werden.
 Um noch kleinere Kondensatoren messen zu können, wurde der Strompuls bei Version 1.11k weiter auf \(8 \mu s\) verkleinert.
-Die Abbildungen~\ref{pic:NewEsr2} zeigen den Spannungsverlauf an einem \(2.2 \mu F\) Kondensator ohne und mit
-einem \(2.7 \Omega\) Serienwiderstand.
+Die Abbildungen~\ref{pic:NewEsr2} zeigen den Spannungsverlauf an einem \(2,2 \mu F\) Kondensator ohne und mit
+einem \(2,7 \Omega\) Serienwiderstand.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -448,9 +448,9 @@ einem \(2.7 \Omega\) Serienwiderstand.
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7.png}
-    \caption{mit \(2.7\Omega\) Serienwiderstand}
+    \caption{mit \(2,7\Omega\) Serienwiderstand}
   \end{subfigure}
-  \caption{Spannungsverlauf eines \(2.2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
+  \caption{Spannungsverlauf eines \(2,2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
   \label{pic:NewEsr2}
 \end{figure}
 
@@ -468,9 +468,9 @@ des ADC ist hier etwa in der Bildmitte.
   \begin{subfigure}[b]{9cm}
     \centering
     \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7zoom.png}
-    \caption{mit \(2.7\Omega\) Serienwiderstand}
+    \caption{mit \(2,7\Omega\) Serienwiderstand}
   \end{subfigure}
-  \caption{Ausschnitt des Spannungsverlaufs eines \(2.2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
+  \caption{Ausschnitt des Spannungsverlaufs eines \(2,2\mu F\) Kondensators während der ESR-Messung mit \(8 \mu s\) Ladepulsen}
   \label{pic:NewEsr2zoom}
 \end{figure}
  

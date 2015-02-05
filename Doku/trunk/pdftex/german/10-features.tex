@@ -48,7 +48,7 @@ gestellt ist, kann der Tester nicht mehr zwischen mittlerem Anschluss und Endans
 und Kapazitätswert mit bis zu vier Dezimalstellen in der richtigen Dimension angezeigt.
 Der Wert kann zwischen \(25 pF\) (bei 8MHz Takt, \(50 pF\) bei 1MHz Takt) bis \(100 mF\) liegen. Die Auflösung kann bis zu \(1 pF\) (bei 8MHz Takt) betragen.
 \item Bei Kondensatoren mit einer Kapazität über \(90 nF\) wird zusätzlich der äquivalente Serienwiderstand (ESR) des Kondensators
-mit einer Auflösung von \(0.01 \Omega\) gemessen und mit zwei Dezimalstellen angezeigt.
+mit einer Auflösung von \(0,01 \Omega\) gemessen und mit zwei Dezimalstellen angezeigt.
 Diese Fähigkeit steht nur zur Verfügung, wenn der ATmega mindestens 16K Flashspeicher besitzt.
 \item Für Kondensatoren mit einem Kapazitätswert über \(5000 pF\) kann der Spannungsverlust Vloss nach einem Ladepuls bestimmt werden.
 Der Spannungsverlust gibt einen Hinweis auf die Güte des Kondensators.
@@ -92,7 +92,7 @@ wenigstens 25pF gemessen werden.
 In diesem Fall muss der Kapazitätswert des parallel geschalteten Bauteils vom Messergebnis abgezogen werden.
 \item Bei Widerständen unter \(2100~\Omega\) wird auch eine Induktivitätsmessung durchgeführt, wenn der
 ATmega mehr als 8K Flashspeicher besitzt (ATmega168 oder ATmega328).
-Der Anzeigebereich ist etwa \(0.01~mH\) bis über \(20~H\), die Genauigkeit ist allerdings nicht hoch.
+Der Anzeigebereich ist etwa \(0,01~mH\) bis über \(20~H\), die Genauigkeit ist allerdings nicht hoch.
 Das Ergebnis wird nur bei einem Einzelwiderstand zusammen mit dem Widerstandswert angezeigt.
 \item Die Messzeit beträgt ungefähr zwei Sekunden, nur Kapazitätsmessungen und Induktivitätsmessungen können länger dauern.
 \item Die Software kann für Messserien mit vorgebbarer Wiederhol-Zahl konfiguriert werden, bevor die automatische Abschaltung ausschaltet.
@@ -104,7 +104,7 @@ Ein externer Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F
 um die Offset-Spannung des analogen Komparators zu kompensieren.
 Dies kann den Messfehler bei Kapazitätsmessungen bis zu \(40~\mu F\) reduzieren.
 Mit dem gleichen Kondensator wird eine Korrekturspannung zum Einstellen der richtigen Verstärkung für
-die ADC Messung mit der internen \(1.1V\) Referenzspannung berechnet.
+die ADC Messung mit der internen \(1,1V\) Referenzspannung berechnet.
 \item Anzeige des Kollektor-Emitter-Reststroms \(I_{CE0}\) mit stromloser Basis (\(10\mu A\) Auflösung) und
 des Kollektor-Emitter Reststroms \(I_{CES}\) mit der Basis auf Emitter-Potential gehalten (nur für ATmega328).
 Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germanium-Transistoren).
@@ -112,7 +112,7 @@ Diese Werte werden nur angezeigt, wenn sie nicht Null sind (besonders für Germa
 Natürlich kann über den Dialog auch zu der Transistortester-Funktion zurückgekehrt werden.
 \item Mit Dialogfunktion kann am PD4-Port des ATmega eine Frequenzmessung vorgenommen werden.
 Die Auflösung beträgt bei Eingangfrequenzen über \(25~kHz\) ein Hertz.
-Bei niedrigeren Frequenzen kann die Auflösung bis zu \(0.001~mHz\) betragen.
+Bei niedrigeren Frequenzen kann die Auflösung bis zu \(0,001~mHz\) betragen.
 \item Mit Dialogfunktion und ohne serielle Ausgabe kann eine externe Spannung bis 50V über einen
 10:1 Spannungteiler am PC3 Pin gemessen werden. Bei der PLCC-Version des ATmega328 kann auch einer der beiden
 zusätzlichen Pinne für die Spannungsmessung zusammen mit der seriellen Ausgabe benutzt werden.
