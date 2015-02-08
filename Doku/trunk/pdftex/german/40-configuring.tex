@@ -34,9 +34,10 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
          m328 or m328p = ATmega328\\
     Beispiel: PARTNO = m168
   \item[UI\_LANGUAGE] gibt die Sprache für den Tester an:\\
-    LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, LANG\_HUNGARIAN, LANG\_ITALIAN,
-    LANG\_LITHUANIAN, LANG\_POLISH, LANG\_RUSSIAN, LANG\_SLOVAK, LANG\_SLOVENE, Lang\_SPANISH, und LANG\_UKRAINIAN
-    sind derzeit verfügbar.
+    LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, \\
+    LANG\_HUNGARIAN, LANG\_ITALIAN, LANG\_LITHUANIAN, LANG\_POLISH, \\
+    LANG\_RUSSIAN, LANG\_SLOVAK, LANG\_SLOVENE, Lang\_SPANISH, und \\
+    LANG\_UKRAINIAN sind derzeit verfügbar.
  Für die russische und ukrainische Sprache ist ein LCD mit kyrillischem Zeichensatz erforderlich.\\
     Beispiel: UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] wird nur gebraucht, wenn man ein LC-Display mit kyrillischem Zeichensatz benutzt.
@@ -54,10 +55,10 @@ Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
 Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die im Folgenden
 beschrieben werden.
 Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
-Dafür muss die Variable WITH\_LCD\_ST7565 auf 1306 gesetzt werden.\\
+Dafür muss diese Option auf 1306 gesetzt werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-SPI (4-Wire) Interface auch das
-I\textsuperscript{2}C-Interface benutzt werden. Dafür muss die Konstante LCD\_INTERFACE\_MODE auf 2 gesetzt werden.\\
+I\textsuperscript{2}C-Interface benutzt werden. Dafür muss diese Option auf 2 gesetzt werden.\\
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
  \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
 auf 0x3D geändert werden.\\
@@ -104,7 +105,7 @@ Rauf (Up) und Runter (Down) Tastern, die anstelle der beiden Schalter eines Impu
 Verwenden Sie nicht die Einstellung 4 mit normalen Impulsdrehgebern!\\
 Beispiel: CFLAGS += -DWITH\_ROTARY\_SWITCH=1
   \item[CHANGE\_ROTARY\_DIRECTION] Man kann die erkannte Drehrichtung des Impulsdrehgebers durch Vertauschen
-der beiden Schalter-Signale oder durch Setzen der Option CHANGE\_ROTARY\_DIRECTION ändern.
+der beiden Schalter-Signale oder durch Setzen dieser Option ändern.
 Beispiel: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
  \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
@@ -149,7 +150,7 @@ Ein Wert von 10 ergibt etwa 1~Prozent kleinere Messergebnisse.\\
 Beispiel: CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
 in mV-Einheiten an. Der REF\_C\_KORR-Offset beziehungsweise der gefundene Offset bei der Kalibration
-wird bei der Induktivitätsmessung ebenfalls berücksichtigt.
+wird bei der Induktivitätsmessung ebenfalls berücksichtigt.\\
 Der REF\_L\_KORR Wert wird für die Messungen ohne \(680 \Omega\) Widerstand subtrahiert, bei Messungen mit einem
 \(680 \Omega\) Widerstand wird der Wert addiert.
 Ein Wert von 10 führt zu einer Änderung des Ergebnisses um 1 Prozent.\\
@@ -197,16 +198,16 @@ Beispiel: CFLAGS += -DNO\_AREF\_CAP
 \end{description}
 
 \begin{figure}[H]
-  \begin{subfigure}[b]{9cm}
+  \begin{subfigure}[b]{8.6cm}
     \centering
-    \includegraphics[width=9cm]{../PNG/AREF2_1V.png}
+    \includegraphics[width=8.3cm]{../PNG/AREF2_1V.png}
     \caption{from 5V to 1.1V }
     \label{pic:aref1}
   \end{subfigure}
   ~
-  \begin{subfigure}[b]{9cm}
+  \begin{subfigure}[b]{8.6cm}
     \centering
-    \includegraphics[width=9cm]{../PNG/AREF2VCC.png}
+    \includegraphics[width=8.3cm]{../PNG/AREF2VCC.png}
     \caption{from 1.1V to 5V}
     \label{pic:aref5}
   \end{subfigure}

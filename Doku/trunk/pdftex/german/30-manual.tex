@@ -51,7 +51,7 @@ Ein vorzeitiger neuer Messbeginn ist aber während der Anzeigezeit durch erneute
 \end{description}
 
 \section{Optionale Menüfunktionen für den ATmega328}
-Wenn die Menüfunktion eingeschaltet ist, startet der Tester nach einem längeren Tastendruck (\textgreater~500ms) ein Auswahlmenü
+Wenn die Menüfunktion eingeschaltet ist, startet der Tester nach einem längeren Tastendruck (\textgreater~0.5s) ein Auswahlmenü
 für zusätzliche Funktionen.
 Die wählbaren Funktionen erscheinen in Zeile~2 eines zweizeiligen Displays oder werden als gekennzeichnete
 Funktion in Zeile 3 eines vierzeiligen Displays gezeigt. Dabei wird die vorige und nächste Funktion in Zeile 2 und 4 angezeigt.
@@ -194,7 +194,7 @@ Messung durchgeführt.
 
 Für den letzten Teil der Kalibration ist der Anschluss eines Kondensators 
 mit einer beliebiger Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 erforderlich.
-Dazu wird in Zeile 1 ein Kondensatorsymbol zwischen den Pinnummern 1 und 3 angezeigt, gefolgt von dem Text ,, \textgreater100nF''.
+Dazu wird in Zeile 1 ein Kondensatorsymbol zwischen den Pinnummern 1 und 3 angezeigt, gefolgt von dem Text ,,\textgreater100nF''.
 Sie sollten den Kondensator erst nach dieser Ausgabe anschließen.
 Mit diesem Kondensator wird die Offset-Spannung des analogen Komparators kompensiert,
 um genauere Kapazitätswerte ermitteln zu können.

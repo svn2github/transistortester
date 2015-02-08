@@ -34,9 +34,10 @@ The following options in the Makefile are avaiable to configure the software for
          m328 or m328p = ATmega328\\
     example:  PARTNO = m168
    \item[UI\_LANGUAGE] specifies the favored Language\\
-    LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, LANG\_HUNGARIAN, LANG\_ITALIAN,
-    LANG\_LITHUANIAN, LANG\_POLISH, LANG\_RUSSIAN , LANG\_SLOVAK, LANG\_SLOVENE, LANG\_SPANISH  and LANG\_UKRAINIAN
-    is currently avaiable.
+    LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, \\
+    LANG\_HUNGARIAN, LANG\_ITALIAN, LANG\_LITHUANIAN, LANG\_POLISH, \\
+    LANG\_RUSSIAN, LANG\_SLOVAK, LANG\_SLOVENE, LANG\_SPANISH  and \\
+    LANG\_UKRAINIAN is currently avaiable.
  The russian or ukrainian language requires a LCD with cyrillic character set.\\
     example:  UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] is only needed for a LCD-display with cyrillic character set. The \(\mu\) and \(\Omega\) character
@@ -55,7 +56,7 @@ You can also use the simular SSD1306 controller instead of the ST7565 controller
 This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.\\
 example: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] For the SSD1306 controller also the I\textsuperscript{2}C type interface with address 0x3c
-can be used  instead of the 4-wire SPI interface by setting the constant LCD\_INTERFACE\_MODE to 2.\\
+can be used  instead of the 4-wire SPI interface by setting this option to 2.\\
 example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
   \item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
 the constant LCD\_I2C\_ADDR to 0x3d.\\
@@ -97,7 +98,7 @@ which are installed instead of the normal rotary encoder switches.
 Do not use a setting of 4 for normal rotary encoders!\\
 example: CFLAGS += -DWITH\_ROTARY\_SWITCH=1
   \item[CHANGE\_ROTARY\_DIRECTION] You can change the direction of the detected rotary direction by hardware swap of
-the two switch signals or by setting the option CHANGE\_ROTARY\_DIRECTION.\\
+the two switch signals or by setting the this option.\\
 example: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
   \item[WITH\_SELFTEST] If you specify this Option, software will include a selftest function.
 Selftest will be started, if you connect all three probes together and start measurement.
@@ -121,7 +122,7 @@ With enabled menu function the selftest parts T1 to T7 are only started by selec
 The ATmega168 processor does not use the selftest parts T1 to T7, if both measurement types for hFE determination are used.\\
 example: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally
-to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (REF\_C\_KORR) and the
+to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (with option REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
 capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
 All found values will be written to EEprom and will be used for further measurements automatically.
@@ -284,16 +285,16 @@ example: PORT=usb
 \end{description}
 
 \begin{figure}[H]
-  \begin{subfigure}[b]{9cm}
+  \begin{subfigure}[b]{8.6cm}
     \centering
-    \includegraphics[width=9cm]{../PNG/AREF2_1V.png}
+    \includegraphics[width=8.3cm]{../PNG/AREF2_1V.png}
     \caption{from 5V to 1.1V }
     \label{pic:aref1}
   \end{subfigure}
   ~
-  \begin{subfigure}[b]{9cm}
+  \begin{subfigure}[b]{8.6cm}
     \centering
-    \includegraphics[width=9cm]{../PNG/AREF2VCC.png}
+    \includegraphics[width=8.3cm]{../PNG/AREF2VCC.png}
     \caption{from 1.1V to 5V}
     \label{pic:aref5}
   \end{subfigure}
