@@ -12,7 +12,7 @@ EE_check_init.o: ../EE_check_init.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/pgmspace.h /usr/lib/avr/include/avr/wdt.h \
  /usr/lib/avr/include/avr/interrupt.h ../config.h ../autoconf.h \
  ../tt_function.h ../lcd-routines.h ../lcd_defines.h ../wait1000ms.h \
- ../part_defs.h
+ ../part_defs.h ../bitmaps.h
 
 /usr/lib/avr/include/avr/io.h:
 
@@ -73,3 +73,5 @@ EE_check_init.o: ../EE_check_init.c /usr/lib/avr/include/avr/io.h \
 ../wait1000ms.h:
 
 ../part_defs.h:
+
+../bitmaps.h:

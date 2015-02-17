@@ -260,6 +260,24 @@ a 5V signal level.
 For connection to the ATmega644 series of processors the pins PB2 to PB5 instead of PD0 to PD3 are used.
 The exchange of a text display to a graphical display is possible with a adapter printed board because
 all required data signals and power signals are available at the LCD connector.
+A little simpler is the connection of a graphical display with a ST7920 controller because
+the controller can operate with 5V power voltage.
+For that the display should offer 128x64 visible pixels.
+The display module with the ST7920 controller can be connected with the 4-bit parallel interface or with a
+special serial interface., as shown in figure \ref{fig:ST7920lcd}.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/ST7920interface.eps}
+\caption{Connection of a display with ST7920 controller}
+\label{fig:ST7920lcd}
+\end{figure}
+
+For both connection types the software must be configured in a special way.
+The Makefile option ''WITH\_LCD\_ST7565 = 7920'' must be set in any case, for the serial
+connection type you must set also the option ''CFLAGS += -DLCD\_INTERFACE\_MODE=5''.
+The orientation of the presentation can be changed with the options LCD\_ST7565\_H\_FLIP and 
+LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.
 
 
 \section{Hints for building the TransistorTester}
@@ -560,15 +578,15 @@ The figures \ref{fig:WinAVR1} show the File menu of the graphical user interface
 open the file Makefile and for saving the changed Makefile (Save).
 
 \begin{figure}[H]
-  \begin{subfigure}[b]{8.6cm}
+  \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_open.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_open.png}
     \caption{open Makefile}
   \end{subfigure}
   ~
-  \begin{subfigure}[b]{8.6cm}
+  \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_save.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_save.png}
     \caption{save Makefile}
   \end{subfigure}
   \caption{Using of the WinAVR user interface Programmer's Notepad}
@@ -579,15 +597,15 @@ The next figures \ref{fig:WinAVR2} show the Tools menu of the Programmer's Notep
 for compiling the program (Make All) and for programming the ATmega (Program) with avrdude.
 
 \begin{figure}[H]
-  \begin{subfigure}[b]{8.6cm}
+  \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_make.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_make.png}
     \caption{Build programming data (.hex/.eep)}
   \end{subfigure}
   ~
-  \begin{subfigure}[b]{8.6cm}
+  \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_program.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_program.png}
     \caption{Programming the ATmega}
   \end{subfigure}
   \caption{Using of the WinAVR user interface Programmer's Notepad}

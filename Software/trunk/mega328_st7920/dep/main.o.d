@@ -12,8 +12,8 @@ main.o: ../main.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/wdt.h ../Transistortester.h \
  /usr/lib/avr/include/avr/interrupt.h ../config.h ../autoconf.h \
  ../tt_function.h ../lcd-routines.h ../lcd_defines.h ../wait1000ms.h \
- ../part_defs.h ../Ru-Ua-TransistorTester.txt ../HelpCalibration.c \
- ../AutoCheck.c ../mark_as_uncalibrated.c ../GetIr.c
+ ../part_defs.h ../Ru-Ua-TransistorTester.txt ../bitmaps.h \
+ ../HelpCalibration.c ../AutoCheck.c ../mark_as_uncalibrated.c ../GetIr.c
 
 /usr/lib/avr/include/avr/io.h:
 
@@ -76,6 +76,8 @@ main.o: ../main.c /usr/lib/avr/include/avr/io.h \
 ../part_defs.h:
 
 ../Ru-Ua-TransistorTester.txt:
+
+../bitmaps.h:
 
 ../HelpCalibration.c:
 

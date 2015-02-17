@@ -144,6 +144,10 @@ to_hw_write:
  	mov	r22, r17
  	RCALL	_lcd_hw_write	; lcd_write_cmd(temp1);		// set RS to 0
  	RCALL	wait50us
+#if (LCD_ST_TYPE == 7920)
+; instruction time for most 7920 instructions is specified as 72us
+ 	RCALL	wait30us
+#endif
 #ifdef WITH_UART
  	cpi	r17, 0x80	; 128
  	breq	ad2c0		; if((temp1 == 0x80)  ||

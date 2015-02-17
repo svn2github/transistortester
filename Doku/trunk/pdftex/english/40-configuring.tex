@@ -56,7 +56,8 @@ You can also use the simular SSD1306 controller instead of the ST7565 controller
 This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.\\
 example: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] For the SSD1306 controller also the I\textsuperscript{2}C type interface with address 0x3c
-can be used  instead of the 4-wire SPI interface by setting this option to 2.\\
+can be used  instead of the 4-wire SPI interface by setting this option to 2.
+For the ST7920 controller a special serial interface can be selected by setting this option to 5.\\
 example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
   \item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
 the constant LCD\_I2C\_ADDR to 0x3d.\\

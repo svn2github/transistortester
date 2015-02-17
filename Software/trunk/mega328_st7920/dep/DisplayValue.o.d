@@ -11,7 +11,7 @@ DisplayValue.o: ../DisplayValue.c /usr/lib/avr/include/string.h \
  /usr/lib/avr/include/avr/eeprom.h /usr/lib/avr/include/avr/pgmspace.h \
  /usr/lib/avr/include/avr/wdt.h /usr/lib/avr/include/avr/interrupt.h \
  ../config.h ../autoconf.h ../tt_function.h ../lcd-routines.h \
- ../lcd_defines.h ../wait1000ms.h ../part_defs.h
+ ../lcd_defines.h ../wait1000ms.h ../part_defs.h ../bitmaps.h
 
 /usr/lib/avr/include/string.h:
 
@@ -72,3 +72,5 @@ DisplayValue.o: ../DisplayValue.c /usr/lib/avr/include/string.h \
 ../wait1000ms.h:
 
 ../part_defs.h:
+
+../bitmaps.h:
