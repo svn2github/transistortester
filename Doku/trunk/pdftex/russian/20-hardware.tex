@@ -266,6 +266,23 @@ ST7565 контроллер использует рабочее напряжение \(3,3~V\).
 Для подключения к контроллерам сериии ATmega644 вместо портов PD0 - PD3 используются порты PB2 - PB5.
 Для замены символьного дисплея на графический можно использовать переходную печатную плату-адаптер с разъемом
 аналогичным символьному LCD, так как все сигналы и питание на нем доступны.
+Намного проще подключить дисплей с контроллером ST7920, потому что контроллер поддерживает напряжение питания \(5~V\).
+Дисплей должен поддерживать режим 128x64 точек.
+Модуль дисплея с контроллером ST7920 может быть подключен по 4-bit параллельному интерфейсу или по специальному,
+последовательному интерфейсу, согласно рисунка \ref{fig:ST7920lcd}.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/ST7920interface.eps}
+\caption{Подключение индикатора с контроллером ST7920}
+\label{fig:ST7920lcd}
+\end{figure}
+
+Для двух типов подсоединений микропрограмма должна быть сконфигорирована особым образом.
+В Makefile опция «WITH\_LCD\_ST7565 = 7920» должна быть установлена в любом случае, в том числе и для подключения по 
+последовательному интерфейсу. Кроме того, должна быть установлена опция «CFLAGS += -DLCD\_INTERFACE\_MODE=5».
+Ориентацию выводимого изображения можно изменить с помощью опций LCD\_ST7565\_H\_FLIP и 
+LCD\_ST7565\_V\_FLIP так же как и в случае применения других графических индикаторов.
 
 \section{Указания по сборке Тестера }
 
@@ -517,13 +534,13 @@ Makefile (Open) и для того, чтобы сохранить изменённый Makefile (Save).
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_open.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_open.png}
     \caption{Открить Makefile}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_save.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_save.png}
     \caption{Сохранить Makefile}
   \end{subfigure}
   \caption{Использование программы WinAVR}
@@ -536,13 +553,13 @@ Makefile (Open) и для того, чтобы сохранить изменённый Makefile (Save).
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_make.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_make.png}
     \caption{Создание прошивки (.hex/.eep)}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
     \centering
-    \includegraphics[width=8.3cm]{../PNG/Notepad_program.png}
+    \includegraphics[width=9cm]{../PNG/Notepad_program.png}
     \caption{Программирование ATmega}
   \end{subfigure}
   \caption{Использование WinAVR}
