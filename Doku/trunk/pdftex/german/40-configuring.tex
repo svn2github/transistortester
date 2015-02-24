@@ -55,12 +55,39 @@ Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
 Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die im Folgenden
 beschrieben werden.
 Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
-Dafür muss diese Option auf 1306 gesetzt werden.\\
+Dafür muss diese Option auf 1306 gesetzt werden.
+Auch ein Display mit ST7920 oder ST7108 Controller kann angeschlossen werden. Für den ST7108 Controller muß ein
+zusätzlicher Seriell-Parallel Wandler (74HCT164) verwendet werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-SPI (4-Wire) Interface auch das
 I\textsuperscript{2}C-Interface benutzt werden. Dafür muss diese Option auf 2 gesetzt werden.
 Für den ST7920 Controller kann ein spezieller serieller Anschluß mit dem Setzen dieser Option auf 5
-unterstützt werden.\\
+unterstützt werden.
+Wenn nur eine Anschlußmöglichkeit vorgesehen ist, braucht die Konstante LCD\_INTERFACE\_MODE nicht gesetzt werden.
+Der Übersicht wegen sind hier alle bisher möglichen Kennziffern aufgeführt: \\
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c |}
+    \hline
+ Kennung &  Typ der Schnittstelle \\
+    \hline
+    \hline
+  1   & 4-Bit parallel      \\
+    \hline
+  2   & I\textsuperscript{2}C-Schnittstelle      \\
+    \hline
+  4   & 4-Bit SPI Schnittstelle      \\
+    \hline
+  5   & serielle Schnittstelle für ST7920      \\
+    \hline
+  6   & serielle Schnittstelle für ST7108 mit 74HCT164  \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Kennziffern für die Art der Schnittstelle}
+\end{table}
+
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
  \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
 auf 0x3D geändert werden.\\
@@ -80,8 +107,8 @@ Beispiel: CFLAGS += LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
 Beispiel: CFLAGS += LCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_8X16] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
-Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 und FONT\_16X16.
-Derzeit wird nur der 6x8- und der 8x16-Font vollständig unterstützt.
+Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 FONT\_8X15, FONT\_8X16 und FONT\_8X16thin.
+Derzeit ist der Font 8x12 nicht fertiggestellt.
 Die Fontgröße 8X16 ist die effizienteste Wahl für das graphische 128x64-LCD.\\
 Beispiel: CFLAGS += FONT\_8X16
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.

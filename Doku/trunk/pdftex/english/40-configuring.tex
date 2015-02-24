@@ -57,7 +57,31 @@ This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.\\
 example: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] For the SSD1306 controller also the I\textsuperscript{2}C type interface with address 0x3c
 can be used  instead of the 4-wire SPI interface by setting this option to 2.
-For the ST7920 controller a special serial interface can be selected by setting this option to 5.\\
+For the ST7920 controller a special serial interface can be selected by setting this option to 5.
+If only one connection type is provided for a controller, you need not set the constant LCD\_INTERFACE\_MODE .
+All currently used code numbers are here shown for general view only: \\
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c |}
+    \hline
+ Code number &  Typ of interface \\
+    \hline
+    \hline
+  1   & 4-bit parallel      \\
+    \hline
+  2   & I\textsuperscript{2}C-interface      \\
+    \hline
+  4   & 4-bit SPI interface      \\
+    \hline
+  5   & serial interface for the ST7920      \\
+    \hline
+  6   & serial interface for the ST7108 with 74HCT164  \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Code numbers for the type of interface}
+\end{table}
 example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
   \item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
 the constant LCD\_I2C\_ADDR to 0x3d.\\
@@ -77,8 +101,8 @@ example: CFLAGS += -DLCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
 example: CFLAGS += -DLCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_8X16] You must select one font size for the ST7565 controller.
-Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X16 and FONT\_16X16.
-Currently only the 6X8 and the 8X16 font is fully supported.
+Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14, FONT\_8X15, FONT\_8X16, and FONT\_8X16thin.
+Currently the  8X12 font is not finished.
 Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
 example: FONT\_8X16
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.

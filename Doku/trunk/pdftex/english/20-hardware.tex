@@ -253,7 +253,7 @@ a 5V signal level.
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{../FIG/ST7565lcd.eps}
-\caption{Connection of a  graphical display}
+\caption{Connection of a graphical display with ST7565 controller}
 \label{fig:ST7565lcd}
 \end{figure}
 
@@ -278,6 +278,18 @@ The Makefile option ''WITH\_LCD\_ST7565 = 7920'' must be set in any case, for th
 connection type you must set also the option ''CFLAGS += -DLCD\_INTERFACE\_MODE=5''.
 The orientation of the presentation can be changed with the options LCD\_ST7565\_H\_FLIP and 
 LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.
+
+A special case is the connection of displays with a ST7108 controller. Because these displays can only use 
+the 8-bit parallel interface, you must use a serial to parallel converter. The simplest way seems to be the
+use of a 74HCT164 chip. A suitable suggestion of a connection circuit shows the figure \ref{fig:ST7108lcd} .
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/ST7108serial164.eps}
+\caption{Connection of a graphical display with a ST7108 controller}
+\label{fig:ST7108lcd}
+\end{figure}
+
 
 
 \section{Hints for building the TransistorTester}
