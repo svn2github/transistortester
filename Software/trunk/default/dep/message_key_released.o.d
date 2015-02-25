@@ -11,7 +11,7 @@ message_key_released.o: ../message_key_released.c \
  /usr/lib/avr/include/avr/sleep.h /usr/lib/avr/include/string.h \
  /usr/lib/avr/include/avr/eeprom.h /usr/lib/avr/include/avr/pgmspace.h \
  /usr/lib/avr/include/avr/wdt.h /usr/lib/avr/include/avr/interrupt.h \
- ../wait1000ms.h ../config.h ../autoconf.h ../tt_function.h \
+ ../config.h ../autoconf.h ../tt_function.h ../wait1000ms.h \
  ../lcd-routines.h ../lcd_defines.h ../part_defs.h
 
 /usr/lib/avr/include/avr/io.h:
@@ -62,13 +62,13 @@ message_key_released.o: ../message_key_released.c \
 
 /usr/lib/avr/include/avr/interrupt.h:
 
-../wait1000ms.h:
-
 ../config.h:
 
 ../autoconf.h:
 
 ../tt_function.h:
+
+../wait1000ms.h:
 
 ../lcd-routines.h:
 

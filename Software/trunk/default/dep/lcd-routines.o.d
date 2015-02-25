@@ -11,8 +11,8 @@ lcd-routines.o: ../lcd-routines.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/eeprom.h ../Transistortester.h \
  /usr/lib/avr/include/avr/sleep.h /usr/lib/avr/include/stdlib.h \
  /usr/lib/avr/include/string.h /usr/lib/avr/include/avr/wdt.h \
- /usr/lib/avr/include/avr/interrupt.h ../wait1000ms.h ../config.h \
- ../autoconf.h ../tt_function.h ../lcd-routines.h ../lcd_defines.h \
+ /usr/lib/avr/include/avr/interrupt.h ../config.h ../autoconf.h \
+ ../tt_function.h ../wait1000ms.h ../lcd-routines.h ../lcd_defines.h \
  ../part_defs.h
 
 /usr/lib/avr/include/avr/io.h:
@@ -63,13 +63,13 @@ lcd-routines.o: ../lcd-routines.c /usr/lib/avr/include/avr/io.h \
 
 /usr/lib/avr/include/avr/interrupt.h:
 
-../wait1000ms.h:
-
 ../config.h:
 
 ../autoconf.h:
 
 ../tt_function.h:
+
+../wait1000ms.h:
 
 ../lcd-routines.h:
 

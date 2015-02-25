@@ -52,7 +52,7 @@ besser auszunutzen. Zusätzliche Parameter, welche sonst nur kurz in Zeile 2 ang
 den Zeilen 3 und 4 angezeigt.\\
 Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
   \item[WITH\_LCD\_ST7665] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
-Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die im Folgenden
+Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 
 beschrieben werden.
 Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss diese Option auf 1306 gesetzt werden.
@@ -64,29 +64,41 @@ I\textsuperscript{2}C-Interface benutzt werden. Dafür muss diese Option auf 2 g
 Für den ST7920 Controller kann ein spezieller serieller Anschluß mit dem Setzen dieser Option auf 5
 unterstützt werden.
 Wenn nur eine Anschlußmöglichkeit vorgesehen ist, braucht die Konstante LCD\_INTERFACE\_MODE nicht gesetzt werden.
-Der Übersicht wegen sind hier alle bisher möglichen Kennziffern aufgeführt: \\
+Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sind in Tabelle~\ref{tab:cod-display} aufgeführt.\\
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c |}
+    \begin{tabular}{| c | c | c | c|}
     \hline
- Kennung &  Typ der Schnittstelle \\
+ Display-Type &  Interface          & WITH\_LCD\_ST7565 &  LCD\_INTERFACE\_MODE \\
     \hline
     \hline
-  1   & 4-Bit parallel      \\
+  Character 16x2    & 4-Bit parallel &  disabled (0)       & disabled (1) \\
+  Character 20x4    &                &              &      \\
     \hline
-  2   & I\textsuperscript{2}C-Schnittstelle      \\
+  Graphic ST7565         & 4-Bit SPI      & 1 or 7565  & disabled (4) \\
     \hline
-  4   & 4-Bit SPI Schnittstelle      \\
+  Graphic ST7565  & I\textsuperscript{2}C & 1 or 7565  &   2 \\
     \hline
-  5   & serielle Schnittstelle für ST7920      \\
+  Graphic SSD1306        & 4-Bit SPI      & 1306  & disabled (4) \\
     \hline
-  6   & serielle Schnittstelle für ST7108 mit 74HCT164  \\
+  Graphic SSD1306  & I\textsuperscript{2}C & 1306  &   2 \\
+    \hline
+  Graphic ST7920         & 4-Bit SPI       & 7920  & disabled (4) \\
+    \hline
+  Graphic ST7920         & 2-Bit serial   & 7920  &  5 \\
+    \hline
+  Graphic ST7108         & 8-Bit parallel  & 7108  & disabled (6) \\
+                           &    + 74HCT164   &       &      \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Kennziffern für die Art der Schnittstelle}
+  \caption{Kennzahlen für Controller und  Art der Schnittstelle}
+  \label{tab:cod-display}
 \end{table}
+
+Die Werte in Klammern werden nur Software intern benutzt und sind hier nur zur Information genannt.
+Man sollte die Werte in den Klammern nicht hier in der Makefile setzen.\\
 
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
  \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR

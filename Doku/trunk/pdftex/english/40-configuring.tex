@@ -51,7 +51,7 @@ example: CFLAGS += -DLCD\_DOGM
 Additional parameters, which are shown only short in row 2, will be shown in row 3 and 4 with this option.\\
 example: CFLAGS += -DFOUR\_LINE\_LCD
   \item[WITH\_LCD\_ST7665] This option must be used, if a 128x64 pixel LCD is connected with serial
-interface. For this display type further options must be set, which are described later.
+interface. For this display type further options must be set, which are described in table~\ref{tab:cod-display}.
 You can also use the simular SSD1306 controller instead of the ST7565 controller.
 This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.\\
 example: WITH\_LCD\_ST7565 = 1 
@@ -59,29 +59,42 @@ example: WITH\_LCD\_ST7565 = 1
 can be used  instead of the 4-wire SPI interface by setting this option to 2.
 For the ST7920 controller a special serial interface can be selected by setting this option to 5.
 If only one connection type is provided for a controller, you need not set the constant LCD\_INTERFACE\_MODE .
-All currently used code numbers are here shown for general view only: \\
+All currently used values for LCD\_INTERFACE\_MODE and WITH\_LCD\_ST7565 are shown in table~\ref{tab:cod-display}. \\
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c |}
+    \begin{tabular}{| c | c | c | c|}
     \hline
- Code number &  Typ of interface \\
+ Display-Type &  Interface          & WITH\_LCD\_ST7565 &  LCD\_INTERFACE\_MODE \\
     \hline
     \hline
-  1   & 4-bit parallel      \\
+  Character 16x2    & 4-Bit parallel &  disabled (0)       & disabled (1) \\
+  Character 20x4    &                &              &      \\
     \hline
-  2   & I\textsuperscript{2}C-interface      \\
+  Graphic ST7565         & 4-Bit SPI      & 1 or 7565  &  disabled (4) \\
     \hline
-  4   & 4-bit SPI interface      \\
+  Graphic ST7565  & I\textsuperscript{2}C & 1 or 7565  &   2 \\
     \hline
-  5   & serial interface for the ST7920      \\
+  Graphic SSD1306        & 4-Bit SPI      & 1306  &  disabled (4) \\
     \hline
-  6   & serial interface for the ST7108 with 74HCT164  \\
+  Graphic SSD1306  & I\textsuperscript{2}C & 1306  &   2 \\
+    \hline
+  Graphic ST7920         & 4-Bit SPI       & 7920  &  disabled (4) \\
+    \hline
+  Graphic ST7920         & 2-Bit serial   & 7920  &  5 \\
+    \hline
+  Graphic ST7108         & 8-Bit parallel  & 7108  &  disabled (6) \\
+                           &    + 74HCT164   &       &      \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Code numbers for the type of interface}
+  \caption{Number setting for controller and interface mode}
+  \label{tab:cod-display}
 \end{table}
+
+The values in brackets are used software internal and are shown for information only.
+You should not set the values in brackets here in the Makefile.\\
+
 example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
   \item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
 the constant LCD\_I2C\_ADDR to 0x3d.\\
