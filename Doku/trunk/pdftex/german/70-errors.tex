@@ -8,6 +8,10 @@
 \item Germanium-Dioden (AC128) werden nicht in allen Fällen entdeckt. Ursache ist vermutlich der Reststrom.
 Das Kühlen der Diode reduziert den Reststrom.
 
+\item Bei bipolaren Transistoren wird eine Kollektor - Emitter Schutzdiode nicht erkannt, wenn der
+Kollektor-Reststrom ICE0 hoch ist. Das Problem trat bisher nur bei Germanium-Transistoren mit
+einer externen Diode auf.
+
 \item Der Stromverstärkungsfaktor von Germanium-Transistoren kann zu hoch gemessen werden wegen dem hohen Reststrom.
 In diesem Fall ist die gemessene Basis-Emitter-Spannung auffällig klein.
 Das Kühlen des Transistors kann helfen, einen realistischeren Stromverstärkungsfaktor zu bestimmen.
