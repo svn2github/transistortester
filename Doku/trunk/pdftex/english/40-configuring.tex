@@ -118,6 +118,12 @@ Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14, FONT\_8X15, FONT\_8
 Currently the  8X12 font is not finished.
 Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
 example: FONT\_8X16
+ \item[BIG\_TP] The pin numbers for the graphical presentation can be shown bigger with this option.\\
+example: CFLAGS += BIG\_TP
+ \item[INVERSE\_TP] With this option you can select a inverse presentation (white background) of the pin numbers
+on the graphical display.
+Because a boarder in required for this presentation, you can not combine this option with the BIG\_TP option.\\
+example: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.
 You can find the details in the chapter hardware \ref{sec:hardware}.
 example: CFLAGS += -DSTRIP\_GRID\_BOARD

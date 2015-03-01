@@ -252,12 +252,6 @@ Man kann auch versuchen, die vier Gatter des 74HC4050 durch vier Widerstände vo
 der Controllereingänge von den 5V ATmega-Ausgängen über die 3,3V-Grenze angehoben werden kann.
 Ob die Signalform für den ST7565-Controller so noch akzeptiert wird, sollte man vorher testen.
 Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
-
-Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire SPI-Schnittstelle angeschlossen.
-Beim SSD1306-Controller kann auch eine I\textsuperscript{2}C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
-Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4,7k\Omega\) nach 3,3V versehen sein.
-Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
-Bitte prüfen Sie, ob die I\textsuperscript{2}C-Signale Ihres Display-Moduls auch einen 5V-Signalpegel vertragen, bevor Sie die
 "Pull-Up"-Widerstände an 5V anschließen!
  
 \begin{figure}[H]
@@ -265,6 +259,24 @@ Bitte prüfen Sie, ob die I\textsuperscript{2}C-Signale Ihres Display-Moduls auc
 \includegraphics[width=14cm]{../FIG/ST7565lcd.eps}
 \caption{Anschluss eines graphischen Displays mit ST7565 Controller}
 \label{fig:ST7565lcd}
+\end{figure}
+
+Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire SPI-Schnittstelle angeschlossen.
+Beim SSD1306-Controller kann auch eine I\textsuperscript{2}C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
+Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4,7k\Omega\) nach 3,3V versehen sein.
+Eine Anschlußmöglichkeit zeigt die Abbildung \ref{fig:ssd1306i2c}.
+Vor der Verwendung der ,,Pull-up'' Widerstände nach 5V sollte überprüft werden, ob die Eingänge dieses Signal vertragen.
+Normalerweise sind die Eingänge des Kontrollers über Dioden nach 3.3V geschützt.
+Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
+Es sollte aber sichergestellt sein, daß das Programm mit der I\textsuperscript{2}C Schnittstelle in den ATmega geladen wurde,
+bevor das Display angeschlossen wird. Wenn ein Programm für eine andere Schnittstelle geladen wurde,
+werden die Ausgänge auch nach 5V geschaltet.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{../FIG/SSD1306_I2C.eps}
+\caption{Anschluss eines graphischen OLED Displays mit I\textsuperscript{2}C Schnittstelle}
+\label{fig:ssd1306i2c}
 \end{figure}
 
 Bei der ATmega644 Prozessorserie werden die Pinne PB2 bis PB5 anstelle PD0 bis PD3 für den Anschluss benutzt.

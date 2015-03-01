@@ -123,6 +123,11 @@ Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 FONT\_8X15, FONT\
 Derzeit ist der Font 8x12 nicht fertiggestellt.
 Die Fontgröße 8X16 ist die effizienteste Wahl für das graphische 128x64-LCD.\\
 Beispiel: CFLAGS += FONT\_8X16
+ \item[BIG\_TP] Die Pinnummern bei der graphischen Darstellung können mit dieser Option größer dargestellt werden.\\
+Beispiel: CFLAGS += BIG\_TP
+ \item[INVERSE\_TP] Mit dieser Option werden die Pinnummern in der graphischen Darstellung invers (schwarz auf weiß) dargestellt.
+Weil für die Darstellung ein Rand benötigt wird, kann diese Option nicht mit der Option BIG\_TP kombiniert werden.\\
+Beispiel: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
 Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
