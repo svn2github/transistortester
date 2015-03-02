@@ -45,8 +45,6 @@
   #endif
  #endif
  #define LANG_SELECTED
- #undef LCD_CYRILLIC
- #define LCD_CYRILLIC
 #endif
 
 #if defined(LANG_UKRAINIAN)		//Ukrainian
@@ -96,6 +94,4 @@
   #endif
  #endif
  #define LANG_SELECTED
- #undef LCD_CYRILLIC
- #define LCD_CYRILLIC
 #endif
