@@ -260,6 +260,7 @@ a 5V signal level. Normally the data inputs of the controller are protected with
 You should make shure, that you have loaded a program with the I\textsuperscript{2}C support to the ATmega 
 before the Display is connected. If you have loaded a program with another interface, 
 the output are also switched to the 5V side.
+Also you should check the pin sequence of your OLED module, some moduls have a different location of GND and VCC.
  
 \begin{figure}[H]
 \centering
@@ -291,16 +292,68 @@ The orientation of the presentation can be changed with the options LCD\_ST7565\
 LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.
 
 A special case is the connection of displays with a ST7108 controller. Because these displays can only use 
-the 8-bit parallel interface, you must use a serial to parallel converter. The simplest way seems to be the
-use of a 74HCT164 chip. A suitable suggestion of a connection circuit shows the figure \ref{fig:ST7108lcd} .
+the 8-bit parallel interface, you must use a serial to parallel converter.
+The simplest way seems to be the use of a 74HCT164 or a 74HCT595 chip.
+A suitable suggestion of a connection circuit shows the figure \ref{fig:ST7108lcd} .
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{../FIG/ST7108serial164.eps}
-\caption{Connection of a graphical display with a ST7108 controller}
-\label{fig:ST7108lcd}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial164.eps}
+    \caption{with 74HCT161}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial595.eps}
+    \caption{with 74HCT595}
+  \end{subfigure}
+  \caption{Connection of a graphical display with a ST7108 controller}
+  \label{fig:ST7108lcd}
 \end{figure}
 
+You must check the pin layout of your LCD module, some moduls have different signal sequence.
+Some different pin layouts found in data sheets for the ABG128064 series are shown in table~\ref{tab:ST7108types}.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+           & 128064H  &  128064G  & 128064C  & 128064B \\
+    Signal &         &          &         &         \\
+    \hline
+    \hline
+  VDD (5V) &   1     &  2       &   4     & 2       \\
+    \hline
+  VSS (GND) &   2     &  1       &   3     & 1       \\
+    \hline
+ VO (Drive) &   3     &  3       &  (5)    & 3       \\
+    \hline
+  DB0-DB3   &   4-7   &  7-10    &   9-12  & 7-10    \\
+    \hline
+  DB4-DB7   &   8-11  &  11-14   &   13-16 & 11-14   \\
+    \hline
+  CS1       &   12    &  15      &   1     & 15      \\
+  CS2       &   13    &  16      &   2     & 16      \\
+    \hline
+  Reset     &   14    &  17      &   -     & 17      \\
+    \hline
+  R/W       &   15    &  5       &   7     & 5       \\
+    \hline
+  RS        &   16    &  4       &   6     & 4       \\
+    \hline
+  E         &   17    &  7       &   8     & 6       \\
+    \hline
+  VEE       &   18    &  18      &   -     & 18      \\
+    \hline
+  LEDA      &   19    &  19      &   17    & (19)      \\
+  LEDK      &   20    &  20      &   18    & -      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Pin layout of different ST7108 moduls}
+  \label{tab:ST7108types}
+\end{table}
 
 
 \section{Hints for building the TransistorTester}

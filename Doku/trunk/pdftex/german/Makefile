@@ -13,7 +13,7 @@ LISTE1 += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Ca
 LISTE1 += ../FIG/CheckSemi1.eps ../FIG/CheckSemi2.eps ../FIG/CheckSemi3.eps
 LISTE1 += ../FIG/rotary_extension.eps ../FIG/rotary_encoder.eps	../FIG/rotary_bouncing.eps
 LISTE1 += ../FIG/Fish8840.eps ../FIG/ST7565lcd.eps ../FIG/ST7920interface.eps ../FIG/ST7108serial164.eps
-LISTE1 += ../FIG/SSD1306_I2C.eps
+LISTE1 += ../FIG/ST7108serial595.eps ../FIG/SSD1306_I2C.eps
 
 LISTE2 = ../FIG/BJT_AD161.eps ../FIG/BJT_AD162.eps ../FIG/BJT_BC639.eps ../FIG/BJT_BC640.eps ../FIG/BJT_BU508D.eps
 LISTE2 += ../FIG/BJT_BC516.eps ../FIG/BJT_BC517.eps ../FIG/BJT_BDV64.eps ../FIG/BJT_BDV65.eps
@@ -177,6 +177,8 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/ST7920interface.eps: ../FIG/ST7920interface.fig
 	fig2eps $<
 ../FIG/ST7108serial164.eps: ../FIG/ST7108serial164.fig
+	fig2eps $<
+../FIG/ST7108serial595.eps: ../FIG/ST7108serial595.fig
 	fig2eps $<
 ../FIG/SSD1306_I2C.eps: ../FIG/SSD1306_I2C.fig
 	fig2eps $<

@@ -271,6 +271,7 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
 Es sollte aber sichergestellt sein, daß das Programm mit der I\textsuperscript{2}C Schnittstelle in den ATmega geladen wurde,
 bevor das Display angeschlossen wird. Wenn ein Programm für eine andere Schnittstelle geladen wurde,
 werden die Ausgänge auch nach 5V geschaltet.
+Außerdem sollte die Belegung der Pinne beim OLED Modul geprüft werden, bei einigen Modulen ist GND und VCC vertauscht!
  
 \begin{figure}[H]
 \centering
@@ -302,16 +303,68 @@ Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays mit den 
 LCD\_ST7565\_H\_FLIP und LCD\_ST7565\_V\_FLIP angepaßt werden. \\
 
 Einen Sonderfall stellen Displays mit ST7108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
-angesteuert werden können, ist ein externer seriell-parallel Wandler erforderlich. Die einfachste Lösung 
-scheint mir mit einem 74HCT164 Chip möglich zu sein. Einen entsprechenden Schaltungsvorschlag zeigt das
-Bild \ref{fig:ST7108lcd} .
+angesteuert werden können, ist ein externer seriell-parallel Wandler erforderlich.
+Die einfachste Lösung scheint mir mit einem 74HCT164 oder einem 74HCT595 Chip möglich zu sein.
+Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:ST7108lcd} .
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=14cm]{../FIG/ST7108serial164.eps}
-\caption{Anschluss eines graphischen Displays mit ST7108 Controller}
-\label{fig:ST7108lcd}
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial164.eps}
+    \caption{mit 74HCT161}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial595.eps}
+    \caption{mit 74HCT595}
+  \end{subfigure}
+  \caption{Anschluss eines graphischen Displays mit ST7108 Controller}
+  \label{fig:ST7108lcd}
 \end{figure}
+
+Sie müssen die Pinreihenfolge bei Ihrem LCD-Modul prüfen, einige Module haben eine andere Signalreihenfolge.
+Einige verschiedene Pinbelegungen aus Datenblättern der ABG128064 Serie zeigt Tabelle~\ref{tab:ST7108types}.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+           & 128064H  &  128064G  & 128064C  & 128064B \\
+    Signal &         &          &         &         \\
+    \hline
+    \hline
+  VDD (5V) &   1     &  2       &   4     & 2       \\
+    \hline
+  VSS (GND) &   2     &  1       &   3     & 1       \\
+    \hline
+ VO (Drive) &   3     &  3       &  (5)    & 3       \\
+    \hline
+  DB0-DB3   &   4-7   &  7-10    &   9-12  & 7-10    \\
+    \hline
+  DB4-DB7   &   8-11  &  11-14   &   13-16 & 11-14   \\
+    \hline
+  CS1       &   12    &  15      &   1     & 15      \\
+  CS2       &   13    &  16      &   2     & 16      \\
+    \hline
+  Reset     &   14    &  17      &   -     & 17      \\
+    \hline
+  R/W       &   15    &  5       &   7     & 5       \\
+    \hline
+  RS        &   16    &  4       &   6     & 4       \\
+    \hline
+  E         &   17    &  7       &   8     & 6       \\
+    \hline
+  VEE       &   18    &  18      &   -     & 18      \\
+    \hline
+  LEDA      &   19    &  19      &   17    & (19)      \\
+  LEDK      &   20    &  20      &   18    & -      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Pinbelegung verschiedener ST7108 Module}
+  \label{tab:ST7108types}
+\end{table}
 
 
 \section{Hinweise für den Aufbau des TransistorTesters}
