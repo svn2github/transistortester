@@ -10,9 +10,9 @@ main.o: ../main.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/gcc/avr/4.8.2/include/stddef.h /usr/lib/avr/include/string.h \
  /usr/lib/avr/include/avr/eeprom.h /usr/lib/avr/include/avr/pgmspace.h \
  /usr/lib/avr/include/avr/wdt.h ../Transistortester.h \
- /usr/lib/avr/include/avr/interrupt.h ../config.h ../autoconf.h \
- ../tt_function.h ../wait1000ms.h ../lcd-routines.h ../lcd_defines.h \
- ../part_defs.h ../Ru-Ua-TransistorTester.txt ../AutoCheck.c \
+ /usr/lib/avr/include/avr/interrupt.h ../config.h ../part_defs.h \
+ ../lcd_defines.h ../autoconf.h ../tt_function.h ../wait1000ms.h \
+ ../lcd-routines.h ../Ru-Ua-TransistorTester.txt ../AutoCheck.c \
  ../mark_as_uncalibrated.c ../GetIr.c
 
 /usr/lib/avr/include/avr/io.h:
@@ -65,6 +65,10 @@ main.o: ../main.c /usr/lib/avr/include/avr/io.h \
 
 ../config.h:
 
+../part_defs.h:
+
+../lcd_defines.h:
+
 ../autoconf.h:
 
 ../tt_function.h:
@@ -72,10 +76,6 @@ main.o: ../main.c /usr/lib/avr/include/avr/io.h \
 ../wait1000ms.h:
 
 ../lcd-routines.h:
-
-../lcd_defines.h:
-
-../part_defs.h:
 
 ../Ru-Ua-TransistorTester.txt:
 
