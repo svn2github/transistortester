@@ -12,8 +12,8 @@ lcd-routines.o: ../lcd-routines.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/sleep.h /usr/lib/avr/include/stdlib.h \
  /usr/lib/avr/include/string.h /usr/lib/avr/include/avr/wdt.h \
  /usr/lib/avr/include/avr/interrupt.h ../config.h ../part_defs.h \
- ../lcd_defines.h ../autoconf.h ../tt_function.h ../wait1000ms.h \
- ../lcd-routines.h
+ ../lcd_defines.h ../font.h ../autoconf.h ../tt_function.h \
+ ../wait1000ms.h ../lcd-routines.h
 
 /usr/lib/avr/include/avr/io.h:
 
@@ -68,6 +68,8 @@ lcd-routines.o: ../lcd-routines.c /usr/lib/avr/include/avr/io.h \
 ../part_defs.h:
 
 ../lcd_defines.h:
+
+../font.h:
 
 ../autoconf.h:
 
