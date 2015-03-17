@@ -12,7 +12,7 @@ ShowData.o: ../ShowData.c ../Transistortester.h \
  /usr/lib/avr/include/avr/eeprom.h /usr/lib/avr/include/avr/pgmspace.h \
  /usr/lib/avr/include/avr/wdt.h /usr/lib/avr/include/avr/interrupt.h \
  ../config.h ../part_defs.h ../lcd_defines.h ../font.h ../autoconf.h \
- ../tt_function.h ../wait1000ms.h ../lcd-routines.h
+ ../tt_function.h ../wait1000ms.h ../lcd-routines.h ../tt_resistor.h
 
 ../Transistortester.h:
 
@@ -77,3 +77,5 @@ ShowData.o: ../ShowData.c ../Transistortester.h \
 ../wait1000ms.h:
 
 ../lcd-routines.h:
+
+../tt_resistor.h:
