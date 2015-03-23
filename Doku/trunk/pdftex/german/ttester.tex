@@ -12,10 +12,45 @@
 \usepackage{epstopdf}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{circuitikz}
 %\usepackage{subfig}
 \graphicspath{{./FIG}}
 
 \begin{document}
+\ctikzset{bipoles/length=.6cm}
+\ctikzset{bipoles/thickness=4}
+\newcommand\electricC {
+\hspace{-14 pt}
+\begin{circuitikz}
+\draw (0,0) to[capacitor] (0:1);
+\end{circuitikz}
+\hspace{-6 pt}
+}
+\newcommand\electricR {
+\hspace{-14 pt}
+\begin{circuitikz}
+\draw (0,0) to[european resistor] (0:1);
+\end{circuitikz}
+\hspace{-6 pt}
+}
+\newcommand\electricL {
+\hspace{-14 pt}
+\begin{circuitikz}
+\draw (0,0) 
+ to[american inductor] (-1,0) 
+;\end{circuitikz}
+\hspace{-6 pt}
+}
+\newcommand\electricDAK {
+\begin{circuitikz}
+\draw (0,0) to[full diode] (0:1);
+\end{circuitikz}
+}
+\newcommand\electricDKA {
+\begin{circuitikz}
+\draw (0,0) to[full diode] (180:1);
+\end{circuitikz}
+}
 \title{TransistorTester mit AVR-Mikrocontroller \\
 und ein wenig mehr\\
 Version 1.12k \\

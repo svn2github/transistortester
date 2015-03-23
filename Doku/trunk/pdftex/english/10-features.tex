@@ -2,78 +2,56 @@
 \chapter{Features}
 \label{sec:features}
 \begin{enumerate}
-\item Operates with ATmega8, ATmega168 or ATmega328 microcontrollers. Additionally ATmega1280 or
-ATmega2560 microcontrollers can be used.
+\item Operates with ATmega8, ATmega168 or ATmega328 microcontrollers. Additionally ATmega644, ATmega1284,
+ATmega1280 or ATmega2560 microcontrollers can be used.
 \item Displaying the results to a 2x16 or a 4x16 character LCD-Display.
- If the processor have at least 32k flash memory, also a graphical display with 128x64 pixel and
-a ST7565 or a SSD1306 controller can be used.
-In doing so a 4-wire SPI interface or a I\textsuperscript{2}C bus must be used instead of the 4-bit parallel interface.
+ If the processor have at least 32K flash memory, also a graphical display with 128x64 pixel and
+a ST7565, ST7920, ST7108, KS0108 or a SSD1306 controller can be used.
+In doing so a 4-wire SPI interface or a I\textsuperscript{2}C bus must be used instead of the 4-bit parallel interface for
+the SSD1306 controller. For the ST7108 or KS0108 controller you must use a serial - parallel interface with a 74HC(T)164
+or a 74HC(T)595.
 \item One key operation with automatic power shutdown.
 \item Battery operation is possible since shutdown current is only about 20nA.
 \item Low cost version is feasible without crystal and auto power off.
-With software version 1.05k the sleep modus of the Atmega168 or ATmega328 is used to reduce current if
-no measurement is required.
+With software version 1.05k the sleep modus of the Atmega is used to reduce current if
+no measurement is required and no rotary encoder is used (not with ATmega8).
 \item Automatic detection of NPN and PNP bipolar transistors, N- and P-Channel MOSFETs, JFETs,
-diodes, double diodes, Thyristors and Triacs.
+diodes, double diodes,N- and P-IGBTs, Thyristors and Triacs.
+For Thyristors and Triacs the ignition current and holding current must be reached with the tester.
+For IGBTs the 5V signal should be enough for driving the gate voltage.
 \item Automatic detection of pin layout of the detected part.
 \item Measuring of current amplification factor and Base-Emitter threshold voltage of bipolar transistors.
 \item Darlington transistors can be identified by the threshold voltage and high current amplification factor.
 \item Detection of the protection diode of bipolar transistors and MOSFETs.
 \item Measuring of the Gate threshold voltage and Gate capacity value of MOSFETs.
 \item Up to two Resistors are measured and shown with symbols
-\setlength{\unitlength}{0.1mm}
-\linethickness{0.4mm}
-\begin{picture}(60,30)
-\put(0,15){\line(1,0){10}}
-\put(10,5){\line(0,1){20}}
-\put(10,5){\line(1,0){40}}
-\put(10,25){\line(1,0){40}}
-\put(50,5){\line(0,1){20}}
-\put(50,15){\line(1,0){10}}
-\end{picture}
+\begin{circuitikz}
+\draw (0,0) to[european resistor] (0:1);
+\end{circuitikz}
 and values with up to four decimal digits in the right dimension.
 All symbols are surrounded by the probe numbers of the Tester (1-3).
 So Potentiometer can also be measured. If the Potentiometer is adjusted to one of its ends,
 the Tester cannot differ the middle pin and the end pin.
 \item Resolution of resistor measurement is now up to \(0.01\Omega\), values up to \(50M\Omega\) are detected.
 \item One capacitor can be detected and measured. It is shown with symbol
-\setlength{\unitlength}{0.1mm}
-\begin{picture}(60,30)
-\linethickness{0.4mm}
-\put(0,15){\line(1,0){20}}
-\put(40,15){\line(1,0){20}}
-\put(22,0){\line(0,1){30}}
-\put(26,0){\line(0,1){30}}
-\put(34,0){\line(0,1){30}}
-\put(38,0){\line(0,1){30}}
-\end{picture}
+\begin{circuitikz}
+\draw (0,0) to[capacitor] (0:1);
+\end{circuitikz}
 and value with up to four decimal digits in the right dimension. 
-The value can be from \(25 pF\) (8MHz clock, \(50 pF\) @1MHz clock) to \(100 mF\). The resolution can be up to \(1 pF\) (@8MHz clock].
-\item For capacitors with a capacity value above \(90 nF\) the Equivalent Serial Resistance (ESR) is measured 
+The value can be from \(25~pF\) (8MHz clock, \(50~pF\) @1MHz clock) to \(100~mF\). The resolution can be up to \(1~pF\) (@8MHz clock].
+\item For capacitors with a capacity value above \(90~nF\) the Equivalent Serial Resistance (ESR) is measured 
 with a resolution of \(0.01 \Omega\) and is shown with two significant decimal digits.
-This feature is only avaiable for ATmega with at least 16K flash memory (ATmega168 or ATmega328).
-\item For capacitors with a capacity value above \(5000 pF\) the voltage loss after a load pulse can be determined.
+This feature is only available for ATmega with at least 16K flash memory.
+\item For capacitors with a capacity value above \(5000~pF\) the voltage loss after a load pulse can be determined.
 The voltage loss give a hint for the quality factor of the capacitor.
 \item Up to two diodes are shown with symbol
-\setlength{\unitlength}{0.1mm}
-\begin{picture}(60,30)
-\linethickness{0.4mm}
-\put(0,15){\line(1,0){60}}
-\put(22,2){\line(0,1){26}}
-\put(26,6){\line(0,1){18}}
-\put(30,10){\line(0,1){10}}
-\put(38,2){\line(0,1){26}}
-\end{picture}
+\begin{circuitikz}
+\draw (0,0) to[full diode] (0:1);
+\end{circuitikz}
 or symbol
-\setlength{\unitlength}{0.1mm}
-\begin{picture}(60,30)
-\linethickness{0.4mm}
-\put(0,15){\line(1,0){60}}
-\put(38,2){\line(0,1){26}}
-\put(34,6){\line(0,1){18}}
-\put(30,10){\line(0,1){10}}
-\put(22,2){\line(0,1){26}}
-\end{picture}
+\begin{circuitikz}
+\draw (0,0) to[full diode] (180:1);
+\end{circuitikz}
 in correct order. Additionally the flux voltages are shown.
 \item LED is detected as diode, the flux voltage is much higher than normal. 
 Two-in-one LEDs are also detected as two diodes.
@@ -86,51 +64,81 @@ You can identify the real Anode of the diode only by the one with break down (th
 In this case you should only connect two probes and start measurement again, one after the other.
 \item Measurement of the capacity value of a single diode in reverse direction.
 Bipolar Transistors can also be analysed, if you connect the Base and only one of Collector or Emitter.
+If a ATmega with more than 16K flash memory is used, also the reverse current of the diode is measured with
+a resolution of \(2 nA\).
+The value is only output to the screen, if it is greater than zero.
 \item Only one measurement is needed to find out the connections of a bridge rectifier.
 \item Capacitors with value below 25pF are usually not detectet, but can be measured together with
 a parallel diode or a parallel capacitor with at least 25pF.
 In this case you must subtract the capacity value of the parallel connected part.
+For processors with at least 32K flash memory the tester changeover to a special capacity meter function,
+if a capacitor with more than 25pF is once measured at TP1 and TP3. In this capacitor meter mode you
+can measure capacitors below 25pF at TP1 and TP3 directly.
 \item For resistors below \(2100 \Omega\) also the measurement of inductance will be done, if
 your ATmega has at least 16K flash memory.
-The range will be from about \(0.01 mH\) to more than \(20 H\), but the accuracy is not good.
+For that a inductor icon
+\begin{circuitikz}
+\draw (0,0) to[american inductor] (180:1);
+\end{circuitikz}
+is shown behind the resistor icon
+\begin{circuitikz}
+\draw (0,0) to[european resistor] (0:1);
+\end{circuitikz}
+.
+The range will be from about \(0.01~mH\) to more than \(20~H\), but the accuracy is not good.
 The measurement result is only shown with a single component connected.
 \item Testing time is about two seconds, only capacity or inductance measurement can cause longer period.
 \item Software can be configured to enable series of measurements before power will be shut down.
-\item Build in selftest function with optional 50Hz Frequency generator to check the accuracy of clock frequency and wait calls (ATmega168 and ATmega328 only).
+\item Build in selftest function with optional 50Hz Frequency generator to check the accuracy of clock frequency and wait calls (only for processors with at least 32K flash memory).
 \item Selectable facility to calibrate the internal port resistance of port output and
-the zero offset of capacity measurement with the selftest (ATmega168 and ATmega328 only).
-A external capacitor with a value between \(100 nF\) 
-and \(20 \mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
-This can reduce measurement errors of capacitors of up to \(40 \mu F\).
+the zero offset of capacity measurement with the selftest (only for processors with at least 16K flash memory).
+A external capacitor with a value between \(100~nF\) 
+and \(20~\mu F\) connected to pin~1 and pin~3 is necessary to compensate the offset voltage of the analog comparator.
+This can reduce measurement errors of capacitors of up to \(40~\mu F\).
 With the same capacitor a correction voltage to the internal reference voltage is found to adjust the
 gain for ADC measuring with the internal reference.
-\item Display the Collector cutoff current \(I_{CE0}\) with currentless base (\(10\mu A\) units) and
-Collector residual current \(I_{CES}\) with base hold to emitter level (ATmega328 only).
+\item Display the Collector cutoff current \(I_{CE0}\) with currentless base (\(1\mu A\) units) and
+Collector residual current \(I_{CES}\) with base hold to emitter level (only for processors with at least 32K flash).
 This values are only shown, if they are not zero (especially for Germanium transistors).
-\item For the ATmega328 a dialog function can be selected, which enable additional functions.
+\item For a ATmega with at least 32K flash memory the tester changes the operation modus from universal tester
+to a resistor tester, if only one resistor is detected at the test pin 1 (TP1) and test pin 3 (TP3).
+If you have selected the additional measurement of inductance for the resistor meter function with the 
+Makefile option RMETER\_WITH\_L, also the inductance of components is measured in this mode.
+This special operating mode is indicated with a [R] or [RL] at the right side of the first display line.
+In the same way the tester changes to a capacity meter function, if a capacitor is detected at TP1 and TP3.
+This operation mode is indicated with a [C] at the right side of the first display line.
+With this capacity meter function capacity values are shown down to \(1~pF\). Only for the automatic
+start you need a capacitor with more than \(25~pF\).
+Both special modes can be finished by a key press. 
+The tester will then continue with the normal tester function.
+\item For processors with at least 32K flash a dialog function can be selected, which enable additional functions.
 Of course you can return from dialog to the normal Transistor Tester function.
 \item With dialog function you can use a frequency measurement at port PD4 of the ATmega.
-The resolution is 1~Hz for input frequencies above \(25~kHz\).
+The resolution is \(1~Hz\) for input frequencies above \(25~kHz\).
 For lower frequencies the resolution can be up to \(0.001~mHz\) by measuring the mean period.
+You should read the the subsection Frequency measurement \ref{sec:frequency_counter} at page \pageref{sec:frequency_counter} 
+for details of connection a frequency signal.
 \item With the dialog function and without the activated serial output a external voltage of up to 50V can be measured with
 the 10:1 voltage divider at the PC3 port. If the PLCC-Version of the ATmega328 is used, one of the additional
 pins can be used for the voltage measurement together with the serial output.
 If the zener diode measurement extension (DC-DC converter) is assembled, the measurement of
 zener diodes is also possible with this function by pressing the key.
 \item With the dialog function a frequency output can be selected at the TP2 pin (PB2 Port of the ATmega).
-Currently a preselection of frequencies from 1~Hz up to 2~MHz can be selected.
+Currently a preselection of frequencies from \(1~Hz\) up to \(2~MHz\) can be selected.
 \item With the dialog function a fixed frequency output with selectable pulse width can be activated at the TP2 pin
-(PB2 port of the ATmega). The width can be enhanced with 1\% by a short key press or with 10\% by a longer key press.
+(PB2 port of the ATmega). The width can be enhanced with \(1~\%\) by a short key press or with \(10~\%\) by a longer key press.
 \item With the dialog function can be started a separated capacity measurement with ESR measurement.
-Capacities from about \(2 \mu F\) up to \(50 mF\) can most be measured in circuit, because only a little
-measurement voltage of about \(300 mV\) is used.
-You should make shure, that all capacitors have no residual charge before starting any measurement.
+Capacities from about \(2~\mu F\) up to \(50~mF\) can most be measured in circuit, because only a little
+measurement voltage of about \(300~mV\) is used.
+You should make shure, that all capacitors have no residual charge before starting any measurement,
+especially if you use the tester for measurement of capacitor in circuit.
 
 \end{enumerate}
 
 Thyristors and Triacs can only be detected, if the test current is above the holding current.
 Some Thyristors and Triacs need as higher gate trigger current, than this Tester can deliver.
 The available testing current is only about 6mA!
+Also a IGBT can only be detected correctly, if a voltage of 5V is sufficient to drive the gate.
 Notice that many features can only be used with microcontroller with enough program memory such as ATmega168.
 Only processors with at least 32k flash memory like ATmega328 or ATmega1284 can take all features.
 

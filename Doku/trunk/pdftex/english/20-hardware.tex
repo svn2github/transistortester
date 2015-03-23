@@ -25,10 +25,11 @@ by the external capacitor C1 at the AREF (21) pin of the ATmega. To avoid slowin
 measurement speed more than necessary, the value of this capacitor should be reduced to 1nF.
 Removing of the capacitor C1 is also possible.
 For adapting the software to the actual circuit take a look to the Makefile options in the
-configuring chapter \ref{sec:config}.
+configuring chapter \ref{sec:config} at page~\pageref{sec:config}.
 
 Some different versions of R11 / R12 resistor combinations circulates
 in the internet. I~have adapted my software to the original of Markus F. \cite{Frejek} with \(10k\Omega\) and \(3.3k\Omega\).
+The voltage ration of the divider can be set with Makefile options.
 
 The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can be used to
 check and calibrate the VCC voltage, but is not required. You can use a LM4040-AIZ2.5 (0.1\%),
@@ -137,7 +138,7 @@ You have also to respect the correct polarity.
 
 \subsection{Frequency generator}
 
-With the dialog part of the ATmega328 you can also select a frequency generator, which supports
+With the dialog part of the ATmega you can also select a frequency generator, which supports
 currently a selection of frequencies from \(1 Hz\) up to \(2 MHz\).
 The output of the 5V signal is done with a \(680\Omega\) resistor to test port TP2.
 You can use the GND signal from the minus pin of the zener diode extension or the test port TP1.
@@ -147,6 +148,7 @@ driver circuit and a additional output terminal. But the input of this circuit s
 big capacity load for the ATmega output.
 
 \subsection{Frequency measurement}
+\label{sec:frequency_counter}
 
 For using the with the dialog selectable frequency measurement is a little hardware extension
 necessary. The input pin PD4 (T0/PCINT20) of the ATmega is used for the frequency measurement.
@@ -442,7 +444,7 @@ directly to the pins PB6 and PB7 (pin 9 and pin 10).
 My own expansion was done without the both 22pF capacitors.
 This solution has operated well with all tested ATmega.
 But it is not required to use a crystal. You can still use the 8MHz RC oszillator
-by setting the fuses to get the better resolution of time constant measuring (capacity value).
+by setting the fuses to get the better resolution of time constant for measuring  the capacity values.
 \item[Smoothing of the operating voltage]
 The original circuit of Markus F. shows only one 100nF capacitor to block the VCC voltage.
 This is clearly too little smoothing. You should at least use one 100nF near the ATmega power pins
@@ -476,14 +478,16 @@ to the PC4 input and VCC.
 \end{description}
 
 \section{Chinese clones}
-As I know, the tester is rebuild in China in two versions.
+As I know, the tester is rebuild in China in two versions with character displays.
 The first model is rebuild from the first design of Markus F. without the ISP port.
 The assembled ATmega8 is placed in a socket, so you can replace it with a ATmega168 or ATmega328.
 For this version you should consider all the hints of section \ref{sec:change_markus}.
 Additional \(100nF\) ceramic cpacitors should be connected near by the VCC-GND and AVCC-GND pins of
 the ATmega for better stabilization of the power voltage.
-In addition you should notice, that if you expand the board with the additional 8 MHz crystal,
-your external ISP programmer must have a external clock for programming.\\
+Because there is no ISP connector at the board, you must expand the board with a ISP connector or you
+must plug the ATmega to a external socket for programming.
+In addition you should notice, that if your ATmega should run with a 8 MHz crystal,
+your external ISP programmer must have a external clock for programming or a crystal mounted at the socket.\\
 
 The second version of rebuilded tester is build with SMD components. Also the fix installed ATmega168
 is a SMD type with 32TQFP body.
@@ -604,7 +608,7 @@ The developement is done with Linux operationg system (Ubuntu) and
 is controlled with a Makefile. The Makefile makes shure, that your
 software will be compiled with the prior selected Makefile options. Some constellations
 are precompiled with the source. Please take a look to the ReadMe.txt file
-in the directory Software/default and to the chapter~\ref{sec:config}.
+in the directory Software/default and to the chapter~\ref{sec:config} at page~\pageref{sec:config}.
 The result of compilation have the extensions .hex and .eep .
 Usually the names will be TransistorTester.hex and TransistorTester.eep .
 The .hex file contains the data for the program memory (flash) of the ATmega processor.
@@ -723,6 +727,8 @@ If you have a high temperature display type, you must provide a negative contras
 for operation. In this case you can use the ICL~7660 device for generating
 a negative voltage from positive 5V.
 
+The tester software can be configured for many different controller with different connection
+types. You should check, if your software matches to your mounted display type.
 If there is no output readable on the LCD and the background light is on,
 you should disconnect the power and check all four data plus the two control signal connections.
 If all connection are well, the only reason I see is a uncorrect timing of
@@ -735,6 +741,12 @@ If the tester is build without the switch off electronic, you can test with
 a LED connected to the test pins, if the program operates normally.
 If the LED flickers, the program operates well. The missing text on the
 LCD must be caused by wrong connection or timing.
+For some graphical displays the contrast is changeable with a menu function.
+If you have changed the contrast value, that nothing is readable at the screen,
+you cannot handle the menu function any more. You can try to read the display
+from a slanting look to the display, not from the front side.
+In this case you can try to handle the menu function with this view.
+Otherwise you can write the EEprom data new with a ISP programmer to reset the contrast value.
 
 
 \item[Something but not all is readable on the LCD display]

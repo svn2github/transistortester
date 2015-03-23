@@ -32,20 +32,28 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
          m8 = ATmega8\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
+         m644 or m644p = ATmega644\\
+         m1284p        = ATmega1284\\
+         m1280         = ATmega1280\\
+         m2560         = ATmega2560\\
     Beispiel: PARTNO = m168
   \item[UI\_LANGUAGE] gibt die Sprache für den Tester an:\\
     LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, \\
     LANG\_HUNGARIAN, LANG\_ITALIAN, LANG\_LITHUANIAN, LANG\_POLISH, \\
-    LANG\_RUSSIAN, LANG\_SLOVAK, LANG\_SLOVENE, Lang\_SPANISH, und \\
+    LANG\_RUSSIAN, LANG\_SLOVAK, LANG\_SLOVENE, LANG\_SPANISH, und \\
     LANG\_UKRAINIAN sind derzeit verfügbar.
  Für die russische und ukrainische Sprache ist ein LCD mit kyrillischem Zeichensatz erforderlich.\\
     Beispiel: UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] wird nur gebraucht, wenn man ein LC-Display mit kyrillischem Zeichensatz benutzt.
 Die Zeichen \(\mu\) und \(\Omega\) sind im kyrillischen Zeichensatz nicht enthalten.
-Wenn Sie diese Option angeben, werden beide Zeichen von der Software in das LCD geladen.\\
+Wenn Sie diese Option angeben, werden beide Zeichen von der Software in das LCD geladen.
+Setzen sie diese Option, wenn bei der Ausgabe falsche Zeichen anstelle von \(\mu\) oder \(\Omega\) erscheinen.\\
 Beispiel: CFLAGS += -DLCD\_CYRILLIC
   \item[LCD\_DOGM] muss angegeben werden, wenn ein LCD mit ST7036-Controller (Typ DOG-M) zur Anzeige verwendet wird.
 Der LCD-Kontrast wird dann mit Software-Befehlen eingestellt.
+Falls sie den Kontrast zu weit verstellt haben, daß auf dem Display nichts mehr zu erkennen ist,
+können sie zunächst versuchen, ob nicht bei seitlicher Sicht auf das Display doch noch etwas zu erkennen ist.
+sonst muß das EEprom neu beschrieben werden, um den Kontrastwert zurückzusetzen.\\
 Beispiel: CFLAGS += -DLCD\_DOGM
   \item[FOUR\_LINE\_LCD] kann bei einem 4x20-Zeichen-Display verwendet werden, um den Platz auf dem Display
 besser auszunutzen. Zusätzliche Parameter, welche sonst nur kurz in Zeile 2 angezeigt werden, werden dann in
@@ -57,7 +65,7 @@ beschrieben werden.
 Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss diese Option auf 1306 gesetzt werden.
 Auch ein Display mit ST7920 oder ST7108 Controller kann angeschlossen werden. Für den ST7108 Controller muß ein
-zusätzlicher Seriell-Parallel Wandler (74HCT164) verwendet werden.\\
+zusätzlicher Seriell-Parallel Wandler 74HC(T)164 oder 74HC(T)595 verwendet werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
  \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-SPI (4-Wire) Interface auch das
 I\textsuperscript{2}C-Interface benutzt werden. Dafür muss diese Option auf 2 gesetzt werden.
@@ -89,7 +97,7 @@ Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sin
   Graphic ST7920         & 2-Bit serial   & 7920  &  5 \\
     \hline
   Graphic ST7108         & 8-Bit parallel  & 7108  & disabled (6) \\
-                           &    + 74HCT164   &       &      \\
+  oder KS0108            &    + 74HCT164   &       &      \\
     \hline
     \end{tabular}
   \end{center}
@@ -112,16 +120,14 @@ Beispiel: LCD\_ST7564\_RESISTOR\_RATIO = 4
 Beispiel: CFLAGS += LCD\_ST7565\_H\_FLIP = 1
   \item[LCD\_ST7565\_H\_OFFSET] Diese Option kann den für die Ausgabe benutzten Speicher an das Anzeigefenster des
  Displays anpassen. Der Controller benutzt mehr horizontale Pixel (132) als angezeigt (128) werden.
- Je nach Lage des Anzeigefenster muss der Offset bei gedrehter oder normaler horizontaler Anzeigerichtung
- berücksichtigt werden.
  Ein Wert von 0, 2 oder 4 kann je nach verwendetem Display-Modul für eine korrekte Darstellung notwendig sein.\\
 Beispiel: CFLAGS += LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
 Beispiel: CFLAGS += LCD\_ST7565\_V\_FLIP = 1
-  \item[FONT\_8X16] Für den ST7565 controller sollte ein Fonts ausgewählt werden.
-Auswählbar  sind FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14 FONT\_8X15, FONT\_8X16 und FONT\_8X16thin.
-Derzeit ist der Font 8x12 nicht fertiggestellt.
-Die Fontgröße 8X16 ist die effizienteste Wahl für das graphische 128x64-LCD.\\
+  \item[FONT\_8X16] Für den ST7565 controller sollte ein Font ausgewählt werden.
+Auswählbar sind die Fonts mit der Variablen FONT\_ mit angehängter Größe (Breite x Höhe).
+iDerzeit sind 6X8, 8X8, 7X12, 8X12, 8X12thin, 8X14 8X15, 8X16 und 8X16thin.
+Die Fontgröße 8x16 oder 8X16thin ist die effizienteste Wahl für das graphische 128x64-LCD.\\
 Beispiel: CFLAGS += FONT\_8X16
  \item[BIG\_TP] Die Pinnummern bei der graphischen Darstellung können mit dieser Option größer dargestellt werden.\\
 Beispiel: CFLAGS += BIG\_TP
@@ -129,7 +135,7 @@ Beispiel: CFLAGS += BIG\_TP
 Weil für die Darstellung ein Rand benötigt wird, kann diese Option nicht mit der Option BIG\_TP kombiniert werden.\\
 Beispiel: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
-Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware}.
+Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware} auf Seite~\pageref{sec:hardware}.\\
 Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] aktiviert eine Menüfunktion für einen ATmega328. Man kann einige Zusatzfunktionen über ein
 Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0,5~s) erreichen kann.
@@ -175,18 +181,19 @@ Der ATmega168-Prozessor benutzt die Selbsttest Teile T1 bis T7 nicht, wenn beide
 Beispiel: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim
 Selbsttest zusätzlich ins EEPROM geschrieben und ist damit für die weiteren Messungen abgeglichen.
-Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100 nF\) und \(20 \mu F\) an Pin~1 und Pin~3 
+Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 
 angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung für die AUTOSCALE\_ADC
 Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEPROM geschrieben.
 Die Port-Ausgangswiderstände werden zu Beginn jeder Messung neu bestimmt. \\
 Beispiel: CFLAGS += -DAUTO\_CAL
-  \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50Hz-Signal auf Port 2 und Port 3 erzeugt.\\
+  \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50Hz-Signal auf Port 2 und Port 3 erzeugt.
+Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
   \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) für einen entladenen Kondensator fest.
 Der Wert kann höher als 3mV gesetzt werden, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach längerer Zeit ,,Cell!''.\\
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor für die Kapazitätsmessung 
-von kleineren Kapazitäten (unter \(40\mu F\)) zu ermitteln.\\
+von kleineren Kapazitäten (unter \(40~\mu F\)) zu ermitteln.\\
 Beispiel: CFLAGS += -DWITH\_AUTO\_REF
   \item[REF\_C\_KORR] gibt einen Offset für die gelesene Referenz-Spannung in mV-Einheiten an.
 Das kann benutzt werden, um die Kapazitätsmessung kleiner Kondensatoren abzugleichen.
@@ -197,8 +204,8 @@ Beispiel: CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
 in mV-Einheiten an. Der REF\_C\_KORR-Offset beziehungsweise der gefundene Offset bei der Kalibration
 wird bei der Induktivitätsmessung ebenfalls berücksichtigt.\\
-Der REF\_L\_KORR Wert wird für die Messungen ohne \(680 \Omega\) Widerstand subtrahiert, bei Messungen mit einem
-\(680 \Omega\) Widerstand wird der Wert addiert.
+Der REF\_L\_KORR Wert wird für die Messungen ohne \(680~\Omega\) Widerstand subtrahiert, bei Messungen mit einem
+\(680~\Omega\) Widerstand wird der Wert addiert.
 Ein Wert von 10 führt zu einer Änderung des Ergebnisses um 1 Prozent.\\
 Beispiel: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] gibt eine Korrektur der Messergebnisse für grosse Kondensatoren an.
@@ -226,12 +233,23 @@ Beispiel: CFLAGS += -DTQFP\_ADC7
 Für den ATmega168 oder ATmega328 wird normalerweise der PC3-Pin benutzt, wenn keine Option TQFP\_ADC6 oder
 TQFP\_ADC7 gesetzt ist. Dann ist diese Option aber nur möglich, wenn die WITH\_UART Option nicht gesetzt ist.\\
 Beispiel: CFLAGS += -DWITH\_VEXT 
+  \item[RMETER\_WITH\_L] wählt für die Widerstandsmeßfunktion, die durch einen Widerstand an TP1 und TP3 gestartet wird,
+zusätzlich die Messung von Induktivitäten. Der Betriebsmodus wird dann durch ein {\bf[RL]} am Ende der ersten Displayzeile
+angezeigt. Durch den zusätzlichen Test auf Induktivität wird die Meßzeit für Widerstände unter \(2100~\Omega\) deutlich
+länger. Ohne diese Option werden außerdem Widerstände unter \(10~\Omega\) nicht mit der ESR-Methode gemessen,
+da als Bauteil eine Induktivität nicht ausgeschlossen werden kann.
+Wegen der kurzen Strompulse können mit der ESR-Methode keine Induktivitäten gemessen werden.
+Weil nur mit der ESR-Methode eine Auflösung von \(0.01~\Omega\) erreicht wird, beträgt ohne diese Option auch für 
+Widerstände unter \(10~\Omega\) die Auflösung nur \(0.1~\Omega\).
+Wenn diese Option gesetzt ist, gelten diese Einschränkungen nicht, die Messung kann aber länger dauern.\\
+Beispiel: CFLAGS += -DRMETER\_WITH\_L
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
-Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.\\
+Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.
+Beim ATmega8 wird die automatische Bereichswahl nicht mehr benutzt.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
   \item[ESR\_ZERO] gibt einen Nullwert für die ESR-Messung von Kondensatoren vor.
 Der vorgegebene Nullwert wird durch die beim Selbsttest ermittelten Nullwerte für alle drei Pinkombinationen ersetzt.
- Diese Nullwerte werden von den ermittelten Messwerten abgezogen.
+ Diese Nullwerte werden von den ermittelten Messwerten abgezogen.\\
 Beispiel: CFLAGS += -DESR\_ZERO=29
   \item[NO\_AREF\_CAP] teilt der Software mit, dass Sie keinen Kondensator am AREF Pin (Pin 21) angeschlossen haben.
 Dies ermöglicht kürzere Wartezeiten für die AUTOSCALE\_ADC Umschaltung des ADC.
@@ -284,7 +302,7 @@ jeder Punkt ein E (Emitter), B (Basis) oder K (Kollektor) sein kann.
 Bei FETs kann jeder Punkt entsprechend ein G (Gate), D (Drain) oder S (Source) sein.
 Wenn die Reihenfolge der Testpins nicht 1,2 und 3 in Leserichtung ist, kann die Reihenfolge mit der Option EBC\_STYLE=321 
 umgedreht werden. Dann wird die Pinbelegung in der Form ,,321=...'', was der gewohnten Leserichtung von links nach rechts
-entgegen kommt.\\
+entgegen kommt, wenn die Testpins die Reihenfolge 3,2,1 haben.\\
 Beispiel: CFLAGS += EBC\_STYLE
   \item[NO\_NANO] gibt an, dass der Dezimalpräfix Nano nicht zur Darstellung von Messergebnissen benutzt werden soll.
 So werden Kapazitätswerte in \(\mu F\) statt in \(nF\) angegeben.\\

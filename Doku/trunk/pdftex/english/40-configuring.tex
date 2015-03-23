@@ -16,12 +16,12 @@ identical to the choosed one.
 If you alter the Makefile, all the software will be compiled new, if you call a ``make'' or
 ``make upload'' command. The software compiled for a ATmega8 does not run on a ATmega168.
 The software compiled for a ATmega328 does not run on the ATmega168! 
-A exeption fron this rule is the software compiled for ATmega168, this data can also be used
+A exeption from this rule is the software compiled for ATmega168, this data can also be used
 for a ATmega328 without changes.
 Be careful, if you don't use my Makefile.
 
 With the correct options set, my software runs on the unchanged hardware of Markus F.
-(PARTNO=M8, NO option NO\_AREF\_CAP and NO PULLUP\_DISABLE option).
+You must set the option PARTNO=M8, {\bf NOT} the option NO\_AREF\_CAP and {\bf NOT} the  PULLUP\_DISABLE option.
 The clock rate can also be set to 8 MHz with fuses, no crystal is required!
 
 
@@ -32,6 +32,10 @@ The following options in the Makefile are avaiable to configure the software for
          m8 = ATmega8\\
          m168 or m168p = ATmega168\\
          m328 or m328p = ATmega328\\
+         m644 or m644p = ATmega644\\
+         m1284p        = ATmega1284\\
+         m1280         = ATmega1280\\
+         m2560         = ATmega2560\\
     example:  PARTNO = m168
    \item[UI\_LANGUAGE] specifies the favored Language\\
     LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, \\
@@ -42,10 +46,14 @@ The following options in the Makefile are avaiable to configure the software for
     example:  UI\_LANGUAGE = LANG\_ENGLISH
   \item[LCD\_CYRILLIC] is only needed for a LCD-display with cyrillic character set. The \(\mu\) and \(\Omega\) character
 is not avaiable with the cyrillic character set.
-If you specify this option, both characters are loaded to the LCD with software.\\
+If you specify this option, both characters are loaded to the LCD with software.
+You should set this option, if your display shows wrong characters instead of \(\mu\) or \(\Omega\).\\
 example: CFLAGS += -DLCD\_CYRILLIC
  \item[LCD\_DOGM] must be set, if a LCD with ST7036 controller (Type DOG-M) is used for displaying.
-The LCD-contrast is then set with software commands.\\
+The LCD-contrast is then set with software commands.
+If you have changed the contrast value to a wrong value, so that you can not read anything at your display,
+you shouls first try to read somthing from a side look to the display.
+If this fails also, you should reset the EEprom to the initial values with a ISP programmer.\\
 example: CFLAGS += -DLCD\_DOGM
  \item[FOUR\_LINE\_LCD] can be used with a 4x20 character display for better using the additional space.
 Additional parameters, which are shown only short in row 2, will be shown in row 3 and 4 with this option.\\
@@ -84,7 +92,7 @@ All currently used values for LCD\_INTERFACE\_MODE and WITH\_LCD\_ST7565 are sho
   Graphic ST7920         & 2-Bit serial   & 7920  &  5 \\
     \hline
   Graphic ST7108         & 8-Bit parallel  & 7108  &  disabled (6) \\
-                           &    + 74HCT164   &       &      \\
+    or KS0108            &    + 74HCT164   &       &      \\
     \hline
     \end{tabular}
   \end{center}
@@ -107,16 +115,15 @@ example: LCD\_ST7564\_RESISTOR\_RATIO = 4
   \item[LCD\_ST7565\_H\_FLIP] With this option the display content can be flipped in horizontal direction.\\
 example: CFLAGS += -DLCD\_ST7565\_H\_FLIP = 1
   \item[LCD\_ST7565\_H\_OFFSET] This option can be used to adapt the display window to the used memory area.
- The controller uses more horizontal pixel (132) as the display window showsi (128).
- An offset is required depending of the position of the display window for the flipped or normal horizontal direction.
+ The controller uses more horizontal pixel (132) as the display window shows (128).
  Depending of your display module a value of 0, 2 or 4 can be required for proper presentation.\\
 example: CFLAGS += -DLCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
 example: CFLAGS += -DLCD\_ST7565\_V\_FLIP = 1
   \item[FONT\_8X16] You must select one font size for the ST7565 controller.
-Selectable are FONT\_6X8, FONT\_8X8, FONT\_8X12, FONT\_8X14, FONT\_8X15, FONT\_8X16, and FONT\_8X16thin.
-Currently the  8X12 font is not finished.
-Font size 8X16 is the most efficient use of graphics space for a 128x64 pixel LCD.\\
+Selectable are different fonts with the name ''FONT\_'' with appended size information (width X height).
+Currently the font sizes 6X8, 8X8, 7X12, 8X12, 8x12thin, 8X14, 8X15, 8X16, and 8X16thin are available.
+Font size 8X16 or 8x16thin is the most efficient use of graphics space for a 128x64 pixel LCD.\\
 example: FONT\_8X16
  \item[BIG\_TP] The pin numbers for the graphical presentation can be shown bigger with this option.\\
 example: CFLAGS += BIG\_TP
@@ -125,7 +132,7 @@ on the graphical display.
 Because a boarder in required for this presentation, you can not combine this option with the BIG\_TP option.\\
 example: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.
-You can find the details in the chapter hardware \ref{sec:hardware}.
+You can find the details in the chapter hardware \ref{sec:hardware} at page~\pageref{sec:hardware}.\\
 example: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] activated a menu function for a ATmega328. You can select some additional functions with a
 selection menu, which you can call with a long key press (\textgreater~0.5~s).\\
@@ -168,11 +175,12 @@ example: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (with option REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
-capacitor with a capacity value between \(100 nF\) and \(20 \mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
+capacitor with a capacity value between \(100~nF\) and \(20~\mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
 All found values will be written to EEprom and will be used for further measurements automatically.
 The port output resistance values will be determined at the beginning of each measurement.\\
 example: CFLAGS += -DAUTO\_CAL
-  \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.\\
+  \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.
+ This option should be set only for special cases to check the delay function.\\
 example: CFLAGS += -DFREQUENCY\_50HZ
   \item[CAP\_EMPTY\_LEVEL]  This option defines the voltage level for discharged capacitor (mV units).
 You can set the level to higher value as 3mV, if the tester does not finish discharging of capacitors.
@@ -189,8 +197,8 @@ example:  CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] specifies a additional offset in mV units to the reference voltage for the measurement of
 inductance values. 
 The REF\_C\_KORR offset and respectively the offset value from the calibration is additionally used with the inductance measurement.
-The REF\_L\_KORR value will be subtracted for measurements without a \(680 \Omega\) resistor,
-for measurements with a \(680 \Omega\) resistor the value will be added.
+The REF\_L\_KORR value will be subtracted for measurements without a \(680~\Omega\) resistor,
+for measurements with a \(680~\Omega\) resistor the value will be added.
 A correction value of 10 will change the result about 1 percent.\\
 example: CFLAGS += -DREF\_L\_KORR=40
   \item[C\_H\_KORR] specifies a correction value for the measurement of big capacitor values.
@@ -220,12 +228,22 @@ Example: CFLAGS += -DTQFP\_ADC7
 For the ATmega168 or ATmega328 processor usually the PC3 pin is used as input, if no option TQFP\_ADC6 or
 TQFP\_ADC7 is set. In this case this option is only possible, if the WITH\_UART option is not set.\\
 Example: CFLAGS += -DWITH\_VEXT 
+  \item[RMETER\_WITH\_L] select for the resistor measurement function, which is selected with a resistor at TP1 and TP3,
+additionally the measurement of inductance. The operation mode is indicated with a {\bf[RL]} at the end of the first display line.
+With the additional test for inductance the measurement time is increased for resistors below \(2100~\Omega\) considerably.
+Also resistors below \(10~\Omega\) will not be measured with the ESR methode Without this option, because
+a part with inductance can not be excluded. Because the ESR measurement method  uses short current pulses,
+parts with inductance can not be measured. The resistors below \(10~\Omega\) can only measured with a resolution of
+\(0.1~\Omega\) without this option, because only with the ESR method a resolution of \(0.01~\Omega\) can be obtained.
+If this option is set, the previous limitations are not affected, but the measurement time can be longer.\\
+Example: CFLAGS += -DRMETER\_WITH\_L
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
-Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.\\
+Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.
+For the ATmega8 the automatic scale switchover is not used any more.\\
 example: CFLAGS += -DAUTOSCALE\_ADC
   \item[ESR\_ZERO] defines a zero offset for ESR measurements.
 The zero offsets for all three pin combinations will be determined with the selftest and replaces the preset zero offset.
-This zero offsets will be subtracted from all ESR measurements.
+This zero offsets will be subtracted from all ESR measurements.\\
 Example: CFLAGS += -DESR\_ZERO=29
   \item[NO\_AREF\_CAP] tells your Software, that you have no capacitor (\(100 nF\)) installed at pin AREF (pin 21).
 This enables a shorter wait-time for the AUTOSCALE\_ADC scale switching of the ADC.
@@ -256,7 +274,7 @@ format ``123=...'', where every point represent a E~(Emitter), B~(Base) or C~(Co
 For FET transistors every point can be a G~(Gate), D~(Drain) or S~(Source).
 If the sequence of the test pins is not 1, 2 and 3 in the reading direction, you can invert the sequence with the option
 EBC\_STYLE=321 . The pin assignment is then shown with style ''321=...'', which will better match the usual
-reading direction.\\
+reading direction, if the testpin sequence is 3,2,1 .\\
 Example: CFLAGS += EBC\_STYLE
   \item[NO\_NANO] specifies that the decimal prefix nano will not be used to display the measurement results.
 So capacity values will be shown in \(\mu F\) instead of \(nF\).\\

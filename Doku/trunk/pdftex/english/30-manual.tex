@@ -53,6 +53,7 @@ The next measurement can started earlier by pressing the start button during the
 \section{Optional menu functions for the ATmega328}
 If the menu function is selected, the tester start a selection menu after a long key press (\textgreater 500ms)
 for additional functions.
+This function is also available for other processors with at least 32K flash memory.
 The selectable functions are shown in row two of a 2-line display or as marked function in row 3 of a 4-line display.
 The previous and next function is also shown in row 2 and 4 of the display in this case.
 After a longer wait time without any interaction the program leave the menu and returns to the normal transistor tester function.
@@ -71,8 +72,8 @@ A fast rotarion of the encoder will return to the selection menu.
  \item[frequency]
 The additional function ''frequency'' (frequency measurement) uses the ATmega Pin PD4, which is also connected to the LCD.
 First the frequency is allways measured by counting.
-If the measured frequency is below \(25 kHz\), additionally the mean period of the input signal
-is measured and with this value the frequency is computed with a resolution of up to \(0.001 Hz\).
+If the measured frequency is below \(25~kHz\), additionally the mean period of the input signal
+is measured and with this value the frequency is computed with a resolution of up to \(0.001~Hz\).
 By selecting the POWER\_OFF option in the Makefile, the period of frequency measurement is limited to 8~minutes.
 The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
 
@@ -89,21 +90,50 @@ With a long key press (\textgreater~0.8~s) you will stop the frequency generator
 \item[10-bit PWM]
 The additional function ''10-bit PWM'' (Pulse Width Modulation) generates a fixed frequency with selectable
 puls width at the pin TP2.
-With a short key press (\textless~0.5~s) the pulse width is increased by \(1 \%\), with a longer key press the pulse width
-is increased by \(10 \%\).
-If \(99 \%\) is overstepped, \(100 \%\) is subtracted from the result.
+With a short key press (\textless~0.5~s) the pulse width is increased by \(1~\%\), with a longer key press the pulse width
+is increased by \(10~\%\).
+If \(99~\%\) is overstepped, \(100~\%\) is subtracted from the result.
 If the POWER\_OFF option is selected in the Makefile, the frequency generation is finished after 8~minutes without any key press.
 The frequency generation can also be finished with a very long key press (\textgreater~1.3~s).\\
 
 \item[C+ESR@TP1:3]
 The additional function ''C+ESR@TP1:3'' selects a stand-alone capacity measurement with 
 ESR (Equivalent Series Resistance) measurement at the test pins TP1 and TP3. 
-Capacities from \(2 \mu F\) up to \(50 mF\) can be measured. 
-Because the measurement voltage is only about \(300 mV\), in most cases the capacitor can be
+Capacities from \(2~\mu F\) up to \(50~mF\) can be measured. 
+Because the measurement voltage is only about \(300~mV\), in most cases the capacitor can be
 measured ''in circuit'' without previous disassembling.
 If the POWER\_OFF option is selected in the Makefile, the count of measurements is limited
 to 250, but can be started immediately again.
 The series of measurements can be finished with a long key press.\\
+
+ \item[Resistor meter]
+With the \mbox{1 \electricR 3} symbol the tester changes to a resistor meter at TP1 and TP3 . 
+This operation mode will be marked with a {\bf[R]} at the right side of the first display line.
+Because the ESR measurement is not used in this operation mode, the resolution of the measurement
+result for resistors below \(10~\Omega\) is only \(0.1~\Omega\).
+If the resistor measurement function is configured with the additional inductance measurement,
+a \mbox{1 \electricR \electricL 3} symbol is shown at this menu.
+Then the resistor meter function includes the measurement of inductance for resistors below \(2100~\Omega\).
+At the right side of the first display line a {\bf[RL]} is shown.
+For resistors below \(10~\Omega\) the ESR measurement is used,
+if no inductance is find out. For this reason the resolution for resistors below \(10~\Omega\) 
+is increased to \(0.01~\Omega\).
+With this operation mode the measurement is repeated without any key press.
+With a key press the tester finish this operation mode and returns to the menu.
+The same resistor meter function is started automatically, if a single resistor is connected between TP1 and TP3
+and the start key was pressed in the normal tester function. In this case the tester returns
+from the special mode opration to the normal tester function with a key press.
+
+ \item[Capacitor meter]
+With the \mbox{1 \electricC 3} symbol the tester changes to a capacitor meter function at TP1 and TP3.
+This operation mode will be marked with a {\bf[C]} at the right side of the first display line.
+With this operation mode capacitors from \(1~pF\) up to \[100~mF\] can be measured.
+In this operation mode the measurement is repeated without key press.
+With a key press the tester finish this operation mode and returns to the menu.
+In the same way as with resistors, the tester changes automatically to the capacitor meter function,
+if a capacitor between TP1 and TP3 is measured with the normal tester function.
+After a automatically start of the capacitor meter function the tester returns with a key press to
+the normal tester function.
 
 \item[rotary encoder]
 With the function ''rotary encoder'' a rotary encoder can be checked.
@@ -140,7 +170,7 @@ By selecting the POWER\_OFF option in the Makefile and without key pressing, the
 The measurement can also be finished with a extra long key press (\textgreater~4~seconds).
 
 \item[Contrast] 
-This function can select the contrast value for a graphic display with a st7565 controller.
+This function is available for display controllers, which can adjust the contrast level with software.
 The value can be decreased by a very short key press or left turn with the rotary encoder.
 A longer key press (\textgreater 0.4s) or a right turn of the rotary encoder will increase the value.
 The function will be finished and the selected value will be saved nonvolatile in the EEprom memory 
@@ -152,7 +182,8 @@ These are the zero resistance (R0) of the pin combination 1:3, 2:3 and 1:2 .
 In addition the resistance of the port outputs to the 5V side (RiHi) and
 to the 0V side (RiLo) are shown.
 The zero capacity values (C0) are also shown with all pin combinations (1:3, 2:3, 1:2 and 3:1, 3:2 2:1).
-At last the correction values for the comparator (REF\_C) and for the reference voltage (REF\_R) are also shown.
+Next the correction values for the comparator (REF\_C) and for the reference voltage (REF\_R) are also shown.
+With graphical displays the used icons for parts and the font set is also shown.
 Every page is shown for 15 seconds, but you can select the next page by a key press or a right turn of the rotary encoder.
 With a left turn of the rotary encoder you can repeat the output of the last page or return to the previous page.
 
@@ -194,10 +225,10 @@ But the equipment should be the same, which is used for further measurements.
 Otherwise the zero offset for capacity measurement is not detected correctly.
 The resistance values of port outputs are determined at the beginning of every measurement with this option.
 
-A capacitor with any capacity between \(100 nF\) and \(20 \mu F\) connected to pin~1 and pin~3 is
+A capacitor with any capacity between \(100~nF\) and \(20~\mu F\) connected to pin~1 and pin~3 is
 required for the last task of calibration.
-To indicate that, a capacitor symbol is shown between the pin number 1 and 3, followed by the text '' \textgreater 100nF''.
-You should connect the capacitor not before this text is shown.
+To indicate that, the message \mbox{1 \electricC 3 \textgreater 100nF} is shown in row 1 of the display.
+You should connect the capacitor not before the message C0= or this text is shown.
 With this capacitor the offset voltage of the analog comparator will be compensated for better measurement
 of capacity values.  
 Additionally the gain for ADC measurements using the internal reference voltage will be adjusted too 
@@ -208,8 +239,8 @@ The calibration  with the external capacitor can be repeated with a selftest cal
 
 The zero offset for the ESR measurement will be preset with the option ESR\_ZERO in the Makefile.
 With every self test the ESR zero values for all three pin combinations are determined.
-The solution for the ESR measurement is also used to get the values of resistors below \(10 \Omega\) with
-a resolution of \(0.01 \Omega\).
+The solution for the ESR measurement is also used to get the values of resistors below \(10~\Omega\) with
+a resolution of \(0.01~\Omega\).
 
 
 \section{special using hints}
@@ -229,9 +260,17 @@ If you try to measure little resistor values, you should keep the resistance of 
 The quality and condition of plug connectors are important, also the resistance of cables used for measurement.
 The same is in force for the ESR measurement of capacitors.
 With poor connection cable a ESR value of \(0.02 \Omega\) can grow to \(0.61 \Omega\).
+If possible, you should connect the cables with the test clips steady to the tester (soldered).
+Then you must not recalibrate the tester for measuring of capacitors with low capacity values,
+if you measure with or without the plugged test cables. 
+For the calibration of the zero resistance there is normaly a difference, if you connect the
+three pins together directly at a socket or if you connect together the test clips at the end of cables.
+Only in the last case the resistance of cables and clips is included in the calibration.
+If you are in doubt, you should calibrate your tester with jumpers directly at the socket 
+and then measure the resistance of shorten clips with the tester.
 
 You should not expect very good accuracy of measurement results, especially the ESR measurement and the results of inductance measurement are not very exact.
-You can find the results of my test series in chapter \ref{sec:measurement}.
+You can find the results of my test series in chapter \ref{sec:measurement} at page~\pageref{sec:measurement}.
 
 \section{Compoments with problems}
 You should keep in mind by interpreting the measurement results, that the circuit of the TransistorTester is
@@ -242,7 +281,7 @@ So a Thyristor can be detected as NPN transistor or diode. Also it is possible, 
 
 Another problem is the identification of semiconductors with integrated resistors.
 So the base - emitter diode of a BU508D transistor can not be detected by reason of the parallel connected
-internal \(42 \Omega\) resistor.
+internal \(42~\Omega\) resistor.
 Therefore the transistor function can not be tested also.
 Problem with detection is also given with power Darlington transistors. We can find often internal
 base - emitter resistors, which make it difficult to identify the component with the undersized measurement current.
@@ -253,20 +292,29 @@ inputs of the TransistorTester.
 After pushing the start button, the Tester shows in row 1 the type (NPN or PNP), 
 a possible integrated protecting diode of the Collector - Emitter path and the
 sequence of pins. The diode symbol is shown with correct polarity.
-Row 2 shows the current amplification factor (B=...) and the Base - Emitter threshold voltage.
-You should know, that the Tester can measure the amplification factor with two different circuits,
-the common Emitter and the common Collector circuit (Emitter follower).
-Only the higher result is shown on the LCD.
+Row 2 shows the current amplification factor \(B\) or \(hFE\) and the current, by which the
+amplification factor is measured. If the common emitter circuit is used for the hFE determinatation,
+the collector current \(Ic\) is output. If the common collector circuit is used for measuring of the
+amplification factor, the emitter current \(Ie\) is shown.
+Further parameters are shown for displays with two lines in sequence, one after the the other in line 2.
+For displays with more lines further parameters are shown directly until the last line is allready used.
+When the last line is allready used before, the next parameter is shown also in the last line
+after a time delay automatically or earlier after a key press.
+If more parameters are present than allready shown, a + character is shown at the end of the last line.
+The next shown parameter is anyway the Base - Emitter threshold voltage.
+If any collector cutoff current is measurable, the collector current without base current \(I_CE0\)
+and the collector current with base connected to the emitter \(I_CES\) is also shown.
+If a protecting diode is mounted, the flux voltage \(Uf\) is also shown as last parameter.
 
 
 With the common Emitter circuit the tester has only two alternative to select the base current:
 \begin{enumerate}
-\item The \(680 \Omega\) resistor results to a base current of about 6.1mA. 
+\item The \(680~\Omega\) resistor results to a base current of about 6.1mA. 
 This is too high for low level transistors with high amplification factor, because the base is saturated.
-Because the collector current is also measured with a \(680 \Omega\) resistor, the collector current
+Because the collector current is also measured with a \(680~\Omega\) resistor, the collector current
 can not reach the with the amplification factor higher value.
 The software version of Markus F. has measured the Base - Emitter threshold voltage in this ciruit (Uf=...).\\
-\item The \(470 k\Omega\) resistor results to a base current of only \(9.2 \mu A\) .
+\item The \(470~k\Omega\) resistor results to a base current of only \(9.2~\mu A\) .
 This is very low for a power transistor with low current amplification factor.
 The software version of Markus F. has identified the current amplification factor with this circuit (hFE=...).\\
 \end{enumerate}
@@ -276,7 +324,7 @@ The higher value of both measurement methodes is reported.
 The common collector circuit has the advantage, that the base current is reduced by negative current feedback corresponding
 to the amplification factor. 
 In most cases a better measurement current can be reached with this methode for power transistors
-with the \(680 \Omega\) resistor and for Darlington Transistors with \(470 k\Omega\) resistor.
+with the \(680~\Omega\) resistor and for Darlington Transistors with \(470~k\Omega\) resistor.
 The reported Base - Emitter threshold voltage Uf is now measured with the same current used 
 for determination of the current amplification factor.
 However, if you want to know the Base - Emitter threshold voltage with a measurement current of about 6mA,
@@ -297,8 +345,8 @@ Because the structure of JFET type is symmetrical, the Source and Drain of this 
 be differed.
 Normally one of the parameter of this transistor is the current of the transistor with the Gate at the same level as Source.
 This current is often higher than the current, which can be reached with the measurement circuit of the TransistorTester
-with the \(680 \Omega\) resistor.
-For this reason the \(680 \Omega\) resistor is connected to the Source. Thus the Gate get with the growing of current a negative
+with the \(680~\Omega\) resistor.
+For this reason the \(680~\Omega\) resistor is connected to the Source. Thus the Gate get with the growing of current a negative
 bias voltage.
 The Tester reports the Source current of this circuit and additionally the bias voltage of the Gate.
 So various models can be differed.

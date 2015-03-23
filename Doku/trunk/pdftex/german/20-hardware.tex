@@ -27,10 +27,11 @@ wird durch den externen Kondensator C1 am AREF-Pin (21) des ATmega reduziert.
 Um die Messung nicht langsamer als notwendig machen zu müssen, sollte der Kondensator auf
 1nF reduziert werden. Ein Entfernen des Kondensators ist ebenfalls möglich.
 Zum Anpassen der Software an die jeweilige Schaltung schauen Sie bitte in dem
-Kon\-fi\-gura\-tions-Kapitel~\ref{sec:config} nach. 
+Kon\-fi\-gura\-tions-Kapitel~\ref{sec:config} ab Seite~\pageref{sec:config} nach. 
 
 Einige unterschiedliche Kombinationen von R11 / R12 zirkulieren im Internet.
 Ich habe die Software an den Original-Entwurf von Markus F.~\cite{Frejek} mit \(10k\Omega\) und \(3,3k\Omega\) angepasst.
+Da Spannungsverhältnis kann in der Makefile angepaßt werden.
 
 Die zusätzliche 2,5V Präzisions-Spannungsreferenz, die an Pin PC4 (ADC4) angeschlossen ist,
 wird für die Überprüfung und Kalibration der VCC-Versorgungsspannung benutzt, ist aber nicht
@@ -141,7 +142,7 @@ Der 10:1-Spannungsteiler kann mit dem optionalen Dialogteil für den ATmega328 a
 den Spannungswandler benutzt werden. Ohne die gedrückte Taste ist der Spannungswandler nicht in 
 Betrieb, sodass eine externe Spannung (z.B. Batteriespannung) am Zenerdioden-Port gemessen werden kann.
 Es können nur positive Gleichspannungen bis 50V gemessen werden.
-Man muss also auf die richtige Polarität zu achten.
+Man muss also auf die richtige Polarität achten.
 
 \subsection{Frequenzgenerator}
 
@@ -155,6 +156,7 @@ für einen getrennten Ausgang angeschlossen werden. Dabei sollte der Eingang die
 aber keine hohe kapazitive Last für den ATmega-Ausgang darstellen.
 
 \subsection{Frequenzzähler}
+\label{sec:frequency_counter}
 
 Für die ebenfalls über die Dialogfunktion wählbare Frequenz-Messung ist eine kleine Erweiterung
 der Schaltung erforderlich. Als Eingang für die Frequenzmessung wird der PD4-Pin (T0/PCINT20) des
@@ -164,7 +166,7 @@ auf Eingang geschaltet werden und für die Messung benutzt werden, solange keine
 LCD erfolgt. Das LCD interessiert sich für das Signal nur, wenn LCD-E auf GND geschaltet wird.
 Für die Einspeisung des Testsignals ist mindestens ein Serienwiderstand von \(270\Omega\) erforderlich.
 Besser ist eine Schaltung nach Abbildung~\ref{fig:FreqMes} zu benutzen. Die Spannung am PD4-Pin (LCD-RS oder
-(LCD-D4) sollte ohne eingesteckten ATmega oder im Frequenz-Messbetrieb auf etwa 2,4V eingestellt sein,
+LCD-D4) sollte ohne eingesteckten ATmega oder im Frequenz-Messbetrieb auf etwa 2,4V eingestellt sein,
 damit die größte Empfindlichkeit für das Eingangssignal erzielt wird. Das LCD sollte aber eingesteckt sein,
 weil dessen Pull-Up Widerstände die Spannung verändern.
 
@@ -297,12 +299,12 @@ speziellen Seriellschnittstelle angeschlossen werden, wie die Abbildung \ref{fig
 \end{figure}
 
 Für beide Anschlußarten muß die Software speziell konfiguriert werden. 
-Die Makefile Option ,,WITH\_LCD\_ST7565 = 7920'' muß auf jeden Fall gesetzt werden, für die serielle
+Die Makefile Option ,,WITH\_LCD\_ST7565 = 7920'' muß dazu auf jeden Fall gesetzt werden, für die serielle
 Anschlußart muß außerdem die Option ,,CFLAGS += -DLCD\_INTERFACE\_MODE=5'' gesetzt sein.
-Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays mit den Optionen 
-LCD\_ST7565\_H\_FLIP und LCD\_ST7565\_V\_FLIP angepaßt werden. \\
+Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays  mit den Optionen
+LCD\_ST7565\-\_H\_FLIP und LCD\_ST7565\-\_V\_FLIP angepaßt werden. \\
 
-Einen Sonderfall stellen Displays mit ST7108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
+Einen Sonderfall stellen Displays mit ST7108 oder KS0108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
 angesteuert werden können, ist ein externer seriell-parallel Wandler erforderlich.
 Die einfachste Lösung scheint mir mit einem 74HCT164 oder einem 74HCT595 Chip möglich zu sein.
 Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:ST7108lcd} .
@@ -459,7 +461,7 @@ Mit etwas Geschick kann auf der Lötseite der Platine ein 8MHz Quarz direkt an P
 Bei meiner Nachrüstung habe ich auf die beiden 22pF-Kondensatoren verzichtet.
 Bei allen eingesetzten Prozessoren hat diese Lösung problemlos funktioniert.
 Aber die Nachrüstung ist nicht unbedingt erforderlich. Die Taktfrequenz sollte aber
-wegen der besseren Zeitkonstanten-Auflösung (Kapazität) auf jeden Fall 8MHz betragen.
+wegen der besseren Zeitkonstanten-Auflösung  für die Kapazitäts-Messung auf jeden Fall 8MHz betragen.
 Die Frequenz 8MHz ist auch bei RC-Oszillator-Betrieb durch Setzen der fuses möglich.
 \item[Abblocken der Betriebsspannung]
 Im Original-Schaltbild vom Markus F. ist nur ein 100nF-Kondensator zum Abblocken der
@@ -491,16 +493,18 @@ angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschaltete
 \end{description}
 
 \section{Chinesische Nachbauten}
-Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen nachgebaut.
+Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen mit Textdisplay nachgebaut.
 Die erste Variante ist der Nachbau des ersten Entwurfs von Markus F. ohne ISP-Schnittstelle.
 Der bestückte ATmega8 ist bei dieser Version gesockelt, kann also auch durch einen ATmega168/328 ausgetauscht werden.
 Für diese Version gelten alle Hinweise des Unterkapitels \ref{sec:change_markus}.
 Zusätzliche 100nF keramische Kondensatoren sollten in der Nähe des ATmega an die VCC-GND und
 AVCC-GND Anschlüsse zur besseren Spannungsstabilisierung angebraucht werden.
-Desweiteren muss beachtet werden, dass bei der Nachrüstung eines Quarzes der ISP-Programmer selbst
-einen externen Takt zuführen muss.\\
-Die zweite Variante ist weitgehend in SMD-Technik aufgebaut. Auch der ATmega168 ist in einem 32TQFP
-Gehäuse fest verbaut.
+Da auf der Platine ein ISP-Stecker fehlt, muß entweder ein ISP-Anschluß nachgerüstet werden oder
+der Prozessor für die Programmierung ausgebaut werden.
+Dabei muss beachtet werden, dass bei der Nachrüstung eines Quarzes der ISP-Programmer selbst
+einen externen Takt zuführen muss, oder der Programmiersockel mit einem Quarz ausgerüstet sein muß.\\
+Die zweite Variante ist weitgehend in SMD-Technik aufgebaut. Auch der ATmega168 oder ATmega328 
+ist in einem 32TQFP Gehäuse fest verbaut.
 Dafür ist ein 10-poliger ISP-Stecker für die Programmierung auf der Platine vorgesehen.
 Ich habe die Version ,,2.1 2012/11/06'' analysiert. Ein Fehler ist die Bestückung des Bauteils ,,D1'',
 welches eigentlich die 2,5V Präzisionsreferenz sein soll. Bestückt ist aber eine Zenerdiode.
@@ -617,7 +621,7 @@ Die Entwicklung wurde mit dem Linux-Betriebssystem (Ubuntu bzw. Mint) gemacht
 und wird gesteuert mit einer Makefile.
 Die Makefile stellt sicher, dass die Software entsprechend der vorher in der Makefile 
 eingestellten Optionen übersetzt wird. Schauen Sie bitte in die Datei LiesMich.txt
-im Verzeichnis trunk/default und in das Konfigurations-Kapitel~\ref{sec:config}.
+im Verzeichnis trunk/default und in das Konfigurations-Kapitel~\ref{sec:config} ab Seite~\pageref{sec:config}.
 Das Ergebnis der Übersetzung hat die Dateierweiterung .hex und .eep.
 Üblicherweise heißen die Dateien TransistorTester.hex und TransistorTester.eep .
 Die .hex-Datei enthält die Daten für den Programmspeicher (Flash) des ATmega-Prozessors.
@@ -740,6 +744,8 @@ den Betrieb.
 In diesem Fall kann man den ICL~7660-Baustein zum Erzeugen der negativen Spannung aus der
 positiven 5V verwenden.
 
+Der Tester kann für viele verschiedene Controller mit unterschiedlichen Anschlußarten
+konfiguriert werden. Prüfen sie auf jeden Fall, ob die Software zu ihrem Display paßt.
 Wenn keine Anzeige auf dem LCD erkannt wird und wenn die Hintergrundbeleuchtung an ist,
 sollten Sie die Spannungsversorgung trennen und alle vier Datenverbindungen sowie die 
 beiden Steuersignale überprüfen.
@@ -754,6 +760,12 @@ Wenn der Tester ohne die Abschalt-Elektronik aufgebaut ist, kann man mit einer
 an die Test Pins angeschlossenen LED testen, ob das Programm arbeitet.
 Wenn die LED flackert, läuft das Programm. Der Fehler muss in diesen Fall an
 dem Anschluss des LCD's liegen. 
+Bei einigen graphischen Displays kann der Kontrast über eine Menüfunktion verstellt werden.
+Wenn man hier versehentlich den Kontrast zu weit verstellt hat, ist auf dem Display
+nicht mehr zu erkennen, man kann also auch nicht mehr weiter bedienen.
+Hier können Sie nur versuchen, ob von der Seite (schräg) doch noch etwas zu erkennen ist
+und über das Menü den Kontrast zurückstellen. Wenn dan nicht geht, können sie
+das EEprom des ATmega mit einem ISP programmer neu beschreiben und damit den Kontastwert zurückstellen.
 \item[Einiges, aber nicht alles ist auf der LCD-Anzeige lesbar] 
 Überprüfen Sie ob die .eep-Daten in den EEPROM des ATmega geladen wurden.
 Wenn alle Programmdaten richtig geladen wurden, sollten Sie die Taktrate ihrer
