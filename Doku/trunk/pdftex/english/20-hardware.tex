@@ -262,6 +262,11 @@ a 5V signal level. Normally the data inputs of the controller are protected with
 You should make shure, that you have loaded a program with the I\textsuperscript{2}C support to the ATmega 
 before the Display is connected. If you have loaded a program with another interface, 
 the output are also switched to the 5V side.
+Because I have determined a influence to the tester results across the VCC connection of a OLED module,
+a additional decoupling with a serial resistor of \(68~\Omega\) with a additional \(10~\mu\) blocking capacitor
+is recommended. Instead of the \(68~\Omega\) resistor you can also use a inductor with about \(1~mH\).
+Without the additional filter my tester has reported collector residual currents with bipolar transistors and a
+OLED display.
 Also you should check the pin sequence of your OLED module, some moduls have a different location of GND and VCC.
  
 \begin{figure}[H]
@@ -534,8 +539,45 @@ a 2:1 scaling factor for the battery voltage measurement is used instead of the 
 In addition R15 is direct connected to the battery, what results to a power consumption in the switch off state.
 The R15 should better be connected to the drain of Q1 or the input of the voltage regulator to prevent this
 unneeded battery power consumption.
+A suitable change of the printed board is shown in picture \ref{fig:Fish8840patch}.
+A circuit path is cut between R17 and D5 and a new conductive path is inserted between Q1 and
+R15 with a enameled copper wire.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/Fish8840patch.png}
+\caption{Picture of the changed Fish8840 printed board}
+\label{fig:Fish8840patch}
+\end{figure}
+
 The scaling factor of the battery voltage must be specified in any case in the Makefile before any
 attempt can be done to replace the original software (BAT\_NUMERATOR=66 for example).
+
+The display module of the Fish8840 tester is equipped with a 3.3V voltage regulator to adapt
+the operating voltage of the display controller.
+Because the 3.3V operating voltage can be increased with the 5V signal level of the data signals
+from the ATmega, a adapter circuit according to the picture \ref{fig:Fish8840Adapt} is recommended.
+The four data signal lines are equipped with four serial \(2.7~k\Omega\) resistors at a little
+breadboard.
+Longer spacer bolts must be used to mount the display with the adapter board to the printed board
+of the Fish8840 tester now.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Fish8840Adapt1.png}
+    \caption{Display with the breadboard adapter}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Fish8840Adapt2.png}
+    \caption{Ready mounted Tester}
+  \end{subfigure}
+  \caption{Adapter for a correctly display connection}
+  \label{fig:Fish8840Adapt}
+\end{figure}
+
 All attempt to replace the original software is allways done at one's own risk.
 No guaranty can be given for operational capability of newer software versions.
 Unfortunately the original state of the chinese software can not be saved because the 

@@ -273,6 +273,11 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
 Es sollte aber sichergestellt sein, daß das Programm mit der I\textsuperscript{2}C Schnittstelle in den ATmega geladen wurde,
 bevor das Display angeschlossen wird. Wenn ein Programm für eine andere Schnittstelle geladen wurde,
 werden die Ausgänge auch nach 5V geschaltet.
+Da ich eine Beeinflussung der Meßergebnisse der Testers über den VCC-Anschluß der OLED-Module festgestellt habe, 
+ist eine Entkopplung über einen Serienwiderstand von \(68~\Omega\) mit zusätzlichem \(10~\mu F\)
+ Abblock-Kondensator zu empfehlen. 
+Anstelle des \(68~\Omega\) Widerstand kann auch eine Drossel von etwa \(1~mH\) verwendet werden.
+Ohne das zusätzliche Filter wurde bei meinem Tester Kollektorrestströme bei bipolaren Transistoren mit einem OLED angezeigt.
 Außerdem sollte die Belegung der Pinne beim OLED Modul geprüft werden, bei einigen Modulen ist GND und VCC vertauscht!
  
 \begin{figure}[H]
@@ -548,8 +553,46 @@ wird mit 2:1 ein anderes Teilerverhältnis für die Batteriespannung wie im Orig
 Außerdem ist R15 direkt an die Batterie angeschlossen, was zu einem geringen Stromverbrauch im
 ausgeschalteten Zustand führt. Hier sollte R15 besser an das Drain von Q1 beziehungsweise an den
 Eingang des Spannungsreglers angeschlossen werden um den unnötigen Batterieverbrauch zu vermeiden.
+Eine entsprechende Änderung auf der Platine zeigt die Abbildung \ref{fig:Fish8840patch}.
+Eine Leiterbahn ist zwischen R17 und D5 getrennt und mit einem Stück Kupferlackdraht eine
+neue Verbindung zwischen Q1 und R15 gelötet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/Fish8840patch.png}
+\caption{Foto der geänderten Fish8840 Platine}
+\label{fig:Fish8840patch}
+\end{figure}
+
 Das Verhältnis des Spannungsteilers muss bei der Konfiguration in der Makefile auf jeden Fall angegeben
 werden bevor eine Software aufgespielt wird (z.B. mit BAT\_NUMERATOR=66).
+
+Das Display Module des Fish8840 Testers besitzt einen 3.3V Spannungsregler, der die Betriebsspannung
+des Display-Controllers anpassen soll.
+Da es über die Datenleitungen des Display-Moduls zu einer Erhöhung der 3.3V Betriebsspannung wegen
+der 5V Signale vom ATmega kommt,
+wird eine Adapterschaltung nach Abbildung \ref{fig:Fish8840Adapt} empfohlen. Hier sind in die vier
+Datenleitungen vier serielle Widerstände mit jeweils \(2.7~k\Omega\) auf einer kleinen Lochrasterplatine
+zwischengeschaltet.
+Längere Gewindebolzen müssen nun verwendet werden, um das Display mit der Adapterplatine auf dem
+Fish8840 Tester zu befestigen.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Fish8840Adapt1.png}
+    \caption{Display mit Adapter}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Fish8840Adapt2.png}
+    \caption{Fertig montierter Tester}
+  \end{subfigure}
+  \caption{Adapter für einen korrekten Display Anschluß}
+  \label{fig:Fish8840Adapt}
+\end{figure}
+
 Das Testen neuerer Softwareversionen geschieht immer auf eigenes Risiko.
 Für die Funktionsfähigkeit kann natürlich keine Gewähr gegeben werden.
 Leider kann der Originalzustand der chinesischen Software-Variante auch nicht gesichert werden,
