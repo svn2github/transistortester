@@ -453,6 +453,22 @@ clr_lop:
  	pop	r17
  	ret
  .endfunc
+ .global lcd_clear_line1
+ .func lcd_clear_line1
+lcd_clear_line1:
+	RCALL	lcd_line1;
+	RCALL	lcd_clear_line;
+	RCALL	lcd_line1;
+ 	ret
+ .endfunc
+ .global lcd_clear_line2
+ .func lcd_clear_line2
+lcd_clear_line2:
+	RCALL	lcd_line2;
+	RCALL	lcd_clear_line;
+	RCALL	lcd_line2;
+ 	ret
+ .endfunc
 #endif
 
  .global lcd_line1
