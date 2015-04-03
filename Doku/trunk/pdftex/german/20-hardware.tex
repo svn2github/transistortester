@@ -649,6 +649,27 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
   \label{tab:mega644-display}
 \end{table}
 
+Auch ein Display mit ST7108 Controller kann mit einer kleinen Zusatzschaltung an einen
+ATmega644 oder ATmega1284 angeschlossen werden wie in der Abbildung~\ref{fig:ST7108lcd_644} gezeigt.
+Bitte beachten Sie auch die verschiedenen Pinbelegungen der Displaymodule mit ST7108 Controller wie in
+Tabelle~\ref{tab:ST7108types} auf Seite~\pageref{tab:ST7108types} angegeben.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial164_644.eps}
+    \caption{mit 74HCT164}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial595_644.eps}
+    \caption{mit 74HCT595}
+  \end{subfigure}
+  \caption{Anschluss des ST7108 Controllers an einen ATmega644/1284}
+  \label{fig:ST7108lcd_644}
+\end{figure}
+
 
 
 \begin{figure}[H]
