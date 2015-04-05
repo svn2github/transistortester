@@ -614,6 +614,27 @@ ATmega324/644/1284.
   \label{tab:mega644-display}
 \end{table}
 
+Вы также можете подключить дисплей с контроллером ST7108 к тестеру, собранному на ATmega644 или ATmega1284
+используя небольшую схему подключения показанную на рисунке~\ref{fig:ST7108lcd_644}.
+Вы также должны учитывать различие в назначении контактов дисплейных модулей с контроллерами ST7108, 
+как показано в таблице~\ref{tab:ST7108types} на странице~\pageref{tab:ST7108types}.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial164_644.eps}
+    \caption{при использовании 74HCT164}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=8cm]{../FIG/ST7108serial595_644.eps}
+    \caption{при использовании 74HCT595}
+  \end{subfigure}
+  \caption{Подключение дисплея с контроллером ST7108 к ATmega644/1284}
+  \label{fig:ST7108lcd_644}
+\end{figure}
+
 \section{Программирование микроконтроллера}
 Я публикую программное обеспечение для микроконтроллера ATmega с исходным кодом. Разработка сделана в среде 
 операционной системы Linux (Ubuntu) и компилируется с помощью Makefile. Makefile даёт уверенность, что программное 
