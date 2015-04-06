@@ -747,7 +747,8 @@ The ID 03eb is a vendor ID and the ID 2104 is a product ID.
 Both ID's are required for a entry in the file /etc/udev/ruled.d/90-atmel.rules .
 In this example the file 90-atmel.rules has one line:
 \begin{verbatim}
-SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660" , GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660",
+GROUP="plugdev"
 \end{verbatim}
 This entry allow the access to the USB device 58 for members of the group ''plugdev''.
 The also detected USB device 59 allows a access to the serial device ''/dev/ttyACM0'' for

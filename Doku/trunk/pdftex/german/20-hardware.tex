@@ -763,7 +763,8 @@ Herstellerkennung und die ID 2104 eine Produktkennung. Diese beiden Kennungen we
 für einen Eintrag in einer Datei /etc/udev/ruled.d/90-atmel.rules benötigt.
 In diesem Beispiel besteht die Datei 90-atmel.rules aus einer Zeile:
 \begin{verbatim}
-SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660" , GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660",
+GROUP="plugdev"
 \end{verbatim}
 Dieser Eintrag erlaubt den Zugriff auf das Gerät für Mitglieder der Gruppe ,,plugdev''.
 Das ebenfalls als Devive 59 erkannte USB Gerät  Arduino SA Mega 2560 System erzeugt eine
