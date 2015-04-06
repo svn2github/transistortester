@@ -670,6 +670,18 @@ or ATmega2560 microcontroller with a shield.
 The required connections are shown in figure~\ref{fig:t1280tester}.
 The names for the connections of the display signals of the Arduino are shown with green color.
 Components with red color identification are not required for operating.
+The ATmega2560 controller has many connectors, but only one connector has the required
+functions for both techniques of the frequency measurement.
+The connector must be used as clock input for a build in counter and must also be 
+used as interrupt source for change of signal level.
+This feature is only available for the pin PE6 (T3/INT6).
+The other clock inputs of counters PD7 (T0), PD6 (T1), PH7 (T4) and PL2 (T5) can not be 
+used as interrupt source for status change.
+Unfortunately the PE6 pin is not connected to a pin of the Arduino female connector strip.
+The PE5 pin (7) is connected to the connector 3 of the PWM socket strip and
+can be jumpered with the PE6 pin (8) of the ATmega2560.
+The output signal of the frequency generation is available at the PB6 (OC1B) pin.
+This pin is connected to the connector 12 of the PWM socket strip.
 The ISP-connector is not required, because the program can be loaded with the bootloader
 and the USB interface to the ATmega. With the bootloader there is always a
 little delay for the power up start of the program.

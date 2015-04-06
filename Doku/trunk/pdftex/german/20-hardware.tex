@@ -686,6 +686,18 @@ ATmega2560 als Shield aufbauen.
 Die notwendigen Verbindungen zeigt die Abbildung~\ref{fig:t1280tester}.
 Die Steckverbindungen des Arduino für die Datenverbindungen des Displays sind in güner Farbe eingezeichnet.
 Die Bauteile mit roter Bezeichnung sind für die Funktion des Testers nicht erforderlich.
+Der ATmega2560 Controller hat zwar viele Anschlußpins, aber nur ein einziger Pin hat die
+erforderlichen Verbindungen für beide Methoden der Frequenzmessung. 
+Der Anschlußpin muß als Takteingang für einen Zähler geschaltet werden können und außerdem muß
+der Pin ein Unterbrechungssignal (Interrupt) bei Pegelwechsel erzeugen können.
+Dies ist nur für den Pin PE6 (T3/INT6) der Fall. Die anderen Takteingänge der Zähler
+PD7 (T0), PD6 (T1), PH7 (T4) und PL2 (T5) können nicht für die Erzeugung des Unterbrechungssignals
+bei Pegelwechsel verwendet werden.
+Leider ist der PE6 Pin nicht mit den Steckerleisten des Arduino verbunden.
+Der PE5 Pin (7) ist mit dem Anschluß 3 der PWM Buchsenleiste des Arduino verbunden und kann
+am Atmega2560 mit dem PE6 Pin (8) gebrückt werden.
+Der Ausgang der Frequenzerzeugung ist am Pin PB6 (OC1B) verfügbar. Dieser Pin ist mit Anschluß 12
+der PWM-Buchsenleiste verbunden.
 Auf den ISP-Stecker kann für den Arduino verzichtet werden, da das Programm über
 das USB-Interface und den Bootloader geladen werden kann.  Mit dem
 Bootloader gibt es lediglich eine kleine Verzögerung des Programmstarts.
