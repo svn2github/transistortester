@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  6 APR 2015 13:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  6 APR 2015 19:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1178,50 +1178,56 @@ File: ../FIG/t1280tester-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../FIG/t1280tester-eps-converted-to.pdf used on input 
 line 691.
 (pdftex.def)             Requested size: 512.1496pt x 439.24344pt.
- [24 <../FIG/t1280tester-eps-converted-to.pdf>] <../PNG/Notepad_open.png, id=70
-1, 757.83125pt x 813.0375pt>
+ [24 <../FIG/t1280tester-eps-converted-to.pdf>]
+Overfull \hbox (93.00067pt too wide) in paragraph at lines 751--751
+[]\OT1/cmtt/m/n/12 SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=
+="2104", MODE="0660" , GROUP="plugdev"[] 
+ []
+
+[25] <../PNG/Notepad_open.png, id=707, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_open.png Graphic file (type png)
 
 <use ../PNG/Notepad_open.png>
-Package pdftex.def Info: ../PNG/Notepad_open.png used on input line 756.
+Package pdftex.def Info: ../PNG/Notepad_open.png used on input line 791.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-<../PNG/Notepad_save.png, id=702, 757.83125pt x 813.0375pt>
+<../PNG/Notepad_save.png, id=708, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_save.png Graphic file (type png)
 
 <use ../PNG/Notepad_save.png>
-Package pdftex.def Info: ../PNG/Notepad_save.png used on input line 762.
+Package pdftex.def Info: ../PNG/Notepad_save.png used on input line 797.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-Overfull \hbox (7.83322pt too wide) in paragraph at lines 754--765
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 789--800
 [][]   [] 
  []
 
-[25] <../PNG/Notepad_make.png, id=713, 757.83125pt x 813.0375pt>
+<../PNG/Notepad_make.png, id=710, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_make.png Graphic file (type png)
 
 <use ../PNG/Notepad_make.png>
-Package pdftex.def Info: ../PNG/Notepad_make.png used on input line 775.
+Package pdftex.def Info: ../PNG/Notepad_make.png used on input line 810.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-<../PNG/Notepad_program.png, id=714, 757.83125pt x 813.0375pt>
+<../PNG/Notepad_program.png, id=711, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_program.png Graphic file (type png)
 
 <use ../PNG/Notepad_program.png>
-Package pdftex.def Info: ../PNG/Notepad_program.png used on input line 781.
+Package pdftex.def Info: ../PNG/Notepad_program.png used on input line 816.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-Overfull \hbox (7.83322pt too wide) in paragraph at lines 773--784
+Overfull \hbox (7.83322pt too wide) in paragraph at lines 808--819
 [][]   [] 
  []
 
-[26 <../PNG/Notepad_open.png (PNG copy)> <../PNG/Notepad_save.png (PNG copy)> <
-../PNG/Notepad_make.png (PNG copy)> <../PNG/Notepad_program.png (PNG copy)>]
-Overfull \hbox (3.89417pt too wide) in paragraph at lines 851--853
+[26 <../PNG/Notepad_open.png (PNG copy)> <../PNG/Notepad_save.png (PNG copy)>]
+[27 <../PNG/Notepad_make.png (PNG copy)> <../PNG/Notepad_program.png (PNG copy)
+>]
+Overfull \hbox (3.89417pt too wide) in paragraph at lines 886--888
 []\OT1/cmr/m/n/12 You run soft-
  []
 
-[27]) [28]
+) [28]
 \openout2 = `30-manual.aux'.
 
  (./30-manual.tex
@@ -1308,13 +1314,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 103--105
  []
 
 [37] [38] [39] [40] [41] [42]
-<../PNG/AREF2_1V.png, id=808, 321.2pt x 234.8775pt>
+<../PNG/AREF2_1V.png, id=809, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
  <use ../PNG/AREF2_1V.png>
 Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 352.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
 
-<../PNG/AREF2VCC.png, id=809, 321.2pt x 234.8775pt>
+<../PNG/AREF2VCC.png, id=810, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
  <use ../PNG/AREF2VCC.png>
 Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 359.
@@ -1335,7 +1341,7 @@ Package epstopdf Info: Source file: <../FIG/port.eps>
 o.pdf ../FIG/port.eps>
 (epstopdf)             \includegraphics on input line 14.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/port-eps-converted-to.pdf, id=821, 224.84pt x 123.46124pt>
+<../FIG/port-eps-converted-to.pdf, id=822, 224.84pt x 123.46124pt>
 File: ../FIG/port-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/port-eps-converted-to.pdf>
@@ -1353,7 +1359,7 @@ ed-to.pdf ../FIG/terminal.eps>
 (epstopdf)             \includegraphics on input line 24.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/terminal-eps-converted-to.pdf, id=823, 224.84pt x 152.57pt>
+<../FIG/terminal-eps-converted-to.pdf, id=824, 224.84pt x 152.57pt>
 File: ../FIG/terminal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/terminal-eps-converted-to.pdf>
@@ -1382,7 +1388,7 @@ Package epstopdf Info: Source file: <../FIG/JFETcd.eps>
 (epstopdf)             \includegraphics on input line 42.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/JFETcd-eps-converted-to.pdf, id=854, 406.51875pt x 309.155pt>
+<../FIG/JFETcd-eps-converted-to.pdf, id=855, 406.51875pt x 309.155pt>
 File: ../FIG/JFETcd-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/JFETcd-eps-converted-to.pdf>
@@ -1404,7 +1410,7 @@ to.pdf ../FIG/PNPcc.eps>
 (epstopdf)             \includegraphics on input line 65.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/PNPcc-eps-converted-to.pdf, id=863, 406.51875pt x 309.155pt>
+<../FIG/PNPcc-eps-converted-to.pdf, id=864, 406.51875pt x 309.155pt>
 File: ../FIG/PNPcc-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/PNPcc-eps-converted-to.pdf>
@@ -1422,7 +1428,7 @@ Package epstopdf Info: Source file: <../FIG/PNPce.eps>
 to.pdf ../FIG/PNPce.eps>
 (epstopdf)             \includegraphics on input line 95.
 Package epstopdf Info: Output file is already uptodate.
- <../FIG/PNPce-eps-converted-to.pdf, id=882, 406.51875pt x 309.155pt>
+ <../FIG/PNPce-eps-converted-to.pdf, id=883, 406.51875pt x 309.155pt>
 File: ../FIG/PNPce-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/PNPce-eps-converted-to.pdf>
@@ -1440,14 +1446,14 @@ Package epstopdf Info: Source file: <../FIG/NPNce.eps>
 to.pdf ../FIG/NPNce.eps>
 (epstopdf)             \includegraphics on input line 108.
 Package epstopdf Info: Output file is already uptodate.
- <../FIG/NPNce-eps-converted-to.pdf, id=900, 406.51875pt x 309.155pt>
+ <../FIG/NPNce-eps-converted-to.pdf, id=901, 406.51875pt x 309.155pt>
 File: ../FIG/NPNce-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/NPNce-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/NPNce-eps-converted-to.pdf used on input line 1
 08.
 (pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
- [50 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=918, 321.
+ [50 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=919, 321.
 2pt x 234.8775pt>
 File: ../PNG/IRFU120gate.png Graphic file (type png)
 
@@ -1466,7 +1472,7 @@ rted-to.pdf ../FIG/CheckSemi1.eps>
 (epstopdf)             \includegraphics on input line 147.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi1-eps-converted-to.pdf, id=935, 476.78125pt x 613.29124pt>
+<../FIG/CheckSemi1-eps-converted-to.pdf, id=936, 476.78125pt x 613.29124pt>
 File: ../FIG/CheckSemi1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi1-eps-converted-to.pdf>
@@ -1485,7 +1491,7 @@ rted-to.pdf ../FIG/CheckSemi2.eps>
 (epstopdf)             \includegraphics on input line 154.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi2-eps-converted-to.pdf, id=941, 504.88625pt x 711.65875pt>
+<../FIG/CheckSemi2-eps-converted-to.pdf, id=942, 504.88625pt x 711.65875pt>
 File: ../FIG/CheckSemi2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi2-eps-converted-to.pdf>
@@ -1508,7 +1514,7 @@ rted-to.pdf ../FIG/CheckSemi3.eps>
 (epstopdf)             \includegraphics on input line 161.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi3-eps-converted-to.pdf, id=965, 228.855pt x 515.9275pt>
+<../FIG/CheckSemi3-eps-converted-to.pdf, id=966, 228.855pt x 515.9275pt>
 File: ../FIG/CheckSemi3-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi3-eps-converted-to.pdf>
@@ -1531,7 +1537,7 @@ onverted-to.pdf ../FIG/ResistormessL1.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessL1-eps-converted-to.pdf, id=1003, 406.51875pt x 159.59625pt
+<../FIG/ResistormessL1-eps-converted-to.pdf, id=1004, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessL1-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessL1-eps-converted-to.pdf>
@@ -1550,7 +1556,7 @@ onverted-to.pdf ../FIG/ResistormessL2.eps>
 (epstopdf)             \includegraphics on input line 22.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessL2-eps-converted-to.pdf, id=1004, 406.51875pt x 159.59625pt
+<../FIG/ResistormessL2-eps-converted-to.pdf, id=1005, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessL2-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessL2-eps-converted-to.pdf>
@@ -1569,7 +1575,7 @@ Package epstopdf Info: Source file: <../GNU/RLvtot.eps>
 (epstopdf)             \includegraphics on input line 115.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvtot-eps-converted-to.pdf, id=1006, 361.35pt x 252.945pt>
+<../GNU/RLvtot-eps-converted-to.pdf, id=1007, 361.35pt x 252.945pt>
 File: ../GNU/RLvtot-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvtot-eps-converted-to.pdf>
@@ -1592,7 +1598,7 @@ Package epstopdf Info: Source file: <../GNU/RLvlow.eps>
 (epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvlow-eps-converted-to.pdf, id=1038, 361.35pt x 252.945pt>
+<../GNU/RLvlow-eps-converted-to.pdf, id=1039, 361.35pt x 252.945pt>
 File: ../GNU/RLvlow-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvlow-eps-converted-to.pdf>
@@ -1611,7 +1617,7 @@ d-to.pdf ../GNU/RLvhigh.eps>
 (epstopdf)             \includegraphics on input line 139.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvhigh-eps-converted-to.pdf, id=1039, 361.35pt x 252.945pt>
+<../GNU/RLvhigh-eps-converted-to.pdf, id=1040, 361.35pt x 252.945pt>
 File: ../GNU/RLvhigh-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvhigh-eps-converted-to.pdf>
@@ -1636,7 +1642,7 @@ onverted-to.pdf ../FIG/ResistormessH1.eps>
 (epstopdf)             \includegraphics on input line 107.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessH1-eps-converted-to.pdf, id=1051, 406.51875pt x 159.59625pt
+<../FIG/ResistormessH1-eps-converted-to.pdf, id=1052, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessH1-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessH1-eps-converted-to.pdf>
@@ -1655,7 +1661,7 @@ onverted-to.pdf ../FIG/ResistormessH2.eps>
 (epstopdf)             \includegraphics on input line 114.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessH2-eps-converted-to.pdf, id=1052, 406.51875pt x 159.59625pt
+<../FIG/ResistormessH2-eps-converted-to.pdf, id=1053, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessH2-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessH2-eps-converted-to.pdf>
@@ -1675,7 +1681,7 @@ Package epstopdf Info: Source file: <../GNU/RHv.eps>
 (epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RHv-eps-converted-to.pdf, id=1075, 361.35pt x 252.945pt>
+<../GNU/RHv-eps-converted-to.pdf, id=1076, 361.35pt x 252.945pt>
 File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RHv-eps-converted-to.pdf>
@@ -1694,7 +1700,7 @@ ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 131.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8res-eps-converted-to.pdf, id=1080, 361.35pt x 252.945pt>
+<../GNU/Mega8res-eps-converted-to.pdf, id=1081, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8res-eps-converted-to.pdf>
@@ -1714,7 +1720,7 @@ ted-to.pdf ../GNU/Mega8Ares.eps>
 (epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Ares-eps-converted-to.pdf, id=1099, 361.35pt x 252.945pt>
+<../GNU/Mega8Ares-eps-converted-to.pdf, id=1100, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Ares-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Ares-eps-converted-to.pdf>
@@ -1733,7 +1739,7 @@ ted-to.pdf ../GNU/Mega8Lres.eps>
 (epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Lres-eps-converted-to.pdf, id=1100, 361.35pt x 252.945pt>
+<../GNU/Mega8Lres-eps-converted-to.pdf, id=1101, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Lres-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Lres-eps-converted-to.pdf>
@@ -1757,7 +1763,7 @@ rted-to.pdf ../GNU/Mega168res.eps>
 (epstopdf)             \includegraphics on input line 127.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168res-eps-converted-to.pdf, id=1101, 361.35pt x 252.945pt>
+<../GNU/Mega168res-eps-converted-to.pdf, id=1102, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168res-eps-converted-to.pdf>
@@ -1777,7 +1783,7 @@ erted-to.pdf ../GNU/m168res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168res_all-eps-converted-to.pdf, id=1118, 361.35pt x 252.945pt>
+<../GNU/m168res_all-eps-converted-to.pdf, id=1119, 361.35pt x 252.945pt>
 File: ../GNU/m168res_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168res_all-eps-converted-to.pdf>
@@ -1796,7 +1802,7 @@ verted-to.pdf ../GNU/m168ares_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168ares_all-eps-converted-to.pdf, id=1119, 361.35pt x 252.945pt>
+<../GNU/m168ares_all-eps-converted-to.pdf, id=1120, 361.35pt x 252.945pt>
 File: ../GNU/m168ares_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168ares_all-eps-converted-to.pdf>
@@ -1820,7 +1826,7 @@ verted-to.pdf ../GNU/m168pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168pres_all-eps-converted-to.pdf, id=1129, 361.35pt x 252.945pt>
+<../GNU/m168pres_all-eps-converted-to.pdf, id=1130, 361.35pt x 252.945pt>
 File: ../GNU/m168pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168pres_all-eps-converted-to.pdf>
@@ -1839,7 +1845,7 @@ erted-to.pdf ../GNU/m328res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m328res_all-eps-converted-to.pdf, id=1130, 361.35pt x 252.945pt>
+<../GNU/m328res_all-eps-converted-to.pdf, id=1131, 361.35pt x 252.945pt>
 File: ../GNU/m328res_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m328res_all-eps-converted-to.pdf>
@@ -1858,7 +1864,7 @@ verted-to.pdf ../GNU/m328pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m328pres_all-eps-converted-to.pdf, id=1131, 361.35pt x 252.945pt>
+<../GNU/m328pres_all-eps-converted-to.pdf, id=1132, 361.35pt x 252.945pt>
 File: ../GNU/m328pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m328pres_all-eps-converted-to.pdf>
@@ -1888,7 +1894,7 @@ Package epstopdf Info: Source file: <../FIG/Bigcap.eps>
 (epstopdf)             \includegraphics on input line 41.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Bigcap-eps-converted-to.pdf, id=1153, 406.51875pt x 546.04pt>
+<../FIG/Bigcap-eps-converted-to.pdf, id=1154, 406.51875pt x 546.04pt>
 File: ../FIG/Bigcap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Bigcap-eps-converted-to.pdf>
@@ -1902,7 +1908,7 @@ Package pdftex.def Info: ../FIG/Bigcap-eps-converted-to.pdf used on input line
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ´ in font cmr12!
 
-<../PNG/charge_229uF.png, id=1163, 321.2pt x 234.8775pt>
+<../PNG/charge_229uF.png, id=1164, 321.2pt x 234.8775pt>
 File: ../PNG/charge_229uF.png Graphic file (type png)
 
 <use ../PNG/charge_229uF.png>
@@ -1911,7 +1917,7 @@ Package pdftex.def Info: ../PNG/charge_229uF.png used on input line 58.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 59.
 
-<../PNG/charge_5mF.png, id=1164, 321.2pt x 234.8775pt>
+<../PNG/charge_5mF.png, id=1165, 321.2pt x 234.8775pt>
 File: ../PNG/charge_5mF.png Graphic file (type png)
 
 <use ../PNG/charge_5mF.png>
@@ -1923,7 +1929,7 @@ Overfull \hbox (7.83322pt too wide) in paragraph at lines 56--69
  []
 
 [69 <../FIG/Bigcap-eps-converted-to.pdf>]
-<../PNG/charge_15mF.png, id=1182, 321.2pt x 234.8775pt>
+<../PNG/charge_15mF.png, id=1183, 321.2pt x 234.8775pt>
 File: ../PNG/charge_15mF.png Graphic file (type png)
 
 <use ../PNG/charge_15mF.png>
@@ -1942,7 +1948,7 @@ ed-to.pdf ../FIG/Comparat.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Comparat-eps-converted-to.pdf, id=1195, 375.4025pt x 188.705pt>
+<../FIG/Comparat-eps-converted-to.pdf, id=1196, 375.4025pt x 188.705pt>
 File: ../FIG/Comparat-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Comparat-eps-converted-to.pdf>
@@ -1950,7 +1956,7 @@ Package pdftex.def Info: ../FIG/Comparat-eps-converted-to.pdf used on input lin
 e 130.
 (pdftex.def)             Requested size: 375.40158pt x 188.70453pt.
 
-<../PNG/charge_22uF.png, id=1196, 321.2pt x 234.8775pt>
+<../PNG/charge_22uF.png, id=1197, 321.2pt x 234.8775pt>
 File: ../PNG/charge_22uF.png Graphic file (type png)
 
 <use ../PNG/charge_22uF.png>
@@ -1968,7 +1974,7 @@ ted-to.pdf ../FIG/Cap_equiv.eps>
 (epstopdf)             \includegraphics on input line 160.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Cap_equiv-eps-converted-to.pdf, id=1218, 94.3525pt x 58.2175pt>
+<../FIG/Cap_equiv-eps-converted-to.pdf, id=1219, 94.3525pt x 58.2175pt>
 File: ../FIG/Cap_equiv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_equiv-eps-converted-to.pdf>
@@ -1987,7 +1993,7 @@ erted-to.pdf ../GNU/Cap_FC_data.eps>
 (epstopdf)             \includegraphics on input line 115.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cap_FC_data-eps-converted-to.pdf, id=1222, 361.35pt x 252.945pt>
+<../GNU/Cap_FC_data-eps-converted-to.pdf, id=1223, 361.35pt x 252.945pt>
 File: ../GNU/Cap_FC_data-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cap_FC_data-eps-converted-to.pdf>
@@ -3151,7 +3157,7 @@ mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/
 type1/public/cm-super/sfrm1200.pfb>
-Output written on ttester.pdf (111 pages, 1955684 bytes).
+Output written on ttester.pdf (111 pages, 1960150 bytes).
 PDF statistics:
  1924 PDF objects out of 2073 (max. 8388607)
  1552 compressed objects within 16 object streams

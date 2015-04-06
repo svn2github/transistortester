@@ -731,14 +731,49 @@ you can download the complete archive.
 Of course you can also download only subdirectories of the archive.
 For using the Makefile in one of the subdirectories you must install the packages
 make, binutils-avr, avrdude, avr-libc and gcc-avr.
+Once you must prepare the access to the interfaces for the user.
+If you open a consol window and you have also connected a ISP programmer with USB interface,
+you can see the recognized USB devices with the command ''lsusb''.
+A sample of the result of lsusb you can see here:
+\begin{verbatim}
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 003: ID 046d:c050 Logitech, Inc. RX 250 Optical Mouse
+Bus 002 Device 058: ID 03eb:2104 Atmel Corp. AVR ISP mkII
+Bus 002 Device 059: ID 2341:0042 Arduino SA Mega 2560 R3 (CDC ACM)
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+\end{verbatim}
+A Device 58 is detected here a a AVR ISP mkII type (DIAMEX ALL-AVR).
+The ID 03eb is a vendor ID and the ID 2104 is a product ID.
+Both ID's are required for a entry in the file /etc/udev/ruled.d/90-atmel.rules .
+In this example the file 90-atmel.rules has one line:
+\begin{verbatim}
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660" , GROUP="plugdev"
+\end{verbatim}
+This entry allow the access to the USB device 58 for members of the group ''plugdev''.
+The also detected USB device 59 allows a access to the serial device ''/dev/ttyACM0'' for
+members of the group ''dialout''.
+
+Therefore your user identification should be a member of the group plugdev and also
+a member of the group dialout.
+With the command ''usermod -a -G dialout,plugdev \$USER'' the membership of both groups should be established.
+Now the program avrdude should have permission to access both devices.
 In a console window you must first change the directory with the command ``cd'' to a proper
 subdirectory of the directory trunk.
 Now you can change options of the Makefile with any text editor.
 For compiling the source you must only type the simple command ``make''.
 If the ISP programmer is configured proper in the Makefile, a command ``make upload''
 should result to load the program with the ISP interface to the ATmega.
-The ``fuses'' of the ATmega nust also be set correctly once.
+The ``fuses'' of the ATmega must also be set correctly once.
 You can achieve this with the command ``make fuses'' or ``make fuses-crystal''.
+The program avrdude probably reports a error for setting the extended fuse efuse.
+The reading of unused fuse bits is specified as ''1'' for the ATmega, but the
+avrdude program mask the unused bits, so that it expect a ''0'' for all unused bits.
+Normally the efuse should be set to 0xfc, but avrdude read back 0x04 with the mask.
+You can change the file avrdude.conf to change the behaviour of avrdude or
+you can set the efuse to 0x04. 
+The value for all efuses can be set with the identifier EFUSE\_VAL at the begin of file setup.mk
+in the trunk directory.
+Probably the fuses are also set correctly with the error message.
 
 \subsection{Using the WinAVR package with Windows}
 If you use the Windows operating system, the easiest way to get a correct programmed

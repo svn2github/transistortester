@@ -747,6 +747,32 @@ das komplette Archiv heruntergeladen. Natürlich können auch nur einzelne Unter
 heruntergeladen werden.
 Für die Benutzung der Makefile in einem Unterverzeichnis müssen die Pakete
 make, binutils-avr, avrdude, avr-libc und gcc-avr installiert sein.
+Einmal muß die Benutzung der Schnittstellen für den Nutzer (user) vorbereitet werden.
+Wenn sie ein Konsolfenster öffnen und ein ISP Programmiergerät mit USB-Schnittstelle eingesteckt ist,
+kann man die erkannten USB-Geräte mit dem Kommando ,,lsusb'' anzeigen.
+Ein Ergebnis von lsusb kann so aussehen:
+\begin{verbatim}
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 003: ID 046d:c050 Logitech, Inc. RX 250 Optical Mouse
+Bus 002 Device 058: ID 03eb:2104 Atmel Corp. AVR ISP mkII
+Bus 002 Device 059: ID 2341:0042 Arduino SA Mega 2560 R3 (CDC ACM)
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+\end{verbatim}
+Hier wurde als Device 58 ein AVR ISP mkII erkannt (DIAMEX ALL-AVR). Die ID 03eb ist eine
+Herstellerkennung und die ID 2104 eine Produktkennung. Diese beiden Kennungen werden
+für einen Eintrag in einer Datei /etc/udev/ruled.d/90-atmel.rules benötigt.
+In diesem Beispiel besteht die Datei 90-atmel.rules aus einer Zeile:
+\begin{verbatim}
+SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660" , GROUP="plugdev"
+\end{verbatim}
+Dieser Eintrag erlaubt den Zugriff auf das Gerät für Mitglieder der Gruppe ,,plugdev''.
+Das ebenfalls als Devive 59 erkannte USB Gerät  Arduino SA Mega 2560 System erzeugt eine
+Zugriffsmöglichkeit auf das serielle Gerät ,,/dev/ttyACM0'' für Mitglieder der Gruppe ,,dialout''.
+Deswegen sollte die eigene Benutzerkennung sowohl Mitglied der Gruppe plugdev als auch
+der Gruppe dialout sein.
+Das Kommando ,,usermod -a -G dialout,plugdev \$USER'' sollte die Zugehörigkeit sicherstellen.
+Jetzt sollte ein Zugriff mit avrdude auf beide Geräte möglich sein.
+
 In einem Konsolen-Fenster müssen Sie zuserst mit dem ,,Change Directory'' Kommando cd in das passende 
 Unterverzeichnis vom Verzeichnis trunk wechseln.
 Hier können Sie mit einem Texteditor die Makefile an ihre Konfiguration anpassen.
@@ -755,6 +781,15 @@ Wenn auch der ISP-Programmer in der Makefile konfiguriert ist, sollte ein Aufruf
 reichen, um das übersetzte Programm über die ISP-Schnittstelle in den ATmega zu laden.
 Auch die ,,fuses'' des ATmega müssen einmal richtig gesetzt werden.
 Dazu reicht ein Aufruf von ,,make fuses'' oder ,,make fuses-crystal'' aus.
+Vielleicht meldet das Programm avrdude einen Fehler beim Setzen der extendet Fuse efuse.
+Das Lesen von unbenutzten Fuse Bits ist beim ATmega als ,,1'' spezifiziert, aber
+das avrdude Programm maskiert die unbenutzten Bits, so daß es eine ,,0'' für alle unbenutzen Bits erwartet.
+Normalerweise sollte die efuse auf 0xfc gesetzt werden, aber avrdude liest eine 0x04 mit der Maske zurück.
+Man kann die Datei avrdude.conf ändern, um das Verhalten von avrdude zu ändern oder
+die efuse auf 0x04 setzen. 
+Alle efuse-Werte können mit dem Bezeichner EFUSE\_VAL am Anfang der Datei setup.mk im Verzeichnis trunk
+gesetzt werden. Wahrscheinlich sind die Fuses aber auch mit der Fehlermeldung richtig gesetzt.
+
 
 
 \subsection{Benutzung des WinAVR-Paketes unter Windows}
