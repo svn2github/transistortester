@@ -331,7 +331,7 @@ example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=6400
   \item[INHIBIT\_SLEEP\_MODE] disable the use of the sleep mode of the processor.
 Normaly the software uses for longer work breaks the sleep mode to avoid unneeded current consumption.
 The usage of this sleep mode indeed spare battery capacity, but produce additional stress for the voltage regulator.\\
-example: CFLAGS += -DINHIBIT\_SLEEP\_MODE
+example: INHIBIT\_SLEEP\_MODE = 1
 
   \item[PROGRAMMER] select your programmer type for avrdude interface program.
 The correct selection of this option is needed, if you use the ``make upload'' or ``make fuses'' call

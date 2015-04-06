@@ -365,7 +365,7 @@ Beispiel für 7805-Regler (6,4V): CFLAGS += -DBAT\_POOR=6400
 Normalerweise wird von der Software für längere Pausen der Schlafzustand des Prozessors benutzt, um Strom zu sparen.
 Die Benutzung dieses Schlafzustandes mit dem Wiederaufwachen spart zwar Batteriekapazität, 
 stellt eine zusätzliche Anforderung für den Spannungsregler dar.\\
-Beispiel: CFLAGS += -DINHIBIT\_SLEEP\_MODE
+Beispiel: DINHIBIT\_SLEEP\_MODE = 1
   \item[PROGRAMMER] stellt den Programmer-Typ für das avrdude Schnittstellenprogramm ein.
 Eine richtige Einstellung des Programmer-Typs (und Ports) ist notwendig, wenn Sie den ,,make upload''- oder
 ,,make fuses''-Aufruf dieser Makefile benutzen.
