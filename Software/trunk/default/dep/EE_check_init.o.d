@@ -12,7 +12,7 @@ EE_check_init.o: ../EE_check_init.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/pgmspace.h /usr/lib/avr/include/avr/wdt.h \
  /usr/lib/avr/include/avr/interrupt.h ../config.h ../part_defs.h \
  ../lcd_defines.h ../font.h ../autoconf.h ../tt_function.h \
- ../wait1000ms.h ../lcd-routines.h ../tt_resistor.h
+ ../wait1000ms.h ../lcd-routines.h ../tt_resistor.h ../tt_globals.h
 
 /usr/lib/avr/include/avr/io.h:
 
@@ -79,3 +79,5 @@ EE_check_init.o: ../EE_check_init.c /usr/lib/avr/include/avr/io.h \
 ../lcd-routines.h:
 
 ../tt_resistor.h:
+
+../tt_globals.h:

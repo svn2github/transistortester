@@ -12,7 +12,8 @@ ReadCapacity.o: ../ReadCapacity.c /usr/lib/avr/include/avr/io.h \
  /usr/lib/avr/include/avr/eeprom.h /usr/lib/avr/include/avr/pgmspace.h \
  /usr/lib/avr/include/avr/wdt.h /usr/lib/avr/include/avr/interrupt.h \
  ../config.h ../part_defs.h ../lcd_defines.h ../font.h ../autoconf.h \
- ../tt_function.h ../wait1000ms.h ../lcd-routines.h ../tt_resistor.h
+ ../tt_function.h ../wait1000ms.h ../lcd-routines.h ../tt_resistor.h \
+ ../tt_globals.h
 
 /usr/lib/avr/include/avr/io.h:
 
@@ -79,3 +80,5 @@ ReadCapacity.o: ../ReadCapacity.c /usr/lib/avr/include/avr/io.h \
 ../lcd-routines.h:
 
 ../tt_resistor.h:
+
+../tt_globals.h:
