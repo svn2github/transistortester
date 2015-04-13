@@ -709,6 +709,37 @@ Bootloader gibt es lediglich eine kleine Verzögerung des Programmstarts.
 \label{fig:t1280tester}
 \end{figure}
 
+Natürlich können alle unterstützten Displays auch an die ATmega1280 oder ATmega2560 angeschlossen
+werden, wie in der Tabelle~\ref{tab:display-1280} angegeben.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c | c | c |}
+    \hline
+           & Character     &  ST7565     & ST7920       & ST7108       & SSD1306     & Zusatzfunktion \\
+      Port & LCD           &    SPI      & seriell      & seriell      &    I\textsuperscript{2}C      & \\
+    \hline
+    \hline
+    PA0    &  LCD-D4       &   LCD-REST  &  LCD-RESET   & LCD-PCLK       &             & \\
+    \hline
+    PA1    &  LCD-D5       &   LCD-RS    &              & LCD-CS2        &             & Drehgeber-2 \\
+    \hline
+    PA2    &  LCD-D6       &   LCD-SCLK  &              & LCD-CLK        &             & \\
+    \hline
+    PA3    &  LCD-D7       &   LCD-SI    &              & LCD-CS1        &             & Drehgeber-1 \\
+    \hline
+    PA4    &  LCD-RS       &             &   LCD-B0     & LCD-B0 (RS)    &   LCD-SDA   & \\
+    \hline
+    PA5    &  LCD-E        &             &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
+    \hline
+    PA7    &  Tastensignal &             &              &                &             & \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Pinbelegungen für verschiede Displays an ATmega1280/2560}
+  \label{tab:display-1280}
+\end{table}
+
 
 \section{Programmierung des Mikrocontrollers}
 Ich gebe die Software für den Mikrocontroller in Quelltext heraus.
