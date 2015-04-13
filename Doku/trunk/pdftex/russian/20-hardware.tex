@@ -664,6 +664,38 @@ ISP-разъем не требуется, так как программа может быть установлена при помощи
 \label{fig:t1280tester}
 \end{figure}
 
+Конечно, Вы можете подключить все поддерживаемые дисплеи и к ATmega1280 или ATmega2560
+в соответствии с таблицей~\ref{tab:display-1280}.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c | c | c |}
+    \hline
+      Порт & Символь-  &  ST7565     & ST7920       & ST7108       & SSD1306     & Дополнительные \\
+           & ный LCD   &    SPI      & serial       & serial       & I\textsuperscript{2}C & функции \\
+    \hline
+    \hline
+    PA0    &  LCD-D4   &   LCD-REST  &  LCD-RESET   & HC595-RCK      &             & \\
+    \hline
+    PA1    &  LCD-D5   &   LCD-RS    &              & LCD-CS2        &             & 2 канал энкодера \\
+    \hline
+    PA2    &  LCD-D6   &   LCD-SCLK  &              & HC164-CLK      &             & \\
+    \hline
+    PA3    &  LCD-D7   &   LCD-SI    &              & LCD-CS1        &             & 1 канал энкодера \\
+    \hline
+    PA4    &  LCD-RS   &             &   LCD-B0     & LCD-RS         &   LCD-SDA   & \\
+           &           &             &              & HC164-SER      &             & \\
+    \hline
+    PA5    &  LCD-E    &             &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
+    \hline
+    PA7    &  кнопка   &             &              &                &             & \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Подключение различных дисплеев к ATmega1280/2560}
+  \label{tab:display-1280}
+\end{table}
+
 
 \section{Программирование микроконтроллера}
 Я публикую программное обеспечение для микроконтроллера ATmega с исходным кодом. Разработка сделана в среде 
