@@ -720,15 +720,16 @@ werden, wie in der Tabelle~\ref{tab:display-1280} angegeben.
       Port & LCD           &    SPI      & seriell      & seriell      &    I\textsuperscript{2}C      & \\
     \hline
     \hline
-    PA0    &  LCD-D4       &   LCD-REST  &  LCD-RESET   & LCD-PCLK       &             & \\
+    PA0    &  LCD-D4       &   LCD-REST  &  LCD-RESET   & HC595-RCK       &             & \\
     \hline
     PA1    &  LCD-D5       &   LCD-RS    &              & LCD-CS2        &             & Drehgeber-2 \\
     \hline
-    PA2    &  LCD-D6       &   LCD-SCLK  &              & LCD-CLK        &             & \\
+    PA2    &  LCD-D6       &   LCD-SCLK  &              & HC164-CLK      &             & \\
     \hline
     PA3    &  LCD-D7       &   LCD-SI    &              & LCD-CS1        &             & Drehgeber-1 \\
     \hline
-    PA4    &  LCD-RS       &             &   LCD-B0     & LCD-B0 (RS)    &   LCD-SDA   & \\
+    PA4    &  LCD-RS       &             &   LCD-B0     & LCD-RS         &   LCD-SDA   & \\
+           &               &             &              & HC164-SER      &             & \\
     \hline
     PA5    &  LCD-E        &             &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
     \hline
