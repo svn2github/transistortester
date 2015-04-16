@@ -120,6 +120,10 @@ example: CFLAGS += -DLCD\_ST7565\_H\_FLIP = 1
 example: CFLAGS += -DLCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] With this option the display content can be flipped in vertical direction.\\
 example: CFLAGS += -DLCD\_ST7565\_V\_FLIP = 1
+  \item[VOLUME\_VALUE] You can predefine a contrast value for ST7565 or SSD1306 controllers.
+The value for the ST7565 controller can be between 0 and 63. For the SSD1306 controller you can
+select a value between 0 and 255.\\
+example: CFLAGS += -DVOLUME\_VALUE = 25
   \item[FONT\_8X16] You must select one font size for the ST7565 controller.
 Selectable are different fonts with the name ''FONT\_'' with appended size information (width X height).
 Currently the font sizes 6X8, 8X8, 7X12, 8X12, 8x12thin, 8X14, 8X15, 8X16, and 8X16thin are available.

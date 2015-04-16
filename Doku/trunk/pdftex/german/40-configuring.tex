@@ -124,6 +124,10 @@ Beispiel: CFLAGS += LCD\_ST7565\_H\_FLIP = 1
 Beispiel: CFLAGS += LCD\_ST7565\_H\_OFFSET = 4
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
 Beispiel: CFLAGS += LCD\_ST7565\_V\_FLIP = 1
+  \item[VOLUME\_VALUE] Hier kann man den Kontrastwert für ST7565 oder SSD1306 Controller voreinstellen.
+Der Wert kann für den ST7565 Controller zwischen 0 und 63 liegen.
+Für den SSD1306 Controller sind Werte zwischen 0 und 255 erlaubt.\\
+Beispiel: CFLAGS += -DVOLUME\_VALUE = 25
   \item[FONT\_8X16] Für den ST7565 controller sollte ein Font ausgewählt werden.
 Auswählbar sind die Fonts mit der Variablen FONT\_ mit angehängter Größe (Breite x Höhe).
 iDerzeit sind 6X8, 8X8, 7X12, 8X12, 8X12thin, 8X14 8X15, 8X16 und 8X16thin.
