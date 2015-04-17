@@ -775,7 +775,7 @@ Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 \end{verbatim}
 A Device 58 is detected here a a AVR ISP mkII type (DIAMEX ALL-AVR).
 The ID 03eb is a vendor ID and the ID 2104 is a product ID.
-Both ID's are required for a entry in the file /etc/udev/ruled.d/90-atmel.rules .
+Both ID's are required for a entry in the file /etc/udev/rules.d/90-atmel.rules .
 In this example the file 90-atmel.rules has one line:
 \begin{verbatim}
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660",

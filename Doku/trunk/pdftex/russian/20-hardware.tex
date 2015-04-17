@@ -739,7 +739,7 @@ Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 \end{verbatim}
 Устройство 58 определено как AVR ISP mkII тип (DIAMEX ALL-AVR).
 Здесь идентификатор 03eb это ID производителя, а ID 2104 это идентификатор продукта.
-Оба идентификаторы необходимы для записи в файл /etc/udev/ruled.d/90-atmel.rules.
+Оба идентификаторы необходимы для записи в файл /etc/udev/rules.d/90-atmel.rules.
 В этом примере файл 90-atmel.rules имеет одну строку:
 \begin{verbatim}
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660", 

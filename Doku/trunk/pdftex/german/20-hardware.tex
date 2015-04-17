@@ -792,7 +792,7 @@ Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 \end{verbatim}
 Hier wurde als Device 58 ein AVR ISP mkII erkannt (DIAMEX ALL-AVR). Die ID 03eb ist eine
 Herstellerkennung und die ID 2104 eine Produktkennung. Diese beiden Kennungen werden
-für einen Eintrag in einer Datei /etc/udev/ruled.d/90-atmel.rules benötigt.
+für einen Eintrag in einer Datei /etc/udev/rules.d/90-atmel.rules benötigt.
 In diesem Beispiel besteht die Datei 90-atmel.rules aus einer Zeile:
 \begin{verbatim}
 SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0660",
