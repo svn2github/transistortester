@@ -365,6 +365,13 @@ weil das die Gefahr von Batterie-Schäden aufgrund von Tiefentladung erhöht!
 Wenn Sie wiederaufladbare 9V-Batterien einsetzen, werden ,,Ready to Use''-Typen wegen der geringeren Selbstentladung empfohlen.\\
 Beispiel für low-drop-Regler (5,4V): CFLAGS += -DBAT\_POOR=5400 \\
 Beispiel für 7805-Regler (6,4V): CFLAGS += -DBAT\_POOR=6400
+  \item[DC\_PWR] Dieser Spannungspegel in mV Einheiten gibt eine Grenze für die Batteriespannung an, oberhalb
+derer der Tester in den ,,DC\_Pwr\_Mode'' wechselt. Normalerweise läuft der Tester in einem Batterie-Modus,
+wo alle Zusatzfunktionen zeitlich beschränkt laufen.
+Mit dem ,,DC\_Pwr\_Mode'' laufen die Zusatzfunktionen zeitlich unbeschränkt.
+Weil es keinen DC-DC Konverter gibt, der mit einer Eingangsspannung von 0.9V läuft,
+wird der ,,DC\_Pwr\_Mode'' auch gestartet, wenn eine Batteriespannung unterhalb 0.9V entdeckt wird.\\
+Beispiel: CFLAGS += -DDC\_PWR=9500
   \item[INHIBIT\_SLEEP\_MODE] sperrt die Benutzung des ,,Sleep Mode'' (Schlafzustand) des Prozessors.
 Normalerweise wird von der Software für längere Pausen der Schlafzustand des Prozessors benutzt, um Strom zu sparen.
 Die Benutzung dieses Schlafzustandes mit dem Wiederaufwachen spart zwar Batteriekapazität, 

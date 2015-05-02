@@ -332,6 +332,12 @@ because this increase the risk of battery damage by the reason of the deep disch
 If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
 example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=5400\\
 example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=6400
+  \item[DC\_PWR] This voltage level in mV units specify the battery voltage above which the tester
+changes to the ''DC\_Pwr\_Mode''. Normally the tester operates in a battery mode, where all additional
+functions are limited in time. With the ''DC\_Pwr\_Mode'' the tester runs the additional functions with unlimited time.
+Because there is no DC-DC converter operating with 0.9V input voltage,
+the ''DC\_Pwr\_Mode'' is also entered, if the battery voltage is detected below 0.9V. \\
+example: CFLAGS += -DDC\_PWR=9500
   \item[INHIBIT\_SLEEP\_MODE] disable the use of the sleep mode of the processor.
 Normaly the software uses for longer work breaks the sleep mode to avoid unneeded current consumption.
 The usage of this sleep mode indeed spare battery capacity, but produce additional stress for the voltage regulator.\\
