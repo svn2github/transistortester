@@ -47,6 +47,21 @@ Wegen der niedrigen Ladespannung wird die Messung viel schneller als bei der urs
 weil dieser Vorteil auch bei der Entladung wirkt. So können auch grössere Kondensatoren gemessen werden.
 Zusätzlich stört in den meisten Fällen eine parallel geschaltete Diode nicht die Messung, weil die Schwellspannung
 der Diode nicht erreicht wird.
+Ein Kniff wird seit der Version 1.12k der Software angewandt, um die Restspannung des Kondensators vor der Messung
+zu erfassen. Die Restspannung kann je nach Vorgeschichte positiv oder auch negativ sein.
+Negative Spannungen kann der ADC aber nicht messen. Deswegen wird die Spannung des negativen Testpin mit dem 
+\(690 \Omega\) Widerstand auf etwa \(132 mV\) angehoben wie in Abbildung~\ref{fig:CapResidV} gezeigt wird.
+Die Restspannung des Kondensators kann nun mit einer Differenzbildung der Spannungen auf beiden Seiten des
+Kondensators gebildet werden. Die Spannung am positiven Testpin bleibt so auf jeden Fall positiv, auch wenn
+der Kondensator eine negative Restspannung von einigen mV hat.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Cap_residV.eps}
+\caption{Messung der Kondensator-Restspannung bei Ladebeginn}
+\label{fig:CapResidV}
+\end{figure}
+
 Abbildung~\ref{pic:c229} zeigt das Laden und Entladen eines \(229\mu F\) großen Kondensators.
 Das flache Dach der Messkurve bis zum Entladebeginn ist durch die Messzeit und Berechnungszeit des ATmega verursacht.
 Abbildung~\ref{pic:c5mF} zeigt die gleiche Messung mit einem~\(5mF\)-Kondensator,

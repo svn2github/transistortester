@@ -6,7 +6,7 @@ LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
 LISTE1 += ../GNU/Cap_FC_data.eps ../GNU/Cap_FR_data.eps ../GNU/Cap_FC_FR_data.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE1 += ../FIG/ResistormessL2.eps ../FIG/terminal.eps
-LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps
+LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps ../FIG/Cap_residV.eps
 LISTE1 += ../FIG/PNPcc.eps ../FIG/PNPce.eps ../FIG/NPNce.eps ../FIG/ttester.eps ../FIG/t644tester.eps ../FIG/relay_addon.eps
 LISTE1 += ../FIG/diode_addon.eps ../FIG/zener_exp.eps ../FIG/Frequency_addon.eps ../FIG/t1280tester.eps
 LISTE1 += ../FIG/Inductance.eps ../FIG/JFETcd.eps ../FIG/Cap_equiv.eps ../FIG/Cap_esr.eps ../FIG/Cap_esr2.eps ../FIG/Cap_esr2_timing.eps
@@ -86,6 +86,8 @@ all: ttester.pdf ttinfo.pdf
 ../FIG/ResistormessL2.eps: ../FIG/ResistormessL2.fig
 	fig2eps $<
 ../FIG/Bigcap.eps: ../FIG/Bigcap.fig
+	fig2eps $<
+../FIG/Cap_residV.eps: ../FIG/Cap_residV.fig
 	fig2eps $<
 ../FIG/Comparat.eps: ../FIG/Comparat.fig
 	fig2eps $<

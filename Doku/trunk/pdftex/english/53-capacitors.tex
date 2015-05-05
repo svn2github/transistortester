@@ -46,6 +46,22 @@ As a result of the low load voltage, the measurement is much faster than the ini
  because this advantage works also on discharging. So bigger capacitors can be measured.
 Furthermore a diode, which is parallel connected to the capacitor don´t disturb the measurement in most cases,
 because the flux voltage of most diodes is not reached.
+Beginning with software version 1.12k a trickery is used to measure the residual voltage of a capacitor
+before the capacity measurement. 
+Depending on the previous history of the capacitor the residual voltage can be positive or negative.
+Negative voltages can not be measured with the ADC. For that reason the voltage of the negative test pin
+is raised with the \(690 \Omega\) resistor to about \(132 mV\) as shown in figure~\ref{fig:CapResidV}.
+With the difference of the voltages measured at both sides of the capacitor the residual voltage can
+be build with any polarity. The voltage of the positive test pin remains positive in any case, even if
+the capacitor have a negative residual voltage of some mV.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/Cap_residV.eps}
+\caption{Measurement of the residual voltage of a capacitor before loading}
+\label{fig:CapResidV}
+\end{figure}
+
 Figure~\ref{pic:c229} shows the charge and discharge for a \(229\mu F\) capacitor.
 The flat top of diagram from load end to discharge begin is caused by the measuring and computing time of the ATmega.
 Figure~\ref{pic:c5mF} shows the same measurement for a~\(5mF\) capacitor,
