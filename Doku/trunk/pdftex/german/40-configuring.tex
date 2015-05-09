@@ -311,6 +311,10 @@ Beispiel: CFLAGS += EBC\_STYLE
   \item[NO\_NANO] gibt an, dass der Dezimalpräfix Nano nicht zur Darstellung von Messergebnissen benutzt werden soll.
 So werden Kapazitätswerte in \(\mu F\) statt in \(nF\) angegeben.\\
 Beispiel: CFLAGS += NO\_NANO
+  \item[NO\_LONG\_PINLAYOUT] kann gesetzt werden, um die lange Form der Pinbelegung bei graphischen Displays zu verhindern
+ wie ,, Pin  1=E 2=B 3=C''.
+Wenn die Option gesetzt ist, wird die kurze Form wie ,, Pin  123=EBC'' benutzt.\\
+Example: CFLAGS += NO\_LONG\_PINLAYOUT
   \item[PULLUP\_DISABLE] gibt an, dass man die internen ,,Pull-Up''-Widerstände nicht benötigt.
  Sie müssen einen externen ,,Pull-Up'' Widerstand an Pin 13 (PD7) und VCC angeschlossen haben, um diese
 Option benutzen zu können.

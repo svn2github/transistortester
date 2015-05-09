@@ -283,6 +283,10 @@ Example: CFLAGS += EBC\_STYLE
   \item[NO\_NANO] specifies that the decimal prefix nano will not be used to display the measurement results.
 So capacity values will be shown in \(\mu F\) instead of \(nF\).\\
 Example: CFLAGS += NO\_NANO
+  \item[NO\_LONG\_PINLAYOUT] can be set to prevent the long style of pin layout for graphical displays 
+ like '' Pin  1=E 2=B 3=C''.
+If the option is set, the short style is used instead like '' Pin  123=EBC''.\\
+Example: CFLAGS += NO\_LONG\_PINLAYOUT
 \item[PULLUP\_DISABLE] specifies, that you don't need the internal pull-up resistors.
  You must have installed a external pull-up resistor at pin~13 (PD7) to VCC, if you use this option.
 This option prevents a possible influence of pull-up resistors at the measuring ports (Port~B and Port~C).\\
