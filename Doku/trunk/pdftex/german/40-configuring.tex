@@ -139,7 +139,10 @@ Beispiel: CFLAGS += BIG\_TP
 Weil für die Darstellung ein Rand benötigt wird, kann diese Option nicht mit der Option BIG\_TP kombiniert werden.\\
 Beispiel: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
-Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware} auf Seite~\pageref{sec:hardware}.\\
+Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware} auf Seite~\pageref{sec:hardware}.
+Mit dieser Option werden auch alternative Belegungen der ATmega Pins für graphische Displays gewählt.
+Für die chinesische ,,T5'' Platine muß die Option STRIP\_GRID\_BOARD auf 5 gesetzt werden.
+Bei den Alternativen für die graphischen Displays bleibt die Belegung  des Tastensignals unverändert.\\
 Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] aktiviert eine Menüfunktion für einen ATmega328. Man kann einige Zusatzfunktionen über ein
 Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0,5~s) erreichen kann.

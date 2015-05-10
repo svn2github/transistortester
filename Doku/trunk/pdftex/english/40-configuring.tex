@@ -136,7 +136,10 @@ on the graphical display.
 Because a boarder in required for this presentation, you can not combine this option with the BIG\_TP option.\\
 example: CFLAGS += INVERSE\_TP
   \item[STRIP\_GRID\_BOARD] This option adapts the software to a changed port D connection for strip grid printed boards.
-You can find the details in the chapter hardware \ref{sec:hardware} at page~\pageref{sec:hardware}.\\
+You can find the details in the chapter hardware \ref{sec:hardware} at page~\pageref{sec:hardware}.
+You can also choose alternative assignments of ATmega pins for graphical displays.
+For the chinese ''T5'' board you must set the STRIP\_GRID\_BOARD option to 5.
+For alternative pin assignments of graphical displays the assignment of the pushbutton signal is unchanged.\\
 example: CFLAGS += -DSTRIP\_GRID\_BOARD
   \item[WITH\_MENU] activated a menu function for a ATmega328. You can select some additional functions with a
 selection menu, which you can call with a long key press (\textgreater~0.5~s).\\
