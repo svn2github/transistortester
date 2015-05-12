@@ -45,14 +45,51 @@ A optional ISP connector has been added to easier load new software versions to 
 \caption{New circuit of TransistorTester}
 \label{fig:ttester}
 \end{figure}
+
+The table~\ref{tab:display-con} show the assignment of the port D for different display versions
+and the assignment of the additional functions.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c | c | c |}
+    \hline
+           & Character     & ST7565     & ST7920 LCD     & ST7108 LCD  & SSD1306     & Zusatzfunktion \\
+      Port & LCD           &   LCD      & serial         & serial      &   I\textsuperscript{2}C      & \\
+    \hline
+    \hline
+    PD0    &  LCD-D4       &  LCD-REST  & LCD-REST       & 595-PCLK        &            & \\
+    \hline
+    PD1    &  LCD-D5       &  LCD-RS    &                & LCD-CS2     &             & rotary encoder 2 \\
+    \hline
+    PD2    &  LCD-D6       &  LCD-SCLK  & LCD-B0         & 164-595-CLK &  LCD-SDA    & \\
+    \hline
+    PD3    &  LCD-D7       &  LCD-SI    &                & LCD-CS1     &             & rotary encoder 1 \\
+    \hline
+    PD4    &  LCD-RS       &            &                & LCD-RS      &             & frequency counter \\
+           &               &            &                & 164-595-SER &             &                \\
+    \hline
+    PD5    &  LCD-E        &            & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
+    \hline
+    PD7    &  pushbutton   & pushbutton & pushbutton     & pushbutton  & pushbutton  & \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Pin assignments for different displays}
+  \label{tab:display-con}
+\end{table}
+
+
 The software can follow to another pin assignment of port D for a simpler connection of the
 LCD display. 
 The following table \ref{tab:grid-change} shows the modifies assignments for the strip grid layout and
-the connection of a graphical display for the micocontrollers ATmega8/168/328.
+the alternativ connection of a graphical display for the micocontrollers ATmega328.
 Also the using of port inputs for additional functions is shown.
-With the connections for the graphical display with the strip grid option (STRIP\_GRID\_BOARD)
+With the connections for the graphical display with the strip grid option (STRIP\_GRID\_BOARD=1)
 the frequency counter function can not be used, because the port PD4 (T0) is used.
 But this connection is used by a chinese version with graphical display. 
+In most cases the additional functions like rotary encoder or frequency counter are easier to
+build with the board versions for a character display, because the required data signals are
+routed to the display connector.
 
 
 
@@ -60,27 +97,27 @@ But this connection is used by a chinese version with graphical display.
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & character  & char. LCD    & ST7565     & ST7565       & SSD1306     & additional function \\
-      Port &   LCD      & STRIP\_GRID  &   LCD      & STRIP\_GRID  &   I\textsuperscript{2}C       & \\
+           & char. LCD    & ST7565 LCD & ST7565 LCD    & additional function \\
+      Port &   =1         &   =1       & STRIP\_GRID   & \\
     \hline
     \hline
-    PD0    &  LCD-D4    &  pushbutton  &  LCD-REST    &            &           & \\
+    PD0    &  pushbutton  &              &             & \\
     \hline
-    PD1    &  LCD-D5    &  LCD-D7      &  LCD-RS      & LCD-SI     &           &  rotary encoder 2  \\
+    PD1    &  LCD-D7      &  LCD-SI      & LCD-A0 (RS) &  rotary encoder 2  \\
     \hline
-    PD2    &  LCD-D6    &  LCD-D6      &  LCD-SCLK    & LCD-SCLK   &  LCD-SDA  & \\
+    PD2    &  LCD-D6      &  LCD-SCLK    & LCD-REST    & \\
     \hline
-    PD3    &  LCD-D7    &  LCD-D5      &  LCD-SI      & LCD-A0 (RS) &           & rotary encoder 1 \\
+    PD3    &  LCD-D5      &  LCD-A0 (RS) & LCD-SCLK    & rotary encoder 1 \\
     \hline
-    PD4    &  LCD-RS    &  LCD-D4      &              & LCD-REST    &           & frequency counter \\
+    PD4    &  LCD-D4      &  LCD-REST    & LCD-SI      & frequency counter \\
     \hline
-    PD5    &  LCD-E     &  LCD-E       &              &             &  LCD-SCL  & \\
+    PD5    &  LCD-E       &              &             & \\
     \hline
-    PD7    & pushbutton &  LCD-RS      &              &             &           &  \\
+    PD7    &  LCD-RS      &  pushbutton  & pushbutton  & \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Different variations of the display port assignments}
+  \caption{port assignments with option STRIP\_GRID\_BOARD}
   \label{tab:grid-change}
 \end{table}
 
@@ -482,7 +519,7 @@ to the PC4 input and VCC.
 
 \end{description}
 
-\section{Chinese clones}
+\section{Chinese clones with text display}
 As I know, the tester is rebuild in China in two versions with character displays.
 The first model is rebuild from the first design of Markus F. without the ISP port.
 The assembled ATmega8 is placed in a socket, so you can replace it with a ATmega168 or ATmega328.
@@ -523,6 +560,7 @@ of \(0.3 \Omega\) for two direct connected pins.
 The ESR measuring can usually consider this by zero compensation.
 Beginning with version 1.07k  the software does respect this offset for measuring resistors below \(10 \Omega\) too.
 
+\section{Chinese clones with graphical display}
 Newer rebuilds of the tester like a version from Fish8840  use a 128x64 pixel graphical display.
 This version use a modified circuit for the switch on logic. 
 The figure \ref{fig:Fish8840} shows a part of the modified circuit.
@@ -581,7 +619,63 @@ of the Fish8840 tester now.
 All attempt to replace the original software is allways done at one's own risk.
 No guaranty can be given for operational capability of newer software versions.
 Unfortunately the original state of the chinese software can not be saved because the 
-security bits of the ATmega328 are set. So there is no way to get back to the original state.
+security bits of the ATmega328 are set. So there is no way to get back to the original state.\\
+
+
+A additional version with graphical display is the WEI\_M8 printed board, which is shown in picture~\ref{fig:WeiM8}.
+This build use a LiIon accumulator with AA (mignon) size as power supply, which can be loaded
+with the micro USB plug. Operating is also possible without the accumulator, only with the USB power.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/WEI_M8.JPG}
+\caption{Picture of the chinese WEI\_M8 tester}
+\label{fig:WeiM8}
+\end{figure}
+
+It is pleasant, that the signal lines of the display are equipped with serial resistors
+at the adapter board, as you can see in the left picture of~\ref{fig:WeiM8int}.
+Therefore you must not be afraid that the 5V signals of the ATmega can cause a excessive
+increase of the 3.3V power of the display controller.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/WEI_M8_D.JPG}
+    \caption{Adapter board for the display}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/WEI_M8_L.JPG}
+    \caption{Base board}
+  \end{subfigure}
+  \caption{Inside look to the WEI\_M8 Testers}
+  \label{fig:WeiM8int}
+\end{figure}
+
+With the upgrade to version 1.12k some problems has occured.
+If the extended fuse is set to 0x04 (0xfc) as recommended, some measurements has
+caused a ''Brown Out'' reset of the processor.
+This resets are caused by short voltage drops of the VCC power.
+I have added a additional \(4.7~\mu F\) ceramic capacitor at the input side of
+the voltage regulator and a \(10~\mu F\) ceramic capacitor at the output side (VCC)
+of the regulator.
+Both before and after the upgrade I have noticed, that with bipolar transistors
+a residual collector current (ICEO or ICEs) of about \(1\mu A\) was detected with this board.
+Not until the unknown LDO voltage regulator was replaced with a MCP1702-5002 this
+effect has disappeared. The figure \ref{fig:WeiM8mod} shows the modified board with
+the slantwise mounted capacitors and the MCP1702 regulator.
+If you don't wont to modify your board, you must set the extended fuse to 0x07 (0xff)
+to enable a regular operation. With that setting the voltage drops remain undetected.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/WEI_M8_modified.JPG}
+\caption{Picture of the modified WEI\_M8 Tester}
+\label{fig:WeiM8mod}
+\end{figure}
+
 
 \section{Extented circuit with ATmega644 or ATmega1284}
 

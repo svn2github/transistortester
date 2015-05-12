@@ -52,41 +52,77 @@ laden zu können.
 \label{fig:ttester}
 \end{figure}
 
-Um einen einfacheren Anschluss des Displays an den ATmega auf Streifenleiterplatinen zu erreichen,
-kann die Software auch eine andere Port-D-Belegung berücksichtigen.
-Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegungen und den
-Anschluss eines graphischen Displays für die ATmega8/168/328 Mikrocontroller.
-Außerdem werden die Belegungen der Port-Eingänge für zusätzliche Funktionen gezeigt. 
-Bei der Belegung für das grafische Display mit der Streifenraster-Option (STRIP\_GRID\_BOARD)
-kann die Frequenzzähler-Funktion nicht benutzt werden, da diese den Port PD4 (T0) benutzt.
-Diese Belegung wird aber von einer chinesischen Version mit graphischem Display benutzt.
-
+Die Tabelle~\ref{tab:display-con} zeigt die Belegung des PD Ports für verschiedene Display-Versionen
+und die Belegung der Zusatzfunktionen.
+Bei allen Varianten dieser Tabelle sollten die Zusatzfunktionen möglich sein.
 
 \begin{table}[H]
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & Character     & Char. LCD      & ST7565     & ST7565 LCD     & SSD1306     & Zusatzfunktion \\
-      Port & LCD           & STRIP\_GRID    &   LCD      & STRIP\_GRID    &    I\textsuperscript{2}C      & \\
+           & Character     & ST7565     & ST7920 LCD     & ST7108 LCD  & SSD1306     & Zusatzfunktion \\
+      Port & LCD           &   LCD      & serial         & serial      &   I\textsuperscript{2}C      & \\
     \hline
     \hline
-    PD0    &  LCD-D4       &  Tastensignal  &  LCD-REST  &                &             & \\
+    PD0    &  LCD-D4       &  LCD-REST  & LCD-REST       & 595-PCLK        &            & \\
     \hline
-    PD1    &  LCD-D5       &  LCD-D7        &  LCD-RS    & LCD-SI         &             & Drehgeber-2 \\
+    PD1    &  LCD-D5       &  LCD-RS    &                & LCD-CS2     &             & Drehgeber-2 \\
     \hline
-    PD2    &  LCD-D6       &  LCD-D6        &  LCD-SCLK  & LCD-SCLK       &   LCD-SDA   & \\
+    PD2    &  LCD-D6       &  LCD-SCLK  & LCD-B0         & 164-595-CLK &  LCD-SDA    & \\
     \hline
-    PD3    &  LCD-D7       &  LCD-D5        &  LCD-SI    & LCD-A0 (RS)    &             & Drehgeber-1 \\
+    PD3    &  LCD-D7       &  LCD-SI    &                & LCD-CS1     &             & Drehgeber-1 \\
     \hline
-    PD4    &  LCD-RS       &  LCD-D4        &            & LCD-REST       &             & Frequenzzähler \\
+    PD4    &  LCD-RS       &            &                & LCD-RS      &             & Frequenzzähler \\
+           &               &            &                & 164-595-SER &             &                \\
     \hline
-    PD5    &  LCD-E        &  LCD-E         &            &                &   LCD--SCL  & \\
+    PD5    &  LCD-E        &            & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
     \hline
-    PD7    &  Tastensignal & LCD-RS         &            &                &             & \\
+    PD7    & Tastensignal & Tastensignal & Tastensignal  & Tastensignal & Tastensignal & \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Verschiedene Varianten der Pinbelegungen für das Display}
+  \caption{Pinbelegung für verschiedene Displays}
+  \label{tab:display-con}
+\end{table}
+
+Um einen einfacheren Anschluss des Displays an den ATmega auf Streifenleiterplatinen zu erreichen,
+kann die Software auch eine andere Port-D-Belegung berücksichtigen.
+Die folgende Tabelle \ref{tab:grid-change} zeigt die Änderungen der Pinbelegungen für ein Textdisplay und 
+alternative Anschlüsse für graphische Displays bei einem ATmega328 Mikrocontroller.
+Außerdem werden die Belegungen der Port-Eingänge für zusätzliche Funktionen gezeigt. 
+Bei der Belegung für das grafische Display mit der Streifenraster-Option (STRIP\_GRID\_BOARD=1)
+kann die Frequenzzähler-Funktion nicht benutzt werden, da diese den Port PD4 (T0) benutzt.
+Diese Belegung wird aber von einer chinesischen Version mit graphischem Display benutzt.
+In den meisten Fällen sind die Platinenversionen mit einem Textdisplay für die Nachrüstung der
+Frequenzzähler Funktion und der Drehgeber Option besser geeignet, weil die erforderlichen
+Signale am Displayanschluß zur Verfügung stehen. 
+
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+           & Char. LCD      & ST7565 LCD     & ST7565 LCD   & Zusatzfunktion \\
+      Port &    =1          &    =1          &    =5        &  \\
+    \hline
+    \hline
+    PD0    &  Tastensignal  &                &              &  \\
+    \hline
+    PD1    &  LCD-D7        & LCD-SI         &  LCD-A0 (RS) &  Drehgeber-2 \\
+    \hline
+    PD2    &  LCD-D6        & LCD-SCLK       &  LCD-REST    &  \\
+    \hline
+    PD3    &  LCD-D5        & LCD-A0 (RS)    &  LCD-SCLK    &  Drehgeber-1 \\
+    \hline
+    PD4    &  LCD-D4        & LCD-REST       &  LCD-SI      &  Frequenzzähler \\
+    \hline
+    PD5    &  LCD-E         &                &              &  \\
+    \hline
+    PD7    & LCD-RS         & Tastensignal   & Tastensignal &  \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Alternative Pinbelegungen mit der Option STRIP\_GRID\_BOARD}
   \label{tab:grid-change}
 \end{table}
 
@@ -254,7 +290,6 @@ Man kann auch versuchen, die vier Gatter des 74HC4050 durch vier Widerstände vo
 der Controllereingänge von den 5V ATmega-Ausgängen über die 3,3V-Grenze angehoben werden kann.
 Ob die Signalform für den ST7565-Controller so noch akzeptiert wird, sollte man vorher testen.
 Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
-"Pull-Up"-Widerstände an 5V anschließen!
  
 \begin{figure}[H]
 \centering
@@ -497,7 +532,7 @@ angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschaltete
 \(2,2k \Omega\) Widerstand am PC4-Eingang.
 \end{description}
 
-\section{Chinesische Nachbauten}
+\section{Chinesische Nachbauten mit Textdisplay}
 Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen mit Textdisplay nachgebaut.
 Die erste Variante ist der Nachbau des ersten Entwurfs von Markus F. ohne ISP-Schnittstelle.
 Der bestückte ATmega8 ist bei dieser Version gesockelt, kann also auch durch einen ATmega168/328 ausgetauscht werden.
@@ -537,6 +572,7 @@ Bei der ESR-Messung kann dies normalerweise durch den Nullabgleich kompensiert w
 Bei der Messung von Widerständen unter \(10 \Omega\) werden die im Selbsttest ermittelten Offsets 
 ab der Softwareversion 1.07k berücksichtigt.
 
+\section{Chinesische Nachbauten mit graphischem Display}
 Neuere Nachbauten verwenden ein 128x64 Pixel graphisches Display wie zum Beispiel eine Version von Fish8840.
 Bei dieser Version wird eine veränderte Schaltung für das Einschalten benutzt. Die Abbildung \ref{fig:Fish8840}
 zeigt einen Ausschnitt der Schaltung.
@@ -598,6 +634,63 @@ Für die Funktionsfähigkeit kann natürlich keine Gewähr gegeben werden.
 Leider kann der Originalzustand der chinesischen Software-Variante auch nicht gesichert werden,
 da die Sicherheits-Bits des ATmega328 gesetzt sind.
 Es gibt also keinen Weg zurück zur Originalversion der Software. 
+
+Eine weitere Version mit graphischem Display ist die WEI\_M8 Platine, die in Abbildung \ref{fig:WeiM8}.
+Dieser Nachbau benutzt als Stromquelle einen LiIon Akkumulator im AA (Mignon) Format, der über
+eine Micro-USB Schnittstelle geladen werden kann. Ein Betrieb ohne Akku ist über die USB-Schnittstelle
+ebenfalls möglich.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/WEI_M8.JPG}
+\caption{Foto des chinesischen WEI\_M8 Testers}
+\label{fig:WeiM8}
+\end{figure}
+
+Erfreulich ist, dass für die Signalleitungen des Displays serielle Widerstände
+auf der Adapterplatine vorgesehen sind, wie in der linken Abbildung von~\ref{fig:WeiM8int}
+zu sehen ist. Damit ist eine Überhöhung der 3.3V Versorgung für den Displaycontroller
+wegen der 5V Signalpegel vom ATmega nicht zu befürchten.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/WEI_M8_D.JPG}
+    \caption{Adapterplatine für das Display}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/WEI_M8_L.JPG}
+    \caption{Grundplatine}
+  \end{subfigure}
+  \caption{Innenleben des WEI\_M8 Testers}
+  \label{fig:WeiM8int}
+\end{figure}
+
+
+Bei der Aufrüstung auf die 1.12k Version
+der Software ergaben sich einige Schwierigkeiten. Wenn die extended Fuse wie empfohlen auf
+0x04 (oder 0xfc) gesetzt wird, kam es bei bestimmten Messungen zu ,,Brown Out'' Resets des
+Prozessors. Diese Resets werden durch kurzzeitige Spannungseinbrüche der VCC Versorgung
+verursacht. Die Platine wurde deshalb mit einem \(4.7~\mu F\) kermamischen Kondensator
+am Eingang des Spannungsreglers und mit einem \(10~\mu F\) keramischen Kondensator am
+Reglerausgang (VCC) zusätzlich abgeblockt. Sowohl vor der Nachrüstung als auch danach
+wurde bei bipolaren Transistoren ein Kollektor-Reststrom (ICEO oder ICEs) gemessen.
+Erst der Austausch des LDO-Spannungsreglers (unbekannter Typ) durch einen MCP1702-5002
+brachte hier Abhilfe. Die Abbildung \ref{fig:WeiM8mod} zeigt die umgerüstete Platine
+mit den schräg montierten nachgerüsteten Kondensatoren und dem MCP1702 Regler.
+Wer die Kondensatoren nicht nachrüsten möchte, sollte die extended Fuse auf 0x07 (0xff)
+setzen, damit ein Betrieb möglich ist. Damit bleiben die Spannungseinbrüche unentdeckt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{../PNG/WEI_M8_modified.JPG}
+\caption{Foto des umgerüsteten WEI\_M8 Testers}
+\label{fig:WeiM8mod}
+\end{figure}
+
+
 
 \section{Erweiterte Schaltung mit ATmega644 oder ATmega1284}
 
