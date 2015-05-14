@@ -104,7 +104,14 @@ The values in brackets are used software internal and are shown for information 
 You should not set the values in brackets here in the Makefile.\\
 
 example: CFLAGS += -DLCD\_INTERFACE\_MODE=2
-  \item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
+  \item[LCD\_SPI\_OPEN\_COL] With the option LCD\_SPI\_OPEN\_COL the data signals of the SPI interface
+are not switched to VCC directly.
+The signals are switched to GND only, for high signals the pullup resistors of the ATmega are used.
+For the RESET signal a external pull-up resistor is required, if the option PULLUP\_DISABLE is set.
+For the other signals the internal pullup resistors of the ATmega are temporary used,
+even if option PULLUP\_DISABLE is set.
+example: CFLAG += -DLCD\_SPI\_OPEN\_COL
+\item[LCD\_I2C\_ADDR] The I\textsuperscript{2}C address of the SSD1306 controller can be selected to 0x3d by presetting
 the constant LCD\_I2C\_ADDR to 0x3d.\\
 example: CFLAGS += -DLCD\_I2C\_ADDR=0x3d
   \item[LCD\_ST7565\_RESISTOR\_RATIO] With this option the resistor ratio for the voltage regulator of

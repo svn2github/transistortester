@@ -616,6 +616,24 @@ of the Fish8840 tester now.
   \label{fig:Fish8840Adapt}
 \end{figure}
 
+Instead of this modification you can also use a special output mode of the 4~SPI signals of the ATmega
+with the Makefile option LCD\_SPI\_OPEN\_COL .
+With this option the outputs are not switched to VCC level,
+but the internal ''pull-up'' resistors are switched on during the output of a high level.
+If the option PULLUP\_DISABLE is set, additionally a external pull-up resistor for
+the ''Reset'' signal (PD0) is required.
+Because the data signals are never switched to VCC directly, the 3.3V power of the LCD controller
+can not be elevated.
+My version of the Fish8840 tester has all signals for connecting a character display
+routed to the LCD plug connector.
+Therefore you can prepare the board for connection of a character display, if the
+female header is completed and the potentiometer for the contrast level is added.
+However the supply pin 15 for the background light is connected directly to the VCC level.
+If you install a character display, you should check, that your display module
+is equipped with a serial resistor for the background LED.
+Of course iyou have to adapt the software for different displays. 
+Also the hardware extension are possible with the Fish8840 board.\\
+
 All attempt to replace the original software is allways done at one's own risk.
 No guaranty can be given for operational capability of newer software versions.
 Unfortunately the original state of the chinese software can not be saved because the 

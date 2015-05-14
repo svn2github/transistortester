@@ -109,6 +109,14 @@ Die Werte in Klammern werden nur Software intern benutzt und sind hier nur zur I
 Man sollte die Werte in den Klammern nicht hier in der Makefile setzen.\\
 
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
+  \item[LCD\_SPI\_OPEN\_COL] Mit der Option LCD\_SPI\_OPEN\_COL werden die Datensignale der SPI-Schnittstelle
+nicht nach VCC direkt geschaltet.
+Die Signale werden nur nach GND geschaltet, für die ,,high'' Signale werden die ,,Pull-Up'' Widerstände
+des ATmega benutzt.
+Für das Signal ,,Reset'' wird aber ein externer Pull-Up Widerstand benötigt, wenn die Option PULLUP\_DISABLE
+gesetzt ist. Für die anderen SPI Signale werden die internen Pull-Up Widerstände vorübergehend benutzt,
+wenn die Option PULLUP\_DISABLE gesetzt ist.
+Beispiel: CFLAG += -DLCD\_SPI\_OPEN\_COL
  \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
 auf 0x3D geändert werden.\\
 Beispiel: CFLAGS += -DLCD\_I2C\_ADDR=0x3d

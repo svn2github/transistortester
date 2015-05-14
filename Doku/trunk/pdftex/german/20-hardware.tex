@@ -629,11 +629,28 @@ Fish8840 Tester zu befestigen.
   \label{fig:Fish8840Adapt}
 \end{figure}
 
-Das Testen neuerer Softwareversionen geschieht immer auf eigenes Risiko.
+Anstelle dieser Umrüstung kann mit der Makefile Option LCD\_SPI\_OPEN\_COL auch eine spezielle Ausgangsschaltung
+der 4~SPI Signale des ATmega benutzt werden.
+Dabei werden die Ausgänge nicht auf VCC Pegel geschaltet,
+sondern nur die internen ,,Pull-Up'' Widerstände während der Ausgabe für den high Pegel freigeschaltet.
+Wenn die Option PULLUP\_DISABLE gesetzt ist, ist ein externer Pull-Up Widerstand für das
+Reset Signal (PD0) erforderlich.
+Weil die Datensignale nie direkt auf VCC geschaltet werden, kann die 3.3V Versorgung des LCD-Controllers
+auch nicht überhöht werden.
+Die mir vorliegende Platine des Fish8840 Testers hat alle Signale für den Anschluß eines
+Textdisplays an die LCD-Steckerleiste geführt. 
+Deshalb kann die Platine auch mit einem Textdisplay umgerüstet werden, wenn die Buchsenleiste
+ergänzt wird und das Potentiometer für die Kontrasteinstellung nachgerüstet wird.
+Der Versorgungspin 15 für die Hindergrundbeleuchtung ist allerdings direkt mit VCC verbunden.
+Bei einer Installation eines Textdisplays sollte darauf geachtet werden, daß auf dem Displaymodul
+ein serieller Widerstand zur LED vorhanden ist.
+Selbstverständlich muß die Software für eine andere Displayversion angepasst werden.
+Auch die Erweiterungsmöglichkeiten des Testers sind bei der Fish8840 Platine möglich.\\
+
 Für die Funktionsfähigkeit kann natürlich keine Gewähr gegeben werden.
 Leider kann der Originalzustand der chinesischen Software-Variante auch nicht gesichert werden,
 da die Sicherheits-Bits des ATmega328 gesetzt sind.
-Es gibt also keinen Weg zurück zur Originalversion der Software. 
+Es gibt also keinen Weg zurück zur Originalversion der Software.\\ 
 
 Eine weitere Version mit graphischem Display ist die WEI\_M8 Platine, die in Abbildung \ref{fig:WeiM8}.
 Dieser Nachbau benutzt als Stromquelle einen LiIon Akkumulator im AA (Mignon) Format, der über
