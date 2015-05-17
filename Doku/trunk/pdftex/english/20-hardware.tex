@@ -694,6 +694,60 @@ to enable a regular operation. With that setting the voltage drops remain undete
 \label{fig:WeiM8mod}
 \end{figure}
 
+A additional chinese version with graphical display is the ''LCD-T4'' tester with a yellow 
+printed board.
+I have removed the display for replacing the software with a newer version.
+At the right picture of figure~\ref{fig:T4_front} you can see in the right upper corner the ISP male connector
+with correct orientation beside the six holes of the board.
+For programming the ATmega I have not soldered the male connectorr. I have only pugged it into
+the holes instead and have fixed it with a finger during the programming.
+With that procedure the male connector can be easy removed an the display can be mounted again to
+it's origin place.
+The chinese software could be replaced with the 1.12k without any noticeable problem. 
+Also the activating of the ''brown-out'' monitor by setting the extended fuse has not
+shown any surprice.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_front.JPG}
+    \caption{completely}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_front_noLCD.JPG}
+    \caption{with removed display}
+  \end{subfigure}
+  \caption{Front view of the T4 tester}
+  \label{fig:T4_front}
+\end{figure}
+
+You can see the upgraded \(5mm\) threaded bolt and the upgraded cables with measurement clips
+at the pictures of the back side in figure \ref{fig:T4_back}.
+Because the data signals for the graphical LCD controller have also no
+level adaption (5V -> 3.3V), the setting of the option LCD\_SPI\_OPEN\_COL is recommended.
+Due to the fact, that the board can not be easy upgraded with a ''pull-up'' resistor,
+it make sense to remove the option PULLUP\_DISABLE instead. 
+This board is lesser practical for later extensions, a replacement of the display is
+also difficult to realize.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_back.JPG}
+    \caption{components side}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_back_clips.JPG}
+    \caption{with measurement cables}
+  \end{subfigure}
+  \caption{Back side of the T4 tester}
+  \label{fig:T4_back}
+\end{figure}
+
 
 \section{Extented circuit with ATmega644 or ATmega1284}
 

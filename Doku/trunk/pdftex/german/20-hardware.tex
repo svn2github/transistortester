@@ -707,6 +707,59 @@ setzen, damit ein Betrieb möglich ist. Damit bleiben die Spannungseinbrüche un
 \label{fig:WeiM8mod}
 \end{figure}
 
+Eine weitere Version mit graphischem Display ist der LCD-T4 Tester mit einer gelben Platine.
+Für das Aufspielen neuer Software habe ich das Display abgenommen.
+Auf dem rechten Foto der Abbildung \ref{fig:T4_front} ist der Stecker für die ISP-Verbindung rechts oben
+ neben den entsprechen Bohrungen der Platine in der richtigen Ausrichtung aufgelegt.
+Für die Programmierung habe habe ich den Stecker nicht eingelötet, sondern nur eingesteckt und durch
+seitlichen Druck mit einem Finger für die Dauer der Programmierung fixiert.
+Dadurch kann der Stecker nach der Programmierung wieder leicht entfernt werden und das Display
+an die ursprüngliche Stelle montiert werden.
+Die Software 1.12k konnte übrigens problemlos aufgespielt werden.
+Auch das Aktivieren der ,,Brown-Out'' Erkennung des Prozessors mit der extended fuse
+brachte keine Überraschungen.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_front.JPG}
+    \caption{vollständig}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_front_noLCD.JPG}
+    \caption{mit abgenommenem Display}
+  \end{subfigure}
+  \caption{Frontansicht des T4 Testers}
+  \label{fig:T4_front}
+\end{figure}
+
+Auf den Fotos der Rückseite in Abbildung \ref{fig:T4_back} sieht man die nachgerüsteten
+\(5mm\) Gewindebolzen sowie die nachträglich angelöteten Kabel mit Messclips.
+Da aber für die Datensignale des graphischen LCD-Controllers auch hier
+keine Signalanpassung (5V -> 3.3V) erfolgt, ist das Setzen der Option LCD\_SPI\_OPEN\_COL ratsam.
+Da die Nachrüstung eines ,,pull-up'' Widerstandes für das SPI-Reset Signal hier
+aber schwierig durchzuführen ist, bleibt nur das Entfernen der Option
+DISABLE\_PULLUP übrig. 
+Für nachträgliche Erweiterungen ist diese Platine weniger geeignet, auch ein Austausch des
+Displays ist hier nur schwer möglich.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_back.JPG}
+    \caption{Bestückungsseite}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/T4_back_clips.JPG}
+    \caption{mit Messkabeln}
+  \end{subfigure}
+  \caption{Rückansicht des T4 Testers}
+  \label{fig:T4_back}
+\end{figure}
 
 
 \section{Erweiterte Schaltung mit ATmega644 oder ATmega1284}
