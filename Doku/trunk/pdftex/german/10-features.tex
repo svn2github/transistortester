@@ -10,6 +10,8 @@
  auch entweder eine 4-Wire SPI-Schnittstelle oder ein I\textsuperscript{2}C-Bus benutzt.
  Für den ST7108 oder KS0108 Controller ist ein seriell-parallel Wandler 74HC(T)164 oder 74HC(T)595 erforderlich,
  da diese Controller nur den 8-Bit parallel Anschluß erlauben.
+ Displays mit PCF8812 oder PCF8814 Controller können ohne die großen Transistor-Symbole benutzt werden, da
+die Displaygröße unzureichend ist (102x65 und 96x65).
 \item Ein-Tasten-Bedienung mit automatischer Abschaltfunktion.
 \item Batterie-Betrieb ist möglich, weil der Strom im abgeschalteten Zustand nur etwa 20nA beträgt.
 Ab Softwareversion 1.05k wird nach Möglichkeit in den Messpausen der Schlafzustand des ATmega zum Stromsparen benutzt, wenn kein Impulsdrehgeber benutzt wird.

@@ -10,6 +10,8 @@ a ST7565, ST7920, ST7108, KS0108 or a SSD1306 controller can be used.
 In doing so a 4-wire SPI interface or a I\textsuperscript{2}C bus must be used instead of the 4-bit parallel interface for
 the SSD1306 controller. For the ST7108 or KS0108 controller you must use a serial - parallel interface with a 74HC(T)164
 or a 74HC(T)595.
+Displays with PCF8812 or PCF8814 controller can be only used without the big icons for transistors, because the display size is
+unsufficient (102x65 and 96x65).
 \item One key operation with automatic power shutdown.
 \item Battery operation is possible since shutdown current is only about 20nA.
 \item Low cost version is feasible without crystal and auto power off.

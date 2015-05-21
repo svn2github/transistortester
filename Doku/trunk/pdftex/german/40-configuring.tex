@@ -37,6 +37,7 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
          m1280         = ATmega1280\\
          m2560         = ATmega2560\\
     Beispiel: PARTNO = m168
+
   \item[UI\_LANGUAGE] gibt die Sprache für den Tester an:\\
     LANG\_BRASIL, LANG\_CZECH, LANG\_DUTCH, LANG\_ENGLISH, LANG\_GERMAN, \\
     LANG\_HUNGARIAN, LANG\_ITALIAN, LANG\_LITHUANIAN, LANG\_POLISH, \\
@@ -44,29 +45,36 @@ Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Te
     LANG\_UKRAINIAN sind derzeit verfügbar.
  Für die russische und ukrainische Sprache ist ein LCD mit kyrillischem Zeichensatz erforderlich.\\
     Beispiel: UI\_LANGUAGE = LANG\_ENGLISH
+
   \item[LCD\_CYRILLIC] wird nur gebraucht, wenn man ein LC-Display mit kyrillischem Zeichensatz benutzt.
 Die Zeichen \(\mu\) und \(\Omega\) sind im kyrillischen Zeichensatz nicht enthalten.
 Wenn Sie diese Option angeben, werden beide Zeichen von der Software in das LCD geladen.
 Setzen sie diese Option, wenn bei der Ausgabe falsche Zeichen anstelle von \(\mu\) oder \(\Omega\) erscheinen.\\
 Beispiel: CFLAGS += -DLCD\_CYRILLIC
+
   \item[LCD\_DOGM] muss angegeben werden, wenn ein LCD mit ST7036-Controller (Typ DOG-M) zur Anzeige verwendet wird.
 Der LCD-Kontrast wird dann mit Software-Befehlen eingestellt.
 Falls sie den Kontrast zu weit verstellt haben, daß auf dem Display nichts mehr zu erkennen ist,
 können sie zunächst versuchen, ob nicht bei seitlicher Sicht auf das Display doch noch etwas zu erkennen ist.
 sonst muß das EEprom neu beschrieben werden, um den Kontrastwert zurückzusetzen.\\
 Beispiel: CFLAGS += -DLCD\_DOGM
+
   \item[FOUR\_LINE\_LCD] kann bei einem 4x20-Zeichen-Display verwendet werden, um den Platz auf dem Display
 besser auszunutzen. Zusätzliche Parameter, welche sonst nur kurz in Zeile 2 angezeigt werden, werden dann in
 den Zeilen 3 und 4 angezeigt.\\
 Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
+
   \item[WITH\_LCD\_ST7665] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
 Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 
 beschrieben werden.
-Anstelle des ST7565-Controllers kann auch der ähnliche SSD1306-Controller konfiguriert werden.
+Anstelle des ST7565-Controllers kann auch zum Beispiel der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss diese Option auf 1306 gesetzt werden.
-Auch ein Display mit ST7920 oder ST7108 Controller kann angeschlossen werden. Für den ST7108 Controller muß ein
+Ein PCF8812 oder PCF8814 Controller wird ebenfalls unterstützt, wenn diese Option richtig gesetzt wird.
+Auch ein Display mit ST7920 oder ST7108 Controller kann angeschlossen werden.
+Für den ST7108 Controller muß ein
 zusätzlicher Seriell-Parallel Wandler 74HC(T)164 oder 74HC(T)595 verwendet werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
+
  \item[LCD\_INTERFACE\_MODE] Beim SSD1306-Controller kann anstelle des Standard-SPI (4-Wire) Interface auch das
 I\textsuperscript{2}C-Interface benutzt werden. Dafür muss diese Option auf 2 gesetzt werden.
 Für den ST7920 Controller kann ein spezieller serieller Anschluß mit dem Setzen dieser Option auf 5
@@ -78,26 +86,32 @@ Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sin
   \begin{center}
     \begin{tabular}{| c | c | c | c|}
     \hline
- Display-Type &  Interface          & WITH\_LCD\_ST7565 &  LCD\_INTERFACE\_MODE \\
+ Display-Typ        &  Interface     & WITH\_LCD\_ST7565 &  LCD\_INTERFACE\_MODE \\
     \hline
     \hline
-  Character 16x2    & 4-Bit parallel &  disabled (0)       & disabled (1) \\
-  Character 20x4    &                &              &      \\
+  Character 16x2    & 4-Bit parallel &  disabled (0)      & disabled (1) \\
+  Character 20x4    &                &                    &      \\
     \hline
-  Graphic ST7565         & 4-Bit SPI      & 1 or 7565  & disabled (4) \\
+  Graphic ST7565    & 4-Bit SPI      & 1 or 7565          & disabled (4) \\
     \hline
-  Graphic ST7565  & I\textsuperscript{2}C & 1 or 7565  &   2 \\
+  Graphic ST7565  & I\textsuperscript{2}C & 1 or 7565     &   2 \\
     \hline
-  Graphic SSD1306        & 4-Bit SPI      & 1306  & disabled (4) \\
+  Graphic SSD1306   & 4-Bit SPI      & 1306               & disabled (4) \\
     \hline
-  Graphic SSD1306  & I\textsuperscript{2}C & 1306  &   2 \\
+  Graphic SSD1306 & I\textsuperscript{2}C & 1306          &   2 \\
     \hline
-  Graphic ST7920         & 4-Bit parallel       & 7920  & disabled (1) \\
+  Graphic ST7920    & 4-Bit parallel  & 7920              & disabled (1) \\
     \hline
-  Graphic ST7920         & 2-Bit serial   & 7920  &  5 \\
+  Graphic ST7920    & 2-Bit serial    & 7920               &  5 \\
     \hline
-  Graphic ST7108         & 8-Bit parallel  & 7108  & disabled (6) \\
-  oder KS0108            &    + 74HCT164   &       &      \\
+  Graphic ST7108    & 8-Bit parallel  & 7108              & disabled (6) \\
+  oder KS0108       &    + 74HCT164   &                   &      \\
+    \hline
+  Graphic PCF8812   & SPI             & 8812              & disabled (4) \\
+    \hline
+  Graphic PCF8814   & SPI             & 8814              & disabled (4) \\
+                  & I\textsuperscript{2}C & 8814          &   2 \\
+                    & 3-line          & 8814              &   3 \\
     \hline
     \end{tabular}
   \end{center}
@@ -107,8 +121,8 @@ Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sin
 
 Die Werte in Klammern werden nur Software intern benutzt und sind hier nur zur Information genannt.
 Man sollte die Werte in den Klammern nicht hier in der Makefile setzen.\\
-
 Beispiel: CFLAGS += -DLCD\_INTERFACE\_MODE=2
+
   \item[LCD\_SPI\_OPEN\_COL] Mit der Option LCD\_SPI\_OPEN\_COL werden die Datensignale der SPI-Schnittstelle
 nicht nach VCC direkt geschaltet.
 Die Signale werden nur nach GND geschaltet, für die ,,high'' Signale werden die ,,Pull-Up'' Widerstände
@@ -117,47 +131,58 @@ Für das Signal ,,Reset'' wird aber ein externer Pull-Up Widerstand benötigt, w
 gesetzt ist. Für die anderen SPI Signale werden die internen Pull-Up Widerstände vorübergehend benutzt,
 wenn die Option PULLUP\_DISABLE gesetzt ist.
 Beispiel: CFLAG += -DLCD\_SPI\_OPEN\_COL
+
  \item[LCD\_I2C\_ADDR] Die I\textsuperscript{2}C-Adresse des SSD1306-Controllers kann durch Vorbesetzen der Adresse LCD\_I2C\_ADDR
 auf 0x3D geändert werden.\\
 Beispiel: CFLAGS += -DLCD\_I2C\_ADDR=0x3d
+
   \item[LCD\_ST7565\_RESISTOR\_RATIO] Mit dieser Option wird das Widerstands-Teilerverhältnis für den
 Spannungsregler des ST7565-Controllers eingestellt. Brauchbare Werte liegen im Allgemeinen zwischen 4 und 7.
 Einstellbar sind Werte zwischen 0 und 7.\\
 Beispiel: LCD\_ST7564\_RESISTOR\_RATIO = 4
+
   \item[LCD\_ST7565\_H\_FLIP] Mit dieser Option kann die Anzeige horizontal umgedreht werden.\\
 Beispiel: CFLAGS += LCD\_ST7565\_H\_FLIP = 1
+
   \item[LCD\_ST7565\_H\_OFFSET] Diese Option kann den für die Ausgabe benutzten Speicher an das Anzeigefenster des
  Displays anpassen. Der Controller benutzt mehr horizontale Pixel (132) als angezeigt (128) werden.
  Ein Wert von 0, 2 oder 4 kann je nach verwendetem Display-Modul für eine korrekte Darstellung notwendig sein.\\
 Beispiel: CFLAGS += LCD\_ST7565\_H\_OFFSET = 4
+
   \item[LCD\_ST7565\_V\_FLIP] Mit dieser Option kann die Anzeige vertikal umgedreht werden.\\
 Beispiel: CFLAGS += LCD\_ST7565\_V\_FLIP = 1
   \item[VOLUME\_VALUE] Hier kann man den Kontrastwert für ST7565 oder SSD1306 Controller voreinstellen.
 Der Wert kann für den ST7565 Controller zwischen 0 und 63 liegen.
 Für den SSD1306 Controller sind Werte zwischen 0 und 255 erlaubt.\\
 Beispiel: CFLAGS += -DVOLUME\_VALUE = 25
+
   \item[FONT\_8X16] Für den ST7565 controller sollte ein Font ausgewählt werden.
 Auswählbar sind die Fonts mit der Variablen FONT\_ mit angehängter Größe (Breite x Höhe).
 iDerzeit sind 6X8, 8X8, 7X12, 8X12, 8X12thin, 8X14 8X15, 8X16 und 8X16thin.
 Die Fontgröße 8x16 oder 8X16thin ist die effizienteste Wahl für das graphische 128x64-LCD.\\
 Beispiel: CFLAGS += FONT\_8X16
+
  \item[BIG\_TP] Die Pinnummern bei der graphischen Darstellung können mit dieser Option größer dargestellt werden.\\
 Beispiel: CFLAGS += BIG\_TP
+
  \item[INVERSE\_TP] Mit dieser Option werden die Pinnummern in der graphischen Darstellung invers (schwarz auf weiß) dargestellt.
 Weil für die Darstellung ein Rand benötigt wird, kann diese Option nicht mit der Option BIG\_TP kombiniert werden.\\
 Beispiel: CFLAGS += INVERSE\_TP
+
   \item[STRIP\_GRID\_BOARD] Diese Option passt die Software an eine andere Pinbelegung von Port~D für Streifenleiterplatinen an.
 Die Einzelheiten findet man im Hardwarekapitel \ref{sec:hardware} auf Seite~\pageref{sec:hardware}.
 Mit dieser Option werden auch alternative Belegungen der ATmega Pins für graphische Displays gewählt.
 Für die chinesische ,,T5'' Platine muß die Option STRIP\_GRID\_BOARD auf 5 gesetzt werden.
 Bei den Alternativen für die graphischen Displays bleibt die Belegung  des Tastensignals unverändert.\\
 Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
+
   \item[WITH\_MENU] aktiviert eine Menüfunktion für einen ATmega328. Man kann einige Zusatzfunktionen über ein
 Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0,5~s) erreichen kann.
 Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest-Start mit kurzgeschlossenen Testpins
  nur der Kalibrationsteil des Selbsttests ausgeführt.
 Die Tests T1-T7 werden nur beim Selbsttest ausgeführt, der als Menüfunktion ausgewählt werden kann.\\
 Beispiel: CFLAGS += -DWITH\_MENU
+
   \item[WITH\_ROTARY\_SWITCH] Die Menüfunktion kann leicher bedient werden, wenn ein Impulsdrehgeber als Erweiterung
 benutzt wird.
 Für die Details der notwendigen Erweiterung sehen Sie bitte die Beschreibung~\ref{fig:RotExt} im Hardwarekapitel.
@@ -171,22 +196,27 @@ Ein Setzen der Option WITH\_ROTARY\_SWITCH auf 4 ist notwendig für die korrekte
 Rauf (Up) und Runter (Down) Tastern, die anstelle der beiden Schalter eines Impulsdrehgebers eingebaut sind.
 Verwenden Sie nicht die Einstellung 4 mit normalen Impulsdrehgebern!\\
 Beispiel: CFLAGS += -DWITH\_ROTARY\_SWITCH=1
+
   \item[CHANGE\_ROTARY\_DIRECTION] Man kann die erkannte Drehrichtung des Impulsdrehgebers durch Vertauschen
 der beiden Schalter-Signale oder durch Setzen dieser Option ändern.
 Beispiel: CFLAGS += -DCHANGE\_ROTARY\_DIRECTION
+
  \item[WITH\_SELFTEST] Wenn Sie diese Option angeben, baut die Software eine Selbsttest-Funktion ein, die gestartet wird
 wenn Sie alle drei Prüfspitzen verbinden und eine Messung starten.\\
 Beispiel: CFLAGS += -DWITH\_SELFTEST
+
   \item[NO\_COMMON\_COLLECTOR\_HFE] verhindert die hFE-Messung von Transistoren in der Kollektorschaltung.
 So können Sie Speicher sparen, um die erweiterten Selbsttest-Routinen T1 bis T7 für den ATmega168-Prozessor zu ermöglichen.
 Standardmäßig sind beide Schaltungen für die hFE-Messung eingeschaltet,
 aber dann ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
 Beispiel: CFLAGS += -DNO\_COMMON\_COLLECTOR\_HFE
+
   \item[NO\_COMMON\_EMITTER\_HFE] schaltet die hFE-Messung von Transistoren in Emitterschaltung ab.
 So können Sie Speicher sparen, um die erweiterten Selbsttest-Routinen T1 bis T7 für den ATmega168-Prozessor zu ermöglichen.
 Standardmäßig sind beide Schaltungen für die hFE-Messung eingeschaltet,
 aber dann ist kein Platz im Programmspeicher des ATmega168 für die erweiterten Selbsttests.\\
 Beispiel: CFLAGS += -DNO\_COMMON\_EMITTER\_HFE
+
   \item[NO\_TEST\_T1\_T7] Diese Option verhindert die Ausführung der Selbsttest Teile T1 bis T7.
 Diese Tests sind nützlich um Fehler in der Schaltung wie falsche Messwiderstände oder Isolationsprobleme zu finden.
 Wenn Ihre Schaltung fehlerfrei ist, können Sie die Selbsttest-Teile T1 bis T7 durch das Setzen dieser Option weglassen, um eine
@@ -194,6 +224,7 @@ schnellere Kalibration zu erreichen.
 Bei eingeschalteter Menüfunktion werden die Selbsttest-Teile T1 bis T7 nur bei Aufruf der Menüfunktion ,,Selbsttest'' ausgeführt.
 Der ATmega168-Prozessor benutzt die Selbsttest Teile T1 bis T7 nicht, wenn beide Messmethoden für die hFE-Bestimmung benutzt werden.\\
 Beispiel: CFLAGS += -DNO\_TEST\_T1\_T7
+
   \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim
 Selbsttest zusätzlich ins EEPROM geschrieben und ist damit für die weiteren Messungen abgeglichen.
 Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 
@@ -201,21 +232,26 @@ angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalie
 Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEPROM geschrieben.
 Die Port-Ausgangswiderstände werden zu Beginn jeder Messung neu bestimmt. \\
 Beispiel: CFLAGS += -DAUTO\_CAL
+
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50Hz-Signal auf Port 2 und Port 3 erzeugt.
 Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
+
   \item[CAP\_EMPTY\_LEVEL] Diese Option legt die Spannung (mV) für einen entladenen Kondensator fest.
 Der Wert kann höher als 3mV gesetzt werden, wenn die Entladung nicht zum Ende kommt. In diesen Fall meldet der Tester nach längerer Zeit ,,Cell!''.\\
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
+
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor für die Kapazitätsmessung 
 von kleineren Kapazitäten (unter \(40~\mu F\)) zu ermitteln.\\
 Beispiel: CFLAGS += -DWITH\_AUTO\_REF
+
   \item[REF\_C\_KORR] gibt einen Offset für die gelesene Referenz-Spannung in mV-Einheiten an.
 Das kann benutzt werden, um die Kapazitätsmessung kleiner Kondensatoren abzugleichen.
 Wenn zusätzlich die AUTO\_CAL-Option gewählt wurde, ist diese Angabe nur ein zusätzlicher Offset für
 den gefundenen Komparator-Offset.
 Ein Wert von 10 ergibt etwa 1~Prozent kleinere Messergebnisse.\\
 Beispiel: CFLAGS += -DREF\_C\_KORR=14
+
   \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
 in mV-Einheiten an. Der REF\_C\_KORR-Offset beziehungsweise der gefundene Offset bei der Kalibration
 wird bei der Induktivitätsmessung ebenfalls berücksichtigt.\\
@@ -223,19 +259,23 @@ Der REF\_L\_KORR Wert wird für die Messungen ohne \(680~\Omega\) Widerstand sub
 \(680~\Omega\) Widerstand wird der Wert addiert.
 Ein Wert von 10 führt zu einer Änderung des Ergebnisses um 1 Prozent.\\
 Beispiel: CFLAGS += -DREF\_L\_KORR=40
+
   \item[C\_H\_KORR] gibt eine Korrektur der Messergebnisse für grosse Kondensatoren an.
 Eine Eingabe von 10 führt zu 1~Prozent kleineren Messergebnissen.\\
 Beispiel: CFLAGS += -DC\_H\_KORR=10
+
   \item[WITH\_UART] benutzt den Pin PC3 zur Ausgabe der seriellen Texte (V24). Wenn die Option nicht
 benutzt wird, kann der PC3 Pin zum Anschluss einer externen Spannung mit einem 10:1-Widerstandsteiler benutzt
 werden. Damit können beispielsweise Zenerdioden mit höherer Durchbruchspannung getestet werden.
 Diese Messung wird so lange mit etwa 3 Messungen pro Sekunde wiederholt, solange der Starttaster gedrückt bleibt.\\
 Beispiel: CFLAGS += -DWITH\_UART
+
   \item[TQFP\_ADC6] Die Option TQFP\_ADC6 benutzt anstelle des PC3-Pins (ADC3) den zusätzlichen ADC-Eingang ADC6
 des ATmegas im TQFP-Gehäuse oder QFN-Gehäuse.
 Dadurch kann dieser Eingang unabhängig von der seriellen Ausgabe auf dem PC3 Pin genutzt werden. Dieser Pin wird
 dann für die Zenerdioden-Messung und für die Messung einer externen Spannung über den Dialog des ATmega328 genutzt.\\
 Beispiel: CFLAGS += -DTQFP\_ADC6
+
   \item[TQFP\_ADC7] Die Option TQFP\_ADC7 benutzt anstelle des PC3-Pins (ADC3) den zusätzlichen ADC-Eingang ADC7
 des ATmegas im TQFP-Gehäuse und QFN-Gehäuse.
 Dadurch kann dieser Pin unabhängig von der seriellen Ausgabe auf den PC3 Pin genutzt werden. Wenn diese Option 
@@ -244,10 +284,12 @@ Spannung über den Dialog des ATmega328 genutzt. Wenn die Option zusätzlich zur
 erfolgt die Zenerdioden-Messung mit dem ADC6-Pin und bei der über den Dialog wählbaren Spannungsmessung werden
 beide Eingänge gemessen. Beide Pinne sollten dann an einen 10:1-Spannungsteiler angeschlossen sein.\\
 Beispiel: CFLAGS += -DTQFP\_ADC7
+
   \item[WITH\_VEXT] ermöglicht die Messung einer externen Spannung über einen 10:1-Spannungsteiler.
 Für den ATmega168 oder ATmega328 wird normalerweise der PC3-Pin benutzt, wenn keine Option TQFP\_ADC6 oder
 TQFP\_ADC7 gesetzt ist. Dann ist diese Option aber nur möglich, wenn die WITH\_UART Option nicht gesetzt ist.\\
 Beispiel: CFLAGS += -DWITH\_VEXT 
+
   \item[RMETER\_WITH\_L] wählt für die Widerstandsmeßfunktion, die durch einen Widerstand an TP1 und TP3 gestartet wird,
 zusätzlich die Messung von Induktivitäten. Der Betriebsmodus wird dann durch ein {\bf[RL]} am Ende der ersten Displayzeile
 angezeigt. Durch den zusätzlichen Test auf Induktivität wird die Meßzeit für Widerstände unter \(2100~\Omega\) deutlich
@@ -258,14 +300,17 @@ Weil nur mit der ESR-Methode eine Auflösung von \(0.01~\Omega\) erreicht wird, 
 Widerstände unter \(10~\Omega\) die Auflösung nur \(0.1~\Omega\).
 Wenn diese Option gesetzt ist, gelten diese Einschränkungen nicht, die Messung kann aber länger dauern.\\
 Beispiel: CFLAGS += -DRMETER\_WITH\_L
+
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
 Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.
 Beim ATmega8 wird die automatische Bereichswahl nicht mehr benutzt.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
+
   \item[ESR\_ZERO] gibt einen Nullwert für die ESR-Messung von Kondensatoren vor.
 Der vorgegebene Nullwert wird durch die beim Selbsttest ermittelten Nullwerte für alle drei Pinkombinationen ersetzt.
  Diese Nullwerte werden von den ermittelten Messwerten abgezogen.\\
 Beispiel: CFLAGS += -DESR\_ZERO=29
+
   \item[NO\_AREF\_CAP] teilt der Software mit, dass Sie keinen Kondensator am AREF Pin (Pin 21) angeschlossen haben.
 Dies ermöglicht kürzere Wartezeiten für die AUTOSCALE\_ADC Umschaltung des ADC.
 Ein 1nF Kondensator wurde in diesem Modus ohne Fehler getestet.
@@ -331,11 +376,13 @@ Example: CFLAGS += NO\_LONG\_PINLAYOUT
 Option benutzen zu können.
 Mit dieser Option wird ein möglicher Einfluss der ,,Pull-Up'' Widerstände auf die Mess-Ports (Port B und Port C) verhindert.\\
 Beispiel: CFLAGS += -DPULLUP\_DISABLE
+
   \item[ANZ\_MESS] diese Option gibt an, wie oft der ADC-Wert eingelesen und addiert werden soll.
 Sie können einen Wert zwischen 5 und 200 wählen um einen Mittelwert für eine ADC-Messung zu bilden.
 Höhere Werte ergeben eine bessere Genauigkeit, aber brauchen längere Messzeit.
 Eine ADC-Messung mit dem Wert 44 braucht etwa 5ms.\\
 Beispiel: CFLAGS += -DANZ\_MESS=44
+
   \item[POWER\_OFF] Diese Option schaltet die automatische Abschaltfunktion ein.
 Wenn Sie diese Option weglassen, werden die Messungen in einer Schleife endlos wiederholt, bis die Betriebsspannung 
 unterbrochen wird (Ein/Aus-Schalter).
@@ -359,10 +406,12 @@ Wenn der Startknopf beim ersten Einschalten lange gedrückt wird, wird das Messe
 Der Maximalwert für die Wiederholungen ist 255 (CFLAGS += -DPOWER\_OFF=255).\\
 Beispiel 1: CFLAGS += -DPOWER\_OFF=5 \\
 Beispiel 2: CFLAGS += -DPOWER\_OFF 
+
   \item[BAT\_CHECK] schaltet die Batterie-Spannungsprüfung ein.
  Wenn Sie diese Option nicht angeben, wird die Versionsnummer der Software angezeigt.
 Diese Option ist hilfreich um bei batteriebetriebenen Tester-Versionen an den Batteriewechsel zu erinnern.\\
 Beispiel: CFLAGS += -DBAT\_CHECK
+
   \item[BAT\_OUT] schaltet die Batterie-Spannungsanzeige auf dem LCD ein, wenn BAT\_CHECK gewählt wurde.
  Wenn Ihre 9V-Versorgung eine Diode als Verpolungsschutz installiert hat, können Sie 
 die Form BAT\_OUT=600 angeben, um die Dioden-Schwellspannung 
@@ -371,6 +420,7 @@ Auch der Spannungsverlust am Transistor T3 kann so mit dieser Option berücksich
 Die Angabe der Schwellspannung in mV beeinflusst nicht die Prüf\-span\-nungs Werte (BAT\_POOR).\\
 Beispiel 1: CFLAGS += -DBAT\_OUT=300 \\
 Beispiel 2: CFLAGS += -DBAT\_OUT
+
   \item[BAT\_POOR] setzt die Leer-Spannung für die Batteriespannungs-Prüfung auf den angegebenen Wert in Einheiten von 1mV.
 Die Warn-Spannung ist 0,8V höher als die angegebene Leer-Spannung, wenn die Leer-Spannung mehr als 5,3V beträgt.
 Sonst wird eine 0,4V höhere Warn-Spannung gewählt, bei unter 3,25V sogar nur eine 0,2V höhere Warn-Spannung und
@@ -380,6 +430,7 @@ weil das die Gefahr von Batterie-Schäden aufgrund von Tiefentladung erhöht!
 Wenn Sie wiederaufladbare 9V-Batterien einsetzen, werden ,,Ready to Use''-Typen wegen der geringeren Selbstentladung empfohlen.\\
 Beispiel für low-drop-Regler (5,4V): CFLAGS += -DBAT\_POOR=5400 \\
 Beispiel für 7805-Regler (6,4V): CFLAGS += -DBAT\_POOR=6400
+
   \item[DC\_PWR] Dieser Spannungspegel in mV Einheiten gibt eine Grenze für die Batteriespannung an, oberhalb
 derer der Tester in den ,,DC\_Pwr\_Mode'' wechselt. Normalerweise läuft der Tester in einem Batterie-Modus,
 wo alle Zusatzfunktionen zeitlich beschränkt laufen.
@@ -387,18 +438,22 @@ Mit dem ,,DC\_Pwr\_Mode'' laufen die Zusatzfunktionen zeitlich unbeschränkt.
 Weil es keinen DC-DC Konverter gibt, der mit einer Eingangsspannung von 0.9V läuft,
 wird der ,,DC\_Pwr\_Mode'' auch gestartet, wenn eine Batteriespannung unterhalb 0.9V entdeckt wird.\\
 Beispiel: CFLAGS += -DDC\_PWR=9500
+
   \item[INHIBIT\_SLEEP\_MODE] sperrt die Benutzung des ,,Sleep Mode'' (Schlafzustand) des Prozessors.
 Normalerweise wird von der Software für längere Pausen der Schlafzustand des Prozessors benutzt, um Strom zu sparen.
 Die Benutzung dieses Schlafzustandes mit dem Wiederaufwachen spart zwar Batteriekapazität, 
 stellt eine zusätzliche Anforderung für den Spannungsregler dar.\\
 Beispiel: DINHIBIT\_SLEEP\_MODE = 1
+
   \item[PROGRAMMER] stellt den Programmer-Typ für das avrdude Schnittstellenprogramm ein.
 Eine richtige Einstellung des Programmer-Typs (und Ports) ist notwendig, wenn Sie den ,,make upload''- oder
 ,,make fuses''-Aufruf dieser Makefile benutzen.
 Für weitere Informationen schauen Sie bitte in das Handbuch von avrdude oder in die Online-Dokumentation~\cite{avrdude}.\\
 Beispiel: PROGRAMMER=avrisp2
+
   \item[BitClock] stellt die Bit-Taktperiode für den Programmer ein. Siehe dazu die Beschreibung des -B Parameters von avrdude.\\
 Beispiel: BitClock=5.0
+
   \item[PORT] stellt die verwendete Schnittstelle ein, wo avrdude den Mikrocontroller (ATmega) erreichen kann.
 Für weitere Informationen schauen Sie bitte ins Handbuch von avrdude.\\
 Beispiel: PORT=usb

@@ -53,8 +53,8 @@ and the assignment of the additional functions.
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & Character     & ST7565     & ST7920 LCD     & ST7108 LCD  & SSD1306     & additional function \\
-      Port & LCD           &   LCD      & serial         & serial      &   I\textsuperscript{2}C      & \\
+           & Character     & ST7565 LCD & ST7920 LCD     & ST7108 LCD  & SSD1306     & additional function \\
+      Port & LCD           &   SPI      & serial         & serial      &   I\textsuperscript{2}C      & \\
     \hline
     \hline
     PD0    &  LCD-D4       &  LCD-REST  & LCD-REST       & 595-PCLK        &            & \\
@@ -398,6 +398,50 @@ Some different pin layouts found in data sheets for the ABG128064 series are sho
   \caption{Pin layout of different ST7108 moduls}
   \label{tab:ST7108types}
 \end{table}
+
+You can also use a display with a PCF8814 controller, which is usualy used in a Nokia 1100 handy for example.
+You must check, which interface of the controller is used in your display module.
+The PCF8814 controller can support the SPI-interface with 3 lines and 4 lines,
+the I\textsuperscript{2}C-interface and a special 3-line interface, which receice
+the data/instruction signal as first serial bit before the 8 data bits.
+Because the display support only 96x65 pixels, the big icons for transistors are not
+used with this controller. The output is simular to the character display.
+As with the most graphical displays this controller also operated with 3.3 Volt.
+Therefore a signal conversion for the 5V outputs of the ATmega is required.
+For the SPI interface and the 3-line interface you can use the outputs of the ATmega
+like ''open collector'' outputs with the Makefile option LCD\_SPI\_OPEN\_COL.
+You must use ''Pull-Up'' resistors with this option or you should not set
+the option PULLUP\_DISABLE in the Makefile.
+Currently only the 3-line interface is tested with the PCF8814 controller.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+           &  PCF8814    & PCF8814        & PCF8814     & additional function \\
+      Port &    SPI      & 3-line         &   I\textsuperscript{2}C      & \\
+    \hline
+    \hline
+    PD0    &   LCD-RESet  & LCD-RESset       &            & \\
+    \hline
+    PD1    &   LCD-D/C   & LCD-SCE        &             & rotary encoder 2 \\
+    \hline
+    PD2    &   LCD-SCLK  & LCD-SCLK       &  LCD-SDIN   & \\
+    \hline
+    PD3    &   LCD-SDIN  & LCD-SDIN       &             & rotary encoder 1 \\
+    \hline
+    PD4    &             &                &             & frequency counter \\
+    \hline
+    PD5    &             & LCD-EN         &   LCD-SCLK  & \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Pin assignments for different interface types of the PCF8814 controller}
+  \label{tab:PCF8814-con}
+\end{table}
+
+Some code for supporting a PCF8812 controller with 102x65 pixels is also implemented,
+but not yet tested.
 
 
 \section{Hints for building the TransistorTester}
