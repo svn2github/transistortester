@@ -64,7 +64,7 @@ R16 к PC4 с высоким номиналом (\(47~k\Omega\)). Ёто поможет программному обеспеч
     PD4    &  LCD-RS       &            &                & LCD-RS      &             & ¬нешн€€ частота \\
            &               &            &                & 164-595-SER &             &                \\
     \hline
-    PD5    &  LCD-E        &            & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
+    PD5    &  LCD-E        &  (LCD-CE)  & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
     \hline
     PD7    &  кнопка       & кнопка     & кнопка         & кнопка      & кнопка      & \\
     \hline
@@ -104,7 +104,7 @@ R16 к PC4 с высоким номиналом (\(47~k\Omega\)). Ёто поможет программному обеспеч
     \hline
     PD4    &  LCD-D4      &  LCD-REST    & LCD-SI      & ¬нешн€€ частота \\
     \hline
-    PD5    &  LCD-E       &              &             & \\
+    PD5    &  LCD-E       &  (LCD-CE)    &             & \\
     \hline
     PD7    &  LCD-RS      &  кнопка      & кнопка      & \\
     \hline
@@ -800,7 +800,7 @@ ATmega324/644/1284.
     \hline
     PB2    &  LCD-RS         &            &          &       \\
     \hline                                              
-    PB3    &  LCD-E          &            &  LCD-SCL &       \\
+    PB3    &  LCD-E          &  (LCD-CE)  &  LCD-SCL &       \\
     \hline                                              
     PB4    &  LCD-D4         &  LCD-REST  &  LCD-SDA &       \\
     \hline                                              

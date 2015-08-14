@@ -48,6 +48,8 @@ A optional ISP connector has been added to easier load new software versions to 
 
 The table~\ref{tab:display-con} show the assignment of the port D for different display versions
 and the assignment of the additional functions.
+For the SPI interface a signal LCD-CE is available at the ATmega port. The controller input CE (Chip Enable) can 
+be also connected to GND instead of connecting this input to the ATmega output LCD-CE.
 
 \begin{table}[H]
   \begin{center}
@@ -68,7 +70,7 @@ and the assignment of the additional functions.
     PD4    &  LCD-RS       &            &                & LCD-RS      &             & frequency counter \\
            &               &            &                & 164-595-SER &             &                \\
     \hline
-    PD5    &  LCD-E        &            & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
+    PD5    &  LCD-E        & (LCD-CE)   & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
     \hline
     PD7    &  pushbutton   & pushbutton & pushbutton     & pushbutton  & pushbutton  & \\
     \hline
@@ -111,7 +113,7 @@ routed to the display connector.
     \hline
     PD4    &  LCD-D4      &  LCD-REST    & LCD-SI      & frequency counter \\
     \hline
-    PD5    &  LCD-E       &              &             & \\
+    PD5    &  LCD-E       &  (LCD-CE)    &             & \\
     \hline
     PD7    &  LCD-RS      &  pushbutton  & pushbutton  & \\
     \hline
@@ -792,6 +794,17 @@ also difficult to realize.
   \label{fig:T4_back}
 \end{figure}
 
+A additittional chinese version with graphical display is offered with the name ''GM328''.
+For this version the graphical display is connected with a adapter circuit board to the 16-pol female connector. 
+The port PD5 of the ATmega is connected via pin 6 of the female connector to the CE (Chip Enable) input of the 
+graphical controller.
+The signal CE is also conneted at the adapter board to the 0V power (GND).
+This will resulte to a short-circuit if the ATmega will switch the PD5 output to 5V.
+But newer versions of the software also switch the CE signal, even if the signal is not necessary for
+correct operation.
+For correct operation of the ''GM328'' tester with newer software versions you should cut the
+connection of the CE signal to pin 6 of the male connector.
+
 
 \section{Extented circuit with ATmega644 or ATmega1284}
 
@@ -826,7 +839,7 @@ The outputs of the ATmega is only switched to 0V for the I\textsuperscript{2}C s
     \hline
     PB2    &  LCD-RS         &            &             &       \\
     \hline
-    PB3    &  LCD-E          &            &  LCD-SCL    &       \\
+    PB3    &  LCD-E          &  (LCD-CE)  &  LCD-SCL    &       \\
     \hline
     PB4    &  LCD-D4         &  LCD-REST  &  LCD-SDA    &       \\
     \hline
@@ -925,7 +938,7 @@ as shown in table~\ref{tab:display-1280} .
     PA4    &  LCD-RS       &             &   LCD-B0     & LCD-RS         &   LCD-SDA   & \\
            &               &             &              & HC164-SER      &             & \\
     \hline
-    PA5    &  LCD-E        &             &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
+    PA5    &  LCD-E        &   (LCD-CE)  &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
     \hline
     PA7    &  key signal   &             &              &                &             & \\
     \hline

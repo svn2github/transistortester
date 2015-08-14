@@ -55,6 +55,8 @@ laden zu können.
 Die Tabelle~\ref{tab:display-con} zeigt die Belegung des PD Ports für verschiedene Display-Versionen
 und die Belegung der Zusatzfunktionen.
 Bei allen Varianten dieser Tabelle sollten die Zusatzfunktionen möglich sein.
+Das Signal LCD-CE bei der SPI Schnittstelle ist am ATmega-Port verfügbar. Der Eingang CE (Chip Enable) des
+Controllers kann aber auch fest auf GND gelegt werden anstelle mit dem LCD-CE Ausgang des ATmega verbunden zu werden.
 
 \begin{table}[H]
   \begin{center}
@@ -75,7 +77,7 @@ Bei allen Varianten dieser Tabelle sollten die Zusatzfunktionen möglich sein.
     PD4    &  LCD-RS       &            &                & LCD-RS      &             & Frequenzzähler \\
            &               &            &                & 164-595-SER &             &                \\
     \hline
-    PD5    &  LCD-E        &            & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
+    PD5    &  LCD-E        &  (LCD-CE)  & LCD-EN         & LCD-EN      &   LCD--SCL  & \\
     \hline
     PD7    & Tastensignal & Tastensignal & Tastensignal  & Tastensignal & Tastensignal & \\
     \hline
@@ -116,7 +118,7 @@ Signale am Displayanschluß zur Verfügung stehen.
     \hline
     PD4    &  LCD-D4        & LCD-REST       &  LCD-SI      &  Frequenzzähler \\
     \hline
-    PD5    &  LCD-E         &                &              &  \\
+    PD5    &  LCD-E         & (LCD-CE)       &              &  \\
     \hline
     PD7    & LCD-RS         & Tastensignal   & Tastensignal &  \\
     \hline
@@ -804,6 +806,17 @@ Displays ist hier nur schwer möglich.
   \label{fig:T4_back}
 \end{figure}
 
+Noch eine chinesische Version mit graphischem Display wird mit der Bezeichnung ,,GM328'' angeboten.
+Bei dieser Version ist das graphische Display an eine 16-pol Buchsenleiste mit einer Tochterplatine
+angeschlossen.
+Dabei ist auch der Port PD5 über die Buchsenleiste Pin 6 an das CE (Chip Enable) Signal
+des graphischen Controllers angeschlossen. Das CE Signal ist aber auf der Tochterplatine auch mit der
+0V Power (GND) verbunden.
+Das führt zu einem Kurzschluß, wenn der ATmega den PD5 Ausgang auf 5V schalten möchte.
+Neuere Versionen der Software schalten aber auch das CE Signal, auch wenn das Signal für den Betrieb nicht
+benötigt wird.
+Deswegen sollte bei dem ,,GM328'' Tester die Verbindung der Tochterplatine zum Pin 6 
+der Anschlußleiste unterbrochen werden.
 
 \section{Erweiterte Schaltung mit ATmega644 oder ATmega1284}
 
@@ -837,7 +850,7 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
     \hline
     PB2    &  LCD-RS         &            &             &       \\
     \hline
-    PB3    &  LCD-E          &            &  LCD-SCL    &       \\
+    PB3    &  LCD-E          & (LCD-CE)   &  LCD-SCL    &       \\
     \hline
     PB4    &  LCD-D4         & LCD-REST   &  LCD-SDA    &       \\
     \hline
@@ -937,7 +950,7 @@ werden, wie in der Tabelle~\ref{tab:display-1280} angegeben.
     PA4    &  LCD-RS       &             &   LCD-B0     & LCD-RS         &   LCD-SDA   & \\
            &               &             &              & HC164-SER      &             & \\
     \hline
-    PA5    &  LCD-E        &             &   LCD-EN     & LCD-EN         &   LCD--SCL  & \\
+    PA5    &  LCD-E        &  (LCD-CE)   &   LCD-EN     & LCD-EN         &   LCD-SCL  & \\
     \hline
     PA7    &  Tastensignal &             &              &                &             & \\
     \hline
