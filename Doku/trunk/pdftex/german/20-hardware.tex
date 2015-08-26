@@ -454,6 +454,47 @@ Getestet ist derzeit nur die 3-line Schnittstelle.
 Es ist auch eine Unterstützung für einen PCF8812 controller mit 102x65 Pixeln bereits vorhanden,
 aber völlig ungetestet.
 
+\subsection{Anschluss eines graphischen Farbdisplays}
+
+Von chinesischen Händlern werden preisgünstige Farbdisplay-Module mit einer SPI Schnittstelle angeboten.
+Die Abbildung \ref{fig:Color_both} zeigt die Rückseite der beiden unterstützten Module mit 128x128 Pixeln
+und 128x160 Pixeln.
+Diese Module sind sehr klein, so werden auch Texte und Symbole sehr klein dargestellt.
+Aber das Erscheinungsbild ist scharf und klar.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{../PNG/Color_ILI9163_ST7735.png}
+\caption{Rückseite der beiden Color-LCD's}
+\label{fig:Color_both}
+\end{figure}
+
+Das 128x128 Pixel Modul benutzt einen ILI9163 Kontroller.
+Das 128x160 Pixel Modul benutzt einen sehr ähnlichen ST7735 Kontroller.
+Getestet habe ich die Module mit einem Adapterboard, der die Verbindungen
+der SPI-Signale und der Stromversorgung zu der Anschlußleiste des normalen Textdisplays
+herstellt. Die Anpassung der 5V Signale des ATmega an die 3.3V Eingänge des Kontrollers
+habe ich mit seriellen \(10 k\Omega\) Widerständen vorgenommen.
+Die Hintergrundbeleuchtung (LED) ist für diese Module unbedingt erforderlich, da sonst
+nichts erkennbar ist.
+Aufgrund der hohen Pixelzahl in vertikaler Richtung können auf den Displays mehr Textzeilen dargestellt
+werden. Für das 128x128 Pixel Display können bis zu 8 Textzeilen mit einem 12x8 Font dargestellt werden,
+Für das 128x160 Pixel Display sind es sogar 10 Textzeilen.
+Auf dem Foto \ref{fig:Color_PNP} ist das Ergebnis einer Messung eines Germanium Transistors auf einem
+128x128 Pixel Display zu sehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{../PNG/Color_PNP_ILI9163.png}
+\caption{Messung eines bipolaren PNP Transistors}
+\label{fig:Color_PNP}
+\end{figure}
+
+Die Farbmöglichkeiten der Displays werden derzeit nicht genutzt. Lediglich die Hintergrundfarbe
+und die Vordergrundfarbe könnten in der Datei lcd\_defines.h oder in der Makefile verändert werden.
+Es wird das 16-Bit Farbmodell der Kontroller benutzt, die Vordergrundfarbe kann mit der Konstanten
+LCD\_FG\_COLOR und die Hintergrundfarbe mit der Konstanten LCD\_BG\_COLOR eingestellt werden.
+
 \section{Hinweise für den Aufbau des TransistorTesters}
 Jede LCD-Anzeige-Einheit mit mindestens 2x16 Zeichen und einem HD44780-kompatiblen Controller kann mit
 dem TransistorTester benutzt werden.

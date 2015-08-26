@@ -445,6 +445,47 @@ Currently only the 3-line interface is tested with the PCF8814 controller.
 Some code for supporting a PCF8812 controller with 102x65 pixels is also implemented,
 but not yet tested.
 
+\subsection{Connection of a graphical color display}
+
+Some Chinese salesmen offer cheap color display modules with a SPI interface.
+The picture \ref{fig:Color_both} shows the backsides of two supported modules with 128x128 pixel
+and 128x160 pixel. 
+The moduls are very small, so the shown text and symbols are very little.
+But the appearance is sharp and clear.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{../PNG/Color_ILI9163_ST7735.png}
+\caption{Back side of two Color-LCD's}
+\label{fig:Color_both}
+\end{figure}
+
+The 128x128 pixel modul uses a ILI9163 controller.
+The 128x160 pixel modul uses a very simular ST7735 controller.
+The modules are tested with a adapter board, which connects the
+SPI signals and the power to the terminal for the normal character display.
+The adaption of the 5V output signals of the ATmega to the 3.3V inputs of the controller
+is ensured with serial \(10 k\Omega\) resistors.
+The background light (LED) is required for this modules because nothing is readable without it.
+Because of the high count of pixels in vertical direction you can display more text lines for this modules.
+For the 128x128 pixel display you can display 8 lines of text with a 12x8 font,
+for the 128x160 pixel display you can evel show 10 lines of text.
+At the picture \ref{fig:Color_PNP} you can see the result of the measurement of a Germanium transistor
+at a 128x128 pixel display.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{../PNG/Color_PNP_ILI9163.png}
+\caption{Measurement of a bipolar PNP transistors}
+\label{fig:Color_PNP}
+\end{figure}
+
+The color feature of the modules is currently not used.
+Simply the background color and the foreground color can be changed in the file lcd\_defines.h or
+in the Makefile.
+The 16-bit color model of the controller is used by the software, the foreground color can be changed
+with the constant LCD\_FG\_COLOR and the background color with the constant LCD\_BG\_COLOR .
+
 
 \section{Hints for building the TransistorTester}
 Every LCD-display with at least 2x16 character and a HD44780 compatible controller
