@@ -19,7 +19,7 @@ Weil der PD7-Eingang und der PC6-Anschluss (RESET) die einzigen Anschlüsse sind
 ,,pull-up'' Widerstände gebraucht werden, wurde ein zusätzlicher \(27k\Omega\) Widerstand am PD7 (Pin 13) vorgesehen.
 Mit dieser Änderung können die internen ,,Pull-Up''-Widerstände des ATmega abgeschaltet werden.
 
-Ein Quarz mit seinen 22pF-Kondensatoren wurde zusätzlich vorgesehen.
+Ein Quarz mit seinen \(22pF\)-Kondensatoren wurde zusätzlich vorgesehen.
 Ein Quarz hat Vorteile für die Kapazitätsmessung wegen der genaueren Zeitmessung.
 
 Die neue Software kann den Spannungsbereich für den ADC umschalten. Die Um\-schalt-Ge\-schwin\-dig\-keit
@@ -33,7 +33,7 @@ Einige unterschiedliche Kombinationen von R11 / R12 zirkulieren im Internet.
 Ich habe die Software an den Original-Entwurf von Markus F.~\cite{Frejek} mit \(10k\Omega\) und \(3,3k\Omega\) angepasst.
 Da Spannungsverhältnis kann in der Makefile angepaßt werden.
 
-Die zusätzliche 2,5V Präzisions-Spannungsreferenz, die an Pin PC4 (ADC4) angeschlossen ist,
+Die zusätzliche \(2,5V\) Präzisions-Spannungsreferenz, die an Pin PC4 (ADC4) angeschlossen ist,
 wird für die Überprüfung und Kalibration der VCC-Versorgungsspannung benutzt, ist aber nicht
 erforderlich.
 Sie können eine LM4040-AIZ2.5 (0,1\%),
@@ -162,12 +162,12 @@ entladen werden.
 
 Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
 einer externen Spannung benutzt werden. Die Spannung kann mit dem optionalen 10:1-Widerstandsteiler
-bis zu 50V betragen und kann für die Messung der Zenerspannung einer Diode benutzt werden.
-Ein Strombegrenzendes Netzteil mit bis zu 50V Ausgangsspannung kann mit dem 0V-Signal des ATmega PD7-Pins
+bis zu \(50V\) betragen und kann für die Messung der Zenerspannung einer Diode benutzt werden.
+Ein Strombegrenzendes Netzteil mit bis zu \(50V\) Ausgangsspannung kann mit dem \(0V\)-Signal des ATmega PD7-Pins
 eingeschaltet werden, um zum Beispiel die Durchbruchspannung von Zenerdioden zu messen.
 Einen Vorschlag für diese Erweiterung zeigt Abbildung~\ref{fig:zener}.
 Der Tester zeigt die externe Spannung so lange an, wie man den Taster gedrückt läßt.
-Ungefähr 40mA mehr Batteriestrom wird für diese Erweiterung bei gedrückter Taste gebraucht.
+Ungefähr \(40mA\) mehr Batteriestrom wird für diese Erweiterung bei gedrückter Taste gebraucht.
 
 \begin{figure}[H]
 \centering
@@ -179,13 +179,13 @@ Ungefähr 40mA mehr Batteriestrom wird für diese Erweiterung bei gedrückter Ta
 Der 10:1-Spannungsteiler kann mit dem optionalen Dialogteil für den ATmega328 auch ohne 
 den Spannungswandler benutzt werden. Ohne die gedrückte Taste ist der Spannungswandler nicht in 
 Betrieb, sodass eine externe Spannung (z.B. Batteriespannung) am Zenerdioden-Port gemessen werden kann.
-Es können nur positive Gleichspannungen bis 50V gemessen werden.
+Es können nur positive Gleichspannungen bis \(50V\) gemessen werden.
 Man muss also auf die richtige Polarität achten.
 
 \subsection{Frequenzgenerator}
 
 Mit dem Dialogteil des ATmega kann außerdem ein Frequenzgenerator angewählt werden, der derzeit
-Frequenzen von \(2 MHz\) bis \(1 Hz\) ausgeben kann. Der Ausgang des 5V-Signals erfolgt über
+Frequenzen von \(2MHz\) bis \(1Hz\) ausgeben kann. Der Ausgang des \(5V\)-Signals erfolgt über
 einen \(680\Omega\)-Widerstand auf den Testport TP2. Als Massesignal kann der Minus-Anschluss
 der Zenerdiodenerweiterung oder Anschluss TP1 benutzt werden.
 Auch TP3 ist über den \(680\Omega\) Widerstand mit Masse verbunden.
@@ -204,7 +204,7 @@ auf Eingang geschaltet werden und für die Messung benutzt werden, solange keine
 LCD erfolgt. Das LCD interessiert sich für das Signal nur, wenn LCD-E auf GND geschaltet wird.
 Für die Einspeisung des Testsignals ist mindestens ein Serienwiderstand von \(270\Omega\) erforderlich.
 Besser ist eine Schaltung nach Abbildung~\ref{fig:FreqMes} zu benutzen. Die Spannung am PD4-Pin (LCD-RS oder
-LCD-D4) sollte ohne eingesteckten ATmega oder im Frequenz-Messbetrieb auf etwa 2,4V eingestellt sein,
+LCD-D4) sollte ohne eingesteckten ATmega oder im Frequenz-Messbetrieb auf etwa \(2,4V\) eingestellt sein,
 damit die größte Empfindlichkeit für das Eingangssignal erzielt wird. Das LCD sollte aber eingesteckt sein,
 weil dessen Pull-Up Widerstände die Spannung verändern.
 
@@ -282,14 +282,14 @@ mit ST7565-Controller angeschlossen werden. Da der ST7565-Controller seriell ang
 werden nur vier Signalleitungen benötigt.
 Dadurch werden zwei Pinne des Port D für andere Verwendung frei.
 Der ATmega-Prozessor sollte mindestens 32k Flash-Speicher besitzen.
-Der ST7565-Controller wird mit einer Betriebsspannung von 3,3V betrieben.
+Der ST7565-Controller wird mit einer Betriebsspannung von \(3,3V\) betrieben.
 Deswegen ist ein zusätzlicher Spannungsregler notwendig.
-Nach dem Controller Datenblatt dürfen keine 5V Signale direkt mit den Controller-Eingängen verbunden
+Nach dem Controller Datenblatt dürfen keine \(5V\) Signale direkt mit den Controller-Eingängen verbunden
 werden. Deshalb ist in der Erweiterung nach Bild \ref{fig:ST7565lcd} ein zusätzlicher CMOS 74HC4050
 für die Pegelanpassung vorgesehen. 
 Man kann auch versuchen, die vier Gatter des 74HC4050 durch vier Widerstände von etwa \(2,7k\Omega\) zu ersetzen.
-Über den Spannungsabfall an den Widerständen wird verhindert, dass die 3,3V-Versorgung des Controllers über die Schutzdioden
-der Controllereingänge von den 5V ATmega-Ausgängen über die 3,3V-Grenze angehoben werden kann.
+Über den Spannungsabfall an den Widerständen wird verhindert, dass die \(3,3V\)-Versorgung des Controllers über die Schutzdioden
+der Controllereingänge von den \(5V\) ATmega-Ausgängen über die \(3,3V\)-Grenze angehoben werden kann.
 Ob die Signalform für den ST7565-Controller so noch akzeptiert wird, sollte man vorher testen.
 Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
  
@@ -302,18 +302,18 @@ Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
 
 Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire SPI-Schnittstelle angeschlossen.
 Beim SSD1306-Controller kann auch eine I\textsuperscript{2}C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
-Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4,7k\Omega\) nach 3,3V versehen sein.
+Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4,7k\Omega\) nach \(3,3V\) versehen sein.
 Eine Anschlußmöglichkeit zeigt die Abbildung \ref{fig:ssd1306i2c}.
-Vor der Verwendung der ,,Pull-up'' Widerstände nach 5V sollte überprüft werden, ob die Eingänge dieses Signal vertragen.
-Normalerweise sind die Eingänge des Kontrollers über Dioden nach 3.3V geschützt.
-Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
+Vor der Verwendung der ,,Pull-up'' Widerstände nach \(5V\) sollte überprüft werden, ob die Eingänge dieses Signal vertragen.
+Normalerweise sind die Eingänge des Kontrollers über Dioden nach \(3.3V\) geschützt.
+Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach \(0V\) geschaltet.
 Es sollte aber sichergestellt sein, daß das Programm mit der I\textsuperscript{2}C Schnittstelle in den ATmega geladen wurde,
 bevor das Display angeschlossen wird. Wenn ein Programm für eine andere Schnittstelle geladen wurde,
-werden die Ausgänge auch nach 5V geschaltet.
+werden die Ausgänge auch nach \(5V\) geschaltet.
 Da ich eine Beeinflussung der Meßergebnisse der Testers über den VCC-Anschluß der OLED-Module festgestellt habe, 
-ist eine Entkopplung über einen Serienwiderstand von \(68~\Omega\) mit zusätzlichem \(10~\mu F\)
+ist eine Entkopplung über einen Serienwiderstand von \(68\Omega\) mit zusätzlichem \(10\mu F\)
  Abblock-Kondensator zu empfehlen. 
-Anstelle des \(68~\Omega\) Widerstand kann auch eine Drossel von etwa \(1~mH\) verwendet werden.
+Anstelle des \(68\Omega\) Widerstand kann auch eine Drossel von etwa \(1mH\) verwendet werden.
 Ohne das zusätzliche Filter wurde bei meinem Tester Kollektorrestströme bei bipolaren Transistoren mit einem OLED angezeigt.
 Außerdem sollte die Belegung der Pinne beim OLED Modul geprüft werden, bei einigen Modulen ist GND und VCC vertauscht!
  
@@ -328,7 +328,7 @@ Bei der ATmega644 Prozessorserie werden die Pinne PB2 bis PB5 anstelle PD0 bis P
 Ein Austausch des Textdisplays gegen ein grafisches Display ist mit einer Adapterplatine möglich, da
 alle notwendigen Datensignale und Versorgungssignale an der LCD-Steckerleiste vorhanden sind.
 Etwas einfacher ist der Anschluß eines graphischen Displays mit einem ST7920 Controller weil 
-der Controller mit 5V Betriebsspannung läuft.
+der Controller mit \(5V\) Betriebsspannung läuft.
 Dabei sollte das Display 128x64 sichtbare Pixel besitzen.
 Das Display Modul mit dem ST7920 Controller kann entweder mit der 4-Bit Parallelschnittstelle oder mit einer 
 speziellen Seriellschnittstelle angeschlossen werden, wie die Abbildung \ref{fig:ST7920lcd} zeigt.
@@ -418,7 +418,7 @@ Daten/Instruktion - Signal als erstes serielles Bit übertragen wird.
 Das Display besitzt nur 96x65 Pixel, daher werden keine großen graphischen Symbole für die
 Transistoren bei diesem Controller benutzt. Die Ausgabe is also ähnlich wie auf einem Textdisplay.
 Wie bei den meisten graphischen Displays ist auch hier die Betriebsspannung 3.3 Volt.
-Deswegen ist eine Signalanpassung an die 5V Ausgänge des ATmega erforderlich.
+Deswegen ist eine Signalanpassung an die \(5V\) Ausgänge des ATmega erforderlich.
 Für die SPI-Schnittstelle und die 3-line Schnittstelle können die Ausgänge des ATmega
 mit der Makefile Option LCD\_SPI\_OPEN\_COL wie ein ,,Open Collector'' Ausgang benutzt werden.
 Es sind aber ,,Pull-Up'' Widerstände erforderlich oder es darf die Option PULLUP\_DISABLE
@@ -473,8 +473,8 @@ Das 128x128 Pixel Modul benutzt einen ILI9163 Kontroller.
 Das 128x160 Pixel Modul benutzt einen sehr ähnlichen ST7735 Kontroller.
 Getestet habe ich die Module mit einem Adapterboard, der die Verbindungen
 der SPI-Signale und der Stromversorgung zu der Anschlußleiste des normalen Textdisplays
-herstellt. Die Anpassung der 5V Signale des ATmega an die 3.3V Eingänge des Kontrollers
-habe ich mit seriellen \(10 k\Omega\) Widerständen vorgenommen.
+herstellt. Die Anpassung der \(5V\) Signale des ATmega an die \(3.3V\) Eingänge des Kontrollers
+habe ich mit seriellen \(10k\Omega\) Widerständen vorgenommen.
 Die Hintergrundbeleuchtung (LED) ist für diese Module unbedingt erforderlich, da sonst
 nichts erkennbar ist.
 Aufgrund der hohen Pixelzahl in vertikaler Richtung können auf den Displays mehr Textzeilen dargestellt
@@ -505,7 +505,7 @@ ATmega beeinflusst und werden nicht empfohlen. Auch das Laden der Spezialzeichen
 Widerstandsdarstellung hat mit OLED's Schwierigkeiten ergeben.
 
 Die Widerstände R1 bis R6 sind kritisch für die Messungen und diese \(680\Omega\) und
-\(470k\Omega\) Widerstände sollten Messwiderstände sein (Toleranz von 0,1\%), um 
+\(470k\Omega\) Widerstände sollten Messwiderstände sein (Toleranz von \(0,1\%\)), um 
 die volle Genauigkeit zu erreichen.
 Man sollte Präzisions-Sockel für den ATmega-Mikrocontroller verwenden, um
 die Austauschbarkeit des Mikrocontrollers sicherzustellen.
@@ -514,8 +514,8 @@ Empfohlen wird ein ATmega328, wenn man alle Funktionen nutzen möchte.
 
 Jedenfalls sollte man zuerst alle Bauteile ohne den Mikrocontroller bestücken.
 Es wird als IC2 ein moderner ,,low voltage drop''-Spannungsregler wie MCP1702-5002 empfohlen, weil
-dieser nur \(2\mu A\) Ruhestrom benötigt und auch noch 5V liefern kann, 
- wenn die Eingangsspannung nur 5,4V beträgt.
+dieser nur \(2\mu A\) Ruhestrom benötigt und auch noch \(5V\) liefern kann, 
+ wenn die Eingangsspannung nur \(5,4V\) beträgt.
 Aber dieser Regler ist leider nicht Pin-kompatibel zum bekannteren 78L05-Regler im TO-92-Gehäuse!
 
 Nachdem alle benötigten Bauteile bestückt sind, sollte zuerst die Batterie
@@ -547,18 +547,18 @@ nicht auf einem ATmega168!
 \item[Spannungsüberwachung]  
 Das Problem zeigt sich durch sofortiges Abschalten beim Einschaltversuch.
 Bei den von mir empfohlenen Einstellungen der fuses (Makefile) wird die Spannungsüberwachung der
-verschiedenen ATmega-Versionen auf 4V gesetzt (brown out level). Deswegen kann es beim
-Einschalten des Testers zu Problemen kommen, weil der Pin PD6 versucht, den 100nF-Kondensator C2
-direkt zu schalten. Dabei kann es zu einem unerwünschten 5V Spannungseinbruch kommen.
-Der Kondensator C2 kann problemlos auf \textless~10nF verkleinert werden. Nach Möglichkeit sollte
-man statt der direkten Verbindung PD6 zum Kondensator einen Widerstand \textgreater~\(220 \Omega\) 
+verschiedenen ATmega-Versionen auf \(4V\) gesetzt (brown out level). Deswegen kann es beim
+Einschalten des Testers zu Problemen kommen, weil der Pin PD6 versucht, den \(100nF\)-Kondensator C2
+direkt zu schalten. Dabei kann es zu einem unerwünschten \(5V\) Spannungseinbruch kommen.
+Der Kondensator C2 kann problemlos auf \textless~\(10nF\) verkleinert werden. Nach Möglichkeit sollte
+man statt der direkten Verbindung PD6 zum Kondensator einen Widerstand \textgreater~\(220\Omega\) 
 als Verbindung benutzen.
 \item[Verbessern des Einschaltverhaltens]
 Der Fehler zeigt sich oft, dass der Tester bei gedrücktem Taster zwar einschaltet, aber wieder
 abschaltet, wenn der Taster losgelassen wird. Das Problem tritt öfter auf, wenn die Hintergrund-
 Beleuchtung des LCD viel Strom braucht.
-Der Widerstand R7 zur Basis des PNP-Transistors T3 war mit \(27k \Omega\) sehr auf Stromsparen
-optimiert. Der Widerstand sollte besser auf \(3,3k \Omega\) verkleinert werden um auch bei
+Der Widerstand R7 zur Basis des PNP-Transistors T3 war mit \(27k\Omega\) sehr auf Stromsparen
+optimiert. Der Widerstand sollte besser auf \(3,3k\Omega\) verkleinert werden um auch bei
 geringerer Batteriespannung oder bei geringem Stromverstärkungsfaktor des PNP-Transistors T3
 ein sicheres Einschalten zu gewährleisten.
 \item[Zusätzlicher Pull-Up-Widerstand an PD7]
@@ -567,32 +567,32 @@ Der Fehler zeigt sich dadurch, dass der Tester nach einer kurzen Anzeigezeit mit
 dass die internen Pull-Up-Widerstände abgeschaltet sind.
 Dadurch ist der Pegel am Pin PD7 nicht mehr definiert,
 wenn er nicht durch den Taster oder T2 auf GND-Potential geschaltet ist. Ein externer
-Pull-Up-Widerstand von \(27k \Omega\) nach VCC vermeidet diesen Fehler.
+Pull-Up-Widerstand von \(27k\Omega\) nach VCC vermeidet diesen Fehler.
 \item[Kondensator C1 am AREF Pin]
-In vielen Entwürfen wird hier ein 100nF-Kondensator verwendet, so auch im Entwurf vom Markus Frejek.
+In vielen Entwürfen wird hier ein \(100nF\)-Kondensator verwendet, so auch im Entwurf vom Markus Frejek.
 Solange die Referenzspannung des ADC nicht verändert wird, ist das auch in Ordnung.
 Bei der Software für den Transistortester für den ATmega168/328 wird aber eine automatische
-Umschaltung der Referenzspannung von 5V auf die interne Referenzspannung von 1,1V vorgenommen,
-wenn die Eingangsspannung unter etwa 1V liegt. Damit wird eine bessere Auflösung erreicht.
-Leider erfolgt die Umschaltung von 5V auf die 1.1V sehr langsam, was eine zusätzliche
-Wartezeit von 10ms erfordert. Durch den Austausch des 100nF Kondensators gegen einen 1nF
+Umschaltung der Referenzspannung von \(5V\) auf die interne Referenzspannung von \(1,1V\) vorgenommen,
+wenn die Eingangsspannung unter etwa \(1V\) liegt. Damit wird eine bessere Auflösung erreicht.
+Leider erfolgt die Umschaltung von \(5V\) auf die \(1.1V\) sehr langsam, was eine zusätzliche
+Wartezeit von \(10ms\) erfordert. Durch den Austausch des \(100nF\) Kondensators gegen einen \(1nF\)
 kann die Wartezeit deutlich verringert werden. Einen Einfluß des kleineren Kondensators
 auf die Qualität der Messergebnisse habe ich nicht feststellen können. Selbst das Entfernen
-des Kondensators hat keinen wesentlichen Einfluß. Wer den 100nF Kondensator unbedingt
+des Kondensators hat keinen wesentlichen Einfluß. Wer den \(100nF\) Kondensator unbedingt
 beibehalten möchte, kann die Makefile Option NO\_AREF\_CAP entfernen, um die längere
 Wartezeit im Programm zu aktivieren.
-\item[Nachrüsten eines 8 MHz Quarz]
-Mit etwas Geschick kann auf der Lötseite der Platine ein 8MHz Quarz direkt an PB6 und PB7
+\item[Nachrüsten eines \(8MHz\) Quarz]
+Mit etwas Geschick kann auf der Lötseite der Platine ein \(8MHz\) Quarz direkt an PB6 und PB7
 (Pin 9 und Pin 10) nachgerüstet werden.
-Bei meiner Nachrüstung habe ich auf die beiden 22pF-Kondensatoren verzichtet.
+Bei meiner Nachrüstung habe ich auf die beiden \(22pF\)-Kondensatoren verzichtet.
 Bei allen eingesetzten Prozessoren hat diese Lösung problemlos funktioniert.
 Aber die Nachrüstung ist nicht unbedingt erforderlich. Die Taktfrequenz sollte aber
-wegen der besseren Zeitkonstanten-Auflösung  für die Kapazitäts-Messung auf jeden Fall 8MHz betragen.
-Die Frequenz 8MHz ist auch bei RC-Oszillator-Betrieb durch Setzen der fuses möglich.
+wegen der besseren Zeitkonstanten-Auflösung  für die Kapazitäts-Messung auf jeden Fall \(8MHz\) betragen.
+Die Frequenz \(8MHz\) ist auch bei RC-Oszillator-Betrieb durch Setzen der fuses möglich.
 \item[Abblocken der Betriebsspannung]
-Im Original-Schaltbild vom Markus F. ist nur ein 100nF-Kondensator zum Abblocken der
-VCC-Spannung (5V) eingezeichnet. Das ist deutlich zu wenig. Es sollte sowohl ein
-100nF in unmittelbarer Nähe des ATmega als auch ein 100nF in unmittelbarer Nähe
+Im Original-Schaltbild vom Markus F. ist nur ein \(100nF\)-Kondensator zum Abblocken der
+VCC-Spannung (\(5V\)) eingezeichnet. Das ist deutlich zu wenig. Es sollte sowohl ein
+\(100nF\) in unmittelbarer Nähe des ATmega als auch ein \(100nF\) in unmittelbarer Nähe
 des Spannungsreglers vorhanden sein. Auch an den Eingang des Reglers gehört ein
 100nF-Kondensator. Zusätzliche \(10\mu F\)-Kondensatoren (Elektrolyt oder Keramik) am Eingang und
 Ausgang des Reglers können die Spannungsstabilität verbessern. Keramische \(10\mu F\)
@@ -600,22 +600,22 @@ Kondensatoren in SMD Bauform sind zum Nachrüsten meist besser geeignet und
 haben üblicherweise einen niedrigeren ESR-Wert.
 \item[Auswahl des ATmega-Prozessors]
 Die Grundfunktion des Testers ist immer noch mit dem ATmega8 möglich.
-Dabei ist der Programmspeicher nahezu zu 100\% benutzt.
+Dabei ist der Programmspeicher nahezu zu \(100\%\) benutzt.
 Da die ATmega168 oder ATmega328 Prozessoren pinkompatibel zum ATmega8 sind,
 kann der Austausch nur empfohlen werden. Mittlerweile sind die Preise für
 den ATmega328 so günstig, dass eigentlich nichts mehr für den ATmega168 spricht.
 Mit dem ATmega168/328 gewinnt man folgende Vorteile:
 Selbsttestfunktion mit automatischem Abgleich.\\
 Erhöhung der Messgenauigkeit durch automatische Umschaltung der ADC-Referenzspannung.\\
-Messung von Induktivitäten, deren Widerstandswert \textless~\(2100 \Omega\) ist.\\
-Messung des ESR-Wertes von Kondensatoren \textgreater~\(90 nF\).\\
-Die Auflösung der Widerstandsmessung unter \(10 \Omega\) beträgt \(0,01 \Omega\).\\
+Messung von Induktivitäten, deren Widerstandswert \textless~\(2100\Omega\) ist.\\
+Messung des ESR-Wertes von Kondensatoren \textgreater~\(90nF\).\\
+Die Auflösung der Widerstandsmessung unter \(10\Omega\) beträgt \(0,01\Omega\).\\
 Der PC3-Pin kann für eine serielle Ausgabe genutzt werden.
 \item[Fehlende Präzisionsreferenz]
 Normalerweise sollte die fehlende Präzisionsreferenz auch bei unbeschaltetem PC4-Pin
 erkannt werden. In diesem Fall wird keine VCC=x.xV Anzeige in Zeile 2 beim Einschalten
 angezeigt. Falls es zu der Anzeige kommen sollte, hilft ein nach VCC geschalteter 
-\(2,2k \Omega\) Widerstand am PC4-Eingang.
+\(2,2k\Omega\) Widerstand am PC4-Eingang.
 \end{description}
 
 \section{Chinesische Nachbauten mit Textdisplay}
@@ -623,7 +623,7 @@ Der Tester wird in China nach meinem Kenntnisstand in zwei Versionen mit Textdis
 Die erste Variante ist der Nachbau des ersten Entwurfs von Markus F. ohne ISP-Schnittstelle.
 Der bestückte ATmega8 ist bei dieser Version gesockelt, kann also auch durch einen ATmega168/328 ausgetauscht werden.
 Für diese Version gelten alle Hinweise des Unterkapitels \ref{sec:change_markus}.
-Zusätzliche 100nF keramische Kondensatoren sollten in der Nähe des ATmega an die VCC-GND und
+Zusätzliche \(100nF\) keramische Kondensatoren sollten in der Nähe des ATmega an die VCC-GND und
 AVCC-GND Anschlüsse zur besseren Spannungsstabilisierung angebracht werden.
 Da auf der Platine ein ISP-Stecker fehlt, muß entweder ein ISP-Anschluß nachgerüstet werden oder
 der Prozessor für die Programmierung ausgebaut werden.
@@ -633,7 +633,7 @@ Die zweite Variante ist weitgehend in SMD-Technik aufgebaut. Auch der ATmega168 
 ist in einem 32TQFP Gehäuse fest verbaut.
 Dafür ist ein 10-poliger ISP-Stecker für die Programmierung auf der Platine vorgesehen.
 Ich habe die Version ,,2.1 2012/11/06'' analysiert. Ein Fehler ist die Bestückung des Bauteils ,,D1'',
-welches eigentlich die 2,5V Präzisionsreferenz sein soll. Bestückt ist aber eine Zenerdiode.
+welches eigentlich die \(2,5V\) Präzisionsreferenz sein soll. Bestückt ist aber eine Zenerdiode.
 Dieses Bauteil sollte entfernt werden. Hier kann eine Präzisionsreferenz wie LM4040AIZ2.5 oder
 LT1004CZ-2.5 angeschlossen werden. Eine fehlende Präzisionsreferenz wird von der Software erkannt,
 so dass sie nicht unbedingt erforderlich ist.
@@ -644,18 +644,18 @@ Die Beschriftung des ATmega168 war abgeschliffen und es gab keine Dokumentation 
 Die Sicherheits-Bits des ATmega waren gesetzt, sodass sich das Programm nicht auslesen ließ.
 Ich konnte aber problemlos die Software Version 1.05k installieren.
 Die gleiche Softwareversion 1.05k hat bei einem anderen Nutzer mit der China-Version ,,2.2 2012/11/26'' Probleme
-gemacht. Die Software 1.05k lief hier erst, als ein weiterer 100nF SMD Kondensator zwischen die Pins 18-AVCC
+gemacht. Die Software 1.05k lief hier erst, als ein weiterer \(100nF\) SMD Kondensator zwischen die Pins 18-AVCC
 und 21-GND ergänzt wurde. Die Software 1.05k benutzt bei Wartezeiten den Schlafzustand des ATmega.
 Deswegen wechselt der Strombedarf häufiger und der Spannungsregler wird mehr beansprucht.
 Aufgefallen ist mir weiter, dass die VCC-Spannung mit einem \(100nF\) keramischen Kondensator und mit
 einem \(220\mu F\) elektrolytischen Kondensator in der Nähe des 78L05-Spannungsreglers abgeblockt ist.
-Die 9V Spannungszufuhr ist mit den gleichen Kondensatoren abgeblockt, allerdings am Emitter des PNP-Transistor
+Die \(9V\) Spannungszufuhr ist mit den gleichen Kondensatoren abgeblockt, allerdings am Emitter des PNP-Transistor
 (parallel zur Batterie), nicht direkt am Reglereingang.
 Die Leiterbahnen vom ATmega zu den Testports sind teilweise sehr dünn, sodass ich einen Widerstand
-von etwa \(100m \Omega\) pro Signalweg messen konnte. Dies ist wohl mit der Grund dafür, dass zwei
-mit \(0 \Omega\) verbundene Pinne einen Widerstandswert von \(0,3 \Omega\) messen.
+von etwa \(100m\Omega\) pro Signalweg messen konnte. Dies ist wohl mit der Grund dafür, dass zwei
+mit \(0\Omega\) verbundene Pinne einen Widerstandswert von \(0,3\Omega\) messen.
 Bei der ESR-Messung kann dies normalerweise durch den Nullabgleich kompensiert werden.
-Bei der Messung von Widerständen unter \(10 \Omega\) werden die im Selbsttest ermittelten Offsets 
+Bei der Messung von Widerständen unter \(10\Omega\) werden die im Selbsttest ermittelten Offsets 
 ab der Softwareversion 1.07k berücksichtigt.
 
 \section{Chinesische Nachbauten mit graphischem Display}
@@ -689,12 +689,12 @@ neue Verbindung zwischen Q1 und R15 gelötet.
 Das Verhältnis des Spannungsteilers muss bei der Konfiguration in der Makefile auf jeden Fall angegeben
 werden bevor eine Software aufgespielt wird (z.B. mit BAT\_NUMERATOR=66).
 
-Das Display Module des Fish8840 Testers besitzt einen 3.3V Spannungsregler, der die Betriebsspannung
+Das Display Module des Fish8840 Testers besitzt einen \(3.3V\) Spannungsregler, der die Betriebsspannung
 des Display-Controllers anpassen soll.
-Da es über die Datenleitungen des Display-Moduls zu einer Erhöhung der 3.3V Betriebsspannung wegen
-der 5V Signale vom ATmega kommt,
+Da es über die Datenleitungen des Display-Moduls zu einer Erhöhung der \(3.3V\) Betriebsspannung wegen
+der \(5V\) Signale vom ATmega kommt,
 wird eine Adapterschaltung nach Abbildung \ref{fig:Fish8840Adapt} empfohlen. Hier sind in die vier
-Datenleitungen vier serielle Widerstände mit jeweils \(2.7~k\Omega\) auf einer kleinen Lochrasterplatine
+Datenleitungen vier serielle Widerstände mit jeweils \(2.7k\Omega\) auf einer kleinen Lochrasterplatine
 zwischengeschaltet.
 Längere Gewindebolzen müssen nun verwendet werden, um das Display mit der Adapterplatine auf dem
 Fish8840 Tester zu befestigen.
@@ -721,7 +721,7 @@ Dabei werden die Ausgänge nicht auf VCC Pegel geschaltet,
 sondern nur die internen ,,Pull-Up'' Widerstände während der Ausgabe für den high Pegel freigeschaltet.
 Wenn die Option PULLUP\_DISABLE gesetzt ist, ist ein externer Pull-Up Widerstand für das
 Reset Signal (PD0) erforderlich.
-Weil die Datensignale nie direkt auf VCC geschaltet werden, kann die 3.3V Versorgung des LCD-Controllers
+Weil die Datensignale nie direkt auf VCC geschaltet werden, kann die \(3.3V\) Versorgung des LCD-Controllers
 auch nicht überhöht werden.
 Die mir vorliegende Platine des Fish8840 Testers hat alle Signale für den Anschluß eines
 Textdisplays an die LCD-Steckerleiste geführt. 
@@ -752,8 +752,8 @@ ebenfalls möglich.
 
 Erfreulich ist, dass für die Signalleitungen des Displays serielle Widerstände
 auf der Adapterplatine vorgesehen sind, wie in der linken Abbildung von~\ref{fig:WeiM8int}
-zu sehen ist. Damit ist eine Überhöhung der 3.3V Versorgung für den Displaycontroller
-wegen der 5V Signalpegel vom ATmega nicht zu befürchten.
+zu sehen ist. Damit ist eine Überhöhung der \(3.3V\) Versorgung für den Displaycontroller
+wegen der \(5V\) Signalpegel vom ATmega nicht zu befürchten.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -776,8 +776,8 @@ Bei der Aufrüstung auf die 1.12k Version
 der Software ergaben sich einige Schwierigkeiten. Wenn die extended Fuse wie empfohlen auf
 0x04 (oder 0xfc) gesetzt wird, kam es bei bestimmten Messungen zu ,,Brown Out'' Resets des
 Prozessors. Diese Resets werden durch kurzzeitige Spannungseinbrüche der VCC Versorgung
-verursacht. Die Platine wurde deshalb mit einem \(4.7~\mu F\) kermamischen Kondensator
-am Eingang des Spannungsreglers und mit einem \(10~\mu F\) keramischen Kondensator am
+verursacht. Die Platine wurde deshalb mit einem \(4.7\mu F\) kermamischen Kondensator
+am Eingang des Spannungsreglers und mit einem \(10\mu F\) keramischen Kondensator am
 Reglerausgang (VCC) zusätzlich abgeblockt. Sowohl vor der Nachrüstung als auch danach
 wurde bei bipolaren Transistoren ein Kollektor-Reststrom (ICEO oder ICEs) gemessen.
 Erst der Austausch des LDO-Spannungsreglers (unbekannter Typ) durch einen MCP1702-5002
@@ -824,7 +824,7 @@ brachte keine Überraschungen.
 Auf den Fotos der Rückseite in Abbildung \ref{fig:T4_back} sieht man die nachgerüsteten
 \(5mm\) Gewindebolzen sowie die nachträglich angelöteten Kabel mit Messclips.
 Da aber für die Datensignale des graphischen LCD-Controllers auch hier
-keine Signalanpassung (5V -> 3.3V) erfolgt, ist das Setzen der Option LCD\_SPI\_OPEN\_COL ratsam.
+keine Signalanpassung (\(5V~-\textgreater ~3.3V\)) erfolgt, ist das Setzen der Option LCD\_SPI\_OPEN\_COL ratsam.
 Da die Nachrüstung eines ,,pull-up'' Widerstandes für das SPI-Reset Signal hier
 aber schwierig durchzuführen ist, bleibt nur das Entfernen der Option
 DISABLE\_PULLUP übrig. 
@@ -852,8 +852,8 @@ Bei dieser Version ist das graphische Display an eine 16-pol Buchsenleiste mit e
 angeschlossen.
 Dabei ist auch der Port PD5 über die Buchsenleiste Pin 6 an das CE (Chip Enable) Signal
 des graphischen Controllers angeschlossen. Das CE Signal ist aber auf der Tochterplatine auch mit der
-0V Power (GND) verbunden.
-Das führt zu einem Kurzschluß, wenn der ATmega den PD5 Ausgang auf 5V schalten möchte.
+\(0V\) Power (GND) verbunden.
+Das führt zu einem Kurzschluß, wenn der ATmega den PD5 Ausgang auf \(5V\) schalten möchte.
 Neuere Versionen der Software schalten aber auch das CE Signal, auch wenn das Signal für den Betrieb nicht
 benötigt wird.
 Deswegen sollte bei dem ,,GM328'' Tester die Verbindung der Tochterplatine zum Pin 6 
@@ -870,15 +870,15 @@ Ein Impulsdrehgeber nach Schaltung \ref{fig:RotExt} kann hier an PB5 und PB7 (st
 Beide Signale und auch die Versorgungssignale VCC und GND sind am ISP-Stecker verfügbar,
 sodass die Erweiterung auch hier angeschlossen werden kann.\\
 
-Der 16:1-Frequenzteiler 74HC4060 wird für höhere Frequenzen als 2 MHz immer benutzt.
-Der Teiler kann aber auch für Frequenzen von 25kHz bis 400kHz benutzt werden, um mit der
+Der 16:1-Frequenzteiler 74HC4060 wird für höhere Frequenzen als \(2MHz\) immer benutzt.
+Der Teiler kann aber auch für Frequenzen von \(25kHz\) bis \(400kHz\) benutzt werden, um mit der
 Periodenmessung die Auflösung der Frequenzmessung zu verbessern.
 Für die Umschaltung der Betriebszustände (Frequenzteiler und Quarz-Oszillator) werden
 die Analogschalter 74HC4052 benutzt.
 Die Tabelle \ref{tab:mega644-display} zeigt die Pinbelegung für den ATmega324/624/1284 Mikrocontroller für verschiedene Displayanschlüsse.
 Die I\textsuperscript{2}C-Schnittstelle ist nur mit dem SSD1306-Controller möglich.
-Die Signale der I\textsuperscript{2}C-Schnittstelle erfordern einen ,,Pull-Up''-Widerstand von etwa \(4,7k\Omega\) nach 3,3V.
-Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 0V geschaltet.
+Die Signale der I\textsuperscript{2}C-Schnittstelle erfordern einen ,,Pull-Up''-Widerstand von etwa \(4,7k\Omega\) nach \(3,3V\).
+Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach \(0V\) geschaltet.
 
 
 \begin{table}[H]
@@ -1019,13 +1019,13 @@ Zusätzlich muss der ATmega mit den ,,fuses'' richtig konfiguriert werden.
 Wenn Sie meine Makefile zusammen mit dem Programm avrdude \cite{avrdude} benutzen, brauchen Sie
 keine genaue Kenntnis über die Einzelheiten der fuses.
 Sie brauchen nur ,,make fuses'' aufrufen, wenn Sie keinen Quarz benutzen oder Sie
-müssen ,,make fuses-crystal'' aufrufen, wenn Sie einen 8MHz Quarz auf der Baugruppe installiert haben.
+müssen ,,make fuses-crystal'' aufrufen, wenn Sie einen \(8MHz\) Quarz auf der Baugruppe installiert haben.
 Bei der ATmega168-Serie der Mikrocontroller können Sie alternativ auch
 ,,make fuses-crystal-lp'' aufrufen für den low power Quarz-Betrieb.
-Benutzen Sie niemals die Quarz-Variante, wenn Sie keinen 8MHz Quarz installiert haben.
+Benutzen Sie niemals die Quarz-Variante, wenn Sie keinen \(8MHz\) Quarz installiert haben.
 Wenn Sie sich nicht sicher mit den fuses sind, lassen Sie diese erst einmal wie
 vom Werk gesetzt und bringen Sie den Tester in diesem Zustand zum Laufen.
-Es kann sein, dass das Programm zu langsam läuft, wenn Sie die für den 8MHz-Betrieb 
+Es kann sein, dass das Programm zu langsam läuft, wenn Sie die für den \(8MHz\)-Betrieb 
 erzeugten Programmdaten benutzen, aber das kann man später korrigieren!
 Aber falsch gesetzte fuses können die spätere ISP-Programmierung verhindern.
 
@@ -1139,16 +1139,16 @@ loslassen.
 \item[Gerät schaltet nicht ein]  
 Wenn die LED nicht leuchtet, aber die VCC-Spannung den richtigen Wert hat, wenn
 man den Start-Taster gedückt hält, schaltet der Mikrocontroller nicht richtig ein.
-Der Mikrocontroller sollte die Spannung behalten indem der Ausgang PD6 auf 5V
+Der Mikrocontroller sollte die Spannung behalten indem der Ausgang PD6 auf \(5V\)
 geschaltet wird, was üblicherweise als eine der ersten Aktionen getan wird.
 Wenn man die Start-Taste gedrückt hält, bleibt die Spannung ohnehin eingeschaltet.
 So können Sie mit gedrücktem Taster den Wert der VCC-Spannung und zusätzlich den Spannungswert am
 Ausgang PD6 prüfen.
-Wenn die VCC-Spannung den richtigen Wert (5V) hat, aber die Spannung am Ausgang
-PD6 unter 4V ist, startet der Mikrocontroller nicht richtig.
+Wenn die VCC-Spannung den richtigen Wert (\(5V\)) hat, aber die Spannung am Ausgang
+PD6 unter \(4V\) ist, startet der Mikrocontroller nicht richtig.
 Für diesen Fall sollten Sie prüfen, ob die Programmdaten für den Flashspeicher
 für den richtigen Prozessor-Typ ist und ob der Prozessor richtig konfiguriert ist (fuses).
-Wenn der ATmega den Ausgang PD6 auf 5V schaltet und die Betriebsspannung 
+Wenn der ATmega den Ausgang PD6 auf \(5V\) schaltet und die Betriebsspannung 
 trotzdem nicht eingeschaltet bleibt, wenn man den Start-Taster loslässt, ist der
 Grund schwieriger zu finden.
 Zuerst kann man die LED kurzschliessen und es noch einmal versuchen.
@@ -1165,7 +1165,7 @@ durch Sichtkontrolle.
 Wenn Sie ein Hochtemperatur-Display haben, brauchen Sie eine negative Kontrast-Spannung für
 den Betrieb.
 In diesem Fall kann man den ICL~7660-Baustein zum Erzeugen der negativen Spannung aus der
-positiven 5V verwenden.
+positiven \(5V\) verwenden.
 
 Der Tester kann für viele verschiedene Controller mit unterschiedlichen Anschlußarten
 konfiguriert werden. Prüfen sie auf jeden Fall, ob die Software zu ihrem Display paßt.
@@ -1195,7 +1195,7 @@ Wenn alle Programmdaten richtig geladen wurden, sollten Sie die Taktrate ihrer
 Programmdaten (Makefile) und die ATmega-Einstellungen prüfen (fuses).
 
 \item[Messung ist zu langsam und Kapazitäten werden um Faktor 8 zu klein gemessen.] 
-Sie betreiben die Software, die für 8MHz übersetzt wurde mit einer Taktrate von 1MHz.
+Sie betreiben die Software, die für \(8MHz\) übersetzt wurde mit einer Taktrate von \(1MHz\).
 Bitte konfigurieren Sie den ATmega mit den fuses richtig.
 
 \item[Die Messung ergibt seltsame Ergebnisse]  
@@ -1203,7 +1203,7 @@ Bitte konfigurieren Sie den ATmega mit den fuses richtig.
 Der ISP-Stecker sollte nicht während einer Messung eingesteckt bleiben.
 Sehr oft ist der Grund für falsche Messergebnisse, dass die Software mit der
  AUTOSCALE\_ADC Option und der NO\_REF\_CAP Option übersetzt wurde, aber der
-Kondensator am AREF-Pin hat immer noch einen Wert von 100nF.
+Kondensator am AREF-Pin hat immer noch einen Wert von \(100nF\).
 Falsche Bestückung von Bauteilen können auch eine Ursache für Messfehler sein 
 oder zurückgebliebene Flussmittelreste können die Messung stören.
 Bitte prüfen Sie nach Möglichkeit mit der Selbsttest-Funktion der

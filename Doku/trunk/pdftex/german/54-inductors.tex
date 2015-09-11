@@ -1,6 +1,6 @@
 \section{Messen von Induktivitäten}
 Die Messung von Induktivitätswerten wird nach allen anderen Messungen als separater Teil mit allen
-gefundenen Widerständen mit weniger als \(2100~\Omega\) durchgeführt.
+gefundenen Widerständen mit weniger als \(2100\Omega\) durchgeführt.
 Das Messverfahren beruht auf dem Prinzip, dass beim Schliessen des Stromkreises der Strom nach
 der Formel \(Il~=~Imax~\cdot~(1~-~\exp{\frac{-t}{\tau}})\) ansteigt.
 Die Zeitkonstante \(\tau = \frac{L}{R}\) ist proportional zu der Induktivität~\(L\), aber umgekehrt
@@ -8,10 +8,10 @@ proportional zum Widerstand~\(R\).
 Der Strom kann hier nur indirekt über den Spannungsabfall an einem Widerstand
 gemessen werden.
 
-Leider wird durch den relativ hohen Widerstand \(680~\Omega\) die Zeitkonstante zusätzlich verringert, was
-wiederum die Messung von kleinen Induktivitäten mit dem Takt von 8 MHz zusätzlich erschwert.
-Um die Zeitkonstante zu bestimmen, wird die Spannung am \(680~\Omega\)-Widerstand als Stromsensor
-mit dem analogen Komparator überwacht. Wenn der Spannungsabfall am \(680~\Omega\)-Widerstand grösser als
+Leider wird durch den relativ hohen Widerstand \(680\Omega\) die Zeitkonstante zusätzlich verringert, was
+wiederum die Messung von kleinen Induktivitäten mit dem Takt von \(8MHz\) zusätzlich erschwert.
+Um die Zeitkonstante zu bestimmen, wird die Spannung am \(680\Omega\)-Widerstand als Stromsensor
+mit dem analogen Komparator überwacht. Wenn der Spannungsabfall am \(680\Omega\)-Widerstand grösser als
 die Vergleichs-Spannung der internen Spannungsreferenz wird, meldet der Komparator dies an den beim
 Stromeinschalten gestarteten 16-Bit-Zähler weiter, der daraufhin den Zählerstand dieses
 Ereignisses festhält. Eventuelle Überläufe des Zählers werden vom Programm mitgezählt. 
@@ -29,21 +29,21 @@ Das Schaltbild~\ref{fig:Inductance} zeigt ein vereinfachtes Diagram der Messsitu
 \end{figure}
 
 Aus der Versorgungsspannung VCC und der Summe aller Widerstände im Stromkreis kann der Maximalstrom Imax und
-daraus der Anteil der Vergleichsspannung im Verhältnis zur Maximalspannung am \(680~\Omega\)-Widerstand
+daraus der Anteil der Vergleichsspannung im Verhältnis zur Maximalspannung am \(680\Omega\)-Widerstand
 \(Umax~=~Imax~\cdot~(680~+~19)\) bestimmt werden.
 Mit der Formel \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) kann die Induktivität bestimmt werden.
 Der natürliche Logarithmus wird im Programm mit einer Tabelle ermittelt.
-Die Auflösung der Induktivität wird für diese Art der Messung auf 0,1mH gesetzt.
+Die Auflösung der Induktivität wird für diese Art der Messung auf \(0,1mH\) gesetzt.
 
-Um auch kleinere Induktivitäten messen zu können, wird der \(680 \Omega\)-Widerstand im Stromkreis weggelassen,
-wenn der Widerstandswert der Spule kleiner \(24 \Omega\) gemessen wurde. Als Messwiderstand für die Strom-Messung
-dient in diesem Fall der Ausgangswiderstand der Ausgabeports (\(19 \Omega\)). In diesem Fall wird der Spitzenstrom grösser
+Um auch kleinere Induktivitäten messen zu können, wird der \(680\Omega\)-Widerstand im Stromkreis weggelassen,
+wenn der Widerstandswert der Spule kleiner \(24\Omega\) gemessen wurde. Als Messwiderstand für die Strom-Messung
+dient in diesem Fall der Ausgangswiderstand der Ausgabeports (\(19\Omega\)). In diesem Fall wird der Spitzenstrom grösser
 als es die Spezifikation des ATmega erlaubt. Da das nur für eine sehr kurze Zeit passiert, erwarte ich keine Schäden.
 Um eine längere Zeitdauer mit überhöhtem Strom auszuschliessen, wird die zusätzliche Messung mit 
-verzögertem Zählerstart immer mit \(680 \Omega\)-Widerstand durchgeführt.
-Für diesen Typ der Messung wird die Auflösung der Induktivität auf 0,01mH gesetzt.
+verzögertem Zählerstart immer mit \(680\Omega\)-Widerstand durchgeführt.
+Für diesen Typ der Messung wird die Auflösung der Induktivität auf \(0,01mH\) gesetzt.
 Um die Messergebnisse an den tatsächlichen Induktivitätswert anzugleichen, wird vom Zählerstand ein
-Nulloffset von 6 abgezogen, wenn ohne \(680 \Omega\) gemessen wurde. Sonst wird ein Nulloffset von 7 oder 8 berücksichtigt.
+Nulloffset von 6 abgezogen, wenn ohne \(680\Omega\) gemessen wurde. Sonst wird ein Nulloffset von 7 oder 8 berücksichtigt.
 
 
 Bei großen Induktivitäten können parasitäre Kapazitäten den Strom so schnell ansteigen lassen, dass

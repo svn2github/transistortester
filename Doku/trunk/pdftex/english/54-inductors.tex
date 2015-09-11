@@ -1,17 +1,17 @@
 \section{Measurement of inductance}
 The measurement of inductance values will be done as separate part with all found resistors with
-less than \(2100~\Omega\).
+less than \(2100\Omega\).
 The methode of measurement is based on the growing of current by formula \(Il~=~Imax~\cdot~(1~-~\exp{\frac{-t}{\tau}})\) 
 after switching on the current.
 The time constant \(\tau = \frac{L}{R}\) is proportional to the inductance~\(L\), but reverse proportional to the
 resistor~\(R\). 
 The current can only measured indirectly with the potential drop of a resistor.
 
-Unfortunately the time constant will be reduced additionally by the relative high resistance \(680~\Omega\),
-for that the measurement of little inductance values is additionally made difficult with the 8 MHz clock.
-To get the time constant, the voltage at the \(680~\Omega\) resistor will be monitored by the analog
+Unfortunately the time constant will be reduced additionally by the relative high resistance \(680\Omega\),
+for that the measurement of little inductance values is additionally made difficult with the \(8MHz\) clock.
+To get the time constant, the voltage at the \(680\Omega\) resistor will be monitored by the analog
 comparator.
-If the voltage drop at the \(680~\Omega\) resistor is higher than the voltage of the internal reference, this
+If the voltage drop at the \(680\Omega\) resistor is higher than the voltage of the internal reference, this
 event will be notified to the 16-bit counter, which is started at the same time of switching current on.
 The counter will save the state of this event.
 If the counter will overrun, this will be counted by the program.
@@ -29,23 +29,23 @@ The figure~\ref{fig:Inductance} shown a simplified diagram of the measurement si
 \end{figure}
 
 With the supply voltage VCC and the sum of all resistors in the electric circuit the maximum current Imax and from
-that the percentage of the reference voltage to the maximum voltage at the \(680~\Omega\) resistor can be calculated
+that the percentage of the reference voltage to the maximum voltage at the \(680\Omega\) resistor can be calculated
 \(Umax~=~Imax~\cdot~(680~+~19)\) .
 With the formula \(L~=~-\frac{t~\cdot~Rges}{\log{(1~-~\frac{Uref}{Umax})}}\) the inductance can be calculated.
 The natural logarithm will be taken out of a build in table.
-A inductance resolution of 0.1mH is taken for this type of measurement.
+A inductance resolution of \(0.1mH\) is taken for this type of measurement.
 
 
-In order to also measure lower inductance values, the \(680 \Omega\) resistor will be omitted in the current loop,
-if the resistance value of the inductor is measured with less than \(24 \Omega\).
-Only the output resistance of the port (\(19 \Omega\)) will be used for measurement of the current.
+In order to also measure lower inductance values, the \(680\Omega\) resistor will be omitted in the current loop,
+if the resistance value of the inductor is measured with less than \(24\Omega\).
+Only the output resistance of the port (\(19\Omega\)) will be used for measurement of the current.
 In this special case the peak current will be greater than the value, that the specification of the ATmega allows.
 Because this will be true only for a very short time, I expect no damage of the ATmega ports.
-For this type of measurement a resolution of inductance of 0.01mH is selected.
+For this type of measurement a resolution of inductance of \(0.01mH\) is selected.
 To avoid a longer time with excessive current, the additional measurement with delayed start of the counter will always be
-done with the \(680 \Omega\) resistor.
+done with the \(680\Omega\) resistor.
 To get better fitting measurement results, a zero offset of 6 is subtract from the counter reading, 
-if the measurement is done without the \(680 \Omega\) resistor. Otherwise a zero offset of 7 or 8 is subtracted.
+if the measurement is done without the \(680\Omega\) resistor. Otherwise a zero offset of 7 or 8 is subtracted.
 
 
 With great inductance values the parasitic capacity can cause a quick rise of current, so that the comparator
@@ -59,7 +59,7 @@ lower result of the different current direction as the displayed result.
 
 \subsection{Results of the inductance measurements}
 The figure~\ref{fig:Induct328p} shows the results of the measurement of different inductors.
-The Inductors above \(1 H\) are relays or primary sides of power transformers, for which
+The Inductors above \(1H\) are relays or primary sides of power transformers, for which
 measurements are difficult because the iron core has residual remanence.
 
 

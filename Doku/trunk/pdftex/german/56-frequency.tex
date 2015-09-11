@@ -15,21 +15,21 @@ Die Zeitverzögerung durch die beiden Interrupt-Service-Routinen ist ungefähr g
 Für die Einhaltung der exakten Sekunde ist eine konstante Zeitverzögerung unerheblich.
 Durch Analyse des Assemblercodes kann die Zeitungleichheit ausgeglichen werden.\\
 
-Bei Frequenzen unter \(25 kHz\) wird die Messung durch die Messung einer Periodendauer
+Bei Frequenzen unter \(25kHz\) wird die Messung durch die Messung einer Periodendauer
 ergänzt. Diese Messung wird im Anschluss an eine normale Frequenzmessung durchgeführt.
 Dabei werden die Zeit einer bestimmten Anzahl von Pegelwechsel des PCINT20-Eingangs (PD4) 
 mit dem Zähler 0 gemessen. 
 Bei der Periodenmessung sollte sowohl die negative Pulsweite als auch die positive Pulsweite
 in jeder Periode mindestens \(10\mu s\) betragen.
 Der Zähler 0 läuft dabei mit voller CPU-Taktrate und das ergibt für eine Periode eine
-Aulösung von \(125 ns\). Durch eine größere Anzahl von gemessenen Perioden kann die Auflösung
+Aulösung von \(125ns\). Durch eine größere Anzahl von gemessenen Perioden kann die Auflösung
 verbessert werden. Bei 125 Perioden (250 Pegelwechsel) ergeben sich so schon eine mittlere
-Auflösung für eine Periode von \(1 ns\). Damit keine Ungenauigkeit beim Starten und
+Auflösung für eine Periode von \(1ns\). Damit keine Ungenauigkeit beim Starten und
 Stoppen von Zähler 0 entsteht, wird der Zähler 0 mit dem ersten Pegelwechsel von
 PCINT20 gestartet und nach der vorgegebenen Zahl über die gleiche Interrupt Service Routine
 wieder gestoppt.
 Die Zahl der Perioden wird so gewählt, dass die Messzeit etwa 10 Millionen Takte beträgt.
-Der Fehleranteil eines Taktes macht dann 0,1ppm aus.
+Der Fehleranteil eines Taktes macht dann 0,1~ppm aus.
 Bei \(8MHz\) beträgt die Messzeit also etwa 1,25 Sekunden.
 Aus der so ermittelten mittleren Periode wird dann eine Frequenz mit höherer Auflösung berechnet.
 
@@ -46,20 +46,20 @@ Die nahezu konstanten relativen Abweichungen sind durch die geringen Frequenzunt
 \label{fig:freq-ppm}
 \end{figure}
 
-Eine Abstimmung der Quarzfrequenz ist mit einem einstellbaren Kondensator (5-25pF Trimmer) am Quarz möglich.
+Eine Abstimmung der Quarzfrequenz ist mit einem einstellbaren Kondensator (\(5-25pF\) Trimmer) am Quarz möglich.
 Als Referenz zum Abstimmen habe ich das Sekundensignal (1PPS) mit dem GPS-Empfänger {\bf UP501} von {\bf Fastrax Ltd.} und
 mit dem GPS/GLONASS-Empfänger {\bf GNS701} von {\bf Global Navigation Systems GmbH} erfolgreich getestet.
-Die gemessene Periode ließ sich mit dem Trimmer auf exakt \(1000,000 ms\) abgleichen.
+Die gemessene Periode ließ sich mit dem Trimmer auf exakt \(1000,000ms\) abgleichen.
 Lediglich die letzte angezeigte Ziffer kann um 1 schwanken.
 Natürlich ist die Frequenz des Quarzes temperaturabhängig.
 Deswegen kann man keine sehr gute Langzeitstabilität erwarten.
 
 Die Abbildung \ref{fig:GPS-1PPS} zeigt die verwendeten Schaltungen mit einem
 UM232 USB-seriell-Wandler als Verbindung der Empfänger-Module mit einem Computer.
-Der UM232-Wandler versorgt die Schaltung sowohl mit 5V als auch mit 3,3V Betriebsspannung
+Der UM232-Wandler versorgt die Schaltung sowohl mit \(5V\) als auch mit \(3,3V\) Betriebsspannung
 aus der USB-Versorgung.
 Für den Betrieb der Empfänger ist eine Verbindung zum Rechner nicht erforderlich.
-Lediglich die 5V-Versorgung der USB-Steckbuchse muss gewährleitet sein.
+Lediglich die \(5V\)-Versorgung der USB-Steckbuchse muss gewährleitet sein.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}

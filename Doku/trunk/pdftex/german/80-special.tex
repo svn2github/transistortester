@@ -12,9 +12,9 @@ Die Pseudofunktionen in der Form \_delay\_ms(200) sind keine Bibliotheksfunktion
 sondern es werden für jede Aufrufstelle Warteschleifen in das Programm eingebaut.
 Das verbraucht viel Speicher, wenn man viele Aufrufe an unterschiedlichen Programmstellen hat.
 Alle solche Aufrufe wurden durch Aufrufe einer speziellen in Assembler-Sprache geschriebenen
-Bibliothek ersetzt, welche nur 74~Bytes des Flashspeichers (bei 8MHz) verbraucht, aber
+Bibliothek ersetzt, welche nur 74~Bytes des Flashspeichers (bei \(8MHz\)) verbraucht, aber
 Aufrufe von wait1us() bis wait5s() in den Stufen 1,2,3,4,5,10,20\dots zur Verfügung stellt.
-Die Routinen enthalten den ''Watch Dog Reset''-Befehl für alle Aufrufe über 50ms.
+Die Routinen enthalten den ''Watch Dog Reset''-Befehl für alle Aufrufe über \(50ms\).
 Jeder Aufruf benötigt nur eine Anweisung (2~Byte). Warte-Aufrufe mit Zwischenwerten
 wie 8ms benötigen zwei Aufrufe (wait5ms() und wait3ms() oder zwei wait4ms()-Aufrufe).
 Ich kenne keine Lösung, die ökonomischer wäre, wenn man viele Warteaufrufe im Programm benutzt.
@@ -32,7 +32,7 @@ wait2s(), wait3s(), wait4s() und wait5s();\\
 Das sind 36~Funktionen, die nur 37~Anweisungen inklusive dem Watch Dog Reset benutzen!
 Da gibt es keinen Weg diese Bibliothek zu verkürzen.
 Zu guter Letzt halten die Aufrufe die exakte Zeit ein, wenn der unterste Aufruf (wait1us) dies tut.
-Nur die Warte-Aufrufe über 50ms sind einen Takt pro 100ms zu lang wegen des zusätzlich eingebauten
+Nur die Warte-Aufrufe über \(50ms\) sind einen Takt pro \(100ms\) zu lang wegen des zusätzlich eingebauten
 Watch Dog Reset.
 
 

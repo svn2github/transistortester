@@ -22,7 +22,7 @@ Seien Sie vorsichtig, wenn Sie nicht das mitgelieferte Makefile benutzen.
 
 Mit den entsprechenden Optionen ist die Software auch auf dem unveränderten Hardware-Entwurf von
 Markus F. lauffähig (PARTNO=m8 , {\bf keine} NO\_AREF\_CAP und {\bf keine} PULLUP\_DISABLE Option).
-Die Taktrate kann mit den fuses auch auf 8MHz gestellt werden, dazu ist kein Quarz erforderlich!
+Die Taktrate kann mit den fuses auch auf \(8MHz\) gestellt werden, dazu ist kein Quarz erforderlich!
 
 
 Die folgenden Optionen der Makefile sind verfügbar, um die Software für den Tester zu konfigurieren:
@@ -65,7 +65,8 @@ den Zeilen 3 und 4 angezeigt.\\
 Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
 
   \item[WITH\_LCD\_ST7665] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
-Schnittstelle angeschlossen ist. Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 
+Schnittstelle angeschlossen ist.
+Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 
 beschrieben werden.
 Anstelle des ST7565-Controllers kann auch zum Beispiel der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss diese Option auf 1306 gesetzt werden.
@@ -113,6 +114,12 @@ Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sin
   Graphic PCF8814   & SPI             & 8814              & disabled (4) \\
                   & I\textsuperscript{2}C & 8814          &   2 \\
                     & 3-line          & 8814              &   3 \\
+    \hline
+  Graphic ILI9163   & SPI             & 9163              & disabled (4) \\
+  128x128 Color     &                 &                   &              \\
+    \hline
+  Graphic ST7735    & SPI             & 7735              & disabled (4) \\
+  128x160 Color     &                 &                   &              \\
     \hline
     \end{tabular}
   \end{center}
@@ -185,7 +192,7 @@ Bei den Alternativen für die graphischen Displays bleibt die Belegung  des Tast
 Beispiel: CFLAGS += -DSTRIP\_GRID\_BOARD
 
   \item[WITH\_MENU] aktiviert eine Menüfunktion für einen ATmega328. Man kann einige Zusatzfunktionen über ein
-Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0,5~s) erreichen kann.
+Auswahlmenü benutzen, welches man über einen langen Tastendruck (\textgreater~0,5s) erreichen kann.
 Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest-Start mit kurzgeschlossenen Testpins
  nur der Kalibrationsteil des Selbsttests ausgeführt.
 Die Tests T1-T7 werden nur beim Selbsttest ausgeführt, der als Menüfunktion ausgewählt werden kann.\\
@@ -235,13 +242,13 @@ Beispiel: CFLAGS += -DNO\_TEST\_T1\_T7
 
   \item[AUTO\_CAL] Der Nullabgleich für die Kondensatormessung wird beim
 Selbsttest zusätzlich ins EEPROM geschrieben und ist damit für die weiteren Messungen abgeglichen.
-Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100~nF\) und \(20~\mu F\) an Pin~1 und Pin~3 
+Wenn nach dem Nullabgleich der Kondensatormessung ein Kondensator mit einer Kapazität zwischen \(100nF\) und \(20\mu F\) an Pin~1 und Pin~3 
 angeschlossen wird, wird auch der Offset des analogen Komparators und die Skalierung für die AUTOSCALE\_ADC
 Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEPROM geschrieben.
 Die Port-Ausgangswiderstände werden zu Beginn jeder Messung neu bestimmt. \\
 Beispiel: CFLAGS += -DAUTO\_CAL
 
-  \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein 50Hz-Signal auf Port 2 und Port 3 erzeugt.
+  \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein \(50Hz\)-Signal auf Port 2 und Port 3 erzeugt.
 Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ
 
@@ -250,7 +257,7 @@ Der Wert kann höher als 3mV gesetzt werden, wenn die Entladung nicht zum Ende k
 Beispiel: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
 
   \item[WITH\_AUTO\_REF] Mit dieser Option wird die Referenzspannung gemessen, um den aktuellen Faktor für die Kapazitätsmessung 
-von kleineren Kapazitäten (unter \(40~\mu F\)) zu ermitteln.\\
+von kleineren Kapazitäten (unter \(40\mu F\)) zu ermitteln.\\
 Beispiel: CFLAGS += -DWITH\_AUTO\_REF
 
   \item[REF\_C\_KORR] gibt einen Offset für die gelesene Referenz-Spannung in mV-Einheiten an.
@@ -263,8 +270,8 @@ Beispiel: CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] gibt einen zusätzlichen Offset für die Referenz-Spannung für die Induktivitätsmessung
 in mV-Einheiten an. Der REF\_C\_KORR-Offset beziehungsweise der gefundene Offset bei der Kalibration
 wird bei der Induktivitätsmessung ebenfalls berücksichtigt.\\
-Der REF\_L\_KORR Wert wird für die Messungen ohne \(680~\Omega\) Widerstand subtrahiert, bei Messungen mit einem
-\(680~\Omega\) Widerstand wird der Wert addiert.
+Der REF\_L\_KORR Wert wird für die Messungen ohne \(680\Omega\) Widerstand subtrahiert, bei Messungen mit einem
+\(680\Omega\) Widerstand wird der Wert addiert.
 Ein Wert von 10 führt zu einer Änderung des Ergebnisses um 1 Prozent.\\
 Beispiel: CFLAGS += -DREF\_L\_KORR=40
 
@@ -300,17 +307,17 @@ Beispiel: CFLAGS += -DWITH\_VEXT
 
   \item[RMETER\_WITH\_L] wählt für die Widerstandsmeßfunktion, die durch einen Widerstand an TP1 und TP3 gestartet wird,
 zusätzlich die Messung von Induktivitäten. Der Betriebsmodus wird dann durch ein {\bf[RL]} am Ende der ersten Displayzeile
-angezeigt. Durch den zusätzlichen Test auf Induktivität wird die Meßzeit für Widerstände unter \(2100~\Omega\) deutlich
-länger. Ohne diese Option werden außerdem Widerstände unter \(10~\Omega\) nicht mit der ESR-Methode gemessen,
+angezeigt. Durch den zusätzlichen Test auf Induktivität wird die Meßzeit für Widerstände unter \(2100\Omega\) deutlich
+länger. Ohne diese Option werden außerdem Widerstände unter \(10\Omega\) nicht mit der ESR-Methode gemessen,
 da als Bauteil eine Induktivität nicht ausgeschlossen werden kann.
 Wegen der kurzen Strompulse können mit der ESR-Methode keine Induktivitäten gemessen werden.
-Weil nur mit der ESR-Methode eine Auflösung von \(0.01~\Omega\) erreicht wird, beträgt ohne diese Option auch für 
-Widerstände unter \(10~\Omega\) die Auflösung nur \(0.1~\Omega\).
+Weil nur mit der ESR-Methode eine Auflösung von \(0.01\Omega\) erreicht wird, beträgt ohne diese Option auch für 
+Widerstände unter \(10\Omega\) die Auflösung nur \(0.1\Omega\).
 Wenn diese Option gesetzt ist, gelten diese Einschränkungen nicht, die Messung kann aber länger dauern.\\
 Beispiel: CFLAGS += -DRMETER\_WITH\_L
 
   \item[AUTOSCALE\_ADC] schaltet die automatische Bereichswahl des ADC (entweder VCC oder interne Referenz) ein.
-Die interne Referenz hat 2,56V für den ATmega8 und 1,1V für die anderen Prozessoren.
+Die interne Referenz hat \(2,56V\) für den ATmega8 und \(1,1V\) für die anderen Prozessoren.
 Beim ATmega8 wird die automatische Bereichswahl nicht mehr benutzt.\\
 Beispiel: CFLAGS += -DAUTOSCALE\_ADC
 
@@ -321,10 +328,10 @@ Beispiel: CFLAGS += -DESR\_ZERO=29
 
   \item[NO\_AREF\_CAP] teilt der Software mit, dass Sie keinen Kondensator am AREF Pin (Pin 21) angeschlossen haben.
 Dies ermöglicht kürzere Wartezeiten für die AUTOSCALE\_ADC Umschaltung des ADC.
-Ein 1nF Kondensator wurde in diesem Modus ohne Fehler getestet.
-Die Abbildungen~\ref{pic:aref1} und \ref{pic:aref5} zeigen die Schaltzeiten mit einem 1nF Kondensator.
-Wie Sie sehen können ist das Schalten von 5V auf 1,1V viel langsamer als das Zurückschalten auf 5V.
-Wenn Sie noch einen \(100 nF\) installiert haben, ist die Schaltzeit etwa Faktor 100 länger!\\
+Ein \(1nF\) Kondensator wurde in diesem Modus ohne Fehler getestet.
+Die Abbildungen~\ref{pic:aref1} und \ref{pic:aref5} zeigen die Schaltzeiten mit einem \(1nF\) Kondensator.
+Wie Sie sehen können ist das Schalten von \(5V\) auf \(1,1V\) viel langsamer als das Zurückschalten auf \(5V\).
+Wenn Sie noch einen \(100nF\) installiert haben, ist die Schaltzeit etwa Faktor 100 länger!\\
 Beispiel: CFLAGS += -DNO\_AREF\_CAP
 
 \end{description}
@@ -333,14 +340,14 @@ Beispiel: CFLAGS += -DNO\_AREF\_CAP
   \begin{subfigure}[b]{8.6cm}
     \centering
     \includegraphics[width=8.3cm]{../PNG/AREF2_1V.png}
-    \caption{from 5V to 1.1V }
+    \caption{from \(5V\) to \(1.1V\) }
     \label{pic:aref1}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{8.6cm}
     \centering
     \includegraphics[width=8.3cm]{../PNG/AREF2VCC.png}
-    \caption{from 1.1V to 5V}
+    \caption{from \(1.1V\) to \(5V\)}
     \label{pic:aref5}
   \end{subfigure}
   \caption{Umschalten von AREF mit einem \(1nF\) Kondensator}
@@ -353,7 +360,7 @@ Wenn die AUTO\_CAL-Option gewählt wurde, ist dieser Wert nur ein Offset zu der 
 AUTO\_CAL Funktion.\\
 Beispiel: CFLAGS += -DREF\_R\_KORR=10
   \item[OP\_MHZ] gibt der Software an, mit welcher Taktfrequenz in MHz der Tester arbeiten wird.
-Die Software ist nur mit 1MHz, 8MHz und zusätzlich auch 16MHz getestet. Der Betrieb mit 8MHz wird wegen der besseren Auflösung der
+Die Software ist nur mit \(1MHz\), \(8MHz\) und zusätzlich auch \(16MHz\) getestet. Der Betrieb mit \(8MHz\) wird wegen der besseren Auflösung der
 Kondensator- und Spulen-Messung empfohlen.\\
 Beispiel: OP\_MHZ = 8
   \item[RESTART\_DELAY\_TICS] muss auf 6 gesetzt werden, wenn der ATmega168 oder ATmega328 ohne Quarz mit dem
@@ -388,7 +395,7 @@ Beispiel: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] diese Option gibt an, wie oft der ADC-Wert eingelesen und addiert werden soll.
 Sie können einen Wert zwischen 5 und 200 wählen um einen Mittelwert für eine ADC-Messung zu bilden.
 Höhere Werte ergeben eine bessere Genauigkeit, aber brauchen längere Messzeit.
-Eine ADC-Messung mit dem Wert 44 braucht etwa 5ms.\\
+Eine ADC-Messung mit dem Wert 44 braucht etwa \(5ms\).\\
 Beispiel: CFLAGS += -DANZ\_MESS=44
 
   \item[POWER\_OFF] Diese Option schaltet die automatische Abschaltfunktion ein.
@@ -421,7 +428,7 @@ Diese Option ist hilfreich um bei batteriebetriebenen Tester-Versionen an den Ba
 Beispiel: CFLAGS += -DBAT\_CHECK
 
   \item[BAT\_OUT] schaltet die Batterie-Spannungsanzeige auf dem LCD ein, wenn BAT\_CHECK gewählt wurde.
- Wenn Ihre 9V-Versorgung eine Diode als Verpolungsschutz installiert hat, können Sie 
+ Wenn Ihre \(9V\)-Versorgung eine Diode als Verpolungsschutz installiert hat, können Sie 
 die Form BAT\_OUT=600 angeben, um die Dioden-Schwellspannung 
 bei der Spannungsanzeige zu berücksichtigen.
 Auch der Spannungsverlust am Transistor T3 kann so mit dieser Option berücksichtigt werden.
@@ -429,22 +436,22 @@ Die Angabe der Schwellspannung in mV beeinflusst nicht die Prüf\-span\-nungs We
 Beispiel 1: CFLAGS += -DBAT\_OUT=300 \\
 Beispiel 2: CFLAGS += -DBAT\_OUT
 
-  \item[BAT\_POOR] setzt die Leer-Spannung für die Batteriespannungs-Prüfung auf den angegebenen Wert in Einheiten von 1mV.
-Die Warn-Spannung ist 0,8V höher als die angegebene Leer-Spannung, wenn die Leer-Spannung mehr als 5,3V beträgt.
-Sonst wird eine 0,4V höhere Warn-Spannung gewählt, bei unter 3,25V sogar nur eine 0,2V höhere Warn-Spannung und
-bei unter 1,3V nur eine 0,1V höhere Warnspannung als die angegebene Leer-Spannung.
-Das Setzen der Leer-Spannung auf Werte wie 5,4V wird für wiederaufladbare 9V Batterien nicht empfohlen,
+  \item[BAT\_POOR] setzt die Leer-Spannung für die Batteriespannungs-Prüfung auf den angegebenen Wert in Einheiten von \(1mV\).
+Die Warn-Spannung ist \(0,8V\) höher als die angegebene Leer-Spannung, wenn die Leer-Spannung mehr als \(5,3V\) beträgt.
+Sonst wird eine \(0,4V\) höhere Warn-Spannung gewählt, bei unter \(3,25V\) sogar nur eine \(0,2V\) höhere Warn-Spannung und
+bei unter \(1,3V\) nur eine \(0,1V\) höhere Warnspannung als die angegebene Leer-Spannung.
+Das Setzen der Leer-Spannung auf Werte wie \(5,4V\) wird für wiederaufladbare \(9V\) Batterien nicht empfohlen,
 weil das die Gefahr von Batterie-Schäden aufgrund von Tiefentladung erhöht!
-Wenn Sie wiederaufladbare 9V-Batterien einsetzen, werden ,,Ready to Use''-Typen wegen der geringeren Selbstentladung empfohlen.\\
-Beispiel für low-drop-Regler (5,4V): CFLAGS += -DBAT\_POOR=5400 \\
-Beispiel für 7805-Regler (6,4V): CFLAGS += -DBAT\_POOR=6400
+Wenn Sie wiederaufladbare \(9V\)-Batterien einsetzen, werden ,,Ready to Use''-Typen wegen der geringeren Selbstentladung empfohlen.\\
+Beispiel für low-drop-Regler (\(5,4V\)): CFLAGS += -DBAT\_POOR=5400 \\
+Beispiel für 7805-Regler (\(6,4V\)): CFLAGS += -DBAT\_POOR=6400
 
   \item[DC\_PWR] Dieser Spannungspegel in mV Einheiten gibt eine Grenze für die Batteriespannung an, oberhalb
 derer der Tester in den ,,DC\_Pwr\_Mode'' wechselt. Normalerweise läuft der Tester in einem Batterie-Modus,
 wo alle Zusatzfunktionen zeitlich beschränkt laufen.
 Mit dem ,,DC\_Pwr\_Mode'' laufen die Zusatzfunktionen zeitlich unbeschränkt.
-Weil es keinen DC-DC Konverter gibt, der mit einer Eingangsspannung von 0.9V läuft,
-wird der ,,DC\_Pwr\_Mode'' auch gestartet, wenn eine Batteriespannung unterhalb 0.9V entdeckt wird.\\
+Weil es keinen DC-DC Konverter gibt, der mit einer Eingangsspannung von \(0.9V\) läuft,
+wird der ,,DC\_Pwr\_Mode'' auch gestartet, wenn eine Batteriespannung unterhalb \(0.9V\) entdeckt wird.\\
 Beispiel: CFLAGS += -DDC\_PWR=9500
 
   \item[INHIBIT\_SLEEP\_MODE] sperrt die Benutzung des ,,Sleep Mode'' (Schlafzustand) des Prozessors.

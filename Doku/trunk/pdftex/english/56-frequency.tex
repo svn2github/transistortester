@@ -7,7 +7,7 @@ Beginning with Version 1.10k the frequency measurement can be selected with a co
 The normal frequency measurement is done with counting the falling edges of input signal T0 (PD4)
 with counter 0 für one second. For maintaining of a accurate second, the counter 1 is used
 with a 256:1 prescaler of the CPU frequency. 
-The 16 bit counter of the ATmega can be used up to 16 MHz CPU frequency with the prescaler to
+The 16 bit counter of the ATmega can be used up to \(16MHz\) CPU frequency with the prescaler to
 serve the second period in one pass.
 For the start and stop of the counter 0 ist the compare register B and A of the counter 1 used.
 To prevent a unstable delay by polling the compare event signals, for starting and stopping the
@@ -16,21 +16,21 @@ The time delay of both Interrupt Service Routines is nearly equal.
 To maintain a accurate second period is a constant delay insignificant.
 With analysing the assembler code, the difference in time can be adjusted.\\
 
-For frequencies below \(25 kHz\) the normal measurement is followed by a measurement of
+For frequencies below \(25kHz\) the normal measurement is followed by a measurement of
 period time. This additional measurement is only followed after a normal frequency measurement.
 This will be done by measuring the time of a selectable count of the Pin Change interrupts
 of the PCINT20 (PD4) input with the counter 0.
 By measuring the period both, the negative puls width and the positive puls width, should be
 at least \(10\mu s\) .
-The counter 0 is used with full clock rate. This results to a resolution of \(125 ns\) for
-\(8 MHz\). With a greater count of measurements periods the resolution can be reduced.
-By using a measurement period of 125 periods, the middle resolution for one period is \(1 ns\).
+The counter 0 is used with full clock rate. This results to a resolution of \(125ns\) for
+\(8MHz\). With a greater count of measurements periods the resolution can be reduced.
+By using a measurement period of 125 periods, the middle resolution for one period is \(1ns\).
 To prevent the inexactness of start and stop the counter 0, the start of counter 0 is started
 within the first pin change interrupt of PCINT20 and will be stopped with the last pin change interrupt
 with the same interrupt service routine.
 The count of periodes is choosed, that the measurement time is about 10 million clock tics.
 The part of error from one clock is only 0.1ppm with this choise.
-With a \(8 MHz\) clock the measurement time is about 1.25 seconds.
+With a \(8MHz\) clock the measurement time is about 1.25 seconds.
 From this mean value of one period a frequency with better resolution is computed too.
 
 For checking the procedure, two testers are measured against each other.
@@ -46,21 +46,21 @@ The nearly constant errors can be explained with a little frequency difference o
 \label{fig:freq-ppm}
 \end{figure}
 
-Tuning of the cystal frequency is possible with a adjustable capacitor (5-25 pF) at the crystal.
+Tuning of the cystal frequency is possible with a adjustable capacitor (5-25pF) at the crystal.
 The one pulse per second (1PPS) from the GPS receiver {\bf UP501} from {\bf Fastrax Ltd.} and from the GPS/GLONASS receiver
 {\bf GNS701} from {\bf Global Navigation Systems GmbH} has been tested successfully for the calibration of the
 crystal frequency.
-The measured period could be adjusted to exactly \(1000.000 ms\).
+The measured period could be adjusted to exactly \(1000.000ms\).
 Only the last digit can toggle with one unit.
 Of course the frequency of the crystal is temperature dependent.
 Therefore you can not expect a very good long time stability.
 
 The figure \ref{fig:GPS-1PPS} shows the used circuits with a UM232 USB-serial converter
 as connection of the receiver modules to a computer.
-The UM232 converter support the circuit sowohl with both, the 5V and the 3.3V supply voltage
+The UM232 converter support the circuit sowohl with both, the \(5V\) and the \(3.3V\) supply voltage
 from the USB supply voltage.
 No connection to a computer is required for operating the receivers.
-Only the 5V supply voltage must be provided to the USB connector.
+Only the \(5V\) supply voltage must be provided to the USB connector.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}

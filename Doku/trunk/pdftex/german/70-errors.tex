@@ -19,19 +19,19 @@ Das Kühlen des Transistors kann helfen, einen realistischeren Stromverstärkung
 \item Bei Leistungs-Doppeldioden vom Schottky-Typ wie MBR3045PT kann bei Anschluss einer Einzeldiode keine Kapazitätsmessung in Sperr-Richtung 
 durchgeführt werden. Der Grund ist ein zu hoher Reststrom. Der Fehler kann manchmal durch Kühlen (Kältespray) umgangen werden.
 
-\item Es ist gelegentlich zu einer Falscherkennung einer 2,5V Präzisionsreferenz gekommen, wenn der Anschluss PC4 (Pin 27) unbeschaltet ist.
+\item Es ist gelegentlich zu einer Falscherkennung einer \(2,5V\) Präzisionsreferenz gekommen, wenn der Anschluss PC4 (Pin 27) unbeschaltet ist.
 Abhilfe ist möglich mit einem zusätzlichen Pull-Up-Widerstand nach VCC.
 
 \item Die Diodenfunktion des Gates eines Triac kann nicht untersucht werden.
 
-\item Vereinzelt ist von Problemen mit der Brown-Out-Schwelle 4,3V für ATmega168- oder ATmega328-Prozessoren berichtet worden.
+\item Vereinzelt ist von Problemen mit der Brown-Out-Schwelle \(4,3V\) für ATmega168- oder ATmega328-Prozessoren berichtet worden.
 Dabei kommt es zu Resets bei der Kondensatormessung. Eine Ursache ist nicht bekannt.
-Der Fehler verschwindet, wenn man die Brown-Out-Schwelle auf 2,7V einstellt.
+Der Fehler verschwindet, wenn man die Brown-Out-Schwelle auf \(2,7V\) einstellt.
 
 \item Mit der Benutzung des Schlafzustandes des Prozessors schwankt die VCC-Stromaufnahme mehr als
 in älteren Softwareversionen.
 Sie sollten die Abblock-Kondensatoren überprüfen, wenn Sie irgendwelche Probleme feststellen.
-Keramische 100nF Kondensatoren sollten in der Nähe der Poweranschlüsse des ATmega angeschlossen sein.
+Keramische \(100nF\) Kondensatoren sollten in der Nähe der Poweranschlüsse des ATmega angeschlossen sein.
 Sie können die Benutzung des Schlafzustandes auch mit der Makefile-Option INHIBIT\_SLEEP\_MODE verhindern.
 
 \item Das Messen von Tantal-Elektrolyt-Kondensatoren macht oft Probleme.

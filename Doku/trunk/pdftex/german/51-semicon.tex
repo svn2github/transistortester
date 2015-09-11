@@ -6,17 +6,17 @@ Ein Testpin wird die positive Seite des Bauteils angenommen und direkt mit VCC v
 Ein anderer Pin wird als negative Seite des Bauteils angenommen.
 Die negative Seite wird mit dem \(680\Omega\) Widerstand nach GND verbunden.
 Bei Feldeffekttransistoren ist der Zustand des Transistors von der Spannung des Gitters abhängig.
-Der TriState-Pin wird zuerst mit dem \(680\Omega\)-Widerstand für 5ms mit GND verbunden und
+Der TriState-Pin wird zuerst mit dem \(680\Omega\)-Widerstand für \(5ms\) mit GND verbunden und
 die Spannung an der negativen Seite gemessen.
 Danach wird die Spannung des negativen Testpins wieder gemessen, während der TriState-Pin auf
 Eingang (hochohmig) geschaltet ist.
-Danach wird das angenommene Gate für 5ms mit dem \(680\Omega\)-Widerstand auf VCC geschaltet 
+Danach wird das angenommene Gate für \(5ms\) mit dem \(680\Omega\)-Widerstand auf VCC geschaltet 
 und die Spannung an der negativen Seite noch einmal gemessen.
 Wenn die gemessene Spannung jetzt niedriger ist als bei der ersten Messung, wird diese Schaltung
 als richtig angenommen. Dann wird die Spannung noch einmal mit stromlosem Tristate-Pin gemessen.
 
-Wenn die Spannung des negativen Pins mit festgehaltenem Pegel größer als \(115 mV\) ist
-und dieser Pegel nicht \(100 mV\) niedriger als der Pegel mit stromlosen Tristate-Pin ist,
+Wenn die Spannung des negativen Pins mit festgehaltenem Pegel größer als \(115mV\) ist
+und dieser Pegel nicht \(100mV\) niedriger als der Pegel mit stromlosen Tristate-Pin ist,
 wird ein Verarmungs-Typ angenommen.
 Bei bipolaren Transistoren mit hohem Reststrom ist
 der Kollektor-Reststrom bei stromloser Basis deutlich höher.
@@ -27,10 +27,10 @@ um N-Kanal JFET oder D-MOSFET und P-Kanal JFET oder P-MOSFET zu unterscheiden.
 Die MOSFET-Versionen können erkannt werden durch das Fehlen von Steuerstrom in jedem 
 TriState-Pin-Zustand.
 
-Um Parameter der Verarmungstypen messen zu können, werden sie mit einem \(680 \Omega\)-Widerstand am
+Um Parameter der Verarmungstypen messen zu können, werden sie mit einem \(680\Omega\)-Widerstand am
 Source-Pin vermessen, wie in Abbildung \ref{fig:JFETcd} gezeigt wird. Diese Messung wird anstelle der
 üblichen Messung des Stromes bei einer Gate-Spannung auf Source-Potential gemacht, da wegen des
-relativ hohen \(680 \Omega\) Widerstandes in vielen Fällen der Kennstrom \(I_\mathrm{DSS}\) 
+relativ hohen \(680\Omega\) Widerstandes in vielen Fällen der Kennstrom \(I_\mathrm{DSS}\) 
 des FETs nicht erreicht würde.
 
 \begin{figure}[H]
@@ -49,11 +49,11 @@ Wenn Strom festgestellt wird, sind die nächsten Tests in dem Dioden-Unterkapite
 Zuerst wird der Stromverstärkungsfaktor in der Kollektor-Schaltung (Emitter-Folger) für den angenommenen
 PNP-Transistor gemessen.
 Die Messsituation wird in Abbildung \ref{fig:pnpcc} gezeigt.
-Wenn die gemessene Basis-Spannung (\(UB\)) über 9mV mit dem \(680\Omega\) Widerstand liegt,
+Wenn die gemessene Basis-Spannung (\(UB\)) über \(9mV\) mit dem \(680\Omega\) Widerstand liegt,
 wird die Stromverstärkung hFE berechnet mit \(hFE = \frac{UE-UB}{UB}\). 
 Die Spannung \(UE\) ist die Differenz der Emitter-Spannung zu VCC.
 Die Differenz des \(22\Omega\) und \(19\Omega\)-Widerstandes wird nicht berücksichtigt.
-Wenn die Spannung \(UB\) unter 10mV liegt, wird die Messung mit dem \(470k\Omega\)-Widerstand an der Basis gemacht.
+Wenn die Spannung \(UB\) unter \(10mV\) liegt, wird die Messung mit dem \(470k\Omega\)-Widerstand an der Basis gemacht.
 Für diesen Fall wird der Stromverstärkungsfaktor mit \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\) gebildet.
 
 \begin{figure}[H]
@@ -66,9 +66,9 @@ Für diesen Fall wird der Stromverstärkungsfaktor mit \(hFE = \frac{UE \cdot 47
 Als Nächstes werden die Tests in Emitter-Schaltung für den angenommenen PNP-Transistor gemacht.
 Die positive Seite wird jetzt direkt mit VCC verbunden, der \(680\Omega\)-Widerstand der negativen Seite wird 
 mit GND verbunden, wie es in Abbildung \ref{fig:pnpce} gezeigt wird. 
-Wenn die negative Seite des Bauteils eine Spannung über 3,4V hat, wenn der \(680\Omega\)-Widerstand auf der Basis-Seite mit
+Wenn die negative Seite des Bauteils eine Spannung über \(3,4V\) hat, wenn der \(680\Omega\)-Widerstand auf der Basis-Seite mit
 GND verbunden ist, muss es ein PNP-Transistor oder ein P-Kanal-FET sein.
-Das kann einfach unterschieden werden durch Prüfen der Basis-Spannung: Wenn sie grösser als 0,97V ist, muss es ein PNP sein.
+Das kann einfach unterschieden werden durch Prüfen der Basis-Spannung: Wenn sie grösser als \(0,97V\) ist, muss es ein PNP sein.
 Für die Messung des Stromverstärkungsfaktors wird anstelle des \(680\Omega\)-Widerstandes der
  \(470k\Omega\)-Widerstand als Basis-Widerstand genommen.
 Der Stromverstärkungsfaktor wird berechnet mit \(hFE = \frac{(UC-UC0) \cdot 470000}{UB \cdot (680+19)}\) .
@@ -81,7 +81,7 @@ Die Werte, die für den PNP-Transistor herausgefunden wurden, sind nur gültig, 
 von Messungen gemacht wurde.
 Um zu verhindern, dass der PNP-Transistor in der inversen Schaltung (Kollektor und Emitter vertauscht) erkannt
 wird, wird dann die Messung mit dem höheren Stromverstärkungsfaktor als richtige Messung genommen.
-Wenn die Basis-Spannung kleiner als 0,97V ist, muss es ein P-E-MOS sein.
+Wenn die Basis-Spannung kleiner als \(0,97V\) ist, muss es ein P-E-MOS sein.
 In diesem Fall wird die Gate-Schwellwertspannung dadurch bestimmt, dass die Spannung am Gate langsam mit dem
  \(470k\Omega\)-Widerstand rauf und runter gezogen wird, bis die Drain-Seite schaltet und dann
 die Spannung am Gate gemessen wird.
@@ -105,15 +105,15 @@ Die Messungen werden dann in der Emitter-Schaltung fortgeführt, wie in Abbildun
 \caption{Prüfung und hFE-Messung eines NPN-Transistors in Emitter-Schaltung}
 \label{fig:npnce}
 \end{figure}
-Wenn die Spannung auf der Kollektor Seite unter 1,6V liegt, während der \(680\Omega\)-Basiswiderstand mit
+Wenn die Spannung auf der Kollektor Seite unter \(1,6V\) liegt, während der \(680\Omega\)-Basiswiderstand mit
 VCC verbunden ist, muss es ein NPN, ein N-Kanal MOSFET oder ein Thyristor (TRIAC) sein.
 Mit zwei einfachen Tests kann ein Thyristor oder TRIAC erkannt werden.
-Wenn der Gate-Pin für 10ms mit GND verbunden wird und dann stromlos geschaltet wird, sollte
+Wenn der Gate-Pin für \(10ms\) mit GND verbunden wird und dann stromlos geschaltet wird, sollte
 der Strom an der Anode bleiben.
 Wenn jetzt der Anoden-Widerstand kurz auf GND geschaltet und dann auf VCC zurückgeschaltet wird,
 sollte der Thyristor nicht erneut zünden (stromlos bleiben).
 Beachten Sie, dass nur Kleinleistungs-Thyristoren getestet werden können, weil der Haltestrom des
-Testers nur 6mA erreichen kann.
+Testers nur \(6mA\) erreichen kann.
 Wenn beide Tests einen Thyristor bestätigen, werden weitere Tests in umgekehrter Polarität gemacht,
 um ein TRIAC auszuschliessen oder zu bestätigen.
 
@@ -162,7 +162,7 @@ Diese Summe wird mit Vier multipliziert und durch Neun geteilt, um eine Auflösu
 \subsection{Messung von Dioden}
 \label{sec:diode}
 Wenn Strom bei den Vortests festgestellt wurde, wird das Bauteil auf Diodenverhalten geprüft.
-Die Flussspannung mit dem \(680\Omega\)-Widerstand muss zwischen 0,15V und 4,64V liegen.
+Die Flussspannung mit dem \(680\Omega\)-Widerstand muss zwischen \(0,15V\) und \(4,64V\) liegen.
 Die Flussspannung mit dem \(680\Omega\)-Widerstand muss grösser als 1,125 Mal der Flussspannung mit dem
  \(470k\Omega\)-Widerstand sein und sechzehn Mal die Flussspannung mit dem \(470k\Omega\)-Widerstand muss
 grösser als die Flussspannung mit dem \(680\Omega\)-Widerstand sein.
@@ -171,9 +171,9 @@ Messung mit dem \(680\Omega\)-Widerstand ergeben.
 Ich hoffe, dass ein Bauteil mit diesem Verhalten immer eine Diode ist.
 Die Erkennung des Diodenverhaltens durch den fehlenden Stromfluß in der Gegenrichtung ist nicht
 möglich bei antiparallelen Dioden.
-Bei einer Einzeldiode wird zusätzlich der Sperrstrom der Diode bei 5V mit dem \(470k\Omega\) Widerstand
+Bei einer Einzeldiode wird zusätzlich der Sperrstrom der Diode bei \(5V\) mit dem \(470k\Omega\) Widerstand
 gemessen. Die Auflösung beträgt etwa \(2nA\).
-Bei größeren Restströmen als \(5,3\mu A\) (Spannung am Widerstand größer als 2,5V) wird
+Bei größeren Restströmen als \(5,3\mu A\) (Spannung am Widerstand größer als \(2,5V\)) wird
  mit dem \(680\Omega\) Widerstand gemessen.
 Dann beträgt die Auflösung nur etwa \(1\mu A\).
 Außerdem wird bei Einzeldioden eine Kapazitätsmessung in Sperr-Richtung durchgeführt. 
@@ -182,7 +182,7 @@ Außerdem wird bei Einzeldioden eine Kapazitätsmessung in Sperr-Richtung durchg
 Die folgenden drei Tabelle zeigen die Ergebnisse verschiedener Bauteile 
 eines ATmega8-, ATmega168- und ATmega328-Prozessors.
 Die Messung der Sperrschichtkapazität für die Doppeldiode MBR4045PT gelingt
-nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der 40A-Diode. Ebenso kann für die Basis-Emitter-Strecke 
+nur gekühlt. Die Ursache hierfür ist der hohe Reststrom der \(40A\)-Diode. Ebenso kann für die Basis-Emitter-Strecke 
 des Germanium-Transistors AC128 die Sperrschichtkapazität nur im
 gekühlten Zustand gemessen werden. 
 
@@ -295,8 +295,8 @@ Dies hängt damit zusammen, dass die Stromverstärkung bei der neuen Version auc
 Kollektorschaltung gemessen wird.
 Dies zeigen auch die Ergebnisse der neuen Version in der Emitterschaltung (common emitter),
 wie man in der letzten Spalte der Tabelle \ref{tab:bipolar} sehen kann.
-Die Basis-Emitter-Spannung wurde früher mit einem separaten Diodentest mit 1438mV ermittelt.
-Jetzt wird die angegebene Basis-Emitter-Spannung im Zustand der Verstärkungsmessung (1,20V) ermittelt.
+Die Basis-Emitter-Spannung wurde früher mit einem separaten Diodentest mit \(1438mV\) ermittelt.
+Jetzt wird die angegebene Basis-Emitter-Spannung im Zustand der Verstärkungsmessung (\(1,20V\)) ermittelt.
 Der BUL38D-Transistor enthält eine Schutzdiode über der Anode und dem Kollektor des NPN-Transistors,
 wodurch ein parasitärer PNP-Transistor mit vertauschtem Basis-Kollektor Anschluss entsteht.
 In der Softwareversion 1.10k werden beide Transistoren erkannt und durch das angehängte p auf
@@ -354,7 +354,7 @@ angeschlossenen Signals schaltet.
 Der andere Parameter ist die gemessenen Gatekapazität.
 Bei sehr schneller Änderung der Gatespannung wegen einer kleinen Gatekapazität 
 ist die ermittelte Spannung etwas ungenau.
-Beim BS250 ändert sich die Gatespannung von 2,6V auf 2,5V, wenn man einen zusätzlichen
+Beim BS250 ändert sich die Gatespannung von \(2,6V\) auf \(2,5V\), wenn man einen zusätzlichen
 \(10nF\) Kondensator an Gate-Source anschließt.
 Bei JFET-Transistoren wird in den Datenblättern oft der Idss-Kennstrom genannt,
 der Strom im Drain bei einer Gate-Source-Spannung von 0V.

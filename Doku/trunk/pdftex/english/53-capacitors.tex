@@ -14,32 +14,32 @@ polarity can be in the other order.
 \subsection{Discharging of Capacitors}
 You should always discharge the capacitor before connecting it to the tester.
 The tester additionally discharge the capacitor before any measurement.
-If the voltage is below 1300mV, the capacitor is shortened by the output pins of the connected ADC port (Port C).
+If the voltage is below \(1300mV\), the capacitor is shortened by the output pins of the connected ADC port (Port C).
 I~believe that this is legal because every output port has a built in resistance of about \(20\Omega\).
-The data sheet Figure 149 (page 258) \cite{ATmega8} shows voltage drop of output pins up to 2V.
+The data sheet Figure 149 (page 258) \cite{ATmega8} shows voltage drop of output pins up to \(2V\).
 Of course I can not guaranty, that no damage can occur. 
-I~have tested the function with big capacitors of more than \(15 mF\) many times and I~have never noticed any problem.
-The current should be below the specified limit of 40mA and is reduced fast by discharging.
+I~have tested the function with big capacitors of more than \(15mF\) many times and I~have never noticed any problem.
+The current should be below the specified limit of \(40mA\) and is reduced fast by discharging.
 Off course damage can occur if you do not discharge a (high voltage) capacitor before connecting it to your tester.
 
 \subsection{Measurement of big Capacitors}
 \label{sec:bigcap}
 One side of the capacitor is connected to GND. The other side of the capacitor is connected with the
 \(680\Omega\) resistor to VCC for a period of 10ms. Afterwards this probe pin is switched to Input (High Impedance).
-After this 10 ms current pulse the voltage of the capacitor is measured without any current. If the voltage has not
-reached a minimal value of 300mV, the load pulse is repeated up to 499 times.
-If after 127 pulses a minimum voltage of 75mV is not reached (about 2s), further load is stopped, because never
-the 300mV can be reached with the remaining load pulses.
+After this \(10ms\) current pulse the voltage of the capacitor is measured without any current. If the voltage has not
+reached a minimal value of \(300mV\), the load pulse is repeated up to 499 times.
+If after 127 pulses a minimum voltage of \(75mV\) is not reached (about 2s), further load is stopped, because never
+the \(300mV\) can be reached with the remaining load pulses.
 Figure~\ref{fig:bigcap} shows the three phases of measuring the capacity value of a capacitor.
 The value of the capacity is then computed with the count of load pulses and the reached load voltage from a table.
 The table contains  the factors to get the capacity in nF units from load time and the reached voltage
-with a spacing of 25mV.
+with a spacing of \(25mV\).
 Interim value of voltage will be interpolated.
 
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/Bigcap.eps}
-\caption{discharge a capacitor and load with 10ms load pulses until voltage reach a value of 300mV}
+\caption{discharge a capacitor and load with \(10ms\) load pulses until voltage reach a value of \(300mV\)}
 \label{fig:bigcap}
 \end{figure}
 As a result of the low load voltage, the measurement is much faster than the initial software version,
@@ -50,7 +50,7 @@ Beginning with software version 1.12k a trickery is used to measure the residual
 before the capacity measurement. 
 Depending on the previous history of the capacitor the residual voltage can be positive or negative.
 Negative voltages can not be measured with the ADC. For that reason the voltage of the negative test pin
-is raised with the \(690 \Omega\) resistor to about \(132 mV\) as shown in figure~\ref{fig:CapResidV}.
+is raised with the \(680\Omega\) resistor to about \(132mV\) as shown in figure~\ref{fig:CapResidV}.
 With the difference of the voltages measured at both sides of the capacitor the residual voltage can
 be build with any polarity. The voltage of the positive test pin remains positive in any case, even if
 the capacitor have a negative residual voltage of some mV.
@@ -95,18 +95,18 @@ The last example shows the capacity measuring of a~\(15mF\) capacitor in Figure~
 After this capacity measurement the self-discharge of the capacitor will be checked by
 waiting a proportional period the loading has taken and reading the load voltage again.
 The measured capacity value is corrected due to this voltage drop.
-A test with a parallel connection of a \(68 \mu F\) capacitor and a \(2.2 k\Omega\) resistor shows
+A test with a parallel connection of a \(68\mu F\) capacitor and a \(2.2k\Omega\) resistor shows
 the effectivity of this method.
-The measured capacity value without the resistor is \(66.5 \mu F\),
-with the parallel \(2.2 k\Omega\) resistor results to a capacity value of \(66.3 \mu F\).
+The measured capacity value without the resistor is \(66.5\mu F\),
+with the parallel \(2.2k\Omega\) resistor results to a capacity value of \(66.3\mu F\).
 For comparison here are the results measured with a Peaktech 3315 multimeter:
-Without the resistor a capacity value of \(68.2 \mu F\) is measured, with the
-parallel \(2.2 k\Omega\) resistor a value of \(192 \mu F\) is measured with the multimeter.
+Without the resistor a capacity value of \(68.2\mu F\) is measured, with the
+parallel \(2.2k\Omega\) resistor a value of \(192\mu F\) is measured with the multimeter.
 
 
 \subsection{Measurement of small Capacitors}
-If the first 10 ms load pulse has overloaded the capacitor, another technique of measurement is used.
-The ATmega processor has a build in 16-Bit counter, which can operate at the full clock rate (1MHz or 8MHz).
+If the first \(10ms\) load pulse has overloaded the capacitor, another technique of measurement is used.
+The ATmega processor has a build in 16-Bit counter, which can operate at the full clock rate (\(1MHz\) or \(8MHz\)).
 This counter has also the feature to save his counter value by a external event.
 This event can be built by the output of the comparator. 
 The comparator can operate with any ADC input pin and the band gap reference.
@@ -123,7 +123,7 @@ because the counter can't be stopped by the input capture event.
 The input capture counter and the overflow counter built together the total time,
 from which we can get the capacity with a factor.
 The actual software can use a table with the theoretical  dependency of the load time in respect to the comparator voltage.
-The table is spaced in 50mV steps and will be interpolated according to the actual reference voltage. 
+The table is spaced in \(50mV\) steps and will be interpolated according to the actual reference voltage. 
 This table will only be acticated with the Makefile option WITH\_AUTO\_REF.
 From the build capacity value I subtract a predefined experimental find out constant or a value found by the last selftest
 with AUTO\_CAL option to eliminate the zero offset. 
@@ -138,7 +138,7 @@ The measured reference voltage will then be corrected (added) by your value (mV 
 If option WITH\_AUTO\_REF is not used, the reference voltages of ATmega8, ATmega168 and ATmega328
 are applied as noted in the data sheets~\cite{ATmega8}~\cite{ATmega168}. 
 A sample measurement of this type is shown in figure~\ref{pic:c22uF}.
-The measurement time for the \(22 \mu F\) capacitor is above 2.6s because the \(470k\Omega\) is
+The measurement time for the \(22\mu F\) capacitor is above \(2.6s\) because the \(470k\Omega\) is
 used for charging. But discharging is in this case much faster than charging.
 
 \begin{figure}[H]
@@ -183,7 +183,7 @@ of 20\textdegree C .
 The figures \ref{fig:Cap_FC_data} and \ref{fig:Cap_FR_data} shows the ESR values of the Panasonic series FC and 
 the ''low ESR'' series FR.
 Both series are able to operate up to a temperature of 105\textdegree C.
-The figure \ref{fig:Cap_FC_FR_data} shows the data of both series with a allowable working stress of 25V.
+The figure \ref{fig:Cap_FC_FR_data} shows the data of both series with a allowable working stress of \(25V\).
 If the series have different types with the same capacity and voltage range, the one with the lowest ESR is
 taken for the diagram.
 The values of capacity and ESR of electrolytic capacitors change significant with there operating temperature.
@@ -211,23 +211,23 @@ The values of capacity and ESR of electrolytic capacitors change significant wit
 
 There is no simple way to measure the ESR with a frequency of 100 kHz with the ATmega hardware,
 because neither the ADC can sample a so high input frequency, nor the existing circuit can support
-with a 100 kHz signal.
+with a \(100kHz\) signal.
 At next there will be introduced two method's for the measurement of the ESR, which both manage on 
 the existing circuit.
 Both method's use a rectangular signal for the measurement, so that the results will never be
 the same with the values measured with sinusoidal signal.
 With the first method the measured values are close to those values, which are measured with a
-1 kHz signal. 
+\(1kHz\) signal. 
 But the second method has the advantage, that the zero value can be determined with shorted test pads and
-that additionally the measured ESR is more close to the value measured with 10 kHz signal.
+that additionally the measured ESR is more close to the value measured with \(10kHz\) signal.
 Currently I have no idea for a measurement method, which can produce a ESR value close to the
-value of a 100 kHz measurement.
+value of a \(100kHz\) measurement.
 
 The following table \ref{tab:capESR} should show the dependency of the ESR results from measurement frequency.
-All capacitors without the \(47 \mu F\) capacitor are from the same FC series of manufactor Panasonic.
+All capacitors without the \(47\mu F\) capacitor are from the same FC series of manufactor Panasonic.
 The reference values are measured with a Peaktech 2170 LCR meter.
 All results of the TransistorTester are measured with the method 2 of subchapter \ref{sec:ESR2} .
-Capacitors with big capacity values are difficult to measure with higher frequencies like 100 kHz because
+Capacitors with big capacity values are difficult to measure with higher frequencies like \(100kHz\) because
 the inductance ESL make trouble.
 
 \begin{table}[H]
@@ -235,7 +235,7 @@ the inductance ESL make trouble.
     \begin{tabular}{| l | c | c | c | c | c |}
    \hline
             & Data sheet & PeakTech  & Peaktech & PeakTech & Transistor- \\
-Capacitor   & 100 kHz    & 100 kHz   & 10 kHz   & 1 kHz    & tester  \\
+Capacitor   & 100~kHz    & 100~kHz   & 10~kHz   & 1~kHz    & tester  \\
     \hline
     \hline
 1uF / 50V    & 2.4       & 1.27      & 1.75     & 4.31     &  2.1 \\
@@ -260,26 +260,26 @@ Capacitor   & 100 kHz    & 100 kHz   & 10 kHz   & 1 kHz    & tester  \\
 
 
 \subsection{Measurement of the Equivalent Series Resistance ESR, first way}
-If the measured capacitor has a capacity of more than \(0.45 \mu F\), the tester will try to measure
+If the measured capacitor has a capacity of more than \(0.45\mu F\), the tester will try to measure
 the series resistance too.
-For a capacity of more than \(3.6 \mu F\) the normal clock rate of \(125 kHz\) for the Analog-Digital converter is used.
-For lower capacities the higher clock rate of \(500 kHz\) is used to accelerate the measurement.
+For a capacity of more than \(3.6\mu F\) the normal clock rate of \(125kHz\) for the Analog-Digital converter is used.
+For lower capacities the higher clock rate of \(500kHz\) is used to accelerate the measurement.
 The accuracy of the ADC results will be more worth by the higher clock rate, but this could be accepted by the
 higher ESR values of capacitors with lower capacity.
-Otherwise the measurement of ESR with this method is not possible for a capacity of less than \(1.8 \mu F\) at the normal
-clock rate of \(125 kHz\).
+Otherwise the measurement of ESR with this method is not possible for a capacity of less than \(1.8\mu F\) at the normal
+clock rate of \(125kHz\).
 
 Strictly speaking the ESR of a capacitor depends on the operating frequency and temperature.
-Usually the value measured with sine wave-form signal of \(100 kHz\) is denoted in the data sheets.
+Usually the value measured with sine wave-form signal of \(100kHz\) is denoted in the data sheets.
 This measurement can not be done with the ATmega without external equipment.
 With the subsequent written method the measurement frequency with the standard ADC clock rate will be below 640 Hz
-with nearly rectangular signal. With \(500 kHz\) ADC clock rate the measurement frequency will be 2400 Hz.
+with nearly rectangular signal. With \(500kHz\) ADC clock rate the measurement frequency will be 2400 Hz.
 To get the value of the equivalent series resistance,
 the voltage of both connections will be measured during loading in one direction with the ADC internal reference 
-voltage (1.1 V).
+voltage (\(1.1V\)).
 After the measurement the load current will be switched off and the voltage of the capacitor is measured
 again without the current.
-If this voltage is below 3 mV, the sequence of measurement is repeated.
+If this voltage is below \(3mV\), the sequence of measurement is repeated.
 The figure~\ref{fig:Cap_esr} shows the corresponding circuits.
 
 \begin{figure}[H]
@@ -303,14 +303,14 @@ The difference \(Uesr = Udiff - Uc\) should represent the voltage drop at the in
 mean load current.
 We will get the resistance value with the relation of this voltage \(Uesr\) to the voltage \(Ulp\), scaled with the
 known resistance value of the port output \(Rport\).
-The scale factor is selected to get a resistance resolution of \(0.01 \Omega\):  \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\)
+The scale factor is selected to get a resistance resolution of \(0.01\Omega\):  \(Resr = \frac{Uesr \cdot 10 \cdot Rport}{Ulp}\)
 The figure~\ref{pic:esr4} shows a part of the voltage curve of a \(4.2\mu F\) capacitor during the ESR measurement.
-To explain the influence of the ESR, a series \(6.8 \Omega\) resistor is added to the capacitor.
+To explain the influence of the ESR, a series \(6.8\Omega\) resistor is added to the capacitor.
 The little voltage break after loading the capacitor is interpreted by software to get the ESR.
-The greater voltage drop of the measurement to GND potential is caused by the port output resistance of about \(20 \Omega\).
-For this measurement a total ESR of \(7.5 \Omega\) is reported by the tester, without the series \(6.8 \Omega\) resistor a ESR of \(0.56 \Omega\) is found.
-The figure~\ref{pic:esr2} shows the same measurement with higher measurement frequency of a \(2.2 \mu F\) electrolytical capacitor
-with a ESR of \(6.5 \Omega\).
+The greater voltage drop of the measurement to GND potential is caused by the port output resistance of about \(20\Omega\).
+For this measurement a total ESR of \(7.5\Omega\) is reported by the tester, without the series \(6.8\Omega\) resistor a ESR of \(0.56\Omega\) is found.
+The figure~\ref{pic:esr2} shows the same measurement with higher measurement frequency of a \(2.2\mu F\) electrolytical capacitor
+with a ESR of \(6.5\Omega\).
 
 
 \begin{figure}[H]
@@ -361,22 +361,22 @@ corresponding measurement with load current. This will cause a too high voltage 
 But it is difficult to switch off the current at the right time by software. 
 \item The port output resistance is used as a reference value by this measurement method, but this resistance value is
 not exacly known too.
-\item The resolution of the ADC is not sufficient to get a resolution of resistance of \(0.01 \Omega\).
-To get the best avaiable resolution of ADC, the internal reference (1.1 V) is used for all measurements.
+\item The resolution of the ADC is not sufficient to get a resolution of resistance of \(0.01\Omega\).
+To get the best avaiable resolution of ADC, the internal reference (\(1.1V\)) is used for all measurements.
 The resolution deficit will be attenuated by accumulating a big number of single measurements too.
 \item The switching of ports can not be exactly synchronized to the ADC clock with polling of conversion done.
 \end{enumerate}
 
 Anyway the results seems to be practical, as shown with the following figure \ref{fig:Cesr}.
 The ESR values of the same part measured with the Transistortester vary more than the values measured with the LCR meter.
-The ESR values from the LCR meter are measured with a frequency of 1 kHz or are interpolated for little capacities to
-2.4 kHz.
+The ESR values from the LCR meter are measured with a frequency of \(1kHz\) or are interpolated for little capacities to
+\(2.4kHz\).
 You must respect the quality of all connection parts. The used cable connections can cause a higher measured resistance value.
 The plug connectors can also result a higher resistance value.
 The LCR meter has the advantage of the used Kelvin terminals.
-Only one capacitor with a capacity below \(1 \mu F\) was a \(500 nF\) ceramic type, all others were
+Only one capacitor with a capacity below \(1\mu F\) was a \(500nF\) ceramic type, all others were
 plastic film capacitors.
-The only electrolytical capacitor of the test series below \(9 \mu F\) was a \(2.2 \mu F\) capacitor.
+The only electrolytical capacitor of the test series below \(9\mu F\) was a \(2.2\mu F\) capacitor.
 
 \begin{figure}[H]
 \centering
@@ -419,12 +419,12 @@ It is only assumed, that the capacitor hold the voltage until the next charge or
 
 Due to the shorter load puls not only the ESR of capacitors with lower capacity can be measured, but this
 way of measurement can also be used for the measurement of resistors with little resistance, if they don't
-have a detectable inductance. By doing that, a resolution of \(0.01 \Omega\) for this resistors can be achieved.
+have a detectable inductance. By doing that, a resolution of \(0.01\Omega\) for this resistors can be achieved.
 Also the zero resistance can be detected by the calibration part of the selftest for all three test pin combination.
 You should keep in mind, that stable plug sockets or clamping connectors are essential for stable results.
-The measurement periode is about \(900 \mu s\), which results to a frequency of about \(1.1 kHz\).
-Because the load pulse is very short, the measurement result is comparable to measurements with \(10 kHz\).
-A measurement example with a \(10 \mu F\) foil capacitor, once measured alone and once measures with a \(2.7 \Omega\)
+The measurement periode is about \(900\mu s\), which results to a frequency of about \(1.1kHz\).
+Because the load pulse is very short, the measurement result is comparable to measurements with \(10kHz\).
+A measurement example with a \(10\mu F\) foil capacitor, once measured alone and once measures with a \(2.7\Omega\)
 series resistor is shown in figure~\ref{pic:NewEsr10}.
 You can see the effect of the additional resistance by comparing both diagrams.
 You can see also, why the ADC measurement (SH) should point to the middle of the load pulse.
@@ -450,10 +450,10 @@ known capacity value.
 \end{figure}
 
 
-By using the \(27 \mu s\) long charge pulses the ESR of capacitors above \(180 nF\) can be determined.
-For measuring of capacitors with lower capacity the current pulse is shortened to \(8 \mu s\) for version 1.11k.
-The figures~\ref{pic:NewEsr2} show the voltage curve of a \(2.2 \mu F\) capacitor without and with
-a \(2.7 \Omega\) series resistor.
+By using the \(27\mu s\) long charge pulses the ESR of capacitors above \(180nF\) can be determined.
+For measuring of capacitors with lower capacity the current pulse is shortened to \(8\mu s\) for version 1.11k.
+The figures~\ref{pic:NewEsr2} show the voltage curve of a \(2.2\mu F\) capacitor without and with
+a \(2.7\Omega\) series resistor.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -467,7 +467,7 @@ a \(2.7 \Omega\) series resistor.
     \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7.png}
     \caption{with \(2.7\Omega\) series resistance}
   \end{subfigure}
-  \caption{Voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8 \mu s\) charge pulses}
+  \caption{Voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8\mu s\) charge pulses}
   \label{pic:NewEsr2}
 \end{figure}
 
@@ -486,7 +486,7 @@ in figures~\ref{pic:NewEsr2zoom}. The sample and hold time is approximately in t
     \includegraphics[width=9cm]{../PNG/NewEsr2u2F2R7zoom.png}
     \caption{with \(2.7\Omega\) series resistance}
   \end{subfigure}
-  \caption{Zoomed voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8 \mu s\) charge pulses}
+  \caption{Zoomed voltage curve of a \(2.2\mu F\) capacitor during new ESR~measurement with \(8\mu s\) charge pulses}
   \label{pic:NewEsr2zoom}
 \end{figure}
  
@@ -494,7 +494,7 @@ in figures~\ref{pic:NewEsr2zoom}. The sample and hold time is approximately in t
 The measurement results of the new ESR measurement method is shown in figure~\ref{fig:Cesr2}.
 The ESR values are different from the results shown for the previous mesurement procedure in figure~\ref{fig:Cesr} because 
 the ESR is frequency dependence of the ESR.
-The reference values are determined with a LCR meter at a measurement frequency of \(10 kHz \).
+The reference values are determined with a LCR meter at a measurement frequency of \(10kHz \).
 
 \begin{figure}[H]
 \centering
@@ -507,8 +507,8 @@ A measurement series with different sized electrolytic capacitors are shown in f
 The results of a PeakTech 3315 LCR meter of measurements with different frequencies and the results of the
 TransistorTester are shown together. The resistance is illustrated with logarithmic scale in this diagram. 
 In all cases the results of the TransistorTester is near by the results of
-the \(10 kHz\) measurements of the LCR meter.
-Only the \(500 \mu F/3V\) capacitor is a older exemplar, all others capacitors are as good as new.
+the \(10kHz\) measurements of the LCR meter.
+Only the \(500\mu F/3V\) capacitor is a older exemplar, all others capacitors are as good as new.
 
 \begin{figure}[H]
 \centering
@@ -519,7 +519,7 @@ Only the \(500 \mu F/3V\) capacitor is a older exemplar, all others capacitors a
 
 
 Because the new measurement method can be taken for measuring of resistors with low values, the
-measurement errors of some resistors below \(10 \Omega\) with three example of each ATmega type will be shown in
+measurement errors of some resistors below \(10\Omega\) with three example of each ATmega type will be shown in
 figure~\ref{fig:res_esr}. 
 
 \begin{figure}[H]
@@ -537,7 +537,7 @@ With the measurement of capacitors with big capacity values the voltage loss aft
 The reached load voltage is lost with electrolytic capacitors after a short periode.
 This voltage loss can be caused by a parallel connected resistor.
 But I assume, that this voltage loss of electrolytic capacitors is caused by a internal load dispersion directly
-after the load pulse. By loading the capacitors with the \(470 k\Omega\) resistor, as it is done for little
+after the load pulse. By loading the capacitors with the \(470k\Omega\) resistor, as it is done for little
 capacity values, this dispersion is already done after switching off the current.
 No voltage loss is detectable for this case. But if you load the same capacitor with a short current pulse,
 you can also detect the voltage loss for capacitors with lower capacity.
@@ -586,11 +586,11 @@ foil      & 100nF       & 98.0-101nF   & 101.4nF   & 102.2nF  & 101.6nF \\
 In this table you will find, that the capacity of all foil type capacitors can be measured by all intruments
 with good precision.
 The capacity values and the quality factor Q of the PeakTech LCR meter are minimum and maximum values of the
-measurements in the frequency range \(100 Hz\) to \(100 kHz\).
+measurements in the frequency range \(100Hz\) to \(100kHz\).
 At all examples in the table the voltage loss Vloss of the TransistorTester is big,
 if the capacitors have a low quality factor.
 Only in this case the differences of the capacity measurement results are also big.
-The TransistorTester can only determine the voltage loss, if the measured capacity is more than \(5000 pF\).
+The TransistorTester can only determine the voltage loss, if the measured capacity is more than \(5000pF\).
 
 \subsection{Separate capacity and ESR measurement}
 The separate capacity measurement and the afterwards measured ESR is only available for ATmega with sufficient 
@@ -598,19 +598,19 @@ memory with the handling dialog. This way of measurement is usefull for measurem
 circuit without desoldering.
 Please take care, that all capacitors of the printed board are discharched before starting any measurement!
 To realize the measurement in the soldered state, the measurement voltage is hold
-to a low level of a little above 300mV only.
-In addition to that the measurement is only done with the \(680 \Omega\) resistor to prevent a
+to a low level of a little above \(300mV\) only.
+In addition to that the measurement is only done with the \(680\Omega\) resistor to prevent a
 big effect of connected components on the printed board.
 To enable the measurement of capacitors with little capacity value, the first load puls is only
-\(200 \mu s\) short. If the loaded voltage let expect, that the \(300 mV\) would not be reached with
-a load pulse of \(2 ms\), the next load pulse is done with \(2 ms\) length.
+\(200\mu s\) short. If the loaded voltage let expect, that the \(300mV\) would not be reached with
+a load pulse of \(2ms\), the next load pulse is done with \(2ms\) length.
 When the capacity value of the measured capacitor is very high, the voltage grow is still low
-with the \(2 ms\) pulse. In this case the next load pulse(s) will be done with \(20 ms\) length.
+with the \(2ms\) pulse. In this case the next load pulse(s) will be done with \(20ms\) length.
 If the loaded Voltage grow near to \(300mV\), the shorter load pulses will be used again.
-The total time of load pulses is added and after the load voltage has passed over \(300 mV\), the
+The total time of load pulses is added and after the load voltage has passed over \(300mV\), the
 capacity value is computed from load time and the loaded voltage.
-With this method capacity values of a little below \(2 \mu F\) can be measured. The upper limit for the capacity
-values is given with the restricted load time of \(2.5 s\) to about \(50 mF\).
+With this method capacity values of a little below \(2\mu F\) can be measured. The upper limit for the capacity
+values is given with the restricted load time of \(2.5s\) to about \(50mF\).
 If the capacity value is successfully measured, the ESR value of the capacitor is measured with the
 method already described in section~\ref{sec:ESR2}.
 The result is shown only short and then the next measurement is started immediately.
@@ -682,9 +682,9 @@ The same results of three different ATmega168A processors are shown in figure~\r
 three different ATmega168PA processors are shown in figure~\ref{fig:mega168PAall}.
 The results of three ATmega328 are additianally shown in figure~\ref{fig:mega328all} and the results from three
 ATmega328P are shown in figure~\ref{fig:mega328Pall}.
-At this only the zero value of the capacity measurement of 39pF is respected, all other facility to correct the results are
+At this only the zero value of the capacity measurement of \(39pF\) is respected, all other facility to correct the results are
 not used.
-This zero value includes the 2-3pF, which are caused by the 12 cm long cable with the clips.
+This zero value includes the \(2-3pF\), which are caused by the \(12cm\) long cable with the clips.
 The board layout can cause a different zero value, I have fixed this zero value with the board ''DG2BRS V 5.2.1''.
 
 \begin{figure}[H]
@@ -730,7 +730,7 @@ The board layout can cause a different zero value, I have fixed this zero value 
 
 To get the best accuracy you must adapt the software to the individual characteristic of your ATmega exemplar.
 For this you can set a correction voltage REF\_C\_KORR for the comparator, which will be used for measurement of little capacity values.
-A correction of 1~mV will reduce the measurement results to 0.11~\% .
+A correction of \(1mV\) will reduce the measurement results to 0.11\% .
 For big capacity values you can specify with the per mill value C\_H\_KORR, how much your capacity values are measured too big.
 Because the capacitors with big values are most electrolytic capacitors with worse quality factor, the measurement of
 the capacity value is difficult. So it is also extra difficult to get the difference to the real value of a capacitor.
@@ -762,7 +762,7 @@ which is shown in Figure~\ref{fig:mega168all}, \ref{fig:mega168Aall} and \ref{fi
 As a significant reason for this is found the different characteristic (Offset voltage) of the analog comparator.
 
 The date of measurement of nine different processors is shown in figure~\ref{fig:CompAdjust} .
-The ''diff2ref'' points show the difference of the voltage of a loaded capacitor of \(660 nF\) to the
+The ''diff2ref'' points show the difference of the voltage of a loaded capacitor of \(660nF\) to the
 individual internal reference voltages (band gap).
 Ideally this difference Voltage should be zero, if the analog comparator has stopped the loading by the signal to
 the processor. The short handling time of the processor should not result to a measurably rising of the 
@@ -775,7 +775,7 @@ With a mean value of the ''diff'' points we can get a good estimation for the co
 measurements together with the difference voltage of the loaded capacitor and the internal reference.
 
 For the second part of adjustment you must connect a capacitor to pin~1 and pin~3. This capacitor should have
-a good quality factor and should have a capacity between \(100 nF\) and \(20 \mu F\).
+a good quality factor and should have a capacity between \(100nF\) and \(20\mu F\).
 It should be a film capacitor, as far as possible not a ceramic capacitor und in no case a electrolytic capacitor.
 You don't need to know the exact value of this capacitor.
 
@@ -791,7 +791,7 @@ The figures~\ref{fig:mega168cal}, \ref{fig:mega168Acal}, \ref{fig:mega168PAcal},
 of the different processors with a standard software after the auto calibration.
 The flash of the processors was loaded with the same software, only the Makefile  option ''PARTNO = '' must be
 adapted to the different processor type (''m168'', ''m168p'', ''m328'' or ''m328p'') for the avrdude program.
-After loading the data the selftest was started for each ATmega and a capacitor with \(330 nF\) was connected
+After loading the data the selftest was started for each ATmega and a capacitor with \(330nF\) was connected
 during test No.~10 to pin~1 and pin~3.
 
 \begin{figure}[H]
@@ -842,9 +842,9 @@ measurement after the calibration.
 The points marked with the ending ''unc'' shows the the errors without calibration.
 The lines with the ending ''cal'' shows the error results of the {\bf same processors} 
 with the {\bf same software} after the calibration in the selftest section.
-The reason for the measurement errors for big capacitors \textgreater(\(40 \mu F\)) is
+The reason for the measurement errors for big capacitors \textgreater(\(40\mu F\)) is
 not yet known. All used capacitors for this series of measurements are film capacitors or
-ceramic capacitors (\(56 pF\), \(100 pF\) and \(3.3 nF\)), no electrolytical capacitors are used.
+ceramic capacitors (\(56pF\), \(100pF\) and \(3.3nF\)), no electrolytical capacitors are used.
 
 \begin{figure}[H]
 \centering
@@ -855,7 +855,7 @@ ceramic capacitors (\(56 pF\), \(100 pF\) and \(3.3 nF\)), no electrolytical cap
 
 The circuit with a ATmega644 or ATmega1284 provides a capacitor for calibration at the printed board.
 The figure \ref{fig:Mega1284} shows the results of the capicitor measurements with a ATmega1284,
-with the on board 100nF ceramic capacitor as well as with a external 220nF foil capacitor, compared
+with the on board \(100nF\) ceramic capacitor as well as with a external \(220nF\) foil capacitor, compared
 to the results of a ATmega328 on another printed board.
 
 \begin{figure}[H]

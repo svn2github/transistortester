@@ -8,7 +8,7 @@ Changed or moved parts are marked with green color, optional parts are marked wi
 
 Some changes are made because the electronical power switch make problems in some implementations.
 Therefore the resistor R7 is reduced to \(3.3k\Omega\). The capacitor C2 is reduced to
-10nF and R8 is moved so that the PD6 output does not try to switch the C2 capacitor directly.
+10~nF and R8 is moved so that the PD6 output does not try to switch the C2 capacitor directly.
  Additional blocking capacitors are added and should be placed
 near the power connection of the Atmega and near the Voltage regulator.
 
@@ -16,7 +16,7 @@ Because the PD7 input and PC6 (RESET) are the only pins, where pull up resistors
 needed, one extra \(27k\Omega\) resistor is added to the PD7 (pin~13) input. With this modification
 the software can disable all internal pull up resistors of the ATmega.
 
-The additional crystal with its 22pF capacitors are optional added. 
+The additional crystal with its \(22pF\) capacitors are optional added. 
 The accuracy of a crystal has the benefit of more stable time measurement for getting the
 capacitor values.
 
@@ -31,7 +31,7 @@ Some different versions of R11 / R12 resistor combinations circulates
 in the internet. I~have adapted my software to the original of Markus F. \cite{Frejek} with \(10k\Omega\) and \(3.3k\Omega\).
 The voltage ration of the divider can be set with Makefile options.
 
-The additional 2.5V precision voltage reference connected at pin PC4 (ADC4) can be used to
+The additional \(2.5V\) precision voltage reference connected at pin PC4 (ADC4) can be used to
 check and calibrate the VCC voltage, but is not required. You can use a LM4040-AIZ2.5 (0.1\%),
 a LT1004CZ-2.5 (0.8\%) or a LM336-Z2.5 (0.8\%) as voltage reference.
 If you don't install the precision voltage reference and you don't add the relay extension,
@@ -150,16 +150,16 @@ A complete protection is not possible. Therefore capacitors should always be dis
   \label{fig:relay_addon}
 \end{figure}
 
-\subsection{Measurement of zener voltage above 4 Volt}
+\subsection{Measurement of zener voltage above 4~Volt}
 
 If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
-input for measuring a external voltage. The voltage can be up to 50V with the optional 10:1 resistor
+input for measuring a external voltage. The voltage can be up to \(50V\) with the optional 10:1 resistor
 divider and can be used for measuring the breakdown voltage of a zener diode. 
-A current limiting power supply with up to 50V can be switched on with low signal at PD7 pin of the
+A current limiting power supply with up to \(50V\) can be switched on with low signal at PD7 pin of the
 ATmega to deliver current for testing the break down voltage of a zener diode.
 Figure~\ref{fig:zener} shows a suggestion for this expansion.
 The tester shows the external voltage as long as you hold the key pressed.
-About 40mA more battery current is used by this expansion during key pressing.
+About \(40mA\) more battery current is used by this expansion during key pressing.
 
 \begin{figure}[H]
 \centering
@@ -172,14 +172,14 @@ The 10:1 voltage divider can be used with the optional dialog part for the ATmeg
 activated DC-DC converter for the zener diode measurement.
 Without the pressed key the voltage converter is not powered. For that the external voltage 
 (for example battery voltage) can be measured at the zener diode port.
-You can only measure positiv DC voltages up to 50V.
+You can only measure positiv DC voltages up to \(50V\).
 You have also to respect the correct polarity.
 
 \subsection{Frequency generator}
 
 With the dialog part of the ATmega you can also select a frequency generator, which supports
-currently a selection of frequencies from \(1 Hz\) up to \(2 MHz\).
-The output of the 5V signal is done with a \(680\Omega\) resistor to test port TP2.
+currently a selection of frequencies from \(1Hz\) up to \(2MHz\).
+The output of the \(5V\) signal is done with a \(680\Omega\) resistor to test port TP2.
 You can use the GND signal from the minus pin of the zener diode extension or the test port TP1.
 The test port TP3 is connected to GND with a \(680\Omega\) resistor.
 Of course you can also connect a driver circuit to the ATmega port PB2 with a separate output
@@ -273,14 +273,14 @@ By now you can also connect a graphical 128x64 pixel LCD with a ST7565 controlle
 Because the ST7565 controller is connected with a serial interface, only four signal
 lines are required. Two port D pins of the ATmega can be used otherwise.
 The ATmega processor should have at least 32k flash memory for the support of a graphical display.
-The ST7565 controller works with a operating voltage of 3.3V .
-Therefore a additional 3.3V voltage regulator is required.
+The ST7565 controller works with a operating voltage of \(3.3V\) .
+Therefore a additional \(3.3V\) voltage regulator is required.
 The data sheet of the ST7565 controller does not allow the direct connection of input pins to
-5V signal level. So the extension of figure \ref{fig:ST7565lcd} uses a additional 74HC4050 CMOS
+\(5V\) signal level. So the extension of figure \ref{fig:ST7565lcd} uses a additional 74HC4050 CMOS
 device for the conversion of the voltage level.
 You can try to exchange the four 74HC4050 gates with four resistors of about \(2.7k\Omega\).
-With the voltage drop at the resistors you will prevent the increase of the 3.3V controller power voltage 
-across the diodes of the controller inputs from the 5V ATmega outputs signals.
+With the voltage drop at the resistors you will prevent the increase of the \(3.3V\) controller power voltage 
+across the diodes of the controller inputs from the \(5V\) ATmega outputs signals.
 You have to try, if the signal form with the resistors can be accepted from the ST7565 controller inputs.
 The signal form at the controller inputs will be more simular to the output shape of the ATmega with the 74HC4050 gates in any case.\\
 
@@ -293,17 +293,17 @@ The signal form at the controller inputs will be more simular to the output shap
 
 Normally the ST7565 or SSD1306 controller is connected with a 4-wire SPI interface.
 But with the SSD1306 controller you can also use a I\textsuperscript{2}C interface with PD2 as SDA and PD5 as SCL signal.
-The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to 3.3V.
+The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to \(3.3V\).
 A solution for connecting the OLED display shows the figure  \ref{fig:ssd1306i2c}.
-The outputs of the ATmega is only switched to 0V for the I\textsuperscript{2}C signals.
-Before connecting the pull-up resistors to 5V you must check, if your display module can tolerate
-a 5V signal level. Normally the data inputs of the controller are protected with diodes to 3.3V.
+The outputs of the ATmega is only switched to \(0V\) for the I\textsuperscript{2}C signals.
+Before connecting the pull-up resistors to \(5V\) you must check, if your display module can tolerate
+a \(5V\) signal level. Normally the data inputs of the controller are protected with diodes to \(3.3V\).
 You should make shure, that you have loaded a program with the I\textsuperscript{2}C support to the ATmega 
 before the Display is connected. If you have loaded a program with another interface, 
-the output are also switched to the 5V side.
+the output are also switched to the \(5V\) side.
 Because I have determined a influence to the tester results across the VCC connection of a OLED module,
-a additional decoupling with a serial resistor of \(68~\Omega\) with a additional \(10~\mu\) blocking capacitor
-is recommended. Instead of the \(68~\Omega\) resistor you can also use a inductor with about \(1~mH\).
+a additional decoupling with a serial resistor of \(68\Omega\) with a additional \(10\mu F\) blocking capacitor
+is recommended. Instead of the \(68\Omega\) resistor you can also use a inductor with about \(1mH\).
 Without the additional filter my tester has reported collector residual currents with bipolar transistors and a
 OLED display.
 Also you should check the pin sequence of your OLED module, some moduls have a different location of GND and VCC.
@@ -319,7 +319,7 @@ For connection to the ATmega644 series of processors the pins PB2 to PB5 instead
 The exchange of a text display to a graphical display is possible with a adapter printed board because
 all required data signals and power signals are available at the LCD connector.
 A little simpler is the connection of a graphical display with a ST7920 controller because
-the controller can operate with 5V power voltage.
+the controller can operate with \(5V\) power voltage.
 For that the display should offer 128x64 visible pixels.
 The display module with the ST7920 controller can be connected with the 4-bit parallel interface or with a
 special serial interface., as shown in figure \ref{fig:ST7920lcd}.
@@ -408,8 +408,8 @@ the I\textsuperscript{2}C-interface and a special 3-line interface, which receic
 the data/instruction signal as first serial bit before the 8 data bits.
 Because the display support only 96x65 pixels, the big icons for transistors are not
 used with this controller. The output is simular to the character display.
-As with the most graphical displays this controller also operated with 3.3 Volt.
-Therefore a signal conversion for the 5V outputs of the ATmega is required.
+As with the most graphical displays this controller also operated with 3.3~Volt.
+Therefore a signal conversion for the \(5V\) outputs of the ATmega is required.
 For the SPI interface and the 3-line interface you can use the outputs of the ATmega
 like ''open collector'' outputs with the Makefile option LCD\_SPI\_OPEN\_COL.
 You must use ''Pull-Up'' resistors with this option or you should not set
@@ -464,8 +464,8 @@ The 128x128 pixel modul uses a ILI9163 controller.
 The 128x160 pixel modul uses a very simular ST7735 controller.
 The modules are tested with a adapter board, which connects the
 SPI signals and the power to the terminal for the normal character display.
-The adaption of the 5V output signals of the ATmega to the 3.3V inputs of the controller
-is ensured with serial \(10 k\Omega\) resistors.
+The adaption of the \(5V\) output signals of the ATmega to the \(3.3V\) inputs of the controller
+is ensured with serial \(10k\Omega\) resistors.
 The background light (LED) is required for this modules because nothing is readable without it.
 Because of the high count of pixels in vertical direction you can display more text lines for this modules.
 For the 128x128 pixel display you can display 8 lines of text with a 12x8 font,
@@ -505,8 +505,8 @@ Recommended is a ATmega328, if you wish to use all features.
 
 Anyway you should assemble all parts to printed board without the microcontroller.
 A up-to-date low voltage drop regulator like MCP1702-5002 is recommended as IC2, because it
-need only \(2\mu A\) of standby current and can still deliver 5V, if your input
-voltage is only 5.4V. But this part is not pin compatible to well known 78L05 with TO92 body!
+need only \(2\mu A\) of standby current and can still deliver \(5V\), if your input
+voltage is only \(5.4V\). But this part is not pin compatible to well known 78L05 with TO92 body!
 
 After checking, that all needed parts are at the correct place, you should
 first connect the battery or power supply to the printed board without LCD-display
@@ -534,58 +534,58 @@ correct processor type. A program for the ATmega8 does not run on a ATmega168!
 \item[Voltage control]
 If the problem exist, the tester will shut down immediately with every switch on.
 With imy suggested setting of the fuses (Makefile) the voltage control of the different
-ATmega versions is switched to 4V (brown out level).
+ATmega versions is switched to \(4V\) (brown out level).
 This may be the reason why the tester makes trouble with the power on sequence.
 The Pin PD6 tries to switch the 100nF capacitor C2 to VCC level causing a voltage
-breakdown of the VCC voltage (5V).
-The capacitor C2 can be reduced to \textless 10nF without problems.
-If possible, the direct connection of PD6 should be replaced by a resistor \textgreater \(220 \Omega\).
+breakdown of the VCC voltage (\(5V\)).
+The capacitor C2 can be reduced to \textless~\(10nF\) without problems.
+If possible, the direct connection of PD6 should be replaced by a resistor \textgreater~\(220\Omega\).
 \item[Improvement of power on circuit]
 Often this problem is the reason, if the tester starts with the button hold pressed, but switch off
 directly by releasing. The problem is enforced by a high current background light for the LCD.
-The resistor R7 to the base of the PNP transistor T3 was optimized with the value \(27k \Omega\) 
+The resistor R7 to the base of the PNP transistor T3 was optimized with the value \(27k\Omega\) 
 too much to save power consuming.
 To improve the switching with lower battery voltage or lower current amplification factor of
-the PNP transistor T3, you should reduce the resistance to \(3.3k \Omega\).
+the PNP transistor T3, you should reduce the resistance to \(3.3k\Omega\).
 \item[Additional pull-up resistor at PD7]
 The missing pull-up resistor results to a switch off of the tester with the message ''Timeout''
 after a short display time.
 The software is configured with the option PULLUP\_DISABLE, that all internal pull-up
 resistors are switched off. For that reason the voltage of pin PD7 is not definded,
 if the level is not switched by the push button or transistor T2 to GND.
-One external pull-up resistor of \(27k \Omega\) to VCC avoid this error.
+One external pull-up resistor of \(27k\Omega\) to VCC avoid this error.
 \item[Capacitor C1 at the AREF pin]
-Many designs use a 100nF capacitor at the AREF pin, like the design of Markus F. too.
+Many designs use a \(100nF\) capacitor at the AREF pin, like the design of Markus F. too.
 As long as the reference voltage of the ADC is never changed, this is a good solution.
 The software of the TransistorTester for the ATmega168/328 uses a automatic selection
-of the internal 1.1 V reference voltage of the ADC, if the input voltage is below 1V.
+of the internal \(1.1V\) reference voltage of the ADC, if the input voltage is below \(1V\).
 With this solution a better resolution of the ADC can be reached for little input voltages.
-Unfortunately the switching from 5V to 1.1V reference is very slowly. A additional
-wait time of 10ms must be respected for this reason.
-With changing the capacity value to 1nF this wait time can be reduced significant.
+Unfortunately the switching from \(5V\) to \(1.1V\) reference is very slowly. A additional
+wait time of \(10ms\) must be respected for this reason.
+With changing the capacity value to \(1nF\) this wait time can be reduced significant.
 I have not noticed any degration of measurement quality with this change.
 Even a removing of the capacitor has no significant change of measurement results.
 If you prefer to leve the capacitor unchanged, you can remove the option NO\_AREF\_CAP
 in the Makefile to activate longer wait times in the program.
-\item[Expanding of a 8MHz crystal]
-With some skill you can expand a 8MHz crystal to the backside of the printed board
+\item[Expanding of a \(8MHz\) crystal]
+With some skill you can expand a \(8MHz\) crystal to the backside of the printed board
 directly to the pins PB6 and PB7 (pin 9 and pin 10).
-My own expansion was done without the both 22pF capacitors.
+My own expansion was done without the both \(22pF\) capacitors.
 This solution has operated well with all tested ATmega.
-But it is not required to use a crystal. You can still use the 8MHz RC oszillator
+But it is not required to use a crystal. You can still use the \(8MHz\) RC oszillator
 by setting the fuses to get the better resolution of time constant for measuring  the capacity values.
 \item[Smoothing of the operating voltage]
-The original circuit of Markus F. shows only one 100nF capacitor to block the VCC voltage.
-This is clearly too little smoothing. You should at least use one 100nF near the ATmega power pins
+The original circuit of Markus F. shows only one \(100nF\) capacitor to block the VCC voltage.
+This is clearly too little smoothing. You should at least use one \(100nF\) near the ATmega power pins
 and one near the voltage regulator. The input of the voltage regulator should be
-blocked with a 100nF too.
+blocked with a \(100nF\) too.
 Additional \(10\mu F\) capacitors (electrolytic or ceramic) at the input and
 output of the voltage regulator can stable the voltage level.
 Ceramic \(10\mu F\) capacitos with SMD mounting form are easier to use for backfitting
 and have usually a lower ESR value. 
 \item[Selection of the ATmega processor]
 The using of the base function of the tester is still possible with a ATmega8.
-The flash memory of that device is used near 100\% .
+The flash memory of that device is used near \(100\%\).
 Because the ATmega168 or ATmeg328 processors are pin-compatible to the ATmega8,
 I can recommend the replacement.
 Actually the price for ATmega328 is so cheap, that there is no reason to take
@@ -593,14 +593,14 @@ a ATmega168 type.
 With a ATmega168/328 you get the following advantages:
 Self test with automatic calibration.\\
 Improvement of measurement quality by automatic switching of ADC scale.\\
-Measurement of inductors with resistance  below \(2100 \Omega\).\\
-Measurement of ESR value of capacitors with value of above  \(90 nF\).\\
-The resolution of resistor measurement below \(10 \Omega\) is \(0.01 \Omega\).\\
+Measurement of inductors with resistance  below \(2100\Omega\).\\
+Measurement of ESR value of capacitors with value of above  \(90nF\).\\
+The resolution of resistor measurement below \(10\Omega\) is \(0.01\Omega\).\\
 Using of pin PC4 as serial output.\\
 \item[Missing precision voltage reference]
 Usually the software should detect the missing voltage reference with the unconnected pin PC4.
 In this case no VCC=x.xV message should appear in row 2 of the LCD on power on.
-If this message appear without the reference, you should connect a \(2.2k \Omega\) resistor
+If this message appear without the reference, you should connect a \(2.2k\Omega\) resistor
 to the PC4 input and VCC.
 
 
@@ -615,14 +615,14 @@ Additional \(100nF\) ceramic cpacitors should be connected near by the VCC-GND a
 the ATmega for better stabilization of the power voltage.
 Because there is no ISP connector at the board, you must expand the board with a ISP connector or you
 must plug the ATmega to a external socket for programming.
-In addition you should notice, that if your ATmega should run with a 8 MHz crystal,
+In addition you should notice, that if your ATmega should run with a \(8MHz\) crystal,
 your external ISP programmer must have a external clock for programming or a crystal mounted at the socket.\\
 
 The second version of rebuilded tester is build with SMD components. Also the fix installed ATmega168
 is a SMD type with 32TQFP body.
 Fortunately on the board is a 10-pole ISP connector provided for the programming.
 I have analysed the board version ''2.1 2012/11/06''. One error is the assembly of the part ''D1'',
-which should be a precision 2.5V voltage reference. Assembled is only a zener diode.
+which should be a precision \(2.5V\) voltage reference. Assembled is only a zener diode.
 This part should be removed. You can mount a LM4040AIZ2.5 or LT1004CZ-2.5 precision voltage reference
 at this place. A missing voltage reference is noticed by the software, so that you must not install
 the voltage reference.
@@ -639,13 +639,13 @@ The software 1.05k uses the sleep state of the ATmega for waiting time. For this
 often and the voltage regulator is stressed more.
 Further I have noticed, that the VCC voltage is blocked with a \(100nF\) ceramic capacitor and with a
 \(220\mu F\) electrolytic capacitor nearby the 78L05 voltage regulator.
-The 9V supply voltage is blocked with the same capacitors, but not at the input of the regulator but
+The \(9V\) supply voltage is blocked with the same capacitors, but not at the input of the regulator but
 at the emitter of the PNP transistor (parallel with the battery). 
 The printed circuit board track from the ATmega168 to the test port is very thin, so that a resistance
-of \(100m \Omega\) could be measured for one path. This will be the reason for measuring a resistance
-of \(0.3 \Omega\) for two direct connected pins.
+of \(100m\Omega\) could be measured for one path. This will be the reason for measuring a resistance
+of \(0.3\Omega\) for two direct connected pins.
 The ESR measuring can usually consider this by zero compensation.
-Beginning with version 1.07k  the software does respect this offset for measuring resistors below \(10 \Omega\) too.
+Beginning with version 1.07k  the software does respect this offset for measuring resistors below \(10\Omega\) too.
 
 \section{Chinese clones with graphical display}
 Newer rebuilds of the tester like a version from Fish8840  use a 128x64 pixel graphical display.
@@ -678,11 +678,11 @@ R15 with a enameled copper wire.
 The scaling factor of the battery voltage must be specified in any case in the Makefile before any
 attempt can be done to replace the original software (BAT\_NUMERATOR=66 for example).
 
-The display module of the Fish8840 tester is equipped with a 3.3V voltage regulator to adapt
+The display module of the Fish8840 tester is equipped with a \(3.3V\) voltage regulator to adapt
 the operating voltage of the display controller.
-Because the 3.3V operating voltage can be increased with the 5V signal level of the data signals
+Because the \(3.3V\) operating voltage can be increased with the \(5V\) signal level of the data signals
 from the ATmega, a adapter circuit according to the picture \ref{fig:Fish8840Adapt} is recommended.
-The four data signal lines are equipped with four serial \(2.7~k\Omega\) resistors at a little
+The four data signal lines are equipped with four serial \(2.7k\Omega\) resistors at a little
 breadboard.
 Longer spacer bolts must be used to mount the display with the adapter board to the printed board
 of the Fish8840 tester now.
@@ -709,7 +709,7 @@ With this option the outputs are not switched to VCC level,
 but the internal ''pull-up'' resistors are switched on during the output of a high level.
 If the option PULLUP\_DISABLE is set, additionally a external pull-up resistor for
 the ''Reset'' signal (PD0) is required.
-Because the data signals are never switched to VCC directly, the 3.3V power of the LCD controller
+Because the data signals are never switched to VCC directly, the \(3.3V\) power of the LCD controller
 can not be elevated.
 My version of the Fish8840 tester has all signals for connecting a character display
 routed to the LCD plug connector.
@@ -740,8 +740,8 @@ with the micro USB plug. Operating is also possible without the accumulator, onl
 
 It is pleasant, that the signal lines of the display are equipped with serial resistors
 at the adapter board, as you can see in the left picture of~\ref{fig:WeiM8int}.
-Therefore you must not be afraid that the 5V signals of the ATmega can cause a excessive
-increase of the 3.3V power of the display controller.
+Therefore you must not be afraid that the \(5V\) signals of the ATmega can cause a excessive
+increase of the \(3.3V\) power of the display controller.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -763,8 +763,8 @@ With the upgrade to version 1.12k some problems has occured.
 If the extended fuse is set to 0x04 (0xfc) as recommended, some measurements has
 caused a ''Brown Out'' reset of the processor.
 This resets are caused by short voltage drops of the VCC power.
-I have added a additional \(4.7~\mu F\) ceramic capacitor at the input side of
-the voltage regulator and a \(10~\mu F\) ceramic capacitor at the output side (VCC)
+I have added a additional \(4.7\mu F\) ceramic capacitor at the input side of
+the voltage regulator and a \(10\mu F\) ceramic capacitor at the output side (VCC)
 of the regulator.
 Both before and after the upgrade I have noticed, that with bipolar transistors
 a residual collector current (ICEO or ICEs) of about \(1\mu A\) was detected with this board.
@@ -813,7 +813,7 @@ shown any surprice.
 You can see the upgraded \(5mm\) threaded bolt and the upgraded cables with measurement clips
 at the pictures of the back side in figure \ref{fig:T4_back}.
 Because the data signals for the graphical LCD controller have also no
-level adaption (5V -> 3.3V), the setting of the option LCD\_SPI\_OPEN\_COL is recommended.
+level adaption (\(5V\) -\textgreater~\(3.3V\)), the setting of the option LCD\_SPI\_OPEN\_COL is recommended.
 Due to the fact, that the board can not be easy upgraded with a ''pull-up'' resistor,
 it make sense to remove the option PULLUP\_DISABLE instead. 
 This board is lesser practical for later extensions, a replacement of the display is
@@ -839,8 +839,8 @@ A additittional chinese version with graphical display is offered with the name 
 For this version the graphical display is connected with a adapter circuit board to the 16-pol female connector. 
 The port PD5 of the ATmega is connected via pin 6 of the female connector to the CE (Chip Enable) input of the 
 graphical controller.
-The signal CE is also conneted at the adapter board to the 0V power (GND).
-This will resulte to a short-circuit if the ATmega will switch the PD5 output to 5V.
+The signal CE is also conneted at the adapter board to the \(0V\) power (GND).
+This will resulte to a short-circuit if the ATmega will switch the PD5 output to \(5V\).
 But newer versions of the software also switch the CE signal, even if the signal is not necessary for
 correct operation.
 For correct operation of the ''GM328'' tester with newer software versions you should cut the
@@ -858,16 +858,16 @@ A rotary pulse encoder with circuit \ref{fig:RotExt} can be connected here at th
 Both signals and also the power signals VCC and GND are available at the ISP connector,
 so that the extension can also be connected here.\\
 
-The 16:1 frequency divider of the 74HC4060 is allways used for frequencies above 2 MHz.
-The frequency divider can also be used for frequencies between 25kHz and 400kHz to
+The 16:1 frequency divider of the 74HC4060 is allways used for frequencies above \(2MHz\).
+The frequency divider can also be used for frequencies between \(25kHz\) and \(400kHz\) to
 upgrade the frequency resolution by using the period measurement.
 For switching between the operational states (frequency divider and crystal oszillator)
 the analog switches 74HC4052 are used.
 The table \ref{tab:mega644-display} shows the pin assignments for the ATmega324/644/1284
 microcontrollers for different display connections.
 The using of the I\textsuperscript{2}C interface is only possible with the SSD1306 controller.
-The signals of the I\textsuperscript{2}C interface require a pull-up resistor of \(4.7k\Omega\) to 3.3V.
-The outputs of the ATmega is only switched to 0V for the I\textsuperscript{2}C signals.
+The signals of the I\textsuperscript{2}C interface require a pull-up resistor of \(4.7k\Omega\) to \(3.3V\).
+The outputs of the ATmega is only switched to \(0V\) for the I\textsuperscript{2}C signals.
 
 
 \begin{table}[H]
@@ -1007,14 +1007,14 @@ Additionally the operating state of the
 ATmega processor must be programmed with the ``fuses''.
 If you can use my Makefile and additionally the program avrdude \cite{avrdude}, you need no exact
 knowledge of the details about the fuses. You have only to type ``make fuses'' if you
-have no crystal or ``make fuses-crystal'' if you have installed the 8MHz crystal to your printed board.
+have no crystal or ``make fuses-crystal'' if you have installed the \(8MHz\) crystal to your printed board.
 With the ATmega168 series of the microcontroller you can also use ``make fuses-crystal-lp'' to use
 a crytal with the low power mode.
 Never choose the crystal mode of clock generation, if you don't have installed
-the 8MHz crystal. If you are not shure with the fuses, leave them as default
+the \(8MHz\) crystal. If you are not shure with the fuses, leave them as default
 set by manufactor and first bring the the tester to operation in this mode.
 Maybe your program runs too slow, if you use program data compiled for
-8MHz operation, but you can correct this later! But a wrong set of fuses may inhibit
+\(8MHz\) operation, but you can correct this later! But a wrong set of fuses may inhibit
 later ISP-programming.
 
 \subsection{Using the Makefile with Linux}
@@ -1126,17 +1126,17 @@ the Test button.
 
 \item[Power does not switch on.]
 If the LED is without light and the VCC power has correct
-5V voltage during holding the Test button, the microcontroller does not switch the power
+\(5V\) voltage during holding the Test button, the microcontroller does not switch the power
 correctly. The microcontroller should hold the power by switching the
-PD6 output to 5V, which is usually done as one of the first actions.
+PD6 output to \(5V\), which is usually done as one of the first actions.
 If you hold the Test key pressed, the power is switched on anyway.
 So you can check the value of VCC power and additionally the voltage value
 of the PD6 output, if you hold the key pressed.
-If VCC voltage has correct value (5V), but PD6 voltage is
-below 4V, your microcontroller does not start the program. In this case
+If VCC voltage has correct value (\(5V\)), but PD6 voltage is
+below \(4V\), your microcontroller does not start the program. In this case
 you should check if the microcontroller flash has been loaded with proper data for your
 installed type and if ATmega is correctly configured with the fuses.
-If your ATmega put the PD6 output to 5V and the power does not stay if you
+If your ATmega put the PD6 output to \(5V\) and the power does not stay if you
 release the Test key, it is more difficult to find the reason.
 First you can shorten the LED and try again. If your Tester now starts,
 your LED may be faulty or mounted with wrong polarity. If this is not
@@ -1149,7 +1149,7 @@ Check the voltage at the contrast pin at the LCD display (pin 3). Adjust to
 correct value specified in the data sheet of your display and optimize by viewing.
 If you have a high temperature display type, you must provide a negative contrast voltage
 for operation. In this case you can use the ICL~7660 device for generating
-a negative voltage from positive 5V.
+a negative voltage from positive \(5V\).
 
 The tester software can be configured for many different controller with different connection
 types. You should check, if your software matches to your mounted display type.
@@ -1179,7 +1179,7 @@ If all data are loaded correctly, you should check the clock speed of your
 programming data (Makefile) and ATmega processor settings (fuses).
 
 \item[Measurement is slow and Capacitors are measured about 8 times too small]
-You run software compiled for 8MHz clock at real clock speed of 1MHz.
+You run software compiled for \(8MHz\) clock at real clock speed of \(1MHz\).
 Please set the fuses of the ATmega correctly.
 
 \item[Measurement has strangely values]
@@ -1187,7 +1187,7 @@ Check if your programmer is still connected to the ISP-plug.
 The ISP interface should be disconnected for measuring.
 Very often the reason of wrong measurements is the use of software compiled with
 the AUTOSCALE\_ADC option and with the option NO\_REF\_CAP, but the capacitor
-at the AREF pin has still a value of 100nF.
+at the AREF pin has still a value of \(100nF\).
 Wrong assembly of components or remaining soft solder flux can disturb the 
 measurements too. Please check with the selftest function of your TransistorTester software
 if possible. For the details see Chapter \ref{sec:selftest}.

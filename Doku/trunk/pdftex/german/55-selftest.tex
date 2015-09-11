@@ -15,8 +15,8 @@ Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
 Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
 Bevor die Testschritte durchgeführt werden, wird zuerst der Null-Widerstand für alle drei Testpin-Kombinationen
 (T1:T3, T2:T3 und T1:T2) bestimmt. Diese Nullwiderstände werden für die zukünftigen ESR- und Widerstands-Messungen
-unter \(10 \Omega\) berücksichtigt.
-Falls die später gemessenen Widerstandswerte den jeweiligen Nullwiderstand um mehr als \(0,2 \Omega\) unterschreiten,
+unter \(10\Omega\) berücksichtigt.
+Falls die später gemessenen Widerstandswerte den jeweiligen Nullwiderstand um mehr als \(0,2\Omega\) unterschreiten,
 wird der Tester auf ,,unkalibriert'' zurückgesetzt. 
 Dies wird durch den aktivierten Positionszeiger (Cursor)  beim Testen angezeigt.
 Die einzelnen Schritte der Selbsttestfunktion werden für Test~1 bis Test~7 in Zeile~1 des LC-Displays mit dem Buchstaben T
@@ -38,10 +38,10 @@ Hier ist die Liste der derzeit eingebauten Tests:
 
 \begin{enumerate}
 
-\item {\bf Messung der 1,3V (oder 1,1V) Referenzspannung (band gap Reference).} In Zeile~1 wird der Text ,,Ref='' und die
+\item {\bf Messung der \(1,3V\) (oder \(1,1V\)) Referenzspannung (band gap Reference).} In Zeile~1 wird der Text ,,Ref='' und die
 gemessene Spannung in mV angezeigt.
-Für den ATmega8 sollte die gemessene Spannung nahe bei 1,3V liegen, für die anderen Prozessoren liegt
-die Referenzspannung normal um die 1,1V.
+Für den ATmega8 sollte die gemessene Spannung nahe bei \(1,3V\) liegen, für die anderen Prozessoren liegt
+die Referenzspannung normal um die \(1,1V\).
 Die zweite Zeile zeigt den resultierenden Faktor für die Kapazitäts-Messung mit dem \(470k\Omega\) Widerstand.
 
 \item {\bf Vergleich der \(680\Omega\) Widerstände.} 
@@ -56,7 +56,7 @@ Das Ergebnis steht in Zeile 2 an der mittleren Stelle als Differenz zum theoreti
 Die letzte Messung dieses Tests ,,23'' bedeutet, dass nun der Widerstand von Pin~2 mit VCC verbunden ist und
 der Widerstand von Pin~3 mit GND verbunden ist.
 Das Ergebnis steht in der zweiten LCD-Zeile an letzter Stelle als Differenz zum theoretischen Wert.
-Ich möchte daran erinnern, dass die Auflösung des ADC etwa 4,88mV beträgt!
+Ich möchte daran erinnern, dass die Auflösung des ADC etwa \(4,88mV\) beträgt!
 Die Messsituation wird auch in Abbildung~\ref{fig:test2} dargestellt.
 Der theoretische Wert ergibt sich im Hinblick auf die internen Port-Widerstände wie folgt:
 \(\frac{5001 \cdot  (19+680)}{ (19+680+680+22)} = 2493\) .
@@ -86,9 +86,9 @@ Zeile 1 zeigt den Text ,,RH+''.
 Der bestmögliche mV Wert für die drei Messungen wäre 0 in Zeile~2, da die Diffenz zu VCC dargestellt wird.
 Große Abweichungen vom Idealwert für Schritt 5 und 6 sind Fehler wie Isolations-Problem, Flussmittelreste oder beschädigter Port.
 
-\item {\bf Dieser Schritt testet die Spannungen der \(470 k\Omega / 680 \Omega\)  Widerstandsteiler.}
+\item {\bf Dieser Schritt testet die Spannungen der \(470k\Omega / 680\Omega\)  Widerstandsteiler.}
 Zeile 1 zeigt den Text ,,RH/RL''.
-Für alle drei Testpins wird die Abweichung von der erwarteten Spannung eines \(470 k\Omega\) / \(680 \Omega\) 5V-Teilers 
+Für alle drei Testpins wird die Abweichung von der erwarteten Spannung eines \(470k\Omega\) / \(680\Omega\) \(5V\)-Teilers 
 in Zeile 2 des Displays ausgegeben.
 Abweichungen von mehr als einige mV weisen auf einen Bestückungsfehler der Widerstände hin.
 
@@ -126,24 +126,24 @@ Diese Werte werden ab Software-Version 1.06k bei jeder Messung neu bestimmt und 
 \item {\bf Messung des Nulloffsets der Kondensatormessung.}
 Für die Pinkombinationen 1:3, 2:3 und 1:2 wird der Nullwert der Kondensatormessung in pF in Zeile~1
 hinter dem Text ,,C0 '' ausgegeben.
-In der Software wird ein Vorgabewert von circa 39~pF für die normale Messwertausgabe berücksichtigt.
+In der Software wird ein Vorgabewert von circa \(39pF\) für die normale Messwertausgabe berücksichtigt.
 Für die Ausgabe dieses Tests ist keine Korrektur berücksichtigt, es wird auch kein Nulloffset abgezogen.
 Es werden auch die Nulloffsets für die umgekehrte Pinkombination ermittelt.
-Die gefundenen Nulloffsets werden im EEPROM festgehalten, wenn alle Nulloffsets kleiner als 190pF sind.
+Die gefundenen Nulloffsets werden im EEPROM festgehalten, wenn alle Nulloffsets kleiner als \(190pF\) sind.
 In Zeile 2 wird dann ein ,,OK'' ausgegeben.
 Die gefundene Nulloffsets werden für die weiteren Kapazitäts-Messungen pinabhängig berücksichtigt.
-Dabei wird überwacht, ob die gemessene Kapazität die festgehaltene Nullkapazität um mehr als 20pF unterschreitet.
+Dabei wird überwacht, ob die gemessene Kapazität die festgehaltene Nullkapazität um mehr als \(20pF\) unterschreitet.
 Wenn dies der Fall sein sollte, wird der Tester auf ,,unkalibriert'' zurückgesetzt.
 Dies wird durch die Aktivierung des LCD-Positionszeigers (Cursor) beim nächsten Testen angezeigt.
 Bitte beachten Sie, dass bei Veränderungen des Messaufbaus ein Neuabgleich sinnvoll ist.
-So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa 3~pF gegenüber einem leeren
+So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa \(3pF\) gegenüber einem leeren
 Sockel erhöhen.
 
 \item {\bf Warten auf den Anschluss eines Kondensators an Pin~1 und Pin~3.}
-Die Meldung ,,1\mbox{\electricC}3 \textgreater 100nF'' wird in Zeile 1 des Displays angezeigt.
+Die Meldung ,,1\mbox{\electricC}3 \textgreater \(100nF\)'' wird in Zeile 1 des Displays angezeigt.
 Zur Vorbereitung der Messung des Spannungs-Offsets des analogen Komparators muss ein ausreichend großer
 Kondensator zwischen Pin 1 und Pin 3 angeschlossen werden.
-Es sollte ein Kondensator hoher Güte mit eine Kapazität zwischen \(100 nF\) und \(20 \mu F\) sein. 
+Es sollte ein Kondensator hoher Güte mit eine Kapazität zwischen \(100nF\) und \(20\mu F\) sein. 
 Auf keinen Fall sollte man Elektrolyt-Kondensatoren verwenden.
 
 
@@ -154,7 +154,7 @@ Ladespannung zur internen Referenzspannung bestimmen zu können.
 Bei erfolgreicher Messung wird der Korrekturwert kurz in Zeile 1 mit dem Text ,,REF\_C='' angezeigt und in den EEPROM geschrieben.
 
 Wenn Sie die AUTOSCALE\_ADC-Option gewählt haben, wird die Verstärkung der ADC-Lesefunktion mit der
-internen Referenzspannung abgeglichen. Das geschieht durch den Vergleich der Kondensatorspannung von unter 1 V, einmal mit
+internen Referenzspannung abgeglichen. Das geschieht durch den Vergleich der Kondensatorspannung von unter \(1V\), einmal mit
 der VCC-Referenz gemessen und einmal mit der internen Referenz.
 Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEPROM festgehalten.
 Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatisch gefundene Differenz.
@@ -162,7 +162,7 @@ Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatis
 \end{enumerate}
 
 Am Ende der Selbsttest-Funktion wird der Text ,,Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
-Wenn gewählt, wird ein {\bf 50 Hz Rechtecksignal} auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
+Wenn gewählt, wird ein {\bf 50~Hz Rechtecksignal} auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
 Testpin~1 wird auf GND geschaltet. Der Strom für Testpin 2 und 3 wird mit \(680\Omega\) Widerständen begrenzt.
 Angezeigt wird das durch die Ausgabe von ''50Hz'' am Ende der Zeile~1.
 Diese Ausgabe wird dreißig Mal mit jeweils 2~Sekunden Dauer durchgeführt.
@@ -172,14 +172,14 @@ Frequenz-Zähler besitzt. Abbildung \ref{fig:Frequency50} zeigt ein Oszillogramm
 \begin{figure}[H]
 \centering
 \includegraphics[]{../PNG/Frequency50.png}
-\caption{Oszillogramm der 50Hz Ausgänge von Port 2 und 3}
+\caption{Oszillogramm der \(50Hz\) Ausgänge von Port 2 und 3}
 \label{fig:Frequency50}
 \end{figure}
 
 Wenn man für die Takterzeugung keinen Quarz benutzt, können die
 Ergebnisse der Kondensatormessung ungenau sein.
 Eine genaue Taktfrequenz und genaue Wartezeiten sind wichtig für die Bestimmung von Kapazitätswerten.
-Die Ausgabe des 50Hz-Signals kann durch Gedrückthalten des Start-Tasters vorzeitig abgebrochen werden.
+Die Ausgabe des \(50Hz\)-Signals kann durch Gedrückthalten des Start-Tasters vorzeitig abgebrochen werden.
 Dann fährt das Programm mit der normalen Messfunktion fort.
 
 \subsection{Einige Selbsttest-Ergebnisse}
@@ -246,14 +246,14 @@ Test 11 & Referenz-Korrektur  & 0 & \ref{fig:SelfTrefKorr} \\
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTbottomH}}
-    \caption{mit \(470 k\Omega\) auf 0V}
+    \caption{mit \(470k\Omega\) auf \(0V\)}
     \label{fig:SelfTlowH}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTtopH}}
-    \caption{mit \(470 k\Omega\) auf 5V}
+    \caption{mit \(470k\Omega\) auf \(5V\)}
     \label{fig:SelfTtopH}
   \end{subfigure}
   \caption{Selbsttest: Eingangsspannung}
@@ -263,14 +263,14 @@ Test 11 & Referenz-Korrektur  & 0 & \ref{fig:SelfTrefKorr} \\
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTRiLo}}
-    \caption{mit \(680 \Omega\) auf 5V}
+    \caption{mit \(680\Omega\) auf \(5V\)}
     \label{fig:SelfTRoL}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTRiHi}}
-    \caption{mit \(680 \Omega\) auf 0V}
+    \caption{mit \(680\Omega\) auf \(0V\)}
     \label{fig:SelfTRoH}
   \end{subfigure}
   \caption{Selbsttest: Ausgangswiderstand}

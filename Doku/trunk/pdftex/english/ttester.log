@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  30 AUG 2015 12:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.5)  3 SEP 2015 20:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -967,8 +967,7 @@ File: ../FIG/SSD1306_I2C-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../FIG/SSD1306_I2C-eps-converted-to.pdf used on input 
 line 313.
 (pdftex.def)             Requested size: 398.33858pt x 118.87038pt.
- [16 <../FIG/ST7565lcd-eps-converted-to.pdf> <../FIG/SSD1306_I2C-eps-converted-
-to.pdf>]
+ [16 <../FIG/ST7565lcd-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/ST7920interface.eps>
 (epstopdf)                    date: 2015-04-06 22:23:03
 (epstopdf)                    size: 31687 bytes
@@ -981,7 +980,7 @@ converted-to.pdf ../FIG/ST7920interface.eps>
 (epstopdf)             \includegraphics on input line 329.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7920interface-eps-converted-to.pdf, id=572, 537.00626pt x 369.38pt>
+<../FIG/ST7920interface-eps-converted-to.pdf, id=566, 537.00626pt x 369.38pt>
 File: ../FIG/ST7920interface-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ST7920interface-eps-converted-to.pdf>
@@ -1000,7 +999,7 @@ converted-to.pdf ../FIG/ST7108serial164.eps>
 (epstopdf)             \includegraphics on input line 348.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial164-eps-converted-to.pdf, id=574, 406.51875pt x 308.15125pt
+<../FIG/ST7108serial164-eps-converted-to.pdf, id=568, 406.51875pt x 308.15125pt
 >
 File: ../FIG/ST7108serial164-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial164-eps-converted-to.pdf>
@@ -1019,7 +1018,7 @@ converted-to.pdf ../FIG/ST7108serial595.eps>
 (epstopdf)             \includegraphics on input line 354.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial595-eps-converted-to.pdf, id=575, 406.51875pt x 308.15125pt
+<../FIG/ST7108serial595-eps-converted-to.pdf, id=569, 406.51875pt x 308.15125pt
 >
 File: ../FIG/ST7108serial595-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial595-eps-converted-to.pdf>
@@ -1031,8 +1030,9 @@ Overfull \hbox (7.83322pt too wide) in paragraph at lines 346--357
 [][]   [] 
  []
 
-[17 <../FIG/ST7920interface-eps-converted-to.pdf>] [18 <../FIG/ST7108serial164-
-eps-converted-to.pdf> <../FIG/ST7108serial595-eps-converted-to.pdf>]
+[17 <../FIG/SSD1306_I2C-eps-converted-to.pdf> <../FIG/ST7920interface-eps-conve
+rted-to.pdf>] [18 <../FIG/ST7108serial164-eps-converted-to.pdf> <../FIG/ST7108s
+erial595-eps-converted-to.pdf>]
 <../PNG/Color_ILI9163_ST7735.jpg, id=614, 185.0112pt x 225.0006pt>
 File: ../PNG/Color_ILI9163_ST7735.jpg Graphic file (type jpg)
 
@@ -1366,12 +1366,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--157
 
  []
 
-[39]
+
 Underfull \hbox (badness 10000) in paragraph at lines 159--162
 
  []
 
-
+[39]
 Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
@@ -1401,7 +1401,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--79
  []
 
 [45]
-Underfull \hbox (badness 10000) in paragraph at lines 118--120
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
 
  []
 
@@ -1409,13 +1409,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 118--120
 <../PNG/AREF2_1V.png, id=888, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
  <use ../PNG/AREF2_1V.png>
-Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 447.
+Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 453.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
 
 <../PNG/AREF2VCC.png, id=889, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
  <use ../PNG/AREF2VCC.png>
-Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 454.
+Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 460.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
 
 [52]) [53 <../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png>]
@@ -1536,21 +1536,21 @@ Package epstopdf Info: Source file: <../FIG/NPNce.eps>
 (epstopdf)                    size: 20399 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/NPNce-eps-converted-
 to.pdf ../FIG/NPNce.eps>
-(epstopdf)             \includegraphics on input line 108.
+(epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
  <../FIG/NPNce-eps-converted-to.pdf, id=980, 406.51875pt x 309.155pt>
 File: ../FIG/NPNce-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/NPNce-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/NPNce-eps-converted-to.pdf used on input line 1
-08.
+09.
 (pdftex.def)             Requested size: 406.51775pt x 309.15424pt.
  [59 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=998, 321.
 2pt x 234.8775pt>
 File: ../PNG/IRFU120gate.png Graphic file (type png)
 
 <use ../PNG/IRFU120gate.png>
-Package pdftex.def Info: ../PNG/IRFU120gate.png used on input line 138.
+Package pdftex.def Info: ../PNG/IRFU120gate.png used on input line 141.
 (pdftex.def)             Requested size: 321.19922pt x 234.87692pt.
  [60 <../FIG/NPNce-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/CheckSemi1.eps>
@@ -1561,7 +1561,7 @@ Package epstopdf Info: Source file: <../FIG/CheckSemi1.eps>
 (epstopdf)                    size: 20859 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/CheckSemi1-eps-conve
 rted-to.pdf ../FIG/CheckSemi1.eps>
-(epstopdf)             \includegraphics on input line 147.
+(epstopdf)             \includegraphics on input line 150.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/CheckSemi1-eps-converted-to.pdf, id=1016, 476.78125pt x 613.29124pt>
@@ -1569,7 +1569,7 @@ File: ../FIG/CheckSemi1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi1-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/CheckSemi1-eps-converted-to.pdf used on input l
-ine 147.
+ine 150.
 (pdftex.def)             Requested size: 476.78008pt x 613.28973pt.
  [61 <../PNG/IRFU120gate.png>]
 Package epstopdf Info: Source file: <../FIG/CheckSemi2.eps>
@@ -1580,7 +1580,7 @@ Package epstopdf Info: Source file: <../FIG/CheckSemi2.eps>
 (epstopdf)                    size: 26897 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/CheckSemi2-eps-conve
 rted-to.pdf ../FIG/CheckSemi2.eps>
-(epstopdf)             \includegraphics on input line 154.
+(epstopdf)             \includegraphics on input line 157.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/CheckSemi2-eps-converted-to.pdf, id=1022, 504.88625pt x 711.65875pt>
@@ -1588,7 +1588,7 @@ File: ../FIG/CheckSemi2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi2-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/CheckSemi2-eps-converted-to.pdf used on input l
-ine 154.
+ine 157.
 (pdftex.def)             Requested size: 504.885pt x 711.65701pt.
  [62 <../FIG/CheckSemi1-eps-converted-to.pdf>]
 Overfull \vbox (6.4684pt too high) has occurred while \output is active []
@@ -1603,7 +1603,7 @@ Package epstopdf Info: Source file: <../FIG/CheckSemi3.eps>
 (epstopdf)                    size: 15540 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/CheckSemi3-eps-conve
 rted-to.pdf ../FIG/CheckSemi3.eps>
-(epstopdf)             \includegraphics on input line 161.
+(epstopdf)             \includegraphics on input line 164.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/CheckSemi3-eps-converted-to.pdf, id=1045, 228.855pt x 515.9275pt>
@@ -1611,7 +1611,7 @@ File: ../FIG/CheckSemi3-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi3-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/CheckSemi3-eps-converted-to.pdf used on input l
-ine 161.
+ine 164.
 (pdftex.def)             Requested size: 228.85443pt x 515.92624pt.
  [64 <../FIG/CheckSemi3-eps-converted-to.pdf>] [65] [66]) [67] [68]
 \openout2 = `52-resistors.aux'.
@@ -3251,7 +3251,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 215.
 Here is how much of TeX's memory you used:
  21526 strings out of 493304
  447409 string characters out of 6139872
- 569500 words of memory out of 5000000
+ 569502 words of memory out of 5000000
  23895 multiletter control sequences out of 15000+600000
  11352 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -3270,7 +3270,7 @@ mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/
 type1/public/cm-super/sfrm1200.pfb>
-Output written on ttester.pdf (120 pages, 2788657 bytes).
+Output written on ttester.pdf (120 pages, 2794289 bytes).
 PDF statistics:
  2022 PDF objects out of 2073 (max. 8388607)
  1629 compressed objects within 17 object streams

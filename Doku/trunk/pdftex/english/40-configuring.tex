@@ -22,7 +22,7 @@ Be careful, if you don't use my Makefile.
 
 With the correct options set, my software runs on the unchanged hardware of Markus F.
 You must set the option PARTNO=M8, {\bf NOT} the option NO\_AREF\_CAP and {\bf NOT} the  PULLUP\_DISABLE option.
-The clock rate can also be set to 8 MHz with fuses, no crystal is required!
+The clock rate can also be set to \(8MHz\) with fuses, no crystal is required!
 
 
 The following options in the Makefile are avaiable to configure the software for your Tester.
@@ -109,6 +109,12 @@ All currently used values for LCD\_INTERFACE\_MODE and WITH\_LCD\_ST7565 are sho
                   & I\textsuperscript{2}C & 8814           &   2 \\
                     & 3-line           &   8814            &   3 \\
     \hline
+  Graphic ILI9163   & SPI             & 9163              & disabled (4) \\
+  128x128 Color     &                 &                   &              \\
+    \hline
+  Graphic ST7735    & SPI             & 7735              & disabled (4) \\
+  128x160 Color     &                 &                   &              \\
+    \hline
     \end{tabular}
   \end{center}
   \caption{Number setting for controller and interface mode}
@@ -182,7 +188,7 @@ For alternative pin assignments of graphical displays the assignment of the push
 Example: CFLAGS += -DSTRIP\_GRID\_BOARD
 
   \item[WITH\_MENU] activated a menu function for a ATmega328. You can select some additional functions with a
-selection menu, which you can call with a long key press (\textgreater~0.5~s).\\
+selection menu, which you can call with a long key press (\textgreater~0.5s).\\
 Example: CFLAGS += -DWITH\_MENU
 
   \item[WITH\_ROTARY\_SWITCH] The menu function can be easier controlled with a the extension of a rotary pulse encoder.
@@ -229,7 +235,7 @@ Example: CFLAGS += -DNO\_TEST\_T1\_T7
   \item[AUTO\_CAL] The zero offset for capacity measurement will be written additionally
 to the EEprom with the selftest routine. Additionally the offset voltage of the analog comparator (with option REF\_C\_KORR) and the
 voltage offset of the internal reference voltage (REF\_R\_KORR) will be measured automatically, if you connect a
-capacitor with a capacity value between \(100~nF\) and \(20~\mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
+capacitor with a capacity value between \(100nF\) and \(20\mu F\) to pin~1 and pin~3 after measurement of capacity zero offset. 
 All found values will be written to EEprom and will be used for further measurements automatically.
 The port output resistance values will be determined at the beginning of each measurement.\\
 Example: CFLAGS += -DAUTO\_CAL
@@ -239,7 +245,7 @@ Example: CFLAGS += -DAUTO\_CAL
 Example: CFLAGS += -DFREQUENCY\_50HZ
 
   \item[CAP\_EMPTY\_LEVEL]  This option defines the voltage level for discharged capacitor (mV units).
-You can set the level to higher value as 3mV, if the tester does not finish discharging of capacitors.
+You can set the level to higher value as \(3mV\), if the tester does not finish discharging of capacitors.
 In this case the tester ends after longer time with the message ``Cell!''.\\
 Example: CFLAGS += -DCAP\_EMPTY\_LEVEL=3
 
@@ -256,8 +262,8 @@ Example:  CFLAGS += -DREF\_C\_KORR=14
   \item[REF\_L\_KORR] specifies a additional offset in mV units to the reference voltage for the measurement of
 inductance values. 
 The REF\_C\_KORR offset and respectively the offset value from the calibration is additionally used with the inductance measurement.
-The REF\_L\_KORR value will be subtracted for measurements without a \(680~\Omega\) resistor,
-for measurements with a \(680~\Omega\) resistor the value will be added.
+The REF\_L\_KORR value will be subtracted for measurements without a \(680\Omega\) resistor,
+for measurements with a \(680\Omega\) resistor the value will be added.
 A correction value of 10 will change the result about 1 percent.\\
 Example: CFLAGS += -DREF\_L\_KORR=40
 
@@ -267,7 +273,7 @@ Example:  CFLAGS += -DC\_H\_KORR=10
 
   \item[WITH\_UART] uses the pin PC3 as output for the serial text (V24).
 If the option is not set, the pin PC3 can be used for reading a external voltage with a 10:1 resistor divider.
-With this equipment you can check the breakdown voltage of zener diodes, which have more than 4.5V breakdown voltage.
+With this equipment you can check the breakdown voltage of zener diodes, which have more than \(4.5V\) breakdown voltage.
 This measurement will repeat with 3 measurements per second until you release the Start button.\\
 Example: CFLAGS += -DWITH\_UART
 
@@ -295,16 +301,16 @@ Example: CFLAGS += -DWITH\_VEXT
 
   \item[RMETER\_WITH\_L] select for the resistor measurement function, which is selected with a resistor at TP1 and TP3,
 additionally the measurement of inductance. The operation mode is indicated with a {\bf[RL]} at the end of the first display line.
-With the additional test for inductance the measurement time is increased for resistors below \(2100~\Omega\) considerably.
-Also resistors below \(10~\Omega\) will not be measured with the ESR methode Without this option, because
+With the additional test for inductance the measurement time is increased for resistors below \(2100\Omega\) considerably.
+Also resistors below \(10\Omega\) will not be measured with the ESR methode Without this option, because
 a part with inductance can not be excluded. Because the ESR measurement method  uses short current pulses,
-parts with inductance can not be measured. The resistors below \(10~\Omega\) can only measured with a resolution of
-\(0.1~\Omega\) without this option, because only with the ESR method a resolution of \(0.01~\Omega\) can be obtained.
+parts with inductance can not be measured. The resistors below \(10\Omega\) can only measured with a resolution of
+\(0.1\Omega\) without this option, because only with the ESR method a resolution of \(0.01\Omega\) can be obtained.
 If this option is set, the previous limitations are not affected, but the measurement time can be longer.\\
 Example: CFLAGS += -DRMETER\_WITH\_L
 
   \item[AUTOSCALE\_ADC] enables the automatic scale switchover of the ADC to either VCC or internal reference.
-Internal reference gives a 2.56V scale for ATmega8 and a 1.1V scale for other processors.
+Internal reference gives a \(2.56V\) scale for ATmega8 and a \(1.1V\) scale for other processors.
 For the ATmega8 the automatic scale switchover is not used any more.\\
 Example: CFLAGS += -DAUTOSCALE\_ADC
 
@@ -313,12 +319,12 @@ The zero offsets for all three pin combinations will be determined with the self
 This zero offsets will be subtracted from all ESR measurements.\\
 Example: CFLAGS += -DESR\_ZERO=29
 
-  \item[NO\_AREF\_CAP] tells your Software, that you have no capacitor (\(100 nF\)) installed at pin AREF (pin 21).
+  \item[NO\_AREF\_CAP] tells your Software, that you have no capacitor (\(100nF\)) installed at pin AREF (pin 21).
 This enables a shorter wait-time for the AUTOSCALE\_ADC scale switching of the ADC.
-A \(1 nF\) capacitor was tested in this mode without detected errors.
-Figure \ref{pic:aref1} and \ref{pic:aref5} show the switching time with a \(1 nF\) capacitor.
-As you can see the switching from 5V to 1.1V is much slower than switching back to 5V. If you
-have still installed the \(100 nF\), switching time will be about factor 100 longer!\\
+A \(1nF\) capacitor was tested in this mode without detected errors.
+Figure \ref{pic:aref1} and \ref{pic:aref5} show the switching time with a \(1nF\) capacitor.
+As you can see the switching from \(5V\) to \(1.1V\) is much slower than switching back to \(5V\). If you
+have still installed the \(100nF\), switching time will be about factor 100 longer!\\
 Example: CFLAGS += -DNO\_AREF\_CAP
 
   \item[REF\_R\_KORR] specifies a offset for the internal ADC-reference voltage in mV units.
@@ -328,8 +334,8 @@ difference in the AUTO\_CAL function.\\
 Example: CFLAGS += -DREF\_R\_KORR=10
 
   \item[OP\_MHZ] tells your software at which Clock Frequency in MHz your Tester will operate.
-The software is tested only for 1 MHz, 8MHz and additionally 16MHz. 
-The 8MHz operation is recommended for better resolution of capacity and inductance measurement.\\
+The software is tested only for \(1MHz\), \(8MHz\) and additionally \(16MHz\). 
+The \(8MHz\) operation is recommended for better resolution of capacity and inductance measurement.\\
 Example: OP\_MHZ = 8
 
   \item[RESTART\_DELAY\_TICS] must be set to 6, if the ATmega168 or ATmega328 is used with the internal RC-oszillator instead of
@@ -367,7 +373,7 @@ Example: CFLAGS += -DPULLUP\_DISABLE
   \item[ANZ\_MESS] this option specifies, how often an ADC value is read and accumulated.
 You can select any value between 5 and 200 for building mean value of one ADC measurement.
 Higher values result to better accuracy, but  longer measurement time.
-One ADC measurement with 44~values takes about 5ms.\\
+One ADC measurement with 44~values takes about \(5ms\).\\
 Example: CFLAGS += -DANZ\_MESS=25
 
   \item[POWER\_OFF] This option enables the automatic power off function. If you don't specify this option,
@@ -396,7 +402,7 @@ This option is usefull for battery powered tester version to remember for the ba
 Example: CFLAGS += -DBAT\_CHECK
 
   \item[BAT\_OUT] enables Battery Voltage Output on LCD (if BAT\_CHECK is selected).
- If your 9V supply has a diode installed, use the BAT\_OUT=600 form to specify the threshold voltage (mV) of your diode
+ If your \(9V\) supply has a diode installed, use the BAT\_OUT=600 form to specify the threshold voltage (mV) of your diode
 to adjust the output value.
 Also the voltage loss of transistor T3 can be respected with this option.
  threshold level does not affect the voltage checking levels (BAT\_POOR).\\
@@ -404,21 +410,21 @@ Example 1: CFLAGS += -DBAT\_OUT=300\\
 Example 2: CFLAGS += -DBAT\_OUT
 
   \item[BAT\_POOR] sets the poor level of battery voltage to the specified 1mV value.
-The warning level of battery voltage is 0.8V higher than the specified poor level, if the poor level is more than 5.3V.
-If the poor level is 5.3V or less, the warning level is 0.4V higher. If the poor level is below 3.25V, the
-warning level is only 0.2V higher than the selected poor level and if the poor level is below 1.3V, the
-warning level is only 0.1V higher than the specified poor level.
-Setting the poor level to low values such as 5.4V is not recommended for rechargeable 9V batteries,
+The warning level of battery voltage is \(0.8V\) higher than the specified poor level, if the poor level is more than \(5.3V\).
+If the poor level is \(5.3V\) or less, the warning level is \(0.4V\) higher. If the poor level is below \(3.25V\), the
+warning level is only \(0.2V\) higher than the selected poor level and if the poor level is below \(1.3V\), the
+warning level is only \(0.1V\) higher than the specified poor level.
+Setting the poor level to low values such as \(5.4V\) is not recommended for rechargeable \(9V\) batteries,
 because this increase the risk of battery damage by the reason of the deep discharge!
-If you use a rechargeable 9V Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
-Example for low drop regulator (5.4V): CFLAGS += -DBAT\_POOR=5400\\
-Example for 7805 type regulator (6.4V): CFLAGS += -DBAT\_POOR=6400
+If you use a rechargeable \(9V\) Battery, it is recommended to use a Ready To Use type, because of the lower self-discharge.\\
+Example for low drop regulator (\(5.4V\)): CFLAGS += -DBAT\_POOR=5400\\
+Example for 7805 type regulator (\(6.4V\)): CFLAGS += -DBAT\_POOR=6400
 
   \item[DC\_PWR] This voltage level in mV units specify the battery voltage above which the tester
 changes to the ''DC\_Pwr\_Mode''. Normally the tester operates in a battery mode, where all additional
 functions are limited in time. With the ''DC\_Pwr\_Mode'' the tester runs the additional functions with unlimited time.
-Because there is no DC-DC converter operating with 0.9V input voltage,
-the ''DC\_Pwr\_Mode'' is also entered, if the battery voltage is detected below 0.9V. \\
+Because there is no DC-DC converter operating with \(0.9V\) input voltage,
+the ''DC\_Pwr\_Mode'' is also entered, if the battery voltage is detected below \(0.9V\). \\
 Example: CFLAGS += -DDC\_PWR=9500
 
   \item[INHIBIT\_SLEEP\_MODE] disable the use of the sleep mode of the processor.

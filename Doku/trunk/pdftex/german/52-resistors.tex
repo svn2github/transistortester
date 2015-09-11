@@ -48,24 +48,24 @@ in logarithmischer Skalierung dargestellt sind.
 \label{fig:RLvtot}
 \end{figure}
 Die Verlauf für Messung Type 1 wird in Abbildung~\ref{fig:RLvlow} mit gespreizter Darstellung für die unteren Widerstandwerte gezeigt.
-Wie man sehen kann, braucht man eine bessere ADC-Auflösung als die möglichen 4,9mV bei der 5V ADC-Referenz, um richtige
+Wie man sehen kann, braucht man eine bessere ADC-Auflösung als die möglichen \(4,9mV\) bei der \(5V\) ADC-Referenz, um richtige
 Widerstandswerte von der gemessenen Spannung unter \(2\Omega\) zu erhalten.
-Es gibt nur drei ADC-Stufen mit der 5V-Referenz zwischen \(0\Omega\) und \(2\Omega\).
+Es gibt nur drei ADC-Stufen mit der \(5V\)-Referenz zwischen \(0\Omega\) und \(2\Omega\).
 Hier kann die Bereichsumschaltung mit der AUTOSCALE\_ADC-Option helfen.
 Der gleiche gespreizte Bereich für die Type-2-Messung wird in Abbildung~\ref{fig:RLvhigh} gezeigt.
 Unglücklicherweise kann man nicht die höhere ADC-Auflösung für Messmethode Type 2 benutzen,
 weil die Spannung zu hoch ist und unser ATmega keine differentiellen ADC-Eingänge besitzt.
 Die Messungen mit den \(680\Omega\)-Widerständen werden bis zu einem Widerstandswert von 
-\(20k\Omega\) (Spannung ist unter 169mV) zur Bestimmung des Messergebnisses verwendet.
+\(20k\Omega\) (Spannung ist unter \(169mV\)) zur Bestimmung des Messergebnisses verwendet.
 
 Für höhere Widerstandswerte werden Messungen mit den \(470k\Omega\)-Widerständen benutzt.
 Der Mittelwert von beiden Messungen wird für den angezeigten Widerstandwert benutzt, wenn alle Messungen ergeben,
 dass es kein anderes Bauteil ist.
 Wenn die AUTOSCALE\_ADC-Funktion benutzt wird und eine der gemessenen Spannungen für beide Versionen unter 0,98V liegt,
-wird ein gewichteter Mittelwert mit Faktor Vier für die Messung mit der Spannung unter 0,98V benutzt. Der andere Wert wird mit Faktor Eins bewertet.
+wird ein gewichteter Mittelwert mit Faktor Vier für die Messung mit der Spannung unter \(0,98V\) benutzt. Der andere Wert wird mit Faktor Eins bewertet.
 Das wird wegen der Faktor Vier besseren Auflösung dieser Messung gemacht.
 Faktor Vier wird nur für ATmega168- und ATmega328-Prozessoren verwendet, für ATmega8 wird ein
-Faktor Zwei als Wichtung benutzt wenn die Spannung unter 0,98V ist, weil die ADC-Referenzspannung hier 2,56V statt 1,1V beträgt.
+Faktor Zwei als Wichtung benutzt wenn die Spannung unter \(0,98V\) ist, weil die ADC-Referenzspannung hier \(2,56V\) statt \(1,1V\) beträgt.
 Wenn der ATmega mehr als 8 KByte Flashspeicher besitzt, wird die Spannungsmessung an den Widerständen so lange verzögert,
 bis keine Änderung mehr festgestellt wird oder eine Zeitgrenze überschritten wird.
 Durch diese Maßnahme werden auch große Kondensatoren nicht mehr irrtümlich als
@@ -147,7 +147,7 @@ Wenn das nicht möglich ist, sollte man der Widerstandswert der kurzgeschlossene
 Zeigt beispielsweise der Tester einen Wert von \(30,6\Omega\) an, wenn der Präzisionswiderstand einen aufgedruckten Wert von \(30\Omega\) hat, 
 und die im Kurzschluss gemessenen Prüfklemmen haben einen Wert von \(0,5\Omega\), dann wird der Widerstand vom
 Tester mit \(30,1\Omega\) gemessen.
-Unterhalb von einem Widerstandswert von \(10\Omega\) macht ein Auflösungs-Schritt von \(0,1\Omega\) schon einen Fehler von mehr als 1\%!
+Unterhalb von einem Widerstandswert von \(10\Omega\) macht ein Auflösungs-Schritt von \(0,1\Omega\) schon einen Fehler von mehr als \(1\%\)!
 
 \begin{figure}[H]
 \centering
@@ -184,11 +184,11 @@ Das Diagramm \ref{fig:m168res_all} zeigt die Messfehler von drei ATmega168-Proze
 Kalibration als Linie. Entsprechend werden die Messfehler von drei ATmega168A in Abbildung \ref{fig:m168ares_all} und
 die Messfehler von drei ATmega328P in Abbildung \ref{fig:m168pres_all} gezeigt.
 Die Messfehler der ATmega328 werden in den Abbildungen \ref{fig:m328res_all} und \ref{fig:m328pres_all} gezeigt.
-Nach der automatischen Kalibration bleibt der Messfehler mit einer Ausnahme (ATmega328P-13, \(22 k\Omega\)) im Widerstandsbereich
-\(10~\Omega~-~20 M\Omega\) im Bereich \(\pm1~\%\).
+Nach der automatischen Kalibration bleibt der Messfehler mit einer Ausnahme (ATmega328P-13, \(22k\Omega\)) im Widerstandsbereich
+\(10\Omega~-~20M\Omega\) im Bereich \(\pm1\%\).
 Vor der Kalibration können die Messfehler bei einigen Prozessoren bis \(\pm~3\%\) betragen.
 Der Fehler wird verursacht durch die AUTOSCALE\_ADC-Umschaltung der ADC-Referenz.
-Durch den direkten Vergleich einer Kondensatorspannung von unter 1~V, einmal mit der VCC-Referenz und nochmal mit
+Durch den direkten Vergleich einer Kondensatorspannung von unter \(1V\), einmal mit der VCC-Referenz und nochmal mit
 der internen ADC-Referenz gemessen, kann der Fehler ausgeglichen werden.
 In diesem Fall wird die Spannung mit dem gleichen Multiplexer-Kanal gemessen und die Bandgap-Referenz ist auf den AREF-Pin
 aufgeschaltet.

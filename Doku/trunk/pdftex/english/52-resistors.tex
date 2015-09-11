@@ -45,7 +45,7 @@ The theoretical voltage gradient is shown in figure~\ref{fig:RLvtot}, where resi
 \label{fig:RLvtot}
 \end{figure}
 The graph of measurement type 1 is shown in figure~\ref{fig:RLvlow} with zoomed scale for the lower resistor range.
-You can see, that you need a better ADC resolution than the standard 4.9mV resolution at the 5V ADC reference, to get
+You can see, that you need a better ADC resolution than the standard \(4.9mV\) resolution at the \(5V\) ADC reference, to get
 the right resistor value from measured voltage below \(2\Omega\).
 There are only three ADC steps from \(0\Omega\) to \(2\Omega\).
 The range switching with the AUTOSCALE\_ADC option can help in this case.
@@ -53,16 +53,16 @@ The same zoomed range of measurement type 2 shows the figure~\ref{fig:RLvhigh}.
 Unfortunately we can not use the higher ADC resolution for measurement type~2 in this range,
  because the voltage is too high and our ATmega have no differential ADC input.
 Measurements with the \(680\Omega\) resistors are taken for building the result of measurements up to \(20k\Omega\)
-(Voltage of measurement type 2 will be below 169mV).
+(Voltage of measurement type 2 will be below \(169mV\)).
 
 For higher resistor values the measurements with the \(470k\Omega\) resistors are used. The mean value of both
 measurements is taken as displayed resistor value, if all tests attests, that it is no other type of part.
-If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below 0.98V,
+If the AUTOSCALE\_ADC function is selected and one of the voltages of the both measurement types is below \(0.98V\),
 a weighted average is build with factor four for this value. The other value is weighted with factor one.
 This is done to respect the factor four better resolution of this measurement. Factor four is only taken for 
-ATmega168 and ATmega328 processors, for the ATmega8 two is taken as weighting factor if voltage is below 0.98V,
-because the reference voltage for the ADC is here 2.54V instead of 1.1V .
-If the ATmega has more than 8KByte flash memory, the voltage measurement at the resistors will be delayed until
+ATmega168 and ATmega328 processors, for the ATmega8 two is taken as weighting factor if voltage is below \(0.98V\),
+because the reference voltage for the ADC is here \(2.54V\) instead of \(1.1V\) .
+If the ATmega has more than \(8~KByte\) flash memory, the voltage measurement at the resistors will be delayed until
 no more changes are detected or the time limit is reached.
 With this method big capacitors are no more detected as resistors by mistake and
 the DC resistance of big inductors will be measured correctly.
@@ -140,7 +140,7 @@ If this is not possible, subtract the resistance value of the shortened probe.
 For example, if your Resistor have a printed value of \(30\Omega\), your tester shows a value of \(30.6\Omega\)
 and the two probes shortened have a value of \(0.5\Omega\), then your resistor has been measured
 with \(30.1\Omega\).
-Below a resistance value of \(10\Omega\) one resolution step results to a error of more than 1\%!
+Below a resistance value of \(10\Omega\) one resolution step results to a error of more than \(1\%\)!
 
 \begin{figure}[H]
 \centering
@@ -178,10 +178,10 @@ The figure \ref{fig:m168res_all} shows the measurement errors of three ATmega168
 calibration as line. The equivalent measurement errors of three ATmega168A prozessors are shown in figure \ref{fig:m168ares_all} and
 the measurement errors of three ATmega168P prozessors are shown in figure \ref{fig:m168pres_all} .
 The measurement errors of three ATmega328 prozessors are shown in figure \ref{fig:m328res_all} and \ref{fig:m328pres_all}.
-After the automatic calibration the relative measurement errors of resistors between \(10~\Omega~-~20 M\Omega\) 
-usually are in the limit \(\pm1~\%\). Only one measurement of a \(22 k\Omega\) resistor with the ATmega328P-13 shows 
+After the automatic calibration the relative measurement errors of resistors between \(10\Omega~-~20 M\Omega\) 
+usually are in the limit \(\pm1\%\). Only one measurement of a \(22k\Omega\) resistor with the ATmega328P-13 shows 
 a higher error.
-Before the calibration errors of some processors are found with \(\pm~3\%\).
+Before the calibration errors of some processors are found with \(\pm3\%\).
 This will be caused by the AUTOSCALE\_ADC switching of the ADC reference.
 The direct compare of a capacitor voltage below 1~V, once measured with the VCC reference and another once measured with 
 the internal reference, can adjust this error.

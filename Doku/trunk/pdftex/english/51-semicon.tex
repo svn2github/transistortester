@@ -1,23 +1,23 @@
-%\newpage
-\section{Measurement of Semiconductors}
-The currentflow of the device with currentless control gate (third pin, also called Tristate pin)
+	%\newpage
+	\section{Measurement of Semiconductors}
+	The currentflow of the device with currentless control gate (third pin, also called Tristate pin)
 is to be examined first.
 The Tristate pin of the device under test is the base or gate for example.
 One probe pin is selected as the positive side of the device and connected directly to VCC.
 The other probe pin  selectes as negative side of the device.
-The negative side is connected with the \(680\Omega\) resistor to GND.
+The negative side is connected with the \(680~\Omega\) resistor to GND.
 With fieldeffect transistors the state of the device depends on the voltage of the gate.
-The Tristate pin is first connected with the \(680\Omega\) resistor for 5ms to the GND side and
+The Tristate pin is first connected with the \(680~\Omega\) resistor for \(5~ms\) to the GND side and
 the voltage at the negative side is measured.
 After that the voltage of the negative side is measured again during the Tristate pin switched
 as input (High Impedance).
-Then the assumed gate is connected with the \(680\Omega\) resistor for 5ms to the VCC side and
+Then the assumed gate is connected with the \(680~\Omega\) resistor for \(5~ms\) to the VCC side and
 the voltage on the negative side is measured again.
 If the measured voltage is lower than the first measurement result, this circuit will
 be assumed as the right one. Then the voltage is measured again with currentless Tristate pin.
 
-If the voltage of the negative pin with fixed Tristate pin is higher than \(115 mV\) and
-this level is not \(100 mV\) lower than the voltage measured with currentless Tristatepin,
+If the voltage of the negative pin with fixed Tristate pin is higher than \(115~mV\) and
+this level is not \(100~mV\) lower than the voltage measured with currentless Tristatepin,
 a depletion transistor type is assumed.
 With bipolar transistors, which have a high collector residual current,
 the residual current with currentless base is usually significant higher.
@@ -31,11 +31,11 @@ TriStatePins Zustand.
 The MOSFET versions can be differed by the missing of gate current in any state
 of the TriStatePin.
 
-To get parameters of the depletion types, they will be measured with a \(680 \Omega\) resistor at
+To get parameters of the depletion types, they will be measured with a \(680~\Omega\) resistor at
 the source pin, as shown in figure \ref{fig:JFETcd} . This measurement will be done instead of the
 usually measurement of current with the gate hold at source level, because
 the \(I_\mathrm{DSS}\) current of the FET transistor can often not be reached
-with the relative high resistance of the \(680 \Omega\) resistor.
+with the relative high resistance of the \(680~\Omega\) resistor.
 
 \begin{figure}[H]
 \centering
@@ -53,11 +53,11 @@ If current was detected, the next test is described in the diode section \ref{se
 First the current amplification factor is measured with common collector (emitter follower) for the assumed
 PNP transistor.
 The measuring situation is shown in figure \ref{fig:pnpcc}.
-If the measured voltage at the Base (\(UB\)) is above 9mV with the \(680\Omega\) resistor,
+If the measured voltage at the Base (\(UB\)) is above \(9~mV\) with the \(680~\Omega\) resistor,
 the hFE is build as \(hFE = \frac{UE-UB}{UB}\).
 The voltage \(UE\) is the difference of the Emitter-voltage to VCC.
-The difference between the \(22\Omega\) and \(19\Omega\) resistors are not respected.
-If the \(UB\) voltage is below 10mV, the measurement is done with the \(470k\Omega\) resistor at the base.
+The difference between the \(22~\Omega\) and \(19~\Omega\) resistors are not respected.
+If the \(UB\) voltage is below \(10~mV\), the measurement is done with the \(470~k\Omega\) resistor at the base.
 In this case the current amplification factor is build as \(hFE = \frac{UE \cdot 470000}{UB \cdot (680+22)}\).
 
 \begin{figure}[H]
@@ -68,13 +68,13 @@ In this case the current amplification factor is build as \(hFE = \frac{UE \cdot
 \end{figure}
 
 Next the tests with common emitter are done for the assumed PNP transistor.
-The positive side of component is now direct connected to VCC, the negative side \(680\Omega\) resistor
+The positive side of component is now direct connected to VCC, the negative side \(680~\Omega\) resistor
 is connected to GND as shown in Figure \ref{fig:pnpce}. 
-If the negative side of component has a voltage of above 3.4V, when the base side \(680\Omega\) resistor 
+If the negative side of component has a voltage of above \(3.4~V\), when the base side \(680~\Omega\) resistor 
 was connected to GND, it must be a PNP transistor or a P-Channel FET.
-This can be easy find out by analysing the base voltage. If the base voltage is greater 0.97V, it must be a PNP.
-For measuring the current amplification factor, the \(470k\Omega\) resistor is taken as Base resistor
-instead of the \(680\Omega\).
+This can be easy find out by analysing the base voltage. If the base voltage is greater \(0.97~V\), it must be a PNP.
+For measuring the current amplification factor, the \(470~k\Omega\) resistor is taken as Base resistor
+instead of the \(680~\Omega\).
 The current amplification factor is build by \(hFE = \frac{(UC-UC0) \cdot 470000}{UB \cdot (680+19)}\) .
 The voltage UC0 is the voltage at the colletor resistor without base current.
 The higher current amplification factor is assumed to be the right one, this one or the one found with
@@ -85,9 +85,9 @@ The values found for the PNP are only valid, if a second
 set of measurements is done.
 In order to prevent detecting the PNP in the inverse mode (collector and emitter are swapped),
 the measurement with the higher current amplification is taken as the right one.
-If base voltage is lower than 0.97V, it must be a P-E-MOS.
+If base voltage is lower than \(0.97~V\), it must be a P-E-MOS.
 In this case the gate threshold voltage is measured
-by switching the gate slowly with the \(470k\Omega\) resistor up and down, waiting for a digital
+by switching the gate slowly with the \(470~k\Omega\) resistor up and down, waiting for a digital
 input signal change of the Drain side and then read the voltage of the gate pin.
 
 \begin{figure}[H]
@@ -100,24 +100,26 @@ input signal change of the Drain side and then read the voltage of the gate pin.
 \subsection{Measurement of NPN Transistor or N-Channel-MOSFET}
 The measuring of NPN-Transistors begin in the same way as PNP-Transistors with measuring
 the current amplification factor in the common collector circuit.
-First measurement is done with a \(680\Omega\) base resistor switched to VCC. If the
-voltage at the base resistor ist too low, the \(470k\Omega\) resistor is taken instead.
+First measurement is done with a \(680~\Omega\) base resistor switched to VCC. If the
+voltage at the base resistor ist too low, the \(470~k\Omega\) resistor is taken instead.
 Measurement then continues with the common emitter circuit as shown in figure \ref{fig:npnce}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/NPNce.eps}
 \caption{test and hFE measurement of NPN transistor with common emitter circuit }
 \label{fig:npnce}
 \end{figure}
-If the voltage of collector sinks below 1.6V, when the \(680\Omega\) base resistor is connected to VCC,
+
+If the voltage of collector sinks below \(1.6~V\), when the \(680~\Omega\) base resistor is connected to VCC,
 ist must be a NPN, N-Channel MOSFET or Thyristor/Triac.
 With two simple tests a Thyristor or Triac can be identified.
-If the gate pin resistor is connected for 10ms to GND and than made currentless, the current
+If the gate pin resistor is connected for \(10~ms\) to GND and than made currentless, the current
 at the anode should stay.
 If then the anode resistor is short connected to GND and reconnected to VCC, the Thyristor should not
 trigger again (no current).
 Please keep in mind, that only low power Thyristors can be tested, because
-the holding current of the tester can reach only 6mA.
+the holding current of the tester can reach only \(6~mA\).
 If both tests attest a Thyristor, further tests with reverse polarity are done
 to exclude or confirm a Triac.
 
@@ -129,10 +131,11 @@ The current amplification factor in the common emitter circuit is build by
 If the voltage of the Base or better Gate  shows, that there is no or little current, part will be a N-Channel E-MOS 
 (Enhancement MOSFET).
  In this case the threshold voltage is measured by switching the Gate slowly with
-the \(470k\Omega\) resistor to VCC and GND, waiting for a digital input signal change of the Drain side and
+the \(470~k\Omega\) resistor to VCC and GND, waiting for a digital input signal change of the Drain side and
 then read the voltage of the Gate pin.
 This measurement is done eleven times with ADC results accumulated as shown in Figure~\ref{fig:eleven}.
 The result is multiplied by four and divided by 9 to get the voltage in mV resolution.
+
 \begin{figure}[H]
 \centering
 \includegraphics[]{../PNG/IRFU120gate.png}
@@ -167,20 +170,20 @@ The result is multiplied by four and divided by 9 to get the voltage in mV resol
 \subsection{Measurement of Diodes}
 \label{sec:diode}
 If current is detected with the pre-tests, the behavior of the part will be checked to be a diode.
-The flow voltage with the \(680\Omega\) resistor must be between 0.15V and 4.64V.
-The flux voltage with the \(680\Omega\) must be greater than 1.125 times the flux voltage with
-the \(470k\Omega\) resistor and sixteen times the flux voltage with the \(470k\Omega\) must be
-greater than the flux voltage with the \(680\Omega\) resistor.
-Additionally the afterward renewed measurement with the \(470k\Omega\) resistor should not have a higher voltage than
-the previous measurement with the \(680\Omega\) resistor.
+The flow voltage with the \(680~\Omega\) resistor must be between \(0.15~V\) and \(4.64~V\).
+The flux voltage with the \(680~\Omega\) must be greater than 1.125 times the flux voltage with
+the \(470~k\Omega\) resistor and sixteen times the flux voltage with the \(470~k\Omega\) must be
+greater than the flux voltage with the \(680~\Omega\) resistor.
+Additionally the afterward renewed measurement with the \(470~k\Omega\) resistor should not have a higher voltage than
+the previous measurement with the \(680~\Omega\) resistor.
 I hope, that this behavior identifies always a diode.
 The identification of a diode by no current flow in the opposite direction is not
 possible with a inverse parallel diode.
 If only a single diode is detected, the residual current in reverse direction is measured with
-the \(470k\Omega\) resistor at 5V. The resolution is about \(2nA\).
-If the residual current is greater as \(5.3\mu A\) (voltage at
-the \(470k\Omega\) is more than 2.5V), the measurement is done with the \(680\Omega\) instead.
-Then the resolution is only about \(1\mu A\).
+the \(470~k\Omega\) resistor at \(5~V\). The resolution is about \(2~nA\).
+If the residual current is greater as \(5.3~\mu A\) (voltage at
+the \(470~k\Omega\) is more than \(2.5~V\)), the measurement is done with the \(680~\Omega\) instead.
+Then the resolution is only about \(1~\mu A\).
 Furthermore  the capacity in reverse direction is also measured for single diodes.
 
 \subsection{Results of different measurements}
@@ -295,13 +298,13 @@ MAC97A6     & Triac    &  0.92V     &  0.90V         &   0.90V          &  0.90V
 
 Some results are very different to the earlier results of the software of Markus Frejek.
 For example a darlington transistor BC517 has been measured by the older software
-with a hFE of 797 instead of 77200 and a base emitter voltage of 1438mV.
+with a hFE of 797 instead of 77200 and a base emitter voltage of \(1438~mV\).
 This will be caused by the additional measurement of current amplification with the
 common collector circuit.
 Also the new version shows the same low hFE result with the common emitter circiut,
 as you can see in the last column of table \ref{tab:bipolar}.
-The base emitter voltage is measured by the older Version as separate diode test with 1438mV.
-Now the base emitter voltage is measured with the state of current amplification testing (1.20V).
+The base emitter voltage is measured by the older Version as separate diode test with \(1438~mV\).
+Now the base emitter voltage is measured with the state of current amplification testing (\(1.20~V\)).
 The BUL38D Transistor has a build in protection diode over the anode and cathode of the NPN transistor,
 by what a parasitical PNP transistor with swapped Base - Collector connection is build.
 With software revision 1.10k both transistors are detected and marked
@@ -354,16 +357,16 @@ AD162       & PNP, B=2127, 280mV  & PNP, B=89, 107mV    & PNP, B=89, 107mV    \\
 
 In the table \ref{tab:mos} the results of some field-effect transistor measurements are shown.
 One measured parameters of the E-type MOS types is the gate-source voltage, by which the
-digital input of the ATmega connected to the \(680\Omega\) drain resitor
+digital input of the ATmega connected to the \(680~\Omega\) drain resistor
 changes the state.
 The other parameter is the gate capacity value.
 For very fast change of the gate voltage due to a small gate capacity, the detected voltage is
 slightly inaccurate.
-With the BS250 the Voltage changes from 2.6V to 2.5V, if you connect a additional
-\(10nF\) capacitor to the gate-source.
+With the BS250 the Voltage changes from \(2.6~V\) to \(2.5~V\), if you connect a additional
+\(10~nF\) capacitor to the gate-source.
 For JFET transistors often the characteristic current Idss is specified,
-the current in the drain when the gate-source voltage is 0V.
-Here, however, the current is given by a \(680\Omega\) load resistance at the source side
+the current in the drain when the gate-source voltage is \(0~V\).
+Here, however, the current is given by a \(680~\Omega\) load resistance at the source side
 of the JFET.
 The load resistor generates a reverse voltage Vgs,
 which is also shown.

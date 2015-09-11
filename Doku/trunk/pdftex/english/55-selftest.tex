@@ -12,8 +12,8 @@ If no equipment is connected, the program will end with ``part unknown or damage
 You can configure self test only for a ATmega168  or ATmega328.
 Before the test steps begin, the zero resistance of the connected probes is determined for all three combinations
 (T1:T3, T2:T3 and T1:T2).
-This zero resistances will be subtracted for the future ESR and resistance measurements below \(10 \Omega\).
-If the later measured resistance results fall below the particular zero resistance for more than \(0.2 \Omega\),
+This zero resistances will be subtracted for the future ESR and resistance measurements below \(10\Omega\).
+If the later measured resistance results fall below the particular zero resistance for more than \(0.2\Omega\),
 the tester will be resetted to ''uncalibrated''.
 This will be marked by a acticated cursor during the tests.
 The separate steps of the self test function 1 to 7 is displayed on row~1 of the LCD display with the letter T
@@ -29,9 +29,9 @@ The ISP interface influences the measurement.
 Here is the list of currently implemented tests:
 \vspace{1cm}
 \begin{enumerate}
-\item {\bf Measurement of the 1.3V (or 1.1V) reference Voltage (band gap Reference).}
+\item {\bf Measurement of the \(1.3V\) (or \(1.1V\)) reference Voltage (band gap Reference).}
 In row 1 the text ``Ref='' and the measured Voltage in mV is displayed.
-For the ATmega8 the voltage should be near to 1.3V. For the other processors the voltage should be near to 1.1V.
+For the ATmega8 the voltage should be near to \(1.3V\). For the other processors the voltage should be near to \(1.1V\).
 The second row shows the resulting factor for the capacity measurement with the \(470k\Omega\) resistor.
 \item {\bf Comparing of the  \(680\Omega\) resistors.}
 In row~1 the cryptic text  ``+RL- 12 13 23'' is shown. Meaning of this is as follows: 
@@ -44,7 +44,7 @@ The result is displayed in the middle place of row~2 as difference to the theore
 The last measurement of this test ``23.'' means that now the resistor at pin~2 is connected to VCC (+) and
 the resistor of pin 3 is connected to GND.
 The result of measurement is displayed at the last place of LCR row~2 as difference to the theoretical value.
-Please remember, that the resolution of the ADC is about 4.88mV!
+Please remember, that the resolution of the ADC is about \(4.88mV\)!
 The measurement situation is also shown in figure~\ref{fig:test2}.
 The theoretical value with respect to the internal resistance of the pins should be: 
 \(\frac{5001 \cdot  (19+680)}{ (19+680+680+22)} = 2493\) .
@@ -74,8 +74,8 @@ Row 1 shows the text ``RH+''.
 The results are shown als difference to VCC and should be near zero.
  Great differences from the best value for test 5 and 6 are errors  such as isolation problem, flux material or damaged port.
 
-\item {\bf This Step tests the voltages of the \(470 k\Omega / 680 \Omega\)  resistor divider.}
-The voltage difference to the expected voltage of the \(470 k\Omega\) / \(680 \Omega\) resistor dividers is shown
+\item {\bf This Step tests the voltages of the \(470k\Omega / 680\Omega\)  resistor divider.}
+The voltage difference to the expected voltage of the \(470k\Omega\) / \(680\Omega\) resistor dividers is shown
 in row 2 of the LCD for all three terminals.
 Differences of more than some mV can be caused by the assembly of wrong resistor values.
 
@@ -118,20 +118,20 @@ in display row 1 following the ``C0 ''.
 Alls three values are shown in pF units.
 For this measurements no predefined zero offset is respected.
 The zero offsets of pin combinations in opposite order is also measured.
-The results will be written to the EEprom, if all values are less than \(190 pF\).
+The results will be written to the EEprom, if all values are less than \(190pF\).
 This will be notified by the output of ``OK'' in row~2.
 The found zero offsets are used for further capacity measurements with respect to the pin combination.
-If there is any measurement found with a capacity value 20pF below the particular zero offset, the
+If there is any measurement found with a capacity value \(20pF\) below the particular zero offset, the
 tester will be resetted to ''uncalibrated''.
 This will be noticed by a activated LCD cursor during further tests.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
-If you use wire with clips, the zero offset may be 3~pF greater compared to a empty socket.
+If you use wire with clips, the zero offset may be \(3pF\) greater compared to a empty socket.
 
 \item {\bf Wait for the connection of a capacitor to pin~1 and pin~3.}
 The message ``1\mbox{\electricC}3 \textgreater 100nF'' is shown in row 1 of LCD.
 To prepare the measurement of the comparator offset voltage, you must connect
 a sufficient big capacitor to pin~1 and pin~3.
-It should be a capacitor with a high quality factor and a capacity between \(100 nF\) and \(20 \mu F\).
+It should be a capacitor with a high quality factor and a capacity between \(100nF\) and \(20\mu F\).
 You should never use electrolytical capacitors, use film capacitors instead.
 
 \item {\bf Measurement of the comparator offset for capacitor measurement adjustment.}
@@ -155,9 +155,9 @@ If the Makefile option FREQUENCY\_50HZ is set, a {\bf 50Hz rectangle signal} is 
 the same signal in opposite direction on pin~3.
 Pin~1 is switched to GND . The current is limited with \(680\Omega\) resistors.
 This will be notified by the Output of ``50Hz'' at the end of row 1 of the LCD display.
-The 50Hz signal will be generated 30 times for 2~seconds each.
+The \(50Hz\) signal will be generated 30 times for 2~seconds each.
 You can check the time of the wait calls, if you have an oscilloscope or frequency counter.
-Figure \ref{fig:Frequency50} shows the oscillograph curves of both 50 Hz output pins with crystal operation.
+Figure \ref{fig:Frequency50} shows the oscillograph curves of both \(50Hz\) output pins with crystal operation.
 
 \begin{figure}[H]
 \centering
@@ -169,7 +169,7 @@ Figure \ref{fig:Frequency50} shows the oscillograph curves of both 50 Hz output 
 
 If you don't use the crystal clock version, the result may be inexactly.
 A exactly clock frequency and wait time are important for measurement of capacity values.
-You can abort the generation of the 50Hz signal by long time pressing of the start button.
+You can abort the generation of the \(50Hz\) signal by long time pressing of the start button.
 Then the program continues with the normal measurement task.
 
 \subsection{Some Results of the Selftest Function}
@@ -220,14 +220,14 @@ Test 11 & Reference correction & 0 & \ref{fig:SelfTrefKorr} \\
   \begin{subfigure}[b]{9cm}
     \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTMitL}}
-    \caption{with \(680 \Omega\)}
+    \caption{with \(680\Omega\)}
     \label{fig:SelfTMitL}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
     \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTMitH}}
-    \caption{with \(470 k\Omega\)}
+    \caption{with \(470k\Omega\)}
     \label{fig:SelfTMitH}
   \end{subfigure}
   \caption{Selftest: difference to ideal mean voltage}
@@ -237,14 +237,14 @@ Test 11 & Reference correction & 0 & \ref{fig:SelfTrefKorr} \\
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTbottomH}}
-    \caption{with \(470 k\Omega\) to 0V}
+    \caption{with \(470k\Omega\) to 0V}
     \label{fig:SelfTlowH}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTtopH}}
-    \caption{with \(470 k\Omega\) to 5V}
+    \caption{with \(470k\Omega\) to \(5V\)}
     \label{fig:SelfTtopH}
   \end{subfigure}
   \caption{Selftest: Input voltage}
@@ -254,14 +254,14 @@ Test 11 & Reference correction & 0 & \ref{fig:SelfTrefKorr} \\
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTRiLo}}
-    \caption{with \(680 \Omega\) to 5V}
+    \caption{with \(680\Omega\) to \(5V\)}
     \label{fig:SelfTRoL}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{9cm}
   \centering
     \resizebox{9cm}{!}{\input{../GNU/SelfTRiHi}}
-    \caption{with \(680 \Omega\) to 0V}
+    \caption{with \(680\Omega\) to \(0V\)}
     \label{fig:SelfTRoH}
   \end{subfigure}
   \caption{Selftest: Output resistance}

@@ -20,19 +20,19 @@ Cooling of the transistor can help to get a more correct current amplification f
 if only one diode is connected. The reason is a too big residual current of this diode.
 Sometimes the measurement is possible by cooling down the device (with  cooling spray for example).
 
-\item Here and there  a wrong detection of the 2.5V precision reference is reported, when the PC4 pin (27) is unconnected.
+\item Here and there  a wrong detection of the \(2.5V\) precision reference is reported, when the PC4 pin (27) is unconnected.
 You can avoid this behaviour with a additional pull up resistor connected to VCC.
 
 \item The diode function of a triac gate can not be examined.
 
-\item Sometimes a problem with the Brown Out level of 4.3V is reported for ATmega168 or ATmega328 processors.
+\item Sometimes a problem with the Brown Out level of \(4.3V\) is reported for ATmega168 or ATmega328 processors.
 This will cause a reset during capacity measurement. A reason is not known.
-The Resets will disappear, if the Brown Out level is set to 2.7V.
+The Resets will disappear, if the Brown Out level is set to \(2.7V\).
 
 \item With the using of the sleep state of the processor, current of VCC power is changing more than 
 using previous software versions.
 You should check the blocking capacitors, if you notice any problems.
-Ceramic capacitors with 100nF should be placed near the power pins of the ATmega. 
+Ceramic capacitors with \(100nF\) should be placed near the power pins of the ATmega. 
 The using of sleep state can be deselected by the Makefile option INHIBIT\_SLEEP\_MODE.
 
 \item The measurement of tantalum based electolytical capacitors often make trouble.
