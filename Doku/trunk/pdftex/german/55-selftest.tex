@@ -138,6 +138,18 @@ Dies wird durch die Aktivierung des LCD-Positionszeigers (Cursor) beim nächsten
 Bitte beachten Sie, dass bei Veränderungen des Messaufbaus ein Neuabgleich sinnvoll ist.
 So kann sich der Nulloffset durch Verwenden von Kabeln mit Klemmen um circa \(3pF\) gegenüber einem leeren
 Sockel erhöhen.
+Wenn der Tester mit der SamplingADC Funktion konfiguriert wurde, wird zusätzlich die Nullkapazität
+für die SamplingADC Messmethode in doppelt so vielen Konfigurationen gemessen. 
+Das kommt daher, weil die Nullkapazität in allen Pinkombinationen sowohl für den Ladevorgang als
+auch für den Entladevorgang bestimmt wird.
+
+\item {\bf Warten auf einen Kondensator für die Messung kleiner Induktivitäten}
+Wenn der Tester mit der SamplingADC Funktion konfiguriert wurde, ist für die Messung kleiner Induktivitäten
+ein Kondensator bekannter Größe für die Berechnung der Induktivität aus der Schwingfrequenz erforderlich.
+Brauchbare Kapazitätswerte sind hierfür etwa \(10nF\) bis \(27nF\). Ein geeigneter Kondensator
+sollte an Pin~1 und Pin~3 angeschlossen werden, wenn die Meldung ,,Cap for L meas?'' in Zeile 1 des
+Displays erscheint. Genau dieser Kondensator sollte für die Induktivitätsmessung der Spule
+parallelgeschaltet werden, wenn diese Art der Induktivitätsbestimmung gewünscht wird.
 
 \item {\bf Warten auf den Anschluss eines Kondensators an Pin~1 und Pin~3.}
 Die Meldung ,,1\mbox{\electricC}3 \textgreater \(100nF\)'' wird in Zeile 1 des Displays angezeigt.
@@ -164,7 +176,7 @@ Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatis
 Am Ende der Selbsttest-Funktion wird der Text ,,Test End'' in Zeile~1 und die Versions-Nummer der Software in Zeile~2 angezeigt.
 Wenn gewählt, wird ein {\bf 50~Hz Rechtecksignal} auf Testpin~2 generiert und das gegenphasige Signal auf Testpin~3.
 Testpin~1 wird auf GND geschaltet. Der Strom für Testpin 2 und 3 wird mit \(680\Omega\) Widerständen begrenzt.
-Angezeigt wird das durch die Ausgabe von ''50Hz'' am Ende der Zeile~1.
+Angezeigt wird das durch die Ausgabe von ,,50Hz'' am Ende der Zeile~1.
 Diese Ausgabe wird dreißig Mal mit jeweils 2~Sekunden Dauer durchgeführt.
 Man kann die Zeit der Verzögerungs-Aufrufe prüfen, wenn man ein Oszilloskop oder einen
 Frequenz-Zähler besitzt. Abbildung \ref{fig:Frequency50} zeigt ein Oszillogramm der ausgegebenen Pegel mit Quarz-Betrieb.

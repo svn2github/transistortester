@@ -240,6 +240,26 @@ All found values will be written to EEprom and will be used for further measurem
 The port output resistance values will be determined at the beginning of each measurement.\\
 Example: CFLAGS += -DAUTO\_CAL
 
+  \item[SHORT\_UNCAL\_MSG] After the test of a part a message is shown for processors with at least 32K flash memory,
+if the tester is still uncalibrated. Normally followes after the hint a short description, how the
+tester can be calibrated. This description is not shown, if you set the option SHORT\_UNCAL\_MSG in the Makefile.
+With this option set, the tester only display a one line hint.
+This reduces the required space of flash memory  and also the display time for the user,
+which already know, how to calibrate the tester.\\
+Example: CFLAGS += -DSHORT\_UNCAL\_MSG
+
+  \item[WITH\_SamplingADC] With this option set, the tester make use of the sampling method of ADC in special cases.
+By shifting the sampling time of the ADC with increments of 1, 4 or 16 processor clock intervals for repeatable signals
+fast changes of voltages can be monitored.
+The load time of little capacitors below \(100pF\) can be monitored with a resulting resolution of \(0.01pF\) with a \(16MHz\) processor clock.
+With the same method the resonant frequency of little coils below \(2mH\) can be monitored with a parallel capacitor to build a LC-resonator.
+If the capacity of the parallel capacitor is known, the inductance of the coil can be calculated with high resolution from
+the resonant frequency. As a side product the quality factor Q can be estimated from the resonant behavior.
+This features are switched on by setting the option WITH\_SamplingADC.
+At the calibration sequence additionally the zero capacity values of the sampling method is measured and
+after that the capacity value of a suitable capacitor for later building the LC-resonator with a unknown coil is measured.\\
+Example: WITH\_SamplingADC = 1
+
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.
  This option should be set only for special cases to check the delay function.\\
 Example: CFLAGS += -DFREQUENCY\_50HZ

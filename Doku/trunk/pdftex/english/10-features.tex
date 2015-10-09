@@ -133,10 +133,16 @@ Currently a preselection of frequencies from \(1Hz\) up to \(2MHz\) can be selec
 \item With the dialog function can be started a separated capacity measurement with ESR measurement.
 Capacities from about \(2\mu F\) up to \(50mF\) can most be measured in circuit, because only a little
 measurement voltage of about \(300mV\) is used.
+\item If your ATmega has at least 32K flash memory (Mega328), you can also use the sampling method of the ADC,
+which can measure capacitors with less than 100pF at a resolution of up to 0.01pF.
+With the same method you can also measure coils with less than 2mH with significant better resolution of the inductance
+by building a resonant circuit with a parallel capacitor of known capacity value.
+
+\end{enumerate}
+
 You should make shure, that all capacitors have no residual charge before starting any measurement,
 especially if you use the tester for measurement of capacitor in circuit.
 
-\end{enumerate}
 
 Thyristors and Triacs can only be detected, if the test current is above the holding current.
 Some Thyristors and Triacs need as higher gate trigger current, than this Tester can deliver.

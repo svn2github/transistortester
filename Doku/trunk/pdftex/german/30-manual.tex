@@ -143,11 +143,23 @@ Natürlich wird die richtige Pinnummer des gemeinsamen Kontaktes in der Mitte an
 Wenn auch die geschlossene Schalterstellung an den Raststellungen vorkommt,
 wird außerdem in Zeile 2 ,,1---2---3~C'' zwei Sekunden lang angezeigt.
 Mir ist kein Impulsdrehgeber bekannt, der immer nur geschlossene Kontakte an jeder Raststellung hat.
-Die Stellungen der Kontakte zwischen den Raststellungen werden nur kurz (\(\textless~0,5s\)) ohne die Kennbuchstaben 'o' oder 'C' 
+Die Stellungen der Kontakte zwischen den Raststellungen werden nur kurz (\textless\(~0,5s\)) ohne die Kennbuchstaben 'o' oder 'C' 
 in Zeile 2 angezeigt.
 Wenn der Impulsdrehgeber für die Bedienung des Testers eingesetzt werden soll, muß die Makefile Option WITH\_ROTARY\_SWITCH=2
 für Drehgeber mit nur den offenen Kontakten ('o') und die Option WITH\_ROTARY\_SWITCH=1 für Drehgeber mit
 offenen ('o') und geschlossenen ('C') Kontakten an den Raststellungen.\\
+
+\item[C(\(\mu F\))-Korrektur]
+Mit dieser Menüfunktion kann ein Korrekturwert für die Messung grösserer Kapazitätswerte geändert werden.
+Die Funktion ist die gleiche, die auch mit der Makefile Option C\_H\_KORR voreingestellt werden kann.
+Werte über Null reduzieren den Ausgabewert der Kapazität um diesen Prozent Wert, Werte unter Null würden den Ausgabewert
+anwachsen lassen. Ein kurzer Tastendruck verringert den Korrekturwert um 0.1\%, ein längerer Tastendruck vergrößert
+den Korrekturwert um 0.1\%. Ein sehr langer Tastendruck speichert den Wert.  Es ist eine Eigenschaft des
+Meßverfahrens, daß Kondensatoren mit geringer Güte wie Elektrolyt-Kondensatoren mit zu großer Kapazität gemessen werden.
+Erkennbar ist die Güte über den Parameter Vloss. Gute Kondensatoren haben kein Vloss oder nur 0.1\%.
+Zum Abgleich dieses Parameters sollten also nur Kondensatoren mit über \(50\mu F\) hoher Güte verwendet werden.
+Übrigens halte ich die Bestimmung des exakten Kapazitätswertes von Elektrolyt-Kondensatoren für überflüssig,
+da die Kapazität sowohl von der Temperatur als auch der DC-Spannung abhängt.
 
  \item[Selbsttest]
 Mit der Zusatzfunktion ,,Selbsttest'' wird ein vollständiger Selbsttest mit Kalibration durchgeführt.
@@ -220,7 +232,17 @@ Sie sollten während der Kalibration (nach dem Test 6) weder die Testports noch 
 Die Ausrüstung sollte aber die gleiche sein, die später zum Messen verwendet wird.
 Anderenfalls wird der Nullwert der Kondensatormessung nicht richtig bestimmt.
 Die Kalibration des Innenwiderstandes der Port-Ausgänge wird mit dieser Option vor jeder
-Messung durchgeführt.
+Messung durchgeführt. \\
+
+Bei der Kalibration werden zwei Sonderschritte gemacht, wenn die samplingADC Funktion in der Makefile gewählt wurde (WITH\_SamplingADC = 1).
+Nach der normalen Bestimmung der Nullwerte der Kapazitätsmessung werden dann auch die Nullwerte mit
+der Sampling Methode (C0samp) bestimmt. Danach wird der Anschluß eines Testkondensators für die
+Spulenmessung an Pin~1 und Pin~3 erforderlich (Cap for L meas?).
+Der Kapazitätswert sollte hierbei zwischen \(10nF\) und \(27nF\) liegen,
+um eine meßbare Resonanzfrequenz bei der späteren Parallelschaltung mit einer Spule (\textless~\(2mH\)) zu erreichen.
+Für Spulen mit mehr als 2mH Induktivität sollte die normale Testfunktion ohne die Parallelschaltung eines
+Kondensators ausreichen. Ein Parallelschalten des Kondensators sollte hier nicht mehr 
+zu einer Verbesserung des Meßergebnisses führen.\\
 
 Für den letzten Teil der Kalibration ist der Anschluss eines Kondensators 
 mit einer beliebiger Kapazität zwischen \(100nF\) und \(20\mu F\) an Pin~1 und Pin~3 erforderlich.
@@ -355,3 +377,42 @@ Kondensator mit einigen nF parallel zum Gate / Source angeschlossen wird.
 Die Schwellspannung wird bei Drain-Strömen von etwa \(3,6mA\) für P-E-MOS und bei etwa \(4mA\) für N-E-MOS bestimmt.
 Der Widerstand RDS or besser R\textsubscript{DSon} wird mit einer Gate - Source Spannung von annähernd \(5V\) bestimmt,
  was wahrscheinlich nicht der niedrigste Wert ist.
+
+\section{Messen von Kondensatoren}
+Die Kapazitätswerte werden immer aus einer Zeitkonstanten berechnet, die sich aus der Serienschaltung von eingebauten
+Widerständen mit dem Kondensator bei Ladevorgängen ergeben. Bei kleineren Kondensatoren werden die \(470k\Omega\) Widerstände
+für die Messung benutzt und die Zeit bis zum Erreichen einer Schwellspannung gemessen.
+Bei größeren Kondensatoren mit einigen \(10\mu F\) wird die Spannungserhöhung des Kondensators nach Ladepulsen mit den \(680\Omega\) Widerständen 
+beobachtet und daraus die Kapazität berechnet. Ganz kleine Kapazitäten können mit der samplingADC Methode gemessen werden.
+Dabei wird ein Aufladevorgang immer wieder erzeugt und durch Verschiebung der ADC S\&H Zeit mit dem Zeitabstand abgetastet,
+der sich aus der Taktfrequenz des Prozessors ergibt. Eine komplette ADC Wandlung braucht hingegen 1664 Prozessortakte!
+Bis zu 250 ADC-Werte werden so ermittelt und aus dem Spannungsverlauf die Kapazität berechnet.
+Wenn die samplingADC Funktion in der Makefile gewählt wurde, werden alle Kondensatoren \textless~\(100pF\) in der 
+Kondensatormeßfunktion  {\bf[C]} mit der samplingADC Methode gemessen. Die Auflösung beträgt hier bis zu \(0.01pF\) bei
+\(16MHz\) Taktfrequenz. Der Abgleich der Nullkapazität stellt bei dieser Auflösung eine besondere Herausforderung dar.
+Die samplingADC Methode des Kapazitätsbestimmung wurde immer angewendet, wenn es Bruchteile von \(1pF\) dargestellt werden.
+Übrigens können auch die Sperrschichtkapazitäten von Einzeldioden mit dieser Methode gemessen werden. Da die Methode
+die Kapazität sowohl beim Laden als auch beim Entladen messen kann, werden zwei Kapazitätswerte angegeben. Wegen
+des Kapazitätsdioden-Effektes unterscheiden sich die beiden Werte.
+
+\section{Messen von Spulen}
+Das angewandte Verfahren zum Messen der Induktivität besteht aus einer Zeitkonstantenbestimmung des Stromanstiegs.
+Die Detektionsgrenze ist hier \(0.01mH\), wenn der Widerstandswert der Spule kleiner \(24\Omega\) beträgt.
+Bei größeren Widerstandswerten beträgt die Auflösung nur \(0.1mH\).
+Bei Widerstandswerten über \(2.1k\Omega\) kann die Methode gar nicht angewendet werden. 
+Die Ausgabewerte der normalen Messung erscheinen in der zweiten Zeile (Widerstand und Induktivität).
+Mit dem samplingADC Verfahren können bei größeren Spulenwerten Eigenresonanzen festgestellt werden.
+Wenn diese deutlich genug ist, wird die Frequenz und die Güte Q zusätzlich zu der normalen Messung in Zeile 3 ausgegeben.
+
+Daneben läßt sich diese Methode der Schwingfrequenz-Messung auch für die Bestimmung des Induktivitätswertes benutzen,
+wenn ein ausreichend großer Kondensator mit bekanntem Kapazitätswert einer Spule mit kleiner Induktivität (\textless~\(2mH\))
+parallelgeschaltet wird. Durch die Parallelschaltung des Kondensators funktioniert die normale Messung der
+Zeitkonstante nicht mehr. Die Induktivität der normalen Messung wird gar nicht ausgegeben und der
+Widerstandswert wird in der ersten Zeile ausgegeben, wenn die Resonanzfrequenz eine Parallelschaltung
+des Kondensators erwarten lässt. Auch für diesen Fall wird eine Güte Q aus den Schwingverhalten berechnet.
+Für diesen Fall wird die berechnete Induktivität an erster Stelle in Zeile 2 angegeben. Dahinter steht dann
+der Text " if " gefolgt von dem Kapazitätswert des Parallelkondensators. Der Wert dieses Kondensators kann derzeit
+nur in der Kalibrationsfunktion durch Messung festgelegt werden (Cap for L meas?) .
+Die dritte Zeile zeigt wieder die Schwingfrequenz und die ermittelte Güte Q. 
+Bei zweizeiligen Displays wird der Inhalt der 3. Zeile zeitverzögert in Zeile 2 ausgegeben.
+

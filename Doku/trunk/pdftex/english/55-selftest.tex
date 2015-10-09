@@ -127,6 +127,20 @@ This will be noticed by a activated LCD cursor during further tests.
 Please notice, that changes of the test equipment can cause a new adjustment of the zero offset.
 If you use wire with clips, the zero offset may be \(3pF\) greater compared to a empty socket.
 
+If the tester is configured with the SamplingADC function, the zero capacity values is determined
+with double the count of all pin combinations. The reason for this is, that the
+zero capacity is measured for the charge and the discharge of all pin combinations separately.
+
+\item {\bf Wait for a capacitor for measuring of low inductace values}
+If the tester is configured with the SamplingADC function, a known capacitor is required for
+the computation of the inductance value from the resonant frequency of a parallel connected coil.
+Practical capacity values can be choosed from \(10nF\) to \(27nF\). 
+A suitable capacitor must be connected to pin~1 and pin~3, if the message ''Cap for L meas?'' is shown in
+line 1 of the display.
+Exacly this capacitor should be connected later parallel to a little coil,
+if the calculation of the coil\'s inductance value from resonant frequency is desired.
+If your tester does not include the SamplingADC function, this step is omitted.
+
 \item {\bf Wait for the connection of a capacitor to pin~1 and pin~3.}
 The message ``1\mbox{\electricC}3 \textgreater 100nF'' is shown in row 1 of LCD.
 To prepare the measurement of the comparator offset voltage, you must connect

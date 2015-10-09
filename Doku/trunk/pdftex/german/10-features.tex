@@ -109,16 +109,23 @@ Wenn die Erweiterung für die Zenerdiodenmessung (DC-DC-Konverter)
 eingebaut ist, können in diesen Zweig auch Zenerdioden bei gedrückter Taste getestet werden.
 \item Mit Dialogfunktion kann eine Frequenzausgabe auf dem TP2-Pin (PB2-Port des ATmega) erfolgen.
 Derzeit ist eine Auswahl von Frequenzen von \(1Hz\) bis \(2MHz\) wählbar.
-\item Mit Dialogfunktion eine feste Frequenz mit einstellbarer Pulsweite auf dem TP2-Pin (PB2-Port des ATmega) erfolgen.
+\item Mit Dialogfunktion kann eine feste Frequenz mit einstellbarer Pulsweite auf dem TP2-Pin (PB2-Port des ATmega)
+ausgegeben werden.
 Die Breite kann mit kurzem Tastendruck um \(1\%\) und mit längerem Tastendruck um \(10\%\) erhöht werden.
 \item Mit der Dialogfunktion kann eine spezielle Kondensatormessung mit ESR-Messung gestartet werden.
 Die Funktion wird bei der Auswahl \mbox{C+ESR@TP1:TP3} genannt.
  Kapazitäten ab etwa \(2\mu F\) bis zu \(50mF\) können meistens wegen der geringen Messspannung von etwa \(300mV\)
  im eingebauten Zustand gemessen werden.
+\item Bei Prozessoren mit mindestens 32K Flash-Speicher (Mega328) kann der ADC mit der Sampling-Methode so genutzt werden,
+daß Kondensatoren unter 100pF mit einer Auflösung von 0.01pF gemessen werden können. Mit der gleichen Methode können
+auch Spulen unter 2mH mit deutlich besserer Auflösung über die Resonanzfrequenz mit einem parallelgeschalteten Kondensator 
+bekannter Größe bestimmt werden.
+
+\end{enumerate}
+
  Bei Einsatz des Testers für die Prüfung von Kondensatoren in einer Schaltung sollte besonders darauf geachtet werden,
  dass die Kondensatoren vor der Messung keine Restladung mehr haben.
 
-\end{enumerate}
 
 Thyristoren und Triacs können nur erkannt werden, wenn der Test-Strom über dem Halte-Strom liegt.
 Einige Thyristoren und Triacs brauchen auch einen höheren Zündstrom als dieser Tester liefern kann.

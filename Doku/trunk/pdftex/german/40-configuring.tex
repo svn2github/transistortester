@@ -248,6 +248,26 @@ Umschaltung auf die interne Spannungsreferenz ermittelt und ins EEPROM geschrieb
 Die Port-Ausgangswiderstände werden zu Beginn jeder Messung neu bestimmt. \\
 Beispiel: CFLAGS += -DAUTO\_CAL
 
+  \item[SHORT\_UNCAL\_MSG] Bei Prozessoren mit mindestens 32K Flash  wird nach einem Bauteiletest ein Hinweis auf einen unkalibrierten Zustand
+des Testers gegeben. Normalerweise folgt dann eine kurze Anleitung, wie die Kalibration durchzuführen ist.
+Diese Anleitung wird nicht ausgegeben, wenn die Option SHORT\_UNCAL\_MSG gesetzt wird.
+Dann bleibt es bei einem einzeiligen Hinweis auf den unkalibrierten Zustand. 
+Dies spart einerseits etwas Platz in Flash-Speicher und andererseits Ausgabezeit für Benutzer,
+die ohnehin wissen, wie kalibriert wird.\\
+Beispiel: CFLAGS += -DSHORT\_UNCAL\_MSG
+
+  \item[WITH\_SamplingADC] Mit dieser Funktion wird in bestimmten Fällen die Sampling-Methode für den ADC angewendet.
+Durch Verschieben der Abtastzeit des ADC kann für wiederholbare Signale die Signalform mit einem Zeitabstand
+von einem Prozessortakt oder auch 4 oder 16 Prozessortakte abgetastet werden. Dadurch kann die Ladefunktion von
+Kondensatoren unter \(100pF\) so vermessen werden, daß sich eine Auflösung von \(0.01pF\) bei \(16MHz\) Prozessortakt ergibt.
+Mit den gleichen Methode kann die Schwingfrequenz bei kleinen Spulen unter \(2mH\) mit einem parallelgeschalteten
+Kondensator gemessen werden. Wenn die Kapazität des Parallel-Kondensators bekannt ist, kann die Induktivität aus
+der Schwingfrequenz mit hoher Auflösung bestimmt werden. Als Nebenprodukt kann auch die Güte der Spule aus dem
+Schwingverhalten geschätzt werden. Freigeschaltet werden diese Funktionen mit der Option WITH\_SamplingADC.
+Bei der Kalibration werden dann sowohl zusätzlich die Nullkapazitäten mit der Samplingmethode zusätzlich bestimmt,
+als auch die Kapazität eines Parallel-Kondensators vermessen für die spätere Bildung eines Schwingkreises mit einer unbekannten Spule.\\
+Beispiel: WITH\_SamplingADC = 1
+
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein \(50Hz\)-Signal auf Port 2 und Port 3 erzeugt.
 Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\
 Beispiel: CFLAGS += -DFREQUENCY\_50HZ

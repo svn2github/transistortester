@@ -149,11 +149,24 @@ Of course the pin number of the right common contact is shown in the middle inst
 If also the closed switches state is detected at the indexed positions, the row 2 of the display is also
 shown as ''1---2---3 C'' for two seconds.
 I don't know any rotary encoder, which have the switches always closed at any indexed position.
-The interim state of the switches between the indexed positions is also shown in row 2 for a short time (\(\textless~0.5s\))
+The interim state of the switches between the indexed positions is also shown in row 2 for a short time (\textless\(~0.5s\))
 without the characters 'o' or 'C'.
 If you will use the rotary encoder for handling the tester, you should set the Makefile option WITH\_ROTARY\_SWITCH=2
 for encoders with only the open state ('o') and set the option WITH\_ROTARY\_SWITCH=1 for encoders 
 with the open ('o') and closed ('C') state at the indexed positions.\\
+
+\item[C(\(\mu F\))-correction]
+With this menu function you can change a correction factor for bigger capacity values.
+You can preset the same factor with the Makefile option C\_H\_KORR.
+Values above zero reduce the output value of the capacity with this percent value, values below zero will increase
+the shown capacity value. A short key press will reduce the correction value about 0.1\%, a longer key press will
+increase the correction value. A very long key press will save the correction value.
+It is a characteristic of the used measurement method, that capacitors with low quality like electrolytic type will
+result to a too high capacity value. You can detect a capacitor with low quality by a higher value of the Vloss parameter.
+High quality capacitors have no Vloss or only 0.1\%.
+For adjusting this parameter you should only use capacitors with high quality and a capacity value above \(50\mu F\).
+By the way the exactly capacity value of electrolytic capacitors is unimportant, because the capacity value differ
+with temperature and DC-voltage.
 
 \item[Selftest]
 With the menu function ''Selftest'' a full selftest with calibration is done.
@@ -223,7 +236,17 @@ during test number 4.
 You should not touch to any of the test ports or connected cables when calibration (after test 6) is done.
 But the equipment should be the same, which is used for further measurements.
 Otherwise the zero offset for capacity measurement is not detected correctly.
-The resistance values of port outputs are determined at the beginning of every measurement with this option.
+The resistance values of port outputs are determined at the beginning of every measurement with this option.\\
+
+If you have selected the samplingADC function in the Makefile with the option ''WITH\_SamplingADC = 1'',
+two special steps are included to the calibration precedure.
+After the normal measuring of the zero capacity values, also the zero capacity values for the samplingADC function is
+measured (C0samp). After that step the connection of a test capacitor is required to pin~1 and pin~3 for
+later measurement of little coils (Cap for L meas?). The capacity value should be between \(10nF\) and \(27nF\),
+to get a measurable resonant frequency by later parallel connection to a coil with less than \(2mH\).
+For inspection of coils with more than \(2mH\) inductance the normal measurement method should result to a
+sufficient accuracy. The parallel connection of the capacitor to use the other measurement method should
+not be usefull.\\
 
 A capacitor with any capacity between \(100nF\) and \(20\mu F\) connected to pin~1 and pin~3 is
 required for the last task of calibration.
@@ -359,4 +382,41 @@ of some nF parallel to the gate /source.
 The gate threshold voltage will be find out with a drain current of about \(3.5mA\) for a P-E-MOS and about \(4mA\) for a N-E-MOS.
 The RDS or better R\textsubscript{DSon} is measured with a gate - source voltage of nearly \(5V\), which is probably not the lowest value.
 
+\section{Measurement of capacitors}
+The capacity values are always computed from the time constant, which is build by the serial connection of the
+build in resistors with the capacitor during charging. With little capacity values the \(470k\Omega\) resistors are
+used for the measurement the time to reach a threshold voltage.
+For bigger capacity values with some \(10\mu F\) the voltage grow at the capacitor is monitored after charge pulses with the
+\(680\Omega\) resistors. With this voltage grow the capacity can be computed together with the count of fixed length pulses.
+Very low capacity values can be measured with the samplingADC method.
+For analysing the same load pulse is repeated many times and the voltage is monitored with the time shift of the ADC S\&H time
+using interval-tics build from the processor clock. But a complete AD conversion take 1664 processor tics!
+Up to 250 ADC samples are build by this way and from the voltage curve the capacity value is computed.
+If the samplingADC function is selected in the Makefile, all capacitors with less than \(100pF\) are measured with
+the samplingADC function in the capacitor-meter mode {\bf[C]}. The resolution is up to \(0.01pf\) with a clock 
+frequency of \(16MHz\). The calibrated condition is difficult to build with this high resolution.
+You can assume the use of the samplingADC methode every time, fractions of \(1pF\) are displayed at the screen.
+By the way it should mentiored, that the junction capacitance of single diodes can also be measured with
+this method. Because this method can measure the capacity value by charging or discharging, two capacity results are shown.
+Both values differ be reason of the capacity diode effect.
 
+\section{Measurement of coils}
+The normal measurement of the inductance is based on the measurement of the time constant of the current grow.
+The detection limit is about \(0.01mH\), if the resistance of the coil is below \(24\Omega\).
+For bigger resistance values the resolution is only \(0.1mH\).
+If the resistance is above \(2.1k\Omega\), this technique can never be used to detect coils.
+The measurement results of this normal measurement is shown in the second line (resistance and inductance).
+With the samplingADC method a resonant frequency of coils can be detected with greater inductance values.
+If this effect is noticeable, the frequency and the quality factor Q of the coil is shown additionally in line 3. 
+
+The method of resonant frequency measurement can also be used for the determination of the inductance value,
+if a sufficient big capacitor mith know capacity value is connected parallel to a little inductance (\textless\(2mH\)).
+With a parallel connected capacitor the normal measurement of inductance can no more operate well.
+If the resonant frequency let assume a parallel connected capacitor, the inductance of the normal measurement
+is not shown and the resistance value is shown in line 1.
+For this resonant circuit the quality factor Q is also computed and shown behind the frequency value in line 3.
+You can identify this type of measurement with the inductance value at the first position of line 2,
+followed by the text '' if '' and the value of the assumed parallel capacity.
+The value of this parallel capacitor can currently only be set with the calibration function (Cap for L meas?).
+
+For displays with only two lines, the content for the third line is shown time-delayed in line 2.
