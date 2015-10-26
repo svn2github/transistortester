@@ -45,6 +45,9 @@
    const unsigned char CONTRAST_str[] MEM2_TEXT = {'K','o',Cyr_n,Cyr_t,'p','a','c',Cyr_t,Cyr_n,'o','c',Cyr_t,Cyr_ww,0}; //Kontrast
   #endif
  #endif
+ #ifdef SamplingADC
+ const unsigned char cap_for_l_meas_str[] MEM2_TEXT = "C<30nF for L?";    // should be translated at some point
+ #endif
  #define LANG_SELECTED
 #endif
 
@@ -94,6 +97,9 @@
   #if ((LCD_ST_TYPE == 7565) || (LCD_ST_TYPE == 1306) || (LCD_ST_TYPE == 8812) || (LCD_ST_TYPE == 8814) || defined(LCD_DOGM))
    const unsigned char CONTRAST_str[] MEM2_TEXT = {'K','o',Cyr_n,Cyr_t,'p','a','c',Cyr_t,Cyr_n,'i','c',Cyr_t,Cyr_ww,0}; //Kontrast
   #endif
+ #endif
+ #ifdef SamplingADC
+ const unsigned char cap_for_l_meas_str[] MEM2_TEXT = "C<30nF for L?";    // should be translated at some point
  #endif
  #define LANG_SELECTED
 #endif
