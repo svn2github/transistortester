@@ -62,6 +62,12 @@ Example: CFLAGS += -DLCD\_DOGM
 Additional parameters, which are shown only short in row 2, will be shown in row 3 and 4 with this option.\\
 Example: CFLAGS += -DFOUR\_LINE\_LCD
 
+  \item[DD\_RAM\_OFFSET] Somne character displays use different DD-RAN starting addresses for the beginning of each line.
+Usually the DD-RAM starting address for line 1 is 0.
+Some displays like TC1604 or TC1602 use a 128 (0x80) for the beginning of line 1.
+This can be respected with this option.
+Example: CFLAGS += -DDD\_RAM\_OFFSET = 128
+
   \item[WITH\_LCD\_ST7665] This option must be used, if a 128x64 pixel LCD is connected with serial
 interface. For this display type further options must be set, which are described in table~\ref{tab:cod-display}.
 You can also use the simular SSD1306 controller instead of the ST7565 controller for example.

@@ -66,3 +66,64 @@ der Remanenz des Eisenkerns schwierig zu messen sind.
 \caption{Induktivitäts-Messfehler von 15 verschiedenen ATmega}
 \label{fig:Induct328p}
 \end{figure}
+
+\subsection{Messung kleiner Induktivitäten mit der Sampling Methode}
+
+Die kleinste erfassbare Induktivität bei der normalen Meßmethode beträgt 0.01~mH.
+Für Hochfrequenzanwendungen ist aber die Messung kleinerer Induktivitätswerte sinnvoll.
+Die normale Messung verwendet für die Induktivitätsbestimmung den Stromanstieg in der Spule.
+Dieser Weg ist für die Sampling Methode nicht verwendbar, da für die Messung keine 
+zusätzlichen Widerstände verwendet werden. Der Strom erreicht damit schnell unzulässig hohe
+Werte. Ein Schaden des ATmega wird bei der normalen Messung nur dadurch verhindert, daß
+der Strom frühzeitig wieder abgeschaltet wird. Für die Sampling-Methode wäre das Abschalten
+schwierig durchzuführen und zusätzlich müßte der kritische Vorgang ja oft hintereinander wiederholt werden.
+Aus diesem Grunde hat der Funkamateur Pieter-Tjerk (PA3FWM) eine andere Methode für die
+Messung benutzt. Mit einem parallel geschaltetem Kondensator wird mit der Induktivität ein
+Schwingkreis gebildet. Mit einem kurzen Strompuls wird der Schwingkreis angeregt und mit
+der Sampling Methode versucht, die Eigenfrequenz des Schwingkreises zu bestimmen.
+Weil für die ADC-Messung ein Ende der Spule auf Massepotential gehalten werden muß,
+ergeben sich zwei Schwierigkeiten. Die Spannung der Schwingung geht natürlich auch
+in den negativen Bereich. Hier wird die Schwingung durch die interne Schutzdiode
+des ATmega auf etwa 0.6V begrenzt. Damit wird auch die positive Spitzenspannung der
+Schwingung auf diesen Wert begrenzt. Daneben kann der ADC nur positive Spannungen messen.
+Deswegen fehlt jeder negative Teil der Schwingugen. Anstelle der negativen Spannungen
+liest der ADC immer eine Null.
+Trotzdem ist es Pieter-Tjerk gelungen, die Eigenfrequenz hinreichend genau aus den
+gemessenen ADC-Daten zu bestimmen. Aus der Eigenfrequenz des Schwingkreises läßt sich
+die Induktivität berechnen, wenn der Kapazitätswert bekannt ist.
+Aus diesem Grunde ist die Kalibration um die Messung einer Parallelkapazität für
+die Induktivitätsmessung erweitert worden.
+Der Kondensator wird mit der Meldung ,,\mbox{1 \electricC 3 \(10-30nF\)(L)}''
+angefordert. Beim unkalibrierten Tester ist ein Wert von \(18nF\) vorbesetzt.
+Die Werte für den Parallelkondensator werden relativ hoch gewählt, um die Eigenfrequenz
+des Schwingkreises auch bei kleineren Induktivitäten klein zu halten.
+Der Kondensator für die Parallelschaltung sollte eine hohe Güte haben (Folien-Typ),
+da auch die Güte des Schwingkreises aus der Abnahme der Spannungsamplitude bestimmt wird.
+Bei hoher Güte des Kondensators ist im Regelfall die Spule bestimmend für die Güte des
+Schwingkreises.
+
+
+Für die Bedienung ist bis auf die Parallelschaltung des Kondensators keine weitere
+Aktion erforderlich. Der Schwingkreis wird dann normalerweise automatisch erkannt.
+Falls der Schwingkreis entdeckt wurde, wird hinter der Induktivität der Text
+,,if'' und die angenommene Kapazität des Parallelkondensators in Zeile 2 angegeben.
+Für diesen Fall wird der Widerstandswert der Spule am Ende der Zeile 1 mit ausgegeben.
+Dem Widerstandwert sollte man auf jeden Fall ohne parallel geschalteten Kondensator überprüfen,
+da die Widerstandsmessung am Schwingkreis oft nicht funktioniert!
+In einer weiteren Zeile wird die gemessene Schwingfrequenz und die Güte (Q=) angegeben.
+Wenn kein Schwingkreis festgestellt wurde, wird der Widerstand und die Induktivität
+in Zeile 2 ausgegeben. In einer weiteren Zeile wird die Resonanzfrequenz und die
+Güte angegeben, wenn trotz fehlendem Parallelkondensator eine Eigenresonanz der Spule
+festgestellt wurde.
+
+Für eine Luftspule mit 6 Windungen und einem parallelgeschaltetem 18nF Kondensator
+bestimmt die Samplingmethode folgendes Ergebnis:
+
+\begin{verbatim}
+272nH if 18.0nF
+2256kHz Q=38.7
+\end{verbatim}
+
+Der ATmega328 wurde dafür mit 8 MHz betrieben. In etwa das gleiche Ergebnis erzielt auch
+ein 25cm langer Kupferdraht, der zu einem großen Kreis gebogen wurde.
+Wahrscheinlich sind mit einem 16~MHz Betrieb des ATmega noch kleinere Induktivitäten messbar.

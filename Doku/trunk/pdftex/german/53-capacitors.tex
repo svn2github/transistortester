@@ -164,6 +164,64 @@ von der Diode aufgenommen werden (Schwellspannung) und die Referenz-Spannung wü
 Dieser Konzeptfehler wird mit der Methode vermieden, die in der aktuellen Software für große Kondensatoren in Kapitel~\ref{sec:bigcap}
 verwendet wird.
 
+\subsection{Messen sehr kleiner Kapazitäten mit der Samplingmethode}
+Der Funkamateur Pieter-Tjerk (PA3FWM) hat für die Messung sehr kleiner Kapazitäten (\textless~100pF) mit hoher Auflösung
+die Fähigkeiten des Testers um die Sampling ADC Methode erweitert.
+Die Wandlungsdauer des ADC reicht eigentlich nicht aus, um schnelle Vorgänge abtasten zu können.
+Bei der Abtastung der Spannung wird das Eingangssignal aber zu einer exakt festgelegten Zeit abgetastet,
+der Sample und Hold Zeit (SH). Der ADC braucht für eine komplette Wandlung 13 Takte, wobei der
+ADC Takt durch Teilung des Prozessortaktes durch 128 oder 64 gewonnen wird.
+Die Abtastung des Spannungswertes findet immer genau bei ADC-Takt Nummer 1.5 statt. 
+Wenn nun das abzutastende Spannungssignal immer wieder neu erzeugt werden kann,
+kann man durch Verschiebung der Abtastzeit das komplette Signal mit dem Raster der Verschiebung abtasten.
+Eine normale ADC-Wandlung dauert bei 8 MHz Prozessortakt 13x64 = 832 Taktzyklen. 
+Wenn das Signal nun mit einem 831 Takte Zyklus wiederholt wird, würde die ununterbrochene ADC-Wandlung (Freilauf-Modus)
+das Signal bei jeder fortlaufenden Wandlung einen Prozessortakt später abtasten.
+Mit dieser Methode muß dafür gesorgt werden, daß die erste ADC-Abtastung des Signals zu der
+gewünschten Startzeit beginnt. Die Zeiten der fortlaufenden ADC Werte verschieben sich dann jeweils um einen
+Prozessortakt relativ zum neu erzeugten Signal. Wenn die Wiederholung des Signals gut gelingt, entspricht 
+das aus vielen Signalwiederholungen zusammengesetzte Signal dann dem ADC Signal, das mit Prozessortakt (8 MHz) 
+abgetastet und gewandelt würde.
+Die Abbildung~\ref{fig:sampling} zeigt das Prinzip der Abtastung mit einem zehnmal wiederholten Signal
+um daraus 10 Abtastwerte (SH0 - SH9) zu gewinnen.
+Für den wirklichen Fall ist die relative Zeitverschiebung der aufeinanderfolgenden Abtastungen 
+viel geringer als dargestellt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/sampling.eps}
+\caption{Abtasten eines Spannungsverlaufs mit der Samplingmethode}
+\label{fig:sampling}
+\end{figure}
+
+Eine Schwierigkeit für die genaue Festlegung der ersten Abtastzeit ergibt sich dadurch, daß der
+Teiler für die Takterzeugung des ADC nur mit einem externen Signal neu gestartet werden kann.
+Bei Start des ADC aus dem Programm läuft der Teiler einfach weiter.
+Die Einhaltung der exakten Start- und Perioden-Zeiten ist nur mit einer Funktion in Assemblersprache möglich,
+da es auf jeden Prozessortakt ankommt.
+Bei der Abtastung der Ladekurve von kleinen Kondensatoren mit der Sampling Methode hat sich auch gezeigt,
+daß die Zeitkonstante während der Abtastperiode nicht konstant bleibt. Das hat Pieter-Tjerk bei einem
+Vortrag auf der 60. UKW-Tagung in Weinheim dargestellt. Der Kondensator von etwa 10~pF,
+der die Spannung für die ADC-Wandlung festhält,
+wird zur SH-Zeit für die Wandlung abgekoppelt und etwa zwei ADC-Takte später wieder angekoppelt.
+Daneben gibt es einen halben ADC-Takt vorher noch eine kleine Unregelmäßigkeit in den Daten, die wahrscheinlich
+vom Schalter des Multiplexors verursacht wird. Beide Störungen werden von der Software berücksichtigt.
+Die Sampling Software kann 255 Werte digitalisieren, wobei für die Abtastung der Ladekurven auch der Mittelwert
+über 32 Digitalisierungen gebildet werden kann.
+Damit können Störeinflüsse etwas geringer gehalten werden.
+Die Software kann sowohl einen Ladevorgang als auch einen Entladevorgang vermessen. Weil bei der
+Messung der Sperrschichtkapazität einer Diode beide Vorgänge gemessen werden, wird die Kalibration der
+Nullkapazität für beide Richtungen und alle Pinkombinationen durchgeführt. 
+Mit der Messung der Kapazitäten beim Lade- und Entlade-Vorgang kann die Abhängigkeit der Sperrschichtkapazität
+von der Spannung gezeigt werden, da der Ladevorgang die Kapazität in der Nähe von 0V und der Entladevorgang
+die Kapazitär in der Nähe von 5V misst. Ein normaler Kondensator sollte bei so kleinen Spannungen keine
+Kapazitätsdifferenz zeigen. Hier wird deshalb die Kapazität nur beim Ladevorgang gemessen.
+Pieter-Tjerk hat die Funktion für 16~MHz Betrieb optimiert. Hierbei wird eine Auflösung von 0.01~pF erreicht.
+Bei 8~MHz Betrieb läuft der ADC-Wandler für die Sampling Methode mit der halben Taktrate, damit die 
+vorhin erwähnten Störeinflüsse an den gleichen Datenpositionen liegen.
+Der Auflösungsverlust durch den 8~MHz Betrieb spielt wohl meistens keine Rolle und auch die Meßzeit
+bleibt im erträglichen Rahmen.
+
 \subsection{Messen des äquivalenten Serienwiderstandes ESR}
 Der ESR \cite{ESR} stellt zum Beispiel ein Maß für die Alterung von Elektrolyt-Kondensatoren dar.
 Die Abbildung~\ref{fig:Cap_equiv} zeigt ein Ersatzschaltbild eines Kondensators.

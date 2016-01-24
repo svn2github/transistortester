@@ -64,6 +64,12 @@ besser auszunutzen. Zusätzliche Parameter, welche sonst nur kurz in Zeile 2 ang
 den Zeilen 3 und 4 angezeigt.\\
 Beispiel: CFLAGS += -DFOUR\_LINE\_LCD
 
+  \item[DD\_RAM\_OFFSET] Bei einigen Text-Displays werden andere DD-RAM Startadressen für den Zeilenanfang
+benutzt. Normalerweise beginnt die erste Zeile bei der DD-RAM Adresse 0. Bei einigen Displays wie TC1604
+oder TC1602 beginnt die Zeile 1 aber bei der Adresse 128 (0x80).
+Das kann mit dieser Option berücksichtigt werden.\\
+Beispiel: CFLAGS += -DDD\_RAM\_OFFSET = 128
+
   \item[WITH\_LCD\_ST7665] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
 Schnittstelle angeschlossen ist.
 Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 

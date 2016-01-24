@@ -70,3 +70,66 @@ measurements are difficult because the iron core has residual remanence.
 \label{fig:Induct328p}
 \end{figure}
 
+\subsection{Measurement of small inductances with the sampling method}
+
+The smallest detectable inductance is 0.01~mH with the normal measurement technique.
+For high frequency application the measurement of smaller inductances is required.
+The normal method use the speed of the current grow to measure the inductance.
+This method can not be used for the sampling technique, because the measurement circuit
+uses no additional resistors with the coil. The current will grow to forbidden high values
+very fast. We can prevent a damage of the ATmega only with a very fast break of the current flow.
+For the sampling method it is difficult to get this fast current turning-off and
+additionally this critical process must be done many times in series.
+For this reason the radio amateur Pieter-Tjerk (PA3FWM) has used another method to
+get the inductance values.
+Together with a parallel connected capacitor the inductor build a resonant circuit.
+With a short current pulse this circuit begins to oscillate some times without further stimulation.
+With the sampling method the frequency of this oscillation can be measured.
+Because one side of the coil must be connected to GND level for this measurenent,
+there are two problems with the measurement.
+Once the negative voltage of the oscillation is limited by the internal protection diode
+of the ATmega to about 0.6~V.  
+For this reason the positive part of the oscillation will never reach a higher voltage
+than 0.6~V too.
+Additionally the ADC of the ATmega can only measure positiv voltage values.
+Therefore all negative parts of the oscillation is read as zero.
+Anyway could Pieter-Tjerk find a solution, to measure the resonant frequency with
+a practical precision.
+With the resonant frequency the inductance can be computed, if the capacity value is known.
+For this reason the calibration program is extended with a capacity measurement for
+later inductance measurement use.
+The capacitor will be requested with the message '' \mbox{1 \electricC 3 \(10-30nF\)(L)}''.
+A default value of 18~nF is preselected for the uncalibrated tester.
+The value of the parallel capacitor for inductance measurement should be selected
+rather high to get a low resonant frequency with small inductance values.
+A capacitor with high quality like foil-type should be selected because
+the quality factor of the resonant circuit is additionally measured by
+monitoring the decrease of the amplitude.
+With a high quality capacitor the total quality factor of the resonant circuit
+is build by the quality factor of the coil.
+
+There is no additional operation required with the parallel connected capacitor.
+The resonant circuit is usually detected automatically.
+When the resonant circuit is detected, the text "if" and the expected value
+of the parallel capacity is written behind the inductance value in line 2.
+In this case the resistance value of the coil is written at the end of line 1.
+You should check the resistance value with a separate coil measurement without
+the capacitor, because the resistance measurement of the resonant circuit often fail!
+A additional output line shows the measured resonant frequency and the quality factor (Q=)
+of the resonant circuit.
+
+If there is no resonant circuit detected, the resistance value and the inductance is shown
+in line 2.
+When a resonant frequency of a single coil is detected, the frequency value and the
+quality factor of the coil is also shown in a additional line.
+
+For a air coil with 6 turns and a parallel connected capacitor with 18~nF
+the sampling method get the following result:
+\begin{verbatim}
+272nH if 18.0nF
+2256kHz Q=38.7
+\end{verbatim}
+This result was measured with a operation frequency of 8~MHz. A simular result
+was also measured with a 25~cm long copper wire, which was formed to one big circle.
+Probably smaller inductance values can be measured with a 16~MHz operation of the ATmega.
+

@@ -164,6 +164,69 @@ the band-gap voltage will never be reached.
 The method taken in actual software for big capacitors in section~\ref{sec:bigcap}
 avoids this conceptual bug.
 
+\subsection{Measurement of very small capacity values with the sampling technique}
+The radio amateur Pieter-Tjerk (PA3FWM) has integrated the measurement capability for very small
+capacity values (\textless~100pF) with the sampling technique.
+The conversion period of the ADC is in fact too long for sampling a fast signal directly.
+But the voltage of the input signal is hold at a specified time of the conversion cycle,
+the Sample and Hold (SH) time.
+The ADC need 13 clock cycles for a total conversion and the ADC clock is build by dividing the
+processor clock by 128 or 64.
+The input voltage is fixed at exactly ADC clock number 1.5 for continuous cycles.
+If the input signal can be generated again and again, we can shift the sample time of the ADC from
+one to the next signal repetition, so that we get a sample sequence of the fast signal.
+A normal ADC cycle takes 13x64 = 832 clock cycles with a 8~MHz processor clock.
+If we repeat the input signal with a 831 clock cycle, a uninterrupted ADC (free rum mode) would
+sample the signal one processor clock tick later for every following signal repetition.
+We must make shure with this method, that the first ADC sampling of the signal is done at
+the requested starting time. The time of the following ADC samples would be shifted by one processor clock
+tic later for every next signal repetition.
+If the signal can be repeated exactly, the combined signal of many periods is the same, 
+which would be sampled and converted directly with a ADC running with the processor clock (8~MHz).
+Figure~\ref{fig:sampling} shows the principle of sampling a ten times repeated signal
+to get 10 samples (SH0 - SH9).
+In reality the relativ time shift of successive samples is much smaller than shown here.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/sampling.eps}
+\caption{Scanning of a voltage curve with the sampling technique}
+\label{fig:sampling}
+\end{figure}
+
+One problem to fix the exactly time of the first sample is given by a continuous running clock precaler.
+Only a trigger of a external signal can reset the ADC clock divider.
+The clock divider would resume with dividing, if the ADC is started by program intruction.
+Only a program written in assembly language can specify the exactly points in time for
+this sampling technique. Every clock tick is important for building the program loops.
+
+By analysing the voltage characteristic of charging a small capacitor you can see, that the time constant
+is not continuous during the sampling period. This was shown by Pieter-Tjerk at a presentation at
+the ''60. UKW-Tagung in Weinheim''. The internal capacitor of about 10~pF, which hold the input voltage
+for the conversion, is uncoupled at the SH time and connected again two ADC clock cycles later. 
+Additionally there is a little jamming in the data just a half clock before the reconnection,
+which is probably caused by the switch of the multiplexor.
+Both disturbancies are respected with the data processing in the software.
+The sampling software can handle up to 255 samples. The software can also build the mean value of
+up to 32 charge sequencies. By building the mean value the effect of noise trouble will be less.
+The sampling software can monitor and process both, the charge or the discharge of a capacitor.
+Because both charge directions are used to measure the capacity value of a diode in reverse direction,
+the calibration task measure the zero capacity value in both charge direction for all pin combinations.
+By measuring the capacity value of a diode in both charge directions, the difference between both
+values can be shown.
+With the charge direction a capacity value is measured near the voltage 0 and with
+the discharge direction the capacity is measured near a voltage of 5V.
+With normal capacitors there is no difference in the capacity values with this little voltage difference detectable.
+Therefore only the charge direction is used for measuring little capacities (\textless 100pF).
+
+Pieter-Tjerk has optimized his function for a 16~MHz operation.
+In this configuration you will get a resolution of 0.01~pF.
+For the 8~MHz operation the ADC will run at the half speed for getting the above-mentiored disturbances
+at the same data points compared to the 16-MHz operation.
+The loss of resolution with the 8~MHz operation will be irrelevant for most users and the
+additional testing time with the slower ADC in this mode is tolerable too.
+
+
 
 \subsection{Measurement of the Equivalent Series Resistance ESR}
 The series resistance ESR \cite{ESR} is a good indicator for the aging of electrolytical capacitors for example.

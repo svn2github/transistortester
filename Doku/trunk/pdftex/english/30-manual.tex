@@ -241,15 +241,16 @@ The resistance values of port outputs are determined at the beginning of every m
 If you have selected the samplingADC function in the Makefile with the option ''WITH\_SamplingADC = 1'',
 two special steps are included to the calibration precedure.
 After the normal measuring of the zero capacity values, also the zero capacity values for the samplingADC function is
-measured (C0samp). After that step the connection of a test capacitor is required to pin~1 and pin~3 for
-later measurement of little coils (Cap for L meas?). The capacity value should be between \(10nF\) and \(27nF\),
+measured (C0samp). As last step of the calibration the connection of a test capacitor at pin~1 and pin~3 is requested for
+later measurement of little coils with the message \mbox{1 \electricC 3  10-30nF[L]}.
+The capacity value should be between \(10nF\) and \(30nF\),
 to get a measurable resonant frequency by later parallel connection to a coil with less than \(2mH\).
 For inspection of coils with more than \(2mH\) inductance the normal measurement method should result to a
 sufficient accuracy. The parallel connection of the capacitor to use the other measurement method should
 not be usefull.\\
 
 A capacitor with any capacity between \(100nF\) and \(20\mu F\) connected to pin~1 and pin~3 is
-required for the last task of calibration.
+required after the measurement of the zero capacity values.
 To indicate that, the message \mbox{1 \electricC 3 \textgreater 100nF} is shown in row 1 of the display.
 You should connect the capacitor not before the message C0= or this text is shown.
 With this capacitor the offset voltage of the analog comparator will be compensated for better measurement
@@ -417,6 +418,6 @@ is not shown and the resistance value is shown in line 1.
 For this resonant circuit the quality factor Q is also computed and shown behind the frequency value in line 3.
 You can identify this type of measurement with the inductance value at the first position of line 2,
 followed by the text '' if '' and the value of the assumed parallel capacity.
-The value of this parallel capacitor can currently only be set with the calibration function (Cap for L meas?).
+The value of this parallel capacitor can currently only be set with the calibration function (\mbox{1 \electricC 3 \(10-30nF\)(L)}).
 
 For displays with only two lines, the content for the third line is shown time-delayed in line 2.

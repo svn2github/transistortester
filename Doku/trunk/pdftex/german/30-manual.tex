@@ -236,15 +236,15 @@ Messung durchgeführt. \\
 
 Bei der Kalibration werden zwei Sonderschritte gemacht, wenn die samplingADC Funktion in der Makefile gewählt wurde (WITH\_SamplingADC = 1).
 Nach der normalen Bestimmung der Nullwerte der Kapazitätsmessung werden dann auch die Nullwerte mit
-der Sampling Methode (C0samp) bestimmt. Danach wird der Anschluß eines Testkondensators für die
-Spulenmessung an Pin~1 und Pin~3 erforderlich (Cap for L meas?).
-Der Kapazitätswert sollte hierbei zwischen \(10nF\) und \(27nF\) liegen,
+der Sampling Methode (C0samp) bestimmt. Als letzter Teil der Kalibration wird der Anschluß eines Testkondensators für die
+Spulenmessung an Pin~1 und Pin~3 angefordert mit der Meldung \mbox{1 \electricC 3  10-30nF(L)}.
+Der Kapazitätswert sollte hierbei zwischen \(10nF\) und \(30nF\) liegen,
 um eine meßbare Resonanzfrequenz bei der späteren Parallelschaltung mit einer Spule (\textless~\(2mH\)) zu erreichen.
 Für Spulen mit mehr als 2mH Induktivität sollte die normale Testfunktion ohne die Parallelschaltung eines
 Kondensators ausreichen. Ein Parallelschalten des Kondensators sollte hier nicht mehr 
 zu einer Verbesserung des Meßergebnisses führen.\\
 
-Für den letzten Teil der Kalibration ist der Anschluss eines Kondensators 
+Nach der Bestimmung der Nullkapazitäten ist der Anschluss eines Kondensators 
 mit einer beliebiger Kapazität zwischen \(100nF\) und \(20\mu F\) an Pin~1 und Pin~3 erforderlich.
 Dazu wird in Zeile 1 ein \mbox{1 \electricC 3\textgreater 100nF} angezeigt.
 Sie sollten den Kondensator erst nach der Ausgabe der C0 Werte oder nach der Ausgabe dieser Aufforderung anschließen.
@@ -412,7 +412,7 @@ Widerstandswert wird in der ersten Zeile ausgegeben, wenn die Resonanzfrequenz e
 des Kondensators erwarten lässt. Auch für diesen Fall wird eine Güte Q aus den Schwingverhalten berechnet.
 Für diesen Fall wird die berechnete Induktivität an erster Stelle in Zeile 2 angegeben. Dahinter steht dann
 der Text " if " gefolgt von dem Kapazitätswert des Parallelkondensators. Der Wert dieses Kondensators kann derzeit
-nur in der Kalibrationsfunktion durch Messung festgelegt werden (Cap for L meas?) .
+nur in der Kalibrationsfunktion durch Messung festgelegt werden (\mbox{1 \electricC 3 \(10-30nF\)(L)}) .
 Die dritte Zeile zeigt wieder die Schwingfrequenz und die ermittelte Güte Q. 
 Bei zweizeiligen Displays wird der Inhalt der 3. Zeile zeitverzögert in Zeile 2 ausgegeben.
 
