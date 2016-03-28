@@ -178,7 +178,7 @@ one to the next signal repetition, so that we get a sample sequence of the fast 
 A normal ADC cycle takes 13x64 = 832 clock cycles with a 8~MHz processor clock.
 If we repeat the input signal with a 831 clock cycle, a uninterrupted ADC (free rum mode) would
 sample the signal one processor clock tick later for every following signal repetition.
-We must make shure with this method, that the first ADC sampling of the signal is done at
+We must make sure with this method, that the first ADC sampling of the signal is done at
 the requested starting time. The time of the following ADC samples would be shifted by one processor clock
 tic later for every next signal repetition.
 If the signal can be repeated exactly, the combined signal of many periods is the same, 

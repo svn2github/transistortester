@@ -298,7 +298,7 @@ A solution for connecting the OLED display shows the figure  \ref{fig:ssd1306i2c
 The outputs of the ATmega is only switched to \(0V\) for the I\textsuperscript{2}C signals.
 Before connecting the pull-up resistors to \(5V\) you must check, if your display module can tolerate
 a \(5V\) signal level. Normally the data inputs of the controller are protected with diodes to \(3.3V\).
-You should make shure, that you have loaded a program with the I\textsuperscript{2}C support to the ATmega 
+You should make sure, that you have loaded a program with the I\textsuperscript{2}C support to the ATmega 
 before the Display is connected. If you have loaded a program with another interface, 
 the output are also switched to the \(5V\) side.
 Because I have determined a influence to the tester results across the VCC connection of a OLED module,
@@ -515,12 +515,12 @@ microcontroller and LCD-display terminal during the Test key is pressed.
 The voltage should disappear, if you release the Test key.
 If the voltage had correct polarity and value,
 you should disconnect the power and assemble the microcontroller with correct
-alignment. Be careful and make shure, that all pins of the microcontroller
+alignment. Be careful and make sure, that all pins of the microcontroller
 are in the socket holes.
 Now you can also connect the LCD. Check if power pins of the LCD has the right connection to
 GND and VCC of your board.
 
-If you are shure that everything is all right, reconnect the power. 
+If you are sure that everything is all right, reconnect the power. 
 If you have already programmed the ATmega, you can press the Test button.
 By pressing the Test key, the background light of the LCD should switch on.
 If you release the Test button, the LED should illuminate weak.
@@ -993,7 +993,7 @@ as shown in table~\ref{tab:display-1280} .
 \section{Programming of the microcontroller}
 I release the software for the microcontroller with source code.
 The developement is done with Linux operationg system (Ubuntu) and
-is controlled with a Makefile. The Makefile makes shure, that your
+is controlled with a Makefile. The Makefile makes sure, that your
 software will be compiled with the prior selected Makefile options. Some constellations
 are precompiled with the source. Please take a look to the ReadMe.txt file
 in the directory Software/default and to the chapter~\ref{sec:config} at page~\pageref{sec:config}.
@@ -1011,7 +1011,7 @@ have no crystal or ``make fuses-crystal'' if you have installed the \(8MHz\) cry
 With the ATmega168 series of the microcontroller you can also use ``make fuses-crystal-lp'' to use
 a crytal with the low power mode.
 Never choose the crystal mode of clock generation, if you don't have installed
-the \(8MHz\) crystal. If you are not shure with the fuses, leave them as default
+the \(8MHz\) crystal. If you are not sure with the fuses, leave them as default
 set by manufactor and first bring the the tester to operation in this mode.
 Maybe your program runs too slow, if you use program data compiled for
 \(8MHz\) operation, but you can correct this later! But a wrong set of fuses may inhibit
