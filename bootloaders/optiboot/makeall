@@ -1,0 +1,58 @@
+#!/bin/bash
+make clean
+#
+#AllEEprom="SUPPORT_EEPROM"
+AllEEprom="SUPPORT_EEPROM"
+#WITH_SOFT_UART="SOFT_UART"
+# If you change the option name from SOFT_UART to somewhat else, the option is switched off!!
+WITH_SOFT_UART="SFT_UART"
+#  buildable platforms of somewhat questionable support level
+echo "***** make lilypad ******"
+make lilypad $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make pro8 ******"
+make pro8 AllEEprom $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make pro16 ******"
+make pro16 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make pro20 ******"
+make pro20 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make atmega328_pro8 ******"
+make atmega328_pro8 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make sanguino ******"
+make sanguino $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make mega1280 ******"
+make mega1280 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make luminet ******"
+make luminet $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make diecimila ******"
+make diecimila $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make bobuino ******"
+make bobuino $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make wildfirev2 ******"
+make wildfirev2 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make atmega1284 ******"
+make atmega1284 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make atmega32 ******"
+make atmega32 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make atmega88 ******"
+make atmega88 $AllEEprom=1 $WITH_SOFT_UART=1
+echo "***** make atmega168p ******"
+make atmega168p $AllEEprom=1 $WITH_SOFT_UART=1
+
+#
+# Atmel development board targets
+echo "***** make xplained168pb ******"
+make xplained168pb $AllEEprom=1
+echo "***** make xplained328p ******"
+make xplained328p $AllEEprom=1
+echo "***** make xplained328pb ******"
+make xplained328pb $AllEEprom=1
+
+#
+# The "big three" standard bootloaders.
+# These need to be built AFTER the platforms, or they'll get renamed
+echo "***** make atmega8 ******"
+make atmega8 $AllEEprom=1
+echo "***** make atmega168 ******"
+make atmega168 $AllEEprom=1
+echo "***** make atmega328p ******"
+make atmega328p $AllEEprom=1

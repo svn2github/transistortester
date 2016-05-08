@@ -1,0 +1,67 @@
+Autor: Karl-Heinz Kübbeler   (kh_kuebbeler@web.de) , Mai 2016
+
+Dies ist eine Assemblerversion von optiboot Version 6.2!
+Der Platzbedarf konnte bei gleicher Funktionalität so minimiert werden,
+daß die EEprom Programmierung jetzt auch in der kleinen Version (510 Byte)
+möglich ist. 
+Die Taktfrequenz ist oft in der Makefile voreingestellt, kann aber mit
+der Option F_CPU=xxxxxxx beim make Aufruf eingestellt werden.
+
+Beispiel:
+*************************************************************
+make atmega328p SUPPORT_EEPROM=1 F_CPU=8000000 BAUD_RATE=9600
+*************************************************************
+
+Für einen Arduino UNO reicht der Aufruf für die Erzeugung der Programmdaten:
+********************************
+make atmega328p SUPPORT_EEPROM=1
+********************************
+
+Durch den ähnlichen Aufruf:
+************************************
+make atmega328p_isp SUPPORT_EEPROM=1
+************************************
+werden die Daten zum ISP-Programmiergerät übertragen und die Fuses programmiert.
+Dabei muß das Programmiergerät in der Makefile.isp eingetragen sein.
+Als Software für den ISP-Programmer wird normalerweise avrdude verwendet.
+Eine Liste von Beispiel-Konfigurationen findet man in der makeall Datei.
+Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
+Arduino-UNO Board und einem Arduino-Nano Clone.
+
+Die Software-UART Lösung braucht etwas mehr Platz als die Nutzung einer vorhandenen
+seriellen Schnittstelle, paßt in allen getesten Fällen aber auch in die 510 Byte.
+Die unteren Baudraten sind mit der Software-Lösung meistens besser realisierbar.
+Bei 20MHz Takt sind Baudraten über 3250 Baud einstellbar, bei niedrigeren Taktraten
+als 20 Mhz sind auch noch kleinere Baud Werte möglich.
+Mit dem Hardware UART des AVR sind bei 20MHz Takt 9600 Baud einstellbar, bei 16MHz sind
+auch noch 4800 Baud wählbar. Wenn die Taktrate hoch genug ist, ist als Standardwert
+115200 Baud eine gute Wahl. Unter bestimmten Umständen ist auch 1 MBAUD wählbar.
+
+Bisher ungetestet ist die Option VIRTUAL_BOOT_PARTITION.
+Normalerweise wird der Start-Vektor mit den Fuses (BOOTRST-Bit) auf den 
+Boot Loader Reset eingestellt. Mit der VIRTUAL_BOOT_PARTITION Option kann der
+Reset Vektor auf dem Applikations Reset (0x0000) bleiben.
+Statt dessen  soll der Reset Interrupt-Vektor auf den Bootloader umgelegt werden.
+Die Vektor-Addresse des Reset Vektors soll dann in einen anderen Interrupt Vektor
+eingetragen werden und vom Bootloader beim "Timeout" benutzt werden.
+Dabei werden die Programmdatem beim Flashen verändert und bei der anschließenden
+Kontrolle (verify) als ursprünglich simuliert. Das funktioniert aber nicht mehr
+bei einer zweiten separaten Kontrolle der Programmdaten!
+Besser wäre nach meiner Meinung, diese Einstellung dann sofort im Anwenderprogramm zu benutzen
+oder ein Patchprogramm für die Programmierdaten zu verwenden, die üblicherweise im Hex-Format
+vorliegen. Ein Patchprogramm kann die Daten besser analysieren als es im Bootloader 
+möglich ist. Eine der Schwierigkeiten für den Bootloader besteht bei Flash-Speichergrößen
+von mehr als 8K darin, daß auf den Vektoradressen sowohl JMP als auch RJMP Befehle 
+benutzt werden können. 
+
+Vorschlag:
+==========
+Beim optiboot Loader wird der Grund des Resets (MCUSR) im Register 2 an das Anwenderprogramm
+weitergereicht. Hier wäre zu überlegen, ob man zusätzlich nicht auch ein Hardware-Register
+des ATmega (z.B. GPIOR0) benutzt werden kann. Hier könnte auch ein C-Programm leicht zugreifen.
+Die GPIORx Register haben weiter keine Funktion und eignen sich nach meiner Meinung gut
+für solche Aufgaben.
+Bei Prozessoren ohne diese Register-Gruppe könnte z.B. ein Register von einem Zähler
+als Alternative zu einem GPIORx Register benutzt werden.
+
+An Rückmeldungen zum Thema Assembler Optiboot wäre ich durchaus interessiert.
