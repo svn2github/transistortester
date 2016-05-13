@@ -472,49 +472,14 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
 #endif // VIRTUAL_BOOT_PARTITION
 
 
-/*
- * Handle devices with up to 4 uarts (eg m1280.)  Rather inelegantly.
- * Note that mega8/m32 still needs special handling, because ubrr is handled
- * differently.
- */
-#if UART == 0
-# define UART_SRA UCSR0A
-# define UART_SRB UCSR0B
-# define UART_SRC UCSR0C
-# define UART_SRL UBRR0L
-# define UART_UDR UDR0
-#elif UART == 1
-#if !defined(UDR1)
-#error UART == 1, but no UART1 on device
+#ifndef SUPPORT_EEPROM
+ #define SUPPORT_EEPROM 0
 #endif
-# define UART_SRA UCSR1A
-# define UART_SRB UCSR1B
-# define UART_SRC UCSR1C
-# define UART_SRL UBRR1L
-# define UART_UDR UDR1
-#elif UART == 2
-#if !defined(UDR2)
-#error UART == 2, but no UART2 on device
-#endif
-# define UART_SRA UCSR2A
-# define UART_SRB UCSR2B
-# define UART_SRC UCSR2C
-# define UART_SRL UBRR2L
-# define UART_UDR UDR2
-#elif UART == 3
-#if !defined(UDR3)
-#error UART == 3, but no UART3 on device
-#endif
-# define UART_SRA UCSR3A
-# define UART_SRB UCSR3B
-# define UART_SRC UCSR3C
-# define UART_SRL UBRR3L
-# define UART_UDR UDR3
-#endif
-
 #ifdef BIGBOOT
  #undef SUPPORT_EEPROM		/* prevent compiler error, if previously set */
- #define SUPPORT_EEPROM		/* allways set the EEprom support */
+ #define SUPPORT_EEPROM 1	/* allways set the EEprom support */
+#else
+ #define BIGBOOT 0
 #endif
 
 
@@ -574,7 +539,7 @@ int main(void) {
 
 #ifdef SOFT_UART
   /* Set TX pin as output */
-  UART_DDR |= _BV(UART_TX_BIT);
+  UART_TX_DDR |= _BV(UART_TX_BIT);
 #else	/* no SOFT_UART */
  /* Prepare the handware UART */
  #if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
@@ -595,7 +560,7 @@ int main(void) {
 
 #if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
   /* Set LED pin as output */
-  LED_DDR |= _BV(LED);
+  LED_DDR |= _BV(LEDbit);
 #endif
 
 #if LED_START_FLASHES > 0
@@ -604,9 +569,9 @@ int main(void) {
   uint8_t count = LED_START_FLASHES;
   do {
  #endif
-    LED_PORT |= _BV(LED);
+    LED_PORT |= _BV(LEDbit);
     t1_delay();
-    LED_PORT &= ~(_BV(LED));
+    LED_PORT &= ~(_BV(LEDbit));
     t1_delay();
     wdt_reset();
  #if LED_START_FLASHES > 1
@@ -678,7 +643,7 @@ int main(void) {
       GETLENGTH(length);
       savelength = length;
 
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
       uint8_t desttype = getch() - 'E';	/* desttype = 0, if EEprom */
       if (desttype)
 #else
@@ -692,7 +657,7 @@ int main(void) {
       do *bufPtr++ = getch();
       while (--length);
 
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
       if (!desttype) {	/* EEPROM */
         // Read command terminator, start reply
         verifySpace();
@@ -802,7 +767,7 @@ int main(void) {
         // Reenable read access to flash
         boot_rww_enable();
 #endif
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
       }
 #endif
     }
@@ -811,7 +776,7 @@ int main(void) {
       // READ PAGE - we only read flash and EEPROM
 
       GETLENGTH(length);
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
       uint8_t desttype = getch() - 'E';     /* 0 if EEprom */
 
       verifySpace();
@@ -845,7 +810,7 @@ int main(void) {
 #endif
           putch(ch);
         } while (--length);
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
       else 
         while (length--) {
           while (!eeprom_is_ready());
@@ -902,7 +867,7 @@ void putch(char ch) {
     :
       [bitcnt] "d" (10),
       [ch] "r" (ch),
-      [uartPort] "I" (_SFR_IO_ADDR(UART_PORT)),
+      [uartPort] "I" (_SFR_IO_ADDR(UART_TX_PORT)),
       [uartBit] "I" (UART_TX_BIT)
     :
       "r25"
@@ -914,7 +879,7 @@ uint8_t getch(void) {
   uint8_t ch;
 
 #if LED_DATA_FLASH > 0
-  LED_PORT |= _BV(LED);			// switch on LED
+  LED_PORT |= _BV(LEDbit);			// switch on LED
 #endif
 
 #ifdef SOFT_UART
@@ -936,7 +901,7 @@ uint8_t getch(void) {
       [ch] "=r" (ch)
     :
       [bitCnt] "d" (9),
-      [uartPin] "I" (_SFR_IO_ADDR(UART_PIN)),
+      [uartPin] "I" (_SFR_IO_ADDR(UART_RX_PIN)),
       [uartBit] "I" (UART_RX_BIT)
     :
       "r25"
@@ -960,7 +925,7 @@ uint8_t getch(void) {
 #endif
 
 #if LED_DATA_FLASH > 0
-  LED_PORT &= ~(_BV(LED));		// switch off LED
+  LED_PORT &= ~(_BV(LEDbit));		// switch off LED
 #endif
 
   return ch;
@@ -1035,4 +1000,52 @@ void appStart(uint8_t rstFlags) {
     "clr r31\n"
     "ijmp\n"::[rstvec] "M"(appstart_vec)
   );
+#if BIGBOOT >= 128
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*2)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*3)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*4)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*5)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*6)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*7)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*8)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*9)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*10)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*11)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*12)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*13)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*14)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*15)
+ #include "wast_128bytes.h"
+#endif
+#if BIGBOOT >= (128*16)
+ #include "wast_128bytes.h"
+#endif
 }

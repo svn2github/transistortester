@@ -58,7 +58,19 @@ endif
 # avrdude commands to erase chip, unlock memory, and program fuses.
 #
 ISPFUSES =	-e -u -U lock:w:0x3f:m $(EFUSE_CMD) \
+	 	-U hfuse:w:`cat HFUSE.dat`:m -U lfuse:w:0x$(LFUSE):m
+ifeq ($(MCU_TARGET), atmega48)
+ISPFUSES =	-e -u -U lock:w:0x3f:m -U efuse:w:`cat EFUSE.dat`:m \
 	 	-U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+endif
+ifeq ($(MCU_TARGET), atmega88)
+ISPFUSES =	-e -u -U lock:w:0x3f:m -U efuse:w:`cat EFUSE.dat`:m \
+	 	-U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+endif
+ifeq ($(MCU_TARGET), atmega168)
+ISPFUSES =	-e -u -U lock:w:0x3f:m -U efuse:w:`cat EFUSE.dat`:m \
+	 	-U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+endif
 
 
 #
@@ -67,6 +79,26 @@ ISPFUSES =	-e -u -U lock:w:0x3f:m $(EFUSE_CMD) \
 # by the application, which is different than the arduino default.
 #
 ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0x2f:m
+#
+# HFUSE.dat is only referenced by isp:
+# The command line calls make use of the cat, echo and bc instructions.
+# The echo is used to produce the arithmetic formula for the bc function.
+# Input and output of the bc function is set to hex format (base 16).
+# Because the bc has no arithmetic and function to clear the BOOTSZ bits,
+# a (($(HFUSE) && 2)*2) like subtraction is used to clear both bits.
+# The BOOTSZ.dat is created from the real .text length of the bootloader
+# and the $(BOOT_PAGE_LEN) variable of the Makefile.
+# BOOTSZ.dat = 00 for one boot-page, 01 for two boot-pages,
+#              10 for four boot-pages and 11 for eight boot-pages.
+# The boot-page length is usually 256, 512 or 1024 bytes. 
+# The atmega48/88/168 use the extended fuse for setting the boot length.
+# Therefore both values (HFUSE and EFUSE) are estimated, but
+# the right one is selected by the $(ISPFUSES) variable.
+HFUSE.dat:	$(PROGRAM)_$(TARGET).hex
+	@echo "0x$(shell echo "obase=16;ibase=16;($(HFUSE) - (($(HFUSE) && 2)*2) - (($(HFUSE) && 4)*4) + `cat BOOTSZ.dat`*2)" | bc)" > HFUSE.dat
+	@echo "0x$(shell echo "obase=16;ibase=16;(0$(EFUSE) - ((0$(EFUSE) && 2)*2) - ((0$(EFUSE) && 4)*4) + `cat BOOTSZ.dat`*2)" | bc)" > EFUSE.dat
+	@echo "HFUSE.dat = `cat HFUSE.dat`"
+	@echo "EFUSE.dat = `cat EFUSE.dat`"
 
 # There are certain complicated caused by the fact that the default state
 # of a fuse is a "1" rather than a "0", especially with respect to fuse bits
@@ -83,7 +115,7 @@ ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0x2f:m
 # lock it), but since the high two bits of the lock byte are
 # unused, avrdude would get confused.
 
-isp: $(PROGRAM)_$(TARGET).hex
+isp: $(PROGRAM)_$(TARGET).hex HFUSE.dat
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
 	$(ISPFUSES) \

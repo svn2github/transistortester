@@ -250,7 +250,7 @@
  */
 
 #if !defined(OPTIBOOT_CUSTOMVER)
- #define OPTIBOOT_CUSTOMVER 100
+ #define OPTIBOOT_CUSTOMVER 110
 #endif
 
 
@@ -260,6 +260,7 @@
 #ifndef LED_DATA_FLASH
  #define LED_DATA_FLASH 0
 #endif
+
  /*
  * RAMSTART should be self-explanatory.  It's bigger on parts with a
  * lot of peripheral registers.
@@ -350,64 +351,14 @@
 #endif // VIRTUAL_BOOT_PARTITION
 
 
-/*
- * Handle devices with up to 4 uarts (eg m1280.)  Rather inelegantly.
- * Note that mega8/m32 still needs special handling, because ubrr is handled
- * differently.
- */
-#if UART == 0
-# define UART_SRA UCSR0A
-# define UART_SRB UCSR0B
-# define UART_SRC UCSR0C
-# define UART_SRL UBRR0L
-# define UART_UDR UDR0
-#elif UART == 1
-#if !defined(UDR1)
-#error UART == 1, but no UART1 on device
-#endif
-# define UART_SRA UCSR1A
-# define UART_SRB UCSR1B
-# define UART_SRC UCSR1C
-# define UART_SRL UBRR1L
-# define UART_UDR UDR1
-#elif UART == 2
-#if !defined(UDR2)
-#error UART == 2, but no UART2 on device
-#endif
-# define UART_SRA UCSR2A
-# define UART_SRB UCSR2B
-# define UART_SRC UCSR2C
-# define UART_SRL UBRR2L
-# define UART_UDR UDR2
-#elif UART == 3
-#if !defined(UDR3)
-#error UART == 3, but no UART3 on device
-#endif
-# define UART_SRA UCSR3A
-# define UART_SRB UCSR3B
-# define UART_SRC UCSR3C
-# define UART_SRL UBRR3L
-# define UART_UDR UDR3
+
+#ifndef SUPPORT_EEPROM
+ #define SUPPORT_EEPROM 1	/* enable EEprom support by default */
 #endif
 
-/* Watchdog settings */
-#define WATCHDOG_OFF    (0)
-#define WATCHDOG_16MS   (_BV(WDE))
-#define WATCHDOG_32MS   (_BV(WDP0) | _BV(WDE))
-#define WATCHDOG_64MS   (_BV(WDP1) | _BV(WDE))
-#define WATCHDOG_125MS  (_BV(WDP1) | _BV(WDP0) | _BV(WDE))
-#define WATCHDOG_250MS  (_BV(WDP2) | _BV(WDE))
-#define WATCHDOG_500MS  (_BV(WDP2) | _BV(WDP0) | _BV(WDE))
-#define WATCHDOG_1S     (_BV(WDP2) | _BV(WDP1) | _BV(WDE))
-#define WATCHDOG_2S     (_BV(WDP2) | _BV(WDP1) | _BV(WDP0) | _BV(WDE))
-#if defined(WDP3)
- #define WATCHDOG_4S     (_BV(WDP3) | _BV(WDE))
- #define WATCHDOG_8S     (_BV(WDP3) | _BV(WDP0) | _BV(WDE))
-#else
- #define WATCHDOG_4S     (_BV(WDP2) | _BV(WDP1) | _BV(WDP0) | _BV(WDE))	/* 2 seconds are max */
- #define WATCHDOG_8S     (_BV(WDP2) | _BV(WDP1) | _BV(WDP0) | _BV(WDE))	/* 2 seconds are max */
+#ifndef BIGBOOT
+ #define BIGBOOT 0
 #endif
-
 
 
 	.section	.version
@@ -415,7 +366,7 @@ optiboot_version:
 	.byte	OPTIBOOT_MINVER
 	.byte	OPTIBOOT_MAJVER+OPTIBOOT_CUSTOMVER
 #ifdef RADIO_UART
- #error RADIO_UART is not supported by the assembler version of optiboot!
+ #error RADIO_UART is not supported by optiboot!
 #endif
 
 ;***************************************************************
@@ -550,17 +501,10 @@ try_loader:
 
 #ifndef SOFT_UART
  #if defined(PORTD) && defined(PD1)
-	cbi	_SFR_IO_ADDR(PORTD), PD0	; RXD, disable PullUp
-	cbi	_SFR_IO_ADDR(PORTD), PD1	; TX0   ????
+	ACBI	PORTD, PD0	; RXD, disable PullUp
+	ACBI	PORTD, PD1	; TX0   ????
  #endif
- #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
-  #define U2X0 U2X
-  #define RXEN0 RXEN
-  #define TXEN0 TXEN
-  #define UART_SRA UCSRA
-  #define UART_SRB UCSRB
-  #define UART_SRL UBRRL
- #endif
+
  #define BAUD_DIV ((F_CPU + BAUD_RATE * 4) / (BAUD_RATE * 8) - 1)
  #if BAUD_DIV > 255
   #undef BAUD_DIV
@@ -589,10 +533,10 @@ try_loader:
 	rcall	watchdogConfig
 
 #if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
-	sbi	_SFR_IO_ADDR(LED_DDR), LED
+	ASBI	LED_DDR, LEDbit
 #endif
 #ifdef SOFT_UART
-	sbi	_SFR_IO_ADDR(UART_DDR), UART_TX_BIT	; set TX bit as output
+	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX bit as output
 #endif
 	ldi	r18, lo8(RAMSTART+Buff)	; r18:r19 = RAMSTART
 	ldi	r19, hi8(RAMSTART+Buff)	; 
@@ -603,9 +547,9 @@ try_loader:
 	ldi	r23, LED_START_FLASHES
 fl_lop:
  #endif
-	sbi	_SFR_IO_ADDR(LED_PORT), LED
+	ASBI	LED_PORT, LEDbit
 	rcall	wait_T1ov
-	cbi	_SFR_IO_ADDR(LED_PORT), LED
+	ACBI	LED_PORT, LEDbit
  #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
 	subi	r23, 1
@@ -620,7 +564,7 @@ get_nextp:
 	rcall	getch
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	cpi	r24, STK_GET_PARAMETER		; 'A'
-	brne	ck_SET_DEV
+	brne	fin_get_par
 // handle get parameter instruction
 	rcall	getch
 	mov	r21, r24
@@ -636,7 +580,33 @@ get_nextp:
 to_putch:
        	rcall	putch
 	rjmp	put_ok
+fin_get_par:
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#if 0
+	ldi	r30, 0
+	cpi	r24, 'F'	;STK_READ_FUSE	; 'r'
+	breq	read_fuse
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	ldi	r30, 1
+	cpi	r24, 'r'	;STK_READ_LOCK	; 's'
+	breq	read_fuse
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	ldi	r30, 3
+	cpi	r24, 'N'	;STK_READ_HFUSE 	; 's'
+	breq	read_fuse
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	ldi	r30, 2
+	cpi	r24, 'Q'	;STK_READ_FUSE_EXT	; 'w'
+	brne	fin_fuse_ck
+read_fuse:
+	ldi	r31, 0		; upper bits are allways zero
+	ldi	r24, (1<<BLBSET) | (1<<SELFPRGEN)
+	AOUT	SPMCSR, r24
+	lpm
+	mov	r24, r0
+	rjmp	to_putch	; rcall putch; rjmp wr_ok
+fin_fuse_ck:
+#endif
 ck_SET_DEV:
 	ldi	r20, 20
 	cpi	r24, STK_SET_DEVICE		; 'B'
@@ -687,32 +657,8 @@ is_PROG:
 	rcall	getch	
     // PROGRAM PAGE - we support flash and optional EEPROM programming
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#if 0
-	ldi	r30, 0
-	cpi	r24, 'F'	;STK_READ_FUSE	; 'r'
-	breq	read_fuse
-; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	ldi	r30, 1
-	cpi	r24, 'r'	;STK_READ_LOCK	; 's'
-	breq	read_fuse
-; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	ldi	r30, 3
-	cpi	r24, 'N'	;STK_READ_HFUSE 	; 's'
-	breq	read_fuse
-; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	ldi	r30, 2
-	cpi	r24, 'Q'	;STK_READ_FUSE_EXT	; 'w'
-	brne	ee_check
-read_fuse:
-	ldi	r31, 0		; upper bits are allways zero
-	ldi	r24, (1<<BLBSET) | (1<<SELFPRGEN)
-	AOUT	SPMCSR, r24
-	lpm
-	mov	r24, r0
-	rjmp	to_putch	; rcall putch; rjmp wr_ok
-#endif
 ee_check:
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	subi	r24, 'E'	; type = getch() - 'E'
 	mov	r6, r24
 
@@ -738,7 +684,7 @@ fill_buf:
 	movw	r26, r16	; set length back to start value
 
 	; SRAM of ATmega is filled with data
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	cpse	r6, r1		; r6 == 0, is EEprom write
 	rjmp	write_flash	; if (!type)
 ; is EEprom write
@@ -748,7 +694,7 @@ fill_buf:
 wrlop2:
      	wdr		; watchdogReset();
 w_ee:
-  	sbic	_SFR_IO_ADDR(EECR), EEPE	; while (!eeprom_is_ready())
+  	ASBIC	EECR, EEPE	; while (!eeprom_is_ready())
    	rjmp	w_ee
 	AOUT	EEARH, r25	; EEAR = addrPtr++
 	AOUT	EEARL, r24
@@ -756,8 +702,8 @@ w_ee:
 
 	ld	r14, Y+				; *bufPtr++
 	AOUT	EEDR, r14
-	sbi	_SFR_IO_ADDR(EECR), EEMPE
-	sbi	_SFR_IO_ADDR(EECR), EEPE	; /* Start eeprom write by setting EEPE */
+	ASBI	EECR, EEMPE
+	ASBI	EECR, EEPE	; /* Start eeprom write by setting EEPE */
 	sbiw	r26, 1		; length = length - 1
 	brne	wrlop2
 	; eeprom write is finished
@@ -893,18 +839,18 @@ ck_READP:
 ;	TODO: putNch()
 	movw	ZL, r4		; addrPtr = address
 
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	cpi	r23, 'E'	; 0x45
 	brne	rd_lop
 ;     must be EEprom read
 ; read EEprom
 rd_lop2:
-	sbic	_SFR_IO_ADDR(EECR), EEPE
+	ASBIC	EECR, EEPE
 	rjmp	rd_lop2		; wait for EEprom ready
 	AOUT	EEARH, ZH	; set EEprom address
 	AOUT	EEARL, ZL
 	adiw	ZL, 1 		; address + 1
-	sbi	_SFR_IO_ADDR(EECR), EERE
+	ASBI	EECR, EERE
 	AIN	r24, EEDR		; read data from EEprom
 	rcall	putch
 check2:
@@ -1038,8 +984,8 @@ putch:	/* 0x7f98 , void putch(char ch) */
 	; return value: r24 = new character read
 	; use r22, r25 (soft)
 getch: 
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LED)
-	sbi	_SFR_IO_ADDR(LED_PORT), LED
+ #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
@@ -1058,8 +1004,8 @@ gtch1:
          */
 
  	lds	r24, UART_UDR	; ch = UART_UDR; return ch;
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LED)
-	cbi	_SFR_IO_ADDR(LED_PORT), LED
+ #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+	ACBI	LED_PORT, LEDbit
  #endif
        	ret
 #endif	/* SOFT_UART */
@@ -1139,7 +1085,7 @@ wait_T1ov:
 	ldi	r22, (1<<TOV1)
 	AOUT	TIFR, r22		; clear OV bit Timer 1
  #else
-	sbi	_SFR_IO_ADDR(TIFR1), TOV1	; clear OV bit Timer1
+	ASBI	TIFR1, TOV1	; clear OV bit Timer1
  #endif
 wt_ov:
 #if 0
@@ -1153,12 +1099,17 @@ wt_ov:
 	sbrc	r22, (1<<TOV1)
 	rjmp	wt_ov
  #else
-	sbis	_SFR_IO_ADDR(TIFR1), TOV1	; wait until OV bit is set again
+	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
 	rjmp	wt_ov
  #endif
 wt_fin:
      	wdr		; watchdogReset();
 	ret
+#endif
+#if (BIGBOOT > 0)
+	.rept	BIGBOOT/2
+	nop
+	.endr
 #endif
 
 

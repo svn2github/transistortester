@@ -15,10 +15,10 @@
 # ATmega88
 #
 atmega88: TARGET = atmega88
-atmega88: MCU_TARGET = atmega88
+atmega88: MCU_TARGET := atmega88
 atmega88: AVR_FREQ ?= 16000000 
-atmega88: CFLAGS += $(COMMON_OPTIONS)
-atmega88: LDSECTIONS  = -Wl,--section-start=.text=0x1e00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version
+atmega88: FLASH_SIZE := 8192
+atmega88: BOOT_PAGE_LEN := 256
 atmega88: $(PROGRAM)_atmega88.hex
 atmega88: $(PROGRAM)_atmega88.lst
 
@@ -47,14 +47,8 @@ atmega88p_isp: isp
 #
 # ATmega168p [QFN32]
 #
-atmega168p: TARGET = atmega168p
-atmega168p: MCU_TARGET = atmega168p
-atmega168p: AVR_FREQ ?= 16000000 
-atmega168p: CFLAGS += $(COMMON_OPTIONS)
-atmega168p: $(PROGRAM)_atmega168p_16MHz.hex
-atmega168p: $(PROGRAM)_atmega168p_16MHz.lst
 
-atmega168p_isp: atmega168p
+atmega168p_isp: atmega168
 atmega168p_isp: TARGET = atmega168p
 # 2.7V brownout
 atmega168p_isp: HFUSE ?= DD
@@ -68,10 +62,10 @@ atmega168p_isp: isp
 # ATmega32
 #
 atmega32: TARGET = atmega32
-atmega32: MCU_TARGET = atmega32
+atmega32: MCU_TARGET := atmega32
 atmega32: AVR_FREQ ?= 11059200
-atmega32: CFLAGS += $(COMMON_OPTIONS)
-atmega32: LDSECTIONS  = -Wl,--section-start=.text=0x7e00 -Wl,--section-start=.version=0x7ffe
+atmega32: FLASH_SIZE := 32768
+atmega32: BOOT_PAGE_LEN := 512
 atmega32: $(PROGRAM)_atmega32.hex
 atmega32: $(PROGRAM)_atmega32.lst
 
@@ -90,12 +84,11 @@ atmega32_isp: isp
 # ATtiny84
 #
 attiny84: TARGET = attiny84
-attiny84: MCU_TARGET = attiny84
+attiny84: MCU_TARGET := attiny84
 attiny84: AVR_FREQ ?= 8000000
-#attiny84: CFLAGS += $(COMMON_OPTIONS) -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4
-#attiny84: LDSECTIONS = -Wl,--section-start=.text=0x1d00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version
-attiny84: CFLAGS += $(COMMON_OPTIONS) -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4
-attiny84: LDSECTIONS = -Wl,--section-start=.text=0x1e00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version
+attiny84: FLASH_SIZE := 8192
+attiny84: BOOT_PAGE_LEN := 16
+attiny84: COMMON_OPTIONS += -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4
 attiny84: $(PROGRAM)_attiny84.hex
 attiny84: $(PROGRAM)_attiny84.lst
 
@@ -107,6 +100,7 @@ attiny84: $(PROGRAM)_attiny84.lst
 #
 
 luminet: TARGET = $@
+luminet: MCU_TARGET = attiny84
 luminet: CHIP = attiny84
 luminet:
 	$(MAKE) $(CHIP) F_CPU=1000000 LED_START_FLASHES=0 BAUD_RATE=9600

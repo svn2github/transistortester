@@ -1,288 +1,360 @@
-rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh
-baudcheck.c boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make lilypad baudcheck.c boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.dat
+ 
+***** make lilypad ******
 make atmega168 F_CPU=8000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRRL = 8, Error=-3.5%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega168.hex optiboot_lilypad.hex
 mv optiboot_atmega168.lst optiboot_lilypad.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make pro8 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make pro8 ******
 make atmega168 F_CPU=8000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRRL = 8, Error=-3.5%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega168.hex optiboot_pro_8MHz.hex
 mv optiboot_atmega168.lst optiboot_pro_8MHz.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make pro16 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make pro16 ******
 make atmega168 F_CPU=16000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega168.hex optiboot_pro_16MHz.hex
 mv optiboot_atmega168.lst optiboot_pro_16MHz.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make pro20 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make pro20 ******
 make atmega168 F_CPU=20000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=20000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=20000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 113636, UBRRL = 21, Error=-1.3%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=20000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=20000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
-mv optiboot_atmega168.hex optiboot_pro_20mhz.hex
-mv optiboot_atmega168.lst optiboot_pro_20mhz.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega328_pro8 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
+mv optiboot_atmega168.hex optiboot_pro_20Mhz.hex
+mv optiboot_atmega168.lst optiboot_pro_20Mhz.lst
+ 
+***** make atmega328_pro8 ******
 make atmega328 F_CPU=8000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRRL = 8, Error=-3.5%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x7e00 -Wl,--section-start=.version=0x7ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega328.elf optiboot.o -lc
-avr-size optiboot_atmega328.elf
+Boot Loader start address: 0x7E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=8000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE \
+        -Wl,--section-start=.text=0x7E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega328.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega328.elf optiboot_atmega328.hex
-avr-objdump -h -S optiboot_atmega328.elf > optiboot_atmega328.lst
-rm optiboot.o
-rm optiboot_atmega328.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega328.hex optiboot_atmega328_pro_8MHz.hex
 mv optiboot_atmega328.lst optiboot_atmega328_pro_8MHz.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h make sanguino baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make sanguino ******
 make atmega644p F_CPU=16000000 LED=B0
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0  -DBIGBOOT  -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0 -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0 -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0  -DBIGBOOT  -Wl,--section-start=.text=0xfc00 -Wl,--section-start=.version=0xfffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega644p.elf optiboot.o -lc
-avr-size optiboot_atmega644p.elf
+Boot Loader start address: 0xFE00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0 -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B0 -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE \
+        -Wl,--section-start=.text=0xFE00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega644p.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega644p.elf optiboot_atmega644p.hex
-avr-objdump -h -S optiboot_atmega644p.elf > optiboot_atmega644p.lst
-rm optiboot.o
-rm optiboot_atmega644p.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega644p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega644p.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega644p.hex optiboot_sanguino.hex
 mv optiboot_atmega644p.lst optiboot_sanguino.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make mega1280 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -DBIGBOOT  -c -o optiboot.o optiboot.S
+ 
+***** make mega1280 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1  -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -DBIGBOOT  -Wl,--section-start=.text=0x1fc00  -Wl,--section-start=.version=0x1fffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega1280.elf optiboot.o -lc
-avr-size optiboot_atmega1280.elf
+Boot Loader start address: 0x1FC00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1  -Wl,--section-start=.version=0x1FFFE \
+        -Wl,--section-start=.text=0x1FC00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    422	      0	      0	    422	    1a6	optiboot_atmega1280.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega1280.elf optiboot_atmega1280.hex
-avr-objdump -h -S optiboot_atmega1280.elf > optiboot_atmega1280.lst
-rm optiboot.o
-rm optiboot_atmega1280.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make luminet baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1280.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega1280.lst
+ 
+***** make luminet ******
 make attiny84 F_CPU=1000000 LED_START_FLASHES=0 BAUD_RATE=9600
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84 -DF_CPU=1000000  -DBAUD_RATE=9600 -DLED_START_FLASHES=0      -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84 -DF_CPU=1000000  -DBAUD_RATE=9600 -DLED_START_FLASHES=0     -DSUPPORT_EEPROM=1 -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 9600, SoftUART_Real: 9708, Error=1.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84 -DF_CPU=1000000  -DBAUD_RATE=9600 -DLED_START_FLASHES=0      -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -Wl,--section-start=.text=0x1d00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version -Wl,--relax -nostartfiles -nostdlib -o optiboot_attiny84.elf optiboot.o -lc
-avr-size optiboot_attiny84.elf
+Boot Loader start address: 0x1E10
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84 -DF_CPU=1000000  -DBAUD_RATE=9600 -DLED_START_FLASHES=0     -DSUPPORT_EEPROM=1 -DSOFT_UART -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -Wl,--section-start=.version=0x1FFE \
+        -Wl,--section-start=.text=0x1E10 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    424	      0	      0	    424	    1a8	optiboot_attiny84.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_attiny84.elf optiboot_attiny84.hex
-avr-objdump -h -S optiboot_attiny84.elf > optiboot_attiny84.lst
-rm optiboot.o
-rm optiboot_attiny84.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    494	      0	      0	    494	    1ee	optiboot.elf
+Requires 31 Boot Pages, 16 Bytes each
+BOOTSZ=0
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny84.hex
+avr-objdump -h -S optiboot.elf > optiboot_attiny84.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_attiny84.hex optiboot_luminet.hex
 mv optiboot_attiny84.lst optiboot_luminet.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make diecimila baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make diecimila ******
 make atmega168 F_CPU=16000000 LED_START_FLASHES=3
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega168.hex optiboot_diecimila.hex
 mv optiboot_atmega168.lst optiboot_diecimila.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make bobuino baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make bobuino ******
 make atmega1284p F_CPU=16000000 LED=B7
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7  -DBIGBOOT  -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7  -DBIGBOOT  -Wl,--section-start=.text=0x1fc00 -Wl,--section-start=.version=0x1fffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega1284p.elf optiboot.o -lc
-avr-size optiboot_atmega1284p.elf
+Boot Loader start address: 0x1FE00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE \
+        -Wl,--section-start=.text=0x1FE00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    422	      0	      0	    422	    1a6	optiboot_atmega1284p.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega1284p.elf optiboot_atmega1284p.hex
-avr-objdump -h -S optiboot_atmega1284p.elf > optiboot_atmega1284p.lst
-rm optiboot.o
-rm optiboot_atmega1284p.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega1284p.hex optiboot_bobuino.hex
 mv optiboot_atmega1284p.lst optiboot_bobuino.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make wildfirev2 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make wildfirev2 ******
 make atmega1284p F_CPU=16000000 LED=B7 BAUD_RATE=1000000
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7  -DBIGBOOT  -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 1000000, Real: 1000000, UBRRL = 1, Error=0.0%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7  -DBIGBOOT  -Wl,--section-start=.text=0x1fc00 -Wl,--section-start=.version=0x1fffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega1284p.elf optiboot.o -lc
-avr-size optiboot_atmega1284p.elf
+Boot Loader start address: 0x1FE00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1  -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DLED=B7 -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE \
+        -Wl,--section-start=.text=0x1FE00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    422	      0	      0	    422	    1a6	optiboot_atmega1284p.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega1284p.elf optiboot_atmega1284p.hex
-avr-objdump -h -S optiboot_atmega1284p.elf > optiboot_atmega1284p.lst
-rm optiboot.o
-rm optiboot_atmega1284p.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega1284p.hex optiboot_wildfirev2.hex
 mv optiboot_atmega1284p.lst optiboot_wildfirev2.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega1284 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -DBIGBOOT  -c -o optiboot.o optiboot.S
+ 
+***** make atmega1284 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -DBIGBOOT  -Wl,--section-start=.text=0x1fc00 -Wl,--section-start=.version=0x1fffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega1284p.elf optiboot.o -lc
-avr-size optiboot_atmega1284p.elf
+Boot Loader start address: 0x1FE00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE \
+        -Wl,--section-start=.text=0x1FE00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    422	      0	      0	    422	    1a6	optiboot_atmega1284p.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega1284p.elf optiboot_atmega1284p.hex
-avr-objdump -h -S optiboot_atmega1284p.elf > optiboot_atmega1284p.lst
-rm optiboot.o
-rm optiboot_atmega1284p.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega32 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32 -DF_CPU=11059200  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega88 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
+ 
+***** make atmega32 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32 -DF_CPU=11059200  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
+BAUD RATE CHECK: Desired: 115200, Real: 115200, UBRRL = 11, Error=0.0%
+Boot Loader start address: 0x7E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32 -DF_CPU=11059200  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE \
+        -Wl,--section-start=.text=0x7E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    488	      0	      0	    488	    1e8	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega32.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega32.lst
+ 
+***** make atmega88 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x1e00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega88.elf optiboot.o -lc
-avr-size optiboot_atmega88.elf
+Boot Loader start address: 0x1E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE \
+        -Wl,--section-start=.text=0x1E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega88.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega88.elf optiboot_atmega88.hex
-avr-objdump -h -S optiboot_atmega88.elf > optiboot_atmega88.lst
-rm optiboot.o
-rm optiboot_atmega88.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega168p baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega88.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega88.lst
+ 
+***** make atmega168p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168p_16MHz.elf optiboot.o -lc
-avr-size optiboot_atmega168p_16MHz.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168p_16MHz.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168p_16MHz.elf optiboot_atmega168p_16MHz.hex
-avr-objdump -h -S optiboot_atmega168p_16MHz.elf > optiboot_atmega168p_16MHz.lst
-rm optiboot.o
-rm optiboot_atmega168p_16MHz.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make xplained168pb baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+ 
+***** make xplained168pb ******
 make atmega168 F_CPU=16000000 BAUD_RATE=57600
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRRL = 34, Error=0.7%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega168.hex optiboot_xplained168pb.hex
 mv optiboot_atmega168.lst optiboot_xplained168pb.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make xplained328p baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make xplained328p ******
 make atmega328 F_CPU=16000000 BAUD_RATE=57600
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRRL = 34, Error=0.7%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x7e00 -Wl,--section-start=.version=0x7ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega328.elf optiboot.o -lc
-avr-size optiboot_atmega328.elf
+Boot Loader start address: 0x7E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE \
+        -Wl,--section-start=.text=0x7E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega328.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega328.elf optiboot_atmega328.hex
-avr-objdump -h -S optiboot_atmega328.elf > optiboot_atmega328.lst
-rm optiboot.o
-rm optiboot_atmega328.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega328.hex optiboot_xplained328p.hex
 mv optiboot_atmega328.lst optiboot_xplained328p.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make xplained328pb baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
+ 
+***** make xplained328pb ******
 make atmega328 F_CPU=16000000 BAUD_RATE=57600
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRRL = 34, Error=0.7%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x7e00 -Wl,--section-start=.version=0x7ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega328.elf optiboot.o -lc
-avr-size optiboot_atmega328.elf
+Boot Loader start address: 0x7E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=57600 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE \
+        -Wl,--section-start=.text=0x7E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega328.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega328.elf optiboot_atmega328.hex
-avr-objdump -h -S optiboot_atmega328.elf > optiboot_atmega328.lst
-rm optiboot.o
-rm optiboot_atmega328.elf
-make[1]: Verzeichnis »/home/kub/Transistortester/Arduino/optiboot-master_withS/optiboot/bootloaders/optiboot« wird verlassen
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
+make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
 mv optiboot_atmega328.hex optiboot_xplained328pb.hex
 mv optiboot_atmega328.lst optiboot_xplained328pb.lst
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega8 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+ 
+***** make atmega8 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x1e00 -Wl,--section-start=.version=0x1ffe -Wl,--undefined=optiboot_version -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega8.elf optiboot.o -lc
-avr-size optiboot_atmega8.elf
+Boot Loader start address: 0x1E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE \
+        -Wl,--section-start=.text=0x1E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    418	      0	      0	    418	    1a2	optiboot_atmega8.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega8.elf optiboot_atmega8.hex
-avr-objdump -h -S optiboot_atmega8.elf > optiboot_atmega8.lst
-rm optiboot.o
-rm optiboot_atmega8.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_atmega8.hex optiboot_atmega8.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega168 baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_atmega8.hex optiboot_atmega8.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+    488	      0	      0	    488	    1e8	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega8.lst
+ 
+***** make atmega168 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega168.elf optiboot.o -lc
-avr-size optiboot_atmega168.elf
+Boot Loader start address: 0x3E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168 -DF_CPU=16000000   -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE \
+        -Wl,--section-start=.text=0x3E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega168.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega168.elf optiboot_atmega168.hex
-avr-objdump -h -S optiboot_atmega168.elf > optiboot_atmega168.lst
-rm optiboot.o
-rm optiboot_atmega168.elf
-baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168.hex optiboot_atmega168.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_atmega8.hex optiboot_atmega8.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h make atmega328p baudcheck.c baudcheck.tmp.sh boot.h makeall Makefile Makefile.1284 Makefile.atmel Makefile.custom Makefile.extras Makefile.isp make_prot omake omake.bat optiboot_atmega1280.hex optiboot_atmega1280.lst optiboot_atmega1284p.hex optiboot_atmega1284p.lst optiboot_atmega168.hex optiboot_atmega168.lst optiboot_atmega168p_16MHz.hex optiboot_atmega168p_16MHz.lst optiboot_atmega328_pro_8MHz.hex optiboot_atmega328_pro_8MHz.lst optiboot_atmega88.hex optiboot_atmega88.lst optiboot_atmega8.hex optiboot_atmega8.lst optiboot_bobuino.hex optiboot_bobuino.lst optiboot.c optiboot_diecimila.hex optiboot_diecimila.lst optiboot_lilypad.hex optiboot_lilypad.lst optiboot_luminet.hex optiboot_luminet.lst optiboot_pro_16MHz.hex optiboot_pro_16MHz.lst optiboot_pro_20mhz.hex optiboot_pro_20mhz.lst optiboot_pro_8MHz.hex optiboot_pro_8MHz.lst optiboot.S optiboot_sanguino.hex optiboot_sanguino.lst optiboot_wildfirev2.hex optiboot_wildfirev2.lst optiboot_xplained168pb.hex optiboot_xplained168pb.lst optiboot_xplained328pb.hex optiboot_xplained328pb.lst optiboot_xplained328p.hex optiboot_xplained328p.lst pin_defs.h README.TXT soft_uart.S spi.h stk500.h
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -c -o optiboot.o optiboot.S
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+ 
+***** make atmega328 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -c -o optiboot.o optiboot.S
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.1%
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3      -Wl,--section-start=.text=0x7e00 -Wl,--section-start=.version=0x7ffe -Wl,--relax -nostartfiles -nostdlib -o optiboot_atmega328p.elf optiboot.o -lc
-avr-size optiboot_atmega328p.elf
+Boot Loader start address: 0x7E00
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328 -DF_CPU=16000000  -DBAUD_RATE=115200 -DLED_START_FLASHES=3     -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE \
+        -Wl,--section-start=.text=0x7E00 -Wl,--relax -nostartfiles -nostdlib -o optiboot.elf optiboot.o -lc
+avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    416	      0	      0	    416	    1a0	optiboot_atmega328p.elf
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot_atmega328p.elf optiboot_atmega328p.hex
-avr-objdump -h -S optiboot_atmega328p.elf > optiboot_atmega328p.lst
-rm optiboot.o
-rm optiboot_atmega328p.elf
+    486	      0	      0	    486	    1e6	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst

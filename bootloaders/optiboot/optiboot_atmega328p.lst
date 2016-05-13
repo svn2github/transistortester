@@ -1,5 +1,5 @@
 
-optiboot_atmega328p.elf:     Dateiformat elf32-avr
+optiboot.elf:     Dateiformat elf32-avr
 
 Sektionen:
 Idx Name          Größe     VMA       LMA       Datei-Off Ausr.
@@ -84,9 +84,9 @@ try_loader:
 
 #ifndef SOFT_UART
  #if defined(PORTD) && defined(PD1)
-	cbi	_SFR_IO_ADDR(PORTD), PD0	; RXD, disable PullUp
+	ACBI	PORTD, PD0	; RXD, disable PullUp
     7e1c:	58 98       	cbi	0x0b, 0	; 11
-	cbi	_SFR_IO_ADDR(PORTD), PD1	; TX0   ????
+	ACBI	PORTD, PD1	; TX0   ????
     7e1e:	59 98       	cbi	0x0b, 1	; 11
   #if BAUD_DIV > 250
    #error Unachievable baud rate (too slow) BAUD_RATE
@@ -122,11 +122,11 @@ try_loader:
     7e3a:	c1 d0       	rcall	.+386    	; 0x7fbe <watchdogConfig>
 
 #if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
-	sbi	_SFR_IO_ADDR(LED_DDR), LED
+	ASBI	LED_DDR, LEDbit
     7e3c:	25 9a       	sbi	0x04, 5	; 4
 #endif
 #ifdef SOFT_UART
-	sbi	_SFR_IO_ADDR(UART_DDR), UART_TX_BIT	; set TX bit as output
+	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX bit as output
 #endif
 	ldi	r18, lo8(RAMSTART+Buff)	; r18:r19 = RAMSTART
     7e3e:	20 e0       	ldi	r18, 0x00	; 0
@@ -142,11 +142,11 @@ try_loader:
 00007e44 <fl_lop>:
 fl_lop:
  #endif
-	sbi	_SFR_IO_ADDR(LED_PORT), LED
+	ASBI	LED_PORT, LEDbit
     7e44:	2d 9a       	sbi	0x05, 5	; 5
 	rcall	wait_T1ov
     7e46:	c1 d0       	rcall	.+386    	; 0x7fca <wait_T1ov>
-	cbi	_SFR_IO_ADDR(LED_PORT), LED
+	ACBI	LED_PORT, LEDbit
     7e48:	2d 98       	cbi	0x05, 5	; 5
  #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
@@ -167,7 +167,7 @@ get_nextp:
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	cpi	r24, STK_GET_PARAMETER		; 'A'
     7e52:	81 34       	cpi	r24, 0x41	; 65
-	brne	ck_SET_DEV
+	brne	fin_get_par
     7e54:	61 f4       	brne	.+24     	; 0x7e6e <ck_SET_DEV>
 // handle get parameter instruction
 	rcall	getch
@@ -190,7 +190,7 @@ get_nextp:
 	brne	to_putch	; rcall putch, rjmp put_ok
     7e66:	09 f4       	brne	.+2      	; 0x7e6a <to_putch>
 	ldi	r24, OPTIBOOT_MAJVER+OPTIBOOT_CUSTOMVER
-    7e68:	8a e6       	ldi	r24, 0x6A	; 106
+    7e68:	84 e7       	ldi	r24, 0x74	; 116
 
 00007e6a <to_putch>:
 to_putch:
@@ -200,7 +200,10 @@ to_putch:
     7e6c:	6c c0       	rjmp	.+216    	; 0x7f46 <put_ok>
 
 00007e6e <ck_SET_DEV>:
-;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	mov	r24, r0
+	rjmp	to_putch	; rcall putch; rjmp wr_ok
+fin_fuse_ck:
+#endif
 ck_SET_DEV:
 	ldi	r20, 20
     7e6e:	44 e1       	ldi	r20, 0x14	; 20
@@ -291,11 +294,10 @@ is_PROG:
     7ea4:	71 d0       	rcall	.+226    	; 0x7f88 <getch>
 
 00007ea6 <ee_check>:
-	mov	r24, r0
-	rjmp	to_putch	; rcall putch; rjmp wr_ok
-#endif
+    // PROGRAM PAGE - we support flash and optional EEPROM programming
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ee_check:
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	subi	r24, 'E'	; type = getch() - 'E'
     7ea6:	85 54       	subi	r24, 0x45	; 69
 	mov	r6, r24
@@ -338,7 +340,7 @@ fill_buf:
     7ebe:	d8 01       	movw	r26, r16
 
 	; SRAM of ATmega is filled with data
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	cpse	r6, r1		; r6 == 0, is EEprom write
     7ec0:	61 10       	cpse	r6, r1
 	rjmp	write_flash	; if (!type)
@@ -358,7 +360,7 @@ wrlop2:
 
 00007ecc <w_ee>:
 w_ee:
-  	sbic	_SFR_IO_ADDR(EECR), EEPE	; while (!eeprom_is_ready())
+  	ASBIC	EECR, EEPE	; while (!eeprom_is_ready())
     7ecc:	f9 99       	sbic	0x1f, 1	; 31
    	rjmp	w_ee
     7ece:	fe cf       	rjmp	.-4      	; 0x7ecc <w_ee>
@@ -373,9 +375,9 @@ w_ee:
     7ed6:	e9 90       	ld	r14, Y+
 	AOUT	EEDR, r14
     7ed8:	e0 bc       	out	0x20, r14	; 32
-	sbi	_SFR_IO_ADDR(EECR), EEMPE
+	ASBI	EECR, EEMPE
     7eda:	fa 9a       	sbi	0x1f, 2	; 31
-	sbi	_SFR_IO_ADDR(EECR), EEPE	; /* Start eeprom write by setting EEPE */
+	ASBI	EECR, EEPE	; /* Start eeprom write by setting EEPE */
     7edc:	f9 9a       	sbi	0x1f, 1	; 31
 	sbiw	r26, 1		; length = length - 1
     7ede:	11 97       	sbiw	r26, 0x01	; 1
@@ -488,7 +490,7 @@ ck_READP:
 	movw	ZL, r4		; addrPtr = address
     7f1e:	f2 01       	movw	r30, r4
 
-#ifdef SUPPORT_EEPROM
+#if SUPPORT_EEPROM > 0
 	cpi	r23, 'E'	; 0x45
     7f20:	75 34       	cpi	r23, 0x45	; 69
 	brne	rd_lop
@@ -498,7 +500,7 @@ ck_READP:
 ;     must be EEprom read
 ; read EEprom
 rd_lop2:
-	sbic	_SFR_IO_ADDR(EECR), EEPE
+	ASBIC	EECR, EEPE
     7f24:	f9 99       	sbic	0x1f, 1	; 31
 	rjmp	rd_lop2		; wait for EEprom ready
     7f26:	fe cf       	rjmp	.-4      	; 0x7f24 <rd_lop2>
@@ -508,7 +510,7 @@ rd_lop2:
     7f2a:	e1 bd       	out	0x21, r30	; 33
 	adiw	ZL, 1 		; address + 1
     7f2c:	31 96       	adiw	r30, 0x01	; 1
-	sbi	_SFR_IO_ADDR(EECR), EERE
+	ASBI	EECR, EERE
     7f2e:	f8 9a       	sbi	0x1f, 0	; 31
 	AIN	r24, EEDR		; read data from EEprom
     7f30:	80 b5       	in	r24, 0x20	; 32
@@ -653,8 +655,8 @@ putch:	/* 0x7f98 , void putch(char ch) */
 
 00007f88 <getch>:
 getch: 
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LED)
-	sbi	_SFR_IO_ADDR(LED_PORT), LED
+ #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
@@ -675,8 +677,8 @@ gtch1:
 
  	lds	r24, UART_UDR	; ch = UART_UDR; return ch;
     7f94:	80 91 c6 00 	lds	r24, 0x00C6
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LED)
-	cbi	_SFR_IO_ADDR(LED_PORT), LED
+ #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+	ACBI	LED_PORT, LEDbit
  #endif
        	ret
     7f98:	08 95       	ret
@@ -791,7 +793,7 @@ wait_T1ov:
 	ldi	r22, (1<<TOV1)
 	AOUT	TIFR, r22		; clear OV bit Timer 1
  #else
-	sbi	_SFR_IO_ADDR(TIFR1), TOV1	; clear OV bit Timer1
+	ASBI	TIFR1, TOV1	; clear OV bit Timer1
     7fdc:	b0 9a       	sbi	0x16, 0	; 22
 
 00007fde <wt_ov>:
@@ -800,7 +802,7 @@ wait_T1ov:
 	sbrc	r22, (1<<TOV1)
 	rjmp	wt_ov
  #else
-	sbis	_SFR_IO_ADDR(TIFR1), TOV1	; wait until OV bit is set again
+	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
     7fde:	b0 9b       	sbis	0x16, 0	; 22
 	rjmp	wt_ov
     7fe0:	fe cf       	rjmp	.-4      	; 0x7fde <wt_ov>
