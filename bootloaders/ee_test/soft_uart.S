@@ -3,89 +3,85 @@
  #define __ASSEMBLER__
 #endif
 #include <avr/io.h>
-//#include "pin_defs.h"
+#include "uart_defs.h"
 
 
 ;***************************************************************
-;	.section .text
-;	.func soft_uart
-;	.global getch
-;	.global putch
-;
-; the two functions getch and putch can serve a half duplex
-; serial communication with the baud rate specified with BAUD_RATE.
-; The clock frequency F_CPU and features of the selected port 
-; are respected to get the nearest possible real baud rate.
-;
-; The Option QuickStopBit let the function putch return
-; after output of the last data bit. The serial output is set to 1
-; for the begin of the stop bit,
-; but the Baud-time of the stop bit is not monitored correctly.
-; So the program has more time to watch the serial input.
-; The next output of a start bit is delayed for one Baud-time,
-; so that sequential serial output is timed correctly.
-#define QuickStopBit
+	.section .text
+	.func soft_uart
+	.global getch
+	.global putch
+
 
 
 ;**********************************************************
 putch:	/*  void putch(char ch) */
-	; r24 hold the data for serial output
-	; use r22, r23, r25
-	rcall	double_uartDelay	; work simular to a second stop bit
+#ifdef UCSR0A
+	lds	r25, UCSR0A	; while (!(UART_SRA & _BV(UDRE0)));
+	sbrs	r25, UDRE0
+	rjmp	putch		; wait, UART out not ready
+	sts	UDR0, r24	; UDR0 = ch;
+	ret
+#else
 	ldi	r22, 10
 ;	ldi	r19, 0
-#if	UART_TX_PORT < (64 + __SFR_OFFSET)
- #if	UART_TX_PORT >= (0x20 + __SFR_OFFSET)
-	inp	r23, _SFR_IO_ADDR(UART_TX_PORT)
- #endif
-#else
-	lds	r23, UART_TX_PORT
-#endif
+	.if	_SFR_IO_REG_P(UART_TX_PORT)
+	.else
+	lds	r0, UART_TX_PORT
+	.endif
 	com	r24
-	sec			; set carry for start bit
+	sec
 puplop:
-#ifdef QuickStopBit
-	rcall	double_uartDelay	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
-#endif
 	brcc	set_tx		; 1/2 clock tics
-#if	UART_TX_PORT < (0x20 + __SFR_OFFSET)
+	.if	_SFR_IO_REG_P(UART_TX_PORT)
 	cbi	_SFR_IO_ADDR(UART_TX_PORT), UART_TX_BIT	; 1+2
 	rjmp	pup2		; 1+2+2 = 5
-#else
-	cbr	r23, UART_TX_BIT	; 1+1
- #if	UART_TX_PORT < (64 + __SFR_OFFSET)
-	out	UART_TX_PORT, r23	; 1+1+1
-	rjmp	pup2		; 1+1+1+2 = 5
- #else
-	sts	UART_TX_PORT, r23	; 1+1+2
+	.else
+	cbr	r0, UART_TX_BIT	; 1+1
+	sts	UART_TX_PORT, r0	; 1+1+2
 	rjmp	pup2		; 1+1+2+2 = 6!!!!
- #endif
-#endif
+	.endif
 set_tx:
-#if	UART_TX_PORT < (0x20 + __SFR_OFFSET)
+	.if	_SFR_IO_REG_P(UART_TX_PORT)
 	sbi	_SFR_IO_ADDR(UART_TX_PORT), UART_TX_BIT	;2+2
 	nop			; 2+2+1 = 5
-#else
-	sbr	r23, UART_TX_BIT	; 2+1
-	sts	UART_TX_PORT, r23 ; 2+1+2 = 5
-#endif
+	.else
+	sbr	r0, UART_TX_BIT	; 2+1
+	sts	UART_TX_PORT, r0 ; 2+1+2 = 5
+	.endif
 pup2:
-#ifndef QuickStopBit
-	rcall	double_uartDelay	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
-#endif
+	rcall	uartDelay	; takes 7 + UART_B_VALUE*3 + UART_R_VALUE clock tics
+	rcall	uartDelay	; takes 7 + UART_B_VALUE*3 + UART_R_VALUE clock tics
 	lsr	r24		; 5+1
 	dec	r22		; decrement don't touch the carry
 	brne	puplop		; 5+1+1+2 = 9, total 9 +(2*7) = 23 Clock tics
       	ret
+#endif
 
 ;**********************************************************
 	/* call getch fetch a character from serial interface */
 	; return value: r24 = new character read
 	; use r22, r25 (soft)
 getch:  
-#if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
-	ASBI	LED_PORT, LEDbit
-#endif
+#ifdef UCSR0A
+gtch1:
+        AIN     r24, UCSR0A           ; if (UART_SRA & _BV(RXC0)) {
+        sbrs    r24, RXC0
+        rjmp    gtch1                   ; no data received, wait
+        sbrs    r24, FE0
+        wdr             ; watchdogReset();
+       /*
+         * A Framing Error indicates (probably) that something is talking
+         * to us at the wrong bit rate.  Assume that this is because it
+         * expects to be talking to the application, and DON'T reset the
+         * watchdog.  This should cause the bootloader to abort and run
+         * the application "soon", if it keeps happening.  (Note that we
+         * don't care that an invalid char is returned...)
+         */
+
+	lds	r24, UDR0	; ch = UDR0; return ch;
+	ret
+#else
 	ldi	r22, 9
 ;	ldi	r19, 0
 wait_start:
@@ -93,7 +89,8 @@ wait_start:
 	rjmp	wait_start	; RX bit still set, wait
 	rcall	uartDelay	; wait half BAUD time
 guplop:
-	rcall	double_uartDelay	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
+	rcall	uartDelay	; takes 7 + UART_B_VALUE*3 + UART_R_VALUE clock tics
+	rcall	uartDelay	; takes 7 + UART_B_VALUE*3 + UART_R_VALUE clock tics
 	clc			; 1 clear carry  
 /* ASBIC macro use a sbic, if possible. Otherwise a lds, sbrc sequence is used */
 /* With lds instruction two additional cycles are within the loop */
@@ -106,16 +103,13 @@ guplop:
 				; with lds The loop takes two clock tics more (=10+14 + ...)
 fin_g:
      	wdr		; watchdogReset();
-#if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
-	ACBI	LED_PORT, LEDbit
-#endif
        	ret
 
 
 ;**********************************************************
 // AVR305 equation: #define UART_B_VALUE (((F_CPU/BAUD_RATE)-23)/6)
 // loop requires 9 tics
-#if	(UART_TX_PORT < (0x63 + __SFR_OFFSET))
+#if	_SFR_IO_REG_P(UART_TX_PORT)
  #define LOOP_TICS 9
 #else
  #define LOOP_TICS 10
@@ -155,31 +149,20 @@ fin_g:
 #error Baud rate too fast for soft UART
  #endif
 
-;--------------------------------------------------------------------------------------
-; the function double_uartDelay calls the function uartDelay twice to get
-; a total delay time of the requested BAUD time.
-double_uartDelay:
-	rcall	uartDelay	; after first call runs to uartDelay and returns to double_uartDelay
-;--------------------------------------------------------------------------------------
-; The function uartDelay make a total delay time of the half BAUD time.
+; rcall uartDelay take 7 + UART_B_VALUE*3 + UART_R_VALUE  clock tics
+; use r25 for counting
 uartDelay:
 #ifdef QuadDelay
-; The time limit for uartDelay_single  and uartDelay_double has been reached,
-; so  the function uartDelay_double is call twice to get the requested delay.
 	rcall	uartDelay_double
 #endif
 #ifdef DoubleDelay
-; The time limit for uartDelay_single has been reached,
-; so  the function uartDelay_single is call twice to get the requested delay.
 uartDelay_double:
 	rcall	uartDelay_single
 #endif
-; rcall uartDelay_single take 7 + UART_B_VALUE*3 + UART_R_VALUE  clock tics
-; use r25 for counting
 uartDelay_single:
 	ldi	25, UART_B_VALUE
 lud:
-	dec	r25		; important: dec don't change the carry!
+	dec	r25
 	brne	lud
 ; With UART_B_VALUE we can match the half bit period with multiples of 3 clock tics.
 ; We can add one or two clock tics for better match the required time
@@ -190,6 +173,7 @@ lud:
 	nop		; two additional instructions
 #endif
 	ret
+#endif		/* defined UCSR0A */
 
 ;**********************************************************
 ;       .endfunc

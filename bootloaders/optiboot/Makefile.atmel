@@ -12,23 +12,20 @@
 #  
 # 
 #
-xplained168pb: TARGET = $@
-xplained168pb: CHIP = atmega168
+xplained168pb: TARGET := $@
+xplained168pb: AVR_FREQ := 16000000
+xplained168pb: BAUD_RATE := 57600
 xplained168pb:
-	$(MAKE) $(CHIP) F_CPU=16000000 BAUD_RATE=57600
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega168
 
-xplained328pb: TARGET = $@
-xplained328pb: CHIP = atmega328
+xplained328pb: TARGET := $@
+xplained328pb: AVR_FREQ := 16000000
+xplained328pb: BAUD_RATE := 57600
 xplained328pb:
-	$(MAKE) $(CHIP) F_CPU=16000000 BAUD_RATE=57600
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega328
 
-xplained328p: TARGET = $@
-xplained328p: CHIP = atmega328
+xplained328p: TARGET := $@
+xplained328p: AVR_FREQ := 16000000
+xplained328p: BAUD_RATE := 57600
 xplained328p:
-	$(MAKE) $(CHIP) F_CPU=16000000 BAUD_RATE=57600
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega328

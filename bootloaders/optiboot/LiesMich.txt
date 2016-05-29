@@ -9,9 +9,9 @@ Die Taktfrequenz ist in der Makefile voreingestellt, kann aber mit
 der Option F_CPU=xxxxxxx beim make Aufruf eingestellt werden.
 
 Beispiel:
-********************************************
-make atmega328p F_CPU=8000000 BAUD_RATE=9600
-********************************************
+***********************************************
+make atmega328p AVR_FREQ=8000000 BAUD_RATE=9600
+***********************************************
 Hiermit werden die Bootloader Daten für einen ATmega328P bei 8 MHz Takt und
 einer seriellen Kommunikation mit 9600 Baud erzeugt.
 
@@ -61,19 +61,17 @@ Statt dessen  soll der Reset Interrupt-Vektor auf den Bootloader umgelegt werden
 Die Vektor-Addresse des Reset Vektors soll dann in einen anderen Interrupt Vektor
 eingetragen werden und vom Bootloader beim "Timeout" benutzt werden.
 Dabei werden die Programmdatem beim Flashen verändert und bei der anschliessenden
-Kontrolle (verify) als ursprünglich simuliert. Das funktioniert aber nicht mehr
-bei einer späteren separaten Kontrolle der Programmdaten!
-Besser wäre nach meiner Meinung, diese Einstellung dann sofort im Anwenderprogramm zu benutzen
-oder ein Patchprogramm für die Programmierdaten zu verwenden, die üblicherweise im Hex-Format
-vorliegen. Ein Patchprogramm kann die Daten besser analysieren als es im Bootloader 
-möglich ist. Eine der Schwierigkeiten für den Bootloader besteht bei Flash-Speichergrössen
+Kontrolle (verify) als ursprünglich simuliert.
+Eine der Schwierigkeiten für den Bootloader besteht bei Flash-Speichergrössen
 von mehr als 8K darin, dass auf den Vektoradressen sowohl JMP als auch RJMP Befehle 
 benutzt werden können. 
+Derzeit geht der Bootloader davon aus, daß  bei mehr als 8 kByte Flash Speicher nur 
+JMP Befehle in der Interrupt Vektor Tabelle verwendet werden.
 
 =======================================================================================
 Verwendete Optionen
 =======================================================================================
-F_CPU			definiert die Frequenz (Hz), mit der der AVR Mikrocontroller laufen soll.
+AVR_FREQ		definiert die Frequenz (Hz), mit der der AVR Mikrocontroller laufen soll.
 
 BAUD_RATE		definiert die Baud Rate, mit der die serielle Schnittstelle laufen soll.
 
@@ -119,7 +117,15 @@ BIGBOOT			war früher erforderlich, um die Grösse von 512 Byte auf 1024 Byte um
 			Grössenanpassung getestet werden oder auch die Startadresse des
 			Bootloaders auf eine niedrigere Addresse zu legen.
 
-VIRTUAL_BOOT_PARTITION  Diese Option sollte nicht benutzt werden!
+VIRTUAL_BOOT_PARTITION  Diese Option verändert zwei Interrupt Vektor Sprung-Adressen,
+			damit beim Reset der Bootloader gestartet wird.
+			Ein anderer Interrupt-Vektor wird dann benutzt, um die Original
+			Startadresse des Applikations-Programms zu sichern.
+			Der Sprungbefehl bzw. die Adresse von diesem Vektor wird in den
+			letzten beiden Bytes des EEprom-Speichers gesichert.
+			Damit ist eine Kontrolle der geladenen Flash-Daten (verify) so lange
+			möglich, wie die EEprom-Daten nicht vom Anwenderprogramm
+			überschrieben werden.
 
 Vorschlag:
 ==========
@@ -128,7 +134,10 @@ weitergereicht. Hier wäre zu überlegen, ob man zusätzlich nicht auch ein Hard
 des ATmega (z.B. GPIOR0) benutzt werden kann. Hier könnte auch ein C-Programm leicht zugreifen.
 Die GPIORx Register haben weiter keine Funktion und eignen sich nach meiner Meinung gut
 für solche Aufgaben.
-Bei Prozessoren ohne diese Register-Gruppe könnte z.B. ein Register von einem Zähler
+Bei Prozessoren ohne diese Register-Gruppe wird das Zähler Register OCR2
 als Alternative zu einem GPIORx Register benutzt werden.
+
+Die AVR Prozessoren ATtiny84, ATmega8, ATmega328 und ATmega1284 sind derzeit mit der
+Assembler-Version von Optiboot getestet.
 
 An Rückmeldungen zum Thema "Assembler Optiboot" wäre ich durchaus interessiert.

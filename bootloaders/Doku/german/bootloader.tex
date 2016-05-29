@@ -1,0 +1,122 @@
+\documentclass[pdftex,12pt,a4paper,oneside,english]{report}
+\special{papersize=210mm,297mm}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}		%umlaute!
+\usepackage[utf8x]{inputenc}
+\usepackage[cm]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage[pdftex]{graphicx}
+\usepackage[labelsep=period]{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage{fixltx2e}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{multirow}
+% \usepackage{subfig}
+\graphicspath{{./FIG}}
+
+\begin{document}
+\title{Arbeitsweise und Umfeld\\
+des AVR Bootloaders \\
+ optiboot\\
+}
+\author{Karl-Heinz Kübbeler\\
+\texttt{kh\_kuebbeler@web.de}}
+\date{\today}
+
+\maketitle
+\tableofcontents
+
+\include{preface}
+
+\include{principle}
+
+\include{AVRhardware}
+
+\include{optiboot}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{ATmega8}
+Atmel Corporation
+\emph{8-bit AVR with 8KBytes In-System Programmable Flash - ATmega8(L),}.
+Manual,
+2486AA-AVR-02/13,
+2013
+
+\bibitem{ATmega16}
+Atmel Corporation
+\emph{8-bit AVR with 16KBytes In-System Programmable Flash - ATmega16A,}.
+Manual,
+8154C-AVR-07/14,
+2014
+
+\bibitem{ATmega32}
+Atmel Corporation
+\emph{8-bit AVR with 32KBytes In-System Programmable Flash - ATmega32(L),}.
+Manual,
+doc2503-AVR-07/11,
+2011
+
+\bibitem{ATmega168}
+Atmel Corporation
+\emph{8-bit AVR with 4/8/16/32KBytes In-System Programmable Flash - ATmega48 - ATmega328,}.
+Manual,
+8271J-AVR-11/15,
+2015
+
+\bibitem{ATmega644}
+Atmel Corporation
+\emph{8-bit AVR with 16/32/64/128KBytes In-System Programmable Flash - ATmega164 - ATmega1284,}.
+Manual,
+8272G-AVR-01/15,
+2015
+
+\bibitem{ATtiny84}
+Atmel Corporation
+\emph{8-bit AVR with 2/4/8KBytes In-System Programmable Flash - ATtiny24-ATtiny44-ATtiny84 ,}.
+Manual,
+doc8006-AVR-10/10,
+2010
+
+\bibitem{stk500}
+Atmel Corporation
+\emph{STK500 Communication Protocol ,}.
+Application Note,
+AVR061-04/03,
+2003
+
+\bibitem{LaTeX}
+\url{http://en.wikibooks.org/wiki/LaTeX}
+\emph{LaTeX documentation,}.
+Guide to the LaTeX markup language,
+2012
+
+\bibitem{Xfig}
+\url{http://www.xfig.org/userman}
+\emph{Xfig documentation,}.
+Documentation of the interactive drawing tool xfig,
+2009
+
+\bibitem{Avrdude}
+\url{http://www.cs.ou.edu/~fagg/classes/general/atmel/avrdude.pdf}
+\emph{AVRDUDE Userguide,}.
+A program for download/uploading AVR microcontroller flash and eeprom,
+by Brian S. Dean
+2006
+
+\bibitem{avrdude}
+\url{http://www.mikrocontroller.net/articles/AVRDUDE}
+\emph{Online Dokumentation des avrdude programmer interface,}
+Online Article,
+2004-2011
+
+
+
+\end{thebibliography}
+\end{document}
+

@@ -830,17 +830,3 @@ wt_fin:
     7fd2:	a8 95       	wdr
 	ret
     7fd4:	08 95       	ret
--e 
-; MCU_TARGET = atmega328p
-; SOURCE_TYPE=S
-; AVR_FREQ= 16000000
-; BAUD_RATE=115200
-; LED_START_FLASHES=
-; SOFT_UART=
-; UART_RX=
-; UART_TX=
-; LED_DATA_FLASH=
-; LED=
-; UART
-; SUPPORT_EEPROM=1
-; FORCE_WATCHDOG=

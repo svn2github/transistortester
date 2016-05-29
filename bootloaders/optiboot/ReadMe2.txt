@@ -7,13 +7,13 @@ Therefore the EEprom support is integrated by default, but you can
 also deselect the feature with a option SUPPORT_EEPROM=0 .
 
 The clock rate is preselected for many configurations in the Makefile,
-but you can select a different value by setting the option F_CPU=xxxxxx ,
+but you can select a different value by setting the option AVR_FREQ=xxxxxx ,
 where xxxxxx is the new frequency in cycles per second (Hz).
 
 Example:
-********************************************
-make atmega328p F_CPU=8000000 BAUD_RATE=9600
-********************************************
+***********************************************
+make atmega328p AVR_FREQ=8000000 BAUD_RATE=9600
+***********************************************
 This will generate a bootloader code for a ATmega328P with 8 MHz clock frequency
 and a serial communication at 9600 baud.
 
@@ -53,11 +53,10 @@ With the 20 MHz CPU the lowest selectable standard serial rate is 9600 baud,
 with a 16 MHz CPU you can also select 4800 baud.
 If your CPU clock rate is sufficient, the standard serial rate of 115200 baud
 is a good selection to get a fast transmission. 
-For a good CPU clock rate match also 1 Mbaud is possible with the hardware UART.
+For a good CPU clock rate match is also 1 Mbaud possible with the hardware UART.
 
-Until now the option VIRTUAL_BOOT_PARTITION is untested.
 Normally the start vector is switched with the fuses (BOOTRST bit) to the
-bootloader start address. If the VIRTUAL_BOOT_PARTITION the AVR reset vector
+bootloader start address. If the VIRTUAL_BOOT_PARTITION is selectec, the AVR reset vector
 can remain at the application start address (0x0000).
 Instead of switching the Reset start address the Reset interrupt vector of the
 application program should be changed to the bootloader start address.
@@ -81,7 +80,7 @@ the interrupt vector addresses can hold a JMP or also a RJMP instruction!
 =======================================================================================
 Available options
 =======================================================================================
-F_CPU			specifies the frequency (Hz), at which the AVR mikrocontroller should run.
+AVR_FREQ		specifies the frequency (Hz), at which the AVR mikrocontroller should run.
 
 BAUD_RATE		specifies the baud rate for the serial interface.
 
@@ -136,7 +135,15 @@ BIGBOOT			This option was earlier required to match the setting of start address
 			the bootloader grow, so that the bootloader start address
 			will change from 0x7e00 to 0x7c00 for example. 
 
-VIRTUAL_BOOT_PARTITION  this option should be avoided!
+VIRTUAL_BOOT_PARTITION 	this option changes two interrupt vector jmp addresses,
+			so that the bootloader is started with the reset vector.
+			Another interrupt vector is used to save the original
+			start address of the application program.
+			The JMP instruction or the target address of the JMP 
+			is saved in the last two bytes of the EEprom memory.
+			So a verify of the loaded flash data is possible
+			as long as this EEprom data are not destroyed by
+			the application program.
 
 Recommendation:
 ===============
@@ -147,7 +154,9 @@ For a C application program ist it easier to read the IO-Register content as the
 of any working register (r0-r31).
 The GPIORx register has no special function and can therefore used without any restriction.
 A additional use of this register by a application program is not prohibited.
-For AVR mikrocontrollers without this IO register group one of a counter register
-can be used as alternative.
+For AVR mikrocontrollers without this IO register group the counter register OCR2 is used.
+
+The AVR processors ATtiny84, ATmega8, ATmega328 and ATmega1284 are currently tested with
+this assembler version of optiboot.
 
 I look forward for any replies to the "assembly language optiboot" subject.

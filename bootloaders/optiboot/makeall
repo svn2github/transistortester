@@ -29,8 +29,8 @@ echo " "; echo "***** make bobuino ******"
 make bobuino $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make wildfirev2 ******"
 make wildfirev2 $AllEEprom=1 $WITH_SOFT_UART=1
-echo " "; echo "***** make atmega1284 ******"
-make atmega1284 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega1284p ******"
+make atmega1284p $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make atmega32 ******"
 make atmega32 $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make atmega88 ******"

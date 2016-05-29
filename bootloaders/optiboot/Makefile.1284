@@ -7,38 +7,102 @@
 
 # Chip level targets
 #
-atmega644p: TARGET = atmega644p
-atmega644p: MCU_TARGET = atmega644p
-atmega644p: AVR_FREQ ?= 16000000
+################################################
+# generic atmega644p
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega644p: TARGET := atmega644p
+endif
+atmega644p: MCU_TARGET := atmega644p
+ifndef AVR_FREQ
+atmega644p: AVR_FREQ := 16000000
+endif
 atmega644p: FLASH_SIZE := 65536
 atmega644p: BOOT_PAGE_LEN := 512
+ifndef HFUSE
+# 1024 byte boot
+atmega644p: HFUSE := DE
+endif
+ifndef LFUSE
+# Full Swing xtal (16MHz) 16KCK/14CK+65ms
+atmega644p: LFUSE := F7
+endif
+ifndef EFUSE
+# 2.7V brownout
+#atmega644p: EFUSE := 05
+atmega1284p: EFUSE := FD
+endif
 atmega644p: CFLAGS += $(COMMON_OPTIONS)
 atmega644p: CFLAGS += $(UART_CMD)
-atmega644p: $(PROGRAM)_atmega644p.hex
-atmega644p: $(PROGRAM)_atmega644p.lst
+atmega644p: isp
 
-atmega1284: TARGET = atmega1284p
-atmega1284: MCU_TARGET = atmega1284p
-atmega1284: AVR_FREQ ?= 16000000
-atmega1284: FLASH_SIZE := 131072
-atmega1284: BOOT_PAGE_LEN := 512
-atmega1284: CFLAGS += $(COMMON_OPTIONS)
-atmega1284: CFLAGS += $(UART_CMD)
-atmega1284: $(PROGRAM)_atmega1284p.hex
-atmega1284: $(PROGRAM)_atmega1284p.lst
+atmega644p_isp:
+	$(MAKE) atmega644p ISP=1
 
-atmega1284p: atmega1284
-
-atmega1284_isp: atmega1284
-atmega1284_isp: TARGET = atmega1284p
-atmega1284_isp: MCU_TARGET = atmega1284p
+################################################
+# generic atmega1284p
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega1284p: TARGET := atmega1284p
+endif
+atmega1284p: MCU_TARGET := atmega1284p
+ifndef AVR_FREQ
+atmega1284p: AVR_FREQ := 16000000
+endif
+atmega1284p: FLASH_SIZE := 131072
+atmega1284p: BOOT_PAGE_LEN := 512
+ifndef HFUSE
 # 1024 byte boot
-atmega1284_isp: HFUSE ?= DE
+atmega1284p: HFUSE := DE
+endif
+ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega1284_isp: LFUSE ?= F7
+atmega1284p: LFUSE := F7
+endif
+ifndef EFUSE
 # 2.7V brownout
-atmega1284_isp: EFUSE ?= FD
-atmega1284_isp: isp
+#atmega1284p: EFUSE := 05
+atmega1284p: EFUSE := FD
+endif
+atmega1284p: CFLAGS += $(COMMON_OPTIONS)
+atmega1284p: CFLAGS += $(UART_CMD)
+atmega1284p: isp
+
+atmega1284p_isp: 
+	$(MAKE) atmega1284p ISP=1
+
+################################################
+# generic atmega1284
+# let board specific change the frequency and fuses
+# is not yet supported by libc includes
+#ifndef TARGET
+#atmega1284: TARGET := atmega1284
+#endif
+#atmega1284: MCU_TARGET := atmega1284
+#ifndef AVR_FREQ
+#atmega1284: AVR_FREQ := 16000000
+#endif
+#atmega1284: FLASH_SIZE := 131072
+#atmega1284: BOOT_PAGE_LEN := 512
+#ifndef HFUSE
+## 1024 byte boot
+#atmega1284: HFUSE := DE
+#endif
+#ifndef LFUSE
+## Full Swing xtal (16MHz) 16KCK/14CK+65ms
+#atmega1284: LFUSE := F7
+#endif
+#ifndef EFUSE
+## 2.7V brownout
+##atmega1284: EFUSE := 05
+#atmega1284: EFUSE := FD
+#endif
+#atmega1284: CFLAGS += $(COMMON_OPTIONS)
+#atmega1284: CFLAGS += $(UART_CMD)
+#atmega1284: isp
+
+#atmega1284_isp: 
+#	$(MAKE) atmega1284 ISP=1
 
 #
 # Board-level targets
@@ -46,96 +110,60 @@ atmega1284_isp: isp
 
 # Sanguino has a minimum boot size of 1024 bytes, so enable extra functions
 #
-sanguino: TARGET = sanguino
-sanguino: CHIP = atmega644p
+sanguino: TARGET := sanguino
+sanguino: AVR_FREQ := 16000000
+sanguino: LED := B0
 sanguino:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED=B0
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega644p 
 
-sanguino_isp: sanguino
-sanguino_isp: TARGET = atmega644p
-sanguino_isp: MCU_TARGET = atmega644p
-# 1024 byte boot
-sanguino_isp: HFUSE ?= DE
-# Full swing xtal (16MHz) 16KCK/14CK+65ms
-sanguino_isp: LFUSE ?= F7
-# 2.7V brownout
-sanguino_isp: EFUSE ?= FD
-sanguino_isp: isp
+sanguino_isp: 
+	$(MAKE) sanguino ISP=1
 
-mighty1284: TARGET = $@
-mighty1284: CHIP = atmega1284p
+mighty1284: TARGET := $@
+mighty1284: AVR_FREQ := 16000000
+mighty1284: LED := B7
 mighty1284:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED=B7
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega1284p 
 
-mighty1284_isp: mighty1284
-mighty1284_isp: TARGET = mighty1284
-mighty1284_isp: MCU_TARGET = atmega1284p
+mighty1284_isp: 
+	$(MAKE) mighty1284 ISP=1
+
+bobuino: TARGET := $@
+bobuino: AVR_FREQ := 16000000
+bobuino: LED := B7
 # 1024 byte boot
-mighty1284_isp: HFUSE ?= DE
+bobuino: HFUSE := DE
 # Full swing xtal (16MHz) 16KCK/14CK+65ms
-mighty1284_isp: LFUSE ?= F7
+bobuino: LFUSE := F7
 # 2.7V brownout
-mighty1284_isp: EFUSE ?= FD
-mighty1284_isp: isp
-
-bobuino: TARGET = $@
-bobuino: CHIP = atmega1284p
+#bobuino: EFUSE := 05
+bobuino: EFUSE := FD
 bobuino:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED=B7
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega1284p 
 
-bobuino_isp: bobuino
-bobuino_isp: TARGET = bobuino
-bobuino_isp: MCU_TARGET = atmega1284p
-# 1024 byte boot
-bobuino_isp: HFUSE ?= DE
-# Full swing xtal (16MHz) 16KCK/14CK+65ms
-bobuino_isp: LFUSE ?= F7
-# 2.7V brownout
-bobuino_isp: EFUSE ?= FD
-bobuino_isp: isp
+bobuino_isp: 
+	$(MAKE) bobuino ISP=1
 
 #
 # Wicked Devices "Wildfire" boards (1284 with wireless!)
 #
 
-wildfirev2: TARGET = $@
-wildfirev2: CHIP = atmega1284p
+wildfirev2: TARGET := $@
+wildfirev2: AVR_FREQ := 16000000
+wildfirev2: LED := B7
+wildfirev2: BAUD_RATE := 1000000
 wildfirev2:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED=B7 BAUD_RATE=1000000
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega1284p 
 
-wildfirev2_isp: wildfirev2
-wildfirev2_isp: TARGET = wildfirev2
-wildfirev2_isp: MCU_TARGET = atmega1284p
-# 1024 byte boot
-wildfirev2_isp: HFUSE ?= DE
-# Full swing xtal (16MHz) 16KCK/14CK+65ms
-wildfirev2_isp: LFUSE ?= F7
-# 2.7V brownout
-wildfirev2_isp: EFUSE ?= FD
-wildfirev2_isp: isp
+wildfirev2_isp: 
+	$(MAKE) wildfirev2 ISP=1
 
-wildfirev3: TARGET = $@
-wildfirev3: CHIP = atmega1284p
+wildfirev3: TARGET := $@
+wildfirev3: AVR_FREQ := 16000000
+wildfirev3: LED := B5
 wildfirev3:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED=B5
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+	$(MAKE) atmega1284p
 
-wildfirev3_isp: wildfirev3
-wildfirev3_isp: TARGET = wildfirev3
-wildfirev3_isp: MCU_TARGET = atmega1284p
-# 1024 byte boot
-wildfirev3_isp: HFUSE ?= DE
-# Full swing xtal (16MHz) 16KCK/14CK+65ms
-wildfirev3_isp: LFUSE ?= F7
-# 2.7V brownout
-wildfirev3_isp: EFUSE ?= FD
-wildfirev3_isp: isp
+#wildfirev3_isp: TARGET := wildfirev3
+wildfirev3_isp: 
+	$(MAKE) wildfirev3 ISP=1

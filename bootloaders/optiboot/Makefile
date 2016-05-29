@@ -71,6 +71,7 @@ export
 # defaults
 MCU_TARGET = atmega168
 
+
 # Build environments
 # Start of some ugly makefile-isms to allow optiboot to be built
 # in several different environments.  See the README.TXT file for
@@ -78,23 +79,27 @@ MCU_TARGET = atmega168
 
 # default
 fixpath = $(1)
+#SUB_MAKE = $(MAKE) --no-print-directory -p
+#SUB_MAKE = $(MAKE) --no-print-directory --warn-undefined-variables
+SUB_MAKE = $(MAKE) --no-print-directory 
 
+ifdef ENV
 ifeq ($(ENV), arduino)
 # For Arduino, we assume that we're connected to the optiboot directory
 # included with the arduino distribution, which means that the full set
 # of avr-tools are "right up there" in standard places.
 # (except that in 1.5.x, there's an additional level of "up")
 TESTDIR := $(firstword $(wildcard ../../../tools/*))
-ifeq (,$(TESTDIR))
+ ifeq (,$(TESTDIR))
 # Arduino 1.5.x tool location compared to optiboot dir
   TOOLROOT = ../../../../tools
-else
+ else
 # Arduino 1.0 (and earlier) tool location
   TOOLROOT = ../../../tools
-endif
+ endif
 GCCROOT = $(TOOLROOT)/avr/bin/
 
-ifeq ($(OS), windows)
+ ifeq ($(OS), windows)
 # On windows, SOME of the tool paths will need to have backslashes instead
 # of forward slashes (because they use windows cmd.exe for execution instead
 # of a unix/mingw shell?)  We also have to ensure that a consistent shell
@@ -102,22 +107,28 @@ ifeq ($(OS), windows)
 fixpath = $(subst /,\,$1)
 SHELL = cmd.exe
 SH = sh
-endif
+ endif
 
 else ifeq ($(ENV), arduinodev)
 # Arduino IDE source code environment.  Use the unpacked compilers created
 # by the build (you'll need to do "ant build" first.)
-ifeq ($(OS), macosx)
+ ifeq ($(OS), macosx)
 TOOLROOT = ../../../../build/macosx/work/Arduino.app/Contents/Resources/Java/hardware/tools
-endif
-ifeq ($(OS), windows)
+ endif
+ ifeq ($(OS), windows)
 TOOLROOT = ../../../../build/windows/work/hardware/tools
-endif
+ endif
 
 GCCROOT = $(TOOLROOT)/avr/bin/
 AVRDUDE_CONF = -C$(TOOLROOT)/avr/etc/avrdude.conf
 
 else
+# no known config
+GCCROOT =
+AVRDUDE_CONF =
+endif
+else
+# no ENV set
 GCCROOT =
 AVRDUDE_CONF =
 endif
@@ -135,7 +146,7 @@ OPTIMIZE = -Os -fno-split-wide-types -mrelax
 DEFS       = 
 
 COMMON_OPTIONS = $(BAUD_RATE_CMD) $(LED_START_FLASHES_CMD) $(BIGBOOT_CMD)
-COMMON_OPTIONS += $(SOFT_UART_CMD) $(LED_DATA_FLASH_CMD) $(LED_CMD)
+COMMON_OPTIONS += $(SOFT_UART_CMD) $(LED_DATA_FLASH_CMD) 
 
 #
 # Make command-line Options.
@@ -149,20 +160,20 @@ SOURCE_TYPE = S
 ifdef C_SOURCE
  ifneq ($(C_SOURCE),0)
   SOURCE_TYPE = c
+ else
+  SUPPORT_EEPROM := 1
  endif
+else
+ SUPPORT_EEPROM := 1
 endif
 
+# let a F_CPU=  parameter pass as AVR_FREQ=
 ifdef F_CPU
-F_CPU_CMD = -DF_CPU=$(F_CPU)
-else
-F_CPU_CMD = -DF_CPU=$(AVR_FREQ)
+AVR_FREQ := $(F_CPU)
 endif
 
-ifdef BAUD_RATE
+BAUD_RATE ?= 115200
 BAUD_RATE_CMD = -DBAUD_RATE=$(BAUD_RATE)
-else
-BAUD_RATE_CMD = -DBAUD_RATE=115200
-endif
 
 ifdef LED_START_FLASHES
 LED_START_FLASHES_CMD = -DLED_START_FLASHES=$(LED_START_FLASHES)
@@ -181,20 +192,11 @@ ifdef SOFT_UART
   SOFT_UART_CMD = -DSOFT_UART=1
  endif
 endif
-ifdef UART_RX
-  SOFT_UART_CMD += -DUART_RX=$(UART_RX)
-endif
-ifdef UART_TX
-  SOFT_UART_CMD += -DUART_TX=$(UART_TX)
-endif
 
 ifdef LED_DATA_FLASH
 LED_DATA_FLASH_CMD = -DLED_DATA_FLASH=$(LED_DATA_FLASH)
 endif
 
-ifdef LED
-LED_CMD = -DLED=$(LED)
-endif
 
 #UART is handled separately and only passed for devices with more than one.
 ifdef UART
@@ -215,7 +217,6 @@ endif
 # endif
 #
 
-
 #
 # platforms support EEPROM and large bootloaders need the eeprom functions that
 # are defined in libc, even though we explicity remove it with -nostdlib because
@@ -224,12 +225,6 @@ LIBS       =  -lc
 
 CC         = $(GCCROOT)avr-gcc
 #
-# Include additional platforms
-include Makefile.atmel
-include Makefile.extras
-include Makefile.1284
-include Makefile.custom
-
 
 #---------------------------------------------------------------------------
 # "Chip-level Platform" targets.
@@ -254,137 +249,247 @@ include Makefile.custom
 
 # Test platforms
 # Virtual boot block test
-virboot8: TARGET := atmega8
+virboot8: TARGET := virboot8
 virboot8: MCU_TARGET := atmega8
 virboot8: AVR_FREQ := 16000000 
 virboot8: FLASH_SIZE := 8192
-virboot8: BOOT_PAGE_LEN := 256
+# for virtual boot partition we can use the Flash page size as boot page length
+virboot8: BOOT_PAGE_LEN := 64
+# SPIEN, CKOPT (for full swing xtal), no boot section
+virboot8: HFUSE := C9
+# 2.7V brownout, 16MHz Xtal, 16KCK/14CK+65ms
+virboot8: LFUSE := BF
+virboot8: VIRTUAL_BOOT_PARTITION := 1
 virboot8: COMMON_OPTIONS += -DVIRTUAL_BOOT_PARTITION '-Dsave_vect_num=EE_RDY_vect_num'
-virboot8: $(PROGRAM)_virboot8.hex
-virboot8: $(PROGRAM)_virboot8.lst
+virboot8: isp
+
+virboot8_isp:
+	$(SUB_MAKE) virboot8 ISP=1
 
 
-virboot328: TARGET := atmega328
-virboot328: MCU_TARGET := atmega328p
+virboot328: TARGET := virboot328
+virboot328: MCU_TARGET = atmega328p
 virboot328: AVR_FREQ := 16000000
-virboot328: FLASH_SIZE = 32768
-virboot328: BOOT_PAGE_LEN = 512
+virboot328: FLASH_SIZE := 32768
+# for virtual boot partition we can use the Flash page size as Boot page length
+virboot328: BOOT_PAGE_LEN := 128
+virboot328: VIRTUAL_BOOT_PARTITION := 1
 virboot328: COMMON_OPTIONS += -DVIRTUAL_BOOT_PARTITION
-virboot328: $(PROGRAM)_virboot328.hex
-virboot328: $(PROGRAM)_virboot328.lst
-
-virboot328_isp: virboot328
-virboot328_isp: TARGET = virboot328
-virboot328_isp: MCU_TARGET = atmega328p
 # no boot section, SPIEN
-virboot328_isp: HFUSE ?= DF
+virboot328: HFUSE := DF
 # Low power xtal (16MHz) 16KCK/14CK+65ms
-virboot328_isp: LFUSE ?= FF
+virboot328: LFUSE := FF
 # 2.7V brownout
-virboot328_isp: EFUSE ?= 05
-virboot328_isp: isp
+virboot328: EFUSE := 05
+virboot328: isp
+
+virboot328_isp: 
+	$(SUB_MAKE) virboot328 ISP=1
 
 
 # Diecimila, Duemilanove with m168, and NG use identical bootloaders
 # Call it "atmega168" for generality and clarity, keep "diecimila" for
 # backward compatibility of makefile
 #
+################################################
+# generic atmega168p
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega168p: TARGET := atmega168p
+endif
+atmega168p: MCU_TARGET := atmega168p
+ifndef AVR_FREQ
+atmega168p: AVR_FREQ := 16000000 
+endif
+atmega168p: FLASH_SIZE := 16384
+atmega168p: BOOT_PAGE_LEN := 256
+ifndef HFUSE
+# 2.7V brownout
+atmega168p: HFUSE := DD
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms :=FF
+# Full swing xtal (16MHz) 16KCK/14CK+65ms  := FC
+atmega168p: LFUSE := FC
+endif
+ifndef EFUSE
+# 512 byte boot
+atmega168p: EFUSE := 04
+endif
+atmega168p: isp
+
+atmega168p_isp: 
+	$(SUB_MAKE) atmega168p ISP=1
+
+################################################
+# generic atmega168
+# let board specific change the frequency and fuses
+ifndef TARGET
 atmega168: TARGET := atmega168
-atmega168: override MCU_TARGET = atmega168
+endif
+atmega168: MCU_TARGET := atmega168
+ifndef AVR_FREQ
 atmega168: AVR_FREQ := 16000000 
+endif
 atmega168: FLASH_SIZE := 16384
 atmega168: BOOT_PAGE_LEN := 256
-atmega168: $(PROGRAM)_atmega168.hex
-atmega168: $(PROGRAM)_atmega168.lst
-
-atmega168_isp: atmega168
-atmega168_isp: TARGET := atmega168
+ifndef HFUSE
 # 2.7V brownout
-atmega168_isp: HFUSE ?= DD
-# Full swing xtal (16MHz) 16KCK/14CK+65ms
-atmega168_isp: LFUSE ?= F7
+atmega168: HFUSE := DD
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms :=FF
+# Full swing xtal (16MHz) 16KCK/14CK+65ms  := FC
+atmega168: LFUSE := FC
+endif
+ifndef EFUSE
 # 512 byte boot
-atmega168_isp: EFUSE ?= 04
-atmega168_isp: isp
+atmega168: EFUSE := 04
+endif
+atmega168: isp
 
-atmega168p: atmega168
+atmega168_isp: 
+	$(SUB_MAKE) atmega168 ISP=1
 
-atmega16: TARGET = atmega16
-atmega16: MCU_TARGET = atmega16
-atmega16: AVR_FREQ = 16000000
+
+################################################
+# generic atmega16
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega16: TARGET := atmega16
+endif
+atmega16: MCU_TARGET := atmega16
+ifndef AVR_FREQ
+atmega16: AVR_FREQ := 16000000
+endif
 atmega16: FLASH_SIZE := 16384
 atmega16: BOOT_PAGE_LEN := 256
-atmega16: $(PROGRAM)_atmega16.hex
-atmega16: $(PROGRAM)_atmega16.lst
+ifndef HFUSE
+# 512 byte boot, SPIEN
+atmega16: HFUSE := 9C
+endif
+ifndef LFUSE
+# Crystal/Resonator high Frequency (16MHz) 16KCK/14CK+65ms
+atmega16: LFUSE := FF
+endif
+# LED is set to D6 by default for ATmega16
+atmega16: LED := D6
 
-atmega328: TARGET = atmega328
-atmega328: MCU_TARGET = atmega328
-atmega328: AVR_FREQ = 16000000
+atmega16: isp
+
+################################################
+# generic atmega328
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega328: TARGET := atmega328
+endif
+atmega328: MCU_TARGET := atmega328
+ifndef AVR_FREQ
+atmega328: AVR_FREQ := 16000000
+endif
 atmega328: FLASH_SIZE := 32768
 atmega328: BOOT_PAGE_LEN := 512
-atmega328: $(PROGRAM)_atmega328.hex
-atmega328: $(PROGRAM)_atmega328.lst
-
-atmega328_isp: atmega328
-atmega328_isp: TARGET = atmega328
-atmega328_isp: MCU_TARGET = atmega328
+ifndef HFUSE
 # 512 byte boot, SPIEN
-atmega328_isp: HFUSE ?= DE
-#atmega328_isp: HFUSE ?= D9
+atmega328: HFUSE := DE
+endif
+ifndef LFUSE
 # Low power xtal (16MHz) 16KCK/14CK+65ms
-atmega328_isp: LFUSE ?= FF
+atmega328: LFUSE := FF
+endif
+ifndef EFUSE
 # 2.7V brownout
-atmega328_isp: EFUSE ?= 05
-atmega328_isp: isp
+atmega328: EFUSE := 05
+endif
+atmega328: isp
 
-atmega328p: TARGET = atmega328p
+atmega328_isp: 
+	$(SUB_MAKE) atmega328 ISP=1
+
+################################################
+# generic atmega328p
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega328p: TARGET := atmega328p
+endif
 atmega328p: MCU_TARGET = atmega328p
-atmega328p: AVR_FREQ = 16000000
+ifndef AVR_FREQ
+atmega328p: AVR_FREQ := 16000000
+endif
 atmega328p: FLASH_SIZE := 32768
 atmega328p: BOOT_PAGE_LEN := 512
-atmega328p: $(PROGRAM)_atmega328p.hex
-atmega328p: $(PROGRAM)_atmega328p.lst
-
-atmega328p_isp: atmega328p
-atmega328p_isp: TARGET = atmega328p
-atmega328p_isp: MCU_TARGET = atmega328p
+ifndef HFUSE
 # 512 byte boot, SPIEN
-atmega328p_isp: HFUSE ?= DE
-#atmega328_isp: HFUSE ?= D9
+atmega328p: HFUSE := DE
+endif
+ifndef LFUSE
 # Low power xtal (16MHz) 16KCK/14CK+65ms
-atmega328p_isp: LFUSE ?= FF
+atmega328p: LFUSE := FF
+endif
+ifndef EFUSE
 # 2.7V brownout
-atmega328p_isp: EFUSE ?= 05
-atmega328p_isp: isp
+atmega328p: EFUSE := 05
+endif
+atmega328p: isp
 
-#Atmega1280
-atmega1280: MCU_TARGET = atmega1280
-atmega1280: AVR_FREQ = 16000000
+atmega328p_isp: 
+	$(SUB_MAKE) atmega328p ISP=1
+
+################################################
+# generic atmega1280
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega1280: TARGET := atmega1280
+endif
+atmega1280: MCU_TARGET := atmega1280
+ifndef AVR_FREQ
+atmega1280: AVR_FREQ := 16000000
+endif
 atmega1280: FLASH_SIZE := 131072
 atmega1280: BOOT_PAGE_LEN := 1024
+ifndef HFUSE
+# 1024 byte boot
+atmega1280: HFUSE := DE
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+atmega1280: LFUSE := FF
+endif
+ifndef LFUSE
+# 2.7V brownout; wants F5 for some reason...
+atmega1280: EFUSE := 05
+endif
 atmega1280: COMMON_OPTIONS +=  $(UART_CMD)
-atmega1280: $(PROGRAM)_atmega1280.hex
-atmega1280: $(PROGRAM)_atmega1280.lst
+atmega1280: isp 
+
+atmega1280_isp: 
+	$(SUB_MAKE) atmega1280 ISP=1
 
 
-# ATmega8
-#
+################################################
+# generic atmega8
+# let board specific change the frequency and fuses
+ifndef TARGET
 atmega8: TARGET := atmega8
+endif
 atmega8: MCU_TARGET := atmega8
+ifndef AVR_FREQ
 atmega8: AVR_FREQ := 16000000 
+endif
 atmega8: FLASH_SIZE := 8192
-atmega8: BOOT_PAGE_LEN = 256
-atmega8: $(PROGRAM)_atmega8.hex
-atmega8: $(PROGRAM)_atmega8.lst
-
-atmega8_isp: atmega8
-atmega8_isp: TARGET := atmega8
-atmega8_isp: MCU_TARGET := atmega8
+atmega8: BOOT_PAGE_LEN := 256
+ifndef HFUSE
 # SPIEN, CKOPT (for full swing xtal), Bootsize=512B
-atmega8_isp: HFUSE ?= CC
+atmega8: HFUSE := CC
+endif
+ifndef LFUSE
 # 2.7V brownout, 16MHz Xtal, 16KCK/14CK+65ms
-atmega8_isp: LFUSE ?= BF
-atmega8_isp: isp
+atmega8: LFUSE := BF
+endif
+atmega8: isp
+
+atmega8_isp: 
+	$(SUB_MAKE) atmega8 ISP=1
 
 
 #---------------------------------------------------------------------------
@@ -400,79 +505,86 @@ atmega8_isp: isp
 # These are capable of 230400 baud, or 115200 baud on PC (Arduino Avrdude issue)
 #
 
-pro20: TARGET = pro_20Mhz
-pro20: CHIP = atmega168
-pro20:
-	$(MAKE) atmega168 F_CPU=20000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
-
-pro20_isp: pro20
-pro20_isp: TARGET = pro_20Mhz
-# 2.7V brownout
-pro20_isp: HFUSE ?= DD
+pro20: TARGET := pro_20Mhz
+pro20: LED_START_FLASHES := 3
+pro20: AVR_FREQ := 20000000
+# 4.3V brownout (for max speed!)
+pro20: HFUSE := DC
 # Full swing xtal (20MHz) 258CK/14CK+4.1ms
-pro20_isp: LFUSE ?= C6
+pro20: LFUSE := F7
 # 512 byte boot
-pro20_isp: EFUSE ?= 05
-pro20_isp: isp
+pro20: EFUSE := 04
+pro20:
+	$(SUB_MAKE) atmega168 
+
+pro20_isp: 
+	$(SUB_MAKE) pro20 ISP=1
 
 # 16MHz clocked platforms
 #
 # These are capable of 230400 baud, or 115200 baud on PC (Arduino Avrdude issue)
 #
 
-pro16: TARGET = pro_16MHz
-pro16: CHIP = atmega168
-pro16:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
-
-pro16_isp: pro16
-pro16_isp: TARGET = pro_16MHz
+pro16: TARGET := pro_16MHz
+pro16: LED_START_FLASHES := 3
+pro16: AVR_FREQ := 16000000
 # 2.7V brownout
-pro16_isp: HFUSE ?= DD
+pro16: HFUSE := DD
 # Full swing xtal (20MHz) 258CK/14CK+4.1ms
-pro16_isp: LFUSE ?= C6
+pro16: LFUSE := F7
 # 512 byte boot
-pro16_isp: EFUSE ?= 05
-pro16_isp: isp
+pro16: EFUSE := 04
+pro16:
+	$(SUB_MAKE) atmega168 
 
-diecimila: TARGET = diecimila
-diecimila: CHIP = atmega168
-diecimila:
-	$(MAKE) $(CHIP) F_CPU=16000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+pro16_isp:
+	$(SUB_MAKE) pro16 ISP=1
 
-diecimila_isp: diecimila
-diecimila_isp: TARGET = diecimila
+pro8: TARGET := pro_8MHz
+pro8: LED_START_FLASHES := 3
+pro8: AVR_FREQ := 8000000
 # 2.7V brownout
-diecimila_isp: HFUSE ?= DD
-# Low power xtal (16MHz) 16KCK/14CK+65ms
-diecimila_isp: LFUSE ?= FF
+pro8: HFUSE := DD
+# Full swing xtal (20MHz) 258CK/14CK+4.1ms
+pro8: LFUSE := C6
 # 512 byte boot
-diecimila_isp: EFUSE ?= 05
-diecimila_isp: isp
+pro8: EFUSE := 04
+pro8:
+	$(SUB_MAKE) atmega168 
+
+pro8_isp:
+	$(SUB_MAKE) pro8 ISP=1 
+
+diecimila: TARGET := diecimila
+diecimila: LED_START_FLASHES := 3
+# 2.7V brownout
+diecimila: HFUSE := DD
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+diecimila: LFUSE := F7
+# 512 byte boot
+diecimila: EFUSE := 04
+diecimila:
+	$(SUB_MAKE) atmega168
+
+diecimila_isp: 
+	$(SUB_MAKE) -r diecimila ISP=1
 
 
 # MEGA1280 Board (this is different from the atmega1280 chip platform)
 # Mega has a minimum boot size of 1024 bytes, so enable extra functions
 # Note that optiboot does not (can not) work on the MEGA2560
 #mega: TARGET = atmega1280
-mega1280: atmega1280
-
-mega1280_isp: mega1280
-mega1280_isp: TARGET = atmega1280
-mega1280_isp: MCU_TARGET = atmega1280
+mega1280: TARGET := mega1280
+mega1280:
+	$(SUB_MAKE) atmega1280
 # 1024 byte boot
 mega1280_isp: HFUSE ?= DE
 # Low power xtal (16MHz) 16KCK/14CK+65ms
 mega1280_isp: LFUSE ?= FF
 # 2.7V brownout; wants F5 for some reason...
 mega1280_isp: EFUSE ?= 05
-mega1280_isp: isp
+mega1280_isp:
+	$(SUB_MAKE) mega1280 ISP=1
 
 # 8MHz clocked platforms
 #
@@ -482,86 +594,67 @@ mega1280_isp: isp
 # and total too large a number.
 #
 
-lilypad: TARGET = $@
-lilypad: CHIP = atmega168
-lilypad:
-	$(MAKE) $(CHIP) F_CPU=8000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
-
-lilypad_isp: lilypad
-lilypad_isp: TARGET = lilypad
+lilypad: TARGET := lilypad
+lilypad: LED_START_FLASHES := 3
+lilypad: AVR_FREQ := 8000000
 # 2.7V brownout
-lilypad_isp: HFUSE ?= DD
+lilypad: HFUSE := DD
 # Internal 8MHz osc (8MHz) Slow rising power
-lilypad_isp: LFUSE ?= E2
+lilypad: LFUSE := E2
 # 512 byte boot
-lilypad_isp: EFUSE ?= 05
-lilypad_isp: isp
+lilypad: EFUSE := 04
+lilypad:
+	$(SUB_MAKE) atmega168
+
+lilypad_isp: 
+	$(SUB_MAKE) lilypad ISP=1
 
 # lilypad_resonator is the same as a 8MHz lilypad, except for fuses.
-lilypad_resonator: lilypad
-
-lilypad_resonator_isp: lilypad
-lilypad_resonator_isp: TARGET = lilypad
+lilypad_resonator: TARGET := lilypad_resonator
+lilypad_resonator: LED_START_FLASHES := 3
+lilypad_resonator: AVR_FREQ := 8000000
 # 2.7V brownout
-lilypad_resonator_isp: HFUSE ?= DD
+lilypad_resonator: HFUSE := DD
 # Full swing xtal (20MHz) 258CK/14CK+4.1ms
-lilypad_resonator_isp: LFUSE ?= C6
+lilypad_resonator: LFUSE := C6
 # 512 byte boot
-lilypad_resonator_isp: EFUSE ?= 05
-lilypad_resonator_isp: isp
+lilypad_resonator: EFUSE := 04
+lilypad_resonator:
+	$(SUB_MAKE) atmega168 
 
-pro8: TARGET = pro_8MHz
-pro8: CHIP = atmega168
-pro8:
-	$(MAKE) $(CHIP) F_CPU=8000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
+lilypad_resonator_isp: 
+	$(SUB_MAKE) lilypad_resonator ISP=1
 
-pro8_isp: pro8
-pro8_isp: TARGET = pro_8MHz
-# 2.7V brownout
-pro8_isp: HFUSE ?= DD
-# Full swing xtal (20MHz) 258CK/14CK+4.1ms
-pro8_isp: LFUSE ?= C6
-# 512 byte boot
-pro8_isp: EFUSE ?= 05
-pro8_isp: isp
-
-atmega328_pro8: TARGET = atmega328_pro_8MHz
-atmega328_pro8: CHIP = atmega328
-atmega328_pro8:
-	$(MAKE) $(CHIP) F_CPU=8000000 LED_START_FLASHES=3
-	mv $(PROGRAM)_$(CHIP).hex $(PROGRAM)_$(TARGET).hex
-	mv $(PROGRAM)_$(CHIP).lst $(PROGRAM)_$(TARGET).lst
-
-atmega328_pro8_isp: atmega328_pro8
-atmega328_pro8_isp: TARGET = atmega328_pro_8MHz
-atmega328_pro8_isp: MCU_TARGET = atmega328p
+atmega328_pro8: TARGET := atmega328_pro_8MHz
+atmega328_pro8: AVR_FREQ := 8000000
+atmega328_pro8: LED_START_FLASHES := 3
 # 512 byte boot, SPIEN
-atmega328_pro8_isp: HFUSE ?= DE
+atmega328_pro8: HFUSE := DE
 # Low power xtal (16MHz) 16KCK/14CK+65ms
-atmega328_pro8_isp: LFUSE ?= FF
+atmega328_pro8: LFUSE := FF
 # 2.7V brownout
-atmega328_pro8_isp: EFUSE ?= 06
-atmega328_pro8_isp: isp
+atmega328_pro8: EFUSE := 05
+atmega328_pro8:
+	$(SUB_MAKE) atmega328p
+
+atmega328_pro8_isp: 
+	$(SUB_MAKE) atmega328_pro8 ISP=1
 
 #
 # Include additional platforms
-#include Makefile.atmel
-#include Makefile.extras
-#include Makefile.1284
-#include Makefile.custom
-FLASH_SIZE ?= 4096
-BOOT_PAGE_LEN ?= 8
+include Makefile.atmel
+include Makefile.extras
+include Makefile.1284
+include Makefile.custom
+#FLASH_SIZE ?= 4096
+#BOOT_PAGE_LEN ?= 8
 
 SIZE           = $(GCCROOT)avr-size
 
 # We can not compute the number of boot pages, because the object file must be created first!
 #BOOT_PAGES = $(shell echo "pg_anz=(`$(SIZE) -C $(PROGRAM).o | grep "Program:" | cut -c 10-16`/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | bc)
 define BOOT_PAGES =
- qecho "pg_anz=(`$(SIZE) -C $(PROGRAM).o | grep "Program:" | cut -c 10-16`/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | bc
+ @echo "pg_anz=(`$(SIZE) -C $(PROGRAM).o | grep "Program:" | cut -c 10-16`/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | bc
 endef
 
 define BOOT_SZ =
@@ -571,7 +664,7 @@ endef
 LDSECTIONS  = -Wl,--section-start=.version=0x$(shell echo "obase=16;$(FLASH_SIZE)-2" | bc)
 
 # Override is only needed by avr-lib build system.
-override CFLAGS        = -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(F_CPU_CMD) $(DEFS)
+override CFLAGS        = -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS)
 override LDFLAGS       = -Wl,--relax -nostartfiles -nostdlib
 
 OBJCOPY        = $(GCCROOT)avr-objcopy
@@ -586,15 +679,20 @@ OBJDUMP        = $(call fixpath,$(GCCROOT)avr-objdump)
 FORCE:
 
 baudcheck: FORCE
-	- @$(CC) $(CFLAGS) $(COMMON_OPTIONS) -E baudcheck.c -o baudcheck.tmp.sh
+	- @$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DF_CPU=$(AVR_FREQ) -E baudcheck.c -o baudcheck.tmp.sh
 	- @bash ./baudcheck.tmp.sh
 $(PROGRAM).o: $(PROGRAM).$(SOURCE_TYPE) FORCE
-	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=p$(LED) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -DF_CPU=$(AVR_FREQ) -c -o $@ $<
 
-isp: $(TARGET)
-	$(MAKE) -f Makefile.isp isp TARGET=$(TARGET)
+ifdef ISP
+isp: add_options
+	@$(SUB_MAKE) -r -f Makefile.isp isp TARGET=$(TARGET)
+else
+isp: add_options
 
-isp-stk500: $(PROGRAM)_$(TARGET).hex
+endif
+
+isp-stk500: $(PROGRAM).hex
 	$(STK500-1)
 	$(STK500-2)
 
@@ -604,36 +702,67 @@ isp-stk500: $(PROGRAM)_$(TARGET).hex
 #  After computing the required size (and the possible relocation address),
 #  This .elf is removed.
 $(PROGRAM)x.elf: $(OBJ)
-	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) $(LDFLAGS)  -o $(PROGRAM)x.elf $< $(LIBS)
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) $(LDFLAGS)  -o $(PROGRAM)x.elf $< $(LIBS)
 
+# BootPages.dat fetch the actual boot loader size from a interim $(PROGRAM)x.elf file, not from the
+# $(PROGRAM).o file. The ld program can do some optimizing for code generated from a C-source.
+# For code generated with the assembler there is no size difference between .o and .elf !
+# If 3 pages are required, number of pages is rounded to 4.
+# If more than 4 pages are required, the number of pages is rounded to 8.
+# Above 8 pages there is no round up. 
+# The ATtiny84 has no hardware feature for the bootloader like the ATmega family.
+# Therefore the "round up" is not required for the ATtiny84, but the BOOT_PAGE_LEN is 64 for
+# this processor, so the number of pages is more than 7 pages for the actual size of optiboot.
 BootPages.dat: $(OBJ) $(PROGRAM)x.elf
-	@echo "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | grep "Program:" | cut -c 10-16)/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | bc > BootPages.dat
+	echo "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | grep "Program:" | cut -c 10-16)/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3 && !0$(VIRTUAL_BOOT_PARTITION)) + (pg_anz==5 && !0$(VIRTUAL_BOOT_PARTITION))*3 + (pg_anz==6 && !0$(VIRTUAL_BOOT_PARTITION))*2 + (pg_anz == 7 && !0$(VIRTUAL_BOOT_PARTITION))" | bc > BootPages.dat
+# without the last flash location used for version number of optiboot,
+# the following computation for BootPages is also possible:
+#	echo "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | grep "Program:" | cut -c 10-16)+$(BOOT_PAGE_LEN)-2)/$(BOOT_PAGE_LEN); pg_anz + (pg_anz==3 && !0$(VIRTUAL_BOOT_PARTITION)) + (pg_anz==5 && !0$(VIRTUAL_BOOT_PARTITION))*3 + (pg_anz==6 && !0$(VIRTUAL_BOOT_PARTITION))*2 + (pg_anz == 7 && !0$(VIRTUAL_BOOT_PARTITION))" | bc > BootPages.dat
 
+# With the file BootPages.dat and the the $(BOOT_PAGE_LEN) we can compute the 
+# Start Address of the bootloader depending on the $(FLASH_SIZE) 
 BL_StartAdr.dat: $(OBJ) $(PROGRAM)x.elf BootPages.dat
-	@echo "obase=16;($(FLASH_SIZE) - $(shell cat BootPages.dat)*$(BOOT_PAGE_LEN))" | bc > BL_StartAdr.dat
-#	@rm $(PROGRAM)x.elf
+	echo "obase=16;($(FLASH_SIZE) - $(shell cat BootPages.dat)*$(BOOT_PAGE_LEN))" | bc > BL_StartAdr.dat
+	rm $(PROGRAM)x.elf
 
+# Generate the final $(PROGRAM).elf file at the right Start Address,
+# which is the base to generate the $(PROGRAM).hex and $(PROGRAM).lst files.
 $(PROGRAM).elf: $(OBJ) baudcheck  BL_StartAdr.dat
 	@echo "Boot Loader start address: 0x$(shell cat BL_StartAdr.dat)"
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) \
         -Wl,--section-start=.text=0x$(shell cat BL_StartAdr.dat) $(LDFLAGS) -o $(PROGRAM).elf $< $(LIBS)
 	$(SIZE) $(PROGRAM).elf
+
+# remove all generated files
 clean:
 	rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.dat
 
+# With the Bootpages.dat file we can set the required BOOTSZ1 and BOOTSZ0 bits, which are
+# combined to BOOTSZ (0 for eight pages, 1 for four pages, 2 for two pages and 3 for one page)
+# This BOOTSZ.dat is taken by the Makefile.isp file to correct the HFUSE or EFUSE.
 BOOTSZ.dat: $(PROGRAM).elf BootPages.dat
 	@echo "Requires $(shell cat BootPages.dat) Boot Pages, $(BOOT_PAGE_LEN) Bytes each"
 	@echo "BOOTSZ=$(shell echo "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | grep "Program:" | cut -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | bc)"
 	@echo   "$(shell echo "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | grep "Program:" | cut -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | bc)" > BOOTSZ.dat
 
+# add some options to the end of the .lst file as comment
+add_options: hex_copy
+	@echo -e "\n; MCU_TARGET = $(MCU_TARGET)\n; SOURCE_TYPE=$(SOURCE_TYPE)\n; AVR_FREQ= $(AVR_FREQ)\n; BAUD_RATE=$(BAUD_RATE)\n; LED_START_FLASHES=$(LED_START_FLASHES)\n; SOFT_UART=$(SOFT_UART)\n; UART_RX=$(UART_RX)\n; UART_TX=$(UART_TX)\n; LED_DATA_FLASH=$(LED_DATA_FLASH)\n; LED=$(LED)\n; UART$(UART)\n; SUPPORT_EEPROM=$(SUPPORT_EEPROM)\n; FORCE_WATCHDOG=$(FORCE_WATCHDOG)">> $(PROGRAM)_$(TARGET).lst
+
+# copy the  .lst and .hex files to files which identify the target
+hex_copy: $(PROGRAM).lst $(PROGRAM).hex
+	cp $(PROGRAM).lst $(PROGRAM)_$(TARGET).lst
+	cp $(PROGRAM).hex $(PROGRAM)_$(TARGET).hex
 
 
+# allways generate a $(PROGRAM)_$(TARGET).lst file, if a .hex file is generated from $(PROGRAM).elf
 %.lst: $(PROGRAM).elf BOOTSZ.dat
-	$(OBJDUMP) -h -S $< > $@
-#	rm $(PROGRAM).o
+	$(OBJDUMP) -h -S $< > $(PROGRAM).lst
 
 %.hex: $(PROGRAM).elf BOOTSZ.dat
-	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex $< $@
+	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex $< $(PROGRAM).hex
+# you can ignore the .version section with the following command
+#	$(OBJCOPY) -j .text -j .data -R .version -O ihex $< $(PROGRAM).hex
 
 %.srec: $(PROGRAM).elf BOOTSZ.dat
 	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O srec $< $@

@@ -1,0 +1,17 @@
+\select@language {ngerman}
+\contentsline {chapter}{\numberline {1}Prinzipielle Arbeitsweise eines Bootloaders}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Die Hardware der AVR 8-Bit Mikrocontroller}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}CPU und Speicherzugriff}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Eingabe und Ausgabefunktion}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Das Starten des AVR Mikrocontrollers}{8}{section.2.3}
+\contentsline {section}{\numberline {2.4}Das Beschreiben des AVR Speichers}{10}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}parallele Programmierung}{11}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}serieller Download mit ISP}{11}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Selbstprogrammierung mit serieller Schnittstelle}{12}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Diagnose Werkzeuge}{13}{subsection.2.4.4}
+\contentsline {chapter}{\numberline {3}Der optiboot Bootloader f\IeC {\"u}r AVR Mikrocontroller}{14}{chapter.3}
+\contentsline {section}{\numberline {3.1}\IeC {\"A}nderungen und Weiterentwicklung von Version 6.2}{14}{section.3.1}
+\contentsline {section}{\numberline {3.2}Automatische Gr\IeC {\"o}\IeC {\ss }enanpassung in der optiboot Makefile}{15}{section.3.2}
+\contentsline {section}{\numberline {3.3}Zielvorgaben f\IeC {\"u}r optiboot Makefile}{15}{section.3.3}
+\contentsline {section}{\numberline {3.4}Die Optionen f\IeC {\"u}r die optiboot Makefile}{17}{section.3.4}
+\contentsline {section}{\numberline {3.5}Benutzung von optiboot ohne Bootloader-Bereich}{18}{section.3.5}

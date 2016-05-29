@@ -1,0 +1,352 @@
+\chapter{Der optiboot Bootloader für AVR Mikrocontroller}
+
+\section*{}
+Der optiboot Bootloader wurde in der Sprache C von Peter Knight und
+Bill Westfield entwickelt. Die Version 6.2 habe ich als Basis
+für die hier beschriebene überarbeitete Assembler Version benutzt.
+Dabei möchte ich betonen, daß ich den optiboot Bootloader nicht
+neu erfunden habe, sondern lediglich weiter optimiert. 
+Viele Anpassungen an verschiedene Zielprozessoren und spezielle
+Platinenentwürfe waren bereits in der Version 6.2 vorhanden.
+Es werden Teile des STK500 Kommunikations-Protokols benutzt,
+die in der AVR061~\cite{stk500} von Atmel veröffentlicht wurde.
+
+
+\section{Änderungen und Weiterentwicklung von Version 6.2}
+Im wesentlichen habe ich das komplette Programm in die Assembler-
+Sprache umgeschrieben und die Makefile so angepaßt, daß die Programmlänge
+automatisch weiterverarbeitet wird und damit die Startadresse
+des Bootloaders sowie die Fuses des ATmega richtig eingestellt werden.
+Die eingeschlagene Lösung erzeugt während der Abarbeitung der Einzelschritte
+für die Erzeugung des Programmcodes für den Bootloader noch weitere
+kleine Dateien, welche in den nachfolgenden Schritten für die Anpassung
+der Start-Adresse und der Fuses erforderlich sind.
+Die Startadresse für den jeweiligen Zielprozessor ist abhängig von
+der vorhandenen Flash-Speichergröße,
+dem Speicherbedarf für den aktuellen Bootloader-Code und
+der Kachelgröße, die für Bootloader beim Zielprozessor zur Verfügung steht.
+Als Kachelgröße bezeichne ich die kleinste Speichergröße für Bootloader,
+die der jeweilige Prozessor zur Verfügung stellen kann.
+
+
+Bei Prozessoren wie der ATtiny84, die keine Bootloader Startadresse einstellen können,
+wird die Seitengröße des Flash-Speichers für die Berechnung benutzt.
+Beim ATtiny84 sind das 64 Bytes. Damit liegt die Startadresse des Bootloaders immer
+am Anfang einer Flash Speicherseite. 
+
+Bei allen anderen Zielprozessoren kann der Bootloader-Bereich mit den
+Fuse-Bits BOOTSZ1 und BOOTSZ0 eingestellt werden (jweils mit den Werten 0 und 1).
+Wenn man die beiden Bits zusammensetzt, ergibt sich daraus die
+Bootloader-Größe BOOTSZ mit Werten zwischen 0 und 3.
+Dabei bedeutet 3 immer den kleinsten mögliche Bootloader Speicherbereich.
+Der Wert 2 gibt den doppelten, der Wert 1 den vierfachen und
+der Wert 0 den acht-fachen Speicherbereich vor.
+Die Tabelle~\ref{tab:bootsz} auf Seite~\pageref{tab:bootsz} gibt einen
+Überblick für verschiedene Zielprozessoren.
+
+\section{Automatische Größenanpassung in der optiboot Makefile}
+
+Die Bootloader Startadresse und die benötigte Bootloadergröße wird
+automatisch in der Makefile angepaßt. Für die Berechnungen werden
+einige Zwischendateien erzeugt, was nur zusammen
+mit den folgenden Linux Werkzeugen funktioniert:
+\begin{description}
+\item [bc] ein einfacher Rechner, der die Eingabe- und Ausgabe-Werte
+sowohl dezimal als auch sedezimal (hex) verarbeiten kann.
+\item [cat] gibt den Inhalt von Dateien auf der Standard-Ausgabe aus.
+\item [cut] kann Teile von Zeilen einer Textdatei ausschneiden.
+\item [echo] gibt den angegebenen Text auf der Standard-Ausgabe aus.
+\item [grep] gibt nur Zeilen einer Textdatei mit dem angegebenen Suchtext aus.
+\item [tr] kann Text-Zeichen ersetzen oder löschen.
+\end{description}
+
+Bisher ist die Funktion der Makefile nur mit einem Linux-System getestet.
+Wahrscheinlich ist die Benutzung unter Windows nur möglich,
+wenn das Cygwin Paket installiert wird.
+
+Um die erzeugten Zwischendateien braucht man sich im Regelfall nicht zu kümmern. Hier
+möchte ich aber wenigstend die Namen und die Bedeutung erwähnen:
+\begin{description}
+\item [BootPages.dat] enthält die Zahl der vom Bootloader benötigten Seiten.
+Bei Prozessoren mit Bootloader Unterstützung kann die Zahl nur 1, 2, 4 oder 8 sein und
+gibt an, das wievielfache der Mindest-Bootloadergröße verwendet wird.
+Bei der virtuellen Bootloader Seite kann die Zahl beliebig sein und gibt die Zahl der
+benötigten Flash-Speicherseiten an.
+\item [BOOTSZ.dat] enthält eine Zahl zwischen 0 und 3 für die Einstellung der BOOTSZ0 und BOOTSZ1 Bits.
+\item [BL\_StartAdr.dat] enthält die Startadresse des Bootloaders im sedezimal (hex) Format.
+Die Startadresse wird berechnet aus der Flash-Speichergröße des jeweiligen Zielprozessors und
+aus der Zahl der benötigten Speicherseiten.
+\item [EFUSE.dat] enthält im sedezimal Format der Wert für die efuse. Die Makefile entscheidet
+ abhängig vom Zielprozessor, ob diese Datei verwendet wird.
+\item [HFUSE.dat] enthält im sedezimal Format der Wert für die hfuse. Die Makefile entscheidet
+ abhängig vom Zielprozessor, ob diese Datei verwendet wird.
+\end{description}
+
+\section{Zielvorgaben für optiboot Makefile}
+
+Die Steuerung des Ablaufs für die Generierung der Programmdaten aus
+dem Quellcode ist in der Makefile festgelegt.
+Außer der  Haupt Makefile gibt es noch weitere drei Erweiterungen
+der Makefile, die automatisch von der Haupt Makefile integriert werden:
+Makefile.1284, Makefile.atmel, und Makefile.extras .
+Dabei können verschiedene Konfigurationen auch für einen Prozessortyp
+festgelegt worden sein. In der Tabelle~\ref{tab:processors} sind die derzeit vordefinierten
+Konfigurationen für AVR Prozessoren angegeben. Im Prinzip ist diese Liste natürlich erweiterbar.
+Die einstellbaren Parameter sind aber auch in der Aufrufzeile des
+make Programms als Parameter oder auch als Umgebungsvariable der Shell
+einstellbar.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c | c | c | c | c |}
+    \hline
+             Name  & MCU & AVR\_ & total & Flash & BP\_ & LFUSE & HFUSE & EFUSE  \\
+                   &     & FREQ  & Flash & page  & LEN  &       &       &        \\
+                   &     &       &  size & size  &      &       &       &        \\
+    \hline
+    \hline
+         attiny84 & t84   & 16M? &  8K   &  64   & (64) &  62   &  DF   & FE \\
+    \hline
+         atmega8  & m8    & 16M  &  8K   &  64   & 256  &  BF   &  CC   &  - \\
+    \hline
+         atmega88 & m88   & 16M  &  8K   &  64   & 256  &  FF   &  DD   &  04 \\
+    \hline
+       atmega16   & m16   & 16M  &  16K  & 128   & 256  &  FF   &  9C   &  - \\
+    \hline
+       atmega168  &  m168  & 16M  &  16K & 128   & 256  &  FC   &  DD   &  04 \\
+       atmega168p &  m168p & 16M  &  16K & 128   & 256  &  FC   &  DD   &  04 \\
+    \hline
+       atmega32   &  m32   & 16M  &  16K & 128   & 256  &  BF   &  CE   &  - \\
+    \hline
+       atmega328  &  m328  & 16M  &  32K & 128   & 512  &  FF   &  DE   &  05 \\
+       atmega328p & m328p & 16M  &  32K  & 128   & 512  &  FF   &  DE   &  05 \\
+    \hline
+       atmega644p & m644p & 16M  &  64K  & 256   & 512  &  F7   &  DE   &  05 \\
+    \hline
+     atmega1284  & m1284  & 16M  & 128K  & 256   & 512  &  F7   &  DE   &  05 \\
+     atmega1284p & m1284p & 16M  & 128K  & 256   & 512  &  F7   &  DE   &  05 \\
+    \hline
+     atmega1280  & m1280  & 16M  &  128K & 256   & 1K   &  FF   &  DE   &  05 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Prozessor targets für optiboot Makefile}
+  \label{tab:processors}
+\end{table}
+
+Alle Angaben für Größen sind in Bytes angegeben, die Werte für die Fuses sind die sedezimalen
+Werte (hex). Die Frequenzwerte werden in Hz angegeben, 16M entspricht also 16000000 Hz.
+Die Standard Baud-Rate für die serielle Schnittstelle beträgt immer 115200.
+
+Neben den universellen Konfigurationen gibt es auch Konfigurationen für bestimmte
+Platinen oder Arbeitsumgebungen.
+Die Tabelle~\ref{tab:boards} zeigt die unterschiedlichen Einstellungen.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | }
+    \hline
+             Name  & MCU & AVR\_ & BP\_ & L     & H     & E     & BAUD\_ & LED & SOFT\_ \\
+                   &     & FREQ  & LEN  &  FUSE & FUSE  &  FUSE & RATE &     & UART \\
+    \hline
+    \hline
+       luminet     & t84 &  1M   & 64v &  F7   &  DD   &  04   & 9600 & 0x  &  -   \\
+
+    \hline
+         virboot8  & m8    & 16M & 64v &       &       &       &      &     &      \\
+    \hline
+       diecimila  &  m168 & (16M) &     &  F7   &  DD   &  04   &      & 3x  &  -   \\
+       lilypad    &  m168  & 8M  &      &  E2   &  DD   &  04   &  -   & 3x  &  -   \\
+       pro8       &  m168  & 16M &      &  F7   &  C6   &  04   &  -   & 3x  &  -   \\
+       pro16      &  m168  & 16M &      &  F7   &  DD   &  04   &  -   & 3x  &  -   \\
+       pro20      &  m168  & 16M &      &  F7   &  DC   &  04   &  -   & 3x  &  -   \\
+    atmega168p\_lp&  m168  & 16M &      &  FF   &  DD   &  04   &  -   &     &  -   \\
+   xplained168pb  &  m168  &(16M)&      &       &       &      & 57600 &     &      \\
+    \hline
+       virboot328  & m328p & 16M & 128v &       &       &       &      &     &  -   \\
+    atmega328\_pro8& m328p & 8M  &      &  FF   &  DE   &  05   &  -   & 3x  &  -   \\
+   xplained328pb  &  m168  &(16M)&      &       &       &      & 57600 &     &      \\
+   xplained328p   &  m168  &(16M)&      &       &       &      & 57600 &     &      \\
+    \hline
+        wildfire  & m1284p & 16M &      &       &       &      &   -   & 3xB5 &      \\
+    \hline
+       mega1280    & m1280 & 16M &      &  FF   &  DE   &  05   &  -   &     &  -   \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{vorkonfigurierte targets für optiboot Makefile}
+  \label{tab:boards}
+\end{table}
+
+\section{Die Optionen für die optiboot Makefile}
+
+Mit den Optionen wird die Eigenschaft des optiboot Bootloaders eingestellt.
+Beispielsweise kann mit der Option SOFT\_UART veranlasst werden, daß ein
+Softwareprogramm für die serielle Kommunikation verwendet werden soll.
+Sonst wird, wenn vorhanden, die auf dem Chip integrierte  serielle Schnittstelle
+mit den Pins TX (Transmit = senden) und RX (Receive = empfangen) benutzt.
+Bei mehreren integrierten seriellen Schnittstellen wird normalerweise die erste
+Schnittstelle mit den Nummer 0 verwendet. Es kann aber auch jede andere vorhandene
+Schnittstelle mit der Option UART vorgegeben werden (UART=1 für die zweite Schnittstelle).
+Bei der Hardware UART Schnittstelle sind die Pins für Empfangen (RX) und Senden (TX)
+fest verknüpft. Bei der Software-Lösung für die serielle Schnittstelle sind alle Pins
+des AVR Prozessors frei für die serielle Kommunikation wählbar. Die einzige Bedingung
+ist, daß die Pins für digitale Eingabe (RX) beziehungsweise Ausgabe (TX) geeignet sind.
+Näheres zu den möglichen Optionen findet man in der Übersicht~\ref{tab:options1}
+und \ref{tab:options2}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | l |}
+    \hline
+   Name der        & Beispiel       & Funktion                                            \\
+    Option         &                &                                                     \\
+    \hline
+    \hline
+    F\_CPU         & F\_CPU=8000000 & Teilt dem Programm die Taktrate des Prozessors mit. \\
+                   &                & Die Angabe erfolgt in Hz (Schwingungen pro Sekunde. \\
+                   &                & Das Beispiel gibt eine Frequenz von 8 MHz an. \\
+    \hline
+    BAUD\_RATE     & BAUD\_         & Gibt die Baud-Rate für die serielle Kommunikation an. \\
+                   &  RATE=9600      & Es werden immer 8 Datenbits ohne Parity verwendet. \\
+    \hline
+    SOFT\_UART     & SOFT\_UART=1   & Wählt für die serielle Kommunikation eine Software-Lösung. \\
+    \hline
+    UART\_RX        & UART\_RX=D0   & Gibt den Port und die Bitnummer für die seriellen  \\
+                   &                & Empfangsdaten an. Das Beispiel nimmt               \\
+                   &                & Bit 0 des D Ports für den seriellen Eingang.\\
+    \hline
+    UART\_TX        & UART\_TX=D1   & Gibt den Port und die Bitnummer für die seriellen  \\
+                   &                & Sendedaten an.  Das Beispiel nimmt                 \\
+                   &                & Bit 1 des D Ports für den seriellen Ausgang.\\
+    \hline
+    UART           & UART=1         & Wählt für die  serielle Schnittstelle des Chips. \\
+                   &                & Eine Auswahl setzt das Verhandensein mehrerer Schnittstellen\\
+                   &                & voraus. Nur wirksam ohne die SOFT\_UART Option. \\
+    \hline
+ LED\_START\_      & LED\_START\_   & Wählt für die Anzahl der Blink-Zyklen \\
+   FLASHES         &   FLASHES=3    & für die Kontroll-LED.                            \\
+    \hline
+ LED               & LED=B3         & Wählt das Port-Bit für die  Kontroll-LED. \\
+                   &                & Beim Beispiel würde eine an das Bit 3 des Port B \\ 
+                   &                & angeschlossene LED blinken. Bei der \\
+                   &                & LED\_START\_FLASHES  Option  blinkt die LED\\
+                   &                & die angegebene Anzahl vor dem Kommunikations-Start. \\
+                   &                & Mit der LED\_DATA\_FLASH Option leuchtet die LED \\
+                   &                & auch während des Wartens auf Daten. \\
+    \hline
+ LED\_DATA\_       & LED\_DATA\_    & Die Kontroll-LED leuchtet während des Wartens auf \\
+      FLASH        &    FLASH=1     & Empfangsdaten der seriellen Kommunikation.\\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Wichtige Optionen für die optiboot Makefile}
+  \label{tab:options1}
+\end{table}
+
+Weitere Optionen sind in der Tabelle~\ref{tab:options2} aufgezählt. 
+Diese Optionen sind nur für Software-Untersuchungen und für
+Prozessoren ohne Bootloader-Bereich interessant.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | l |}
+    \hline
+   Name der        & Beispiel       & Funktion                                            \\
+    Option         &                &                                                     \\
+    \hline
+    \hline
+    SUPPORT\_      & SUPPORT\_      & Wählt für das Bootloader-Programm die Lese- und Schreib- \\
+    EEPROM         &  EEPROM=1      & Funktion für EEproms. Wenn als Quelle das Assembler- \\
+                   &                & Programm gewählt wurde, ist die EEprom Unterstützung \\
+                   &                & ohne gesetzte Option eingeschaltet, kann aber abgeschaltet\\
+                   &                & werden, wenn die SUPPORT\_EEPROM Option auf 0 \\
+                   &                & gesetzt wird. \\
+                   &                & Bei der C-Quelle muß die Funktion mit der Option \\
+                   &                & eingeschaltet werden (Standard = aus). \\
+    \hline
+ C\_SOURCE         & C\_SOURCE=1    & Wählt als Programmquelle das C-Programm anstelle des  \\
+                   &                & Assembler-Programms (0 = Assembler).\\
+                   &                & Die Assembler Version benötigt weniger Speicherplatz. \\
+    \hline
+ BIGBOOT           & BIGBOOT=512    & Wählt zusätzlichen Speicherverbrauch für das Bootloader- \\
+                   &                & Programm. Das dient nur zum Test der automatischen \\
+                   &                & Anpassung an die Programmgröße in der Makefile. \\
+    \hline
+VIRTUAL\_          & VIRTUAL\_       &  Ändert die Programmdaten eines Anwenderprogramms \\
+ BOOT\_            & BOOT\_          & so ab, daß der Bootloader beim Reset angesprochen \\
+ PARTITION         & PARTITION       & wird. Für den Start des Anwenderprogramms wird \\
+		   &                 & ein anderer Interrupt-Vektor benutzt.          \\
+    \hline
+ save\_vect\_      & save\_vect\_    & Wählt eine Interrupt-Vektornummer für die  \\
+      num          &    num=4        & VIRTUAL\_BOOT\_PARTITION Methode aus.        \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Weitere Optionen für die optiboot Makefile}
+  \label{tab:options2}
+\end{table}
+
+\section{Benutzung von optiboot ohne Bootloader-Bereich}
+
+Für Prozessoren ohne speziellen Bootloader-Bereich im Flash-Speicher wie dem ATtiny84 ist
+eine Möglichkeit vorgesehen, trotzdem optiboot zu benutzen. 
+Diese Funktion wird mit der Option VIRTUAL\_BOOT\_PARTITION gewählt.
+Dabei wird im Anwenderprogramm auf der Reset-Vektoradresse die Start-Adresse des Bootloaders
+eingetragen damit bei einem Reset immer der Bootloader zuerst angesprochen wird.
+Die Start-Adresse des Anwender-Programms wird dabei auf die Adresse eines anderen
+Interrupt-Vektors verlegt. Dieser Interrupt-Vektor sollte vom Anwenderprogramm nicht benutzt werden.
+Wenn der Bootloader in angemessener Zeit keine Daten von der seriellen Schnittstelle
+empfängt, springt er zu dem Sprungbefehl, der auf der ,,Ersatz''-Vektoradresse steht und
+startet damit das Anwenderprogramm.
+Die Abbildung~\ref{fig:VectorMove} soll die Veränderung verdeutlichen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/VectorMove.eps}
+\caption{Veränderung der Programmdaten durch optiboot}
+\label{fig:VectorMove}
+\end{figure}
+
+Auf der linken Seite ist der Inhalt der Datei dargestellt, welche die Programmdaten (.hex) enthält.
+Rechts daneben ist der Inhalt des Flash-Speichers dargestellt, wie er vom Optiboot Bootloader
+geschrieben wird. An zwei Interruptvektor-Adressen wurde der Inhalt verändert.
+Einmal wurde auf dem Reset-Vektor 0 der Optiboot Bootloader eingetragen und zum anderen
+auf der ,,Ersatz''-Vektor Adresse 4 ein Sprung zum Start des Applikations-Programms eingetragen. 
+Eine Schwierigkeit bei der Methode entsteht aber dadurch, daß die Programmdaten nach
+der Programmierung meistens zur Kontrolle zurückgelesen werden.
+Damit bei der Kontrolle keine Fehler gemeldet werden, gibt Optiboot nicht den wirklichen Inhalt
+der Interrupt-Vektortabelle zurück, sondern den Zustand vor seiner Manipulation.
+Die Sprung-Adresse im Reset-Vektor kann dafür aus den Daten des ,,Ersatz''-Interruptvektors rekonstruiert werden.
+Aber die ursprünglichen Daten des ,,Ersatz''-Interruptvektors wären verloren, da sie an keiner
+Stelle der Vektortabelle wiederzufinden sind.
+Optiboot benutzt zum Sichern des Original-Inhaltes des ,,Ersatz''-Vektors deshalb die beiden letzten
+Bytes des EEprom-Speichers.
+Damit ist eine Kontrolle der Programmdaten solange möglich, wie die beiden letzten Bytes
+des EEproms nicht überschrieben werden.
+Selbst wenn die EEprom Daten überschrieben werden, bleibt der Bootloader funktionsfähig.
+Nur die Kontrolle (verify) der Programmdaten ist dann nicht mehr möglich. Bei der Adresse
+des ,,Ersatz''-Interruptvektors wird dann ein Fehler gemeldet.
+
+Bei Prozessoren mit mehr als 8 kByte Flash Speicher werden zwei Befehlsworte für jeden Interrupt-Vektor
+vorgesehen. Normalerweise stehen auf diesen Doppelworten jmp Befehle mit den jeweiligen Sprungzielen.
+Auch diese Art der Vektortabelle wird von Optiboot berücksichtigt. Wenn aber für das Bindeprogramm
+(Linker avr-ld) die Option --relax verwendet wird,
+werden alle jmp Befehle durch die kürzeren rjmp Befehle ersetzt,
+wenn dies bei der jeweiligen Sprungadresse möglich ist.
+Dies wird derzeit nicht von optiboot berücksichtigt.
+Das Optiboot Programm geht fest davon aus, daß in der Vektortabelle jmp Befehle stehen,
+wenn mehr als 8 kByte Flash-Speicher vorhanden sind.
+Deshalb wird die VIRTUAL\_BOOT\_PARTITION Methode meistens nicht funktionieren, wenn die --relax Option
+beim Programmbinden benutzt wurde!
+
+
+Weiter ist zu beachten, daß bei Benutzung der VIRTUAL\_BOOT\_PARTITION Option für Prozessoren, die auch
+die normale Bootloader Unterstützung bieten, das BOOTRST Fuse Bit nicht aktiviert wird.
+Der Grund hierfür ist, daß bei Benutzung der VIRTUAL\_BOOT\_PARTITION die Start-Adresse des Bootloaders
+auf einer anderen Adresse liegen kann wie bei der normalen Bootloader Unterstützung.
+Bei Benutzung der Option VIRTUAL\_BOOT\_PARTITION kann die Startadresse auf jedem Anfang einer
+Seite des Flash-Speichers liegen. Bei der normalen Bootloader Unterstützung kann immer nur das
+einfache, doppelte, vierfache oder achtfache einer Mindest-Bootloadergröße berücksichtigt
+werden (BOOT\_SZ Fuse-Bits), wie es in Abbildung~\ref{fig:pages} auf Seite~\pageref{fig:pages}
+dargestellt wird.
