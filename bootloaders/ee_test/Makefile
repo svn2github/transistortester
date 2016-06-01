@@ -196,7 +196,7 @@ $(PARTNO)_test.lst: $(PARTNO)_test.elf
 
 size: ${PARTNO}_test.elf
 	@echo
-	@echo $(F_CPU) Hz operation configured.
+	@echo $(F_CPU) Hz operation with Baudrate $(BAUD_RATE) configured.
 	@avr-size -C --mcu=${MCU} ${PARTNO}_test.elf
 
 ## Clean target
@@ -212,7 +212,7 @@ clean:
 # make fuses  call if you don't have installed a crystal
 
 # make upload  additionally calls make to compile the software for selected target
-upload: $(PARTNO)_test.hex $(PARTNO)_test.eep
+upload: $(PARTNO)_test.hex $(PARTNO)_test.eep $(PARTNO)_test.lst size
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
 program: $(PARTNO)_test.hex

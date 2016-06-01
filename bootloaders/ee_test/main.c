@@ -59,10 +59,10 @@ void uart_newline(void) {
 int main(void) {
 #ifdef UCSR0A
  // setup the correct BAUD_RATE divider for Clock-frequency F_CPU
- #define BAUD_DIV ((F_CPU + BAUD_RATE * 4) / (BAUD_RATE * 8) - 1)
+ #define BAUD_DIV ((F_CPU + (BAUD_RATE * 4L)) / (BAUD_RATE * 8L) - 1)
  #if BAUD_DIV > 255
   #undef BAUD_DIV
-  #define BAUD_DIV ((F_CPU + BAUD_RATE * 8) / (BAUD_RATE * 16) - 1)
+  #define BAUD_DIV ((F_CPU + (BAUD_RATE * 8L)) / (BAUD_RATE * 16L) - 1)
   #if BAUD_DIV > 250
    #error Unachievable baud rate (too slow) BAUD_RATE
   #endif // baud rate slow check
@@ -88,6 +88,7 @@ int main(void) {
 #ifndef GPIOR0
  #define GPIOR0 OCR2      /* use OCR2 , if GPIOR0 is unknown */
 #endif
+        uart_newline();
         if (GPIOR0 & (1<<PORF)) uart_mem_string(PowerOn);
         if (GPIOR0 & (1<<EXTRF)) uart_mem_string(External);
         if (GPIOR0 & (1<<BORF)) uart_mem_string(BrownOut);

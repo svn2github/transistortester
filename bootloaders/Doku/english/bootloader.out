@@ -1,0 +1,16 @@
+\BOOKMARK [0][-]{chapter.1}{Principle function of a boot-loader}{}% 1
+\BOOKMARK [0][-]{chapter.2}{The Hardware of the AVR 8-bit micro controllers}{}% 2
+\BOOKMARK [1][-]{section.2.1}{CPU and memory access}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Input and Output function}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{The start of AVR micro-controllers}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.4}{Writing to the AVR memories}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.4.1}{Parallel programming}{section.2.4}% 7
+\BOOKMARK [2][-]{subsection.2.4.2}{serial download with ISP}{section.2.4}% 8
+\BOOKMARK [2][-]{subsection.2.4.3}{Self programming with serial interface}{section.2.4}% 9
+\BOOKMARK [2][-]{subsection.2.4.4}{Diagnostic Tools}{section.2.4}% 10
+\BOOKMARK [0][-]{chapter.3}{The optiboot boot-loader for AVR Micro-controllers}{}% 11
+\BOOKMARK [1][-]{section.3.1}{Changes and enhancements to the version 6.2}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.2}{Automatic size adaption in the optiboot Makefile}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.3}{target selection for the optiboot Makefile}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.4}{The Options for the optiboot Makefile}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.5}{Usage of optiboot without a boot-loader area}{chapter.3}% 16

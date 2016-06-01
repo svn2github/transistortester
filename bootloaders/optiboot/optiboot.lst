@@ -44,7 +44,8 @@ optiboot:
   //  executes before normal c init code) to save R2 to a global variable.
 	andi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D	
     7e0a:	8d 70       	andi	r24, 0x0D	; 13
-	breq	try_loader		; none of the WatchDog, PowerOn or BrownOut reason
+		; none of the WatchDog, PowerOn or BrownOut reason ?
+	breq	try_loader	; interrupt must be caused by a external reset
     7e0c:	31 f0       	breq	.+12     	; 0x7e1a <try_loader>
 
 00007e0e <appStart>:
@@ -239,12 +240,15 @@ ck_LA:
     7e80:	75 d0       	rcall	.+234    	; 0x7f6c <getch>
 	mov	r5, r24		; r4:5 is load address
     7e82:	58 2e       	mov	r5, r24
-	add	r4, r4		; newAddress << 1
-    7e84:	44 0c       	add	r4, r4
-	adc	r5, r5		; make word address to byte address
-    7e86:	55 1c       	adc	r5, r5
+ #define EEprom_ByteAddress
+#if defined(EEprom_ByteAddress)
 	movw	ZL, r4		; save original address in r30:r31
-    7e88:	f2 01       	movw	r30, r4
+    7e84:	f2 01       	movw	r30, r4
+#endif
+	add	r4, r4		; newAddress << 1
+    7e86:	44 0c       	add	r4, r4
+	adc	r5, r5		; make word address to byte address
+    7e88:	55 1c       	adc	r5, r5
 #ifdef RAMPZ
 	adc	r1, r1
 	AOUT	RAMPZ, r1
@@ -351,6 +355,7 @@ fill_buf:
 
 00007ec4 <ee_wrlop>:
 ; is EEprom write
+; the address is allŕeady set in Z
 ee_wrlop:
      	wdr		; watchdogReset();
     7ec4:	a8 95       	wdr
@@ -476,39 +481,46 @@ ck_READP:
 	rcall	verifySpace	; check Sync_CRC_EOP, putch(STK_INSYNC)
     7f0a:	24 d0       	rcall	.+72     	; 0x7f54 <verifySpace>
 ;	TODO: putNch()
-	movw	ZL, r4		; Z = addrPtr = address
-    7f0c:	f2 01       	movw	r30, r4
 
 #if SUPPORT_EEPROM > 0
 	cpi	r21, 'E'	; 0x45
-    7f0e:	55 34       	cpi	r21, 0x45	; 69
-	brne	flash_rd_lop
-    7f10:	39 f4       	brne	.+14     	; 0x7f20 <flash_rd_lop>
+    7f0c:	55 34       	cpi	r21, 0x45	; 69
+	brne	flash_read
+    7f0e:	39 f4       	brne	.+14     	; 0x7f1e <flash_read>
 
-00007f12 <ee_rd_lop2>:
+00007f10 <ee_rd_lop2>:
 ;     must be EEprom read
-; read EEprom
+; read EEprom, the Address is allready set in Z
 ee_rd_lop2:
 	sbiw	r26, 1		; length-1
-    7f12:	11 97       	sbiw	r26, 0x01	; 1
+    7f10:	11 97       	sbiw	r26, 0x01	; 1
 	brcs	next_adr_put_ok	;
-    7f14:	48 f0       	brcs	.+18     	; 0x7f28 <next_adr_put_ok>
+    7f12:	50 f0       	brcs	.+20     	; 0x7f28 <next_adr_put_ok>
  #ifdef VIRTUAL_BOOT_PARTITION
 	rcall	rd_eeprom	; Z+
  #else
   /* EEprom read is only required here without the VIRTUAL_BOOT_PARTITION */
   /* Therefore is is used without a rcall directly                        */
 	rcall 	set_eeprom_adr	; Z+
-    7f16:	33 d0       	rcall	.+102    	; 0x7f7e <set_eeprom_adr>
+    7f14:	34 d0       	rcall	.+104    	; 0x7f7e <set_eeprom_adr>
 	ASBI	EECR, EERE
-    7f18:	f8 9a       	sbi	0x1f, 0	; 31
+    7f16:	f8 9a       	sbi	0x1f, 0	; 31
 	AIN	r24, EEDR		; read data from EEprom
-    7f1a:	80 b5       	in	r24, 0x20	; 32
+    7f18:	80 b5       	in	r24, 0x20	; 32
  #endif
 	rcall	putch
-    7f1c:	20 d0       	rcall	.+64     	; 0x7f5e <putch>
+    7f1a:	21 d0       	rcall	.+66     	; 0x7f5e <putch>
 	rjmp	ee_rd_lop2
-    7f1e:	f9 cf       	rjmp	.-14     	; 0x7f12 <ee_rd_lop2>
+    7f1c:	f9 cf       	rjmp	.-14     	; 0x7f10 <ee_rd_lop2>
+
+00007f1e <flash_read>:
+#endif
+
+; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;	read flash
+flash_read:
+	movw	ZL, r4		; Z = addrPtr = address
+    7f1e:	f2 01       	movw	r30, r4
 
 00007f20 <flash_rd_lop>:
           //      do putch(pgm_read_byte_near(address++));
@@ -815,12 +827,12 @@ wait_T1ov:
 00007fce <wt_ov>:
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
 	AIN	r24, TIFR
-	sbrc	r24, (1<<TOV1)
-	rjmp	wt_ov
+	sbrs	r24, TOV1
+	rjmp	wt_ov		; no OverFlow, wait
  #else
 	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
     7fce:	b0 9b       	sbis	0x16, 0	; 22
-	rjmp	wt_ov
+	rjmp	wt_ov		; no OverFlow, wait
     7fd0:	fe cf       	rjmp	.-4      	; 0x7fce <wt_ov>
 
 00007fd2 <wt_fin>:

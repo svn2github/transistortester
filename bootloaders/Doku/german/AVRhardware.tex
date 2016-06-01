@@ -3,9 +3,9 @@
 \section{CPU und Speicherzugriff}
 Auf dem Chip der AVR 8-Bit Mikrocontroller ist alles vereinigt,
 was ein digitaler Minirechner zum Arbeiten braucht.
-Es ist ein Taktgenerator, Register, Arbeitspeicher (RAM), Programmspeicher (Flash),
+Es ist ein Taktgenerator, Register, Arbeitsspeicher (RAM), Programmspeicher (Flash),
 Eingaberegister und Ausgaberegister vorhanden. 
-Der Inhalt von Registern und Arbeitstpeicher geht bei jedem Neustart verloren.
+Der Inhalt von Registern und Arbeitsspeicher geht bei jedem Neustart verloren.
 Der Inhalt des Programmspeicher (Flash) und auch des meistens zusätzlich vorhandenem
 Datenspeicher (EEprom) bleiben aber erhalten.
 Die Abbildung~\ref{fig:block} zeigt ein vereinfachtes Blockdiagramm eines
@@ -28,20 +28,20 @@ den zugehörigen Controller möglich und deutlich komplizierter.
 Nur die eigentliche Befehls-Ausführungseinheit kann einfach auf
 die Daten des Flash Speichers für die eingestellte Programm-Adresse zugreifen.
 Mit dem Load Immediate Befehl (LDI) können dann auch Bestandteile des 
-16-Bit Instruktionswortes zu den oberen Registern (R16-R32) transferiert werden. 
+16-Bit Befehls-Wortes zu den oberen Registern (R16-R31) transferiert werden. 
 Auch bei den Befehlen ADIW, ANDI, CPI, ORI, SBCI, SBIW und SUBI werden Teile
-des 16-Bit Instruktionswortes verarbeitet.
+des 16-Bit Befehls-Wortes verarbeitet.
 
 Normalerweise wird bei der Programmausführung die Flash-Adresse
-je nach Befehlsgröße um ein Wort oder zwei Worte erhöht.
-Eine Ausnahme hiervon sind bei der normalen Programmabarbeitung nur
-die bedingten oder unbedingten (RJMP, JMP, IJMP, RCALL, CALL, ICALL, RET, RETI) Sprunganweisungen.
+je nach Befehls-Größe um ein Wort oder zwei Worte erhöht.
+Eine Ausnahme hiervon sind bei der normalen Programm-Abarbeitung nur
+die bedingten oder unbedingten (RJMP, JMP, IJMP, RCALL, CALL, ICALL, RET, RETI) Sprung-Anweisungen.
 
-Außerdem kann ein Reset Ereignis oder ein Unterbrechungssignal (Interrupt)
+Außerdem kann ein Reset Ereignis oder ein Unterbrechungs-Signal (Interrupt)
 für eine Abweichung von der Regel führen.
-Beim Reset wird der Prozessor zurückgesetzt und der Programmzähler auf eine
+Beim Reset wird der Prozessor zurückgesetzt und der Programm-Zähler auf eine
 vorher eingestellte Adresse gesetzt.
-Bei einem Interrupt wird der Programmzähler auf die dem
+Bei einem Interrupt wird der Programm-Zähler auf die dem
 Ereignis zugehörende Adresse einer Sprungtabelle gesetzt.
 Normalerweise ist die Start-Adresse für das Reset Ereignis die Adresse 0.
 Für Bootloader-Zwecke kann dies aber bei vielen AVR-Prozessoren mit speziellen
@@ -49,7 +49,7 @@ Konfigurations-Bits (Fuse) anders eingestellt werden.
 
 Ein wahlfreier Lesezugriff zum Programmspeicher ist nur über den Flash-Controller
 möglich. Dabei muß dem Controller erst die gewünschte Byte-Adresse mitgeteilt werden.
-Erst dann ist ein Lesen des Datenbytes mit einem Spezialbefehl möglich.
+Erst dann ist ein Lesen des Datenbytes mit einem Spezial-Befehl möglich.
 
 
 Noch komplizierter wird es beim Schreibzugriff. Der Schreibzugriff des Programmspeichers
@@ -66,9 +66,9 @@ Erst dann kann mit einem Stempeldruck die leere Seite neu beschrieben werden.
 
 Auch der EEprom Speicher (nicht flüchtiger Speicher für Daten) wird über
 einen speziellen Controller zugegriffen. Hier ist das Beschreiben des Speichers
-aber etwas einfacher, ist aber auch nur über einen Kontroller möglich.
-Der EEprom-Kontroller kann nicht zusammen mit dem Flash-Kontroller benutzt werden,
-da die Kontroller wohl gemeinsame Teile haben.
+aber etwas einfacher, ist aber auch nur über einen Controller möglich.
+Der EEprom-Controller kann nicht zusammen mit dem Flash-Controller benutzt werden,
+da die Controller wohl gemeinsame Teile haben.
 
 \section{Eingabe und Ausgabefunktion}
 
@@ -80,7 +80,7 @@ Aufbau einer Port Pin Beschaltung.
 \begin{figure}[H]
 \centering
 \includegraphics[]{../FIG/port.eps}
-\caption{Vereinfachtes Schaltbild jedes ATmega-Portpins}
+\caption{Vereinfachtes Schaltbild jedes AVR-Portpins}
 \label{fig:port}
 \end{figure}
 
@@ -98,7 +98,7 @@ auf Betriebsspannung (VCC) geschaltet.
 Bei mit dem auf 0 gesetzten DDR Bit inaktiviertem Ausgang wird je nach Zustand
 des zugehörigen PORT Bits ein Pull-Up Widerstand für diesen Pin zugeschaltet
 (PORT Bit = 1) oder nicht (PORT Bit = 0). Wenn allerdings das PUD Bit im
-MCU Konfigurationsregister MCUCR gesetzt ist, bleiben alle internen Pull-Up
+MCU Konfigurations-Register MCUCR gesetzt ist, bleiben alle internen Pull-Up
 Widerstände inaktiv.
 Alle zugehörigen Register und Bits einer Gruppe (8-Bit) benutzen immer den
 gleichen Kennbuchstaben. Also für die zweite Gruppe wäre der Buchstabe ein B.
@@ -116,7 +116,7 @@ Erreichen der erforderlichen Betriebsspannung einen Reset des Prozessors aus.
 Dabei werden die IO-Register auf vorbestimmte Werte gesetzt, noch etwas Zeit
 zur Stabilisierung der Betriebsspannung gewartet und dann der Befehl ausgeführt,
 der auf der Adresse 0 des Flash-Speichers steht.
-In aller Regel sind die Ausgabefunktionen aller Pins in diesem Zustand abgeschaltet.
+In aller Regel sind die Ausgabe-Funktionen aller Pins in diesem Zustand abgeschaltet.
 Außer diesem Einschalt-Reset gibt es noch drei weitere Gründe für einen Reset
 des Prozessors. Der Grund für den Reset wird in einem MCU Status-Register (MCUSR)
 mit 4 Bits festgehalten.
@@ -155,9 +155,9 @@ Durch Setzen der entsprechenden Konfigurations-Bits in den Fuses des AVR-Mikroco
 kann die Start-Adresse abweichend von 0 eingestellt werden.
 Die Abbildung~\ref{fig:pages} zeigt die Möglichkeiten für den ATmega168.
 Dieser Prozessor hat insgesamt 16384~Byte Arbeitsspeicher (Flash).
-Der Befehlsinterpreter des Mikrocontrollers greift übrigens auf
+Der Befehls-Interpreter des Mikrocontrollers greift übrigens auf
 einen 16-Bit breiten Befehlscode des Flash Speicher zu.
-Deshalb ist der höchste Programmzähler Wert nur 8190!
+Deshalb ist der höchste Programm-Zähler Wert nur 8190!
 Das es nicht 8192 ist, ist klar, weil ja die Zählung bei 0 beginnt,
 aber es ist noch ein Wort weniger, weil das letzte Wort im Flash Speicher
 für die Versionsnummer von Optiboot verwendet wird.
@@ -175,7 +175,7 @@ Als mögliche Bootloader-Größen unterstützt der ATmega168 256~Bytes (BOOTSZ=3
 Für das Anwenderprogramm ist natürlich interessant, den Bootloader-Bereich
 möglichst klein zu wählen, damit möglichst viel Speicherplatz für das
 Anwenderprogramm zur Verfügung steht.
-Der Bootloader wird ja immer auf die höchstmögliche Start-Addresse plaziert.
+Der Bootloader wird ja immer auf die höchstmögliche Start-Adresse platziert.
 Durch Programmieren der Lock-Bits des AVR-Mikrocontrollers läßt sich
 der Bootloader-Bereich  gegen Überschreiben sichern. Die einmal installierte
 Sicherung des Flash-Speichers läßt sich dann aber nur durch komplettes Löschen (erase)
@@ -288,6 +288,7 @@ die Funktion des Reset-Pins abgeschaltet wurde.
 Diese Methode ist daran zu erkennen,
 daß bei der Programmierung der Reset Eingangspin auf höhere Spannungswerte (12V) gesetzt wird.
 Deshalb heißt diese Methode auch HV-Programmierung.
+Einzelheiten zu dieser Programmierung sollten dem jeweiligen Datenblatt entnommen werden.
 
 \subsection{serieller Download mit ISP}
 
@@ -309,17 +310,18 @@ Platinen mit AVR Mikrocontrollern integriert sind.
 \label{fig:ISP}
 \end{figure}
 
-Bei der 10-poligen Variante des ISP-Steckers kann zusätzlich das Clock Signal OSC für die Versorgung
-des ATmega mit einem Takt aufgelegt sein.
+Bei der 10-poligen Variante des ISP-Steckers kann zusätzlich das Takt Signal OSC für die Versorgung
+des AVR mit einem Takt aufgelegt sein.
 Einer dieser beiden Stecker ist also in der Regel erforderlich, um einen neuen Bootloader in den
 Flash-Speicher eines AVR-Mikrocontrollers zu schreiben. Die Daten für den Flash-Speicher werden
 im allgemeinen auf einem PC erzeugt.
 Für das Transferieren der Daten zum AVR-Mikrocontroller ist ein ISP-Programmer
-erforderlich, der meistens zur Rechnerseite hin über einen USB-Anschluß verfügt. Es ist aber auch
-ein Anschluß des ISP-Programmers über eine serielle oder parallele Schnittstelle möglich.
+erforderlich, der meistens zur Rechnerseite hin über einen USB-Anschluss verfügt. Es ist aber auch
+ein Anschluss des ISP-Programmers über eine serielle oder parallele Schnittstelle möglich.
 Die USB-Schnittstelle hat aber den Vorteil, daß auch die Stromversorgung (5V oder 3.3V) für
 dem Mikrocontroller direkt über die Schnittstelle zur Verfügung gestellt wird.
-Es gibt auf dem Markt eine Auswahl an solchen ISP-Programmern.
+Es gibt auf dem Markt eine Auswahl an solchen ISP-Programmern, von Atmel wird beispielsweise der 
+AT AVR-ISP MK2 Programmer angeboten.
 Auch die Verwendung eines Arduino UNO oder eines anderen Arduino ist mit
 Spezialprogramm für eine angeschlossene ISP-Schnittstelle  möglich.
 Ich selbst verwende einem DIAMEX ALL-AVR, der über beide 
@@ -334,9 +336,9 @@ auch EEprom-Speicher schreibt. Genau das macht der Bootloader Optiboot.
 Das Setzen der Fuses oder des Lock-Bytes ist mit dieser Methode oft nicht möglich und
 wird auch vom Bootloader nicht unterstützt. Die Fuses und das Lock-Byte müssen also
 immer mit einer der anderen Methoden geschrieben werden.
-Für die Übermittelung der Daten werden Teile des STK500 Communication Protocol von Atmel verwendet.
+Für die Übermittlung der Daten werden Teile des STK500 Communication Protocol von Atmel verwendet.
 Da moderne Rechner meist nicht mehr über serielle Schnittstellen verfügen, wird heute 
-meistens ein USB - Serial UART Wandler wie beispielsweise das FTDI Chip von Future Technology Devices
+meistens ein USB - Seriell UART Wandler wie beispielsweise das FTDI Chip von Future Technology Devices
 International Ltd verwendet. Ein Modul mit diesem Wandler-Chip ist z.B. das UM232R.
 Die Chips PL2303 von Prolific Technology Inc. und CP2102 von Silicon Laboratories Inc. 
 erfüllen wohl den gleichen Zweck.
@@ -345,15 +347,15 @@ diese Aufgabe übernehmen.
 Alle Chips haben eine einstellbare Baud-Rate und haben TTL-Pegel für die Signale.
 Für echte RS232 Signale müßten noch Pegelwandler verwendet werden.
 Die sind aber für die AVR Mikrocontroller nicht notwendig.
-Einer dieser Chips ist auf den Arduino Boards mit USB-Schnittstelle integriert.
+Einer dieser Chips ist auf den Arduino Platinen mit USB-Schnittstelle integriert.
 Für eine schnelle Reaktion auf die Programm-Datenübertragung sollte das DTR-Signal des
 Schnittstellenwandlers über einen 100nF Kondensator mit dem Reset Eingang des AVR-Prozessors
-verbunden sein. Die Abbildung~\ref{fig:UM232} zeigt eine typische Anschlußart.
+verbunden sein. Die Abbildung~\ref{fig:UM232} zeigt eine typische Anschlussart.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=12cm]{../FIG/UM232.eps}
-\caption{Anschluß eines USB-seriell Wandlers an den Mikrocontroller}
+\caption{Anschluss eines USB-seriell Wandlers an den Mikrocontroller}
 \label{fig:UM232}
 \end{figure}
 
@@ -369,11 +371,11 @@ eine serielle Schnittstelle auszuwählen. Weiter kann dann unter ,,Tools - Seria
 geöffnet werden, welches die seriellen Ausgaben des AVR Mikrocontrollers auf dem Bildschirm darstellen
 kann. Die Baud-Rate der seriellen Schnittstelle kann in diesem Fenster eingestellt werden.
 Der laufende Serial Monitor des Arduino Sketch stört aber das Laden von Programmen über die serielle
-Schnittstelle, wenn das gleiche USB-serial Wandlermodul verwendet wird.
-Es gibt aber die Möglichkeit, ein weiteres USB-serial Modul in den PC einzustecken und bei diesem
-nur das RX-Signal an den TX-Port des AVR-Mikrocontrollers anzuschliessen.
+Schnittstelle, wenn das gleiche USB-Seriell Wandlermodul verwendet wird.
+Es gibt aber die Möglichkeit, ein weiteres USB-Seriell Modul in den PC einzustecken und bei diesem
+nur das RX-Signal an den TX-Port des AVR-Mikrocontrollers anzuschließen.
 Dieser zweite serielle Eingang horcht so die Ausgaben des AVR mit und stört dabei die serielle 
-Kommunikation beim Programmladen nicht, wenn diese Schnittstelle für den Serial Monitor gewählt wird.
+Kommunikation beim Programm-laden nicht, wenn diese Schnittstelle für den Serial Monitor gewählt wird.
 
 \subsection{Diagnose Werkzeuge}
 Unter dem Linux-Betriebssystem gibt es ein Werkzeug (Tool) mit dem seltsamen Namen jpnevulator, mit dem
@@ -381,7 +383,7 @@ zwei serielle Eingänge zur selben Zeit überwacht werden können.
 Die übertragenen Daten werden im sedezimal (hex) Format dargestellt und mit der Option -a auch als ASCII-Zeichen.
 Mit der Option --timing-print werden die System-Zeiten der empfangenen seriellen Datenpakete gezeigt.
 Um eine Beeinflussung des Datenverkehrs beim Laden von Programmdaten auszuschließen, sollten
-zwei separate USB-serial Module für die Überwachung benutzt werden.
+zwei separate USB-Seriell Module für die Überwachung benutzt werden.
 Der serielle Eingang eines Moduls wird an das TX-Signal und der serielle Eingang des anderen Moduls
 an das RX-Signal des AVR-Mikrocontrollers angeschlossen.
 Zusammen mit dem Modul für das Programmladen sind dann drei solche Module an den PC angeschlossen.

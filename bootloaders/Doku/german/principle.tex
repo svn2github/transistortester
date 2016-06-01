@@ -1,20 +1,20 @@
 \chapter{Prinzipielle Arbeitsweise eines Bootloaders}
 
-Ein Bootloader ist ein kleines Programm, welches neue Programmdaten
+Ein Bootloader ist ein kleines Programm, welches neue Programm-Daten
 für einen Prozessor über eine Datenschnittstelle in Empfang nehmen kann
 und in den Arbeitsspeicher dieses Prozessors ablegen kann.
 Üblicherweise wird dieses über die Datenschnittstelle empfangene
 Programm nach Beenden der Übertragung vom Bootloader gestartet.
 Damit ist ein Rechner mit einem beschreibbaren Arbeitsspeicher
 dann in der Lage, beliebige Anwenderprogramme aus dem
-Arbeisspeicher auszuführen.
+Arbeitsspeicher auszuführen.
 
 
 Im Prinzip ist damit das BIOS eines PC's auch ein Bootloader,
 allerdings erweitert um Möglichkeiten, die Schnittstelle
-für den ersten Zugriff auf Programmdaten einzustellen.
+für den ersten Zugriff auf Programm-Daten einzustellen.
 Beim PC läßt sich so oft eine ganze Kette von Peripheriegeräten
-einstellen, die auf das Vorhandensein von Programmdaten
+einstellen, die auf das Vorhandensein von Programm-Daten
 getestet werden. 
 Beim PC wird dann oft eine zweite Stufe gestartet, die weitere
 Einstellungen (Auswahl von Betriebssystemen oder abgesicherter
@@ -33,7 +33,7 @@ daß er gerade vorher ein Programm selbst geladen hatte.
 Bei einem Mikrocontroller mit nicht flüchtigem Arbeitsspeicher (Flash)
 darf der Bootloader annehmen, daß bereits irgendwann einmal
 vorher ein Anwender-Programm in den Speicher geladen wurde.
-Deshalb wird nach einer angemessenen Wartezeit auf neue Programmdaten
+Deshalb wird nach einer angemessenen Wartezeit auf neue Programm-Daten
 versucht, das Anwenderprogramm zu starten. Dabei ist es egal,
 ob gerade vorhin ein neues Anwenderprogramm geladen wurde oder nicht.
 Selbst wenn noch nie ein Anwenderprogramm geladen wurde oder ein

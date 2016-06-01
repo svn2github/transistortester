@@ -372,10 +372,16 @@ optiboot:
 #if defined(__AVR_ATmega8__) || defined (__ATmega16__) || defined (__AVR_ATmega32__)
 /* only ATmega8/16/32 require a initializing of Stack Pointer SP */
 /* for ATtiny84 and ATmega324/644/1284/88/168/328 this has been done by reset! */
+
 	ldi	r24,hi8(RAMEND)
 	AOUT	SPH, r24
 	ldi	r24,lo8(RAMEND)
 	AOUT	SPL, r24
+ /* avrdude set a byte address for this processors (tested with ATmega8) */
+ /* for the Program Page command. */
+ /* For other processors like ATmega88/168/328 avrdude use a word address, */
+ /* which is the same as with the Flash momory. */
+ #define EEprom_ByteAddress
 #endif
 
   /*
@@ -454,7 +460,8 @@ no_app_start:
   //  This can be saved in a main program by putting code in .init0 (which
   //  executes before normal c init code) to save R2 to a global variable.
 	andi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D	
-	breq	try_loader		; none of the WatchDog, PowerOn or BrownOut reason
+		; none of the WatchDog, PowerOn or BrownOut reason ?
+	breq	try_loader	; interrupt must be caused by a external reset
  #define WATCHDOG_TIME WATCHDOG_OFF
 #endif		/* FORCE_WATCHDOG */
 ;***************************************************************
@@ -630,9 +637,15 @@ ck_LA:
 	mov	r4, r24
 	rcall	getch		; upper address bits
 	mov	r5, r24		; r4:5 is load address
+ #define EEprom_ByteAddress
+#if defined(EEprom_ByteAddress)
+	movw	ZL, r4		; save original address in r30:r31
+#endif
 	add	r4, r4		; newAddress << 1
 	adc	r5, r5		; make word address to byte address
+#if !defined(EEprom_ByteAddress)
 	movw	ZL, r4		; save original address in r30:r31
+#endif
 #ifdef RAMPZ
 	adc	r1, r1
 	AOUT	RAMPZ, r1
@@ -696,6 +709,7 @@ fill_buf:
 	cpse	r6, r1		; r6 == 0, is EEprom write
 	rjmp	write_flash	; if (!type)
 ; is EEprom write
+; the address is allŕeady set in Z
 ee_wrlop:
      	wdr		; watchdogReset();
 	ld	r24, Y+			; *bufPtr++
@@ -856,13 +870,12 @@ ck_READP:
 	mov	r21, r24	; type = getch()
 	rcall	verifySpace	; check Sync_CRC_EOP, putch(STK_INSYNC)
 ;	TODO: putNch()
-	movw	ZL, r4		; Z = addrPtr = address
 
 #if SUPPORT_EEPROM > 0
 	cpi	r21, 'E'	; 0x45
-	brne	flash_rd_lop
+	brne	flash_read
 ;     must be EEprom read
-; read EEprom
+; read EEprom, the Address is allready set in Z
 ee_rd_lop2:
 	sbiw	r26, 1		; length-1
 	brcs	next_adr_put_ok	;
@@ -881,6 +894,8 @@ ee_rd_lop2:
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;	read flash
+flash_read:
+	movw	ZL, r4		; Z = addrPtr = address
 flash_rd_lop:
 
 #ifdef RAMPZ
@@ -1228,17 +1243,17 @@ wt_ov:
  #ifdef SOFT_UART
 	; leave the wait for OV event loop, if data at the RX port are present
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
-     	sbrc	r24, RXC0
+     	sbrs	r24, RXC0
        	rjmp	wt_fin			; any character present at serial rx port
  #endif
 #endif
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
 	AIN	r24, TIFR
-	sbrc	r24, (1<<TOV1)
-	rjmp	wt_ov
+	sbrs	r24, TOV1
+	rjmp	wt_ov		; no OverFlow, wait
  #else
 	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
-	rjmp	wt_ov
+	rjmp	wt_ov		; no OverFlow, wait
  #endif
 wt_fin:
      	wdr		; watchdogReset();

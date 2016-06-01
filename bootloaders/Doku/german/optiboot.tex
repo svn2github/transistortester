@@ -14,7 +14,7 @@ die in der AVR061~\cite{stk500} von Atmel veröffentlicht wurde.
 
 \section{Änderungen und Weiterentwicklung von Version 6.2}
 Im wesentlichen habe ich das komplette Programm in die Assembler-
-Sprache umgeschrieben und die Makefile so angepaßt, daß die Programmlänge
+Sprache umgeschrieben und die Makefile so angepasst, daß die Programmlänge
 automatisch weiterverarbeitet wird und damit die Startadresse
 des Bootloaders sowie die Fuses des ATmega richtig eingestellt werden.
 Die eingeschlagene Lösung erzeugt während der Abarbeitung der Einzelschritte
@@ -35,7 +35,7 @@ Beim ATtiny84 sind das 64 Bytes. Damit liegt die Startadresse des Bootloaders im
 am Anfang einer Flash Speicherseite. 
 
 Bei allen anderen Zielprozessoren kann der Bootloader-Bereich mit den
-Fuse-Bits BOOTSZ1 und BOOTSZ0 eingestellt werden (jweils mit den Werten 0 und 1).
+Fuse-Bits BOOTSZ1 und BOOTSZ0 eingestellt werden (jeweils mit den Werten 0 und 1).
 Wenn man die beiden Bits zusammensetzt, ergibt sich daraus die
 Bootloader-Größe BOOTSZ mit Werten zwischen 0 und 3.
 Dabei bedeutet 3 immer den kleinsten mögliche Bootloader Speicherbereich.
@@ -47,7 +47,7 @@ Die Tabelle~\ref{tab:bootsz} auf Seite~\pageref{tab:bootsz} gibt einen
 \section{Automatische Größenanpassung in der optiboot Makefile}
 
 Die Bootloader Startadresse und die benötigte Bootloadergröße wird
-automatisch in der Makefile angepaßt. Für die Berechnungen werden
+automatisch in der Makefile angepasst. Für die Berechnungen werden
 einige Zwischendateien erzeugt, was nur zusammen
 mit den folgenden Linux Werkzeugen funktioniert:
 \begin{description}
@@ -65,11 +65,11 @@ Wahrscheinlich ist die Benutzung unter Windows nur möglich,
 wenn das Cygwin Paket installiert wird.
 
 Um die erzeugten Zwischendateien braucht man sich im Regelfall nicht zu kümmern. Hier
-möchte ich aber wenigstend die Namen und die Bedeutung erwähnen:
+möchte ich aber wenigstens die Namen und die Bedeutung erwähnen:
 \begin{description}
 \item [BootPages.dat] enthält die Zahl der vom Bootloader benötigten Seiten.
 Bei Prozessoren mit Bootloader Unterstützung kann die Zahl nur 1, 2, 4 oder 8 sein und
-gibt an, das wievielfache der Mindest-Bootloadergröße verwendet wird.
+gibt an, das wie-vielfache der Mindest-Bootloadergröße verwendet wird.
 Bei der virtuellen Bootloader Seite kann die Zahl beliebig sein und gibt die Zahl der
 benötigten Flash-Speicherseiten an.
 \item [BOOTSZ.dat] enthält eine Zahl zwischen 0 und 3 für die Einstellung der BOOTSZ0 und BOOTSZ1 Bits.
@@ -135,7 +135,7 @@ einstellbar.
 \end{table}
 
 Alle Angaben für Größen sind in Bytes angegeben, die Werte für die Fuses sind die sedezimalen
-Werte (hex). Die Frequenzwerte werden in Hz angegeben, 16M entspricht also 16000000 Hz.
+Werte (hex). Die Frequenz-werte werden in Hz angegeben, 16M entspricht also 16000000 Hz.
 Die Standard Baud-Rate für die serielle Schnittstelle beträgt immer 115200.
 
 Neben den universellen Konfigurationen gibt es auch Konfigurationen für bestimmte
@@ -221,7 +221,7 @@ und \ref{tab:options2}
                    &                & Bit 1 des D Ports für den seriellen Ausgang.\\
     \hline
     UART           & UART=1         & Wählt für die  serielle Schnittstelle des Chips. \\
-                   &                & Eine Auswahl setzt das Verhandensein mehrerer Schnittstellen\\
+                   &                & Eine Auswahl setzt das Vorhandensein mehrerer Schnittstellen\\
                    &                & voraus. Nur wirksam ohne die SOFT\_UART Option. \\
     \hline
  LED\_START\_      & LED\_START\_   & Wählt für die Anzahl der Blink-Zyklen \\
