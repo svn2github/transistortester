@@ -637,7 +637,6 @@ ck_LA:
 	mov	r4, r24
 	rcall	getch		; upper address bits
 	mov	r5, r24		; r4:5 is load address
- #define EEprom_ByteAddress
 #if defined(EEprom_ByteAddress)
 	movw	ZL, r4		; save original address in r30:r31
 #endif
@@ -1149,7 +1148,6 @@ transfer_fuse:
 	AOUT	SPMCSR, r24
 	lpm
 	mov	r24, r0
-	mov	r24, ZL		;############################################################# Test
 	rjmp	putch		; putch will return to transfer_fuse
 #endif
 

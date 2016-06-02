@@ -240,15 +240,16 @@ ck_LA:
     7e80:	75 d0       	rcall	.+234    	; 0x7f6c <getch>
 	mov	r5, r24		; r4:5 is load address
     7e82:	58 2e       	mov	r5, r24
- #define EEprom_ByteAddress
 #if defined(EEprom_ByteAddress)
 	movw	ZL, r4		; save original address in r30:r31
-    7e84:	f2 01       	movw	r30, r4
 #endif
 	add	r4, r4		; newAddress << 1
-    7e86:	44 0c       	add	r4, r4
+    7e84:	44 0c       	add	r4, r4
 	adc	r5, r5		; make word address to byte address
-    7e88:	55 1c       	adc	r5, r5
+    7e86:	55 1c       	adc	r5, r5
+#if !defined(EEprom_ByteAddress)
+	movw	ZL, r4		; save original address in r30:r31
+    7e88:	f2 01       	movw	r30, r4
 #ifdef RAMPZ
 	adc	r1, r1
 	AOUT	RAMPZ, r1
@@ -856,3 +857,5 @@ wt_fin:
 ; UART
 ; SUPPORT_EEPROM=1
 ; FORCE_WATCHDOG=
+
+; -e -u -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
