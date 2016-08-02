@@ -13,6 +13,9 @@ You can configure self test only for a ATmega168  or ATmega328.
 Before the test steps begin, the zero resistance of the connected probes is determined for all three combinations
 (T1:T3, T2:T3 and T1:T2).
 This zero resistances will be subtracted for the future ESR and resistance measurements below \(10\Omega\).
+Only zero resistance values below \(0.90\Omega\) are accepted, because this correction values are not
+uses for measurement of resistor values above \(10\Omega\).
+If you use cables for measurement, you should only take cables with low resistance values.
 If the later measured resistance results fall below the particular zero resistance for more than \(0.2\Omega\),
 the tester will be resetted to ''uncalibrated''.
 This will be marked by a acticated cursor during the tests.
@@ -131,16 +134,6 @@ If the tester is configured with the SamplingADC function, the zero capacity val
 with double the count of all pin combinations. The reason for this is, that the
 zero capacity is measured for the charge and the discharge of all pin combinations separately.
 
-\item {\bf Wait for a capacitor for measuring of low inductace values}
-If the tester is configured with the SamplingADC function, a known capacitor is required for
-the computation of the inductance value from the resonant frequency of a parallel connected coil.
-Practical capacity values can be choosed from \(10nF\) to \(27nF\). 
-A suitable capacitor must be connected to pin~1 and pin~3, if the message ''\mbox{1 \electricC 3 \(10-30nF\)(L)}'' is shown in
-line 1 of the display.
-Exacly this capacitor should be connected later parallel to a little coil,
-if the calculation of the coil\'s inductance value from resonant frequency is desired.
-If your tester does not include the SamplingADC function, this step is omitted.
-
 \item {\bf Wait for the connection of a capacitor to pin~1 and pin~3.}
 The message ``1 \mbox{\electricC}3 \textgreater 100nF'' is shown in row 1 of LCD.
 To prepare the measurement of the comparator offset voltage, you must connect
@@ -161,6 +154,16 @@ will be adjusted by comparing a capacitor voltage below 1 V once readed with VCC
 readed with the internal reference. 
 The measurement result is shown in row 2 with the text ``REF\_R=''. 
 Your REF\_R\_KORR value is a additional offset to this automatic find out difference value.
+
+\item {\bf Wait for a capacitor for measuring of low inductace values}
+If the tester is configured with the SamplingADC function, a known capacitor is required for
+the computation of the inductance value from the resonant frequency of a parallel connected coil.
+Practical capacity values can be choosed from \(10nF\) to \(27nF\). 
+A suitable capacitor must be connected to pin~1 and pin~3, if the message ''\mbox{1 \electricC 3 \(10-30nF\)(L)}'' is shown in
+line 1 of the display.
+Exacly this capacitor should be connected later parallel to a little coil,
+if the calculation of the coil\'s inductance value from resonant frequency is desired.
+If your tester does not include the SamplingADC function, this step is omitted.
 
 \end{enumerate}
 

@@ -150,6 +150,17 @@ A complete protection is not possible. Therefore capacitors should always be dis
   \label{fig:relay_addon}
 \end{figure}
 
+You can get a better protection with a relay with 3 changeover contacts, which is shown in figure~\ref{fig:relay_um_addon}.
+The discharge current is limited with the resistors and the ATmega-inputs are disconnected in the protected mode.
+But you don't forget, that the tester remains unprotected during the measurement sequence.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/relay_um_addon.eps}
+\caption{Improved protection with relay}
+\label{fig:relay_um_addon}
+\end{figure}
+
 \subsection{Measurement of zener voltage above 4~Volt}
 
 If the serial output of text is not required, the Pin PC3 of the ATmega can be used as analog
@@ -845,6 +856,81 @@ But newer versions of the software also switch the CE signal, even if the signal
 correct operation.
 For correct operation of the ''GM328'' tester with newer software versions you should cut the
 connection of the CE signal to pin 6 of the male connector.
+
+\section{Chinese kits with graphic displays}
+
+Two different kit versions with graphical display and rotary encoder are known until now.
+The first released kit use a display with a ST7565 or compatible controller (128x64 pixels).
+In addition to the rotary encoder a additional input for frequency measurement is provided.
+For the test ports a 14-pin Textool socket, three soldering pads for cables and a testpad
+for SMD parts are provided at the main board.
+The pictures~\ref{fig:Kit_mono} shows the mounted kid.
+One of the both \(22 pF\) capacitors was replaced with a trimmer at the soldering side.
+With a trimmer the frequency of the crystal can be adjusted for better accuracy of frequency measurement
+and frequency generation. 
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_ST7565a.jpg}
+    \caption{build together}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_ST7565b.jpg}
+    \caption{with dismounted display}
+  \end{subfigure}
+  \caption{Assembled kit with 128x64 pixel display}
+  \label{fig:Kit_mono}
+\end{figure}
+
+The later released kit use a color display with a ST7735 controller (160x128 pixel)
+and is additionally equipped with a input for voltage measurement and a terminal for frequency output.
+But the frequency output terminal is not buffered, it is simply connected parallel to the TP2 terminal.
+The voltage measurement can handle positiv DC voltages up to 50V. A additional DC-DC converter
+for the measurement of Zener diodes is not provided. 
+The pictures~\ref{fig:Kit_color} shows this assembled kit.
+Also in this version was one of the both \(22 pF\) capacitors replaced
+by a trimmer (green color).
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_Color_a.jpg}
+    \caption{build together}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_Color_b.jpg}
+    \caption{with dismounted display}
+  \end{subfigure}
+  \caption{Assembled kit with 160x128 pixel color display}
+  \label{fig:Kit_color}
+\end{figure}
+
+Both kids use a DIP version of the ATmega328P mounted at a sockets and are
+not equipped with a ISP connector for updating the ATmega with newer software versions.
+The first version use
+only leaded parts for the main circuit board. 
+I have received measurement resistors \(680\Omega\) and \(470k\Omega\) with 0.1\% tolerance
+with the Chinese kit. Also a \(220 nF\) capacitor for calibration was added
+to the kit.
+The kit with the color display was equipped with a connector for a DC power supply additionally
+to the pads for the 9V battery.
+Some few SMD parts was allready assembled at the main board, so that also only simple soldering
+tasks are to do for this kit. 
+A little disadvantage of the version with the color display is the speed of display output.
+Especially for the menu handling the slower output speed will be noticed.
+Otherwise the color display has a significant higher count of pixels, so more text can be shown at once.
+Both kits use a 3.3V voltage regulator for the power of the display controller at the
+full assembled display circuit boards.
+Only the pin header must be soldered at the display circuit board.
+The color version use a CD4050 buffer to adapt the different signal voltage levels.
+I did not found any adaption of signal voltage levels at the board for the ST7565 version.
+Probably the selected controller version tolerates the 5V signal levels of the ATmega328.
+I could not find protection diodes at the input signals to the 3.3V supply side for this controller type.
 
 
 \section{Extented circuit with ATmega644 or ATmega1284}

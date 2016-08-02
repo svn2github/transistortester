@@ -158,6 +158,17 @@ entladen werden.
   \label{fig:relay_addon}
 \end{figure}
 
+Ein noch besserer Schutz ist mit einem Relais mit 3 Umschaltkontakten nach Abbildung~\ref{fig:relay_um_addon} möglich.
+Der Entladestrom wird hier durch Widerstände begrenzt und die ATmega-Eingänge sind im geschützten Zustand getrennt.
+Man darf aber nicht vergessen, daß der Tester während der Messung trotzdem ungeschützt bleibt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/relay_um_addon.eps}
+\caption{Verbesserter Schutz mit Relais}
+\label{fig:relay_um_addon}
+\end{figure}
+
 \subsection{Zenerspannungsmessung}
 
 Wenn die Ausgabe der seriellen Texte nicht gebraucht wird, kann der Pin PC3 des ATmega für die Messung
@@ -858,6 +869,79 @@ Neuere Versionen der Software schalten aber auch das CE Signal, auch wenn das Si
 benötigt wird.
 Deswegen sollte bei dem ,,GM328'' Tester die Verbindung der Tochterplatine zum Pin 6 
 der Anschlußleiste unterbrochen werden.
+
+\section{Chinesische Bausätze mit Grafikdisplay}
+
+Bisher sind zwei Bausätze mit grafischen Display und Drehimpulsgeber bekannt.
+Der zuerst erschienene Bausatz verwendet ein Display mit ST7565 oder kompatiblen Controller (128x64 Pixel).
+Außer dem Drehimpulsgeber ist  auch ein Eingang für die Frequenzmessung vorgesehen.
+Für die Testports steht ein 14-poliger Textool Sockel, 3 Lötaugen für Kabel sowie ein Testpad
+für SMD Bauteile zur Verfügung. 
+Die Fotos~\ref{fig:Kit_mono} zeigen den zusammengebauten Bausatz.
+Einer der beiden \(22 pF\) Kondensatoren 
+wurde hier durch einen Trimmer auf der Lötseite ersetzt. Mit dem Trimmer läßt sich die Frequenz des Quarzes für genauere
+Frequenzmessung bzw. Frequenzerzeugung abgleichen.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_ST7565a.jpg}
+    \caption{zusammengebaut}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_ST7565b.jpg}
+    \caption{mit abgenommenem Display}
+  \end{subfigure}
+  \caption{Bestückter Bausatz mit 128x64 Pixel Display}
+  \label{fig:Kit_mono}
+\end{figure}
+
+Der später erschienene Bausatz verwendet ein Farbdisplay mit ST7735 Controller (128x160 Pixel) 
+und hat zusätzlich zum Fequenzeingang noch einen Eingang für Spannungsmessung und einen Frequenzausgang.
+Der Frequenzausgang ist aber nicht gepuffert, sondern ist lediglich zum Anschluß TP2 parallel 
+angeschlossen. Bei der Spannungsmessung handelt es sich nur um die Messung einer positiven Gleichspannung bis 50V,
+ein DC-DC Wandler für die Zenerspannungsmessung wurde nicht vorgesehen.
+Die Fotos \ref{fig:Kit_color} zeigen den zusammengebauten Bausatz.
+Auch hier wurde einer der beiden \(22 pF\) Kondensatoren 
+wurde hier durch einen Trimmer (grün) ersetzt. 
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_Color_a.jpg}
+    \caption{zusammengebaut}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \includegraphics[width=9cm]{../PNG/Kit_Color_b.jpg}
+    \caption{mit abgenommenem Display}
+  \end{subfigure}
+  \caption{Bestückter Bausatz mit 160x128 Pixel Farbdisplay}
+  \label{fig:Kit_color}
+\end{figure}
+
+Beide Bausätze verwenden einen gesockelte DIP Version des ATmega328P und haben keinen 
+ISP Stecker für das Aufspielen neuer Softwareversionen.
+Die erste Version verwendet
+ausschließlich bedrahtete Bauteile für die Hauptplatine. Die Meßwiderstände \(680\Omega\) und \(470k\Omega\)
+waren bei meinem Bausatz mit einer 0.1\% Toleranz geliefert worden.
+Selbst ein \(220 nF\) Kondensator für die Kalibration wurde bei diesem Bausatz mitgeliefert.
+Der Bausatz mit dem Farbdisplay hat zusätzlich zum Anschluß für die 9V Batterie noch eine Buchse
+für einen Netzteilanschluß. Die wenigen SMD-Bauteile waren schon auf der Platine bestückt,
+so daß auch bei diesem Bausatz nur einfache Lötarbeiten durchzuführen sind.
+Ein kleiner Nachteil der Version mit dem Farbdisplay ist die Geschwindigkeit der Ausgabe.
+Speziell bei der Menübedienung fällt die deutlich langsamere Ausgabe negativ auf.
+Andererseits hat das Farbdisplay eine deutlich höhere Pixelzahl und kann damit mehr Text darstellen. 
+Beide Bausätze verwenden einen 3.3V Spannungsregler für die Versorgung der Display Controller auf
+den vollständig bestückten Display-Platinen. Lediglich die Stiftleiste muß bei
+der Displayplatine eingelötet werden.
+Die Farbversion verwendet einen CD4050 Puffer für die Anpassung der Signalpegel.
+Auf der Display-Platine der ST7565 Variante ist keine Anpassung der Signalpegel erkennbar.
+Wahrscheinlich toleriert die gewählte Controller-Variante die 5V Signalpegel des ATmega328.
+Es ist jedenfalls keine Schutzdiode gegen die 3.3V Versorgung bei diesem Controller feststellbar.
 
 \section{Erweiterte Schaltung mit ATmega644 oder ATmega1284}
 

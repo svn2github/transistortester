@@ -15,7 +15,11 @@ Meldung ,,kein,unbek. oder defektes Bauteil'' enden.
 Man kann die Selbsttest-Funktion nur für einen ATmega168 oder ATmega328 wählen.
 Bevor die Testschritte durchgeführt werden, wird zuerst der Null-Widerstand für alle drei Testpin-Kombinationen
 (T1:T3, T2:T3 und T1:T2) bestimmt. Diese Nullwiderstände werden für die zukünftigen ESR- und Widerstands-Messungen
-unter \(10\Omega\) berücksichtigt.
+unter \(10\Omega\) berücksichtigt. 
+Es werden nur Nullwiderstandswerte unter \(0.90\Omega\) akzeptiert, da diese Korrekturwerte bei der Messung 
+von Widerständen über \(10\Omega\) nicht berüchsichtigt werden.
+Bei der Verwendung von Kabeln muß also auf entsprechend
+geringe Widerstandswerte geachtet werden.
 Falls die später gemessenen Widerstandswerte den jeweiligen Nullwiderstand um mehr als \(0,2\Omega\) unterschreiten,
 wird der Tester auf ,,unkalibriert'' zurückgesetzt. 
 Dies wird durch den aktivierten Positionszeiger (Cursor)  beim Testen angezeigt.
@@ -143,14 +147,6 @@ für die SamplingADC Messmethode in doppelt so vielen Konfigurationen gemessen.
 Das kommt daher, weil die Nullkapazität in allen Pinkombinationen sowohl für den Ladevorgang als
 auch für den Entladevorgang bestimmt wird.
 
-\item {\bf Warten auf einen Kondensator für die Messung kleiner Induktivitäten}
-Wenn der Tester mit der SamplingADC Funktion konfiguriert wurde, ist für die Messung kleiner Induktivitäten
-ein Kondensator bekannter Größe für die Berechnung der Induktivität aus der Schwingfrequenz erforderlich.
-Brauchbare Kapazitätswerte sind hierfür etwa \(10nF\) bis \(27nF\). Ein geeigneter Kondensator
-sollte an Pin~1 und Pin~3 angeschlossen werden, wenn die Meldung ,,\mbox{1 \electricC 3 \(10-30nF\)(L)}'' in Zeile 1 des
-Displays erscheint. Genau dieser Kondensator sollte für die Induktivitätsmessung der Spule
-parallelgeschaltet werden, wenn diese Art der Induktivitätsbestimmung gewünscht wird.
-
 \item {\bf Warten auf den Anschluss eines Kondensators an Pin~1 und Pin~3.}
 Die Meldung ,,1 \mbox{\electricC}3 \textgreater \(100nF\)'' wird in Zeile 1 des Displays angezeigt.
 Zur Vorbereitung der Messung des Spannungs-Offsets des analogen Komparators muss ein ausreichend großer
@@ -170,6 +166,14 @@ internen Referenzspannung abgeglichen. Das geschieht durch den Vergleich der Kon
 der VCC-Referenz gemessen und einmal mit der internen Referenz.
 Die gefundene Differenz wird in Zeile 2 mit dem Text ,,REF\_R='' angezeigt und ebenfalls im EEPROM festgehalten.
 Der REF\_R\_KORR-Wert ist dann nur ein zusätzlicher Offset für diese automatisch gefundene Differenz.
+
+\item {\bf Warten auf einen Kondensator für die Messung kleiner Induktivitäten}
+Wenn der Tester mit der SamplingADC Funktion konfiguriert wurde, ist für die Messung kleiner Induktivitäten
+ein Kondensator bekannter Größe für die Berechnung der Induktivität aus der Schwingfrequenz erforderlich.
+Brauchbare Kapazitätswerte sind hierfür etwa \(10nF\) bis \(27nF\). Ein geeigneter Kondensator
+sollte an Pin~1 und Pin~3 angeschlossen werden, wenn die Meldung ,,\mbox{1 \electricC 3 \(10-30nF\)(L)}'' in Zeile 1 des
+Displays erscheint. Genau dieser Kondensator sollte für die Induktivitätsmessung der Spule
+parallelgeschaltet werden, wenn diese Art der Induktivitätsbestimmung gewünscht wird.
 
 \end{enumerate}
 

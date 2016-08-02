@@ -146,6 +146,17 @@ R16 к PC4 с высоким номиналом (\(47~k\Omega\)). Это поможет программному обеспеч
   \label{fig:relay_addon}
 \end{figure}
 
+You can get a better protection with a relay with 3 changeover contacts, which is shown in figure~\ref{fig:relay_um_addon}.
+The discharge current is limited with the resistors and the ATmega-inputs are disconnected in the protected mode.
+But you don't forget, that the tester remains unprotected during the measurement sequence.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=18cm]{../FIG/relay_um_addon.eps}
+\caption{Improved protection with relay}
+\label{fig:relay_um_addon}
+\end{figure}
+
 
 
 \subsection{Измерение стабилитронов с напряжением более 4 V}

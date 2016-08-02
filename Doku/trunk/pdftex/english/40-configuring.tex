@@ -172,6 +172,24 @@ For this variants you can shift the first row to the top of the screen again,
 if this option is set to 32 (half of the screen height).\\
 Example: CFLAGS += -DLCD\_ST7565\_Y\_START = 32
 
+  \item[LCD\_CHANGE\_COLOR] This option expand the menu functions with a selection item
+to change the background and the foreground color.
+If the value is set to 2, the colors blue and red are swapped.
+You can select this option only for color displays (controller ST7735 or ILI9163).\\
+Example: CFLAGS += -DLCD\_CHANGE\_COLOR=1
+
+ \item[LCD\_BG\_COLOR] With this 16-bit value you can select a background color.
+Normally the upper 5 bits are used for the color red, the middle 6 bits are used for the color green
+and the lower 5 bits are used for the color blue. Sometimes the bits for the colors red and blue
+are swapped.
+You can select this option only for color displays (controller ST7735 or ILI9163).\\
+Example: CFLAGS += -DLCD\_BG\_COLOR=0x000f
+
+ \item[LCD\_FG\_COLOR] With this 16-bit value you can select a forground color.
+The example selects the color white for text and symbols.
+You can select this option only for color displays (controller ST7735 or ILI9163).\\
+Example: CFLAGS += -DLCD\_FG\_COLOR=0xffff
+
   \item[FONT\_8X16] You must select one font size for the ST7565 controller.
 Selectable are different fonts with the name ''FONT\_'' with appended size information (width X height).
 Currently the font sizes 6X8, 8X8, 7X12, 8X12, 8x12thin, 8X14, 8X15, 8X16, and 8X16thin are available.
@@ -265,6 +283,25 @@ This features are switched on by setting the option WITH\_SamplingADC.
 At the calibration sequence additionally the zero capacity values of the sampling method is measured and
 after that the capacity value of a suitable capacitor for later building the LC-resonator with a unknown coil is measured.\\
 Example: WITH\_SamplingADC = 1
+
+  \item[WITH\_XTAL]
+This option enables additional tests for crystals and resonators, if the SamplingADC function is also enabled and
+a 16~MHz crystal is used for clock generation (OP\_MHZ = 16).
+If possible, the frequencies for serial and parallel circuit is measured and than the serial capacity Cm of the
+equivalent circuit is tried to compute from the frequency offset.\\
+Example: CFLAGS += -DWITH\_XTAL
+
+  \item[WITH\_UJT]
+This option enables additional tests for  Unijunction transistors. 
+If the SamplingADC function is enabled, the tester tries to build a oscillator with the part.
+But the UJT type is also detected without the SamplingADC function.
+Without the option WITH\_UJT the unijunction transistors are detectes as double diode.\\
+Example: CFLAGS += -DWITH\_UJT
+
+  \item[WITH\_PUT]
+This option enables a additional test for ''Programmable Unijunction Transistor''.
+Without this option PUTs are usually detected as Bipolar Junction Transistor.\\
+Example: CFLAGS += -DWITH\_PUT
 
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.
  This option should be set only for special cases to check the delay function.\\

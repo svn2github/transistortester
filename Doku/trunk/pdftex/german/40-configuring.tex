@@ -177,6 +177,24 @@ Bei diesen Displays wird die erste Zeile wieder an den oberen Rand verschoben,
 wenn diese Option auf 32 (halbe Bilschirmhöhe) gesetzt wird.\\
 Beispiel: CFLAGS += -DLCD\_ST7565\_Y\_START = 32
 
+  \item[LCD\_CHANGE\_COLOR] Diese Option erweitert die Menüfunktionen um die Möglichkeit,
+die Hindergrundfarbe und die Vordergrundfarbe wählen zu können. Wenn die Option auf
+den Wert 2 gesetzt wird, werden die Farben blau und rot vertauscht.
+Diese Option kann nur für Farbdisplays (Controller ST7735 oder ILI9193) gewählt werden.\\
+Beispiel: CFLAGS += -DLCD\_CHANGE\_COLOR=1
+
+ \item[LCD\_BG\_COLOR] Mit dieser 16-Bit Zahl kann eine Farbe für den Hintergrund gewählt werden.
+Normalerweise sind die oberen 5 Bit für die Farbe rot, die mittleren 6 Bit für die Farbe grün
+und die unteren 5 Bit für die Farbe blau vorgesehen. Manchmal sind aber die Bits für die Farben 
+rot und blau vertauscht.
+Diese Option kann nur für Farbdisplays (Controller ST7735 oder ILI9193) gewählt werden.\\
+Beispiel: CFLAGS += -DLCD\_BG\_COLOR=0x000f
+
+ \item[LCD\_FG\_COLOR] Mit dieser 16-Bit Zahl kann eine Farbe für den Vordergrund gewählt werden.
+Das Beispiel wählt weiss als Farbe für Text und Symbole aus.
+Diese Option kann nur für Farbdisplays (Controller ST7735 oder ILI9193) gewählt werden.\\
+Beispiel: CFLAGS += -DLCD\_FG\_COLOR=0xffff
+
   \item[FONT\_8X16] Für den ST7565 controller sollte ein Font ausgewählt werden.
 Auswählbar sind die Fonts mit der Variablen FONT\_ mit angehängter Größe (Breite x Höhe).
 iDerzeit sind 6X8, 8X8, 7X12, 8X12, 8X12thin, 8X14 8X15, 8X16 und 8X16thin.
@@ -273,6 +291,25 @@ Schwingverhalten geschätzt werden. Freigeschaltet werden diese Funktionen mit d
 Bei der Kalibration werden dann sowohl zusätzlich die Nullkapazitäten mit der Samplingmethode zusätzlich bestimmt,
 als auch die Kapazität eines Parallel-Kondensators vermessen für die spätere Bildung eines Schwingkreises mit einer unbekannten Spule.\\
 Beispiel: WITH\_SamplingADC = 1
+
+  \item[WITH\_XTAL]
+Diese Option schaltet zusätzlich Tests für Quarze und Resonatoren frei, wenn die SamplingADC Funktion schon vorhanden ist
+und ein 16 MHz Quarz verwendet wird (OP\_MHZ = 16).
+Wenn möglich, werden die Frequenzen für Serien- und Parallel-Schaltung bestimmt und dann versucht,
+aus dem Frequenzversatz die Serienkapazität Cm zu bestimmen.\\
+Beispiel: CFLAGS += -DWITH\_XTAL
+
+  \item[WITH\_UJT]
+Diese Option schaltet zusätzliche Tests für Unijunctiontransistoren frei. 
+Wenn die SamplingADC Funktion freigeschaltet wurde, wird die Schwingfähigkeit des Bauteils untersucht.
+Richtig erkannt wird das Bauteil aber auch ohne die SamplingADC Funktion. 
+Ohne die Option WITH\_UJT werden Unijunctiontransistoren als Doppeldiode erkannt.\\
+Beispiel: CFLAGS += -DWITH\_UJT
+
+  \item[WITH\_PUT]
+Diese Option schaltet einen zusätzlichen Test auf ,,Programmable Unijunction Transistor'' frei.
+Ohne den zusätzlichen Test werden PUTs normalerweise als Bipolartransistor (Bipolar Junction Transistor) erkannt.\\
+Beispiel: CFLAGS += -DWITH\_PUT
 
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein \(50Hz\)-Signal auf Port 2 und Port 3 erzeugt.
 Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\
