@@ -13,6 +13,9 @@
  * See optiboot.c for details.
  */
 
+#ifndef UART
+ #define UART 0
+#endif
 #include "short_port_codes.h"
 
 /* First make undefined ports equal to p */
@@ -84,6 +87,11 @@
 /* Sanguino support (and other 40pin DIP cpus) */
 #if defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega32__) || defined(__AVR_ATmega16__)
 /*------------------------------------------------------------------------ */
+ #if defined(__AVR_ATmega16__) || defined(__AVR_ATMEGA32__)
+  /* ATmega16/32 support only one UART */
+  #undef UART
+  #define UART 0
+ #endif
 /* Onboard LED is connected to pin PB0 on Sanguino */ 
 #if LED == p
  #define LEDX         pB0
@@ -94,12 +102,20 @@
 /* Default "SOFT" UART Ports for ATmega644/1284/32 */
 #ifdef SOFT_UART
  #if UART_RX == p
-  #define UART_RXX	pD0
+  #if UART == 0
+   #define UART_RXX	pD0
+  #else
+   #define UART_RXX	pD2
+  #endif
  #else
   #define UART_RXX      UART_RX
  #endif
  #if UART_TX == p
-  #define UART_TXX	pD1
+  #if UART == 0
+   #define UART_TXX	pD1
+  #else
+   #define UART_TXX	pD3
+  #endif
  #else
   #define UART_TXX      UART_TX
  #endif
@@ -165,12 +181,34 @@
 /* Default "SOFT" UART Ports for ATmega1280 */
 #ifdef SOFT_UART
  #if UART_RX == p
-  #define UART_RXX	pE0
+  #if UART == 0
+   #define UART_RXX	pE0
+  #endif
+  #if UART == 1
+   #define UART_RXX	pD2
+  #endif
+  #if UART == 2
+   #define UART_RXX	pH0
+  #endif
+  #if UART == 3
+   #define UART_RXX	pJ0
+  #endif
  #else
   #define UART_RXX      UART_RX
  #endif
  #if UART_TX == p
-  #define UART_TXX	pE1
+  #if UART == 0
+   #define UART_TXX	pE1
+  #endif
+  #if UART == 1
+   #define UART_TXX	pD3
+  #endif
+  #if UART == 2
+   #define UART_TXX	pH1
+  #endif
+  #if UART == 3
+   #define UART_TXX	pJ1
+  #endif
  #else
   #define UART_TXX      UART_TX
  #endif

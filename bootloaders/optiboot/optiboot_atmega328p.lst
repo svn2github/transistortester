@@ -17,20 +17,20 @@ Idx Name          Größe     VMA       LMA       Datei-Off Ausr.
 Disassembly of section .text:
 
 00007e00 <__ctors_end>:
+	.section .text
+	.func optiboot
 	.global optiboot
 
 optiboot:
-;	AIN	r28, SPL
-;	AIN	r29, SPH
 	cli
     7e00:	f8 94       	cli
 	eor	r1, r1
     7e02:	11 24       	eor	r1, r1
+#ifndef MCUSR
  #define MCUSR MCUCSR		/* ATmega16 */
 #endif
 
 //#define RESET_CAUSE GPIOR1
-
 	AIN	r24, MCUSR
     7e04:	84 b7       	in	r24, 0x34	; 52
 	AOUT	MCUSR, r1	; MCUSR = 0
@@ -87,24 +87,24 @@ appStart:
 	ldi	r24, (1<<U2X0)
     7e1a:	82 e0       	ldi	r24, 0x02	; 2
  #endif
-	sts	UART_SRA, r24
+	AOUT	UART_SRA, r24
     7e1c:	80 93 c0 00 	sts	0x00C0, r24
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
     7e20:	88 e1       	ldi	r24, 0x18	; 24
-	sts	UART_SRB, r24
+	AOUT	UART_SRB, r24
     7e22:	80 93 c1 00 	sts	0x00C1, r24
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
 	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
-	sts	UCSRC, r25
+	AOUT	UCSRC, r25
  #else
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
     7e26:	96 e0       	ldi	r25, 0x06	; 6
-	sts	UART_SRC, r25
+	AOUT	UART_SRC, r25
     7e28:	90 93 c2 00 	sts	0x00C2, r25
  #endif
 	ldi	r25, BAUD_DIV	; 0x10
     7e2c:	90 e1       	ldi	r25, 0x10	; 16
-	sts	UART_SRL, r25
+	AOUT	UART_SRL, r25
     7e2e:	90 93 c4 00 	sts	0x00C4, r25
 #endif		/* no SOFT_UART */
 
@@ -173,13 +173,13 @@ get_nextp:
 
  	ldi	r24, OPTIBOOT_MINVER	; 	
     7e56:	82 e0       	ldi	r24, 0x02	; 2
-	cpi	r21, 0x82	; 130
+	cpi	r21, 0x82	; Parm_STK_SW_MINOR
     7e58:	52 38       	cpi	r21, 0x82	; 130
 	breq	to_putch	; rcall putch, rjmp put_ok
     7e5a:	21 f0       	breq	.+8      	; 0x7e64 <to_putch>
 	ldi	r24, 0x03	; answer generic 0x03
     7e5c:	83 e0       	ldi	r24, 0x03	; 3
-	cpi	r21, 0x81	; 129
+	cpi	r21, 0x81	; Parm_STK_SW_MAJOR
     7e5e:	51 38       	cpi	r21, 0x81	; 129
 	brne	to_putch	; rcall putch, rjmp put_ok
     7e60:	09 f4       	brne	.+2      	; 0x7e64 <to_putch>
@@ -645,13 +645,13 @@ no_to:
   #endif
  #endif // baud rate fastn check
 putch:	/* void putch(char r24) */
-	lds	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
+	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
     7f5e:	90 91 c0 00 	lds	r25, 0x00C0
       	sbrs	r25, UDRE0
     7f62:	95 ff       	sbrs	r25, 5
       	rjmp	putch		; wait, UART out not ready
     7f64:	fc cf       	rjmp	.-8      	; 0x7f5e <putch>
-	sts	UART_UDR, r24	; UART_UDR = ch;
+	AOUT	UART_UDR, r24	; UART_UDR = ch;
     7f66:	80 93 c6 00 	sts	0x00C6, r24
       	ret
     7f6a:	08 95       	ret
@@ -668,8 +668,7 @@ gtch1:
     7f70:	87 ff       	sbrs	r24, 7
        	rjmp	gtch1			; no data received, wait
     7f72:	fc cf       	rjmp	.-8      	; 0x7f6c <getch>
-;	lds	r24, UART_SRA		; if (!(UART_SRA & _BV(FE0))) {
-      	sbrs	r24, FE0
+      	sbrs	r24, FE0		; if (!(UART_SRA & _BV(FE0))) {
     7f74:	84 ff       	sbrs	r24, 4
      	wdr		; watchdogReset();
     7f76:	a8 95       	wdr
@@ -678,7 +677,7 @@ gtch1:
          * don't care that an invalid char is returned...)
          */
 
- 	lds	r24, UART_UDR	; ch = UART_UDR; return ch;
+ 	AIN	r24, UART_UDR	; ch = UART_UDR; return ch;
     7f78:	80 91 c6 00 	lds	r24, 0x00C6
  #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
 	ACBI	LED_PORT, LEDbit
@@ -857,5 +856,3 @@ wt_fin:
 ; UART
 ; SUPPORT_EEPROM=1
 ; FORCE_WATCHDOG=
-
-; -e -u -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m

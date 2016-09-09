@@ -369,8 +369,8 @@ ifndef HFUSE
 atmega16: HFUSE := 9C
 endif
 ifndef LFUSE
-# Crystal/Resonator high Frequency (16MHz) 16KCK/14CK+65ms
-atmega16: LFUSE := FF
+# BrownOut enable, Crystal/Resonator high Frequency (16MHz) 16KCK/14CK+65ms
+atmega16: LFUSE := BF
 endif
 # LED is set to D6 by default for ATmega16
 atmega16: LED := D6

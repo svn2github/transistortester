@@ -365,11 +365,9 @@ optiboot_version:
 	.global optiboot
 
 optiboot:
-;	AIN	r28, SPL
-;	AIN	r29, SPH
 	cli
 	eor	r1, r1
-#if defined(__AVR_ATmega8__) || defined (__ATmega16__) || defined (__AVR_ATmega32__)
+#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega16__) || defined (__AVR_ATmega32__)
 /* only ATmega8/16/32 require a initializing of Stack Pointer SP */
 /* for ATtiny84 and ATmega324/644/1284/88/168/328 this has been done by reset! */
 
@@ -377,6 +375,8 @@ optiboot:
 	AOUT	SPH, r24
 	ldi	r24,lo8(RAMEND)
 	AOUT	SPL, r24
+#endif
+#if defined(__AVR_ATmega8__)
  /* avrdude set a byte address for this processors (tested with ATmega8) */
  /* for the Program Page command. */
  /* For other processors like ATmega88/168/328 avrdude use a word address, */
@@ -405,7 +405,6 @@ optiboot:
 #endif
 
 //#define RESET_CAUSE GPIOR1
-
 	AIN	r24, MCUSR
 	AOUT	MCUSR, r1	; MCUSR = 0
 	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUSR) in IO register
@@ -519,18 +518,18 @@ try_loader:
  #else
 	ldi	r24, (1<<U2X0)
  #endif
-	sts	UART_SRA, r24
+	AOUT	UART_SRA, r24
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-	sts	UART_SRB, r24
+	AOUT	UART_SRB, r24
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
 	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
-	sts	UCSRC, r25
+	AOUT	UCSRC, r25
  #else
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
-	sts	UART_SRC, r25
+	AOUT	UART_SRC, r25
  #endif
 	ldi	r25, BAUD_DIV	; 0x10
-	sts	UART_SRL, r25
+	AOUT	UART_SRL, r25
 #endif		/* no SOFT_UART */
 
 	ldi	r20, WATCHDOG_1S	;0x0E
@@ -578,10 +577,10 @@ get_nextp:
 	rcall	verifySpace	; check Sync_CRC_EOP, putch(STK_INSYNC)
 
  	ldi	r24, OPTIBOOT_MINVER	; 	
-	cpi	r21, 0x82	; 130
+	cpi	r21, 0x82	; Parm_STK_SW_MINOR
 	breq	to_putch	; rcall putch, rjmp put_ok
 	ldi	r24, 0x03	; answer generic 0x03
-	cpi	r21, 0x81	; 129
+	cpi	r21, 0x81	; Parm_STK_SW_MAJOR
 	brne	to_putch	; rcall putch, rjmp put_ok
 	ldi	r24, OPTIBOOT_MAJVER+OPTIBOOT_CUSTOMVER
 to_putch:
@@ -1049,10 +1048,10 @@ no_to:
   #endif
  #endif // baud rate fastn check
 putch:	/* void putch(char r24) */
-	lds	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
+	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
       	sbrs	r25, UDRE0
       	rjmp	putch		; wait, UART out not ready
-	sts	UART_UDR, r24	; UART_UDR = ch;
+	AOUT	UART_UDR, r24	; UART_UDR = ch;
       	ret
 ;**********************************************************
 	/* call getch fetch a character from serial interface */
@@ -1066,8 +1065,7 @@ gtch1:
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
      	sbrs	r24, RXC0
        	rjmp	gtch1			; no data received, wait
-;	lds	r24, UART_SRA		; if (!(UART_SRA & _BV(FE0))) {
-      	sbrs	r24, FE0
+      	sbrs	r24, FE0		; if (!(UART_SRA & _BV(FE0))) {
      	wdr		; watchdogReset();
        /*
          * A Framing Error indicates (probably) that something is talking
@@ -1078,7 +1076,7 @@ gtch1:
          * don't care that an invalid char is returned...)
          */
 
- 	lds	r24, UART_UDR	; ch = UART_UDR; return ch;
+ 	AIN	r24, UART_UDR	; ch = UART_UDR; return ch;
  #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
 	ACBI	LED_PORT, LEDbit
  #endif

@@ -365,6 +365,10 @@ Wenn man einen Arduino UNO mit gesockeltem ATmega328p besitzt, kann man den ATme
 entfernen und das Board als USB-seriell Wandler benutzen. 
 So kann man dann auch die Programmdaten zu einem anderen AVR-Prozessor übertragen.
 Bei häufigem Gebrauch ist natürlich ein separates USB-seriell Modul sinnvoll.
+Die beiden 1~nF Kondensatoren an den RX-Eingängen filtern Impulsspitzen weg. Der Test
+des Software-UART Programms war nur erfolgreich mit einem kleinen Kondensator am RX Eingang
+des AVR Prozessors. Die Tastspitze eines Oszilloskops war aber als ,,Filter'' schon ausreichend.
+Die Hardware-UART Schnittstelle filtert wohl besser und läuft mit und ohne Kondensator einwandfrei.
 
 Bei der Arduino Entwicklungsumgebung Sketch ist unter ,,Tools - serieller Port'' die Möglichkeit vorgesehen,
 eine serielle Schnittstelle auszuwählen. Weiter kann dann unter ,,Tools - Serial Monitor'' ein Kontrollfenster

@@ -54,5 +54,7 @@ echo " "; echo "***** make atmega8 ******"
 make atmega8 $AllEEprom=1
 echo " "; echo "***** make atmega168 ******"
 make atmega168 $AllEEprom=1
-echo " "; echo "***** make atmega328 ******"
-make atmega328 $AllEEprom=1
+# echo " "; echo "***** make atmega328 ******"
+# make atmega328 $AllEEprom=1
+echo " "; echo "***** make atmega328p ******"
+make atmega328p $AllEEprom=1

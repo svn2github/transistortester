@@ -11,6 +11,7 @@
 	#include "wait1000ms.h"
 	#include "uart_defs.h"
 
+
 const unsigned char Hello1[] PROGMEM = "Hello World from Flash!";
 const unsigned char External[] PROGMEM = "External ";
 const unsigned char WatchDog[] PROGMEM = "Watch-dog ";
@@ -57,7 +58,7 @@ void uart_newline(void) {
 //
 	//begin of Test program
 int main(void) {
-#ifdef UCSR0A
+#if defined(UART_SRA) && (SOFT_UART == 0) 
  // setup the correct BAUD_RATE divider for Clock-frequency F_CPU
  #define BAUD_DIV ((F_CPU + (BAUD_RATE * 4L)) / (BAUD_RATE * 8L) - 1)
  #if BAUD_DIV > 255
@@ -66,17 +67,17 @@ int main(void) {
   #if BAUD_DIV > 250
    #error Unachievable baud rate (too slow) BAUD_RATE
   #endif // baud rate slow check
-        UCSR0A = (0<<U2X0);
+        UART_SRA = (0<<U2X0);
  #else
-        UCSR0A = (1<<U2X0);
+        UART_SRA = (1<<U2X0);
  #endif
-        UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+        UART_SRB = (1<<RXEN0)|(1<<TXEN0);
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
         UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);	// config UART
  #else
-        UCSR0C = (1<<UCSZ00)|(1<<UCSZ01);		// config UART
+        UART_SRC = (1<<UCSZ00)|(1<<UCSZ01);		// config UART
  #endif
-	UBRR0L = BAUD_DIV;		// set divider for UART
+	UART_SRL = BAUD_DIV;		// set divider for UART
 
 #else
 	// prepare serial output, software solution

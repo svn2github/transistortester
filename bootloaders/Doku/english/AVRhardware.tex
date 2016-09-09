@@ -375,6 +375,12 @@ You can select with the Arduino development tool Sketch with the menu entry ''To
 a detected serial port. Then you can open a monitor window with the menu entry ''Tools - Serial Monitor'',
 which can show you the serial output of your AVR micro-controller at the screen.
 The Baud rate of the serial interface can be selected at the monitor window.
+Both 1~nF capacitors at the RX-inputs removes spikes from the serial signals.
+The test of the software UART program was only successfull with a little capacitor
+at the RX input of the AVR processor. The probe of a scope was sufficient as ''filter'' for the spikes.
+The hardware UART tolerates the spikes without any filter and runs proper
+with or without the capacitor. 
+
 The running Serial Monitor of the Arduino Sketch can disturb the program download with the
 serial interface, if the same USB - serial module is used for download and the monitor program.
 But you can insert a additional USB - serial module to the host computer and connect

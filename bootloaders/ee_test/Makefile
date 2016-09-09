@@ -33,6 +33,13 @@ m88: F_CPU := 16000000
 endif
 m88: upload
 
+m16: PARTNO := m16
+m16: MCU = atmega16
+ifndef F_CPU
+m16: F_CPU := 16000000
+endif
+m16: upload
+
 m168: PARTNO := m168
 m168: MCU = atmega168
 ifndef F_CPU
@@ -46,6 +53,13 @@ ifndef F_CPU
 m168p: F_CPU := 16000000
 endif
 m168p: upload
+
+m32: PARTNO := m32
+m32: MCU = atmega32
+ifndef F_CPU
+m32: F_CPU := 16000000
+endif
+m32: upload
 
 m328: PARTNO := m328
 m328: MCU := atmega328
@@ -132,6 +146,12 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS += $(COMMON)
+ifdef SOFT_UART
+ CFLAGS += -DSOFT_UART=$(SOFT_UART)
+endif
+ifdef UART
+ CFLAGS += -DUART=$(UART)
+endif
 CFLAGS += -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 # CFLAGS += -maccumulate-args
 CFLAGS += -MD -MP -MT $(*F).o  
@@ -215,6 +235,7 @@ clean:
 upload: $(PARTNO)_test.hex $(PARTNO)_test.eep $(PARTNO)_test.lst size
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
+#	avrdude -vvvv -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a 
 program: $(PARTNO)_test.hex
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
