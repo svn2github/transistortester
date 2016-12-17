@@ -856,3 +856,5 @@ wt_fin:
 ; UART
 ; SUPPORT_EEPROM=1
 ; FORCE_WATCHDOG=
+
+; -e -u -U efuse:w:0x05:m -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m
