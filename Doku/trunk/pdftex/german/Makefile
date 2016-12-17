@@ -2,6 +2,7 @@ LISTE1 = ../GNU/RLvtot.eps ../GNU/RLvlow.eps ../GNU/RLvhigh.eps ../GNU/RHv.eps .
 LISTE1 += ../GNU/Mega8cap.eps ../GNU/Mega168cap.eps ../GNU/Mega168cap_opt.eps ../GNU/Mega168all.eps 
 LISTE1 += ../GNU/ComparatorAdjust.eps ../GNU/Mega328all.eps ../GNU/Mega1284.eps ../GNU/SelfTref.eps ../GNU/MegaAuto.eps
 LISTE1 += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Cesr2.eps ../GNU/res_esr.eps
+LISTE1 += ../GNU/Cesr_22n.eps ../GNU/Cesr_22n_low.eps
 LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
 LISTE1 += ../GNU/Cap_FC_data.eps ../GNU/Cap_FR_data.eps ../GNU/Cap_FC_FR_data.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
@@ -59,6 +60,10 @@ all: ttester.pdf ttinfo.pdf
 	gnuplot ../GNU/Cesr.gnu
 ../GNU/Cesr2.eps: ../GNU/Cesr2.gnu ../GNU/Cesr2_all.dat
 	gnuplot ../GNU/Cesr2.gnu
+../GNU/Cesr_22n.eps: ../GNU/Cesr_22n.gnu ../GNU/Cesr_22n.dat
+	gnuplot ../GNU/Cesr_22n.gnu
+../GNU/Cesr_22n_low.eps: ../GNU/Cesr_22n_low.gnu ../GNU/Cesr_22n_low.dat
+	gnuplot ../GNU/Cesr_22n_low.gnu
 ../GNU/res_esr.eps: ../GNU/rmess_esr.gnu ../GNU/rmess-esr.dat
 	gnuplot ../GNU/rmess_esr.gnu
 ../GNU/Elco_esr.eps: ../GNU/Elco_esr.gnu ../GNU/Elco_esr.dat

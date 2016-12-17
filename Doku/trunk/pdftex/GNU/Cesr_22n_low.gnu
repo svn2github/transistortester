@@ -29,16 +29,16 @@ GNUTERM = "wxt"
 set terminal epslatex color solid
 set grid
 set logscale x
-set logscale y
+set logscale y 10
 set pointsize 3
 set style data points
 set style line 1  linetype 1 linecolor rgb "red" linewidth 3.000  pointtype 4
 set style line 4  linetype 1 linecolor rgb "red" linewidth 3.000  pointtype 6
-set style line 2  linetype 1 linecolor rgb "green" linewidth 3.000 pointtype 4 pointsize 2
-set style line 3  linetype 1 linecolor rgb "blue" linewidth 3.000  pointtype 2 pointsize 1
+set style line 2  linetype 1 linecolor rgb "black" linewidth 3.000 pointtype 4 pointsize 2
+set style line 3  linetype 1 linecolor rgb "red" linewidth 3.000  pointtype 2 pointsize 1
 set style line 5  linetype 1 linecolor rgb "green" linewidth 3.000 pointtype 7 pointsize 2
 set style line 6  linetype 1 linecolor rgb "blue" linewidth 3.000  pointtype 7 pointsize 2
-set style line 7  linetype 1 linecolor rgb "black" linewidth 3.000  pointtype 4 pointsize 4
+set style line 7  linetype 1 linecolor rgb "blue" linewidth 3.000  pointtype 4 pointsize 2
 
 set xlabel "Capacity value / F"
 set format x "%.0s%c"
@@ -47,12 +47,19 @@ set xtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set xtics autofreq  norangelimit
 set ylabel "ESR / Ohm"
 set key inside right top vertical Right noreverse enhanced autotitles nobox
-set output "../GNU/Cesr2.eps"
-plot "../GNU/Cesr2_all.dat" u 2:16 title "328p" ls 1, "../GNU/Cesr2_all.dat" u 2:17 notitle ls 1 , "../GNU/Cesr2_all.dat" u 2:18 notitle ls 1,\
-     "../GNU/Cesr2_all.dat" u 2:13 title "328" ls 4, "../GNU/Cesr2_all.dat" u 2:14 notitle ls 4 , "../GNU/Cesr2_all.dat" u 2:15 notitle ls 4,\
-     "../GNU/Cesr2_all.dat" u 2:10 title "168p" ls 2, "../GNU/Cesr2_all.dat" u 2:11 notitle ls 2 , "../GNU/Cesr2_all.dat" u 2:12 notitle ls 2,\
-     "../GNU/Cesr2_all.dat" u 2:7 title "168a" ls 5, "../GNU/Cesr2_all.dat" u 2:8 notitle ls 5 , "../GNU/Cesr2_all.dat" u 2:9 notitle ls 5,\
-     "../GNU/Cesr2_all.dat" u 2:4 title "168" ls 6, "../GNU/Cesr2_all.dat" u 2:5 notitle ls 6 , "../GNU/Cesr2_all.dat" u 2:6 notitle ls 6,\
-     "../GNU/Cesr2_all.dat" u 2:3 title "LCR" ls 7
+set output "../GNU/Cesr_22n_low.eps"
+#plot "../GNU/Cesr_22n.dat" u 2:22 title "GM328" ls 1, \
+#     "../GNU/Cesr_22n.dat" u 2:24 title "fish" ls 3, \
+#     "../GNU/Cesr_22n.dat" u 2:18 title "kit" ls 4, "../GNU/Cesr_22n.dat" u 2:20 notitle ls 4 ,\
+#    "../GNU/Cesr_22n.dat" u 2:6 title "wei" ls 5, "../GNU/Cesr_22n.dat" u 2:8 notitle ls 5 ,\
+
+plot "../GNU/Cesr_22n_low.dat" u 2:10 title "Tester" ls 3, "../GNU/Cesr_22n_low.dat" u 2:12 notitle ls 3 , "../GNU/Cesr_22n_low.dat" u 2:14 notitle ls 3,\
+     "../GNU/Cesr_22n_low.dat" u 2:16 notitle ls 3,\
+     "../GNU/Cesr_22n_low.dat" u 2:22 notitle ls 3, \
+     "../GNU/Cesr_22n_low.dat" u 2:24 notitle ls 3, \
+     "../GNU/Cesr_22n_low.dat" u 2:18 notitle ls 3, "../GNU/Cesr_22n_low.dat" u 2:20 notitle ls 3 ,\
+     "../GNU/Cesr_22n_low.dat" u 2:6 notitle ls 3, "../GNU/Cesr_22n_low.dat" u 2:8 notitle ls 3 ,\
+     "../GNU/Cesr_22n_low.dat" u 2:4 title "LCR100k" ls 2, "../GNU/Cesr_22n_low.dat" u 2:3 title "LCR10k" ls 7
+#pause 10
 set output
 #    EOF

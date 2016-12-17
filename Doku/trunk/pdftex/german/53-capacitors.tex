@@ -584,6 +584,42 @@ ATmega gezeigt.
 \label{fig:res_esr}
 \end{figure}
 
+Ab der Softwareversion 1.12k wurde die Ladepulslänge für die Kondensatoren auf \(2\mu s\) verkürzt, um den ESR Wert bei noch 
+geringeren Kapazitätswerten messen zu können. Es kann jetzt der ESR-Wert ab einer Kapazität von \(20nF\) gemessen werden.
+Dabei wächst der Meßfehler mit geringer werdender Kapazität an. Der Grund hierfür ist die kleiner werdende Zeitkonstante
+der RC-Schaltung, die bei \(20nF\) nur etwa \(14.4\mu s\) beträgt. Dadurch ändert sich die Spannung auch während des
+\(2\mu s\) Strompulses deutlich.
+Die Software kann den Abtastzeitpunkt nur auf einen Prozessortakt genau wählen. Aber das Eingangsfilter
+des ADC hat eine Zeitkonstante von etwa \(0.24\mu s\), die wohl leider von Exemplar zu Exemplar etwas variiert.
+Diese Änderung der Filterzeitkonstante kann im Programm nicht berücksichtigt werden.
+Hierfür müsste der Abtastzeitpunkt des ADC auf einen Bruchteil der Prozessortaktzeit genau eingestellt werden können.
+Mit größer werdenden Kapazitätswerten
+des Meßobjektes wächst die Zeitkonstante an und die Spannungsänderung während des Ladepulses wird immer geringer.
+Damit hat auch die Variation der Zeitkonstante des ADC-Eingangsfilters immer weniger Einfluß auf die Meßergebnisse.
+Die Beispiele in Abbildung~\ref{pic:Cesr_22n} zeigen die Ergebnisse von 10 verschiedenen Testern. Auf der linken Seite
+sind Kondensatoren mit höheren ESR-Werten vermessen worden. Da sieht das Ergebnis verglichen mit den
+Meßergebnissen des Peaktech 2170 LCR Meßgerätes bei \(10kHz\) und \(100kHz\) noch einigermaßen zufriedenstellend aus.
+Auf der rechten Seite sind die Meßwerte von qualitativ guten Kondensatoren mit niedrigen ESR-Werten dargestellt.
+Obwohl hier die Grenze des Verfahrens deutlich zu erkennen ist, ist das Ergebnis immer noch besser als gar keine Information.
+Es läßt sich in jedem Fall die Qualität eines Kondensators auch bei niedriger Kapazität einschätzen.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Cesr_22n}}
+    \caption{höhere ESR Werte}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Cesr_22n_low}}
+    \caption{niedrigere ESR Werte}
+  \end{subfigure}
+  \caption{ESR-Messungen von Kondensatoren mit niedriger Kapazität}
+  \label{pic:Cesr_22n}
+\end{figure}
+ 
+
 
 \subsection{Spannungsverlust nach einem Ladepuls, Vloss}
 Beim Messverfahren von großen Kapazitäten wird der Spannungsverlust nach einem Ladepuls im stromlosen Zustand untersucht.

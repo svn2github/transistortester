@@ -592,7 +592,41 @@ figure~\ref{fig:res_esr}.
 \label{fig:res_esr}
 \end{figure}
 
+With software version 1.12k the load pulse length for the capacitors is reduced to \(2\mu s\) to accomplish ESR measurements
+of capacitors with lower capacity values. Now a ESR-value can be measured for capacity values above \(20nF\).
+But the measurement error will grow for lower capacity values. The reason for that is the decrease of the time constant of the
+RC-circuit, which will be only about \(14.4\mu s\) for a capacity value of \(20nF\).
+This will result to a fast change of the capacitor voltage during the \(2\mu s\) current pulses.
+The software can select the sampling instance of the ADC only to the time of any processor clock.
+But the input filter of the ADC has a time constant of about \(0.24\mu s\), which can vary from exemplar to examplar of the ATmega.
+This change of the ADC input filter time constant can not be respected with the software.
+For this purpose the ADC sample time must be selectable to a fraction of the processor clock period.
+With greater capacity values of the measurement object the time constant will grow and the voltage change during the
+load pulse will decrease. For this reason the variation of the ADC input filter time constant  has
+lower effect with greater capacity values.
+The examples in figures~\ref{pic:Cesr_22n} show the results for some capacitors with 10 different tester examples. The picture at the left side
+shows the ESR results of some capacitors with higher ESR values. The result is rather simular compared with the results
+of the Peaktech 2170 LCR meter at \(10kHz\) and at \(100kHz\).
+At the right picture you can see the measurement results of some high quality capacitors with low ESR values.
+Altough you can notice the limit of the method especially for low capacity values, the result is still better than no information.
+In either case you can classify the quality of a capacitor also for lower capacity values.
 
+\begin{figure}[H]
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Cesr_22n}}
+    \caption{higher ESR values}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{9cm}
+    \centering
+    \resizebox{9cm}{!}{\input{../GNU/Cesr_22n_low}}
+    \caption{lower ESR values}
+  \end{subfigure}
+  \caption{ESR-measurements of capacitors with lower capacity}
+  \label{pic:Cesr_22n}
+\end{figure}
+ 
 
 
 \subsection{Voltage loss after a load pulse, Vloss}
