@@ -619,6 +619,13 @@ Es läßt sich in jedem Fall die Qualität eines Kondensators auch bei niedriger
   \label{pic:Cesr_22n}
 \end{figure}
  
+Für Prozessoren mit mehr als 16K Flash Speicher wird ab Softwareversion 1.12k für die Hälfte der Einzelmessungen
+zusätzlich zum \(680\Omega\) Widerstand der \(470k\Omega\) Widerstand parallel geschaltet, um den Meßstrom geringfügig zu variieren.
+Leider ist der zusätzliche Strom sehr gering, so daß die damit erreichte Spannungserhöhung nur wenig zur Änderung
+des ADC-Ergebnisses beiträgt.
+Die Spannungserhöhung beträgt nur etwa 20\% eines ADC bits mit der internen \(1.1V\) Referenz.
+Wünschenswert wäre eine kleine zusätzliche Rauschspannung am ADC Eingang, die zur Änderung der ADC-Einzelwerte führen würde.
+Hiermit wäre dann eine statistische Erhöhung der ADC Auflösung durch Mittelwertbildung möglich. 
 
 
 \subsection{Spannungsverlust nach einem Ladepuls, Vloss}

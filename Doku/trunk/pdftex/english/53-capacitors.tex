@@ -627,6 +627,14 @@ In either case you can classify the quality of a capacitor also for lower capaci
   \label{pic:Cesr_22n}
 \end{figure}
  
+For processors with more than 16K flash memory the \(470k\Omega\) resistor is connected parallel to the \(680\Omega\) resistor
+for the half of single measurements beginning with software release 1.12k to vary the measurement current a little bit.
+Unfortunately the additional current is very low, so that the resulting voltage enhancement can mot make shure a
+change of the ADC result.
+The voltage enhancement is only about 20\% of a ADC bit with the internal \(1.1V\) reference.
+A add of a little noise voltage at the ADC input would be preferable.
+With that feature a statistical enhancement of the ADC resolution by averaging can be achieved.
+ 
 
 
 \subsection{Voltage loss after a load pulse, Vloss}
