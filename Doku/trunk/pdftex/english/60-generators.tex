@@ -14,8 +14,20 @@ The frequency output is done with the \(680\Omega\) resistor at measurement port
 The measurement port TP1 is switched to GND.
 The frequencies are build with the 16~bit counter from the CPU clock frequency 
 (\(8MHz\) or \(16MHz\)).
-Currently a list of predefined frequencies (\(2MHz\) down to \(1Hz\)) can be selected with short key press.
-If you hold the key pressed for a long time, you can return to the dialog function and select
+The frequency can be selected for each digit position beginning with the 1Hz position with the digits 0-9.
+The highest selectable position is the 100kHz position. For this position numericals between 0 and 20 can be selected.
+Therefore frequencies up to 2Mhz are selectable.
+Without the rotary encoder the position value can be increased with a short key press (\textless~0.8s).
+With a rotary encoder you can change the position value in any direction.
+With a longer key press you can change the position of digit change.
+With a symbol in row 1 of the frequency line the direction of the position change is shown. 
+A \textgreater~symbol in row 1 indicate, that the next higher position will be selected.
+With a \textless~symbol in row 1 the next position will be the lower position (down to 1Hz).
+If the highest digit position (100kHz) is selected, the \textgreater~symbol is replaced by the character R.
+In this condition the longer key press will reset the frequency value to the initial value (1Hz).
+Because not every selected frequency can be generated correctly with the counter,
+the difference to the real generated frequency is shown in line 3 or behind the frequency value.
+If you hold the key pressed for a long time (\textgreater~1.4s), you can return to the dialog function and select
 the same or another function.
 
 \section{Puls width generation}

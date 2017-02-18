@@ -77,15 +77,20 @@ Bei gesetzter POWER\_OFF-Option in der Makefile wird die Dauer der Frequenzmessu
 Die Frequenzmessung wird durch Tastendruck beendet und in das Auswahlmenü zurückgekehrt.\\
 
  \item[f-Generator]
-Bei der Zusatzfunktion ,,f-Generator'' (Frequenz-Generator) können die Frequenzen durch einen Tastendruck 
- gewechselt werden.
-Nachdem aus der Liste die letzte Frequenz gewählt wurde, wird als nächstes die erste Frequenz
- wieder ausgegeben (zyklische Wahl).
+Bei der Zusatzfunktion ,,f-Generator'' (Frequenz-Generator) können die Frequenzen zwischen 1Hz und 2MHz gewählt werden.
+Die Einstellung der Frequenz kann jeweils nur für die höchste dargestellte Stelle (Ziffernposition) verändert werden.
+Für die Stellen 1Hz bis 10kHz sind jeweils die Ziffern 0-9 wählbar. Bei der 100kHz Stelle ist 0-20 wählbar.
+In Spalte 1 der Frequenzzeile wird durch ein \textgreater~oder \textless~Symbol angezeigt, ob durch einen längeren
+Tastendruck (\textgreater~0.8s) zur höheren oder niedrigen Stelle geschaltet wird.
+Zur niedrigeren Stelle (\textless) kann nur geschaltet werden, wenn die augenblickliche Stellee auf 0 gestellt wurde
+und wenn nicht die Stelle mit 1Hz Schritten gewählt wurde.
+Bei der gewählten 100kHz Stelle ist das \textgreater~Symbol durch ein R Zeichen ersetzt. Der längere Tastendruck bewirkt dann eine
+Rücksetzung der Frequenz auf den Startwert 1Hz.
 Bei gesetzter POWER\_OFF-Option in der Makefile muss für den Frequenzwechsel die Taste länger gedrückt werden, da
 durch einen kurzen Tastendruck (\textless~0,2s) nur die Zeitüberwachung von 4~Minuten zurückgesetzt wird.
 Die abgelaufene Zeit wird in Zeile 1 durch einen Punkt für jede abgelaufene 30 Sekunden angezeigt.
 Durch einen regelmäßigen kurzen Tastendruck kann die vorzeitige Abschaltung der Frequenzerzeugung verhindert werden.
-Ein längerer Tastendruck (\textgreater~0,8s) kehrt wieder zur Auswahl der Funktionen zurück.\\
+Ein längerer Tastendruck (\textgreater~1,4s) kehrt wieder zur Auswahl der Funktionen zurück.\\
 
  \item[10-bit PWM]
 Bei der Zusatzfunktion ,,10-bit PWM'' (Pulsweitenmodulation) wird eine feste Frequenz mit einstellbarer Pulsweite an Pin TP2 erzeugt.

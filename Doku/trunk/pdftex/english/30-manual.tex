@@ -51,7 +51,7 @@ The next measurement can started earlier by pressing the start button during the
 \end{description}
 
 \section{Optional menu functions for the ATmega328}
-If the menu function is selected, the tester start a selection menu after a long key press (\textgreater 500ms)
+If the menu function is selected, the tester start a selection menu after a long key press (\textgreater~500ms)
 for additional functions.
 This function is also available for other processors with at least 32K flash memory.
 The selectable functions are shown in row two of a 2-line display or as marked function in row 3 of a 4-line display.
@@ -78,9 +78,16 @@ By selecting the POWER\_OFF option in the Makefile, the period of frequency meas
 The frequency measurement will be finished with a key press and the selectable functions are shown again.\\
 
  \item[f-Generator]
-With the additional function ''f-Generator'' (frequency generator) the selectable frequencies can be switched with key presses.
-After selecting the last choise of frequencies, the generator is switched back to
-the first frequency next (cyclical choise).
+With the additional function ''f-Generator'' (frequency generator) you can select output frequencies between 1Hz and 2MHz.
+You can change the selected frequency only at the highest shown digit location. 
+For the locations 1Hz up to 10kHz digits between 0 and 9 can be selected.
+For the highest 100kHz location you can select numericals between 0 and 20.
+In row 1 of the frequency line is indicated with the symbol \textgreater~~or \textless~, 
+if a longer key press (\textgreater~0.8s) select a higher or lower digit location.
+You can only select a lower location (\textless), if the current location has selected the 0 digit and 
+if the current location is not the lowest with 1Hz steps.
+If you have selected the 100kHz location, the \textgreater~symbol is replaced by a R character. 
+A longer key press (\textgreater~0.8s) will result a reset of the frequency value to the initial value of 1Hz in this case.
 If the POWER\_OFF option is selected in the Makefile, the key must be pressed longer, because a
 short key press (\textless~0.2s) only reset the time limit of 4~minutes.
 The elapsed time is shown with a point for every 30 seconds in row 1 of the display.

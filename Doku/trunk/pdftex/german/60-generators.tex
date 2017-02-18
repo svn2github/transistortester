@@ -17,8 +17,23 @@ langen Tastendruck angewählt wird.
 Die Ausgabe der Frequenz erfolgt über den \(680\Omega\) Widerstand auf den Messport TP2.
 Der Messport TP1 wird auf GND geschaltet.
 Die Frequenzen werden mit dem 16-Bit Zähler aus der CPU-Taktfrequenz erzeugt (\(8MHz\) oder \(16MHz\)).
-Zur Zeit kann eine vordefinierte Liste von Frequenzen (\(2MHz\) runter bis zu \(1Hz\)) mit einem kurzen
-Tastendruck gewählt werden. Ein langer Tastendruck kehrt zu der Dialog-Funktion zurück,
+Die Frequenz kann dekadenweise beginnend mit der 1Hz Stelle mit den Ziffern 0-9 eingestellt werden.
+Die höchste wählbare Stelle ist die 100kHz Stelle. Hier können Zahlen bis zu 20 eingestellt werden.
+Somit sind Ausgabefrequenzen bis 2Mhz einstellbar.
+Ohne Drehimpulsgeber kann der Stellenwert durch einen kurzen Tastendruck (\textless~0.8s)
+erhöht werden.
+Mit Drehimpulsgeber können die Stellenwerte beliebig erhöht oder erniedrigt werden.
+Mit einem längeren Tastendruck wird die Stelle gewechselt.
+Dabei wird in Spalte 1 angezeigt, in welche Richtung die nächste Stelle durch den längeren
+Tastendruck gewechselt wird.
+Bei einem \textgreater~Zeichen in Spalte 1 der Frequenzzeile wird die nächsthöhere
+Stelle gewählt.
+Bei einem \textless~Zeichen in Spalte 1  wird die nächstniedrige Stelle gewählt (bis 1Hz).
+Wenn die höchste Stelle (100kHz) eingestellt ist, wird anstelle des \textgreater~Zeichen
+ein R angezeigt. Dann bewirkt ein längerer Tastendruck ein Rücksetzen der Frequenz auf 1Hz.
+Weil mit dem Zähler nicht jede eingestellte Frequenz korrekt erzeugt werden kann,
+wird die Frequenzabweichung des erzeugten Signals in Zeile 3 oder hinter dem Frequenzwert gezeigt.
+Ein langer Tastendruck (\textgreater~1.4s) kehrt zu der Dialog-Funktion zurück,
 wo die gleiche oder eine andere Funktion gewählt werden kann.
 
 \section{Pulsweiten-Erzeugung}
