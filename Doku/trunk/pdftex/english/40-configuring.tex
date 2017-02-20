@@ -490,6 +490,24 @@ Because there is no DC-DC converter operating with \(0.9V\) input voltage,
 the ''DC\_Pwr\_Mode'' is also entered, if the battery voltage is detected below \(0.9V\). \\
 Example: CFLAGS += -DDC\_PWR=9500
 
+ \item[BAT\_NUMERATOR] defines the numerator of a fraction used for scaling the input voltage to get the right
+battery voltage.
+For a normal voltage divider build with a \(10 k\Omega\) and a \(3.3 k\Omega\) resistor you get a fraction 
+of (10000 + 3300)/3300. 
+You should reduce the fraction to 133/33 .\\
+Example: CFLAGS += -DBAT\_NUMERATOR=133
+
+ \item[BAT\_DENOMINATOR] specifies the denominator of a fraction, which is used to scale the voltage value.\\
+Example: CFLAGS += -DBAT\_DENOMINATOR=33
+
+ \item[EXT\_NUMERATOR] defines the numerator of a fraction used for scaling the external input voltage.
+ With a voltage divider build with a \(180 k\Omega\) and a \(20 k\Omega\) resistor the fraction is (180000 + 20000)/20000 .
+You should reduce the fraction to 10/1 .\\
+Example: CFLAGS += -DEXT\_NUMERATOR=10
+
+ \item[EXT\_DENOMINATOR] specifies the denominator for the fraction to scale the external voltage. \\
+Example: CFLAGS += -DEXT\_DENOMINATOR=1
+
   \item[INHIBIT\_SLEEP\_MODE] disable the use of the sleep mode of the processor.
 Normaly the software uses for longer work breaks the sleep mode to avoid unneeded current consumption.
 The usage of this sleep mode indeed spare battery capacity, but produce additional stress for the voltage regulator.\\

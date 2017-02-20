@@ -517,6 +517,25 @@ Weil es keinen DC-DC Konverter gibt, der mit einer Eingangsspannung von \(0.9V\)
 wird der ,,DC\_Pwr\_Mode'' auch gestartet, wenn eine Batteriespannung unterhalb \(0.9V\) entdeckt wird.\\
 Beispiel: CFLAGS += -DDC\_PWR=9500
 
+ \item[BAT\_NUMERATOR] Definiert den Zähler eines Bruchs an, mit dem die Spannung bewertet werden muß,
+um die richtige Batteriespannung zu erhalten. Für den Standard-Spannungsteiler mit einem \(10 k\Omega\) und 
+einem \(3.3 k\Omega\) Widerstand ist der Quotient (10000 + 3300)/3300. 
+Der über die Widerstandswerte erhaltene Quotient sollte gekürzt werden. 
+Für das Beispiel ergibt sich 133/33 .\\
+Beispiel: CFLAGS += -DBAT\_NUMERATOR=133
+
+ \item[BAT\_DENOMINATOR] Gibt den Nenner eines Bruches an, mit dem die Spannung bewertet werden muß.\\
+Beispiel: CFLAGS += -DBAT\_DENOMINATOR=33
+
+ \item[EXT\_NUMERATOR] Definiert den Zähler eines Bruchs an, mit dem die externe Spannung bewertet werden muß,
+um die richtige Spannung zu erhalten. Für den Standard-Spannungsteiler mit einem \(180 k\Omega\) und 
+einem \(20 k\Omega\) Widerstand ist der Quotient (180000+20000)/20000.
+Der Quotient sollte auf 10/1 gekürzt werden.\\
+Beispiel: CFLAGS += -DEXT\_NUMERATOR=10
+
+ \item[EXT\_DENOMINATOR] Gibt den Nenner eines Bruches an, mit dem die externe Spannung bewertet werden muß.\\
+Beispiel: CFLAGS += -DEXT\_DENOMINATOR=1
+
   \item[INHIBIT\_SLEEP\_MODE] sperrt die Benutzung des ,,Sleep Mode'' (Schlafzustand) des Prozessors.
 Normalerweise wird von der Software für längere Pausen der Schlafzustand des Prozessors benutzt, um Strom zu sparen.
 Die Benutzung dieses Schlafzustandes mit dem Wiederaufwachen spart zwar Batteriekapazität, 
