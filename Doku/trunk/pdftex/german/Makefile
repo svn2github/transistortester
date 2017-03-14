@@ -5,6 +5,7 @@ LISTE1 += ../GNU/m168res_all.eps ../GNU/induct328p.eps ../GNU/Cesr.eps ../GNU/Ce
 LISTE1 += ../GNU/Cesr_22n.eps ../GNU/Cesr_22n_low.eps
 LISTE1 += ../GNU/Elco_esr.eps ../GNU/frequency-ppm.eps
 LISTE1 += ../GNU/Cap_FC_data.eps ../GNU/Cap_FR_data.eps ../GNU/Cap_FC_FR_data.eps
+LISTE1 += ../GNU/W12compare.eps
 LISTE1 += ../FIG/Messung.eps ../FIG/port.eps ../FIG/ResistormessH1.eps ../FIG/ResistormessH2.eps ../FIG/ResistormessL1.eps
 LISTE1 += ../FIG/ResistormessL2.eps ../FIG/terminal.eps
 LISTE1 += ../FIG/Comparat.eps ../FIG/Test2.eps ../FIG/Test7.eps ../FIG/Test8.eps ../FIG/Bigcap.eps ../FIG/Cap_residV.eps
@@ -76,6 +77,8 @@ all: ttester.pdf ttinfo.pdf
 	gnuplot ../GNU/Cap_FR_data.gnu
 ../GNU/Cap_FC_FR_data.eps: ../GNU/Cap_FC_FR_data.gnu ../GNU/Cap25_FC_ESR.dat ../GNU/Cap25_FR_ESR.dat
 	gnuplot ../GNU/Cap_FC_FR_data.gnu
+../GNU/W12compare.eps: ../GNU/W12compare.gnu ../GNU/W12_18nF.dat ../GNU/W12_20nF.dat
+	gnuplot ../GNU/W12compare.gnu
 
 ../FIG/Messung.eps: ../FIG/Messung.fig
 	fig2eps $<

@@ -125,11 +125,79 @@ quality factor of the coil is also shown in a additional line.
 
 For a air coil with 6 turns and a parallel connected capacitor with 18~nF
 the sampling method get the following result:
+
 \begin{verbatim}
-272nH if 18.0nF
-2256kHz Q=38.7
+260nH if 18.1nF
+2306kHz Q=38.7
 \end{verbatim}
+
 This result was measured with a operation frequency of 8~MHz. A simular result
 was also measured with a 25~cm long copper wire, which was formed to one big circle.
-Probably smaller inductance values can be measured with a 16~MHz operation of the ATmega.
+The inductance is measured too high is this example, because the parallel capacitor
+was a wound foil type with build in inductance.
+The following table \ref{tab:littleInductors} shows the measurement results of some
+coils with low inductance, which are all measured with a tester clocked with 16MHz.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| l | c | c | c | c | c |}
+\hline
+\hspace{1.5cm} Cp= & 6.68nF    & 11.4nF    & 18.2nF    & 20.3nF    & 33.3nF \\
+Lp=           &           &           &           &           &        \\
+\hline
+\hline
+3 turns, 13mm & 100nH     & 116nH     & 108nH     & 115nH     & 111nH  \\
+ (91.4nH) & 6.039MHz  & 4.358MHz  & 3.568Mhz  & 3.282MHz  & 2.619MHz \\
+              & Q=29.9    & Q=15.6    & Q=49.8    & Q=12.1    & Q=31.4  \\
+\hline
+4 turns, 13mm & 141nH     & 161nH     & 151nH     & 152nH     & 153nH  \\
+ (144.9nH)     & 5.172MHz  & 3.724MHz  & 3.03Mhz   & 2.86MHz   & 2.226MHz \\
+              & Q=44.8    & Q=16.0    & Q=46.2    & Q=14.6    & Q=30.5  \\
+\hline
+6 turns, 13mm & 217nH     & 232nH     & 223nH     & 224nH     & 227nH  \\
+ (212.5nH)    & 4.18MHz   & 3.094MHz  & 2.492Mhz  & 2.343MHz  & 1.832MHz \\
+              & Q=30.5    & Q=18.4    & Q=43.0    & Q=15.4    & Q=31.7  \\
+\hline
+12 turns, 13mm     & 547nH     & 571nH     & 559nH     & 560nH     & 566nH  \\
+ (569.5nH)    & 2.632MHz  & 1.973MHz  & 1.573Mhz  & 1.491MHz  & 1.16MHz \\
+              & Q=36.9    & Q=26.4    & Q=50.6    & Q=20.8    & Q=39.2  \\
+\hline
+27 turns, 11mm & \(1.93\mu H\) & \(1.92\mu H\) & \(2.02\mu H\) & \(2.00\mu H\) & \(2.01\mu H\)  \\
+(\(1.9\mu H\)) & 1.403MHz  & 1.067MHz  & 828.5khz  & 789.5kHz  & 615.4kHz \\
+              & Q=36.5    & Q=33.4    & Q=43.6    & Q=26.6    & Q=34.5  \\
+\hline
+\(6.3\mu H\)  & \(6.69\mu H\) & \(6.84\mu H\) & \(6.84\mu H\) & \(6.82\mu H\) & \(6.90\mu H\)  \\
+\(7.12\mu H\) & 752.9kHz  & 570.2kHz  & 449.9khz  & 428.1kHz  & 332.3kHz \\
+              & Q=28.5    & Q=30.5    & Q=32.3    & Q=25.5    & Q=28.3  \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Measurement results of some coils with low inductance}
+\label{tab:littleInductors}
+\end{table}
+
+The capacitors in this table are all types with low inductance like the
+WIMA MKS series. With a wounded \(18.2nF\) capacitor you get a inductance of
+\(196nH\) instead of the \(151nH\) from the table.
+All inductors without the last one are self made coils.
+The inductance value in brackets are computed values with the coil parameters.
+The last \(6.3\mu H\) coils is industrial build and labled with \(6.3\mu H\).
+But the measurement with a LCR-meter at 100kHz gives a result of \(7.12\mu H\)!
+You can find big differences for the quality factor Q with the same coil and
+different parallel capacitors with nearly the same capacity value. 
+For the coil with 12 turns you see a quality factor \(50.2\) with the \(18.2nf\)
+capacitor and a quality factor \(20.8\) with the \(20.3nF\) capacitor.
+A program fault may be the reason for this difference.
+Therefore I show the ADC data for the 12-turn coil with the \(18.2nF\) and \(20.3nF\)
+capacitors in figure~\ref{fig:W12compare} for secureness.
+You can find the difference of the quality factors also in the raw data clearly.
+Probably the used type of the capacitor is the reason for the difference of
+the quality factor.
+
+\begin{figure}[H]
+\centering
+\input{../GNU/W12compare}
+\caption{ADC data of 2 resonant circuits with the same 12 turn coil}
+\label{fig:W12compare}
+\end{figure}
 
