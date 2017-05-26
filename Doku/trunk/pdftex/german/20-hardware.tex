@@ -311,6 +311,41 @@ Mit den Gattern des 74HC4050 bleibt die Signalform jedenfalls besser erhalten.\\
 \label{fig:ST7565lcd}
 \end{figure}
 
+Die Tabelle \ref{tab:spi-processor} zeigt weitere Anschlußmöglichkeiten
+für den ATmega328 und andere Prozessoren mit der SPI (LCD\_INTERFACE\_MODE=4)
+oder der 3LINE (LCD\_INTERFACE\_MODE=3) Schnittstelle. Verschiedene Belegungen für
+einen Prozessor werden mit der Makefile Option STRIP\_GRID\_BOARD
+eingestellt.
+Die Belegungen sind in der Datei config.h festgelegt. 
+Wenn weitere Varianten der Belegung erforderlich sind, sollten diese
+mit weiteren Kennziffern der Option STRIP\_GRID\_BOARD auswählbar sein
+und in config.h ergänzt werden.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c | c | c | c |}
+    \hline
+ Processor  & m644  & m1280 & m1280  & m328 & m328 & m328 & m328 \\
+STRIP\_GRID\_BOARD &       &   -   &   1    &  -   &  1   &  2   &  5   \\
+    \hline
+    \hline
+Signal:     &       &       &        &      &      &      &      \\
+  RES       &  PB4  & PA0   &  PA4   & PD0  & PD4  & PD0  & PD2 \\
+    \hline
+  EN, CLK   &  PB6  & PA2   &  PA2   & PD2  & PD2  & PD2  & PD3 \\
+    \hline
+  RS, D/C   &  PB5  & PA1   &  PA3   & PD1  & PD3  & PD3  & PD1 \\
+    \hline
+  B0, MOSI  &  PB7  & PA3   &  PA1   & PD3  & PD1  & PD1  & PD4 \\
+    \hline
+  CE, CS    &  PB3  & PA4   &  PA5   & PD5  & PD5  & PD5  & PD5 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{SPI Anschlußbelegungen für verschiedene Prozessoren}
+  \label{tab:spi-processor}
+\end{table}
+
 Normalerweise wird der ST7565- oder der SSD1306-Controller mit einer 4-Wire SPI-Schnittstelle angeschlossen.
 Beim SSD1306-Controller kann auch eine I\textsuperscript{2}C-Schnittstelle mit PD2 als SDA- und PD5 als SCL-Signal benutzt werden.
 Die SDA- und SCL-Signale müssen mit einem ,,Pull-up'' Widerstand von ungefähr \(4,7k\Omega\) nach \(3,3V\) versehen sein.
@@ -335,7 +370,8 @@ Außerdem sollte die Belegung der Pinne beim OLED Modul geprüft werden, bei ein
 \label{fig:ssd1306i2c}
 \end{figure}
 
-Bei der ATmega644 Prozessorserie werden die Pinne PB2 bis PB5 anstelle PD0 bis PD3 für den Anschluss benutzt.
+Bei der ATmega644 Prozessorserie werden die Pinne PB3 (SCL) und PB4 (SDA) anstelle PD5 und PD2 für den Anschluss benutzt.
+Bei der ATmega1280 Prozessorserie werden die Pinne PA5 (SCL) und PA4 (SDA) benutzt.
 Ein Austausch des Textdisplays gegen ein grafisches Display ist mit einer Adapterplatine möglich, da
 alle notwendigen Datensignale und Versorgungssignale an der LCD-Steckerleiste vorhanden sind.
 Etwas einfacher ist der Anschluß eines graphischen Displays mit einem ST7920 Controller weil 
@@ -354,6 +390,30 @@ speziellen Seriellschnittstelle angeschlossen werden, wie die Abbildung \ref{fig
 Für beide Anschlußarten muß die Software speziell konfiguriert werden. 
 Die Makefile Option ,,WITH\_LCD\_ST7565 = 7920'' muß dazu auf jeden Fall gesetzt werden, für die serielle
 Anschlußart muß außerdem die Option ,,CFLAGS += -DLCD\_INTERFACE\_MODE=5'' gesetzt sein.
+Die Tabelle~\ref{tab:ser-processor} zeigt die Belegung der seriellen Anschlußsignale bei 
+dem Anschlußtyp 5 (ST7920) und 7 (SSD1803) für verschiedene Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+ Processor  & m644  & m644 & m1280  & m328 \\
+STRIP\_GRID\_BOARD &       &   1   &        &     \\
+    \hline
+    \hline
+Signal:     &       &       &        &         \\
+  EN        &  PB3  & PB6   &  PA5   & PD5     \\
+    \hline
+  B0, R/W   &  PB4  & PB7   &  PA4   & PD2      \\
+    \hline
+  RESET     &  PB2  & PB4   &  PA0   & PD0      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Serielle Anschlußbelegungen für verschiedene Prozessoren}
+  \label{tab:ser-processor}
+\end{table}
+
 Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays  mit den Optionen
 LCD\_ST7565\-\_H\_FLIP und LCD\_ST7565\-\_V\_FLIP angepaßt werden. \\
 
@@ -419,6 +479,35 @@ Einige verschiedene Pinbelegungen aus Datenblättern der ABG128064 Serie zeigt T
   \end{center}
   \caption{Pinbelegung verschiedener ST7108 Module}
   \label{tab:ST7108types}
+\end{table}
+
+Die Tabelle \ref{tab:7108-processor} zeigt die Belegung des seriellen ST7108 Controller
+Anschluß für verschiedene Prozessor-Serien.
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c |}
+    \hline
+ Processor  & m644  &  m1280  & m328 \\
+    \hline
+    \hline
+Signal:     &       &        &         \\
+  EN        &  PB3  &  PA5   & PD5     \\
+    \hline
+  RS        &  PB2  &  PA4   & PD4      \\
+  B0        &  PB2  &  PA4   & PD4      \\
+    \hline
+  CS1       &  PB7  &  PA3   & PD3      \\
+    \hline
+  CS2       &  PB5  &  PA1   & PD1      \\
+    \hline
+  CLK       &  PB6  &  PA2   & PD2      \\
+    \hline
+  PCLK      &  PB4  &  PA0   & PD0      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Serieller ST7108 Anschluß für verschiedene Prozessoren}
+  \label{tab:7108-processor}
 \end{table}
 
 Es können auch Displays mit einem PCF8814 Controller verwendet werden, wie sie beispielsweise

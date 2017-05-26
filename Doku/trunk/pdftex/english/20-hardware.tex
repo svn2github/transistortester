@@ -302,6 +302,40 @@ The signal form at the controller inputs will be more simular to the output shap
 \label{fig:ST7565lcd}
 \end{figure}
 
+The table \ref{tab:spi-processor} shows more alternativs to connect a 
+ATmega328 or other prozessors with the SPI (LCD\_INTERFACE\_MODE=4) or the
+3LINE (LCD\_INTERFACE\_MODE=3) interface.
+The different connector lists for one processor type
+can be selected with the Makefile Option STRIP\_GRID\_BOARD.
+The connector pin list is defined in the file config.h.
+If you need a different wiring list, you should choose a new code number
+for the option STRIP\_GRID\_BOARD and supplement the setting in the config.h file.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c | c | c | c |}
+    \hline
+ Processor  & m644  & m1280 & m1280  & m328 & m328 & m328 & m328 \\
+STRIP\_GRID\_BOARD &       &   -   &   1    &  -   &  1   &  2   &  5   \\
+    \hline
+    \hline
+Signal:     &       &       &        &      &      &      &      \\
+  RES       &  PB4  & PA0   &  PA4   & PD0  & PD4  & PD0  & PD2 \\
+    \hline
+  EN, CLK   &  PB6  & PA2   &  PA2   & PD2  & PD2  & PD2  & PD3 \\
+    \hline
+  RS, D/C   &  PB5  & PA1   &  PA3   & PD1  & PD3  & PD3  & PD1 \\
+    \hline
+  B0, MOSI  &  PB7  & PA3   &  PA1   & PD3  & PD1  & PD1  & PD4 \\
+    \hline
+  CE, CS    &  PB3  & PA4   &  PA5   & PD5  & PD5  & PD5  & PD5 \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{SPI wiring facility for different processors}
+  \label{tab:spi-processor}
+\end{table}
+
 Normally the ST7565 or SSD1306 controller is connected with a 4-wire SPI interface.
 But with the SSD1306 controller you can also use a I\textsuperscript{2}C interface with PD2 as SDA and PD5 as SCL signal.
 The SDA and SCL signals must be equipped with pull-up resistors of about \(4.7k\Omega\) to \(3.3V\).
@@ -326,9 +360,12 @@ Also you should check the pin sequence of your OLED module, some moduls have a d
 \label{fig:ssd1306i2c}
 \end{figure}
 
-For connection to the ATmega644 series of processors the pins PB2 to PB5 instead of PD0 to PD3 are used.
+For connection to the ATmega644 series of processors the pins PB3 (SCL) and PB4 (SDA) instead of PD5 and PD2 are used.
+For the ATmega1280 processor series the pins PA5 (SCL) and PA4 (SDA) are used.
 The exchange of a text display to a graphical display is possible with a adapter printed board because
 all required data signals and power signals are available at the LCD connector.
+
+
 A little simpler is the connection of a graphical display with a ST7920 controller because
 the controller can operate with \(5V\) power voltage.
 For that the display should offer 128x64 visible pixels.
@@ -345,8 +382,34 @@ special serial interface., as shown in figure \ref{fig:ST7920lcd}.
 For both connection types the software must be configured in a special way.
 The Makefile option ''WITH\_LCD\_ST7565 = 7920'' must be set in any case, for the serial
 connection type you must set also the option ''CFLAGS += -DLCD\_INTERFACE\_MODE=5''.
+The table~\ref{tab:ser-processor} shows the connection of the serial signals with
+the INTERFACE\_MODE 5 (ST7920) and 7 (SSD1803) for different processors.
+zeigt die Belegung der seriellen Anschlußsignale bei 
+dem Anschlußtyp 5 (ST7920) und 7 (SSD1803) für verschiedene Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c | c |}
+    \hline
+ Processor  & m644  & m644 & m1280  & m328 \\
+STRIP\_GRID\_BOARD &   -   &   1   &        &     \\
+    \hline
+    \hline
+Signal:     &       &       &        &         \\
+  EN        &  PB3  & PB6   &  PA5   & PD5     \\
+    \hline
+  B0, R/W   &  PB4  & PB7   &  PA4   & PD2      \\
+    \hline
+  RESET     &  PB2  & PB4   &  PA0   & PD0      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Serielle Anschlußbelegungen für verschiedene Prozessoren}
+  \label{tab:ser-processor}
+\end{table}
+
 The orientation of the presentation can be changed with the options LCD\_ST7565\_H\_FLIP and 
-LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.
+LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.\\
 
 A special case is the connection of displays with a ST7108 controller. Because these displays can only use 
 the 8-bit parallel interface, you must use a serial to parallel converter.
@@ -410,6 +473,35 @@ Some different pin layouts found in data sheets for the ABG128064 series are sho
   \end{center}
   \caption{Pin layout of different ST7108 moduls}
   \label{tab:ST7108types}
+\end{table}
+
+The table \ref{tab:7108-processor} shows the connection of a serial ST7108 controller
+for different processor series.
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c || c | c | c |}
+    \hline
+ Processor  & m644  &  m1280  & m328 \\
+    \hline
+    \hline
+Signal:     &       &        &         \\
+  EN        &  PB3  &  PA5   & PD5     \\
+    \hline
+  RS        &  PB2  &  PA4   & PD4      \\
+  B0        &  PB2  &  PA4   & PD4      \\
+    \hline
+  CS1       &  PB7  &  PA3   & PD3      \\
+    \hline
+  CS2       &  PB5  &  PA1   & PD1      \\
+    \hline
+  CLK       &  PB6  &  PA2   & PD2      \\
+    \hline
+  PCLK      &  PB4  &  PA0   & PD0      \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Serieller ST7108 Anschluß für verschiedene Prozessoren}
+  \label{tab:7108-processor}
 \end{table}
 
 You can also use a display with a PCF8814 controller, which is usualy used in a Nokia 1100 handy for example.
