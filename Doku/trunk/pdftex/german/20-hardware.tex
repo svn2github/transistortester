@@ -62,7 +62,7 @@ Controllers kann aber auch fest auf GND gelegt werden anstelle mit dem LCD-CE Au
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & Character     & ST7565 LCD & ST7920 LCD     & ST7108 LCD  & SSD1306     & Zusatzfunktion \\
+           & Character     & ST7565 LCD & ST7920 LCD     & NT7108 LCD  & SSD1306     & Zusatzfunktion \\
       Port & LCD           &   SPI      & serial         & serial      &   I\textsuperscript{2}C      & \\
     \hline
     \hline
@@ -417,10 +417,10 @@ Signal:     &       &       &        &         \\
 Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays  mit den Optionen
 LCD\_ST7565\-\_H\_FLIP und LCD\_ST7565\-\_V\_FLIP angepaßt werden. \\
 
-Einen Sonderfall stellen Displays mit ST7108 oder KS0108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
+Einen Sonderfall stellen Displays mit NT7108 oder KS0108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
 angesteuert werden können, ist ein externer seriell-parallel Wandler erforderlich.
 Die einfachste Lösung scheint mir mit einem 74HCT164 oder einem 74HCT595 Chip möglich zu sein.
-Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:ST7108lcd} .
+Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:NT7108lcd} .
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -434,12 +434,12 @@ Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:ST7108lcd} .
     \includegraphics[width=8cm]{../FIG/ST7108serial595.eps}
     \caption{mit 74HCT595}
   \end{subfigure}
-  \caption{Anschluss eines graphischen Displays mit ST7108 Controller}
-  \label{fig:ST7108lcd}
+  \caption{Anschluss eines graphischen Displays mit NT7108 Controller}
+  \label{fig:NT7108lcd}
 \end{figure}
 
 Sie müssen die Pinreihenfolge bei Ihrem LCD-Modul prüfen, einige Module haben eine andere Signalreihenfolge.
-Einige verschiedene Pinbelegungen aus Datenblättern der ABG128064 Serie zeigt Tabelle~\ref{tab:ST7108types}.
+Einige verschiedene Pinbelegungen aus Datenblättern der ABG128064 Serie zeigt Tabelle~\ref{tab:NT7108types}.
 
 \begin{table}[H]
   \begin{center}
@@ -477,11 +477,11 @@ Einige verschiedene Pinbelegungen aus Datenblättern der ABG128064 Serie zeigt T
     \hline
     \end{tabular}
   \end{center}
-  \caption{Pinbelegung verschiedener ST7108 Module}
-  \label{tab:ST7108types}
+  \caption{Pinbelegung verschiedener NT7108 Module}
+  \label{tab:NT7108types}
 \end{table}
 
-Die Tabelle \ref{tab:7108-processor} zeigt die Belegung des seriellen ST7108 Controller
+Die Tabelle \ref{tab:7108-processor} zeigt die Belegung des seriellen NT7108 Controller
 Anschluß für verschiedene Prozessor-Serien.
 \begin{table}[H]
   \begin{center}
@@ -506,7 +506,7 @@ Signal:     &       &        &         \\
     \hline
     \end{tabular}
   \end{center}
-  \caption{Serieller ST7108 Anschluß für verschiedene Prozessoren}
+  \caption{Serieller NT7108 Anschluß für verschiedene Prozessoren}
   \label{tab:7108-processor}
 \end{table}
 
@@ -1082,10 +1082,10 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
   \label{tab:mega644-display}
 \end{table}
 
-Auch ein Display mit ST7108 Controller kann mit einer kleinen Zusatzschaltung an einen
-ATmega644 oder ATmega1284 angeschlossen werden wie in der Abbildung~\ref{fig:ST7108lcd_644} gezeigt.
-Bitte beachten Sie auch die verschiedenen Pinbelegungen der Displaymodule mit ST7108 Controller wie in
-Tabelle~\ref{tab:ST7108types} auf Seite~\pageref{tab:ST7108types} angegeben.
+Auch ein Display mit NT7108 Controller kann mit einer kleinen Zusatzschaltung an einen
+ATmega644 oder ATmega1284 angeschlossen werden wie in der Abbildung~\ref{fig:NT7108lcd_644} gezeigt.
+Bitte beachten Sie auch die verschiedenen Pinbelegungen der Displaymodule mit NT7108 Controller wie in
+Tabelle~\ref{tab:NT7108types} auf Seite~\pageref{tab:NT7108types} angegeben.
 
 \begin{figure}[H]
   \begin{subfigure}[b]{9cm}
@@ -1099,8 +1099,8 @@ Tabelle~\ref{tab:ST7108types} auf Seite~\pageref{tab:ST7108types} angegeben.
     \includegraphics[width=8cm]{../FIG/ST7108serial595_644.eps}
     \caption{mit 74HCT595}
   \end{subfigure}
-  \caption{Anschluss des ST7108 Controllers an einen ATmega644/1284}
-  \label{fig:ST7108lcd_644}
+  \caption{Anschluss des NT7108 Controllers an einen ATmega644/1284}
+  \label{fig:NT7108lcd_644}
 \end{figure}
 
 
@@ -1149,7 +1149,7 @@ werden, wie in der Tabelle~\ref{tab:display-1280} angegeben.
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c | c |}
     \hline
-           & Character     &  ST7565     & ST7920       & ST7108       & SSD1306     & Zusatzfunktion \\
+           & Character     &  ST7565     & ST7920       & NT7108       & SSD1306     & Zusatzfunktion \\
       Port & LCD           &    SPI      & seriell      & seriell      &    I\textsuperscript{2}C      & \\
     \hline
     \hline

@@ -73,8 +73,8 @@ interface. For this display type further options must be set, which are describe
 You can also use the simular SSD1306 controller instead of the ST7565 controller for example.
 This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.
 A PCF8812 or PCF8814 Controller is also supported, if the Option is set correctly.
-Also a display with a ST7920 or ST7108 controller can be connected.
-For the ST7108 controller a additional serial-parallel converter 74HC(T)164 or 74HC(T)595 must be used.  \\
+Also a display with a ST7920 or NT7108 controller can be connected.
+For the NT7108 controller a additional serial-parallel converter 74HC(T)164 or 74HC(T)595 must be used.  \\
 Example: WITH\_LCD\_ST7565 = 1 
 
  \item[LCD\_INTERFACE\_MODE] For the SSD1306 controller also the I\textsuperscript{2}C type interface with address 0x3c
@@ -106,7 +106,7 @@ All currently used values for LCD\_INTERFACE\_MODE and WITH\_LCD\_ST7565 are sho
     \hline
   Graphic ST7920    & 2-Bit serial     &   7920            &  5 \\
     \hline
-  Graphic ST7108    & 8-Bit parallel   &   7108            &  disabled (6) \\
+  Graphic NT7108    & 8-Bit parallel   &   7108            &  disabled (6) \\
     or KS0108       &    + 74HCT164    &                   &      \\
     \hline
   Graphic PCF8812   & SPI              &   8812            & disabled (4) \\

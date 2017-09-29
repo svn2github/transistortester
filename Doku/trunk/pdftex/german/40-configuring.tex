@@ -77,8 +77,8 @@ beschrieben werden.
 Anstelle des ST7565-Controllers kann auch zum Beispiel der ähnliche SSD1306-Controller konfiguriert werden.
 Dafür muss diese Option auf 1306 gesetzt werden.
 Ein PCF8812 oder PCF8814 Controller wird ebenfalls unterstützt, wenn diese Option richtig gesetzt wird.
-Auch ein Display mit ST7920 oder ST7108 Controller kann angeschlossen werden.
-Für den ST7108 Controller muß ein
+Auch ein Display mit ST7920 oder NT7108 Controller kann angeschlossen werden.
+Für den NT7108 Controller muß ein
 zusätzlicher Seriell-Parallel Wandler 74HC(T)164 oder 74HC(T)595 verwendet werden.\\
 Beispiel: WITH\_LCD\_ST7565 = 1 
 
@@ -112,7 +112,7 @@ Alle bisher möglichen Werte für LCD\_INTERFACE\_MODE und WITH\_LCD\_ST7565 sin
     \hline
   Graphic ST7920    & 2-Bit serial    & 7920               &  5 \\
     \hline
-  Graphic ST7108    & 8-Bit parallel  & 7108              & disabled (6) \\
+  Graphic NT7108    & 8-Bit parallel  & 7108              & disabled (6) \\
   oder KS0108       &    + 74HCT164   &                   &      \\
     \hline
   Graphic PCF8812   & SPI             & 8812              & disabled (4) \\
