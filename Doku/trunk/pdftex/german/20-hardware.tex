@@ -417,7 +417,7 @@ Signal:     &       &       &        &         \\
 Die Ausrichtung der Darstellung kann wie bei allen graphischen Displays  mit den Optionen
 LCD\_ST7565\-\_H\_FLIP und LCD\_ST7565\-\_V\_FLIP angepaßt werden. \\
 
-Einen Sonderfall stellen Displays mit NT7108 oder KS0108 Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
+Einen Sonderfall stellen Displays mit NT7108 oder KS0108 (S6B0108) Controller dar. Da die Displays nur mit 8-Bit Parallelschnittstelle
 angesteuert werden können, ist ein externer seriell-parallel Wandler erforderlich.
 Die einfachste Lösung scheint mir mit einem 74HCT164 oder einem 74HCT595 Chip möglich zu sein.
 Einen entsprechenden Schaltungsvorschlag zeigt das Bild \ref{fig:NT7108lcd} .
@@ -1082,7 +1082,7 @@ Die Ausgänge des ATmega werden für die I\textsuperscript{2}C-Signale nur nach 
   \label{tab:mega644-display}
 \end{table}
 
-Auch ein Display mit NT7108 Controller kann mit einer kleinen Zusatzschaltung an einen
+Auch ein Display mit NT7108 (KS0108, S6B0108) Controller kann mit einer kleinen Zusatzschaltung an einen
 ATmega644 oder ATmega1284 angeschlossen werden wie in der Abbildung~\ref{fig:NT7108lcd_644} gezeigt.
 Bitte beachten Sie auch die verschiedenen Pinbelegungen der Displaymodule mit NT7108 Controller wie in
 Tabelle~\ref{tab:NT7108types} auf Seite~\pageref{tab:NT7108types} angegeben.

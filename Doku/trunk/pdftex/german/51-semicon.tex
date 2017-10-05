@@ -362,6 +362,15 @@ Hier wird aber der Strom angegeben, der sich durch einen \(680\Omega\) Lastwider
 Source-Seite des JFET ergibt.
 Der Lastwiderstand erzeugt für das Gate eine Gegenspannung Vgs,
 die ebenfalls angegeben wird.
+Mit einem \(470k\Omega\) Lastwiderstand auf der Source-Seite des JFET ist der Source-Drain Strom
+fast 0. Damit läßt sich die Gate-Source Cutoff Spannung Vgs\_off hinreichend genau bestimmen,
+sofern sie unter \(5V\) liegt.
+Mit diesen beiden Arbeitspunkten läßt sich aufgrund der quadratischen Strom-Kennlinie ein Igss
+schätzen. Sofern der geschätzte Strom unter \(40mA\) liegt, wird noch eine zusätzliche Messung
+ohne Widerstand am Source Anschluß gemacht. 
+Über die Spannung am Source-Anschluß kann ein weiterer Stromwert bestimmt werden. 
+Mit diesem höheren Stromwert und der Gate-Source Spannung wird der Strom Idss noch einmal mit
+der quadratischen Strom-Kennlinie berechnet, sofern ein Wert von \(40mA\) nicht überschritten wird.
 Wegen des symmetrischen Aufbaus der JFETs kann Drain und Source nicht unterschieden werden.
 
 \begin{table}[H]
@@ -393,28 +402,28 @@ BS250        & P-E-MOS & D, 2.6V, 53pF    & D, 2.6V, 43pF    & D, 2.6V, 44pF \\
 IRFU9024     & P-E-MOS & D, 3.5V, 937pF   & D, 3.6V, 945pF   & D, 3.5V, 933pF \\
     \hline
 J310         & N-JFET  & 3.1mA Vgs=2.2V   & 3.1mA Vgs=2.2V   & 3.1mA Vgs=2.2V \\
-Idss=24-60mA &         &                  &                  &              \\
+Idss=24-60mA &         &                  &                  & Idss=35mA      \\
     \hline
 2N5459       & N-JFET  & 2.1mA Vgs=1.5V   & 2.1mA Vgs=1.5V   & 2.1mA Vgs=1.5V \\
-Idss=4-16mA &          &                  &                  &              \\
+Idss=4-16mA &          &                  &                  & Idss=8.2mA     \\
     \hline
 BF256C       & N-JFET  & 3.4mA Vgs=2.4V   & 3.4mA Vgs=2.4V   & 3.4mA Vgs=2.4V \\
-Idss=11-18mA &         &                  &                  &              \\
+Idss=11-18mA &         &                  &                  & Idss=14mA      \\
     \hline
 BF245A       & N-JFET  & 1.1mA Vgs=.75V   & 1.1mA Vgs=0.75V  & 1.1mA Vgs=0.75V \\
-Idss=2-6mA   &         &                  &                  &              \\
+Idss=2-6mA   &         &                  &                  & Idss=3.6mA      \\
     \hline
 BF245B       & N-JFET  & 2.5mA Vgs=1.7V   & 2.5mA Vgs=1.7V   & 2.5mA Vgs=1.7V \\
-Idss=6-15mA  &         &                  &                  &              \\
+Idss=6-15mA  &         &                  &                  & Idss=10mA      \\
     \hline
 BF245C       & N-JFET  & 3.9mA Vgs=2.7V   & 3.9mA Vgs=2.7V   & 3.9mA Vgs=2.7V \\
-Idss=12-25mA &         &                  &                  &              \\
+Idss=12-25mA &         &                  &                  & Idss=17mA    \\
     \hline
 J175        & P-JFET   & 3.2mA Vgs=2.2V   & 3.2mA Vgs=2.2V   & 3.2mA Vgs=2.2V \\
-Idss=7-60mA &          &                  &                  &              \\
+Idss=7-60mA &          &                  &                  & Idss=26mA      \\
     \hline
 2N5460      & P-JFET   & 0.78mA Vgs=0.54V & 0.77mA Vgs=0.54V & 0.78mA Vgs=0.54V \\
-Idss=1-5mA  &          &                  &                  &              \\
+Idss=1-5mA  &          &                  &                  & Idss=2.6mA       \\
     \hline
 BSS139      & N-D-MOS  & 1.7mA Vgs=1.2V  & D, 1.7mA Vgs=1.2V & D, 1.7mA Vgs=1.2V \\
     \hline

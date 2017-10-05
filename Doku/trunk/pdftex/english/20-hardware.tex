@@ -409,7 +409,7 @@ Signal:     &       &       &        &         \\
 The orientation of the presentation can be changed with the options LCD\_ST7565\_H\_FLIP and 
 LCD\_ST7565\_V\_FLIP in the same way as with the other graphical displays.\\
 
-A special case is the connection of displays with a NT7108 controller. Because these displays can only use 
+A special case is the connection of displays with a NT7108 (KS0108, S6B0108) controller. Because these displays can only use 
 the 8-bit parallel interface, you must use a serial to parallel converter.
 The simplest way seems to be the use of a 74HCT164 or a 74HCT595 chip.
 A suitable suggestion of a connection circuit shows the figure \ref{fig:NT7108lcd} .
@@ -1074,7 +1074,7 @@ The outputs of the ATmega is only switched to \(0V\) for the I\textsuperscript{2
   \label{tab:mega644-display}
 \end{table}
 
-You can also connect a display with the NT7108 controller ito the ATmega644 of ATmega1284 by using
+You can also connect a display with the NT7108 (KS0108, S6B0108) controller to the ATmega644 or ATmega1284 by using
 a little circuit as shown in figure~\ref{fig:NT7108lcd_644}.
 You should also respect the different pin assignments of display modules with NT7108 controllers as 
 shown in table~\ref{tab:NT7108types} at page~\pageref{tab:NT7108types}.
