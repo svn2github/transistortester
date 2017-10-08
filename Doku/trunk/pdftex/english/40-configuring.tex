@@ -68,7 +68,7 @@ Some displays like TC1604 or TC1602 use a 128 (0x80) for the beginning of line 1
 This can be respected with this option.
 Example: CFLAGS += -DDD\_RAM\_OFFSET = 128
 
-  \item[WITH\_LCD\_ST7665] This option must be used, if a 128x64 pixel LCD is connected with serial
+  \item[WITH\_LCD\_ST7565] This option must be used, if a 128x64 pixel LCD is connected with serial
 interface. For this display type further options must be set, which are described in table~\ref{tab:cod-display}.
 You can also use the simular SSD1306 controller instead of the ST7565 controller for example.
 This must be done by setting the variable WITH\_LCD\_ST7565 to 1306.
@@ -272,6 +272,27 @@ This reduces the required space of flash memory  and also the display time for t
 which already know, how to calibrate the tester.\\
 Example: CFLAGS += -DSHORT\_UNCAL\_MSG
 
+ \item[NO\_ICONS\_DEMO]
+This option will switch off the additional demonstration of the icons and the output of the character set with
+the menu function ''Show data''.
+This reduces the required space of flash memory  and also the display time for the user.\\
+Example: CFLAGS += -DNO\_ICONS\_DEMO
+
+ \item[WITH\_ROTARY\_CHECK]
+This option enables the additional menu function for the test of a rotary encoder.
+For the test you must connect a rotary encoder to the test pins TP1, TP2 and TP3.
+Please note, that you can not check the build-in rotary-encoder of the tester!
+You can also use a rotary encoder for ease in operation of the tester with the option WITH\_ROTARY\_SWITCH.\\
+Example: CFLAGS += -DWITH\_ROTARY\_CHECK
+
+ \item[NO\_FREQ\_COUNTER]
+With this option you can deselect the frequency counter function of the tester.
+This is especially useful if the pin PD4 (ATmega328) can not be used together with the
+connected display.
+The corresponding entry in the list of menu functions then no longer appears and also
+Flash memory space is saved.\\
+Example: CFLAGS += -DNO\_FREQ\_COUNTER
+
   \item[WITH\_SamplingADC] With this option set, the tester make use of the sampling method of ADC in special cases.
 By shifting the sampling time of the ADC with increments of 1, 4 or 16 processor clock intervals for repeatable signals
 fast changes of voltages can be monitored.
@@ -302,6 +323,11 @@ Example: CFLAGS += -DWITH\_UJT
 This option enables a additional test for ''Programmable Unijunction Transistor''.
 Without this option PUTs are usually detected as Bipolar Junction Transistor.\\
 Example: CFLAGS += -DWITH\_PUT
+
+ \item[FET\_Idss]
+This option enables additional measurements to compute the drain current Idss, if the estimation is not
+above \(60mA\). The estimation and calculation is done with a assumed quadratical current propagation.\\
+Example: CFLAGS += -DFET\_Idss
 
   \item[FREQUENCY\_50HZ] At the end of selftest a 50~Hz Signal will be generated on Port~2 and Port~3 for up to one minute.
  This option should be set only for special cases to check the delay function.\\

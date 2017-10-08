@@ -389,13 +389,23 @@ Gate-Source-Spannung ausgegeben.
 Damit können verschiedene Typen unterschieden werden.
 Für D-MOS-Transistoren (Verarmungs-Typ) wird das gleiche Messverfahren verwendet.
 
-\section{Messung von E-MOS Transistoren}
+\section{Messung von E-MOS Transistoren und IGBTs}
 Für Anreicherungs-MOS-Transistoren (P-E-MOS oder N-E-MOS) sollte man wissen, dass die Bestimmung der Gate-Schwellspannung (Vth)
 bei kleiner Gatekapazität schwierig wird. Hier können mit dem Tester genauere Spannungswerte ermittelt werden, wenn ein
 Kondensator mit einigen nF parallel zum Gate / Source angeschlossen wird.
 Die Schwellspannung wird bei Drain-Strömen von etwa \(3,6mA\) für P-E-MOS und bei etwa \(4mA\) für N-E-MOS bestimmt.
-Der Widerstand RDS or besser R\textsubscript{DSon} wird mit einer Gate - Source Spannung von annähernd \(5V\) bestimmt,
+Der Widerstand RDS or besser R\textsubscript{DSon} von E-MOS Transistoren wird mit einer Gate - Source Spannung von annähernd \(5V\) bestimmt,
  was wahrscheinlich nicht der niedrigste Wert ist.
+Außerdem wird der RDS Widerstand bei niedrigem Drain-Strom ermittelt, was die Auflösung des Widerstandswertes begrenzt.
+Oft bei IGBTs und manchmal auch bei Anreicherungs-MOS Transistoren reichen die verfügbaren \(5V\) des Testers nicht aus, 
+um den Transistor über das Gate anzusteuern.
+In diesem Fall hilft eine Batterie mit etwa \(3V\) aus, um eine Erkennung und Messungen mit dem Tester möglich zu machen.
+Die Batterie wird dazu mit einem Pol an das Gate des Transistors angeschlossen und der andere Pol der Batterie
+ wird dann anstelle des Transistor-Gates an einen Testport (TP) des Testers angeschlossen.
+Bei richtiger Polung der Batterie  addiert sich die Batteriespannung zu der Steuerspannung des Testers und die 
+Erkennung des Transistors gelingt.
+Natürlich muß dann die Batteriespannung zu der angezeigten Gate-Schwellspannung addiert werden,
+um die richtige Schwellspannung für dieses Bauteil zu erhalten.
 
 \section{Messen von Kondensatoren}
 Die Kapazitätswerte werden immer aus einer Zeitkonstanten berechnet, die sich aus der Serienschaltung von eingebauten

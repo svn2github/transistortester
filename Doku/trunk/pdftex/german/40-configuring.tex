@@ -1,4 +1,4 @@
-\chapter{Konfigurieren des TransistorTesters}
+TH\_ROTARY\_SWITCH\chapter{Konfigurieren des TransistorTesters}
 \label{sec:config}
 Die ganze Software des TransistorTesters ist im Quellcode verfügbar.
 Die Übersetzung der Module wird mit einer Makefile gesteuert. Die Entwicklung wurde
@@ -70,7 +70,7 @@ oder TC1602 beginnt die Zeile 1 aber bei der Adresse 128 (0x80).
 Das kann mit dieser Option berücksichtigt werden.\\
 Beispiel: CFLAGS += -DDD\_RAM\_OFFSET = 128
 
-  \item[WITH\_LCD\_ST7665] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
+  \item[WITH\_LCD\_ST7565] Diese Option muss verwendet werden, wenn ein 128x64 Pixel LCD mit serieller
 Schnittstelle angeschlossen ist.
 Für diesen Displaytyp müssen weitere Optionen gesetzt werden, die in Tabelle~\ref{tab:cod-display} 
 beschrieben werden.
@@ -280,6 +280,27 @@ Dies spart einerseits etwas Platz in Flash-Speicher und andererseits Ausgabezeit
 die ohnehin wissen, wie kalibriert wird.\\
 Beispiel: CFLAGS += -DSHORT\_UNCAL\_MSG
 
+ \item[NO\_ICONS\_DEMO]
+Diese Option schaltet die zusätzliche Demonstration der Symbole und die Ausgabe des Zeichensatzes bei der Menüfunktion
+,,Zeige Daten'' ab.
+Dies spart Platz im Flash-Speicher und auch Ausgabezeit für den Nutzer.\\
+Beispiel: CFLAGS += -DNO\_ICONS\_DEMO
+
+ \item[WITH\_ROTARY\_CHECK]
+Diese Option schaltet die zusätzliche Menüfunktion für den Test eines Impulsdrehgebers frei.
+Dieser Test testet einen Impulsdrehgeber, der an TP1,TP2 und TP3 angeschlossen wird.
+Bitte beachten Sie, daß nicht der eingebaute Impulsdrehgeber des Testers getestet wird!
+Aber ein solcher Impulsdrehgeber kann mit der Option WITH\_ROTARY\_SWITCH auch zur Bedienung des Testers eingesetzt werden.\\
+Beispiel: CFLAGS += -DWITH\_ROTARY\_CHECK
+
+ \item[NO\_FREQ\_COUNTER]
+Mit dieser Option wird die Frequenzzähler Funktion des Testers abgewählt.
+Dies ist besonders dann sinnvoll, wenn der benutzte Pin PD4 (ATmega328) nicht zusammen mit
+dem Anschluß des Displays benutzt werden kann.
+Der entsprechende Eintrag in der Liste der Menüfunktionen erscheint dann nicht mehr und es
+wird auch Flash-Speicherplatz gespart.\\
+Beispiel: CFLAGS += -DNO\_FREQ\_COUNTER
+
   \item[WITH\_SamplingADC] Mit dieser Funktion wird in bestimmten Fällen die Sampling-Methode für den ADC angewendet.
 Durch Verschieben der Abtastzeit des ADC kann für wiederholbare Signale die Signalform mit einem Zeitabstand
 von einem Prozessortakt oder auch 4 oder 16 Prozessortakte abgetastet werden. Dadurch kann die Ladefunktion von
@@ -310,6 +331,11 @@ Beispiel: CFLAGS += -DWITH\_UJT
 Diese Option schaltet einen zusätzlichen Test auf ,,Programmable Unijunction Transistor'' frei.
 Ohne den zusätzlichen Test werden PUTs normalerweise als Bipolartransistor (Bipolar Junction Transistor) erkannt.\\
 Beispiel: CFLAGS += -DWITH\_PUT
+
+ \item[FET\_Idss]
+Diese Option bewirkt zusätzliche Messungen, um den Drain-Strom Idss zu berechnen, wenn die Schätzung nicht
+über \(60mA\) liegt. Die Schätzung und Berechnung wird mit einem angenommenen quadratischen Stromverlauf durchgeführt.
+Beispiel: CFLAGS += -DFET\_Idss
 
   \item[FREQUENCY\_50HZ] Zum Ende des Selbsttests wird bis zu einer Minute lang ein \(50Hz\)-Signal auf Port 2 und Port 3 erzeugt.
 Diese Option sollte nur in Ausnahmefällen bebraucht werden.\\

@@ -359,11 +359,22 @@ In the table \ref{tab:mos} the results of some field-effect transistor measureme
 One measured parameters of the E-type MOS types is the gate-source voltage, by which the
 digital input of the ATmega connected to the \(680~\Omega\) drain resistor
 changes the state.
-The other parameter is the gate capacity value.
 For very fast change of the gate voltage due to a small gate capacity, the detected voltage is
 slightly inaccurate.
 With the BS250 the Voltage changes from \(2.6~V\) to \(2.5~V\), if you connect a additional
 \(10~nF\) capacitor to the gate-source.
+
+Another imeasured parameter is the gate capacity value.
+The gate capacity is measured by switching the source and drain pin to the GND potential.
+The available \(5V\) gate voltage of the tester is unsufficient to generate some collector current
+with some IGBTs. This will prevent the correct detection.
+Only the collector-emitter protection diode is detected then in most cases.
+A Battery with about \(3V\) connected to the gate pin can solve this problem with the detection.
+The other pole of the battery should be connected to a test pin (TP) of the tester instead of the gate connection.
+With the right polarity of the battery the tester should detect the IGBT now.
+The shown gate-emitter switching voltage must be increased by the value of the battery voltage
+to get the right switching voltage.
+
 For JFET transistors often the characteristic current Idss is specified,
 the current in the drain when the gate-source voltage is \(0~V\).
 Here, however, the current is given by a \(680~\Omega\) load resistance at the source side
@@ -440,6 +451,9 @@ BSS139      & N-D-MOS  & 1.7mA Vgs=1.2V  & D, 1.7mA Vgs=1.2V & D, 1.7mA Vgs=1.2V
 BSS169      & N-D-MOS  & 2.6mA Vgs=1.8V  & D, 2.6mA Vgs=1.8V & D, 2.6mA Vgs=1.8V \\
     \hline
 GP07N120    & N-E-IGBT & C=3.81nF Vt=4.2V & C=3.76nF Vt=4.2V & C=3.74nF Vt=4.2V \\
+    \hline
+G4PC30      & N-E-IGBT &                  &                  & C=2.22nF         \\
+with Bat.   &          &                  &                  & Vt=2.0V+3.2V \\
     \hline
     \end{tabular}
   \end{center}

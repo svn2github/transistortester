@@ -395,12 +395,24 @@ The Tester reports the Source current of this circuit and additionally the bias 
 So various models can be differed.
 The D-MOS transistors (depletion type) are measured with the same methode.
 
-\section{Measurement of E-MOS transistors}
+\section{Measurement of E-MOS transistors and IGBTs}
 You should know for enhancement MOS transistors (P-E-MOS or N-E-MOS), that the measurement of the gate threshold voltage (Vth)
 is more difficult with little gate capacity values. You can get a better voltage value, if you connect a capacitor with a value
 of some nF parallel to the gate /source.
 The gate threshold voltage will be find out with a drain current of about \(3.5mA\) for a P-E-MOS and about \(4mA\) for a N-E-MOS.
-The RDS or better R\textsubscript{DSon} is measured with a gate - source voltage of nearly \(5V\), which is probably not the lowest value.
+The RDS or better R\textsubscript{DSon} of E-MOS transistors is measured with a gate - source voltage of nearly \(5V\),
+which is probably not the lowest value.
+In addition, the RDS resistance is determined at a low drain current, which limits the resolution of the resistance value.
+Often in the case of IGBTs and sometimes also withn enhancement MOS transistors, the available \(5V\) of the tester
+is not sufficient to drive the transistor across the gate.
+In this case, a battery with about \(3V\) will help to make a detection and measurements with the tester possible.
+The battery is connected to the gate of the transistor with one pole and the other pole of the battery
+is then connected to a test port (TP) of the tester instead of the transistor gate.
+When the battery is correctly polarized, the battery voltage is added to the control voltage of the tester and
+the detection of the transistor succeeds.
+The battery voltage must then be added to the indicated gate threshold voltage of course,
+in order to get the correct threshold voltage for this component
+
 
 \section{Measurement of capacitors}
 The capacity values are always computed from the time constant, which is build by the serial connection of the
