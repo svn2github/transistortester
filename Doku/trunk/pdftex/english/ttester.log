@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  8 OCT 2017 19:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  31 OCT 2017 11:02
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1494,25 +1494,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 130--132
  []
 
 [50] [51] [52]
-Overfull \hbox (11.17856pt too wide) in paragraph at lines 282--287
+Overfull \hbox (11.17856pt too wide) in paragraph at lines 295--300
 \OT1/cmr/m/n/12 use a ro-tary en-coder for ease in op-er-a-tion of the tester w
 ith the op-tion WITH[]ROTARY[]SWITCH. 
+ []
+
+
+Overfull \hbox (6.706pt too wide) in paragraph at lines 310--315
+[]\OT1/cmr/m/n/12 With this op-tion the menu is ex-panded by a se-lectable pres
+caler
  []
 
 [53] [54] [55] [56] [57] <../PNG/AREF2_1V.png, id=965, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
 
 <use ../PNG/AREF2_1V.png>
-Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 560.
+Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 580.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
  <../PNG/AREF2VCC.png, id=966, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
 
 <use ../PNG/AREF2VCC.png>
-Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 567.
+Package pdftex.def Info: ../PNG/AREF2VCC.png used on input line 587.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
-) [58 <../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png>]
-[59]
+ [58]) [59 <../PNG/AREF2_1V.png> <../PNG/AREF2VCC.png>]
 \openout2 = `50-measurement.aux'.
 
  (./50-measurement.tex
@@ -3441,7 +3446,7 @@ mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/
 type1/public/cm-super/sfrm1200.pfb>
-Output written on ttester.pdf (132 pages, 3259470 bytes).
+Output written on ttester.pdf (132 pages, 3260465 bytes).
 PDF statistics:
  2155 PDF objects out of 2487 (max. 8388607)
  1737 compressed objects within 18 object streams

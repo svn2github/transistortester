@@ -222,6 +222,18 @@ Wenn die Menüfunktion eingeschaltet ist, wird beim automatischen Selbsttest-Sta
 Die Tests T1-T7 werden nur beim Selbsttest ausgeführt, der als Menüfunktion ausgewählt werden kann.\\
 Beispiel: CFLAGS += -DWITH\_MENU
 
+ \item[MAX\_MENU\_LINES]
+Diese Option gibt eine maximale Zeilenzahl für die gezeigte Auswahl der Menüfunktionen an.
+Normalerweise ergibt sich die Zahl der Zeilen über die vorhandene Zeilenzahl des Displays.
+Da normalerweise mehr Funktionen ausgewählt werden können als auf dem Display Zeilen zur Verfügung stehen,
+wird die Auswahl zyklisch ausgetauscht.
+Die Aufbereitung des Displayinhalts bei dem zyklischen Austausch braucht speziell bei großen Farbdisplays
+mit vielen Zeilen erhebliche Zeit.
+Durch die Begrenzung der Zeilenzahl mit dieser Option kann die Ausgabezeit bei der Menüauswahl deutlich reduziert werden
+und so die Bedienung beschleunigt werden.
+Der Wert für diese Option ist mit 5 vorbesetzt.\\
+Beispiel: CFLAGS += -DMAX\_MENU\_LINES=3
+
   \item[WITH\_ROTARY\_SWITCH] Die Menüfunktion kann leicher bedient werden, wenn ein Impulsdrehgeber als Erweiterung
 benutzt wird.
 Für die Details der notwendigen Erweiterung sehen Sie bitte die Beschreibung~\ref{fig:RotExt} im Hardwarekapitel.
@@ -300,6 +312,13 @@ dem Anschluß des Displays benutzt werden kann.
 Der entsprechende Eintrag in der Liste der Menüfunktionen erscheint dann nicht mehr und es
 wird auch Flash-Speicherplatz gespart.\\
 Beispiel: CFLAGS += -DNO\_FREQ\_COUNTER
+
+ \item[WITH\_FREQUENCY\_DIVIDER]
+Mit dieser Option wird das Menü um einen einstellbaren Vorteiler für den Frequenzzähler erweitert.
+Das Teilerverhältnis kann auf 1:1, 1:2, 1:4, 1:8, 1:16, 1:32, 1:64 und 1:128 eingestellt werden.
+Diese Option ist nur sinnvoll, wenn an den Frequenzeingang ein externer Vorteiler angeschlossen wird.
+Die bei der Messung angezeigten Frequenzen und Perioden berücksichtigen das eingestellte Teilerverhältnis.\\
+Beispiel: CFLAGS += -DWITH\_FREQUENCY\_DIVIDER
 
   \item[WITH\_SamplingADC] Mit dieser Funktion wird in bestimmten Fällen die Sampling-Methode für den ADC angewendet.
 Durch Verschieben der Abtastzeit des ADC kann für wiederholbare Signale die Signalform mit einem Zeitabstand

@@ -215,6 +215,19 @@ Example: CFLAGS += -DSTRIP\_GRID\_BOARD
 selection menu, which you can call with a long key press (\textgreater~0.5s).\\
 Example: CFLAGS += -DWITH\_MENU
 
+ \item[MAX\_MENU\_LINES]
+This option specifies a maximum count of lines for the shown choices of menu items.
+Normally the count of lines for the menu items is given by the present count of lines of the display.
+Because there are usually more items selectable as the display can support,
+the choices are replaced in a cyclic manner.
+Building the display content in this cyclic way will take several time, especially for big color displays 
+with many lines.
+With the limitation of the line count by this option you can reduce the output time for the menu choices significant,
+which will speed up the operation.
+The default value for this item is 5.\\
+Beispiel: CFLAGS += -DMAX\_MENU\_LINES=3
+
+
   \item[WITH\_ROTARY\_SWITCH] The menu function can be easier controlled with a the extension of a rotary pulse encoder.
 See the description~\ref{fig:RotExt} in the Hardware section for details of the required extension.
 If your rotary pulse encoder has the same count of indexed positions (detent) as pulses of the switch for every turn, you must
@@ -292,6 +305,13 @@ connected display.
 The corresponding entry in the list of menu functions then no longer appears and also
 Flash memory space is saved.\\
 Example: CFLAGS += -DNO\_FREQ\_COUNTER
+
+ \item[WITH\_FREQUENCY\_DIVIDER]
+With this option the menu is expanded by a selectable prescaler for the frequency counter.
+The scaler can be selected to 1:1, 1:2, 1:4, 1:8, 1:16, 1:32, 1:64 and 1:128 .
+This option is only useful, if a external prescaler can be connected to the frequency input of the tester.
+The shown frequencies and periodes of the measurements will respect the selected scaling factor.\\
+Example: CFLAGS += -DWITH\_FREQUENCY\_DIVIDER
 
   \item[WITH\_SamplingADC] With this option set, the tester make use of the sampling method of ADC in special cases.
 By shifting the sampling time of the ADC with increments of 1, 4 or 16 processor clock intervals for repeatable signals
