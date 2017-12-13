@@ -392,6 +392,9 @@ Der serielle Eingang eines Moduls wird an das TX-Signal und der serielle Eingang
 an das RX-Signal des AVR-Mikrocontrollers angeschlossen.
 Zusammen mit dem Modul für das Programmladen sind dann drei solche Module an den PC angeschlossen.
 Natürlich müssen alle drei Module auf die gleiche Baudrate eingestellt sein (stty ... -F /dev/ttyUSB1).
+Ohne den speed Parameter gibt das stty Programm die Parameter der angegebenen Schnittstelle
+aus (stty -F /dev/ttyUSB1).
+Einige Anwendungen wie avrdude können die Baudrate selber einstellen.
 Der komplette Aufruf für das Werkzeug mit dem Beginn der Ausgaben könnte beispielsweise so aussehen:
 \begin{verbatim}
 jpnevulator -a --timing-print --read --tty "/dev/ttyUSB1" --tty "/dev/ttyUSB2"

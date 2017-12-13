@@ -2,7 +2,13 @@
 /* Assembler-Version of Optiboot created by K.-H. Kuebbeler (kh_kuebbeler@web.de) */
 /* This Version can support additional EEprom read/write  with blinking LED       */
 /* within 512 bytes. */
+/* One Pin operation is possible with a additional hardware interface.            */
+/* This Hardware interface must be connected between the host UART IO and         */
+/* the one Pin RX/TX of the AVR. The hardware interface prevents a echo to the    */
+/* host side RX, if the data are send from host's TX. The AVR TX/RX output will   */
+/* pass to the Host's RX.  */
 /**********************************************************************************/
+
 
 /**********************************************************/
 /* Optiboot bootloader for Arduino                        */
@@ -238,11 +244,12 @@
 #include <avr/io.h>
 // #include <avr/common.h>
 // #include <avr/eeprom.h>
+
 #include "stk500.h"
 #include "pin_defs.h"
 
 #define OPTIBOOT_MAJVER 6
-#define OPTIBOOT_MINVER 2
+#define OPTIBOOT_MINVER 3
 /*
  * OPTIBOOT_CUSTOMVER should be defined (by the makefile) for custom edits
  * of optiboot.  That way you don't wind up with very different code that
@@ -253,13 +260,6 @@
  #define OPTIBOOT_CUSTOMVER 110
 #endif
 
-
-#ifndef LED_START_FLASHES
- #define LED_START_FLASHES 0
-#endif
-#ifndef LED_DATA_FLASH
- #define LED_DATA_FLASH 0
-#endif
 
  /*
  * RAMSTART should be self-explanatory.  It's bigger on parts with a
@@ -315,12 +315,12 @@
   #elif defined (WDT_vect_num)
    #define save_vect_num (WDT_vect_num)
   #else
-   #error Cant find SPM or WDT interrupt vector for this CPU
+   #error "Can't find SPM or WDT interrupt vector for this CPU"
   #endif
  #endif		/* save_vect_num */
  // check if it's on the same page (code assumes that)
  #if (SPM_PAGESIZE <= save_vect_num)
-  #error Save vector not in the same page as reset!
+  #error "Save vector not in the same page as reset!"
  #endif
 
  #if FLASHEND > 8192
@@ -348,6 +348,8 @@
  #define BIGBOOT 0		/* set dummy size to 0 */
 #endif
 
+
+
 // #define SUPPORT_READ_FUSES 1
 
 	.section	.version
@@ -355,7 +357,7 @@ optiboot_version:
 	.byte	OPTIBOOT_MINVER
 	.byte	OPTIBOOT_MAJVER+OPTIBOOT_CUSTOMVER
 #ifdef RADIO_UART
- #error RADIO_UART is not supported by optiboot!
+ #error "RADIO_UART is not supported by optiboot!"
 #endif
 
 ;***************************************************************
@@ -494,7 +496,7 @@ appStart:
 ;***************************************************************
 try_loader:
 
-#ifndef SOFT_UART
+#if SOFT_UART == 0
  /* AI don't know the reason for disabling the Pull-Up resistors!
   * The port D is only correct for ATmega8/88/168/328.
   * Other processors must use other Ports, probably depending
@@ -507,41 +509,111 @@ try_loader:
   */
 
  ; setup the correct BAUD_RATE divider for Clock-frequency F_CPU
- #define BAUD_DIV ((F_CPU + BAUD_RATE * 4) / (BAUD_RATE * 8) - 1)
+ #define BAUD_DIV (((F_CPU / 4 / BAUD_RATE) - 1) / 2)
  #if BAUD_DIV > 255
   #undef BAUD_DIV
-  #define BAUD_DIV ((F_CPU + BAUD_RATE * 8) / (BAUD_RATE * 16) - 1)
-  #if BAUD_DIV > 250
-   #error Unachievable baud rate (too slow) BAUD_RATE
+  #define BAUD_DIV (((F_CPU / 8 / BAUD_RATE) - 1) / 2)
+  #if BAUD_DIV > 4095
+   #error "Unachievable baud rate (too slow) BAUD_RATE"
   #endif // baud rate slow check
- 	ldi	r24, (0<<U2X0)
+  #define BAUD_ACTUAL (F_CPU/(16 * ((BAUD_DIV)+1)))
+  #undef UART_MODE_2x
+ 	ldi	r24, (0<<U2X0)		; single speed mode
  #else
-	ldi	r24, (1<<U2X0)
+  #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
+  #define UART_MODE_2x
+	ldi	r24, (1<<U2X0)		; double speed mode
  #endif
 	AOUT	UART_SRA, r24
+
+#if BAUD_ACTUAL <= BAUD_RATE
+  #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
+  #if BAUD_ERROR >= 5
+    #error "BAUD_RATE error less than -5%"
+  #elif BAUD_ERROR >= 2
+    #warning "BAUD_RATE error less than -2%"
+  #endif
+#else
+  #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
+  #if BAUD_ERROR >= 5
+    #error "BAUD_RATE error greater than 5%"
+  #elif BAUD_ERROR >= 2
+    #warning "BAUD_RATE error greater than 2%"
+  #endif
+#endif
+
+#if ((BAUD_DIV < 3) && (BAUD_ERROR != 0))  || (BAUD_DIV < 1)
+  // permit high bitrates (ie 1Mbps@16MHz) if error is zero
+  #error "Unachievable baud rate (too fast) BAUD_RATE"
+#endif // baud rate fastn check
+#include "report_baud_div.h"
+
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
 	AOUT	UART_SRB, r24
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
 	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
 	AOUT	UCSRC, r25
+  	; This processor family has no double register for the 12-bit scaler
+	ldi	r25, lo8(BAUD_DIV)	; 0x10
+	AOUT	UART_SRRL, r25
+  #if (BAUD_DIV/256) != 0
+	ldi	r25, hi8(BAUD_DIV)	; 0x10
+	AOUT	UCSRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
+  #endif
  #else
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
 	AOUT	UART_SRC, r25
+	ldi	r25, lo8(BAUD_DIV)	; 0x10
+	AOUT	UART_SRRL, r25
+  #if (BAUD_DIV/256) != 0
+	ldi	r25, hi8(BAUD_DIV)	; 0x10
+	AOUT	UART_SRRH, r25
+  #endif
  #endif
-	ldi	r25, BAUD_DIV	; 0x10
-	AOUT	UART_SRL, r25
+ 
 #endif		/* no SOFT_UART */
-
+#ifdef TIMEOUT_MS
+ #if TIMEOUT_MS > 6000
+	ldi	r20, WATCHDOG_8S	;0x20
+ #elif TIMEOUT_MS > 3000
+	ldi	r20, WATCHDOG_4S	;0x28
+ #elif TIMEOUT_MS > 1500
+	ldi	r20, WATCHDOG_2S	;0x0F
+ #elif TIMEOUT_MS > 750
 	ldi	r20, WATCHDOG_1S	;0x0E
+ #else
+	ldi	r20, WATCHDOG_500MS	;
+ #endif
+#else
+	ldi	r20, WATCHDOG_1S	;0x0E	(default value)
+#endif
 	rcall	watchdogConfig
 
+/* If the LED_DDR bit would be switched, no prepare is needed */
+/* because the LED_PORT bit is set to 0 by reset */
+/* But the LED Anode must be connected to the VCC side */
 #if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
-	ASBI	LED_DDR, LEDbit			; set LED Port bit to output
+	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
 #endif
-#ifdef SOFT_UART
-	; initialize the TX output
+
+#if SOFT_UART > 0
+ #if (UART_TX_DDR == UART_RX_DDR) && (UART_TX_BIT == UART_RX_BIT)
+  #ifdef INVERSE_UART
+   #warning "One Pin UART can not be used with INVERSE_UART !"
+   #undef INVERSE_UART
+  #endif
+  #warning "One Wire mode serial IO selected!"
+	ACBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to low
+	ACBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as input, High level with Pull-Up
+ #else
+	; initialize the TX output, normal mode
+  #ifdef INVERSE_UART
+	ACBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to low
+  #else
 	ASBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to high
-	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX bit as output
+  #endif
+	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as output
+ #endif
 #endif
 	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
 	ldi	r19, hi8(RAMSTART)	; 
@@ -550,16 +622,32 @@ try_loader:
  ; Flash the LED is requested
  #if LED_START_FLASHES > 1
   ; Flash the LED is requested more than once, loop is required
-	ldi	r25, LED_START_FLASHES
+	ldi	r21, LED_START_FLASHES
 fl_lop:
  #endif
-	ASBI	LED_PORT, LEDbit	; set LED-Pin high
+	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
 	rcall	wait_T1ov
-	ACBI	LED_PORT, LEDbit	; set LED-Pin low
+	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
+ #if TEST_OUTPUT == 1
+ ; this output should only be used for checking the baud-rate with scope
+ ; the bootloader sequence is disturbed with this output.
+ #warning "debug out 'U' at TX, don't use a bootloader"
+	ldi	r24, 'U'		; binary 01010101
+	rcall	putch			; putch can use r22, r23, r25
+ #endif
  #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
-	subi	r25, 1
+	subi	r21, 1
 	brne	fl_lop		; while (--count)
+ #endif
+#else
+  ; no LED_START_FLASHES
+ #if TEST_OUTPUT == 1
+ ; this output should only be used for checking the baud-rate with scope
+ ; the bootloader sequence is disturbed with this output.
+ #warning "debug out 'U' at TX, don't use a bootloader"
+	ldi	r24, 'U'		; binary 01010101
+	rcall	putch			; putch can use r22, r23, r25
  #endif
 #endif	/* LED_START_FLASHES > 0 */
 
@@ -577,10 +665,10 @@ get_nextp:
 	rcall	verifySpace	; check Sync_CRC_EOP, putch(STK_INSYNC)
 
  	ldi	r24, OPTIBOOT_MINVER	; 	
-	cpi	r21, 0x82	; Parm_STK_SW_MINOR
+	cpi	r21, STK_SW_MINOR	; Parm_STK_SW_MINOR (0x82)
 	breq	to_putch	; rcall putch, rjmp put_ok
 	ldi	r24, 0x03	; answer generic 0x03
-	cpi	r21, 0x81	; Parm_STK_SW_MAJOR
+	cpi	r21, STK_SW_MAJOR	; Parm_STK_SW_MAJOR (0x81)
 	brne	to_putch	; rcall putch, rjmp put_ok
 	ldi	r24, OPTIBOOT_MAJVER+OPTIBOOT_CUSTOMVER
 to_putch:
@@ -750,7 +838,7 @@ no_erase1:
 	rcall	wait_flash_ready
 
 #ifdef VIRTUAL_BOOT_PARTITION
- #warning RESET vector will be patched!
+ #warning "RESET vector will be patched!"
  #ifdef RAMPZ
 	eor	r3, r3		; clear r3 == no patch
 	AIN	r2, RAMPZ	; upper address bits in RAMPZ must be 0
@@ -1006,6 +1094,14 @@ ck_LEAVE:
 ver_put:
      	rcall	verifySpace	; check Sync_CRC_EOP, putch(STK_INSYNC)
 	rjmp	put_ok		; putch(STK_OK); rjmp get_nextp
+#if SOFT_UART > 0
+;
+; Here is a good location to place the delay loop for putch
+; Usually the uart delay is placed before the getch or putch function automatically.
+; But we wish to save a RJMP later at no_to
+ #define SOFT_UART_PORT UART_TX_PORT
+ #include "uart_delay.S"
+#endif
 
 ;**********************************************************
 ; read r20 count character from serial input and look if space follow
@@ -1033,32 +1129,46 @@ verifySpace:		/* void verifySpace(void) { */
 #endif
 no_to:
        	ldi	r24, STK_INSYNC
-;**    	rjmp	putch		; let putch return to verifySpace call
+;    	rjmp	putch		; let putch return to verifySpace call
 
 
 ;**********************************************************
-#ifdef SOFT_UART
+#if SOFT_UART > 0
 	; soft putch and getch uses registers r22,r23 and r25
- #include "soft_uart.S"
+ #define SOFT_UART_TX_PORT UART_TX_PORT
+ #define SOFT_UART_TX_BIT UART_TX_BIT
+ #define SOFT_UART_RX_PORT UART_RX_PORT
+ #define SOFT_UART_RX_BIT UART_RX_BIT
+ #include "soft_uart.S"		/* This will generate the putch and getch function */
+				/* The uart_delay function is generated at a lower space. */
+				/* Therefore the putch function is the first one and */
+				/* can be reached from no_to without a rjmp  */
 #else
-
+ ; the Hardware UART is used
  #if ((F_CPU + (BAUD_RATE * 4)) / (BAUD_RATE * 8) - 1) < 3
   #if BAUD_ERROR != 0 // permit high bitrates (ie 1Mbps@16MHz) if error is zero
-   #error Unachievable baud rate (too fast) BAUD_RATE
+   #error "Unachievable baud rate (too fast) BAUD_RATE"
   #endif
  #endif // baud rate fastn check
 putch:	/* void putch(char r24) */
+ #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)
+	ASBI	LED_PORT, LEDbit
+ #endif
 	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
       	sbrs	r25, UDRE0
       	rjmp	putch		; wait, UART out not ready
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
+ #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)
+	ACBI	LED_PORT, LEDbit
+ #endif
+	wdr		; watchdogReset(); /* prevent watch dog timeout during slow serial output */
       	ret
 ;**********************************************************
 	/* call getch fetch a character from serial interface */
 	; return value: r24 = new character read
 	; use r22, r25 (soft)
 getch: 
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+ #if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit)
 	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
@@ -1077,7 +1187,7 @@ gtch1:
          */
 
  	AIN	r24, UART_UDR	; ch = UART_UDR; return ch;
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit)
+ #if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit)
 	ACBI	LED_PORT, LEDbit
  #endif
        	ret
@@ -1095,11 +1205,11 @@ wr_eeprom:
 	sbi	_SFR_IO_ADDR(EECR), EEMPE
 	sbi	_SFR_IO_ADDR(EECR), EEPE	/* Start EEprom write by setting EEPE */
  #else
-	lds	r24, EECR
+	lds	r24, _SFR_MEM_ADDR(EECR)
 	sbr	r24, EEMPE
-	sts	EECR, r24
+	sts	_SFR_MEM_ADDR(EECR), r24
 	sbr	r24, EEPE		/* Start EEprom write by setting EEPE */
-	sts	EECR, r24
+	sts	_SFR_MEM_ADDR(EECR), r24
  #endif
 	ret			; return wr_eeprom function
 
@@ -1220,39 +1330,39 @@ watchdogConfig:
 ; rcall wait_T1ov setup the timer1 to overflow in r24:r25 clock tics
 ; use  r24 and probably r0
 wait_T1ov:
-	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024
-	sts	TCCR1B, r24	
-	ldi	r24, hi8(0xfffe - (F_CPU/(1024*16)))
-	AOUT	TCNT1H, r24		; set new counter value to TCNT1
-	ldi	r24, lo8(0xfffe - (F_CPU/(1024*16)))
-	AOUT	TCNT1L, r24
- #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
-	ldi	r24, (1<<TOV1)
-	AOUT	TIFR, r24		; clear OV bit Timer 1
- #else
-	ASBI	TIFR1, TOV1	; clear OV bit Timer1
- #endif
+	ldi	r24, hi8((F_CPU/(1024*16)))
+	AOUT	ICR1H, r24		; set new counter value to TCNT1
+	ldi	r24, lo8((F_CPU/(1024*16)))
+	AOUT	ICR1L, r24
+	ldi	r24, (1<<WGM13)|(1<<WGM12)|(1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 12
+	sts	_SFR_MEM_ADDR(TCCR1B), r24	
 
 ; wait until timer 1 OV occur (optional soft serial input can break the loop )
 wt_ov:
-#if 0
- #ifdef SOFT_UART
+ #if 0		/* Check for RX Start bit is canceled */
+  #if SOFT_UART > 0
 	; leave the wait for OV event loop, if data at the RX port are present
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
      	sbrs	r24, RXC0
        	rjmp	wt_fin			; any character present at serial rx port
+  #endif
  #endif
-#endif
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
 	AIN	r24, TIFR
-	sbrs	r24, TOV1
+	sbrs	r24, ICF1
 	rjmp	wt_ov		; no OverFlow, wait
+	AOUT	TIFR, r24	; clear the flags
  #else
-	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
+;	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
+;	rjmp	wt_ov		; no OverFlow, wait
+;	ASBI	TIFR1, TOV1	; clear OV bit Timer1
+	AIN	r24, TIFR1
+	sbrs	r24, ICF1
 	rjmp	wt_ov		; no OverFlow, wait
+	AOUT	TIFR1, r24	; clear the flags
  #endif
 wt_fin:
-     	wdr		; watchdogReset();
+     	wdr		; watchdogReset();  /* prevent watch dog timeout during flashing the LED */
 	ret
 #endif
 

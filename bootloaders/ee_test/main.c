@@ -12,6 +12,7 @@
 	#include "uart_defs.h"
 
 
+
 const unsigned char Hello1[] PROGMEM = "Hello World from Flash!";
 const unsigned char External[] PROGMEM = "External ";
 const unsigned char WatchDog[] PROGMEM = "Watch-dog ";
@@ -19,9 +20,13 @@ const unsigned char BrownOut[] PROGMEM = "Brown-Out ";
 const unsigned char PowerOn[] PROGMEM = "PowerOn ";
 const unsigned char Interrupt[] PROGMEM = "Interrupt";
 
+const unsigned char HW_UART[] PROGMEM = "HW_UART #";
+const unsigned char SW_UART[] PROGMEM = "Soft_UART";
+
 const unsigned char Hello2[] EEMEM = "Hello World from EEprom!";
 
 void putch(char data);
+void putch_1(char data);
 
 void uart_mem_string(const unsigned char *data) {
         unsigned char cc;
@@ -55,6 +60,18 @@ void uart_newline(void) {
           putch('\r');
 	wait1s();
 }
+
+ void hex_putch(unsigned char ch) {
+	if (ch < 10) putch('0'+ch);
+	else          putch('A'-10+ch);
+}
+#if SOFT_UART == 0
+ void putch(char ch) {
+  while (!(UART_SRA & _BV(UDRE0)));
+  UART_UDR = ch;
+}
+#endif
+ 
 //
 	//begin of Test program
 int main(void) {
@@ -64,7 +81,7 @@ int main(void) {
  #if BAUD_DIV > 255
   #undef BAUD_DIV
   #define BAUD_DIV ((F_CPU + (BAUD_RATE * 8L)) / (BAUD_RATE * 16L) - 1)
-  #if BAUD_DIV > 250
+  #if BAUD_DIV > 4095
    #error Unachievable baud rate (too slow) BAUD_RATE
   #endif // baud rate slow check
         UART_SRA = (0<<U2X0);
@@ -74,15 +91,30 @@ int main(void) {
         UART_SRB = (1<<RXEN0)|(1<<TXEN0);
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
         UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);	// config UART
+        UBRRL = (uint8_t)BAUD_DIV;	// set the lower bits of the scaler
+        UCSRC = BAUD_DIV / 256;		// set upper bits of scaler (without URSEL)
  #else
         UART_SRC = (1<<UCSZ00)|(1<<UCSZ01);		// config UART
+	UART_SRRL = (uint8_t)BAUD_DIV;	// set the lower bits of scaler
+	UART_SRRH = BAUD_DIV / 256;	// set the higher bits of scaler 
  #endif
-	UART_SRL = BAUD_DIV;		// set divider for UART
 
 #else
-	// prepare serial output, software solution
+	// prepare serial output, software solution, normal output
+ #define UART_TX1_BIT 2			/* second TX (TX1) is bit 2 of TX-Port */
+ #if 1
 	UART_TX_PORT |= (1<<UART_TX_BIT);		// set output to 1
 	UART_TX_DDR |= (1<<UART_TX_BIT);		// enable output
+	// setup for putch_1
+	UART_TX_PORT |= (1<<UART_TX1_BIT);		
+	UART_TX_DDR |= (1<<UART_TX1_BIT);
+ #else
+	UART_TX_PORT &= ~(1<<UART_TX_BIT);		// clear output to 0, OneWire
+	UART_TX_DDR &= ~(1<<UART_TX_BIT);		// set to input mode!, OneWire
+	// setup for putch_1
+	UART_TX_PORT &= ~(1<<UART_TX1_BIT);		// clear output to 0, OneWire
+	UART_TX_DDR &= ~(1<<UART_TX1_BIT);		// set to input mode!, OneWire
+ #endif
 #endif
 	// look for status bits, which has the bootloader moved
 	// from MCUSR to GPIOR0
@@ -97,12 +129,38 @@ int main(void) {
 	uart_mem_string(Interrupt);
         uart_newline();
 	// further application program can use the GPIOR0 for other purpose
-        while (1) {
+#if SOFT_UART == 0
+        uart_mem_string(HW_UART);
+        hex_putch( BAUD_DIV/4096);
+	hex_putch( (BAUD_DIV & 0xfff) / 256);
+	hex_putch( (BAUD_DIV & 0xff) / 16);
+	hex_putch( BAUD_DIV & 0xf);
+#else
+	uart_mem_string(SW_UART);
+#endif
+        uart_newline();
+	
+        uart_newline();
+#if SOFT_UART == 0
+        while (1)
+#endif
+        {
 	  uart_mem_string(Hello1);
         uart_newline();
 	  uart_ee_string(Hello2);
         uart_newline();
 	  uart_string("Hello World with string!");
         uart_newline();
+        uart_newline();
         } 
+#if	SOFT_UART > 0
+	// output 'U' to TX0 and 'W' to TX1
+        while (1)
+        {
+	putch('U');
+	wait1ms();
+        putch_1('W');
+	wait1ms();
+        } 
+#endif
 }

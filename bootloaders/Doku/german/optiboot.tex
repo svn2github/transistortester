@@ -210,7 +210,7 @@ und \ref{tab:options2}
     BAUD\_RATE     & BAUD\_         & Gibt die Baud-Rate für die serielle Kommunikation an. \\
                    &  RATE=9600      & Es werden immer 8 Datenbits ohne Parity verwendet. \\
     \hline
-    SOFT\_UART     & SOFT\_UART=1   & Wählt für die serielle Kommunikation eine Software-Lösung. \\
+    SOFT\_UART     & SOFT\_UART=1   & Wählt Software-Lösung für die serielle Kommunikation. \\
     \hline
     UART\_RX        & UART\_RX=D0   & Gibt den Port und die Bitnummer für die seriellen  \\
                    &                & Empfangsdaten an. Das Beispiel nimmt               \\
@@ -221,8 +221,8 @@ und \ref{tab:options2}
                    &                & Bit 1 des D Ports für den seriellen Ausgang.\\
     \hline
     UART           & UART=1         & Wählt für die  serielle Schnittstelle des Chips. \\
-                   &                & Eine Auswahl setzt das Vorhandensein mehrerer Schnittstellen\\
-                   &                & voraus. Nur wirksam ohne die SOFT\_UART Option. \\
+                   &                & Eine Auswahl setzt das Vorhandensein mehrerer \\
+                   &                & Schnittstellen voraus. \\
     \hline
  LED\_START\_      & LED\_START\_   & Wählt für die Anzahl der Blink-Zyklen \\
    FLASHES         &   FLASHES=3    & für die Kontroll-LED.                            \\
@@ -230,13 +230,23 @@ und \ref{tab:options2}
  LED               & LED=B3         & Wählt das Port-Bit für die  Kontroll-LED. \\
                    &                & Beim Beispiel würde eine an das Bit 3 des Port B \\ 
                    &                & angeschlossene LED blinken. Bei der \\
-                   &                & LED\_START\_FLASHES  Option  blinkt die LED\\
-                   &                & die angegebene Anzahl vor dem Kommunikations-Start. \\
-                   &                & Mit der LED\_DATA\_FLASH Option leuchtet die LED \\
-                   &                & auch während des Wartens auf Daten. \\
+                   &                & LED\_START\_FLASHES  Option  blinkt die LED die\\
+                   &                & angegebene Anzahl vor dem Kommunikations-Start. \\
+                   &                & Mit der LED\_DATA\_FLASH Option leuchtet die \\
+                   &                & LED auch während des Wartens auf Daten. \\
     \hline
  LED\_DATA\_       & LED\_DATA\_    & Die Kontroll-LED leuchtet während des Wartens auf \\
       FLASH        &    FLASH=1     & Empfangsdaten der seriellen Kommunikation.\\
+    \hline
+ TIMEOUT\_MS       & TIMEOUT\_MS=2000 & Diese Option gibt eine Zeitschranke in Millisekunden \\
+                   &                & vor für den Empfang von Boot-Daten. Nach dieser Zeit\\
+                   &                & wird der Bootvorgang abgebrochen und versucht, das \\
+                   &                & Anwenderprogramm zu starten. Mögliche Werte für \\
+                   &                & TIMEOUT\_MS sind 500, 1000, 2000, 4000 und 8000. \\
+                   &                & Der tatsächlich mögliche Wert kann abhängig vom \\
+                   &                & Prozessor aus 2 Sekunden begrenzt sein. \\
+                   &                & Wenn kein TIMEOUT\_MS angegeben wird, wird die \\
+                   &                & Zeitschranke auf 1 Sekunde gesetzt. \\
     \hline
     \end{tabular}
   \end{center}
@@ -350,3 +360,278 @@ Seite des Flash-Speichers liegen. Bei der normalen Bootloader Unterstützung kan
 einfache, doppelte, vierfache oder achtfache einer Mindest-Bootloadergröße berücksichtigt
 werden (BOOT\_SZ Fuse-Bits), wie es in Abbildung~\ref{fig:pages} auf Seite~\pageref{fig:pages}
 dargestellt wird.
+
+\section{Die Möglichkeiten der seriellen Schnittstelle mit der verwendeten Software}
+
+Das Programm für die Erzeugung und Verarbeitung der elektrischen Signale ist in AVR-Assembler geschrieben.
+Die Arbeitsweise ist von der Veröffentlichung von Atmel übernommen.
+Allerdings sind einige Besonderheiten eingebaut. 
+So wird beispielsweise berücksichtigt, daß nicht für alle Port Adressen die speziellen Bitbefehle SBI, CBI
+bzw SBIC benutzt werden können. Das ist nur bis zur Adresse 31 (0x1f) möglich. Für etwas größere
+Port Adressen von 63 (0x3f) ist noch die Verwendung spezieller Einlese (IN) und Ausgabe (OUT) Befehle
+möglich. Darüber liegende Adressen können nur mit den LDS und STS Befehlen erreicht werden.
+Diese Befehle benötigen sowohl zwei Takte für die Ausführung und belegen auch den doppelten
+Speicherplatz im Flash (2 Worte oder 4 Byte).
+Die veränderte Taktzahl für einen Schleifendurchlauf ohne eine zusätzliche Verzögerung wird 
+vom Programm automatisch ermittelt.
+Diese Taktzahl wird dann für die Berechnung der Verzögerungsschleife berücksichtigt,
+um eine korrekte Zeit für die Übertragung eines Bits zu erreichen. 
+Die Diagramme~\ref{fig:getch_timing} und~\ref{fig:putch_timing} sollen  die Erzeugung der Schleife mit
+dem C-Preprozessor verdeutlichen.
+
+\begin{figure}[H]
+\centering
+\scalebox{0.9}{\includegraphics[]{../FIG/uart_getch_timing.eps}}
+\caption{Mögliche Varianten der getch Funktion}
+\label{fig:getch_timing}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/uart_putch_timing.eps}
+\caption{Mögliche Varianten der putch Funktion}
+\label{fig:putch_timing}
+\end{figure}
+
+Beide Schleifen werden so erzeugt, daß für die gleichen Bedingungen von INVERS\_UART und Adresse des verwendeten
+Ports die gleiche Taktzahl gebraucht wird. Damit können dann beide Funktionen die gleiche
+Funktion für die notwendige Verzögerung benutzen.
+
+\subsection{Berechnung der Verzögerungszeit}
+Für die Einlesefunktion getch() wird auch die halbe Baudzeit  gebraucht.
+Von der Erkennung des Startbits wird 1.5 Mal die Baud-Zeit gewartet, um das erste Datenbit
+einzulesen.
+Deshalb ist die Basisschleife auf die halbe Zeitdauer einer Bitübertragung ausgelegt.
+Für die ganze Baudzeit wird diese Basisschleife in einer speziellen Weise zwei mal aufgerufen,
+damit exakt die doppelte Zeit eingehalten wird. Sollte durch die Bildung der Hälfte der Zeit und der
+nachfolgenden Verdopplung ein Takt verloren gegangen sein, wird dieser Takt durch einen zusätzlichen
+NOP Befehl ausgeglichen damit die Gesamtzeit für die Übertragung eines Bits auf einen Takt genau stimmt.
+Wenn bei der Schleifenzeit ein oder zwei Takte wegen der Zeitauflösung (3 Takte) fehlen,
+wird das automatisch durch einen zusätzlichen Befehl ausgeglichen.
+Natürlich geschieht das alles automatisch, da für die Berechnung nur die Schleifenzeit der Einlesefunktion
+(getch) bzw. Ausgabefunktion (putch), die Taktfrequenz des Prozessors und die gewünschte Baudrate
+bekannt sein muß. Auch die übrigen Parameter wie die Anzahl der Takte für einen Unterprogramm-Aufruf
+(RCALL, RET) sind für den Zielprozessor bekannt.
+Ein Nachteil der Basis-Verzögerungsschleife ist die begrenzte Anzahl Takte für die Verzögerung.
+Es sind wegen des verwendeten 8-Bit Zählers maximal 256*3 Takte für die Scheifenverzögerung möglich.
+Dazu kommt noch der Unterprogrammaufruf von 7 Takten, wodurch sich für die halbe Verzögrungszeit dann 775 Takte ergeben.
+Dieser Wert muß verdoppelt werden (Verzögerung für eine ganze Bitzeit) und dazu noch die Schleifenzeit der
+Ausgabe- bzw. Eingabe dazugezählt werden. Somit ist die höchste erzielbare Verzögerungszeit 1559 Takte.
+Bei 16 MHz Taktfrequenz sind so mit maximal \(97.4\mu s\) noch nicht einmal 9600 Baud (\(104.17 \mu s\)) einstellbar.
+Würde man den Zähler der Zählschleife für die Verzögerungszeit von 8 Bit auf 16 Bit erweitern,
+hätte man eine noch schlechtere Auflösung als die 3 Takte der 8-Bit Variante.
+Außerdem käme die Schleife wahrscheinlich nicht wie die 8-Bit Variante ohne Veränderung des Übertragssignals (carry) aus.
+Dieses Problem habe ich durch die schrittweise Verdopplung der Verzögerungszeiten durch Verdopplung der
+Schleifenfunktion gelöst. Mit dem C-Preprozessor wird geprüft, ob der Anfangswert für die 8-Bit Zählschleife
+bei der gewählten Taktfrequenz des Prozessors und der Baudrate größer als 255 sein würde.
+Für diesen Fall wird die Berechnung für einen Doppelaufruf der Schleifenfunktion wiederholt. 
+Wenn dann der Anfangswert für die Zählschleife immer noch zu hoch wäre, wird der Doppelaufruf noch einmal
+verdoppelt. Diese Prüfung wird derzeit bis zum Faktor 64 des Basiszeit fortgesetzt.
+Bei einer Taktfrequenz von 16 MHz oder 20 MHz sind so auf jeden Fall noch 300 Baud einstellbar.
+Für jede Verdopplung der Verzögerungszeit wird ein zusätzlicher Befehl (2 Byte) benötigt. 
+Bei der maximal möglichen Zahl der Verdopplung werden dann 6 zusätzliche Befehle (12 Byte) im Flash belegt.
+Ein Ausgleich der durch die Vorteilung möglicherweise fehlenden Takte wird hier nicht durchgeführt,
+um nicht unnötig Platz im Flash zu belegen.
+Da die zusätzliche Vorteilung ja nur bei Bedarf erfolgt, bleibt der Fehler der Baudzeit deutlich unter 1\% ,
+weil die Zeit für eine Basisverzögerung auf einen Prozessor-Takt genau eingehalten wird.
+Die Basisschleife hat mindestens 127 Durchläufe mit etwa 381 Takten. Die doppelte Verzögerungszeit
+macht auch noch keinen Fehler wegen des ,,NOP'' Ausgleichs. Somit bleibt der Fehler unter 1:762,
+also 0.13\%. Probleme mit der Einhaltung der Baudrate bestehen also eher für hohe Baudraten,
+weil die Übertragungszeit für ein Bit nicht zum vorgegebenen Zeitraster durch den CPU-Takt paßt.
+Das gleiche Problem hat dann aber auch die Hardware UART-Schnittstelle.
+Ein Beispiel erläutert das Problem.
+Wenn man mit \(8 MHz\) CPU-Taktrate eine Baudrate von 230400 erzeugen möchte, 
+kann man entweder 34 Takte mit einer Taktzeit von \(4.25\mu s\) oder 35 Takte
+mit einer Baud-Zeit von \(4.375\mu s\) verwenden. Im ersten Fall ist die Baud-Zeit
+um \(2.08\%\) zu kurz, im zweiten Fall ist die Baud-Zeit um \(0.8\%\) zu lang.
+
+
+\subsection{Benutzung von mehr als einer seriellen Schnittstelle}
+
+Die Assembler Datei soft\_uart.S ist dafür ausgelegt,
+von einer anderen Datei eingefügt (\#include) zu werden, welche ein
+normales Assembler-Programm für die AVR-Familie beinhaltet.
+Für die optiboot Applikation wird das von der Datei optiboot.S gemacht.
+Die eingefügte Datei soft\_uart.S benutzt viele Anweisungen für den GNU C-Processor
+und fügt eine weitere Datei uart\_delay.S ein, um eine Verzögerungsschleife
+für die gewünschte Baud-Rate zu generieren.
+Weil dieses Verfahren für uart\_delay.S mit anderen Parametern mehrfach wiederholt werden kann,
+kann man bis zu 4 verschiedene Verzögerungsschleifen erzeugen lassen.
+Diese Vorgehensweise nutzt die Datei soft\_uart.S für die Erzeugung der
+getch und putch Funktion. Für beide Funktionen wird die Datei uart\_delay.S
+eingefügt. Aber für den zweiten \#include wird meistens keine neue Verzögerungsschleife
+produziert, weil die Parameter beim zweiten Aufruf gleich sind.
+Nur bei verschiedenen Parametern wird eine neue Verzögerungsschleife generiert.
+Bitte beachten Sie, daß die Aufrufe der Verzögerungsschleifen mit C-Preprozessor Makro Namen
+versehen sind. Diese Makro Namen DOUBLE\_DELAY\_CALL und SINGLE\_DELAY\_CALL
+werden durch die richtigen Funktionsnamen ersetzt, wenn die \#include Anweisung
+vor der Befehlsfolge  für die serielle Eingabe- oder Ausgabe-Funktion steht.
+
+Drei Konstanten müssen vor jeder Einfügung von uart\_delay.S gesetzt sein,
+F\_CPU, BAUD\_RATE und LOOP\_TICS. Die Konstante LOOP\_TICS muß auf die Anzahl
+der Takte gesetzt sein, die von einer seriellen Bit-Ausgabe in der Schleife
+gebraucht wird (normalerweise 9 Takte).
+Für jede erzeugte Verzögerungsfunktion wird die Anzahl der Verzögerungstakte
+in einer von vier verschiedenen Konstanten-Namen des C-Prozessors gespeichert,
+BIT\_CLOCKS\_0, BIT\_CLOCKS\_1, BIT\_CLOCKS\_2 und  BIT\_CLOCKS\_3.
+Bevor eine neue Verzögerungsschleife erzeugt wird, prüft der C-Preprozessor,
+ob eine schon erzeugte Schleife zu den geforderten Parametern paßt.
+Weil die Datei soft\_uart.S auch mit \#include eingefügt werden muß,
+kann man diesen include auch mit anderen Parametern für eine andere
+serielle Schnittstelle wiederholen. Aber man muß eine weitere Konstante
+vorbesetzen, um die Namen der erzeugten Funktionen zu unterscheiden.
+Wenn Sie die Konstante SOFT\_UART\_NUMBER vor dem \#include
+auf 1 setzen (\#define SOFT\_UART\_NUMBER 1), wird die Funktion für die
+serielle Eingabe getch\_1 und die Funktion für die serielle Ausgabe putch\_1 heißen.
+Wenn man die Konstante NO\_SOFT\_UART\_TX vor dem \#include gesetzt hat,
+wird keine serielle Ausgabefunktion generiert.
+Gleiches gilt auch für die serielle Eingabe, wenn die Konstante NO\_SOFT\_UART\_RX
+vor dem \#include gesetzt ist.
+
+\subsection{Serielle Eingabe und Ausgabe über nur einen AVR Pin}
+
+Manchmal ist es sinnvoll, die serielle Datenkommunikation nur über einen Pin zu betreiben,
+um einen der wenigen IO-Pins bei kleinen AVRs freizuschalten. 
+Mit einer speziellen Schaltungstechnik kann erreicht werden, daß in den Ausgabe-Pausen
+der seriellen Ausgabe ein Einlesen von Daten möglich ist.
+Bei der hier bei optiboot gewählten Software-Lösung ist ohnehin nur ein Halb-Duplex Betrieb
+möglich. Es kann also zu einer Zeit nur entweder Daten gesendet oder Daten empfangen werden.
+Normalerweise wird der Ausgabepin mit der TX-Funktion in den Sendepausen auf High Pegel
+geschaltet, was ein Einlesen von Daten auf dem gleichen Pin verhindert.
+Wenn aber der TX Ausgabepin statt auf den High Pegel in den Sendepausen auf den Eingabemodus
+zurückgeschaltet wird, kann ein externer Pull-Up Widerstand den erforderlichen High Pegel
+erzeugen.
+Im Gegensatz zum festen High Pegel kann jetzt aber ein extern angeschlossenes TX-Signal
+den Pegel für die serielle Einlesefunktion auf Low Pegel ziehen.
+Ein serieller Widerstand in der Verbindung von dem gemeinsamen TX/RX Pin
+des AVR mit dem TX Ausgang kann die Funktion des Pull-Up Widerstandes übernehmen,
+da der Ruhezustand dieser Schnittstelle auf High Pegel liegt.
+Außerdem sorgt dieser serielle Widerstand für eine Strombegrenzung,
+falls doch einmal beide TX Schnittstellen gleichzeitig senden.
+Damit die TX-Ausgabe des AVR von der externen seriellen Schnittstelle gelesen werden kann,
+muß der RX-Eingang direkt mit dem gemeinsamen TX/RX verbunden werden.
+Die Abbildung~\ref{fig:onewire-simple} soll die einfachste Verbindung veranschaulichen.
+
+\begin{figure}[H]
+\centering
+\scalebox{1.0}{\includegraphics[]{../FIG/OneWire_simple.eps}}
+\caption{Mögliche serielle Verbindung zum AVR mit einem Pin}
+\label{fig:onewire-simple}
+\end{figure}
+
+Das Problem besteht nun darin, daß die meistens full-duplex fähige externe serielle Schnittstelle
+die eigene Ausgabe zurückliest.
+Darauf ist das Kommunikationsprogramm auf der externen Seite im allgemeinen nicht vorbereitet.
+Es gibt nun die Möglichkeit, das Programm auf der externen Seite entsprechend anzupassen.
+Ich halte das für keine gute Idee, da die angepasste Version dann entweder keine Wartung
+mehr erhält oder es müßte die Änderung für neue Versionen ständig wiederholt werden.
+Aus diesem Grund bevorzuge ich eine Hardware-Lösung.
+Eine elektronische Schaltung, die zwischen die beiden Endpunkte der seriellen Schnittstelle
+geschaltet wird, muß unterscheiden, ob die Daten von der externen Schnittstelle oder
+von der AVR Seite gesendet werden.
+Ein entsprechender Schaltungsvorschlag zeigt die Abbildung~\ref{fig:onewire}.
+
+\begin{figure}[H]
+\centering
+\scalebox{0.5}{\includegraphics[]{../FIG/OneWire.eps}}
+\caption{Schaltung zur Unterdrückung des Echos}
+\label{fig:onewire}
+\end{figure}
+
+Mit den zwei ersten NAND Gattern des HCF4093 wird ein Flip-Flop gebildet,
+welches von den zwei weiteren NAND Gattern dieses Bausteins
+in den einen oder anderen Zustand geschaltet wird. Die Schaltsignale werden von
+einer Kette von invertierenden Buffern mit Schmitt-Trigger Eingängen (HC7414) abgegriffen.
+An einer Stelle ist ein zusätzliches C-R Glied (\(120 pF\) und \(3.3 k\Omega\) erforderlich,
+um ein Schalten bei einer unerwünschten Flanke zu verhindern.
+Umgeschaltet wird jeweils mit einer 1-0 Flanke der beiden Sendeseiten.
+Erforderlich ist diese Umschaltung nur bei der Flanke des Startbits.
+Aber ein zusätzliches Schalten durch Datenbits schadet nicht, wenn das Flip-Flop schon im
+richtigen Zustand ist. Wenn die externe Schnittstelle sendet, wird der Empfang der
+Daten über den externen Empfänger verhindert. Das externe RX-Signal bleibt auf High Pegel.
+Mit dieser Zusatzschaltung ist keine Software-Anpassung notwendig. Für den
+Bootloader kann zum Beispiel das avrdude Programm benutzt werden.
+Die Schaltung ist weitgehend unabhängig von der benutzen Baudrate.
+Lediglich bei sehr hohen Baud-Raten erwarte ich Probleme. Bei 115200 Baud läuft die Schaltung
+aber einwandfrei. Sehr viel höhere Baudraten sind bei der Softwarelösung sowieso
+oft nicht möglich.
+
+\section{Einige Beispiele für die Erzeugung eines optiboot Bootloaders}
+
+Das erste Beispiel ist die Bildung eines Bootloaders für den beliebten ATmega328P:
+
+\begin{verbatim}
+optiboot $ make atmega328p
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret \
+ -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
+ -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:249:0
+pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+optiboot.S:538:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    472	      0	      0	    472	    1d8	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot.hex
+cp optiboot.lst optiboot_atmega328p.lst
+cp optiboot.hex optiboot_atmega328p.hex
+\end{verbatim}
+
+Wenn keine zusätzliche Option angegeben wird, wird eine Baudrate von 115200 mit einer Taktfrequenz von \(16 MHz\) gewählt.
+Für die serielle Ausgabe wird die vorhandene Hardware-Schnittstelle benutzt. 
+Man beachte, daß der systematische Fehler der Baudrate über 2\% mit dem Hardware UART beträgt.
+Das zweite Beispiel zeigt die Erzeugung von optiboot für den gleichen Prozessor mit einer Software-Lösung
+für die serielle Schnittstelle.
+
+\begin{verbatim}
+optiboot $ make atmega328p SOFT_UART=1
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret \
+ -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
+ -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:249:0:
+pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:67:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
+pin_defs.h:73:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot.hex
+cp optiboot.lst optiboot_atmega328p.lst
+cp optiboot.hex optiboot_atmega328p.hex
+\end{verbatim}
+
+Beachten Sie bitte, daß die Software-Lösung für die serielle Schnittstelle etwas mehr flash-Speicher braucht,
+aber es wird auch nur eine ,,boot page'' gebraucht. Der systematische Fehler der Baudrate ist hier deutlich kleiner
+wie bei dem Hardware-UART.
+Aber der Hardware-UART hat den Vorteil, daß Eingang und Ausgang gleichzeitig bearbeitet werden kann (full duplex) und 
+außerdem ist die Hardware-Lösung fehlertoleranter gegenüber kurzen Störungen des Eingangssignals.
+Für die serielle Schnittstelle mit Software kann jeder digitale IO-Pin als Eingang (UART\_RX) und als Ausgang (UART\_TX)
+gewählt werden. In diesem Beispiel wird die Fähigkeit benutzt, automatisch die IO-Pins des Hardware-UART's zu wählen.
+Die drei ,,warning'' Meldungen, die Sie über diese automatische Wahl informieren, können Sie ignorieren.
+Die automatische Wahl der IO-Pins hängt vom gewählten Prozessor-Typ und von der gewählten UART Nummer ab,
+wenn mehr als ein UART zur Verfügung steht.

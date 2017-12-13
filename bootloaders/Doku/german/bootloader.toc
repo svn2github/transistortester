@@ -9,9 +9,18 @@
 \contentsline {subsection}{\numberline {2.4.2}serieller Download mit ISP}{11}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Selbstprogrammierung mit serieller Schnittstelle}{12}{subsection.2.4.3}
 \contentsline {subsection}{\numberline {2.4.4}Diagnose Werkzeuge}{13}{subsection.2.4.4}
-\contentsline {chapter}{\numberline {3}Der optiboot Bootloader f\IeC {\"u}r AVR Mikrocontroller}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}\IeC {\"A}nderungen und Weiterentwicklung von Version 6.2}{14}{section.3.1}
-\contentsline {section}{\numberline {3.2}Automatische Gr\IeC {\"o}\IeC {\ss }enanpassung in der optiboot Makefile}{15}{section.3.2}
-\contentsline {section}{\numberline {3.3}Zielvorgaben f\IeC {\"u}r optiboot Makefile}{15}{section.3.3}
-\contentsline {section}{\numberline {3.4}Die Optionen f\IeC {\"u}r die optiboot Makefile}{17}{section.3.4}
-\contentsline {section}{\numberline {3.5}Benutzung von optiboot ohne Bootloader-Bereich}{18}{section.3.5}
+\contentsline {chapter}{\numberline {3}Der optiboot Bootloader f\IeC {\"u}r AVR Mikrocontroller}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}\IeC {\"A}nderungen und Weiterentwicklung von Version 6.2}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}Automatische Gr\IeC {\"o}\IeC {\ss }enanpassung in der optiboot Makefile}{16}{section.3.2}
+\contentsline {section}{\numberline {3.3}Zielvorgaben f\IeC {\"u}r optiboot Makefile}{16}{section.3.3}
+\contentsline {section}{\numberline {3.4}Die Optionen f\IeC {\"u}r die optiboot Makefile}{18}{section.3.4}
+\contentsline {section}{\numberline {3.5}Benutzung von optiboot ohne Bootloader-Bereich}{20}{section.3.5}
+\contentsline {section}{\numberline {3.6}Die M\IeC {\"o}glichkeiten der seriellen Schnittstelle mit der verwendeten Software}{22}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Berechnung der Verz\IeC {\"o}gerungszeit}{24}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Benutzung von mehr als einer seriellen Schnittstelle}{25}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Serielle Eingabe und Ausgabe \IeC {\"u}ber nur einen AVR Pin}{26}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Einige Beispiele f\IeC {\"u}r die Erzeugung eines optiboot Bootloaders}{28}{section.3.7}
+\contentsline {chapter}{\numberline {4}Verschiedene USB zu Seriell Wandler mit Linux}{30}{chapter.4}
+\contentsline {section}{\numberline {4.1}Der CH340G und der CP2102 Wandler }{30}{section.4.1}
+\contentsline {section}{\numberline {4.2}Der PL-2303 und der FT232R Wandler}{33}{section.4.2}
+\contentsline {section}{\numberline {4.3}Der USB-serial Wandler mit der ATmega16X2 Software}{36}{section.4.3}

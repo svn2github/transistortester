@@ -33,7 +33,7 @@ ifndef EFUSE
 atmega1284p: EFUSE := FD
 endif
 atmega644p: CFLAGS += $(COMMON_OPTIONS)
-atmega644p: CFLAGS += $(UART_CMD)
+#atmega644p: CFLAGS += $(UART_CMD)
 atmega644p: isp
 
 atmega644p_isp:
@@ -65,7 +65,7 @@ ifndef EFUSE
 atmega1284p: EFUSE := FD
 endif
 atmega1284p: CFLAGS += $(COMMON_OPTIONS)
-atmega1284p: CFLAGS += $(UART_CMD)
+#atmega1284p: CFLAGS += $(UART_CMD)
 atmega1284p: isp
 
 atmega1284p_isp: 

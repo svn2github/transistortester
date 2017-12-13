@@ -401,6 +401,9 @@ serial input of the other module to the RX signal of the AVR micro-controller.
 Together with the module for the program download there are three USB - serial modules
 connected to the PC.
 Of course all three modules must be set to the same baud rate (stty ... -F /dev/ttyUSB1).
+Without the speed parameter (stty -F /dev/ttyUSB1) the current settings 
+of the specified device are shown by stty.
+Some applications like avrdude can set the baud rate itself.
 The full command line with the start of the protocol can be look like:
 \begin{verbatim}
 jpnevulator -a --timing-print --read --tty "/dev/ttyUSB1" --tty "/dev/ttyUSB2"

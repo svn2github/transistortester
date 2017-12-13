@@ -236,7 +236,7 @@
  */
 
 #if !defined(OPTIBOOT_CUSTOMVER)
-#define OPTIBOOT_CUSTOMVER 0
+ #define OPTIBOOT_CUSTOMVER 0
 #endif
 
 unsigned const int __attribute__((section(".version"))) 
@@ -271,60 +271,23 @@ optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
  */
 #include "stk500.h"
 
-#ifndef LED_START_FLASHES
- #define LED_START_FLASHES 0
-#endif
-#ifndef LED_DATA_FLASH
- #define LED_DATA_FLASH 0
-#endif
-
 #ifdef LUDICROUS_SPEED
-#define BAUD_RATE 230400L
+ #define BAUD_RATE 230400L
 #endif
 
 /* set the UART baud rate defaults */
 #ifndef BAUD_RATE
-#if F_CPU >= 8000000L
-#define BAUD_RATE   115200L // Highest rate Avrdude win32 will support
-#elif F_CPU >= 1000000L
-#define BAUD_RATE   9600L   // 19200 also supported, but with significant error
-#elif F_CPU >= 128000L
-#define BAUD_RATE   4800L   // Good for 128kHz internal RC
-#else
-#define BAUD_RATE 1200L     // Good even at 32768Hz
-#endif
-#endif
-
-#ifndef UART
-#define UART 0
-#endif
-
-#define BAUD_SETTING (( (F_CPU + BAUD_RATE * 4L) / ((BAUD_RATE * 8L))) - 1 )
-#define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_SETTING)+1)))
-#if BAUD_ACTUAL <= BAUD_RATE
-  #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error BAUD_RATE error greater than -5%
-  #elif BAUD_ERROR >= 2
-    #warning BAUD_RATE error greater than -2%
-  #endif
-#else
-  #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error BAUD_RATE error greater than 5%
-  #elif BAUD_ERROR >= 2
-    #warning BAUD_RATE error greater than 2%
-  #endif
-#endif
-
-#if (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 > 250
- #error Unachievable baud rate (too slow) BAUD_RATE 
-#endif // baud rate slow check
-#if (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 < 3
- #if BAUD_ERROR != 0 // permit high bitrates (ie 1Mbps@16MHz) if error is zero
-  #error Unachievable baud rate (too fast) BAUD_RATE 
+ #if F_CPU >= 8000000L
+  #define BAUD_RATE   115200L // Highest rate Avrdude win32 will support
+ #elif F_CPU >= 1000000L
+  #define BAUD_RATE   9600L   // 19200 also supported, but with significant error
+ #elif F_CPU >= 128000L
+  #define BAUD_RATE   4800L   // Good for 128kHz internal RC
+ #else
+  #define BAUD_RATE 1200L     // Good even at 32768Hz
  #endif
-#endif // baud rate fastn check
+#endif
+
 
 /* Watchdog settings */
 #define WATCHDOG_OFF    (0)
@@ -347,11 +310,11 @@ optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
  * some code space on parts with smaller pagesize by using a smaller int.
  */
 #if SPM_PAGESIZE > 255
-typedef uint16_t pagelen_t ;
-#define GETLENGTH(len) len = getch()<<8; len |= getch()
+ typedef uint16_t pagelen_t ;
+ #define GETLENGTH(len) len = getch()<<8; len |= getch()
 #else
-typedef uint8_t pagelen_t;
-#define GETLENGTH(len) (void) getch() /* skip high byte */; len = getch()
+ typedef uint8_t pagelen_t;
+ #define GETLENGTH(len) (void) getch() /* skip high byte */; len = getch()
 #endif
 
 
@@ -363,15 +326,15 @@ typedef uint8_t pagelen_t;
  */
 
 int main(void) __attribute__ ((OS_main)) __attribute__ ((section (".init9"))) __attribute__ ((__noreturn__));
-void __attribute__((noinline)) putch(char);
+void __attribute__((noinline)) putch(uint8_t);
 uint8_t __attribute__((noinline)) getch(void);
 void __attribute__((noinline)) verifySpace();
 void __attribute__((noinline)) watchdogConfig(uint8_t x);
 static inline void getNch(uint8_t);
 void __attribute__((noinline)) t1_delay(void);
 
-#ifdef SOFT_UART
-void uartDelay() __attribute__ ((naked));
+#if SOFT_UART > 0
+ void uartDelay() __attribute__ ((naked));
 #endif
 void wait_timeout(void) __attribute__ ((__noreturn__));
 void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noreturn__));
@@ -442,12 +405,12 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
   #elif defined (WDT_vect_num)
   #define save_vect_num (WDT_vect_num)
  #else
-  #error Cant find SPM or WDT interrupt vector for this CPU
+  #error "Cant find SPM or WDT interrupt vector for this CPU"
  #endif
  #endif //save_vect_num
  // check if it's on the same page (code assumes that)
  #if (SPM_PAGESIZE <= save_vect_num)
-  #error Save vector not in the same page as reset!
+  #error "Save vector not in the same page as reset!"
  #endif
 
  #if FLASHEND > 8192
@@ -535,28 +498,98 @@ int main(void) {
    * driven high.
    */
   PORTD &= ~3;
+#else
+ #warning "PORTD is undefined!"
 #endif
 
-#ifdef SOFT_UART
+#if SOFT_UART > 0
   /* Set TX pin as output */
+ #define BAUD_SETTING ( (F_CPU + BAUD_RATE) / (BAUD_RATE * 2))
+ #define BAUD_ACTUAL (F_CPU / (BAUD_SETTING * 2))
   UART_TX_DDR |= _BV(UART_TX_BIT);
 #else	/* no SOFT_UART */
- /* Prepare the handware UART */
+ /* Prepare the hardware UART */
+ #define BAUD_DIV (((F_CPU / 4L / BAUD_RATE) - 1) / 2)
+ #define BAUD_ACTUAL (F_CPU / 8L / ((BAUD_DIV)+1))
+ #define UART_MODE_2X
+ #if (BAUD_DIV > 255) && (BAUD_DIV < 2046)
+  // try with single speed
+  #undef UART_MODE_2X
+  #undef BAUD_DIV
+  #define BAUD_DIV ((F_CPU + BAUD_RATE * 8L) / (BAUD_RATE * 16L) - 1)
+  #define BAUD_DIV (((F_CPU / 8L / BAUD_RATE) - 1) / 2)
+  #define BAUD_ACTUAL (F_CPU / 16L / ((BAUD_DIV)+1))
+  #if BAUD_DIV > 4095
+   #error "Unachievable baud rate (too slow) BAUD_RATE"
+  #endif
+ #endif
  #if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
-  UCSRA = _BV(U2X); //Double speed mode USART
+  #ifdef UART_MODE_2X
+   UCSRA = _BV(U2X);	// Double speed mode USART
+  #else
+   UCSRA = 0;		// Single speed mode USART
+  #endif
   UCSRB = _BV(RXEN) | _BV(TXEN);  // enable Rx & Tx
   UCSRC = _BV(URSEL) | _BV(UCSZ1) | _BV(UCSZ0);  // config USART; 8N1
-  UBRRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
- #else
-  UART_SRA = _BV(U2X0); //Double speed mode USART0
+  UBRRL = (uint8_t)( BAUD_DIV );
+  #if (BAUD_DIV/256) != 0
+   UCSRC = (uint8_t)( BAUD_DIV/256 );	// without URSEL bit this register hold the upper bits
+  #endif
+ #else		/* no ATmega8 ... */
+  #ifdef UART_MODE_2X
+   UART_SRA = _BV(U2X0);	// Double speed mode USART0
+  #else
+   UART_SRA = 0;		// Single speed mode USART0
+  #endif
   UART_SRB = _BV(RXEN0) | _BV(TXEN0);
   UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
-  UART_SRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
- #endif
+  UART_SRRL = (uint8_t)( BAUD_DIV );
+  #if (BAUD_DIV/256) != 0
+   UART_SRRH = (uint8_t)( BAUD_DIV/256 );
+  #endif
+ #endif		/* defined(ATmega8) ... */
 #endif
 
+// check the ACTUAL Baud Rate for soft and hard
+#if BAUD_ACTUAL <= BAUD_RATE
+  #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
+  #if BAUD_ERROR >= 5
+    #error "BAUD_RATE error greater than -5%"
+  #elif BAUD_ERROR >= 2
+    #warning "BAUD_RATE error greater than -2%"
+  #endif
+#else
+  #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
+  #if BAUD_ERROR >= 5
+    #error "BAUD_RATE error greater than 5%"
+  #elif BAUD_ERROR >= 2
+    #warning "BAUD_RATE error greater than 2%"
+  #endif
+#endif
+
+#if (BAUD_DIV < 3)
+ #if BAUD_ERROR != 0 // permit high bitrates (ie 1Mbps@16MHz) if error is zero
+  #error "Unachievable baud rate (too fast) BAUD_RATE"
+ #endif
+#endif // baud rate fastn check
+#include "report_baud_div.h"
+
   // Set up watchdog to trigger after 500ms
-  watchdogConfig(WATCHDOG_1S);
+#ifdef TIMEOUT_MS
+ #if TIMEOUT_MS > 6000
+  watchdogConfig(WATCHDOG_8S);		/* try to set watchdog timer to 8s */
+ #elif TIMEOUT_MS > 3000
+  watchdogConfig(WATCHDOG_4S);		/* try to set watchdog timer to 4s */
+ #elif TIMEOUT_MS > 1500
+  watchdogConfig(WATCHDOG_2S);		/* set the watchdog timer to 2s */
+ #elif TIMEOUT_MS > 750
+  watchdogConfig(WATCHDOG_1S);		/* set the watchdog timer to 1s */
+ #else
+  watchdogConfig(WATCHDOG_500MS);	/* set the watchdog timer to 500ms */
+ #endif
+#else
+  watchdogConfig(WATCHDOG_1S);		/* set the watchdog timer to 1s (default) */
+#endif
 
 #if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
   /* Set LED pin as output */
@@ -573,7 +606,12 @@ int main(void) {
     t1_delay();
     LED_PORT &= ~(_BV(LEDbit));
     t1_delay();
-    wdt_reset();
+ #if TEST_OUTPUT == 1
+  #warning "optiboot with test output only!"
+    /* only a test output for baud rate check, the bootloader will not work with this */
+    putch('U');         // produce a 01010101 pattern for test
+ #endif
+
  #if LED_START_FLASHES > 1
   } while (--count);
  #endif
@@ -845,8 +883,8 @@ int main(void) {
 }
 
 
-void putch(char ch) {
-#ifndef SOFT_UART
+void putch(uint8_t ch) {
+#if SOFT_UART == 0
   while (!(UART_SRA & _BV(UDRE0)));
   UART_UDR = ch;
 #else
@@ -873,6 +911,7 @@ void putch(char ch) {
       "r25"
   );
 #endif
+ wdt_reset();		/* prevent wdt time-out during slow TX transmission */
 }
 
 uint8_t getch(void) {
@@ -882,7 +921,7 @@ uint8_t getch(void) {
   LED_PORT |= _BV(LEDbit);			// switch on LED
 #endif
 
-#ifdef SOFT_UART
+#if SOFT_UART > 0
   __asm__ __volatile__ (
     "1: sbic  %[uartPin],%[uartBit]\n"  // Wait for start edge
     "   rjmp  1b\n"
@@ -938,22 +977,37 @@ void t1_delay(void) {
   TCNT1 = -(F_CPU/(1024*16));
   TIFR1 = _BV(TOV1);
   while(!(TIFR1 & _BV(TOV1)));
+  wdt_reset();		/* prevent wdt time-out during LED flashing */
 }
 #endif
 
-#ifdef SOFT_UART
+#if SOFT_UART > 0
 // AVR305 equation: #define UART_B_VALUE (((F_CPU/BAUD_RATE)-23)/6)
 // Adding 3 to numerator simulates nearest rounding for more accurate baud rates
-#define UART_B_VALUE (((F_CPU/BAUD_RATE)-20)/6)
+#define RCALL_TICS 7
+#define LOOP_TICS 9
+#define WAST_TICS (((F_CPU/BAUD_RATE)- ((2*RCALL_TICS)+LOOP_TICS))+1)
+#define UART_B_VALUE (WAST_TICS / 6)
  #if UART_B_VALUE > 255
-#error Baud rate too slow for soft UART
+  #error "Baud rate too slow for soft UART"
  #endif
+#define UART_R_VALUE (WAST_TICS - (UART_B_VALUE * 6))/2
+// with UART_R_VALUE the remainder of the uartDelay loop
+// is added as dummy instruction at the end of the counter loop.
 
 void uartDelay() {
   __asm__ __volatile__ (
+#if UART_B_VALUE > 0
     "ldi r25,%[count]\n"
     "1:dec r25\n"
     "brne 1b\n"
+#endif
+#if UART_R_VALUE == 2
+    "rjmp  .\n"
+#endif
+#if UART_R_VALUE == 1
+    "nop   \n"
+#endif
     "ret\n"
     ::[count] "M" (UART_B_VALUE)
   );

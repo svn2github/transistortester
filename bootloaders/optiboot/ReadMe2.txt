@@ -145,6 +145,12 @@ VIRTUAL_BOOT_PARTITION 	this option changes two interrupt vector jmp addresses,
 			as long as this EEprom data are not destroyed by
 			the application program.
 
+TIMEOUT_MS		This option specifies a time limit in ms units for receiving boot data. 
+			After this time without data the boot process is aborted and it is tried to
+			start the user program.
+			Possible values for TIMEOUT_MS are 500, 1000, 2000, 4000 and 8000.
+			The effective value can be limited to 2 seconds because of processor limits for the watchdog.
+
 Recommendation:
 ===============
 The optiboot loader transfer the original content of the MCUSR register to the application

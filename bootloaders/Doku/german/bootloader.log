@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.4)  14 JUN 2016 20:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  13 DEC 2017 21:15
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -628,7 +628,7 @@ File: pgflibraryarrows.code.tex 2008/10/27 v2.10 (rcs-revision 1.9)
 \bigstrutjot=\dimen177
 )
 (./bootloader.aux (./preface.aux) (./principle.aux) (./AVRhardware.aux)
-(./optiboot.aux))
+(./optiboot.aux) (./USBserial.aux))
 \openout1 = `bootloader.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -797,7 +797,7 @@ Package epstopdf Info: Source file: <../FIG/ablauf.eps>
 -to.pdf ../FIG/ablauf.eps>
 (epstopdf)             \includegraphics on input line 52.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/ablauf-eps-converted-to.pdf, id=106, 258.9675pt x 388.45125pt>
+<../FIG/ablauf-eps-converted-to.pdf, id=151, 258.9675pt x 388.45125pt>
 File: ../FIG/ablauf-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ablauf-eps-converted-to.pdf>
@@ -848,7 +848,7 @@ Package epstopdf Info: Source file: <../FIG/avr_block.eps>
 ted-to.pdf ../FIG/avr_block.eps>
 (epstopdf)             \includegraphics on input line 16.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/avr_block-eps-converted-to.pdf, id=122, 458.71375pt x 403.5075pt>
+<../FIG/avr_block-eps-converted-to.pdf, id=167, 458.71375pt x 403.5075pt>
 File: ../FIG/avr_block-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/avr_block-eps-converted-to.pdf>
@@ -892,7 +892,7 @@ o.pdf ../FIG/port.eps>
 (epstopdf)             \includegraphics on input line 82.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/port-eps-converted-to.pdf, id=140, 241.90375pt x 123.46124pt>
+<../FIG/port-eps-converted-to.pdf, id=186, 241.90375pt x 123.46124pt>
 File: ../FIG/port-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/port-eps-converted-to.pdf>
@@ -923,7 +923,7 @@ rted-to.pdf ../FIG/boot_pages.eps>
 (epstopdf)             \includegraphics on input line 167.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/boot_pages-eps-converted-to.pdf, id=157, 433.62pt x 768.8725pt>
+<../FIG/boot_pages-eps-converted-to.pdf, id=202, 433.62pt x 768.8725pt>
 File: ../FIG/boot_pages-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/boot_pages-eps-converted-to.pdf>
@@ -980,7 +980,7 @@ Package epstopdf Info: Source file: <../FIG/ISP.eps>
 (epstopdf)             \includegraphics on input line 308.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ISP-eps-converted-to.pdf, id=180, 314.17375pt x 147.55125pt>
+<../FIG/ISP-eps-converted-to.pdf, id=225, 314.17375pt x 147.55125pt>
 File: ../FIG/ISP-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ISP-eps-converted-to.pdf>
@@ -1011,7 +1011,7 @@ to.pdf ../FIG/UM232.eps>
 (epstopdf)             \includegraphics on input line 357.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/UM232-eps-converted-to.pdf, id=192, 384.43625pt x 131.49126pt>
+<../FIG/UM232-eps-converted-to.pdf, id=237, 384.43625pt x 131.49126pt>
 File: ../FIG/UM232-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/UM232-eps-converted-to.pdf>
@@ -1031,7 +1031,15 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 384.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 384.
-)
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 423.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 423.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 423.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 423.
+ [13])
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 37.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1040,7 +1048,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 37.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 37.
- [13]
+ [14]
 \openout2 = `optiboot.aux'.
 
  (./optiboot.tex
@@ -1065,7 +1073,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 53.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 53.
-[14
+[15
 
 
 
@@ -1082,37 +1090,46 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 136.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 136.
- [15]
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 181.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 181.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 197.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 197.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 197.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 197.
  [16]
-Overfull \hbox (18.4461pt too wide) in paragraph at lines 200--242
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 181.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 181.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 197.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 197.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 197.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 197.
+ [17]
+Overfull \hbox (11.06137pt too wide) in paragraph at lines 200--252
  [] 
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 289.
+(babel)             in language  on input line 256.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 289.
+(babel)             in language  on input line 256.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 289.
+(babel)             in language  on input line 256.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 289.
-[17]
+(babel)             in language  on input line 256.
+[18]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 290.
+(babel)             in language  on input line 299.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 290.
+(babel)             in language  on input line 299.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 299.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 299.
+ [19]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 300.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 300.
 Package epstopdf Info: Source file: <../FIG/VectorMove.eps>
 (epstopdf)                    date: 2016-05-27 15:19:06
 (epstopdf)                    size: 19101 bytes
@@ -1121,37 +1138,213 @@ Package epstopdf Info: Source file: <../FIG/VectorMove.eps>
 (epstopdf)                    size: 7609 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/VectorMove-eps-conve
 rted-to.pdf ../FIG/VectorMove.eps>
-(epstopdf)             \includegraphics on input line 306.
+(epstopdf)             \includegraphics on input line 316.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/VectorMove-eps-converted-to.pdf, id=240, 278.03876pt x 466.74374pt>
+<../FIG/VectorMove-eps-converted-to.pdf, id=295, 278.03876pt x 466.74374pt>
 File: ../FIG/VectorMove-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/VectorMove-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/VectorMove-eps-converted-to.pdf used on input l
-ine 306.
+ine 316.
 (pdftex.def)             Requested size: 278.03807pt x 466.7426pt.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 310.
+(babel)             in language  on input line 320.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 310.
+(babel)             in language  on input line 320.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 310.
+(babel)             in language  on input line 320.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 310.
- [18]
+(babel)             in language  on input line 320.
+ [20]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
- [19 <../FIG/VectorMove-eps-converted-to.pdf>]
-Overfull \hbox (0.10078pt too wide) in paragraph at lines 331--342
+(babel)             in language  on input line 341.
+ [21 <../FIG/VectorMove-eps-converted-to.pdf>]
+Overfull \hbox (0.10078pt too wide) in paragraph at lines 341--352
 []\T1/lmr/m/n/12 Bei Pro-zes-so-ren mit mehr als 8 kByte Flash Spei-cher wer-de
 n zwei Be-fehls-wor-te für je-den Interrupt-
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 364.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 364.
+Package epstopdf Info: Source file: <../FIG/uart_getch_timing.eps>
+(epstopdf)                    date: 2017-11-19 00:54:38
+(epstopdf)                    size: 27155 bytes
+(epstopdf)             Output file: <../FIG/uart_getch_timing-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2017-11-19 11:12:57
+(epstopdf)                    size: 12376 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/uart_getch_timing-ep
+s-converted-to.pdf ../FIG/uart_getch_timing.eps>
+(epstopdf)             \includegraphics on input line 384.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/uart_getch_timing-eps-converted-to.pdf, id=314, 442.65375pt x 775.89874
+pt>
+File: ../FIG/uart_getch_timing-eps-converted-to.pdf Graphic file (type pdf)
+ <use ../FIG/uart_getch_timing-eps-converted-to.pdf>
+Package pdftex.def Info: ../FIG/uart_getch_timing-eps-converted-to.pdf used on 
+input line 384.
+(pdftex.def)             Requested size: 442.65265pt x 775.89685pt.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 388.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 388.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 388.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 388.
+ [22]
+Package epstopdf Info: Source file: <../FIG/uart_putch_timing.eps>
+(epstopdf)                    date: 2017-11-19 00:54:37
+(epstopdf)                    size: 26588 bytes
+(epstopdf)             Output file: <../FIG/uart_putch_timing-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2017-11-19 11:12:57
+(epstopdf)                    size: 12992 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/uart_putch_timing-ep
+s-converted-to.pdf ../FIG/uart_putch_timing.eps>
+(epstopdf)             \includegraphics on input line 391.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/uart_putch_timing-eps-converted-to.pdf, id=321, 389.455pt x 521.95pt>
+File: ../FIG/uart_putch_timing-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/uart_putch_timing-eps-converted-to.pdf>
+Package pdftex.def Info: ../FIG/uart_putch_timing-eps-converted-to.pdf used on 
+input line 391.
+(pdftex.def)             Requested size: 389.45404pt x 521.94872pt.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 395.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 395.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 395.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 395.
+ [23 <../FIG/uart_getch_timing-eps-converted-to.pdf>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 400.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 400.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 447.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 447.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 447.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 447.
+ [24 <../FIG/uart_putch_timing-eps-converted-to.pdf>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 449.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 449.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 469.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 469.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 469.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 469.
+
+[25]
+Overfull \hbox (10.01982pt too wide) in paragraph at lines 470--490
+[]\T1/lmr/m/n/12 Drei Kon-stan-ten müs-sen vor je-der Ein-fü-gung von uart_dela
+y.S ge-setzt sein, F_CPU, BAUD_RATE
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 491.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 491.
+Package epstopdf Info: Source file: <../FIG/OneWire_simple.eps>
+(epstopdf)                    date: 2017-11-20 12:20:02
+(epstopdf)                    size: 17633 bytes
+(epstopdf)             Output file: <../FIG/OneWire_simple-eps-converted-to.pdf
+>
+(epstopdf)                    date: 2017-11-20 12:20:03
+(epstopdf)                    size: 7369 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/OneWire_simple-eps-c
+onverted-to.pdf ../FIG/OneWire_simple.eps>
+(epstopdf)             \includegraphics on input line 517.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/OneWire_simple-eps-converted-to.pdf, id=351, 303.1325pt x 191.71625pt>
+File: ../FIG/OneWire_simple-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/OneWire_simple-eps-converted-to.pdf>
+Package pdftex.def Info: ../FIG/OneWire_simple-eps-converted-to.pdf used on inp
+ut line 517.
+(pdftex.def)             Requested size: 303.13176pt x 191.71577pt.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 521.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 521.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 521.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 521.
+ [26]
+Package epstopdf Info: Source file: <../FIG/OneWire.eps>
+(epstopdf)                    date: 2017-12-11 14:50:12
+(epstopdf)                    size: 43791 bytes
+(epstopdf)             Output file: <../FIG/OneWire-eps-converted-to.pdf>
+(epstopdf)                    date: 2017-12-11 14:51:42
+(epstopdf)                    size: 19376 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/OneWire-eps-converte
+d-to.pdf ../FIG/OneWire.eps>
+(epstopdf)             \includegraphics on input line 536.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/OneWire-eps-converted-to.pdf, id=358, 1020.81375pt x 541.02126pt>
+File: ../FIG/OneWire-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/OneWire-eps-converted-to.pdf>
+Package pdftex.def Info: ../FIG/OneWire-eps-converted-to.pdf used on input line
+ 536.
+(pdftex.def)             Requested size: 1020.81126pt x 541.01993pt.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 558.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 558.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 558.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 558.
+ [27 <../FIG/OneWire_simple-eps-converted-to.pdf> <../FIG/OneWire-eps-converted
+-to.pdf>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 559.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 559.
+
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 590--590
+[]\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
+ .version=alloc,load \[] 
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 626.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 626.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 626.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 626.
+[28]
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 626--626
+[]\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
+ .version=alloc,load \[] 
  []
 
 )
@@ -1163,45 +1356,168 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 39.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 39.
- [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 121.
+ [29]
+\openout2 = `USBserial.aux'.
+
+ (./USBserial.tex
+Kapitel 4.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 121.
+(babel)             in language  on input line 1.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 121.
+(babel)             in language  on input line 1.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 121.
+(babel)             in language  on input line 22.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 121.
- [21
+(babel)             in language  on input line 22.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 44.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 44.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 44.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 44.
+[30
+
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 121.
- (./bootloader.aux (./preface.aux) (./principle.aux)
-(./AVRhardware.aux) (./optiboot.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 121.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 121.
+Overfull \hbox (160.9117pt too wide) in paragraph at lines 47--47
+[]\T1/lmtt/m/n/12 Bus 002 Device 093: ID 10c4:ea60 Cygnal Integrated Products, 
+Inc. CP210x UART Bridge / myAVR mySmartUSB light[] 
+ []
+
+
+Overfull \hbox (105.33667pt too wide) in paragraph at lines 47--47
+[]\T1/lmtt/m/n/12 Bus 002 Device 076: ID 0403:6001 Future Technology Devices In
+ternational, Ltd FT232 Serial (UART) IC[] 
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 127.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 127.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 127.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 127.
+[31]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 191.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 191.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 191.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 191.
+ [32]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 205.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 205.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 215.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 215.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 215.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 215.
+ [33]
+Overfull \hbox (105.33667pt too wide) in paragraph at lines 222--222
+[]\T1/lmtt/m/n/12 Bus 002 Device 076: ID 0403:6001 Future Technology Devices In
+ternational, Ltd FT232 Serial (UART) IC[] 
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 302.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 302.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 302.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 302.
+[34]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 370.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 370.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 370.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 370.
+ [35]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 372.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 372.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 427.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 427.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 427.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 427.
+ [36]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 495.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 495.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 495.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 495.
+ [37])
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 41.
+ [38]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 159.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 159.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 159.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 159.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 159.
+ [39
+
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 159.
+ (./bootloader.aux (./preface.aux)
+(./principle.aux) (./AVRhardware.aux) (./optiboot.aux) (./USBserial.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 159.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 159.
 Package rerunfilecheck Info: File `bootloader.out' has not changed.
-(rerunfilecheck)             Checksum: AF3A2D9CF2E026A178ED158A0169A306;1342.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 121.
+(rerunfilecheck)             Checksum: 5A9B78D3B8CCFD8AABD183B8113A1186;2219.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 159.
  ) 
 Here is how much of TeX's memory you used:
- 20516 strings out of 493304
- 416666 string characters out of 6139872
- 570685 words of memory out of 5000000
- 23486 multiletter control sequences out of 15000+600000
+ 20613 strings out of 493304
+ 418432 string characters out of 6139871
+ 576143 words of memory out of 5000000
+ 23528 multiletter control sequences out of 15000+600000
  58474 words of font info for 47 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,9n,57p,443b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
-public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on bootloader.pdf (22 pages, 234381 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share
+/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
+Output written on bootloader.pdf (40 pages, 329617 bytes).
 PDF statistics:
- 318 PDF objects out of 1000 (max. 8388607)
- 271 compressed objects within 3 object streams
- 66 named destinations out of 1000 (max. 500000)
- 176 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 525 PDF objects out of 1000 (max. 8388607)
+ 446 compressed objects within 5 object streams
+ 110 named destinations out of 1000 (max. 500000)
+ 268 words of extra memory for PDF output out of 10000 (max. 10000000)
 

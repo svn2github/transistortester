@@ -80,31 +80,31 @@ ISPFUSES =	-e -u $(EFUSE_CMD) -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 2
 else
    # most processors have the Bootloader bits BOOTSZ in the HFUSE.
-ISPFUSES =	-e -u $(EFUSE_CMD) -U hfuse:w:0x$(shell cat HFUSE.dat):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u $(EFUSE_CMD) -U hfuse:w:0x$(shell $(CAT_CMD) HFUSE.dat):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 0
 endif
 ifeq ($(MCU_TARGET), atmega48)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 1
 endif
 ifeq ($(MCU_TARGET), atmega48p)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 1
 endif
 ifeq ($(MCU_TARGET), atmega88)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 1
 endif
 ifeq ($(MCU_TARGET), atmega88p)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 1
 endif
 ifeq ($(MCU_TARGET), atmega168)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 USE_Edat := 1
 endif
 ifeq ($(MCU_TARGET), atmega168p)
-ISPFUSES =	-e -u -U efuse:w:0x$(shell cat EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
+ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
 endif
 
 
@@ -121,7 +121,7 @@ ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0x2f:m
 endif
 #
 # HFUSE.dat is only referenced by isp:
-# The command line calls make use of the cat, echo and bc instructions.
+# The command line calls make use of the cat $(CAT_CMD), echo $(ECHO_CMD), tr $(TR_CMD) and bc $(BC_CMD) instructions.
 # The echo is used to produce the arithmetic formula for the bc function.
 # Input and output of the bc function is set to hex format (base 16).
 # Because the bc has no arithmetic and function to clear the BOOTSZ bits,
@@ -134,34 +134,34 @@ endif
 # The atmega48/88/168 use the extended fuse for setting the boot length.
 # Therefore both values (HFUSE and EFUSE) are estimated, but
 # the right one is selected by the $(ISPFUSES) variable.
-UC_HFUSE := $(shell echo $(HFUSE) | tr a-z A-Z)
-UC_EFUSE := $(shell echo $(EFUSE) | tr a-z A-Z)
+UC_HFUSE := $(shell $(ECHO_CMD) $(HFUSE) | $(TR_CMD) a-z A-Z)
+UC_EFUSE := $(shell $(ECHO_CMD) $(EFUSE) | $(TR_CMD) a-z A-Z)
 HFUSE.dat:	$(PROGRAM)_$(TARGET).hex BOOTSZ.dat
-	@echo "$(shell echo "obase=16;ibase=16;($(UC_HFUSE) - ((($(UC_HFUSE)/2) % 4)*2) ) + ($(shell cat BOOTSZ.dat)*2)" | bc)" > HFUSE.dat
+	@$(ECHO_CMD) "$(shell $(ECHO_CMD) "obase=16;ibase=16;($(UC_HFUSE) - ((($(UC_HFUSE)/2) % 4)*2) ) + ($(shell $(CAT_CMD) BOOTSZ.dat)*2)" | $(BC_CMD))" > HFUSE.dat
 EFUSE.dat:	$(PROGRAM)_$(TARGET).hex BOOTSZ.dat
-	@echo "$(shell echo "obase=16;ibase=16;(0$(UC_EFUSE) - (((0$(UC_EFUSE)/2) % 4)*2) ) + ($(shell cat BOOTSZ.dat)*2)" | bc)" > EFUSE.dat
+	@$(ECHO_CMD) "$(shell $(ECHO_CMD) "obase=16;ibase=16;(0$(UC_EFUSE) - (((0$(UC_EFUSE)/2) % 4)*2) ) + ($(shell $(CAT_CMD) BOOTSZ.dat)*2)" | $(BC_CMD))" > EFUSE.dat
 
 ifdef EFUSE
 FuseSetPrint:	$(PROGRAM)_$(TARGET).hex $(PROGRAM)_$(TARGET).lst
-	@echo "Fuses in Makefile.isp are set to lfuse=0x$(LFUSE), hfuse=0x$(HFUSE), efuse=0x$(EFUSE) for $(MCU_TARGET)"
-	@echo "\n; $(ISPFUSES)" >> $(PROGRAM)_$(TARGET).lst
+	@$(ECHO_CMD) "Fuses in Makefile.isp are set to lfuse=0x$(LFUSE), hfuse=0x$(HFUSE), efuse=0x$(EFUSE) for $(MCU_TARGET)"
+	@$(ECHO_CMD) "\n; $(ISPFUSES)" >> $(PROGRAM)_$(TARGET).lst
 else
 FuseSetPrint:	$(PROGRAM)_$(TARGET).hex $(PROGRAM)_$(TARGET).lst
-	@echo "Fuses in Makefile.isp are set to lfuse=0x$(LFUSE), hfuse=0x$(HFUSE) for $(MCU_TARGET)"
-	@echo "\n; $(ISPFUSES)" >> $(PROGRAM)_$(TARGET).lst
+	@$(ECHO_CMD) "Fuses in Makefile.isp are set to lfuse=0x$(LFUSE), hfuse=0x$(HFUSE) for $(MCU_TARGET)"
+	@$(ECHO_CMD) "\n; $(ISPFUSES)" >> $(PROGRAM)_$(TARGET).lst
 endif
 
 ifeq ($(USE_Edat), 1)
 FuseChangePrint: EFUSE.dat BL_StartAdr.dat
-	@echo "Bootloader Fuse is EFUSE = 0x$(shell cat EFUSE.dat) [0x$(EFUSE)], BootLoader Start at 0x$(shell cat BL_StartAdr.dat) $(shell echo "ibase=16; if (($(UC_EFUSE) % 2) == 0) print \"is enabled\" else print \"is NOT enabled, start at 0!\" " | bc) "
+	@$(ECHO_CMD) "Bootloader Fuse is EFUSE = 0x$(shell $(CAT_CMD) EFUSE.dat) [0x$(EFUSE)], BootLoader Start at 0x$(shell $(CAT_CMD) BL_StartAdr.dat) $(shell $(ECHO_CMD) "ibase=16; if (($(UC_EFUSE) % 2) == 0) print \"is enabled\" else print \"is NOT enabled, start at 0!\" " | $(BC_CMD)) "
 endif
 ifeq ($(USE_Edat), 0)
 FuseChangePrint: HFUSE.dat  BL_StartAdr.dat
-	@echo "Bootloader Fuse is HFUSE = 0x$(shell cat HFUSE.dat) [0x$(HFUSE)], BootLoader Start at 0x$(shell cat BL_StartAdr.dat) $(shell echo "ibase=16; if (($(UC_HFUSE) % 2) == 0) print \"is enabled\" else print \"is NOT enabled, start at 0!\" " | bc) "
+	@$(ECHO_CMD) "Bootloader Fuse is HFUSE = 0x$(shell $(CAT_CMD) HFUSE.dat) [0x$(HFUSE)], BootLoader Start at 0x$(shell $(CAT_CMD) BL_StartAdr.dat) $(shell $(ECHO_CMD) "ibase=16; if (($(UC_HFUSE) % 2) == 0) print \"is enabled\" else print \"is NOT enabled, start at 0!\" " | $(BC_CMD)) "
 endif
 ifeq ($(USE_Edat), 2)
 FuseChangePrint:  BL_StartAdr.dat
-	@echo "BootLoader Start Address is 0x$(shell cat BL_StartAdr.dat), application program end address must be lower! "
+	@$(ECHO_CMD) "BootLoader Start Address is 0x$(shell $(CAT_CMD) BL_StartAdr.dat), application program end address must be lower! "
 endif
 
 # There are certain complicated caused by the fact that the default state
@@ -187,9 +187,9 @@ isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep)
 #
 #Test Output
 #isp: $(PROGRAM)_$(TARGET).hex HFUSE.dat
-#	@echo abhaengig von $(PROGRAM)_$(TARGET).hex
-#	@echo AVRDUDE_CONF = $(AVRDUDE_CONF)
-#	@echo LFUSE = $(LFUSE)
-#	@echo HFUSE = $(HFUSE)
-#	@echo MCU_TARGET = $(MCU_TARGET)
-#	@echo ISP_FUSES = $(ISPFUSES)
+#	@$(ECHO_CMD) abhaengig von $(PROGRAM)_$(TARGET).hex
+#	@$(ECHO_CMD) AVRDUDE_CONF = $(AVRDUDE_CONF)
+#	@$(ECHO_CMD) LFUSE = $(LFUSE)
+#	@$(ECHO_CMD) HFUSE = $(HFUSE)
+#	@$(ECHO_CMD) MCU_TARGET = $(MCU_TARGET)
+#	@$(ECHO_CMD) ISP_FUSES = $(ISPFUSES)

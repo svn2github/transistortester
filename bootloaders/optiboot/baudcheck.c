@@ -18,82 +18,155 @@
  * First strip any trailing "L" from the defined constants.  To do this
  * we need to make the constants into shell variables first.
  */
-bpsx=BAUD_RATE
-bps=${bpsx/L/}
-bps=${bpsx/U/}
-fcpux=F_CPU
-fcpu=${fcpux/L/}
-fcpu=${fcpux/U/}
+// bpsx=BAUD_RATE
+// bps=${bpsx/L/}
+// bps=${bpsx/U/}
+// determine the count of loop tics
 
-// echo f_cpu = $fcpu, baud = $bps
+#if	1	/* usually the Port address is lower than 0x40 */
+ #ifdef INVERS_UART
+  #define LOOP_TICS 10
+ #else
+  #define LOOP_TICS 9
+ #endif
+#else
+ // loop can only use STS and LDS
+ #ifdef INVERS_UART
+  #define LOOP_TICS 11
+ #else
+  #define LOOP_TICS 10
+ #endif
+#endif
+
+#ifndef BAUD_RATE
+ #error "in check_baudrate.c is BAUD_RATE not set"
+#endif
+bps=`$ECHO_CMD BAUD_RATE | $TR_CMD -d LU`
+#ifndef F_CPU
+ #error "in check_baudrate.c is F_CPU not set"
+#endif
+// fcpux=F_CPU
+// fcpu=${fcpux/L/}
+// fcpu=${fcpux/U/}
+fcpu=`$ECHO_CMD F_CPU | $TR_CMD -d LU`
+
+// $ECHO_CMD f_cpu = $fcpu, baud = $bps
 /*
  * Compute the divisor
  */
-#ifdef SOFT_UART
+$ECHO_CMD ---------------------------------------------------------------------------
+#if SOFT_UART > 0
  #if FLASHEND > 0x1ffff
   #define RCALL_TICS 9
  #else
   #define RCALL_TICS 7
  #endif
- #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+9)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
+ #define DelayMul 1
+ #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
  #define UART_B_VALUE ((CLOCKS_PER_BIT)/6)
- #define UART_R_VALUE ((CLOCKS_PER_BIT/2) - (UART_B_VALUE*3))
  #if UART_B_VALUE > 255
   // try with double rcall uartDelay_single
   #undef CLOCKS_PER_BIT
   #undef UART_B_VALUE
-  #undef UART_R_VALUE
-  #define DoubleDelay
-  #define CLOCKS_PER_BIT ( (F_CPU-((((4*RCALL_TICS+9)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
-  #define UART_B_VALUE ((CLOCKS_PER_BIT)/12)
-  #define UART_R_VALUE ((CLOCKS_PER_BIT/4) - (UART_B_VALUE*3))
+  #undef DelayMul
+  #define DelayMul 2
+  #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+  #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
   #if UART_B_VALUE > 255
-   // try with double rcall uartDelay_single
+   // compute with 4x rcall uartDelay_single
    #undef CLOCKS_PER_BIT
    #undef UART_B_VALUE
-   #undef UART_R_VALUE
-   #define QuadDelay
-   #define CLOCKS_PER_BIT ( (F_CPU-((((8*RCALL_TICS+9)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
-   #define UART_B_VALUE ((CLOCKS_PER_BIT)/24)
-   #define UART_R_VALUE ((CLOCKS_PER_BIT/8) - (UART_B_VALUE*3))
-   UartBV=$(( UART_B_VALUE ))
-   UartRV=$(( UART_R_VALUE ))
-   UartDelay=$(( (7 + (UartBV*3) + UartRV)*4 )) 
-  #else
-   UartBV=$(( UART_B_VALUE ))
-   UartRV=$(( UART_R_VALUE ))
-   UartDelay=$(( (7 + (UartBV*3) + UartRV)*2 )) 
-  #endif        /* QuadDelay */
- #else
-  UartBV=$(( UART_B_VALUE ))
-  UartRV=$(( UART_R_VALUE ))
-  UartDelay=$(( 7 + (UartBV*3) + UartRV )) 
- #endif         /* DoubleDelay */
-BAUD_ACTUAL=$(( ($fcpu / (9 + ($UartDelay*2))) ))
-BAUD_ERROR=$(( (( 100*($BAUD_ACTUAL- $bps) ) / $bps) ))
-ERR_TS=$(( ((( 1000*($BAUD_ACTUAL - $bps) ) / $bps) - $BAUD_ERROR * 10) ))
-ERR_TENTHS=$(( ERR_TS > 0 ? ERR_TS: -ERR_TS ))
-echo BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: $BAUD_ACTUAL, Error=$BAUD_ERROR.$ERR_TENTHS\%
-#else
-BAUD_SETTING=$(( ( ( ( ($fcpu + ($bps * 4)) / ($bps * 8)) ) - 1) ))
-// echo baud setting = $BAUD_SETTING
+   #undef DelayMul
+   #define DelayMul 4
+   #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+   #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+   #if UART_B_VALUE > 255
+    // compute with 8x rcall uartDelay_single
+    #undef CLOCKS_PER_BIT
+    #undef UART_B_VALUE
+    #undef DelayMul
+    #define DelayMul 8
+    #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+    #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+    #if UART_B_VALUE > 255
+     // compute with 16 rcall uartDelay_single
+     #undef CLOCKS_PER_BIT
+     #undef UART_B_VALUE
+     #undef DelayMul
+     #define DelayMul 16
+     #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+     #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+     #if UART_B_VALUE > 255
+      // compute with 32 rcall uartDelay_single
+      #undef CLOCKS_PER_BIT
+      #undef UART_B_VALUE
+      #undef DelayMul
+      #define DelayMul 32
+      #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+      #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+      #if UART_B_VALUE > 255
+       // compute with 64 rcall uartDelay_single
+       #undef CLOCKS_PER_BIT
+       #undef UART_B_VALUE
+       #undef DelayMul
+       #define DelayMul 64
+       #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+       #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+      #endif        /* DelayMul 64*/
+     #endif        /* DelayMul 32 */
+    #endif        /* DelayMul 16 */
+   #endif        /* DelayMul 8 */
+  #endif        /* DelayMul 4 */
+ #endif         /* DelayMul 2 */
 
+delay_mul=$(( DelayMul ))
+clocks=$(( (CLOCKS_PER_BIT / DelayMul) ))
+UartDelay=$(( (((RCALL_TICS*2) + (CLOCKS_PER_BIT/DelayMul)) * DelayMul) + LOOP_TICS ))
+ #if BAUD_RATE > 10000
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+ #elif BAUD_RATE > 1000
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+ #else
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+ #endif
+#else
+// for hardware UART
+ #define BAUD_DIV  ( ( ( F_CPU / 4L / BAUD_RATE )  - 1) / 2) 
+ #if (BAUD_DIV > 255) && (BAUD_DIV < 2046)
+BAUD_SETTING=$((  ( ( ($fcpu / 8 / $bps) - 1) / 2) ))
+UartDelay=$(( (16 * ((BAUD_SETTING) +1)) ))
 /*
  * Based on the computer divisor, calculate the actual bitrate,
  * And the error.  Since we're all integers, we have to calculate
  * the tenths part of the error separately.
  */
-BAUD_ACTUAL=$(( ($fcpu/(8 * (($BAUD_SETTING)+1))) ))
-BAUD_ERROR=$(( (( 100*($BAUD_ACTUAL - $bps) ) / $bps) ))
-ERR_TS=$(( ((( 1000*($BAUD_ACTUAL - $bps) ) / $bps) - $BAUD_ERROR * 10) ))
-ERR_TENTHS=$(( ERR_TS > 0 ? ERR_TS: -ERR_TS ))
+// BAUD_ACTUAL=$(( ($fcpu/(16 * (($BAUD_SETTING)+1))) ))
+
+ #else
+BAUD_SETTING=$(( ( ( ($fcpu / 4 / $bps ) - 1) / 2) ))
+UartDelay=$(( (8 * ((BAUD_SETTING) +1)) ))
+/*
+ * Based on the computer divisor, calculate the actual bitrate,
+ * And the error.  Since we're all integers, we have to calculate
+ * the tenths part of the error separately.
+ */
+//BAUD_ACTUAL=$(( ($fcpu/(8 * (($BAUD_SETTING)+1))) ))
+
+ #endif
+// $ECHO_CMD baud setting = $BAUD_SETTING
 
 /*
  * Print a nice message containing the info we've calculated
  */
-echo BAUD RATE CHECK: Desired: $bps,  Real: $BAUD_ACTUAL, UBRRL = $BAUD_SETTING, Error=$BAUD_ERROR.$ERR_TENTHS\%
-#endif
-
+ #if BAUD_RATE > 10000
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+ #elif BAUD_RATE > 1000
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+ #else
+$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+ #endif
+#endif	/* SOFT_UART */
+$ECHO_CMD ---------------------------------------------------------------------------
 
 
 

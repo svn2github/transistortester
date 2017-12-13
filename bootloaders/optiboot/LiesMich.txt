@@ -1,4 +1,4 @@
-Autor: Karl-Heinz Kübbeler   (kh_kuebbeler@web.de) , Mai 2016
+Autor: Karl-Heinz Kübbeler   (kh_kuebbeler@web.de) , Mai 2016, Nov 2017
 
 Dies ist eine Assemblerversion von optiboot Version 6.2!
 Der Platzbedarf konnte bei gleicher Funktionalität so minimiert werden,
@@ -37,7 +37,8 @@ Eine Liste von Beispiel-Konfigurationen findet man in der makeall Datei.
 Die Makefile passt inzwischen die Fuses des AVR und die Lage des Bootloader
 Programms im Flash-Speicher automatisch an die Programmgrösse an.
 Die automatische Grössenanpassung sollte auf Linux-Systemen laufen,
-bei Windows Systemen ist es völlig ungetestet.
+bei Windows Systemen ist es völlig ungetestet. Auf jeden Fall wäre
+die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
 Arduino-UNO Board und einem Arduino-Nano Clone.
 
@@ -57,11 +58,13 @@ Bisher ungetestet ist die Option VIRTUAL_BOOT_PARTITION.
 Normalerweise wird der Start-Vektor mit den Fuses (BOOTRST-Bit) auf den 
 Boot Loader Reset eingestellt. Mit der VIRTUAL_BOOT_PARTITION Option kann der
 Reset Vektor auf dem Applikations Reset (0x0000) bleiben.
-Statt dessen  soll der Reset Interrupt-Vektor auf den Bootloader umgelegt werden.
+Statt dessen  soll der Reset Interrupt-Vektor im Anwenderprogramm auf den Bootloaders
+umgelegt werden.
 Die Vektor-Addresse des Reset Vektors soll dann in einen anderen Interrupt Vektor
 eingetragen werden und vom Bootloader beim "Timeout" benutzt werden.
-Dabei werden die Programmdatem beim Flashen verändert und bei der anschliessenden
-Kontrolle (verify) als ursprünglich simuliert.
+Dabei werden die Programmdatem des Anwenderprogramms beim Flashen verändert und
+bei der anschliessenden Kontrolle (verify) als ursprünglich simuliert.
+Bei späteren Kontrollen würden die veränderten Interrupt-Vektoren als Fehler gemeldet!
 Eine der Schwierigkeiten für den Bootloader besteht bei Flash-Speichergrössen
 von mehr als 8K darin, dass auf den Vektoradressen sowohl JMP als auch RJMP Befehle 
 benutzt werden können. 
@@ -126,6 +129,12 @@ VIRTUAL_BOOT_PARTITION  Diese Option verändert zwei Interrupt Vektor Sprung-Adr
 			Damit ist eine Kontrolle der geladenen Flash-Daten (verify) so lange
 			möglich, wie die EEprom-Daten nicht vom Anwenderprogramm
 			überschrieben werden.
+
+TIMEOUT_MS		Diese Option gibt eine Zeitschranke in Millisekunden vor für den Empfang von Boot-Daten.
+			Nach dieser Zeit wird der Bootvorgang abgebrochen und versucht das Anwenderprogramm zu starten.
+			Mögliche Werte für TIMEOUT_MS sind 500, 1000, 2000, 4000 und 8000.
+			Der tatsächlich mögliche Wert kann abhängig vom Prozessor auf 2 Sekunden begrenzt sein.
+
 
 Vorschlag:
 ==========

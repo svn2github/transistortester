@@ -3,6 +3,7 @@
 #endif
 #include <avr/io.h>
 
+#define WITHOUT_4_STEP
 
 
 
@@ -54,9 +55,14 @@
 
 
 wait5s:
+#ifdef WITHOUT_4_STEP
+wait4s:
+ rcall wait2s		;	12+x return-adresses
+#else
  rcall wait1s		;	12+x return-adresses
 wait4s:
  rcall wait1s		;	12+x return-adresses
+#endif
 wait3s:
  rcall wait1s		;	12+x return-adresses
 wait2s:
@@ -67,9 +73,14 @@ wait1000ms:
  rcall wait500ms	;500ms	11+x Return-Adresses
 
 wait500ms:
+#ifdef WITHOUT_4_STEP
+wait400ms:
+ rcall wait200ms	;200ms	10+x Return-Adresses
+#else
  rcall wait100ms	;100ms	10+x Return-Adresses
 wait400ms:
  rcall wait100ms	;100ms	10+x Return-Adresses
+#endif
 wait300ms:
  rcall wait100ms	;100ms	10+x Return-Adresses
 wait200ms:
@@ -80,9 +91,14 @@ wait100ms:
  rcall wait50ms	    	; 50ms	9+x Return-Adresses
 
 wait50ms:
+#ifdef WITHOUT_4_STEP
+wait40ms:
+ rcall wait20ms	    	;20ms	8+x Return-Adresses 
+#else
  rcall wait10ms	    	;10ms	8+x Return-Adresses 
 wait40ms:
  rcall wait10ms	    	;10ms	8+x Return-Adresses  
+#endif
 wait30ms:
  rcall wait10ms	    	;10ms	8+x Return-Adresses  
 wait20ms:
@@ -92,9 +108,14 @@ wait10ms:
  rcall wait5ms	   	;5ms	7+x Return-Adresses
 wait5ms:
  wdr				; every 5ms one Watchdog reset!
+#ifdef WITHOUT_4_STEP
+wait4ms:
+ rcall wait2ms	   	;2ms	6+x Return-Adresses
+#else
  rcall wait1ms	   	;1ms	6+x Return-Adresses
 wait4ms:
  rcall wait1ms	   	;1ms	6+x Return-Adresses
+#endif
 wait3ms:
  rcall wait1ms	   	;1ms	6+x Return-Adresses
 wait2ms:
@@ -103,9 +124,14 @@ wait2ms:
 wait1ms:
  rcall wait500us    	;500us	5+x Return-Adresses
 wait500us:
+#ifdef WITHOUT_4_STEP
+wait400us:
+ rcall wait200us    	;200us	4+x Return-Adresses
+#else
  rcall wait100us    	;100us	4+x Return-Adresses
 wait400us:
  rcall wait100us    	;100us	4+x Return-Adresses
+#endif
 wait300us:
  rcall wait100us    	;100us	4+x Return-Adresses
 wait200us:
@@ -146,15 +172,23 @@ wait100us:
 #endif
  rcall wait50us	    	; 50us delay
 wait50us:
-#if US50_TICS > (US40_TICS + US10_TICS)
+#ifdef WITHOUT_4_STEP
+ #if US50_TICS > (US30_TICS + US20_TICS)
  nop
-#endif
+ #endif
+wait40us:
+ rcall wait20us     	;20us delay
+#else
+ #if US50_TICS > (US40_TICS + US10_TICS)
+ nop
+ #endif
  rcall wait10us     	;10us delay
 wait40us:
-#if US40_TICS > (US30_TICS + US10_TICS)
+ #if US40_TICS > (US30_TICS + US10_TICS)
  nop
-#endif
+ #endif
  rcall wait10us     	;10us delay
+#endif
 wait30us:
 #if US30_TICS > (US20_TICS + US10_TICS)
  nop
@@ -294,21 +328,17 @@ waitinner1:
  #warning wait1000ms: WAST_TICS2 > 7, delay times may be wrong!
  #endif
 
+ #if WAST_TICS2 >= 6
+    rjmp .              /* two additional tics */
+ #endif
  #if WAST_TICS2 >= 4
-    push r1
-    pop  r1
-  #define WAST_TICS3 (WAST_TICS2 - 4)
- #else
-  #define WAST_TICS3 WAST_TICS2
+    rjmp .              /* two additional tics */
  #endif
- #if WAST_TICS3 > 2
-   nop	
+ #if WAST_TICS2 >= 2
+    rjmp .              /* two additional tics */
  #endif
- #if WAST_TICS3 > 1
-    nop	
- #endif
- #if WAST_TICS3 > 0
-    nop	
+ #if ((WAST_TICS2 / 2) * 2) < WAST_TICS2
+    nop                 /* one additional tic */
  #endif
 
  ret

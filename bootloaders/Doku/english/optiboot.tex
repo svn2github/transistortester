@@ -224,7 +224,6 @@ and \ref{tab:options2}
     \hline
     UART           & UART=1         & Select a hardware UART used for the serial communication \\
                    &                & You can only select a UART if more than one is present. \\
-                   &                & This option can not be used with the SOFT\_UART Option. \\
     \hline
  LED\_START\_      & LED\_START\_   & Select a repetition count of flashing cycles for the \\
    FLASHES         &   FLASHES=3    & control LED.                            \\
@@ -239,6 +238,16 @@ and \ref{tab:options2}
     \hline
  LED\_DATA\_       & LED\_DATA\_    & The control LED will glow during waiting for \\
       FLASH        &    FLASH=1     & serial input data. \\
+    \hline
+ TIMEOUT\_MS       & TIMEOUT\_MS=2000 & This option specifies a time limit in ms units \\
+                   &                  & for receiving boot data. After this time without \\
+                   &                  & data the boot process is aborted and the \\
+                   &                  & processor tries to start the user program. \\
+                   &                  & Possible values for TIMEOUT\_MS are 500, 1000, 2000, \\
+                   &                  & 4000 and 8000. The efffective value can be limited \\
+                   &                  & to 2s because of processor limits for the watchdog. \\
+                   &                  & If no TIMEOUT\_MS is specified, the time limit is \\
+                   &                  & set to 1 second. \\
     \hline
     \end{tabular}
   \end{center}
@@ -357,3 +366,270 @@ With the VIRTUAL\_BOOT\_PARTITION the start address can be placed to every
 begin of a flash page. For the normal boot-loader support of the AVR the
 start address can only respect the single, double, quadruple or octuple size of
 a minimum boot-loader size as shown in figure~\ref{fig:pages} at page~\pageref{fig:pages}.
+
+
+\section{Capabilities of the serial interface with the applied software}
+
+Das Programm für die Erzeugung und Verarbeitung der elektrischen Signale ist in AVR-Assembler geschrieben.
+The way of operation is taked over from the Application Note AVR305 of the ATmel Corporation.
+However here are some special features build in.
+For example it is respected, that we can not use the special bit-instructions SBI, CBI and SBIC for
+any port address. You can use this instructions only up to the address 31 (0x1f).
+For some higher port addresses up to 63 (0x3f) you can use special input (IN) and output (OUT)
+instructions. If the addresses of the port are higher than this value, you must use
+the instructions LDS and STS to access this ports. This instructions need 2 processor clocks for
+execution and use the double flash memory (2 words or 4 byte) of the other instructions.
+The changed cycle number of one loop pass without any additional delay will be automatically
+determined by the program. 
+This number of cycles is then taken into account for the calculation of the delay loop,
+to achieve a correct time for the transmission of a bit.
+The diagrams~\ref{fig:getch_timing} and~\ref{fig:putch_timing} should be used to
+explain the work of the C-proprocessor.
+
+\begin{figure}[H]
+\centering
+\scalebox{0.9}{\includegraphics[]{../FIG/uart_getch_timing.eps}}
+\caption{Possible variants of the getch function}
+\label{fig:getch_timing}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{../FIG/uart_putch_timing.eps}
+\caption{Possible variants of the putch function}
+\label{fig:putch_timing}
+\end{figure}
+
+Both loops are generated so that one cycle with the same conditions of INVERS option and
+address range of the used ports use the same tic count.
+So both functions can use the same function for generating the necessary delay.
+
+\subsection{Computing of the delay time}
+For the read-in function getch() is the half baud time needed.
+From the detection of the start bit a total time of 1.5 times of the baud-time is delayed
+to read the first data bit.
+Therefore the base loop is designed for the half duration of a bit transmission.
+This base loop is called twice in a special way, so that exactly twice the time is get.
+Should one clock have been lost by the building of half the time and subsequent doubling,
+this clock is compensated by adding a additional NOP command, so that the total time
+is exactly correct for the transmission of one bit.
+Because of the limited time resolution of the counter loop of 3 tics, a remainder of up to 2 clock tics
+is compensated by adding a additional instruction with the right tic count (RJMP or NOP).
+Of course, all this happens automatically, because only the loop time of the input function (getch)
+and the output function (putch), the clock frequency of the processor and the desired baud rate
+must be known. All other parameters like the number of clocks for a subroutine call (RCALL, RET)
+are known for the traget processor.
+A disadvantage of the base delay loop is the limited number of clocks for the delay.
+With the used 8-bit counter only a maximum of 256*3 clocks is possible for the loop delay.
+In addition there is the subroutine call of 7 tics, resulting in a half delay time of 775 tics.
+This value must be doubled (delay for a whole bit time) and the loop-time of the input or output
+function must be added to get the total time possible. Thus the highest achievable delay time is 1559 clocks.
+With a \(16 MHz\) clock frequency you can not get a baud rate of 9600 Baud \(104.17\mu s\), because
+the limit is only \(97.4\mu s\).
+If a 16-bit counter is used by the delay loop, you would get an even worse resolution of time
+because one loop cycle would take more time.
+In addition, the 16-bit loop probably need to use the carry bit. The 8-bit counter don't use the carry bit.
+This problem is solved by gradually doubling the delay times by doubling the delay loop call.
+The C-prepocessor checks, if the initial value of the loop counter would match the 8-bit limit (255) at the
+selected clock frequency and the desired baud rate.
+In this cace the calculation is repeated for a double call of the base delay loop.
+If the resulting initial value for the counting loop is still too high, the double call is doubled again.
+Currently this procedure is repeated up to a factor 64 of the base time with the 8-bit counter.
+At a clock frequency of \(16 MHz\) or \(20 MHz\) it is now possible to set the serial interface to 300 baud.
+For every doubling of the delay time, a additional instruction (2 bytes) is required.
+With the maximum count of doubling 6 additional instructions (12 byte) are required in the flash memory.
+There is no attempt to add additional instructions to compensate the missing tics caused by
+the prescaler for saving flash memory.
+The baud time error remains clearly below \(1\%\), because the scaler is used only if necessary.
+So the base loop has at least 127 passes with approximately 381 tics, The double delay time
+makes no error because of the ''NOP'' compensation. Thus the error stays below 1:762 \(0.13\%\). 
+The higher baud rates tend to get higher error for the transmission time, because
+the time frame of the CPU clock does not match to the desired baud time.
+The hardware UART has then the same problem, if it use the same CPU-clock.
+If you wish to generate a baud rate of 230400 with a CPU clock rate of \(8 MHz\),
+you can use either 34 tics with a baud time of \(4.25\mu s\) or
+35 tics with a baud time of \(4.375\mu s\).
+For the first case your baud time is \(2.08\%\) too short, for the
+second case the baud time is \(0.8\%\) too long.
+
+\subsection{Using more than one serial interface}
+
+The assembler file soft\_uart.S is designed to be included by a different file which hold
+a normal assembler source for the AVR family.
+For the optiboot application this is done by the optiboot.S file.
+The included file soft\_uart.S use many instructions of the
+GNU C-preprocessor and includes another file uart\_delay.S for producing a delay loop
+for the desired baud rate. Because this include can be repeated with other parameters,
+you can produce up to 4 different delay loops for 4 different baud rates.
+This feature use the file soft\_uart.S for generatung a getch and a putch function.
+For both functions the file uart\_delay.S is included. But for the second call is
+usually no new code generated because the calling parameters are the same.
+Only if the parameters differ, a new delay loop would be generated.
+Please note, that the callings for the delay loop are named with C-preprocessor macros.
+This macros are set to a matching delay loop named DOUBLE\_DELAY\_CALL and SINGLE\_DELAY\_CALL,
+if you include the uart\_delay.S file before the code of the serial input or output function.
+
+Three constants must be set before any include of uart\_delay.S, named F\_CPU, BAUD\_RATE and 
+LOOP\_TICS. The LOOP\_TICS must be set to the count of tics of the serial input or output
+loop for one cycle without any additional delay (usually 9 tics).
+For every generated delay loop, the total count of delay tics are saved in one of four
+different constant names of the C-preprocessor BIT\_CLOCKS\_0, BIT\_CLOCKS\_1,
+BIT\_CLOCKS\_2 and BIT\_CLOCKS\_3 . 
+Before a new delay loop is generated, the C-preprocessor checks, if any of the already
+generated code for a delay match the new requirement.
+Because also the file soft\_uart.S must be included to generate the code for the 
+serial input and serial output function, you can repeat this include for another
+serial interface. But you must set a additional constant for differing the name
+in the functions.
+If you set the SOFT\_UART\_NUMBER to 1 (\#define SOFT\_UART\_NUMBER 1) before the \#include,
+the serial input function is named getch\_1 and the serial output function
+is named putch\_1. If you define a constant named NO\_SOFT\_UART\_TX before the
+\#include of soft\_uart.S, no serial output function is generated by this include.
+The same is done with the serial input function, if you specify the constant NO\_SOFT\_UART\_RX.
+
+\subsection{Serial Input and Output with only one AVR Pin}
+
+Sometimes it makes sense to operate the serial communication only with one pin,
+to unlock one of the few IO pins of small AVRs for other use.
+With a special circuit technology can be achieved that you can read in data in the
+output pauses. The software solution of optiboot can only use the half-duplex operation
+in any case.
+Thus, at one time, only either data can be send or data can be received.
+Normally the output pin with the TX function becomes high in the transmission pauses,
+which prevent a data reading on the same pin.
+But if the TX output pin is switched to input mode instead of the high level,
+a external pull-up resistor can provide the required high level.
+In contrast to the fixed high level now a externally connected TX signal
+can pull down the level and let the input function read the low level.
+A serial resitor in the connection between the common TX/RX pin of the AVR
+with the external TX output can serve as pull-up resistor,
+because the idle state if the interface is a high signal.
+In addition, this serial resistor provides current limiting,
+if both TX interfaces send at the same time.
+The external RX interface must be connected directly to the common TX/RX pin
+to enable the reading of the external RX interface.
+The figure~\ref{fig:onewire-simple} should illustrate this simplest connection.
+
+\begin{figure}[H]
+\centering
+\scalebox{1.0}{\includegraphics[]{../FIG/OneWire_simple.eps}}
+\caption{Possible serialconnection to a AVR with one Pin}
+\label{fig:onewire-simple}
+\end{figure}
+
+Now is the problem, that the mostly full-duplex capable external interface will
+read back the own output.
+The communication program at the external side is usually unprepared for this condition.
+There is now the possibility to adapt the program at the external side for this situation.
+But I believe, that this is not a good idea, because this special version will 
+have no maintenance or you must repeat this adaption for new versions constantly.
+That's why I prefere a hardware solution.
+A electronic circuit between the both endpoints must differ, from which side
+the data are send.
+A corresponding circuit suggestion is shown in figure~\ref{fig:onewire}
+
+\begin{figure}[H]
+\centering
+\scalebox{0.5}{\includegraphics[]{../FIG/OneWire.eps}}
+\caption{Schaltung zur Unterdrückung des Echos}
+\label{fig:onewire}
+\end{figure}
+
+With the first two NAND gates of the HCF4093 a flip-flop is build,
+which is set or reset by the two other NAND gates of this chip.
+The switching signals are get from from signals of a chain of inverting buffers
+with Schmitt-trigger inputs (HC7414).
+For one of this signals a additional C-R circuit (\(120 pF\) und \(3.3 k\Omega\) is
+required to prevent switching at the wrong edge.
+The flip-flop is switched with the 1-0 edge of the two transmission sides.
+This changeover is only required at the edge of the start bit.
+But additional switching with data bits will nor hurt, if the flip-flop
+is already in the right state.
+When the external interface sends, the reception of the data with the
+external receiver is prevented. The external RX signal remains at high level.
+With this additional circuit no software adaption is necessary.
+You can use avrdude for example for the bootloader.
+The circuit is largely independent of the selected baud rate.
+I expect only problems with very high baud rates.
+At 115200 baud the circuit operates well. Much higher baud rates can 
+not be used in most cases with the software serial interface.
+
+
+\section{Some examples of building a optiboot bootloader}
+
+The first example is the building of a bootloader for the popular ATmega328P:
+
+\begin{verbatim}
+optiboot $ make atmega328p
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret \
+ -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
+ -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:249:0
+pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+optiboot.S:538:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    472	      0	      0	    472	    1d8	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot.hex
+cp optiboot.lst optiboot_atmega328p.lst
+cp optiboot.hex optiboot_atmega328p.hex
+\end{verbatim}
+
+With no additional option a baudrate of 115200 with a clock frequency of \(16 MHz\) is selected.
+For serial output the hardware interface is selected.
+You should notice, that the systematic baud rate error is above 2\% with the hardware UART.
+The second example with the same processor is done with a software solution for the serial interface.
+
+\begin{verbatim}
+optiboot $ make atmega328p SOFT_UART=1
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret \
+ -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
+ -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:249:0:
+pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:67:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
+pin_defs.h:73:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    492	      0	      0	    492	    1ec	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot.hex
+cp optiboot.lst optiboot_atmega328p.lst
+cp optiboot.hex optiboot_atmega328p.hex
+\end{verbatim}
+
+Please note, that the software solution for the serial interface requires a little more flash memory,
+but take use of only 1 boot page too. The systematic baud rate error is much smaller than the error with the hardware UART.
+But the hardware UART has the advantage, that the input and output could be done simultaneous and is more tolerant against
+short disturbance of the input signal.
+For the software serial interface you can specify every digital IO-pin for input (UART\_RX) and output (UART\_TX). 
+In this example the feature is used to automatically select the RX and TX of the hardware UART.
+Please ignore the three warning messages, which tell you about the automatic selection.
+The automatic IO-pin selection depends on the selected processor type and the selected UART number, if more than
+one UART is available.

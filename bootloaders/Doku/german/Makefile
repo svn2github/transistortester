@@ -1,5 +1,7 @@
 LISTE3 = ../FIG/boot_pages.eps 	../FIG/avr_block.eps ../FIG/port.eps ../FIG/ablauf.eps
 LISTE3 += ../FIG/VectorMove.eps ../FIG/ISP.eps ../FIG/UM232.eps
+LISTE3 += ../FIG/uart_putch_timing.eps ../FIG/uart_getch_timing.eps
+LISTE3 += ../FIG/OneWire.eps ../FIG/OneWire_simple.eps
 
 all: bootloader.pdf
 	
@@ -20,9 +22,17 @@ all: bootloader.pdf
 	fig2eps $<
 ../FIG/VectorMove.eps: ../FIG/VectorMove.fig
 	fig2eps $<
+../FIG/uart_getch_timing.eps: ../FIG/uart_getch_timing.fig
+	fig2eps $<
+../FIG/uart_putch_timing.eps: ../FIG/uart_putch_timing.fig
+	fig2eps $<
+../FIG/OneWire.eps: ../FIG/OneWire.fig
+	fig2eps $<
+../FIG/OneWire_simple.eps: ../FIG/OneWire_simple.fig
+	fig2eps $<
 
 
-TEXLIST3 = preface.tex principle.tex AVRhardware.tex optiboot.tex
+TEXLIST3 = preface.tex principle.tex AVRhardware.tex optiboot.tex USBserial.tex
 
 bootloader.pdf: bootloader.tex $(LISTE3) $(TEXLIST3)
 	pdflatex --shell-escape bootloader.tex
