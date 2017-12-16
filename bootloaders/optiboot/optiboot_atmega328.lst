@@ -862,7 +862,7 @@ wt_fin:
 	ret
     7fd8:	08 95       	ret
 ; 
-; MCU_TARGET = atmega328p
+; MCU_TARGET = atmega328
 ; SOURCE_TYPE=S
 ; AVR_FREQ= 16000000
 ; BAUD_RATE=115200

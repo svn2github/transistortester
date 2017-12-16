@@ -153,7 +153,7 @@ int main(void) {
         uart_newline();
         uart_newline();
         } 
-#if	SOFT_UART > 0
+#if	SOFT_UART > 1
 	// output 'U' to TX0 and 'W' to TX1
         while (1)
         {

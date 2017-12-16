@@ -178,12 +178,18 @@ endif
 # unlock the bootloader section) and 0xcf instead of 0x2f (to
 # lock it), but since the high two bits of the lock byte are
 # unused, avrdude would get confused.
-
+ifeq ($(ISP), 2)
+isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep) 
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) \
+              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
+	 -U flash:v:$(PROGRAM)_$(TARGET).hex
+else
 isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep) 
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
               $(ISPFUSES) \
               $(ISPFLASH)
+endif
 #
 #Test Output
 #isp: $(PROGRAM)_$(TARGET).hex HFUSE.dat

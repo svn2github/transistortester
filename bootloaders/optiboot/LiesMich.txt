@@ -1,4 +1,4 @@
-Autor: Karl-Heinz Kübbeler   (kh_kuebbeler@web.de) , Mai 2016, Nov 2017
+Autor: Karl-Heinz Kübbeler   (kh_kuebbeler@web.de) , Mai 2016, Dez 2017
 
 Dies ist eine Assemblerversion von optiboot Version 6.2!
 Der Platzbedarf konnte bei gleicher Funktionalität so minimiert werden,
@@ -40,23 +40,24 @@ Die automatische Grössenanpassung sollte auf Linux-Systemen laufen,
 bei Windows Systemen ist es völlig ungetestet. Auf jeden Fall wäre
 die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
-Arduino-UNO Board und einem Arduino-Nano Clone.
+Arduino-UNO und -Nano Board, ATmega8, ATmega32, ATmega1284p und einem ATtiny84.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas
-mehr Platz als die Nutzung einer vorhandenen seriellen Schnittstelle,
+mehr Platz als die Nutzung einer vorhandenen seriellen Hardware-Schnittstelle,
 passt in allen getesten Fällen aber auch in die 510 Byte.
-Die unteren Baudraten sind mit der Software-Lösung meistens besser realisierbar.
-Bei 20MHz AVR Takt sind Baudraten über 3250 Baud einstellbar, bei niedrigeren Taktraten
-als 20 MHz sind auch noch kleinere Baud Werte möglich.
-Mit dem Hardware UART des AVR sind bei 20MHz Takt 9600 Baud einstellbar, bei 16MHz sind
-auch noch 4800 Baud wählbar. Wenn die CPU Taktrate hoch genug ist, ist als Standardwert
+Die oberen Baudraten sind mit der Software-Lösung meistens genauer einstellbar.
+Bei 20MHz AVR Takt sind Baudraten ab 300 Baud einstellbar, bei niedrigeren Taktraten
+als 20 MHz sind auch noch kleinere Baud Werte mit SOFT_UART möglich.
+Mit dem Hardware UART des AVR sind bei 20MHz Takt 600 Baud einstellbar, bei 16MHz sind
+auch noch 300 Baud wählbar. Wenn die CPU Taktrate hoch genug ist, ist als Standardwert
 115200 Baud eine gute Wahl.
 Unter bestimmten Umständen ist auch 1 MBAUD mit der Hardware Schnittstelle wählbar.
 
-Bisher ungetestet ist die Option VIRTUAL_BOOT_PARTITION.
+Bisher nur mit einem ATtiny84 getestet ist die Option VIRTUAL_BOOT_PARTITION.
 Normalerweise wird der Start-Vektor mit den Fuses (BOOTRST-Bit) auf den 
-Boot Loader Reset eingestellt. Mit der VIRTUAL_BOOT_PARTITION Option kann der
+Boot Loader Reset eingestellt, aber der ATtiny84 hat diese Möglichkeit nicht.
+Mit der VIRTUAL_BOOT_PARTITION Option kann der
 Reset Vektor auf dem Applikations Reset (0x0000) bleiben.
 Statt dessen  soll der Reset Interrupt-Vektor im Anwenderprogramm auf den Bootloaders
 umgelegt werden.
@@ -65,6 +66,8 @@ eingetragen werden und vom Bootloader beim "Timeout" benutzt werden.
 Dabei werden die Programmdatem des Anwenderprogramms beim Flashen verändert und
 bei der anschliessenden Kontrolle (verify) als ursprünglich simuliert.
 Bei späteren Kontrollen würden die veränderten Interrupt-Vektoren als Fehler gemeldet!
+Optiboot versucht das zu verhindern, indem die Original-Sprungadresse des Ersatzvektors
+in den letzten beiden EEprom-Bytes gesichert wird.
 Eine der Schwierigkeiten für den Bootloader besteht bei Flash-Speichergrössen
 von mehr als 8K darin, dass auf den Vektoradressen sowohl JMP als auch RJMP Befehle 
 benutzt werden können. 
@@ -145,8 +148,5 @@ Die GPIORx Register haben weiter keine Funktion und eignen sich nach meiner Mein
 für solche Aufgaben.
 Bei Prozessoren ohne diese Register-Gruppe wird das Zähler Register OCR2
 als Alternative zu einem GPIORx Register benutzt werden.
-
-Die AVR Prozessoren ATtiny84, ATmega8, ATmega328 und ATmega1284 sind derzeit mit der
-Assembler-Version von Optiboot getestet.
 
 An Rückmeldungen zum Thema "Assembler Optiboot" wäre ich durchaus interessiert.

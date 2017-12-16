@@ -41,22 +41,25 @@ automatically and set the start address and the required fuses right
 according to the actual size.
 This kind of automatic is tested at a Linux system and should run at any Linux system.
 But it is completely untested for any Windows system.
-This optiboot bootloader is only tested with a Arduino-UNO board and with a Arduino-Nano clone.
+This optiboot bootloader is only tested with a Arduino-UNO and -Nano board and with 
+ATmega8, ATmega32, ATmega1284p and a ATtiny84.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
 Lower baud rates can often better supported with the SOFT_UART option and you are free to
 select any present port pin for the serial input and output (assembly version only!).
-With a 20 MHz CPU you can select baud rates above 3250 Baud, with lower CPU clock rates
-you can also select lower baud rates.
-With the 20 MHz CPU the lowest selectable standard serial rate is 9600 baud,
-with a 16 MHz CPU you can also select 4800 baud.
+With a 20 MHz CPU you can select baud rates of 300 Baud and higher, with lower CPU clock rates
+you can even select lower baud rates.
+With the hardware solution and a 20 MHz CPU the lowest selectable standard serial rate is 600 baud,
+with a 16 MHz CPU you can also select 300 baud.
 If your CPU clock rate is sufficient, the standard serial rate of 115200 baud
 is a good selection to get a fast transmission. 
 For a good CPU clock rate match is also 1 Mbaud possible with the hardware UART.
 
+Only the ATtiny84 example requires the VIRTUAL_BOOT_PARTITION option.
 Normally the start vector is switched with the fuses (BOOTRST bit) to the
-bootloader start address. If the VIRTUAL_BOOT_PARTITION is selectec, the AVR reset vector
+bootloader start addresss, but this feature is missing at the ATtiny84.
+If the VIRTUAL_BOOT_PARTITION is selected, the AVR reset vector
 can remain at the application start address (0x0000).
 Instead of switching the Reset start address the Reset interrupt vector of the
 application program should be changed to the bootloader start address.
@@ -75,7 +78,8 @@ A patch program can analyse the data more in detail as it is possible within
 the space limited boot loader.
 One of the difficulties with the patch is, that for Flash memory space above 8K
 the interrupt vector addresses can hold a JMP or also a RJMP instruction!
-
+Currently the bootloader assumes, that only JMP intructions are used in the 
+interrupt vector table, if the processor has more than 8 kByte flash memory.
 
 =======================================================================================
 Available options
@@ -161,8 +165,5 @@ of any working register (r0-r31).
 The GPIORx register has no special function and can therefore used without any restriction.
 A additional use of this register by a application program is not prohibited.
 For AVR mikrocontrollers without this IO register group the counter register OCR2 is used.
-
-The AVR processors ATtiny84, ATmega8, ATmega328 and ATmega1284 are currently tested with
-this assembler version of optiboot.
 
 I look forward for any replies to the "assembly language optiboot" subject.

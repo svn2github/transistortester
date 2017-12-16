@@ -201,6 +201,7 @@ BAUD_RATE_CMD = -DBAUD_RATE=$(BAUD_RATE)
 ifdef LED_START_FLASHES
 LED_START_FLASHES_CMD = -DLED_START_FLASHES=$(LED_START_FLASHES)
 else
+LED_START_FLASHES = 3
 LED_START_FLASHES_CMD = -DLED_START_FLASHES=3
 endif
 
@@ -551,6 +552,21 @@ pro16:
 pro16_isp:
 	$(SUB_MAKE) pro16 ISP=1
 
+atmega328-Mini: TARGET := atmega328-Mini
+atmega328-Mini: LED_START_FLASHES := 0
+atmega328-Mini: AVR_FREQ := 16000000
+# 512 byte boot, SPIEN
+atmega328-Mini: HFUSE := DE
+# Full swing xtal (16MHz) 16k CK/14CK+65ms
+atmega328-Mini: LFUSE := F7
+# Brwon Out 2.7V
+atmega328-Mini: EFUSE := 05
+atmega328-Mini:
+	$(SUB_MAKE) atmega328p
+
+atmega328-Mini_isp:
+	$(SUB_MAKE) atmega328-Mini ISP=1
+
 pro8: TARGET := pro_8MHz
 pro8: LED_START_FLASHES := 3
 pro8: AVR_FREQ := 8000000
@@ -696,10 +712,10 @@ $(PROGRAM).o: $(PROGRAM).$(SOURCE_TYPE) FORCE
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) -c -o $@ $<
 
 ifdef ISP
-isp: add_options
+isp: hex_copy
 	@$(SUB_MAKE) -r -f Makefile.isp isp TARGET=$(TARGET)
 else
-isp: add_options
+isp: hex_copy
 
 endif
 
@@ -749,8 +765,11 @@ $(PROGRAM).elf: $(OBJ) baudcheck  BL_StartAdr.dat
 	$(SIZE) $(PROGRAM).elf
 
 # remove all generated files
+.PHONY: clean steril hex_copy
 clean:
-	rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.dat
+	@rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.dat
+steril:
+	@rm -rf *.o *.elf *.map *.sym *.tmp.sh *.dat $(PROGRAM).hex $(PROGRAM).lst
 
 # With the Bootpages.dat file we can set the required BOOTSZ1 and BOOTSZ0 bits, which are
 # combined to BOOTSZ (0 for eight pages, 1 for four pages, 2 for two pages and 3 for one page)
@@ -760,14 +779,25 @@ BOOTSZ.dat: $(PROGRAM).elf BootPages.dat
 	@$(ECHO_CMD) "BOOTSZ=$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))"
 	@$(ECHO_CMD)   "$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))" > BOOTSZ.dat
 
-# add some options to the end of the .lst file as comment
-add_options: hex_copy
-	@$(ECHO_CMD) -e "\n; MCU_TARGET = $(MCU_TARGET)\n; SOURCE_TYPE=$(SOURCE_TYPE)\n; AVR_FREQ= $(AVR_FREQ)\n; BAUD_RATE=$(BAUD_RATE)\n; LED_START_FLASHES=$(LED_START_FLASHES)\n; SOFT_UART=$(SOFT_UART)\n; UART_RX=$(UART_RX)\n; UART_TX=$(UART_TX)\n; LED_DATA_FLASH=$(LED_DATA_FLASH)\n; LED=$(LED)\n; UART$(UART)\n; SUPPORT_EEPROM=$(SUPPORT_EEPROM)\n; FORCE_WATCHDOG=$(FORCE_WATCHDOG)">> $(PROGRAM)_$(TARGET).lst
-
 # copy the  .lst and .hex files to files which identify the target
+# add some options to the end of the .lst file as comment
 hex_copy: $(PROGRAM).lst $(PROGRAM).hex
 	cp $(PROGRAM).lst $(PROGRAM)_$(TARGET).lst
 	cp $(PROGRAM).hex $(PROGRAM)_$(TARGET).hex
+	- @$(ECHO_CMD) "; " >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; MCU_TARGET = $(MCU_TARGET)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; SOURCE_TYPE=$(SOURCE_TYPE)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; AVR_FREQ= $(AVR_FREQ)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; BAUD_RATE=$(BAUD_RATE)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; LED_START_FLASHES=$(LED_START_FLASHES)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; SOFT_UART=$(SOFT_UART)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; UART_RX=$(UART_RX)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; UART_TX=$(UART_TX)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; LED_DATA_FLASH=$(LED_DATA_FLASH)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; LED=$(LED)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; UART$(UART)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; SUPPORT_EEPROM=$(SUPPORT_EEPROM)" >> $(PROGRAM)_$(TARGET).lst
+	- @$(ECHO_CMD) "; FORCE_WATCHDOG=$(FORCE_WATCHDOG)" >> $(PROGRAM)_$(TARGET).lst
 
 
 # allways generate a $(PROGRAM)_$(TARGET).lst file, if a .hex file is generated from $(PROGRAM).elf
