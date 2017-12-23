@@ -166,4 +166,18 @@ The GPIORx register has no special function and can therefore used without any r
 A additional use of this register by a application program is not prohibited.
 For AVR mikrocontrollers without this IO register group the counter register OCR2 is used.
 
+List of the supported AVR-Prozessors:
+==========================
+ATmega8/16/32/64
+ATmega162/163
+ATmega164/324/644/1284 (P)
+ATmega88/168/328  (P)
+ATmega165/325/3250/6450
+ATmega169/329/649/6490
+ATmega640/1280
+AT90CAN32/64/128
+AT90PWM2/3
+ATtiny84/85/88/861/1634
+For the most processors the finish test is missing!
+
 I look forward for any replies to the "assembly language optiboot" subject.

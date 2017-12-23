@@ -49,12 +49,50 @@
  #define UART_TX n
 #endif
 
+#if defined(UDR)
+  //Name conversion R.Wiersma
+  #undef UDR0		/* probably was Bit 0 of UDR before */
+  #define UDR0 		UDR
+ #ifdef __AVR_ATmega163__
+  #define UBRR0L	UBRR
+  #define UBRR0H	UBRRHI
+ #else
+  #define UBRR0L	UBRRL
+  #define UBRR0H	UBRRH
+ #endif
+  /* and rename some Bits */
+  #define UDRE0 	UDRE
+  #define RXC0		RXC
+  #define FE0           FE
+  #define U2X0		U2X
+  #define RXEN0		RXEN
+  #define TXEN0		TXEN
+#endif		/* !defined(UDR0)  ... */
+
+#ifndef WDTCSR
+  #define WDTCSR	WDTCR
+#endif
+
+#ifndef UCSR0A
+  // Make the only UART to the UART0
+  #define UCSR0A	UCSRA
+  #define UCSR0B	UCSRB
+  #define UCSR0C	UCSRC
+  #define UCSZ01	UCSZ1
+  #define UCSZ00	UCSZ0
+#endif
+
+#ifndef TIFR1
+ #define TIFR1 		TIFR
+#endif
+
+
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
 /*------------------------------------------------------------------------ */
 
  /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
- #if LED == n
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
   #warning "LED bit is set to default B5"
   #define LEDX           nB5	/* coded Port B Bit 5 */
  #else
@@ -80,10 +118,11 @@
 
 /* Luminet support */
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATtiny84__)
+#if defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if LED == n
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default A4"
    #define LEDX        nA4
  #else
   #define LEDX         LED
@@ -105,17 +144,176 @@
    #define UART_TXX      UART_TX
   #endif
  #endif		/* SOFT_UART > 0 */
-#endif	/* __AVR_ATtiny84__ */
+#endif	/* __AVR_ATtiny44__ || __AVR_ATtiny84__ */
+
+/* Support for ATtiny48 and ATtiny88 */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
+/*------------------------------------------------------------------------ */
+ /* Red LED is connected to pin PA4 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B5"
+   #define LEDX        nB5
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATtiny84 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin D0 as RX"
+   #define UART_RXX	nD0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin D1 as TX"
+   #define UART_TXX	nD1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #else
+  #error "Attiny48 and ATtiny88 has no Hardware UART"
+ #endif		/* SOFT_UART > 0 */
+#endif	/* __AVR_ATtiny44__ || __AVR_ATtiny84__ */
+
+/* Support for ATtiny85 family*/
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) 
+/*------------------------------------------------------------------------ */
+ /* Red LED is connected to pin PA4 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B2"
+   #define LEDX        nB2
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATtiny85 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin B0 as RX"
+   #define UART_RXX	nB0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin B1 as TX"
+   #define UART_TXX	nB1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #else
+  #error "ATtiny85 family has no hardware UART*/
+ #endif		/* SOFT_UART > 0 */
+#endif	/* __AVR_ATtiny85__  */
+
+/* Support for ATtiny 26x family*/
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny261__) || defined(__AVR_ATtiny461__) || defined(__AVR_ATtiny861__)
+/*------------------------------------------------------------------------ */
+ /* Red LED is connected to pin PA4 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default A4"
+   #define LEDX        nA0
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATtiny26x */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin B0 as RX"
+   #define UART_RXX	nB0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin B1 as TX"
+   #define UART_TXX	nB1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+#endif	/* __AVR_ATtiny26x__  */
+
+/* Support for ATtiny4313 */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny2313__) || defined(__AVR_ATtiny4313__)
+/*------------------------------------------------------------------------ */
+ /* Red LED is connected to pin PA4 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default D6"
+   #define LEDX        nD6
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATtiny4313 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin D0 as RX"
+   #define UART_RXX	nD0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin D1 as TX"
+   #define UART_TXX	nD1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+#endif	/* __AVR_ATtiny4313__ */
+
+/* Support for ATtiny1634 */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny1634__)
+/*------------------------------------------------------------------------ */
+ /* Red LED is connected to pin PA4 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B1"
+   #define LEDX        nB1
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATtiny1634 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin A7 as RX"
+   #define UART_RXX	nA7
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin B0 as TX"
+   #define UART_TXX	nB0
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+#endif	/* __AVR_ATtiny1634__ */
 
 /*------------------------------------------------------------------------ */
 /* Sanguino support (and other 40pin DIP cpus) */
-#if defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega32__) || defined(__AVR_ATmega16__)
+#if defined(__AVR_ATmega164__) || defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324__) || defined(__AVR_ATmega324P__) || \
+ defined(__AVR_ATmega644__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
+ defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
 /*------------------------------------------------------------------------ */
  #if defined(__AVR_ATmega16__) || defined(__AVR_ATMEGA32__)
   /* ATmega16/32 support only one UART */
+  #undef UART_NR
+  #define UART_NR 0
  #endif
  /* Onboard LED is connected to pin PB0 on Sanguino */ 
- #if LED == n
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B0"
   #define LEDX         nB0
  #else
   #define LEDX         LED
@@ -148,8 +346,202 @@
  #endif		/* SOFT_UART > 0 */
 #endif		/* __AVR_ATmega644P__  .. */
 
+/*------------------------------------------------------------------------ */
+/* Support for AT90CAN32_64_128 */
+#if defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) 
+/*------------------------------------------------------------------------ */
+ /* Onboard LED is connected to pin PB0  */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B5"
+  #define LEDX         nB5
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for AT90CAN... */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #if UART_NR == 0
+    #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #define UART_RXX	nE0
+   #else
+    #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #define UART_RXX	nD2
+   #endif
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #if UART_NR == 0
+    #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #define UART_TXX	nE1
+   #else
+    #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #define UART_TXX	nD3
+   #endif
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
+#endif		/* __AVR_AT90CAN... */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
+    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__)
+/*------------------------------------------------------------------------ */
+
+ /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B5"
+  #define LEDX           nB5	/* coded Port B Bit 5 */
+ #else
+  #define LEDX           LED
+ #endif
+
+ /* Default "SOFT" UART Ports for AT90CAN */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin D4 as RX"
+   #define UART_RXX      nD4
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin D3 as TX"
+   #define UART_TXX      nD3
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
+ #if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) 
+   /* add missing Signature bytes */
+   #define SIGNATURE_0	0x1e
+   #define SIGNATURE_1	0x93
+   #define SIGNATURE_2	0x81
+ #endif
+#endif		/* __AVR_AT90PWM... */
+
+/*------------------------------------------------------------------------ */
+/* Support for ATmega64 */
+#if defined(__AVR_ATmega64__)
+/*------------------------------------------------------------------------ */
+ #undef UART_NR
+ #define UART_NR 0
+ /* Onboard LED is connected to pin PB0  */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B0"
+  #define LEDX         nB0
+ #else
+  #define LEDX         LED
+ #endif
+
+ /* Default "SOFT" UART Ports for ATmega644/1284/32 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+    #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #define UART_RXX	nE0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+    #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #define UART_TXX	nE1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
+#endif		/* __AVR_ATmega64__  .. */
+
+#if defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || defined(__AVR_ATmega323__)
+ /* Onboard LED is connected to pin PB5 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B5"
+  #define LEDX         nB5
+ #else
+  #define LEDX         LED
+ #endif
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin D0 as RX"
+   #define UART_RXX	nD0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin D1 as TX"
+   #define UART_TXX	nD1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
+#endif
+
+#if defined(__AVR_ATmega169__) 
+ /* Onboard LED is connected to pin PB5 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B5"
+  #define LEDX         nB5
+ #else
+  #define LEDX         LED
+ #endif
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin E0 as RX"
+   #define UART_RXX	nE0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin E1 as TX"
+   #define UART_TXX	nE1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
+#endif
+
+
 #if defined(__AVR_ATmega32__)
   #define WDCE		WDTOE
+#endif
+
+#if defined(__AVR_ATmega165__) || defined(__AVR_ATmega165P__) || defined(__AVR_ATmega325__) || defined(__AVR_ATmega325P__) || \
+ defined(__AVR_ATmega645__) || defined(__AVR_ATmega645P__) || \
+ defined(__AVR_ATmega329__) || defined(__AVR_ATmega3290__) || defined(__AVR_ATmega649__) || defined(__AVR_ATmega6490__)
+ 
+ /* Onboard LED can be connected to pin PG0 */ 
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default G0"
+  #define LEDX         nG0
+ #else
+  #define LEDX         LED
+ #endif
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin E0 as RX"
+   #define UART_RXX	nE0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin E1 as TX"
+   #define UART_TXX	nE1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif		/* SOFT_UART > 0 */
+ #define EEPE		EEWE
+ #define EEMPE		EEMWE
 #endif
 
 /*------------------------------------------------------------------------ */
@@ -174,31 +566,13 @@
  #define WATCHDOG_8S     (_BV(WDP2) | _BV(WDP1) | _BV(WDP0) | _BV(WDE)) /* 2 seconds are max */
 #endif
 
-#if !defined(UDR0) && defined(UDR)
-  //Name conversion R.Wiersma
-  // Make the only UART to the UART0
-  #define UCSR0A	UCSRA
-  #define UCSR0B	UCSRB
-  #define UDR0 		UDR
-  #define UDRE0 	UDRE
-  #define RXC0		RXC
-  #define FE0           FE
-  #define U2X0		U2X
-  #define TIFR1 	TIFR
-  #define WDTCSR	WDTCR
-  #define RXEN0		RXEN
-  #define TXEN0		TXEN
-  #define UBRR0L	UBRRL
-  #define UBRR0H	UBRRH
-#endif		/* __AVR_ATmega8__ */
-
-
 /*------------------------------------------------------------------------ */
 /* Mega support */
-#if defined(__AVR_ATmega1280__)
+#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__)
 /*------------------------------------------------------------------------ */
  /* Onboard LED is connected to pin PB7 on Arduino Mega1280 */ 
- #if LED == n
+ #if (LED == n) && ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+  #warning "LED bit is set to default B7"
   #define LEDX	nB7
  #else
   #define LEDX   LED
@@ -247,22 +621,24 @@
    #define UART_TXX      UART_TX
   #endif
  #endif		/* SOFT_UART > 0 */
-#endif		/* __AVR_ATmega1280__ */
+#endif		/* __AVR_ATmega640__ || __AVR_ATmega1280__ */
 
 
 // The Preprocessor should have replaced LEDX with a constant now
-#if (LEDX & 0xff) > 7
- #error "Unrecognized LED name. Should be like 'B5' "
- #error "probably the bit number is wrong!"
-#endif
-#if ((LEDX >> 8) > 12) || ((LEDX & 0xff00) == 0)
- #error "Unrecognized LED name.  Should be like 'B5' "
- #error "probably the port is wrong!"
-#endif
+#if ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LEDX & 0xff) > 7
+  #error "Unrecognized LED name. Should be like 'B5' "
+  #error "probably the bit number is wrong!"
+ #endif
+ #if ((LEDX >> 8) > 12) || ((LEDX & 0xff00) == 0)
+  #error "Unrecognized LED name.  Should be like 'B5' "
+  #error "probably the port is wrong!"
+ #endif
 
 // LEDbit must be set to the bit number of the selected Port.
 // This is allways given by the lower Byte of the previous definition
-#define LEDbit (LEDX & 0x07)
+ #define LEDbit (LEDX & 0x07)
+#endif
 
 // setup for UART_RX
 #if SOFT_UART > 0
@@ -333,56 +709,58 @@
 #endif		/* SOFT_UART > 0 */
 
 // setup the Port definitions for LED
-#if (LEDX & 0xff00) == nB0
- #define LED_DDR     DDRB
- #define LED_PORT    PORTB
- #define LED_PIN     PINB
-#elif (LEDX & 0xff00) == nC0
- #define LED_DDR     DDRC
- #define LED_PORT    PORTC
- #define LED_PIN     PINC
-#elif (LEDX & 0xff00) == nD0
- #define LED_DDR     DDRD
- #define LED_PORT    PORTD
- #define LED_PIN     PIND
-#elif (LEDX & 0xff00) == nE0
- #define LED_DDR     DDRE
- #define LED_PORT    PORTE
- #define LED_PIN     PINE
-#elif (LEDX & 0xff00) == nF0
- #define LED_DDR     DDRF
- #define LED_PORT    PORTF
- #define LED_PIN     PINF
-#elif (LEDX & 0xff00) == nG0
- #define LED_DDR     DDRG
- #define LED_PORT    PORTG
- #define LED_PIN     PING
-#elif (LEDX & 0xff00) == nH0
- #define LED_DDR     DDRH
- #define LED_PORT    PORTH
- #define LED_PIN     PINH
-#elif (LEDX & 0xff00) == nJ0
- #define LED_DDR     DDRJ
- #define LED_PORT    PORTJ
- #define LED_PIN     PINJ
-#elif (LEDX & 0xff00) == nK0
- #define LED_DDR     DDRK
- #define LED_PORT    PORTK
- #define LED_PIN     PINK
-#elif (LEDX & 0xff00) == nL0
- #define LED_DDR     DDRL
- #define LED_PORT    PORTL
- #define LED_PIN     PINL
-#elif (LEDX & 0xff00) == nA0
- #define LED_DDR     DDRA
- #define LED_PORT    PORTA
- #define LED_PIN     PINA
-
-#else
- #error "--------------------------------------------"
- #error "Unrecognized LED name.  Should be like 'B4' "
- #error "--------------------------------------------"
-#endif
+#if ((DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LEDX & 0xff00) == nB0
+  #define LED_DDR     DDRB
+  #define LED_PORT    PORTB
+  #define LED_PIN     PINB
+ #elif (LEDX & 0xff00) == nC0
+  #define LED_DDR     DDRC
+  #define LED_PORT    PORTC
+  #define LED_PIN     PINC
+ #elif (LEDX & 0xff00) == nD0
+  #define LED_DDR     DDRD
+  #define LED_PORT    PORTD
+  #define LED_PIN     PIND
+ #elif (LEDX & 0xff00) == nE0
+  #define LED_DDR     DDRE
+  #define LED_PORT    PORTE
+  #define LED_PIN     PINE
+ #elif (LEDX & 0xff00) == nF0
+  #define LED_DDR     DDRF
+  #define LED_PORT    PORTF
+  #define LED_PIN     PINF
+ #elif (LEDX & 0xff00) == nG0
+  #define LED_DDR     DDRG
+  #define LED_PORT    PORTG
+  #define LED_PIN     PING
+ #elif (LEDX & 0xff00) == nH0
+  #define LED_DDR     DDRH
+  #define LED_PORT    PORTH
+  #define LED_PIN     PINH
+ #elif (LEDX & 0xff00) == nJ0
+  #define LED_DDR     DDRJ
+  #define LED_PORT    PORTJ
+  #define LED_PIN     PINJ
+ #elif (LEDX & 0xff00) == nK0
+  #define LED_DDR     DDRK
+  #define LED_PORT    PORTK
+  #define LED_PIN     PINK
+ #elif (LEDX & 0xff00) == nL0
+  #define LED_DDR     DDRL
+  #define LED_PORT    PORTL
+  #define LED_PIN     PINL
+ #elif (LEDX & 0xff00) == nA0
+  #define LED_DDR     DDRA
+  #define LED_PORT    PORTA
+  #define LED_PIN     PINA
+ 
+ #else
+  #error "--------------------------------------------"
+  #error "Unrecognized LED name.  Should be like 'B4' "
+  #error "--------------------------------------------"
+ #endif
+#endif		/*# ((DATA_FLASH > 0) || (LED_START_FLASHES > 0)) */
 
 #if SOFT_UART > 0
  // setup the Port definitions for UART_RX

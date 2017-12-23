@@ -29,8 +29,6 @@ echo " "; echo "***** make bobuino ******"
 make bobuino $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make wildfirev2 ******"
 make wildfirev2 $AllEEprom=1 $WITH_SOFT_UART=1
-echo " "; echo "***** make atmega1284p ******"
-make atmega1284p $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make atmega32 ******"
 make atmega32 $AllEEprom=1 $WITH_SOFT_UART=1
 echo " "; echo "***** make atmega88 ******"
@@ -52,9 +50,45 @@ make xplained328pb $AllEEprom=1
 # These need to be built AFTER the platforms, or they'll get renamed
 echo " "; echo "***** make atmega8 ******"
 make atmega8 $AllEEprom=1
-echo " "; echo "***** make atmega168 ******"
+echo " "; echo "***** make atmega88 ******"
 make atmega168 $AllEEprom=1
 # echo " "; echo "***** make atmega328 ******"
 # make atmega328 $AllEEprom=1
 echo " "; echo "***** make atmega328p ******"
 make atmega328p $AllEEprom=1
+#
+make atmega88 $AllEEprom=1
+echo " "; echo "***** make atmega168 ******"
+echo " "; echo "***** make atmega164p ******"
+make atmega164p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega324p ******"
+make atmega324p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega644p ******"
+make atmega644p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega1284p ******"
+make atmega1284p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega165p ******"
+make atmega165p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega325p ******"
+make atmega325p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega645p ******"
+make atmega645p $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega169 ******"
+make atmega169 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega329 ******"
+make atmega329 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega649 ******"
+make atmega649 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega640 ******"
+make atmega640 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make atmega1280 ******"
+make atmega1280 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make attiny84 ******"
+make attiny84 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make attiny85 ******"
+make attiny85 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make attiny861 ******"
+make attiny861 $AllEEprom=1 $WITH_SOFT_UART=1
+echo " "; echo "***** make attiny1634 ******"
+make attiny1634 $AllEEprom=1 $WITH_SOFT_UART=1
+

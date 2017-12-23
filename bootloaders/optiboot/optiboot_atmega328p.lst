@@ -98,15 +98,16 @@ appStart:
     7e20:	88 e1       	ldi	r24, 0x18	; 24
 	AOUT	UART_SRB, r24
     7e22:	80 93 c1 00 	sts	0x00C1, r24
-  #if (BAUD_DIV/256) != 0
-	ldi	r25, hi8(BAUD_DIV)	; 0x10
 	AOUT	UCSRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
   #endif
  #else
+    /* no ATmega8_16_32 */
+  #ifndef __AVR_ATmega163__
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
     7e26:	96 e0       	ldi	r25, 0x06	; 6
 	AOUT	UART_SRC, r25
     7e28:	90 93 c2 00 	sts	0x00C2, r25
+  #endif
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
     7e2c:	90 e1       	ldi	r25, 0x10	; 16
 	AOUT	UART_SRRL, r25
@@ -459,6 +460,9 @@ wr_lop1:
 
 	movw	ZL, r4		; addrPtr = address
     7ef2:	f2 01       	movw	r30, r4
+#ifdef __AVR_ATmega163__
+	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
+#endif
         // Write from programming buffer
 	ldi	r20, (1<<PGWRT)|(1<<SELFPRGEN)	; 0x05	
     7ef4:	45 e0       	ldi	r20, 0x05	; 5
@@ -718,8 +722,10 @@ set_eeprom_adr:
     7f82:	fe cf       	rjmp	.-4      	; 0x7f80 <set_eeprom_adr>
 ;	rcall	wait_flash_ready
 
+ #ifdef EEARH
 	AOUT	EEARH, ZH	; EEAR = addrPtr++
     7f84:	f2 bd       	out	0x22, r31	; 34
+ #endif
 	AOUT	EEARL, ZL
     7f86:	e1 bd       	out	0x21, r30	; 33
 	adiw	ZL, 1
@@ -782,6 +788,11 @@ do_spm:
     7fa4:	47 bf       	out	0x37, r20	; 55
 	spm
     7fa6:	e8 95       	spm
+#ifdef __AVR_ATmega163__
+;	special handling of spm for ATmega163
+	.word	0xffff
+	nop
+#endif
 	ret
     7fa8:	08 95       	ret
 
@@ -801,60 +812,63 @@ lop77:
     7fae:	ff cf       	rjmp	.-2      	; 0x7fae <lop77>
 
 00007fb0 <watchdogConfig>:
-;**********************************************************
-;	rcall watchdogConfig set the watch dog timer to the time specified by r20
-;	use r21
 watchdogConfig: 
-#if defined(WDTCSR) && defined(WDCE)
+#ifndef WDTCSR
+ #define WDTCSR  WDTCR
+#endif
+#if defined(WDCE)
     	ldi	r21, (1<<WDCE) | (1<<WDE)	; 0x18
     7fb0:	58 e1       	ldi	r21, 0x18	; 24
 	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
     7fb2:	50 93 60 00 	sts	0x0060, r21
        	AOUT	WDTCSR, r20		; WDTCSR = x;
     7fb6:	40 93 60 00 	sts	0x0060, r20
-#else
-    	ldi	r21, (1<<WDTOE) | (1<<WDE)	; 0x18
-	AOUT	WDTCR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCR, r20		; WDTCR = x;
+    	ldi	r21, (1<<WDE)	; 0x08
+ #endif
+	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
+       	AOUT	WDTCSR, r20		; WDTCR = x;
 #endif
        	ret
     7fba:	08 95       	ret
 
 00007fbc <wait_T1ov>:
-;**********************************************************
-#if LED_START_FLASHES > 0
-; rcall wait_T1ov setup the timer1 to overflow in r24:r25 clock tics
 ; use  r24 and probably r0
+ #define Check_RX 0
 wait_T1ov:
-	ldi	r24, hi8((F_CPU/(1024*16)))
-    7fbc:	83 e0       	ldi	r24, 0x03	; 3
-	AOUT	ICR1H, r24		; set new counter value to TCNT1
-    7fbe:	80 93 87 00 	sts	0x0087, r24
-	ldi	r24, lo8((F_CPU/(1024*16)))
-    7fc2:	80 ed       	ldi	r24, 0xD0	; 208
-	AOUT	ICR1L, r24
-    7fc4:	80 93 86 00 	sts	0x0086, r24
-	ldi	r24, (1<<WGM13)|(1<<WGM12)|(1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 12
-    7fc8:	8d e1       	ldi	r24, 0x1D	; 29
+ #ifdef TCNT1H
+; use 16-Bit counter
+	ldi	r24, hi8(0xffff-(F_CPU/(1024*16)))
+    7fbc:	8c ef       	ldi	r24, 0xFC	; 252
+	AOUT	TCNT1H, r24		; set new counter value to TCNT1
+    7fbe:	80 93 85 00 	sts	0x0085, r24
+	ldi	r24, lo8(0xffff-(F_CPU/(1024*16)))
+    7fc2:	8f e2       	ldi	r24, 0x2F	; 47
+	AOUT	TCNT1L, r24
+    7fc4:	80 93 84 00 	sts	0x0084, r24
+	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 0
+    7fc8:	85 e0       	ldi	r24, 0x05	; 5
 	sts	_SFR_MEM_ADDR(TCCR1B), r24	
     7fca:	80 93 81 00 	sts	0x0081, r24
 
-00007fce <wt_ov>:
-	AOUT	TIFR, r24	; clear the flags
- #else
+00007fce <wt_ov1>:
+  #endif
+ #endif
 ;	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
 ;	rjmp	wt_ov		; no OverFlow, wait
 ;	ASBI	TIFR1, TOV1	; clear OV bit Timer1
 	AIN	r24, TIFR1
     7fce:	86 b3       	in	r24, 0x16	; 22
-	sbrs	r24, ICF1
-    7fd0:	85 ff       	sbrs	r24, 5
-	rjmp	wt_ov		; no OverFlow, wait
-    7fd2:	fd cf       	rjmp	.-6      	; 0x7fce <wt_ov>
+	sbrs	r24, TOV1
+    7fd0:	80 ff       	sbrs	r24, 0
+	rjmp	wt_ov1		; no OverFlow, wait
+    7fd2:	fd cf       	rjmp	.-6      	; 0x7fce <wt_ov1>
 	AOUT	TIFR1, r24	; clear the flags
     7fd4:	86 bb       	out	0x16, r24	; 22
 
 00007fd6 <wt_fin>:
+	inc	r25
+	brne	wt_ov0		; wait to next OV
+  #endif
  #endif
 wt_fin:
      	wdr		; watchdogReset();  /* prevent watch dog timeout during flashing the LED */
@@ -862,16 +876,13 @@ wt_fin:
 	ret
     7fd8:	08 95       	ret
 ; 
-; MCU_TARGET = atmega328p
-; SOURCE_TYPE=S
-; AVR_FREQ= 16000000
-; BAUD_RATE=115200
+; FORCE_WATCHDOG=
 ; LED_START_FLASHES=3
-; SOFT_UART=
-; UART_RX=
-; UART_TX=
 ; LED_DATA_FLASH=
 ; LED=
-; UART
+; UART=
+; SOURCE_TYPE=S
 ; SUPPORT_EEPROM=1
-; FORCE_WATCHDOG=
+; MCU_TARGET = atmega328p
+; AVR_FREQ= 16000000
+; BAUD_RATE=115200

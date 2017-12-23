@@ -7,6 +7,7 @@
 /* the one Pin RX/TX of the AVR. The hardware interface prevents a echo to the    */
 /* host side RX, if the data are send from host's TX. The AVR TX/RX output will   */
 /* pass to the Host's RX.  */
+/* Prepared to support the old ATmega163     Dec. 17,2017                         */
 /**********************************************************************************/
 
 
@@ -266,7 +267,6 @@
  * lot of peripheral registers.
  */
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega16__)
- #define RAMSTART (0x100)
  #define NRWWSTART (0x3800)
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32__)
  #define NRWWSTART (0x7000)
@@ -287,6 +287,10 @@
  #elif defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
  #define NRWWSTART (0x1800)
 #endif
+#ifndef RAMSTART
+ #define RAMSTART (0x100)
+#endif
+
 #ifndef SPMCSR
  #define SPMCSR SPMCR			/* use different name of SPM register */
 #endif
@@ -561,8 +565,11 @@ try_loader:
 	AOUT	UCSRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
   #endif
  #else
+    /* no ATmega8_16_32 */
+  #ifndef __AVR_ATmega163__
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
 	AOUT	UART_SRC, r25
+  #endif
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
 	AOUT	UART_SRRL, r25
   #if (BAUD_DIV/256) != 0
@@ -921,6 +928,9 @@ wr_lop1:
 	brne	wr_lop1
 
 	movw	ZL, r4		; addrPtr = address
+#ifdef __AVR_ATmega163__
+	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
+#endif
         // Write from programming buffer
 	ldi	r20, (1<<PGWRT)|(1<<SELFPRGEN)	; 0x05	
 	rcall	do_spm		; AOUT SPMCSR, r20 ; spm
@@ -1232,7 +1242,9 @@ set_eeprom_adr:
    	rjmp	set_eeprom_adr	; wait
 ;	rcall	wait_flash_ready
 
+ #ifdef EEARH
 	AOUT	EEARH, ZH	; EEAR = addrPtr++
+ #endif
 	AOUT	EEARL, ZL
 	adiw	ZL, 1
 	ret			; set_eeprom_adr
@@ -1298,6 +1310,11 @@ boot_page_erase:
 do_spm:
 	AOUT	SPMCSR, r20	; (1<<PGERS)|(SELFPRGEN)
 	spm
+#ifdef __AVR_ATmega163__
+;	special handling of spm for ATmega163
+	.word	0xffff
+	nop
+#endif
 	ret
 
 ;**********************************************************
@@ -1313,14 +1330,21 @@ lop77:
 ;	rcall watchdogConfig set the watch dog timer to the time specified by r20
 ;	use r21
 watchdogConfig: 
-#if defined(WDTCSR) && defined(WDCE)
+#ifndef WDTCSR
+ #define WDTCSR  WDTCR
+#endif
+#if defined(WDCE)
     	ldi	r21, (1<<WDCE) | (1<<WDE)	; 0x18
 	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
        	AOUT	WDTCSR, r20		; WDTCSR = x;
 #else
+ #if defined(WDTOE)
     	ldi	r21, (1<<WDTOE) | (1<<WDE)	; 0x18
-	AOUT	WDTCR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCR, r20		; WDTCR = x;
+ #else
+    	ldi	r21, (1<<WDE)	; 0x08
+ #endif
+	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
+       	AOUT	WDTCSR, r20		; WDTCR = x;
 #endif
        	ret
 
@@ -1329,17 +1353,20 @@ watchdogConfig:
 #if LED_START_FLASHES > 0
 ; rcall wait_T1ov setup the timer1 to overflow in r24:r25 clock tics
 ; use  r24 and probably r0
+ #define Check_RX 0
 wait_T1ov:
-	ldi	r24, hi8((F_CPU/(1024*16)))
-	AOUT	ICR1H, r24		; set new counter value to TCNT1
-	ldi	r24, lo8((F_CPU/(1024*16)))
-	AOUT	ICR1L, r24
-	ldi	r24, (1<<WGM13)|(1<<WGM12)|(1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 12
+ #ifdef TCNT1H
+; use 16-Bit counter
+	ldi	r24, hi8(0xffff-(F_CPU/(1024*16)))
+	AOUT	TCNT1H, r24		; set new counter value to TCNT1
+	ldi	r24, lo8(0xffff-(F_CPU/(1024*16)))
+	AOUT	TCNT1L, r24
+	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 0
 	sts	_SFR_MEM_ADDR(TCCR1B), r24	
 
 ; wait until timer 1 OV occur (optional soft serial input can break the loop )
-wt_ov:
- #if 0		/* Check for RX Start bit is canceled */
+wt_ov1:
+ #if Check_RX != 0		/* Check for RX Start bit is canceled */
   #if SOFT_UART > 0
 	; leave the wait for OV event loop, if data at the RX port are present
 	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
@@ -1347,19 +1374,45 @@ wt_ov:
        	rjmp	wt_fin			; any character present at serial rx port
   #endif
  #endif
- #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
-	AIN	r24, TIFR
-	sbrs	r24, ICF1
-	rjmp	wt_ov		; no OverFlow, wait
-	AOUT	TIFR, r24	; clear the flags
- #else
 ;	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
 ;	rjmp	wt_ov		; no OverFlow, wait
 ;	ASBI	TIFR1, TOV1	; clear OV bit Timer1
 	AIN	r24, TIFR1
-	sbrs	r24, ICF1
-	rjmp	wt_ov		; no OverFlow, wait
+	sbrs	r24, TOV1
+	rjmp	wt_ov1		; no OverFlow, wait
 	AOUT	TIFR1, r24	; clear the flags
+ #else
+; no 16-Bit counter, use 8-Bit and counter register r25
+	ldi	r25, hi8(0xffff-(F_CPU/(1024*16)))
+	ldi	r24, lo8(0xffff-(F_CPU/(1024*16)))
+  #ifdef TCNT0H
+	; counter 0 is 16-Bit counter
+	AOUT	TCNT0H, r25
+	AOUT	TCNT0L, r24
+  #else
+	AOUT	TCNT0, r24
+  #endif
+	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 0
+	sts	_SFR_MEM_ADDR(TCCR0B), r24	
+; wait until timer 0 OV occur (optional soft serial input can break the loop )
+wt_ov0:
+ #if Check_RX != 0		/* Check for RX Start bit is canceled */
+  #if SOFT_UART > 0
+	; leave the wait for OV event loop, if data at the RX port are present
+	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
+     	sbrs	r24, RXC0
+       	rjmp	wt_fin			; any character present at serial rx port
+  #endif
+ #endif
+	AIN	r24, TIFR
+	sbrs	r24, TOV0
+	rjmp	wt_ov0		; no OverFlow, wait
+	AOUT	TIFR, r24	; clear the flags
+  #ifndef TCNT0H
+	; counter 0 is not a 16-Bit counter, higher bits simulated with r25
+	inc	r25
+	brne	wt_ov0		; wait to next OV
+  #endif
  #endif
 wt_fin:
      	wdr		; watchdogReset();  /* prevent watch dog timeout during flashing the LED */

@@ -1,8 +1,7 @@
-rm -rf *.o *.elf *.lst *.map *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.dat
  
 ***** make lilypad ******
-make --no-print-directory  atmega168
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
 ---------------------------------------------------------------------------
@@ -16,14 +15,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_lilypad.lst
-cp optiboot.hex optiboot_lilypad.hex
+avr-objdump -h -S optiboot.elf > optiboot_lilypad.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_lilypad.hex
+LFUSE=0xE2
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is environment 
  
 ***** make pro8 ******
-make --no-print-directory  atmega168 
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
 ---------------------------------------------------------------------------
@@ -37,14 +38,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_pro_8MHz.lst
-cp optiboot.hex optiboot_pro_8MHz.hex
+avr-objdump -h -S optiboot.elf > optiboot_pro_8MHz.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_8MHz.hex
+LFUSE=0xC6
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is environment 
  
 ***** make pro16 ******
-make --no-print-directory  atmega168 
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -58,14 +61,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_pro_16MHz.lst
-cp optiboot.hex optiboot_pro_16MHz.hex
+avr-objdump -h -S optiboot.elf > optiboot_pro_16MHz.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_16MHz.hex
+LFUSE=0xF7
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is environment 
  
 ***** make pro20 ******
-make --no-print-directory  atmega168 
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=20000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=20000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 113636, UBRR = 21, Error=-1.35%
 ---------------------------------------------------------------------------
@@ -79,14 +84,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_pro_20Mhz.lst
-cp optiboot.hex optiboot_pro_20Mhz.hex
+avr-objdump -h -S optiboot.elf > optiboot_pro_20Mhz.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_20Mhz.hex
+LFUSE=0xF7
+HFUSE=0xDC
+EFUSE=0x04
+origin of AVR_FREQ is environment 
  
 ***** make atmega328_pro8 ******
-make --no-print-directory  atmega328p
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
 ---------------------------------------------------------------------------
@@ -100,37 +107,39 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328_pro_8MHz.lst
-cp optiboot.hex optiboot_atmega328_pro_8MHz.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328_pro_8MHz.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328_pro_8MHz.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is environment 
  
 ***** make sanguino ******
-make atmega644p 
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB0 -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB0 -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
 ######################################
-Boot Loader start address: 0xFE00
+Boot Loader start address: 0xFC00
 ######################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
     474	      0	      0	    474	    1da	optiboot.elf
-Requires 1 Boot Pages, 512 Bytes each
+Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_sanguino.lst
-cp optiboot.hex optiboot_sanguino.hex
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
+avr-objdump -h -S optiboot.elf > optiboot_sanguino.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_sanguino.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is environment 
  
 ***** make mega1280 ******
-make --no-print-directory  atmega1280
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -144,37 +153,23 @@ avr-size optiboot.elf
     480	      0	      0	    480	    1e0	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_mega1280.lst
-cp optiboot.hex optiboot_mega1280.hex
+avr-objdump -h -S optiboot.elf > optiboot_mega1280.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_mega1280.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is file 
  
 ***** make luminet ******
 make attiny84
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n -DUART=0 -DSOFT_UART=01 -DUART_RX=n -DUART_TX=n -DF_CPU=1000000 -c -o optiboot.o optiboot.S
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 9600, SoftUART_Real: 9615.3, Delay: 81*1, Error=.16%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x1DC0
-######################################
-
-1000000 Hz operation with Baudrate 9600 configured.
-avr-size optiboot.elf
-   text	   data	    bss	    dec	    hex	filename
-    532	      0	      0	    532	    214	optiboot.elf
-Requires 9 Boot Pages, 64 Bytes each
-BOOTSZ=0
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_attiny84.lst
-cp optiboot.hex optiboot_attiny84.hex
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=0    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n \
+        -DUART=0 -DSOFT_UART=01 -DUART_RX=n -DUART_TX=n -DF_CPU=1000000 -c -o optiboot.o optiboot.S
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
  
 ***** make diecimila ******
-make --no-print-directory  atmega168
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -188,79 +183,62 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_diecimila.lst
-cp optiboot.hex optiboot_diecimila.hex
+avr-objdump -h -S optiboot.elf > optiboot_diecimila.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_diecimila.hex
+LFUSE=0xF7
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is file 
  
 ***** make bobuino ******
-make atmega1284p 
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB7 -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB7 -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
 ######################################
-Boot Loader start address: 0x1FE00
+Boot Loader start address: 0x1FC00
 ######################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
     480	      0	      0	    480	    1e0	optiboot.elf
-Requires 1 Boot Pages, 512 Bytes each
+Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega1284p.lst
-cp optiboot.hex optiboot_atmega1284p.hex
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
+avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is environment 
  
 ***** make wildfirev2 ******
-make atmega1284p 
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB7 -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=nB7 -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 1000000, Real: 1000000, UBRR = 1, Error=0%
 ---------------------------------------------------------------------------
 ######################################
-Boot Loader start address: 0x1FE00
+Boot Loader start address: 0x1FC00
 ######################################
 
 16000000 Hz operation with Baudrate 1000000 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
     480	      0	      0	    480	    1e0	optiboot.elf
-Requires 1 Boot Pages, 512 Bytes each
+Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega1284p.lst
-cp optiboot.hex optiboot_atmega1284p.hex
-make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
- 
-***** make atmega1284p ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x1FE00
-######################################
-
-16000000 Hz operation with Baudrate 115200 configured.
-avr-size optiboot.elf
-   text	   data	    bss	    dec	    hex	filename
-    480	      0	      0	    480	    1e0	optiboot.elf
-Requires 1 Boot Pages, 512 Bytes each
-BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega1284p.lst
-cp optiboot.hex optiboot_atmega1284p.hex
+avr-objdump -h -S optiboot.elf > optiboot_wildfirev2.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_wildfirev2.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is environment 
  
 ***** make atmega32 ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=11059200 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=11059200 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 115200, UBRR = 11, Error=0%
 ---------------------------------------------------------------------------
@@ -274,13 +252,16 @@ avr-size optiboot.elf
     458	      0	      0	    458	    1ca	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega32.lst
-cp optiboot.hex optiboot_atmega32.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega32.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega32.hex
+LFUSE=0xBF
+HFUSE=0xCE
+EFUSE=0x
+origin of AVR_FREQ is file 
  
 ***** make atmega88 ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -294,13 +275,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega88.lst
-cp optiboot.hex optiboot_atmega88.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega88.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega88.hex
+LFUSE=0xFF
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is file 
  
 ***** make atmega168p ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -314,15 +298,18 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega168p.lst
-cp optiboot.hex optiboot_atmega168p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168p.hex
+LFUSE=0xFC
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is file 
  
 ***** make xplained168pb ******
 make atmega168
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
 ---------------------------------------------------------------------------
@@ -336,16 +323,19 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega168.lst
-cp optiboot.hex optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+LFUSE=0xFC
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is environment 
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
  
 ***** make xplained328p ******
 make atmega328
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
 ---------------------------------------------------------------------------
@@ -359,16 +349,19 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328.lst
-cp optiboot.hex optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is environment 
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
  
 ***** make xplained328pb ******
 make atmega328
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird betreten
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
 ---------------------------------------------------------------------------
@@ -382,14 +375,17 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328.lst
-cp optiboot.hex optiboot_atmega328.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is environment 
 make[1]: Verzeichnis »/home/kub/Transistortester/transistortester/bootloaders/optiboot« wird verlassen
  
 ***** make atmega8 ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -403,13 +399,16 @@ avr-size optiboot.elf
     458	      0	      0	    458	    1ca	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega8.lst
-cp optiboot.hex optiboot_atmega8.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega8.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8.hex
+LFUSE=0xBF
+HFUSE=0xCC
+EFUSE=0x
+origin of AVR_FREQ is file 
  
-***** make atmega168 ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+***** make atmega88 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -423,13 +422,16 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega168.lst
-cp optiboot.hex optiboot_atmega168.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
+LFUSE=0xFC
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is file 
  
 ***** make atmega328p ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -443,7 +445,396 @@ avr-size optiboot.elf
     474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
-avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328p.lst
-cp optiboot.hex optiboot_atmega328p.hex
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328p.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is file 
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000  -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    474	      0	      0	    474	    1da	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objdump -h -S optiboot.elf > optiboot_atmega88.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega88.hex
+LFUSE=0xFF
+HFUSE=0xDD
+EFUSE=0x04
+origin of AVR_FREQ is file 
+ 
+***** make atmega168 ******
+ 
+***** make atmega164p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x3E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega164p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega164p.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is file 
+ 
+***** make atmega324p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega324p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega324p.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is file 
+ 
+***** make atmega644p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0xFC00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    474	      0	      0	    474	    1da	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega644p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega644p.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is file 
+ 
+***** make atmega1284p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1FC00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    480	      0	      0	    480	    1e0	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
+LFUSE=0xF7
+HFUSE=0xDE
+EFUSE=0xFD
+origin of AVR_FREQ is file 
+ 
+***** make atmega165p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x3E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objdump -h -S optiboot.elf > optiboot_atmega165p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega165p.hex
+LFUSE=0xFF
+HFUSE=0x98
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega325p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega325p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega325p.hex
+LFUSE=0xFF
+HFUSE=0x98
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega645p ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0xFC00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega645p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega645p.hex
+LFUSE=0xFF
+HFUSE=0x98
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega169 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x3E00
+######################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 2 Boot Pages, 256 Bytes each
+BOOTSZ=2
+avr-objdump -h -S optiboot.elf > optiboot_atmega169.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega169.hex
+LFUSE=0xFF
+HFUSE=0x9C
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega329 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x7E00
+######################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega329.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega329.hex
+LFUSE=0xFF
+HFUSE=0x9E
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega649 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0xFC00
+######################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    460	      0	      0	    460	    1cc	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega649.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega649.hex
+LFUSE=0xFF
+HFUSE=0x9E
+EFUSE=0xFB
+origin of AVR_FREQ is file 
+ 
+***** make atmega640 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0xFC00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    466	      0	      0	    466	    1d2	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega640.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega640.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is file 
+ 
+***** make atmega1280 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DLED=n -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=n -DUART_TX=n -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1FC00
+######################################
+
+16000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    480	      0	      0	    480	    1e0	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega1280.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1280.hex
+LFUSE=0xFF
+HFUSE=0xDE
+EFUSE=0x05
+origin of AVR_FREQ is file 
+ 
+***** make attiny84 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n \
+        -DUART=0 -DSOFT_UART=01 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115942, Delay: 46*1, Error=.64%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1DC0
+######################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    572	      0	      0	    572	    23c	optiboot.elf
+Requires 9 Flash Pages, 64 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny84.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny84.hex
+LFUSE=0xFF
+HFUSE=0xDD
+EFUSE=0xFE
+origin of AVR_FREQ is environment 
+ 
+***** make attiny85 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n \
+        -DUART=0 -DSOFT_UART=01 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400, SoftUART_Real: 38461, Delay: 185*1, Error=.16%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1D80
+######################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    576	      0	      0	    576	    240	optiboot.elf
+Requires 10 Flash Pages, 64 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny85.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny85.hex
+LFUSE=0xE2
+HFUSE=0xDD
+EFUSE=0xFE
+origin of AVR_FREQ is environment 
+ 
+***** make attiny861 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n \
+        -DUART=0 -DSOFT_UART=01 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115942, Delay: 46*1, Error=.64%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x1DC0
+######################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    572	      0	      0	    572	    23c	optiboot.elf
+Requires 9 Flash Pages, 64 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny861.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny861.hex
+LFUSE=0xE2
+HFUSE=0xDD
+EFUSE=0xFE
+origin of AVR_FREQ is environment 
+ 
+***** make attiny1634 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3    -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=4 -DLED=n \
+        -DUART=0 -DSOFT_UART=0 -DUART_RX=n -DUART_TX=n -DF_CPU=8000000 -c -o optiboot.o optiboot.S
+---------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 57600, Real: 58823, UBRR = 16, Error=2.12%
+---------------------------------------------------------------------------
+######################################
+Boot Loader start address: 0x3DC0
+######################################
+
+8000000 Hz operation with Baudrate 57600 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    544	      0	      0	    544	    220	optiboot.elf
+Requires 18 Flash Pages, 32 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny1634.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny1634.hex
+LFUSE=0xE2
+HFUSE=0xDD
+EFUSE=0xFE
+origin of AVR_FREQ is environment 
