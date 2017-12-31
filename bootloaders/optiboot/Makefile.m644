@@ -155,41 +155,33 @@ atmega644pa:
 	$(SUB_MAKE) atmega644
 
 ################################################
-# generic atmega1284
+# generic atmega1284p
 # let board specific change the frequency and fuses
 ifndef TARGET
-atmega1284: TARGET := atmega1284
+atmega1284p: TARGET := atmega1284p
 endif
 ifndef MCU_TARGET
-atmega1284: MCU_TARGET := atmega1284
+atmega1284p: MCU_TARGET := atmega1284p
 endif
-atmega1284: override FLASH_SIZE := 131072
-atmega1284: override FLASH_PAGE_SIZE := 256
-atmega1284: override BOOT_PAGE_LEN := 1024
+atmega1284p: override FLASH_SIZE := 131072
+atmega1284p: override FLASH_PAGE_SIZE := 256
+atmega1284p: override BOOT_PAGE_LEN := 1024
 ifndef HFUSE
 # 1024 byte boot
-atmega1284: HFUSE := DE
+atmega1284p: HFUSE := DE
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega1284: LFUSE := F7
+atmega1284p: LFUSE := F7
 endif
 ifndef EFUSE
 # 2.7V brownout
 #atmega1284: EFUSE := 05
-atmega1284: EFUSE := FD
+atmega1284p: EFUSE := FD
 endif
-atmega1284: AVR_FREQ := 16000000
-atmega1284: hex_file
+atmega1284p: AVR_FREQ := 16000000
+atmega1284p: hex_file
 
-
-################################################
-# generic atmega1284p
-atmega1284p: TARGET := atmega1284p
-atmega1284p: MCU_TARGET := atmega1284p
-export
-atmega1284p: 
-	$(SUB_MAKE) atmega1284
 
 #
 # Board-level targets
@@ -217,7 +209,7 @@ mighty1284: EFUSE := FD
 mighty1284: AVR_FREQ := 16000000
 export
 mighty1284:
-	$(SUB_MAKE) atmega1284
+	$(SUB_MAKE) atmega1284p
 
 
 bobuino: TARGET := bobuino
@@ -232,7 +224,7 @@ bobuino: EFUSE := FD
 bobuino: AVR_FREQ := 16000000
 export
 bobuino: 
-	$(SUB_MAKE) atmega1284
+	$(SUB_MAKE) atmega1284p
 
 
 #
@@ -248,7 +240,7 @@ wildfirev2: EFUSE := FD
 wildfirev2: AVR_FREQ := 16000000
 export
 wildfirev2:
-	$(SUB_MAKE) atmega1284
+	$(SUB_MAKE) atmega1284p
 
 
 wildfirev3: TARGET := wildfirev3
@@ -259,7 +251,7 @@ wildfirev3: EFUSE := FD
 wildfirev3: AVR_FREQ := 16000000
 export
 wildfirev3:
-	$(SUB_MAKE) atmega1284
+	$(SUB_MAKE) atmega1284p
 
 
 wildfire: TARGET := wildfire
@@ -270,5 +262,5 @@ wildfire: EFUSE := FD
 wildfire: AVR_FREQ := 16000000
 export
 wildfire:
-	$(SUB_MAKE) atmega1284
+	$(SUB_MAKE) atmega1284p
 

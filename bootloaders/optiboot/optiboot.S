@@ -1124,7 +1124,7 @@ putch:	/* void putch(char r24) */
  #ifdef UART_ONE_WIRE
 	/* We can not use the advantage of hardware UART because the */
         /* TX output is enables only during the transmission time. */
-	/* Therefore we must wait to finish of transmission to reenable =/
+	/* Therefore we must wait to finish of transmission to reenable */
         /* the RX input again */
 	ldi	r25, (1<<TXEN0)	;0x08	
 	AOUT	UART_SRB, r25		; enable UART output, disable input
