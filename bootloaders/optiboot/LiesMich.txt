@@ -138,6 +138,13 @@ TIMEOUT_MS		Diese Option gibt eine Zeitschranke in Millisekunden vor für den Em
 			Mögliche Werte für TIMEOUT_MS sind 500, 1000, 2000, 4000 und 8000.
 			Der tatsächlich mögliche Wert kann abhängig vom Prozessor auf 2 Sekunden begrenzt sein.
 
+OSCCAL_CORRECTION	Diese Option gibt einen Korrekturwert für das OSCCAL Byte des AVR-Prozessors an.
+			Der Wert ist nur wirksam, wenn der interne RC-Oszillator des AVR-Prozessors
+			benutzt wird, nicht bei Quarz-Betrieb.
+			Da die erzeugte Baudrate direkt vom Prozessortakt abhängt, ist eine kalibrierte
+			Taktfrequenz wichtig, damit der serielle Datentransfer gelingt.
+
+
 
 Vorschlag:
 ==========

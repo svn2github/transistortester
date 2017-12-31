@@ -765,6 +765,15 @@
 #define boot_rww_enable()             __boot_rww_enable_alternate()
 #define boot_lock_bits_set(lock_bits) __boot_lock_bits_set_alternate(lock_bits)
 
+#elif defined(__AVR_ATmega64__)
+
+#define boot_page_fill(address, data) __boot_page_fill_normal(address, data)
+#define boot_page_erase(address)      __boot_page_erase_normal(address)
+#define boot_page_write(address)      __boot_page_write_normal(address)
+#define boot_rww_enable()             __boot_rww_enable()
+#define boot_lock_bits_set(lock_bits) __boot_lock_bits_set(lock_bits)
+
+
 #elif (FLASHEND > USHRT_MAX)
 
 /* Extended: >16 bit address */

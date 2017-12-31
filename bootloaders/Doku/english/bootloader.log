@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  13 DEC 2017 21:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  31 DEC 2017 15:32
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -890,7 +890,7 @@ Chapter 3.
 
 
 ] [15] [16]
-Overfull \hbox (35.45279pt too wide) in paragraph at lines 202--253
+Overfull \hbox (53.33893pt too wide) in paragraph at lines 202--263
  [] 
  []
 
@@ -903,7 +903,7 @@ Package epstopdf Info: Source file: <../FIG/VectorMove.eps>
 (epstopdf)                    size: 7609 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/VectorMove-eps-conve
 rted-to.pdf ../FIG/VectorMove.eps>
-(epstopdf)             \includegraphics on input line 318.
+(epstopdf)             \includegraphics on input line 338.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/VectorMove-eps-converted-to.pdf, id=291, 278.03876pt x 466.74374pt>
@@ -911,19 +911,19 @@ File: ../FIG/VectorMove-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/VectorMove-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/VectorMove-eps-converted-to.pdf used on input l
-ine 318.
+ine 338.
 (pdftex.def)             Requested size: 278.03807pt x 466.7426pt.
  [19] [20 <../FIG/VectorMove-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../FIG/uart_getch_timing.eps>
-(epstopdf)                    date: 2017-11-19 00:54:38
-(epstopdf)                    size: 27155 bytes
+(epstopdf)                    date: 2017-12-31 11:12:10
+(epstopdf)                    size: 27156 bytes
 (epstopdf)             Output file: <../FIG/uart_getch_timing-eps-converted-to.
 pdf>
-(epstopdf)                    date: 2017-11-19 11:12:57
-(epstopdf)                    size: 12376 bytes
+(epstopdf)                    date: 2017-12-31 11:12:12
+(epstopdf)                    size: 12355 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/uart_getch_timing-ep
 s-converted-to.pdf ../FIG/uart_getch_timing.eps>
-(epstopdf)             \includegraphics on input line 391.
+(epstopdf)             \includegraphics on input line 411.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/uart_getch_timing-eps-converted-to.pdf, id=310, 442.65375pt x 775.89874
@@ -931,7 +931,7 @@ pt>
 File: ../FIG/uart_getch_timing-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/uart_getch_timing-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/uart_getch_timing-eps-converted-to.pdf used on 
-input line 391.
+input line 411.
 (pdftex.def)             Requested size: 442.65265pt x 775.89685pt.
  [21]
 Package epstopdf Info: Source file: <../FIG/uart_putch_timing.eps>
@@ -943,7 +943,7 @@ pdf>
 (epstopdf)                    size: 12992 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/uart_putch_timing-ep
 s-converted-to.pdf ../FIG/uart_putch_timing.eps>
-(epstopdf)             \includegraphics on input line 399.
+(epstopdf)             \includegraphics on input line 419.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/uart_putch_timing-eps-converted-to.pdf, id=317, 389.455pt x 521.95pt>
@@ -951,7 +951,7 @@ File: ../FIG/uart_putch_timing-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/uart_putch_timing-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/uart_putch_timing-eps-converted-to.pdf used on 
-input line 399.
+input line 419.
 (pdftex.def)             Requested size: 389.45404pt x 521.94872pt.
  [22 <../FIG/uart_getch_timing-eps-converted-to.pdf>] [23 <../FIG/uart_putch_ti
 ming-eps-converted-to.pdf>]
@@ -965,7 +965,7 @@ Package epstopdf Info: Source file: <../FIG/OneWire_simple.eps>
 (epstopdf)                    size: 7369 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/OneWire_simple-eps-c
 onverted-to.pdf ../FIG/OneWire_simple.eps>
-(epstopdf)             \includegraphics on input line 516.
+(epstopdf)             \includegraphics on input line 536.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/OneWire_simple-eps-converted-to.pdf, id=347, 303.1325pt x 191.71625pt>
@@ -973,7 +973,7 @@ File: ../FIG/OneWire_simple-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/OneWire_simple-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/OneWire_simple-eps-converted-to.pdf used on inp
-ut line 516.
+ut line 536.
 (pdftex.def)             Requested size: 303.13176pt x 191.71577pt.
 Package epstopdf Info: Source file: <../FIG/OneWire.eps>
 (epstopdf)                    date: 2017-12-11 14:50:12
@@ -983,7 +983,7 @@ Package epstopdf Info: Source file: <../FIG/OneWire.eps>
 (epstopdf)                    size: 19376 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/OneWire-eps-converte
 d-to.pdf ../FIG/OneWire.eps>
-(epstopdf)             \includegraphics on input line 534.
+(epstopdf)             \includegraphics on input line 555.
 Package epstopdf Info: Output file is already uptodate.
 
 <../FIG/OneWire-eps-converted-to.pdf, id=349, 1020.81375pt x 541.02126pt>
@@ -991,17 +991,17 @@ File: ../FIG/OneWire-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/OneWire-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/OneWire-eps-converted-to.pdf used on input line
- 534.
+ 555.
 (pdftex.def)             Requested size: 1020.81126pt x 541.01993pt.
  [25 <../FIG/OneWire_simple-eps-converted-to.pdf>] [26 <../FIG/OneWire-eps-conv
 erted-to.pdf>]
-Overfull \hbox (0.37563pt too wide) in paragraph at lines 590--590
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 611--611
 []\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
  .version=alloc,load \[] 
  []
 
 
-Overfull \hbox (0.37563pt too wide) in paragraph at lines 625--625
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 646--646
 []\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
  .version=alloc,load \[] 
  []
@@ -1057,7 +1057,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 162.
 Here is how much of TeX's memory you used:
  20551 strings out of 493304
  417428 string characters out of 6139871
- 576794 words of memory out of 5000000
+ 576790 words of memory out of 5000000
  23471 multiletter control sequences out of 15000+600000
  58474 words of font info for 47 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1068,7 +1068,7 @@ ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share
 /lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12
 .pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on bootloader.pdf (39 pages, 322317 bytes).
+Output written on bootloader.pdf (39 pages, 323531 bytes).
 PDF statistics:
  523 PDF objects out of 1000 (max. 8388607)
  445 compressed objects within 5 object streams

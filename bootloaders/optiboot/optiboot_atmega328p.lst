@@ -26,8 +26,8 @@ optiboot:
     7e00:	f8 94       	cli
 	eor	r1, r1
     7e02:	11 24       	eor	r1, r1
-#ifndef MCUSR
- #define MCUSR MCUCSR		/* ATmega16 */
+  #define RESET_CAUSE OCR1BH
+ #endif
 #endif
 
 //#define RESET_CAUSE GPIOR1
@@ -89,13 +89,14 @@ appStart:
  #endif
 	AOUT	UART_SRA, r24
     7e1c:	80 93 c0 00 	sts	0x00C0, r24
-  // permit high bitrates (ie 1Mbps@16MHz) if error is zero
-  #error "Unachievable baud rate (too fast) BAUD_RATE"
-#endif // baud rate fastn check
 #include "report_baud_div.h"
 
+ #ifdef UART_ONE_WIRE
+	ldi	r24, (1<<RXEN0)		;0x10	
+ #else
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
     7e20:	88 e1       	ldi	r24, 0x18	; 24
+ #endif
 	AOUT	UART_SRB, r24
     7e22:	80 93 c1 00 	sts	0x00C1, r24
 	AOUT	UCSRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
@@ -157,7 +158,7 @@ fl_lop:
     7e42:	2d 98       	cbi	0x05, 5	; 5
  #warning "debug out 'U' at TX, don't use a bootloader"
 	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23, r25
+	rcall	putch			; putch can use r22, r23,(r24), r25
  #endif
  #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
@@ -206,7 +207,7 @@ get_nextp:
 00007e64 <to_putch>:
 to_putch:
        	rcall	putch		; answer MINVER or MAJVER+CUSTOMVER or 0x03
-    7e64:	7c d0       	rcall	.+248    	; 0x7f5e <putch>
+    7e64:	7c d0       	rcall	.+248    	; 0x7f5e <ptch1>
 	rjmp	put_ok		; putch(STK_OK); rjmp get_nextp
     7e66:	61 c0       	rjmp	.+194    	; 0x7f2a <put_ok>
 
@@ -429,11 +430,11 @@ no_erase1:
         // So check that here
 	rcall	wait_flash_ready
     7ede:	5c d0       	rcall	.+184    	; 0x7f98 <wait_flash_ready>
- #endif		/* FLASHEND > 8192 */ 
-
 no_patch1:
 #endif		/* VIRTUAL_BOOT_PARTITION */
 
+;     Fill the programming buffer
+;     ---------------------------
 	movw	ZL, r4		; addrPtr = address
     7ee0:	f2 01       	movw	r30, r4
 
@@ -464,6 +465,7 @@ wr_lop1:
 	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
 #endif
         // Write from programming buffer
+        // -----------------------------
 	ldi	r20, (1<<PGWRT)|(1<<SELFPRGEN)	; 0x05	
     7ef4:	45 e0       	ldi	r20, 0x05	; 5
 	rcall	do_spm		; AOUT SPMCSR, r20 ; spm
@@ -530,7 +532,7 @@ ee_rd_lop2:
     7f18:	80 b5       	in	r24, 0x20	; 32
  #endif
 	rcall	putch
-    7f1a:	21 d0       	rcall	.+66     	; 0x7f5e <putch>
+    7f1a:	21 d0       	rcall	.+66     	; 0x7f5e <ptch1>
 	rjmp	ee_rd_lop2
     7f1c:	f9 cf       	rjmp	.-14     	; 0x7f10 <ee_rd_lop2>
 
@@ -557,7 +559,7 @@ flash_read:
 #endif		/* VIRTUAL_BOOT_PARTITION */
 
 	rcall	putch
-    7f22:	1d d0       	rcall	.+58     	; 0x7f5e <putch>
+    7f22:	1d d0       	rcall	.+58     	; 0x7f5e <ptch1>
 	sbiw	r26, LenDecrement	; length - 1 or 2 bytes for VIRTUAL_BOOT_PARTITION
     7f24:	11 97       	sbiw	r26, 0x01	; 1
 	brne	flash_rd_lop
@@ -573,7 +575,7 @@ put_ok:
      	ldi	r24, STK_OK	; 0x10
     7f2a:	80 e1       	ldi	r24, 0x10	; 16
        	rcall	putch
-    7f2c:	18 d0       	rcall	.+48     	; 0x7f5e <putch>
+    7f2c:	18 d0       	rcall	.+48     	; 0x7f5e <ptch1>
        	rjmp	get_nextp
     7f2e:	8d cf       	rjmp	.-230    	; 0x7e4a <get_nextp>
 
@@ -591,11 +593,11 @@ ck_READS:
 	ldi	r24, SIGNATURE_0
     7f36:	8e e1       	ldi	r24, 0x1E	; 30
 	rcall	putch
-    7f38:	12 d0       	rcall	.+36     	; 0x7f5e <putch>
+    7f38:	12 d0       	rcall	.+36     	; 0x7f5e <ptch1>
 	ldi	r24, SIGNATURE_1
     7f3a:	85 e9       	ldi	r24, 0x95	; 149
 	rcall	putch
-    7f3c:	10 d0       	rcall	.+32     	; 0x7f5e <putch>
+    7f3c:	10 d0       	rcall	.+32     	; 0x7f5e <ptch1>
 	ldi	r24, SIGNATURE_2
     7f3e:	8f e0       	ldi	r24, 0x0F	; 15
 	rjmp	to_putch	; rcall putch, rjmp put_ok
@@ -659,18 +661,19 @@ no_to:
        	ldi	r24, STK_INSYNC
     7f5c:	84 e1       	ldi	r24, 0x14	; 20
 
-00007f5e <putch>:
- #endif // baud rate fastn check
-putch:	/* void putch(char r24) */
- #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)
-	ASBI	LED_PORT, LEDbit
- #endif
+00007f5e <ptch1>:
+	AOUT	UART_SRB, r25		; enable UART input
+ #else
+	/* For normal serial transfer we wait until the buffer UDR is free. */
+	/* After loading the buffer we return immediately to caller */
+ptch1:
 	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
     7f5e:	90 91 c0 00 	lds	r25, 0x00C0
       	sbrs	r25, UDRE0
     7f62:	95 ff       	sbrs	r25, 5
-      	rjmp	putch		; wait, UART out not ready
-    7f64:	fc cf       	rjmp	.-8      	; 0x7f5e <putch>
+      	rjmp	ptch1		; wait, UART out not ready
+    7f64:	fc cf       	rjmp	.-8      	; 0x7f5e <ptch1>
+ #endif
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
     7f66:	80 93 c6 00 	sts	0x00C6, r24
  #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)

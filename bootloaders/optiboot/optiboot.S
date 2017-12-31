@@ -143,6 +143,12 @@
 /* UART number (0..n) for devices with more than          */
 /* one hardware uart (644P, 1284P, etc)                   */
 /*                                                        */
+/* OSCCAL_CORRECTION:                                     */
+/* The specified value is subtracted from the OSCCAL Byte */
+/* to correct the internal RC-oscillator frequency        */
+/* This option is only effectual, when the internal       */
+/* Frequency generation of the ATmega is used             */
+/*                                                        */
 /**********************************************************/
 
 /**********************************************************/
@@ -243,8 +249,6 @@
  #define __ASSEMBLER__
 #endif
 #include <avr/io.h>
-// #include <avr/common.h>
-// #include <avr/eeprom.h>
 
 #include "stk500.h"
 #include "pin_defs.h"
@@ -266,83 +270,15 @@
  * RAMSTART should be self-explanatory.  It's bigger on parts with a
  * lot of peripheral registers.
  */
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega16__)
- #define NRWWSTART (0x3800)
-#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32__)
- #define NRWWSTART (0x7000)
-#elif defined (__AVR_ATmega644P__)
- #define NRWWSTART (0xE000)
- #define SELFPRGEN SPMEN		/* use different name of SELFPRGEN bit */
- // correct for a bug in avr-libc
- #undef SIGNATURE_2
- #define SIGNATURE_2 0x0A
-#elif defined (__AVR_ATmega1284P__)
- #define NRWWSTART (0xE000)
-#elif defined(__AVR_ATtiny84__)
- #define NRWWSTART (0x0000)
-#elif defined(__AVR_ATmega1280__)
- #define RAMSTART (0x200)
- #define NRWWSTART (0xE000)
-#define SELFPRGEN SPMEN		/* use different name of SELFPRGEN bit */
- #elif defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
- #define NRWWSTART (0x1800)
-#endif
 #ifndef RAMSTART
- #define RAMSTART (0x100)
-#endif
-
-#ifndef SPMCSR
- #define SPMCSR SPMCR			/* use different name of SPM register */
-#endif
-#ifndef SELFPRGEN
- #define SELFPRGEN SPMEN		/* use different name of SELFPRGEN bit */
-#endif
-
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
- // bits in EECR has other names
- #define EEMPE EEMWE
- #define EEPE EEWE
-#endif
-
-/* Virtual boot partition support */
-#ifdef VIRTUAL_BOOT_PARTITION
-// Vector to save original reset jump:
-//   SPM Ready is least probably used, so it's default
-//   if not, use old way WDT_vect_num,
-//   or simply set custom save_vect_num in Makefile using vector name
-//   or even raw number.
- #if !defined (save_vect_num)
-  #if defined (SPM_RDY_vect_num)
-   #define save_vect_num (SPM_RDY_vect_num)
-  #elif defined (SPM_READY_vect_num)
-   #define save_vect_num (SPM_READY_vect_num)
-  #elif defined (WDT_vect_num)
-   #define save_vect_num (WDT_vect_num)
-  #else
-   #error "Can't find SPM or WDT interrupt vector for this CPU"
-  #endif
- #endif		/* save_vect_num */
- // check if it's on the same page (code assumes that)
- #if (SPM_PAGESIZE <= save_vect_num)
-  #error "Save vector not in the same page as reset!"
- #endif
-
- #if FLASHEND > 8192
-  // AVRs with more than 8k of flash have 4-byte vectors, and use jmp.
-  //  We save only 16 bits of address, so devices with more than 128KB
-  //  may behave wrong for upper part of address space.
-  #define rstVect0 2
-  #define rstVect1 3
-  #define save_vect_addr (save_vect_num*4)
+ #if RAMEND > 0x2000
+  #warning "RAMSTART was unset, is now 0x200"
+  #define RAMSTART (0x200)
  #else
-  // AVRs with up to 8k of flash have 2-byte vectors, and use rjmp.
-  #define rstVect0 0
-  #define rstVect1 1
-  #define save_vect_addr (save_vect_num*2)
- #endif		/* FLASHEND */
-#endif		/* VIRTUAL_BOOT_PARTITION */
-
-
+  #warning "RAMSTART was unset, is now 0x100"
+  #define RAMSTART (0x100)
+ #endif
+#endif
 
 #ifndef SUPPORT_EEPROM
  #define SUPPORT_EEPROM 1	/* enable EEprom support by default */
@@ -404,16 +340,30 @@ optiboot:
 #ifdef GPIOR0
  #define RESET_CAUSE GPIOR0
 #else
- #define RESET_CAUSE OCR2
-#endif
-#ifndef MCUSR
- #define MCUSR MCUCSR		/* ATmega16 */
+ #ifdef OCR2
+  #define RESET_CAUSE OCR2
+ #else
+  #define RESET_CAUSE OCR1BH
+ #endif
 #endif
 
 //#define RESET_CAUSE GPIOR1
 	AIN	r24, MCUSR
 	AOUT	MCUSR, r1	; MCUSR = 0
 	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUSR) in IO register
+#if defined(OSCCAL1) && !defined(OSCCAL)
+ #define OSCCAL OSCCAL1
+#endif
+
+#if defined(OSCCAL_CORRECTION) && defined(OSCCAL)
+ #if (OSCCAL_CORRECTION < -10) || (OSCCAL_CORRECTION > 10)
+  #warning "OSCCAL_CORRECTION is too big, should be greater -10 and less than 10"
+ #elif (OSCCAL_CORRECTION != 0)
+	AIN	r25, OSCCAL
+	subi	r25, OSCCAL_CORRECTION
+	AOUT	OSCCAL, r25
+ #endif
+#endif
 
 #ifdef FORCE_WATCHDOG
  #ifdef GPIOR1
@@ -552,7 +502,11 @@ try_loader:
 #endif // baud rate fastn check
 #include "report_baud_div.h"
 
+ #ifdef UART_ONE_WIRE
+	ldi	r24, (1<<RXEN0)		;0x10	
+ #else
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
+ #endif
 	AOUT	UART_SRB, r24
  #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
 	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
@@ -640,7 +594,7 @@ fl_lop:
  ; the bootloader sequence is disturbed with this output.
  #warning "debug out 'U' at TX, don't use a bootloader"
 	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23, r25
+	rcall	putch			; putch can use r22, r23,(r24), r25
  #endif
  #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
@@ -654,7 +608,7 @@ fl_lop:
  ; the bootloader sequence is disturbed with this output.
  #warning "debug out 'U' at TX, don't use a bootloader"
 	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23, r25
+	rcall	putch			; putch can use r22, r23,(r24), r25
  #endif
 #endif	/* LED_START_FLASHES > 0 */
 
@@ -914,6 +868,8 @@ no_erase1:
 no_patch1:
 #endif		/* VIRTUAL_BOOT_PARTITION */
 
+;     Fill the programming buffer
+;     ---------------------------
 	movw	ZL, r4		; addrPtr = address
 ;	movw	YL, r18		; buf16Ptr (r28:r29) = RAMSTART
 wr_lop1:
@@ -932,6 +888,7 @@ wr_lop1:
 	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
 #endif
         // Write from programming buffer
+        // -----------------------------
 	ldi	r20, (1<<PGWRT)|(1<<SELFPRGEN)	; 0x05	
 	rcall	do_spm		; AOUT SPMCSR, r20 ; spm
 	rcall	wait_flash_ready
@@ -1164,9 +1121,28 @@ putch:	/* void putch(char r24) */
  #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)
 	ASBI	LED_PORT, LEDbit
  #endif
+ #ifdef UART_ONE_WIRE
+	/* We can not use the advantage of hardware UART because the */
+        /* TX output is enables only during the transmission time. */
+	/* Therefore we must wait to finish of transmission to reenable =/
+        /* the RX input again */
+	ldi	r25, (1<<TXEN0)	;0x08	
+	AOUT	UART_SRB, r25		; enable UART output, disable input
+	AOUT	UART_UDR, r24	; UART_UDR = ch;
+ptch2:
+	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(TXC0)));
+      	sbrs	r25, TXC0
+      	rjmp	ptch2		; wait, UART transmit not completed
+	ldi	r25, (1<<RXEN0)	;0x10	
+	AOUT	UART_SRB, r25		; enable UART input
+ #else
+	/* For normal serial transfer we wait until the buffer UDR is free. */
+	/* After loading the buffer we return immediately to caller */
+ptch1:
 	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
       	sbrs	r25, UDRE0
-      	rjmp	putch		; wait, UART out not ready
+      	rjmp	ptch1		; wait, UART out not ready
+ #endif
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
  #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)
 	ACBI	LED_PORT, LEDbit

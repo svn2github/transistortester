@@ -249,11 +249,31 @@ and \ref{tab:options2}
                    &                  & If no TIMEOUT\_MS is specified, the time limit is \\
                    &                  & set to 1 second. \\
     \hline
+ OSCCAL\_          & OSCCAL\_       & With the option OSCCAL\_CORRECTION you can adjust the \\
+ CORRECTION        & CORRECTION=5   & internal 8~MHz RC-generator of the AVR. \\
+                   &                & Is effectless with crystal-operation or external clock! \\
+                   &                & The correction value will be subtracted from the actual \\
+                   &                & OSCCAL byte. The frequency will be lower with a positive \\
+                   &                & correction value. Because the produced Baud rate is \\
+                   &                & directly derived from the processor clock, a correct \\
+                   &                & selected processor clock is important for a successful \\
+                   &                & serial communication. The value must be between -15 and +15. \\
+    \hline
     \end{tabular}
   \end{center}
   \caption{Important options for the optiboot Makefile}
   \label{tab:options1}
 \end{table}
+
+When operating with the internal RC generator, it is quite possible that a serial data transfer
+not immediately succeed. This is principle independent of whether the hardware UART interface
+or a software solution (SOFT\_UART) is used.
+Without additional measurement you can only try with estimated OSCCAL\_CORRECTION values.
+Probably the data sheet of the AVR processor can help a little bit.
+Here is described at which operating voltage and at what temperature the RC oscillator
+was calibrated. 
+In addition here is also described the gradient of frequency change with operating voltage,
+temperature and OSCCAL modification.
 
 More options are listed in table~\ref{tab:options2} . 
 Some of these options are only interesting for software checks and
@@ -502,7 +522,7 @@ But if the TX output pin is switched to input mode instead of the high level,
 a external pull-up resistor can provide the required high level.
 In contrast to the fixed high level now a externally connected TX signal
 can pull down the level and let the input function read the low level.
-A serial resitor in the connection between the common TX/RX pin of the AVR
+A serial resistor in the connection between the common TX/RX pin of the AVR
 with the external TX output can serve as pull-up resistor,
 because the idle state if the interface is a high signal.
 In addition, this serial resistor provides current limiting,
@@ -521,7 +541,8 @@ The figure~\ref{fig:onewire-simple} should illustrate this simplest connection.
 Now is the problem, that the mostly full-duplex capable external interface will
 read back the own output.
 The communication program at the external side is usually unprepared for this condition.
-There is now the possibility to adapt the program at the external side for this situation.
+One solution for this problem is to adapt the program at the external side to handle
+this read back.
 But I believe, that this is not a good idea, because this special version will 
 have no maintenance or you must repeat this adaption for new versions constantly.
 That's why I prefere a hardware solution.
@@ -532,7 +553,7 @@ A corresponding circuit suggestion is shown in figure~\ref{fig:onewire}
 \begin{figure}[H]
 \centering
 \scalebox{0.5}{\includegraphics[]{../FIG/OneWire.eps}}
-\caption{Schaltung zur Unterdrückung des Echos}
+\caption{Circuit for suppressing the echoes}
 \label{fig:onewire}
 \end{figure}
 
@@ -540,13 +561,13 @@ With the first two NAND gates of the HCF4093 a flip-flop is build,
 which is set or reset by the two other NAND gates of this chip.
 The switching signals are get from from signals of a chain of inverting buffers
 with Schmitt-trigger inputs (HC7414).
-For one of this signals a additional C-R circuit (\(120 pF\) und \(3.3 k\Omega\) is
+For one of this signals a additional C-R circuit (\(120 pF\) and \(3.3 k\Omega\) is
 required to prevent switching at the wrong edge.
 The flip-flop is switched with the 1-0 edge of the two transmission sides.
 This changeover is only required at the edge of the start bit.
-But additional switching with data bits will nor hurt, if the flip-flop
+But additional switching with data bits will not hurt, if the flip-flop
 is already in the right state.
-When the external interface sends, the reception of the data with the
+When the external interface sends, the reception of the own data with the
 external receiver is prevented. The external RX signal remains at high level.
 With this additional circuit no software adaption is necessary.
 You can use avrdude for example for the bootloader.

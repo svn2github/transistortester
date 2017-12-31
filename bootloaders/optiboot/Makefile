@@ -74,10 +74,7 @@ override PROGRAM    = optiboot
 
 # export symbols to recursive makes (for ISP)
 
-# defaults
-ifndef MCU_TARGET
-MCU_TARGET := atmega168
-endif
+# no defaults
 
 
 # Build environments
@@ -173,7 +170,6 @@ ECHO_CMD = echo
 #
 # End of build environment code.
 
-OBJ        = $(PROGRAM).o
 OPTIMIZE = -Os -fno-split-wide-types -mrelax
 
 DEFS       = 
@@ -181,6 +177,7 @@ DEFS       =
 ifndef BAUD_RATE
 BAUD_RATE := 115200
 endif
+
 BAUD_RATE_CMD = -DBAUD_RATE=$(BAUD_RATE)
 
 COMMON_OPTIONS = $(BAUD_RATE_CMD) $(LED_START_FLASHES_CMD) $(BIGBOOT_CMD)
@@ -199,10 +196,14 @@ ifdef C_SOURCE
  ifneq ($(C_SOURCE),0)
   SOURCE_TYPE = c
  else
-  SUPPORT_EEPROM := 1
+  ifndef SUPPORT_EEPROM
+   SUPPORT_EEPROM := 1
+  endif
  endif
 else
- SUPPORT_EEPROM := 1
+ ifndef SUPPORT_EEPROM
+  SUPPORT_EEPROM := 1
+ endif
 endif
 
 # let a F_CPU=  parameter pass as AVR_FREQ=
@@ -240,6 +241,10 @@ endif
 ifdef TIMEOUT_MS
 COMMON_OPTIONS += -DTIMEOUT_MS=$(TIMEOUT_MS)
 endif
+
+ifdef OSCCAL_CORRECTION
+COMMON_OPTIONS += -DOSCCAL_CORRECTION=$(OSCCAL_CORRECTION)
+endif
 #
 
 #
@@ -274,9 +279,9 @@ CC         = $(GCCROOT)avr-gcc
 
 
 #
-# Include Makefile parts for different platforms
-include Makefile.m16
+# Include Makefile parts for different platforms, atmega168 is the first target in Makefile.m328
 include Makefile.m328
+include Makefile.m16
 include Makefile.m169
 include Makefile.m640
 include Makefile.m644
@@ -284,27 +289,35 @@ include Makefile.m645
 include Makefile.at90
 include Makefile.tiny
 
-ifdef FLASH_SIZE
-ifneq "$(origin MCU_TARGET)" "file"
- ifneq "$(origin MCU_TARGET)" "environment"
-  $(error The origin of MCU_TARGET is '$(origin MCU_TARGET)' instead of 'file' or 'environment')
+#ifdef FLASH_SIZE
+#if ("$(origin MCU_TARGET)" != "undefined") || ("$(origin MCU_TARGET)" != "file") || ("$(origin MCU_TARGET)" != "environment")
+ifneq "$(origin MCU_TARGET)" "undefined" 
+ ifneq "$(origin MCU_TARGET)" "file" 
+  ifneq "$(origin MCU_TARGET)" "environment"
+   $(error The origin of MCU_TARGET is '$(origin MCU_TARGET)' instead of 'file' or 'environment')
+  endif
  endif
 endif
-ifneq "$(origin FLASH_SIZE)" "override"
- ifneq "$(origin FLASH_SIZE)" "environment"
-  $(error The origin of FLASH_SIZE is '$(origin FLASH_SIZE)' instead of 'override' or 'environment')
+ifneq "$(origin FLASH_SIZE)" "undefined" 
+ ifneq "$(origin FLASH_SIZE)" "override"
+  ifneq "$(origin FLASH_SIZE)" "environment"
+   $(error The origin of FLASH_SIZE is '$(origin FLASH_SIZE)' instead of 'override' or 'environment')
+  endif
  endif
 endif
-ifneq "$(origin FLASH_PAGE_SIZE)" "override"
- ifneq "$(origin FLASH_PAGE_SIZE)" "environment"
-  $(error The origin of FLASH_PAGE_SIZE is '$(origin FLASH_PAGE_SIZE)' instead of 'override' or 'environment')
+ifneq "$(origin FLASH_PAGE_SIZE)" "undefined"
+ ifneq "$(origin FLASH_PAGE_SIZE)" "override"
+  ifneq "$(origin FLASH_PAGE_SIZE)" "environment"
+   $(error The origin of FLASH_PAGE_SIZE is '$(origin FLASH_PAGE_SIZE)' instead of 'override' or 'environment')
+  endif
  endif
 endif
-ifneq "$(origin BOOT_PAGE_LEN)" "override"
- ifneq "$(origin BOOT_PAGE_LEN)" "environment"
-  $(error The origin of BOOT_PAGE_LEN is '$(origin BOOT_PAGE_LEN)' instead of 'override' or 'environment')
+ifneq "$(origin BOOT_PAGE_LEN)" "undefined"
+ ifneq "$(origin BOOT_PAGE_LEN)" "override"
+  ifneq "$(origin BOOT_PAGE_LEN)" "environment"
+   $(error The origin of BOOT_PAGE_LEN is '$(origin BOOT_PAGE_LEN)' instead of 'override' or 'environment')
+  endif
  endif
-endif
 endif
 
 
@@ -346,21 +359,25 @@ $(PROGRAM).o: $(PROGRAM).$(SOURCE_TYPE) FORCE
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
  ifdef save_vect_num
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=$(save_vect_num) -DLED=n$(LED) \
-        -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) -c -o $@ $<
+        -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  else
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
-        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) -c -o $@ $<
+        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  endif 
 else
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
-        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) -c -o $@ $<
+        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
 endif
 
  export LFUSE HFUSE EFUSE TARGET BOOT_PAGE_LEN FLASH_SIZE VIRTUAL_BOOT_PARTITION MCU_TARGET PROGRAM CAT_CMD AVRDUDE_CONF GCCROOT
 hex_file: hex_copy
 ifdef ISP
 	$(SUB_MAKE) --warn-undefined-variables -r -f Makefile.isp do_isp
-#else
+else
+	
 #	@$(ECHO_CMD) "LFUSE=0x$(LFUSE)"
 #	@$(ECHO_CMD) "HFUSE=0x$(HFUSE)"
 #	@$(ECHO_CMD) "EFUSE=0x$(EFUSE)"
@@ -374,8 +391,8 @@ isp-stk500: $(PROGRAM).hex
 #  but for C source we need to do some optimizing  with the binder call (.elf).
 #  This call is done without the relolation of the .text section (instruction code).
 #  After computing the required size (and the possible relocation address),
-#  This .elf is removed.
-$(PROGRAM)x.elf: $(OBJ)
+#  This x.elf is removed later.
+$(PROGRAM)x.elf: $(PROGRAM).o
 	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) $(LDFLAGS)  -o $(PROGRAM)x.elf $< $(LIBS)
 
 # BootPages.dat fetch the actual boot loader size from a interim $(PROGRAM)x.elf file, not from the
@@ -387,26 +404,27 @@ $(PROGRAM)x.elf: $(OBJ)
 # The ATtiny84 has no hardware feature for the bootloader like the ATmega family.
 # Therefore the "round up" is not required for the ATtiny84, but the BOOT_PAGE_LEN is 64 for
 # this processor, so the number of pages is more than 7 pages for the actual size of optiboot.
-BootPages.dat: $(OBJ) $(PROGRAM)x.elf
+BootPages.dat: $(PROGRAM)x.elf
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
 	@$(ECHO_CMD) "($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(FLASH_PAGE_SIZE) +1)" | $(BC_CMD) > BootPages.dat
 else
 	@$(ECHO_CMD) "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3 ) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | $(BC_CMD) > BootPages.dat
 endif
 
-# With the file BootPages.dat and the the $(BOOT_PAGE_LEN) or $(FLASH_PAGE_SIZE) we can compute the 
+# With the file BootPages.dat and the $(BOOT_PAGE_LEN) or $(FLASH_PAGE_SIZE) we can compute the 
 # Start Address of the bootloader depending on the $(FLASH_SIZE) 
-BL_StartAdr.dat: $(OBJ) $(PROGRAM)x.elf BootPages.dat
+BL_StartAdr.dat:  BootPages.dat
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
 	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(FLASH_PAGE_SIZE))" | $(BC_CMD) > BL_StartAdr.dat
 else
 	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(BOOT_PAGE_LEN))" | $(BC_CMD) > BL_StartAdr.dat
 endif
 	@$(RM_CMD) $(PROGRAM)x.elf
+	sync
 
 # Generate the final $(PROGRAM).elf file at the right Start Address,
 # which is the base to generate the $(PROGRAM)_$(TARGET).hex and $(PROGRAM)_$(TARGET).lst files.
-$(PROGRAM).elf: $(OBJ) baudcheck  BL_StartAdr.dat
+$(PROGRAM).elf:  $(PROGRAM).o baudcheck  BL_StartAdr.dat
 	@$(ECHO_CMD) "######################################"
 	@$(ECHO_CMD) "Boot Loader start address: 0x$(shell $(CAT_CMD) BL_StartAdr.dat)"
 	@$(ECHO_CMD) "######################################"

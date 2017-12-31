@@ -130,6 +130,12 @@
 /* UART number (0..n) for devices with more than          */
 /* one hardware uart (644P, 1284P, etc)                   */
 /*                                                        */
+/* OSCCAL_CORRECTION:                                     */
+/* The specified value is subtracted from the OSCCAL Byte */
+/* to correct the internal RC-oscillator frequency        */
+/* This option is only effectual, when the internal       */
+/* Frequency generation of the ATmega is used             */
+/*                                                        */
 /**********************************************************/
 
 /**********************************************************/
@@ -289,22 +295,6 @@ optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
 #endif
 
 
-/* Watchdog settings */
-#define WATCHDOG_OFF    (0)
-#define WATCHDOG_16MS   (_BV(WDE))
-#define WATCHDOG_32MS   (_BV(WDP0) | _BV(WDE))
-#define WATCHDOG_64MS   (_BV(WDP1) | _BV(WDE))
-#define WATCHDOG_125MS  (_BV(WDP1) | _BV(WDP0) | _BV(WDE))
-#define WATCHDOG_250MS  (_BV(WDP2) | _BV(WDE))
-#define WATCHDOG_500MS  (_BV(WDP2) | _BV(WDP0) | _BV(WDE))
-#define WATCHDOG_1S     (_BV(WDP2) | _BV(WDP1) | _BV(WDE))
-#define WATCHDOG_2S     (_BV(WDP2) | _BV(WDP1) | _BV(WDP0) | _BV(WDE))
-#ifndef __AVR_ATmega8__
-#define WATCHDOG_4S     (_BV(WDP3) | _BV(WDE))
-#define WATCHDOG_8S     (_BV(WDP3) | _BV(WDP0) | _BV(WDE))
-#endif
-
-
 /*
  * We can never load flash with more than 1 page at a time, so we can save
  * some code space on parts with smaller pagesize by using a smaller int.
@@ -354,85 +344,16 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
  * RAMSTART should be self-explanatory.  It's bigger on parts with a
  * lot of peripheral registers.
  */
-#if defined(__AVR_ATmega168__)
- #define NRWWSTART (0x3800)
-#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32__)
- #define NRWWSTART (0x7000)
-#elif defined (__AVR_ATmega644P__)
- #define NRWWSTART (0xE000)
- // correct for a bug in avr-libc
- #undef SIGNATURE_2
- #define SIGNATURE_2 0x0A
-#elif defined (__AVR_ATmega1284P__)
- #define NRWWSTART (0xE000)
-#elif defined(__AVR_ATtiny84__)
- #define NRWWSTART (0x0000)
-#elif defined(__AVR_ATmega1280__)
+#if defined(__AVR_ATmega1280__)
  #undef RAMSTART
  #define RAMSTART (0x200)
- #define NRWWSTART (0xE000)
-#elif defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
- #define NRWWSTART (0x1800)
 #endif
 
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
- // bits in EECR has other names
- #define EEMPE EEMWE
- #define EEPE EEWE
-#endif
 
 /* C zero initialises all global variables. However, that requires */
 /* These definitions are NOT zero initialised, but that doesn't matter */
 /* This allows us to drop the zero init code, saving us memory */
 #define buff    ((uint8_t*)(RAMSTART))
-
-/* Virtual boot partition support */
-#ifdef VIRTUAL_BOOT_PARTITION
- #define rstVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+4))
- #define rstVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+5))
- #define saveVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+6))
- #define saveVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+7))
-// Vector to save original reset jump:
-//   SPM Ready is least probably used, so it's default
-//   if not, use old way WDT_vect_num,
-//   or simply set custom save_vect_num in Makefile using vector name
-//   or even raw number.
- #if !defined (save_vect_num)
-  #if defined (SPM_RDY_vect_num)
-   #define save_vect_num (SPM_RDY_vect_num)
-  #elif defined (SPM_READY_vect_num)
-   #define save_vect_num (SPM_READY_vect_num)
-  #elif defined (WDT_vect_num)
-  #define save_vect_num (WDT_vect_num)
- #else
-  #error "Cant find SPM or WDT interrupt vector for this CPU"
- #endif
- #endif //save_vect_num
- // check if it's on the same page (code assumes that)
- #if (SPM_PAGESIZE <= save_vect_num)
-  #error "Save vector not in the same page as reset!"
- #endif
-
- #if FLASHEND > 8192
-  // AVRs with more than 8k of flash have 4-byte vectors, and use jmp.
-  //  We save only 16 bits of address, so devices with more than 128KB
-  //  may behave wrong for upper part of address space.
-  #define rstVect0 2
-  #define rstVect1 3
-  #define saveVect0 (save_vect_num*4+2)
-  #define saveVect1 (save_vect_num*4+3)
-  #define appstart_vec (save_vect_num*2)
- #else
-  // AVRs with up to 8k of flash have 2-byte vectors, and use rjmp.
-  #define rstVect0 0
-  #define rstVect1 1
-  #define saveVect0 (save_vect_num*2)
-  #define saveVect1 (save_vect_num*2+1)
-  #define appstart_vec (save_vect_num)
- #endif
-#else
- #define appstart_vec (0)
-#endif // VIRTUAL_BOOT_PARTITION
 
 
 #ifndef SUPPORT_EEPROM
@@ -488,18 +409,27 @@ int main(void) {
   ch = MCUCSR;
   MCUCSR = 0;
 #endif
+#if defined(OSCCAL_CORRECTION) && defined(OSCCAL)
+ #if (OSCCAL_CORRECTION < -10) || (OSCCAL_CORRECTION > 10)
+  #warning "OSCCAL_CORRECTION is too big, should be greater -10 and less than 10"
+ #elif (OSCCAL_CORRECTION != 0)
+  OSCCAL -= OSCCAL_CORRECTION;
+ #endif
+#endif
+
   if (ch & (_BV(WDRF) | _BV(PORF) | _BV(BORF)))
     appStart(ch);
 
-#ifdef PORTD
   /*
    * Disable pullups that may have been enabled by a user program.
    * Somehow a pullup on RXD screws up everything unless RXD is externally
    * driven high.
    */
-  PORTD &= ~3;
+#if ((UART_TXX & 0xff00) == (UART_RXX & 0xff00))
+  UART_TX_PORT &= ~((1<<UART_TX_BIT) || (1<<UART_RX_BIT));
 #else
- #warning "PORTD is undefined!"
+  UART_TX_PORT &= ~(1<<UART_TX_BIT);
+  UART_RX_PORT &= ~(1<<UART_RX_BIT);
 #endif
 
 #if SOFT_UART > 0
@@ -541,8 +471,14 @@ int main(void) {
   #else
    UART_SRA = 0;		// Single speed mode USART0
   #endif
-  UART_SRB = _BV(RXEN0) | _BV(TXEN0);
+  #ifdef UART_ONE_WIRE
+  UART_SRB = _BV(RXEN0);		// enable only UART input
+  #else
+  UART_SRB = _BV(RXEN0) | _BV(TXEN0);	// enable UART input and output
+  #endif
+  #if defined(UART_SRC)
   UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
+  #endif
   UART_SRRL = (uint8_t)( BAUD_DIV );
   #if (BAUD_DIV/256) != 0
    UART_SRRH = (uint8_t)( BAUD_DIV/256 );
@@ -675,20 +611,27 @@ int main(void) {
     else if(ch == STK_PROG_PAGE) {
       // PROGRAM PAGE - we support flash and optional EEPROM programming
       uint8_t *bufPtr;
-      pagelen_t savelength;
       uint16_t addrPtr;
 
       GETLENGTH(length);
-      savelength = length;
 
 #if SUPPORT_EEPROM > 0
+      pagelen_t savelength;
+      savelength = length;
       uint8_t desttype = getch() - 'E';	/* desttype = 0, if EEprom */
       if (desttype)
 #else
       getch();			/* dummy type */
 #endif 
         // If we are in RWW section, immediately start page erase
-      if (address < NRWWSTART) __boot_page_erase_short((uint16_t)(void*)address);
+      if (address < NRWWSTART) {
+//#if defined(__AVR_ATmega64__)
+//         __boot_page_erase_normal((uint16_t)(void*)address);
+//#else
+//         __boot_page_erase_short((uint16_t)(void*)address);
+//#endif
+         boot_page_erase((uint16_t)(void*)address);
+      }
 
       // While that is going on, read in page contents
       bufPtr = buff;
@@ -718,7 +661,14 @@ int main(void) {
         // Todo: Take RAMPZ into account (not doing so just means that we will
         //  treat the top of both "pages" of flash as NRWW, for a slight speed
         //  decrease, so fixing this is not urgent.)
-        if (address >= NRWWSTART) __boot_page_erase_short((uint16_t)(void*)address);
+        if (address >= NRWWSTART) {
+//#if defined(__AVR_ATmega64__)
+//           __boot_page_erase_normal((uint16_t)(void*)address);
+//#else
+//           __boot_page_erase_short((uint16_t)(void*)address);
+//#endif
+           boot_page_erase((uint16_t)(void*)address);
+        }
 
         // Read command terminator, start reply
         verifySpace();
@@ -793,12 +743,22 @@ int main(void) {
         addrPtr = (uint16_t)(void*)address;
         ch = SPM_PAGESIZE / 2;
         do {
-          __boot_page_fill_short((uint16_t)(void*)addrPtr,*buf16Ptr++);
+//#if defined(__AVR_ATmega64__)
+//          __boot_page_fill_normal((uint16_t)(void*)addrPtr,*buf16Ptr++);
+//#else
+//          __boot_page_fill_short((uint16_t)(void*)addrPtr,*buf16Ptr++);
+//#endif
+	  boot_page_fill((uint16_t)(void *)addrPtr,*buf16Ptr++);
           addrPtr += 2;
         } while (--ch);
 
         // Write from programming buffer
-        __boot_page_write_short((uint16_t)(void*)address);
+//#if defined(__AVR_ATmega64__)
+//        __boot_page_write_normal((uint16_t)(void*)address);
+//#else
+//        __boot_page_write_short((uint16_t)(void*)address);
+//#endif
+        boot_page_write((uint16_t)(void*)address);
         boot_spm_busy_wait();
 
 #if defined(RWWSRE)
@@ -885,9 +845,23 @@ int main(void) {
 
 void putch(uint8_t ch) {
 #if SOFT_UART == 0
-  while (!(UART_SRA & _BV(UDRE0)));
+ // use the specified hardware UART
+ #ifdef UART_ONE_WIRE
+  // The main advantage of Hardware UART can not be used with ONE_WIRE mode.
+  // We enable the TX transfer only for transmission time, therefore we must
+  // wait until the transfer is done
+  UART_SRB = (1<<TXEN0);	// enable UART output, disable input
+  UART_UDR = ch;		// load data to transfer
+  while (!(UART_SRA & _BV(TXC0)));	// wait for TX transfer complete
+  UART_SRB = (1<<RXEN0);	// enable UART input, disable output
+ #else
+  // For normal Serial communication we wait until the buffer can be loaded again
+  // and return to caller after loading the new data.
+  while (!(UART_SRA & _BV(UDRE0)));	// wait for buffer empty
   UART_UDR = ch;
+ #endif
 #else
+  // Transfer serial data with software loop
   __asm__ __volatile__ (
     "   com %[ch]\n" // ones complement, carry set
     "   sec\n"
@@ -905,7 +879,11 @@ void putch(uint8_t ch) {
     :
       [bitcnt] "d" (10),
       [ch] "r" (ch),
+ #ifdef UART_ONE_WIRE
+      [uartPort] "I" (_SFR_IO_ADDR(UART_TX_DDR)),
+ #else
       [uartPort] "I" (_SFR_IO_ADDR(UART_TX_PORT)),
+ #endif
       [uartBit] "I" (UART_TX_BIT)
     :
       "r25"
@@ -972,11 +950,18 @@ uint8_t getch(void) {
 
 #if LED_START_FLASHES > 0
 void t1_delay(void) {
+ #ifdef TCNT1H
   // Set up Timer 1 for timeout counter
   TCCR1B = _BV(CS12) | _BV(CS10); // div 1024
   TCNT1 = -(F_CPU/(1024*16));
   TIFR1 = _BV(TOV1);
   while(!(TIFR1 & _BV(TOV1)));
+ #elif defined(TCNT0H)
+  TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
+  TCNT0 = -(F_CPU/(1024*16));
+  TIFR0 = _BV(TOV0);
+  while(!(TIFR0 & _BV(TOV0)));
+ #endif
   wdt_reset();		/* prevent wdt time-out during LED flashing */
 }
 #endif

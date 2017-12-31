@@ -35,7 +35,8 @@
 #endif          /* the only UART has number 0 */
 
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATtiny84__)
+#if defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || \
+    defined(__AVR_ATtiny44A__) || defined(__AVR_ATtiny84A__)
 /*------------------------------------------------------------------------ */
 
 /* Default "SOFT" UART Ports for ATtiny84 */
@@ -52,10 +53,101 @@
  #else
   #define UART_TXX      UART_TX
  #endif
-#endif	/* __AVR_ATtiny84__ */
+#endif	/* __AVR_ATtiny44__ || __AVR_ATtiny84__ */
 
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega32__) || defined(__AVR_ATmega16__)
+/* support for attiny841 and attiny441 */
+#if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) 
+/*------------------------------------------------------------------------ */
+
+ /* Default "SOFT" UART Ports for ATtiny441/841 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #if UART_NR == 0
+    #warning "SOFT_UART use Pin B2 as RX for UART 0"
+    #define UART_RXX    pB2
+   #else
+    #warning "SOFT_UART use Pin A4 as RX for UART 1"
+    #define UART_RXX    pA4
+   #endif
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #if UART_NR == 0
+    #warning "SOFT_UART use Pin A7 as TX for UART 0"
+    #define UART_TXX    pA7
+   #else
+    #warning "SOFT_UART use Pin A5 as TX for UART 1"
+    #define UART_TXX    pA5
+   #endif
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #endif         /* SOFT_UART > 0 */
+#endif          /* __AVR_ATiny841__  .. */
+
+/*------------------------------------------------------------------------ */
+/* Support for ATtiny48 and ATtiny88 */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
+/*------------------------------------------------------------------------ */
+ /* Default "SOFT" UART Ports for ATtiny48/88 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin D0 as RX"
+   #define UART_RXX     pD0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin D1 as TX"
+   #define UART_TXX     pD1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #else
+  #error "Attiny48 and ATtiny88 has no Hardware UART"
+ #endif         /* SOFT_UART > 0 */
+#endif  /* __AVR_ATtiny44__ || __AVR_ATtiny84__ */
+
+
+
+/* Support for ATtiny85 family*/
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) 
+/*------------------------------------------------------------------------ */
+ /* Default "SOFT" UART Ports for ATtiny85 */
+ /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
+ #if SOFT_UART > 0
+  #if UART_RX == n
+   #warning "SOFT_UART use Pin B0 as RX"
+   #define UART_RXX     pB0
+  #else
+   #define UART_RXX      UART_RX
+  #endif
+  #if UART_TX == n
+   #warning "SOFT_UART use Pin B1 as TX"
+   #define UART_TXX     pB1
+  #else
+   #define UART_TXX      UART_TX
+  #endif
+ #else
+  #error "ATtiny85 family has no hardware UART"
+ #endif         /* SOFT_UART > 0 */
+#endif  /* __AVR_ATtiny85__  */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164P__) || \
+    defined(__AVR_ATmega164PA__) || \
+    defined(__AVR_ATmega324__) || defined(__AVR_ATmega324P__) || \
+    defined(__AVR_ATmega324PA__) || \
+    defined(__AVR_ATmega644__) || defined(__AVR_ATmega644P__) || \
+    defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) || \
+    defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
+    defined(__AVR_ATmega1284A__) || \
+    defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)
 /*------------------------------------------------------------------------ */
 
 /* Default "SOFT" UART Ports for ATmega644/1284/32 */
@@ -118,9 +210,13 @@
   #define UART_TXX      UART_TX
  #endif
 #endif		/* __AVR_ATmega1280__ */
+
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || \
-   defined(__AVR_ATmega328__)  || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega8__)
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || \
+    defined(__AVR_ATmega168A__) || defined(__AVR_ATmega168PA__) || \
+    defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
+    defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
 /*------------------------------------------------------------------------ */
 /* Default "SOFT" UART Ports for ATmega08/168/328 */
  #if UART_RX == p

@@ -151,13 +151,15 @@ ifndef USE_Edat
 USE_Edat := 0
 endif
 #
-# build the uooer case form of hex values
-UC_HFUSE := $(shell $(ECHO_CMD) $(HFUSE) | $(TR_CMD) a-z A-Z)
-UC_EFUSE := $(shell $(ECHO_CMD) $(EFUSE) | $(TR_CMD) a-z A-Z)
+# build the upper case form of hex values
+UC_HFUSE = $(HFUSE_CHANGE)
+UC_EFUSE = $(EFUSE_CHANGE)
+HFUSE_CHANGE = $(shell $(ECHO_CMD) $(HFUSE) | $(TR_CMD) a-z A-Z)
+EFUSE_CHANGE = $(shell $(ECHO_CMD) $(EFUSE) | $(TR_CMD) a-z A-Z)
 
 #
 # avrdude commands to program the new bootloader, and protect the bootloader
-# space from accidental SPM writes.  Note: "2f" allows boot section to be read
+# space from accidental SPM writes.  Note: "ef" allows boot section to be read
 # by the application, which is different than the arduino default.
 #
 ifeq ($(USE_Edat), 0)
@@ -167,7 +169,7 @@ ISPFUSES =	-e -u $(EFUSE_CMD) -U hfuse:w:0x$(shell $(CAT_CMD) HFUSE.dat):m -U lf
 ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex 
  else
 # program bootloader and set lock bits
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0x2f:m
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0xef:m
  endif
 endif
 
@@ -177,7 +179,7 @@ ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFU
 ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex 
  else
 # program bootloader and set lock bits
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0x2f:m
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0xef:m
  endif
 endif
 
@@ -266,17 +268,17 @@ endif
 # http://tinker.it/now/2007/02/24/the-tale-of-avrdude-atmega168-and-extended-bits-fuses/
 #
 # similarly, the lock bits should be 0xff instead of 0x3f (to
-# unlock the bootloader section) and 0xcf instead of 0x2f (to
+# unlock the bootloader section) and 0xcf instead of 0xef (to
 # lock it), but since the high two bits of the lock byte are
 # unused, avrdude would get confused.
 do_isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep) 
 ifeq ($(ISP), 2)
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) \
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 5 \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
 	      -U flash:v:$(PROGRAM)_$(TARGET).hex
         # verify mode
 else
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) \
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 5 \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
               $(ISPFUSES) \
               $(ISPFLASH)

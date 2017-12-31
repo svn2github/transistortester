@@ -63,61 +63,68 @@ $ECHO_CMD ----------------------------------------------------------------------
  #endif
  #define DelayMul 1
  #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
- #define UART_B_VALUE ((CLOCKS_PER_BIT)/6)
- #if UART_B_VALUE > 255
-  // try with double rcall uartDelay_single
+ #if CLOCKS_PER_BIT < 0
+  #undef RCALL_TICS
   #undef CLOCKS_PER_BIT
-  #undef UART_B_VALUE
-  #undef DelayMul
-  #define DelayMul 2
-  #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
-  #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+  #define RCALL_TICS 0
+  #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
+ #else
+  #define UART_B_VALUE ((CLOCKS_PER_BIT)/6)
   #if UART_B_VALUE > 255
-   // compute with 4x rcall uartDelay_single
+   // try with double rcall uartDelay_single
    #undef CLOCKS_PER_BIT
    #undef UART_B_VALUE
    #undef DelayMul
-   #define DelayMul 4
+   #define DelayMul 2
    #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
    #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
    #if UART_B_VALUE > 255
-    // compute with 8x rcall uartDelay_single
+    // compute with 4x rcall uartDelay_single
     #undef CLOCKS_PER_BIT
     #undef UART_B_VALUE
     #undef DelayMul
-    #define DelayMul 8
+    #define DelayMul 4
     #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
     #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
     #if UART_B_VALUE > 255
-     // compute with 16 rcall uartDelay_single
+     // compute with 8x rcall uartDelay_single
      #undef CLOCKS_PER_BIT
      #undef UART_B_VALUE
      #undef DelayMul
-     #define DelayMul 16
+     #define DelayMul 8
      #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
      #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
      #if UART_B_VALUE > 255
-      // compute with 32 rcall uartDelay_single
+      // compute with 16 rcall uartDelay_single
       #undef CLOCKS_PER_BIT
       #undef UART_B_VALUE
       #undef DelayMul
-      #define DelayMul 32
+      #define DelayMul 16
       #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
       #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
       #if UART_B_VALUE > 255
-       // compute with 64 rcall uartDelay_single
+       // compute with 32 rcall uartDelay_single
        #undef CLOCKS_PER_BIT
        #undef UART_B_VALUE
        #undef DelayMul
-       #define DelayMul 64
+       #define DelayMul 32
        #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
        #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
-      #endif        /* DelayMul 64*/
-     #endif        /* DelayMul 32 */
-    #endif        /* DelayMul 16 */
-   #endif        /* DelayMul 8 */
-  #endif        /* DelayMul 4 */
- #endif         /* DelayMul 2 */
+       #if UART_B_VALUE > 255
+        // compute with 64 rcall uartDelay_single
+        #undef CLOCKS_PER_BIT
+        #undef UART_B_VALUE
+        #undef DelayMul
+        #define DelayMul 64
+        #define CLOCKS_PER_BIT ( (F_CPU-(((((2*DelayMul)*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2) )/BAUD_RATE)
+        #define UART_B_VALUE ((CLOCKS_PER_BIT)/(6*DelayMul))
+       #endif        /* DelayMul 64*/
+      #endif        /* DelayMul 32 */
+     #endif        /* DelayMul 16 */
+    #endif        /* DelayMul 8 */
+   #endif        /* DelayMul 4 */
+  #endif         /* DelayMul 2 */
+ #endif 	/* CLOCKS_PER_BIT < 0 */
 
 delay_mul=$(( DelayMul ))
 clocks=$(( (CLOCKS_PER_BIT / DelayMul) ))

@@ -33,6 +33,32 @@ endif
 atmega1280: AVR_FREQ := 16000000
 atmega1280: hex_file 
 
+################################################
+# generic atmega1281
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega1281: TARGET := atmega1281
+endif
+atmega1281: MCU_TARGET := atmega1281
+atmega1281: override FLASH_SIZE := 131072
+atmega1281: override FLASH_PAGE_SIZE := 256
+atmega1281: override BOOT_PAGE_LEN := 1024
+ifndef HFUSE
+# 1024 byte boot
+atmega1281: HFUSE := DE
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+atmega1281: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.7V brownout; wants F5 for some reason...
+atmega1281: EFUSE := 05
+endif
+atmega1281: AVR_FREQ := 16000000
+atmega1281: hex_file 
+
+
 
 ################################################
 # generic atmega640

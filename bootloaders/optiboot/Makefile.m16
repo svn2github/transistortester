@@ -113,6 +113,30 @@ ifndef LFUSE
 atmega64: LFUSE := BF
 endif
 atmega64: hex_file
+
+#
+# ATmega128
+################################################
+# generic atmega128
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega128: TARGET := atmega128
+endif
+atmega128: override MCU_TARGET := atmega128
+atmega128: override FLASH_SIZE := 131072
+atmega128: override FLASH_PAGE_SIZE := 256
+atmega128: override BOOT_PAGE_LEN := 1024
+atmega128: AVR_FREQ := 8000000
+ifndef HFUSE
+# No OCD or JTAG, SPIEN, CKOPT (for full swing xtal), Bootsize=1024B
+atmega128: HFUSE := CE
+endif
+ifndef LFUSE
+# 2.7V brownout, 8MHz Xtal, 16KCK/14CK+65ms
+atmega128: LFUSE := BF
+endif
+atmega128: hex_file
+
 #
 # ATmega162
 ################################################
@@ -183,7 +207,51 @@ endif
 atmega323: BAUD_RATE := 38400
 atmega323: hex_file
 
+#
+# ATmega8515
+################################################
+# generic atmega8515
+# let board specific change the frequency and fuses
+atmega8515: TARGET:= atmega8515
+atmega8515: override MCU_TARGET := atmega8515
+atmega8515: override FLASH_SIZE := 8192
+atmega8515: override FLASH_PAGE_SIZE := 64
+atmega8515: override BOOT_PAGE_LEN := 256
+atmega8515: AVR_FREQ := 16000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega8515: HFUSE := DC
+endif
+ifndef LFUSE
+# 2.7V brownout, Xtal slow rising power
+atmega8515: LFUSE := BF
+endif
+atmega8515: hex_file
+
+#
+# ATmega8535
+################################################
+# generic atmega8535
+# let board specific change the frequency and fuses
+atmega8535: TARGET:= atmega8535
+atmega8535: override MCU_TARGET := atmega8535
+atmega8535: override FLASH_SIZE := 8192
+atmega8535: override FLASH_PAGE_SIZE := 64
+atmega8535: override BOOT_PAGE_LEN := 256
+atmega8535: AVR_FREQ := 16000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega8535: HFUSE := DC
+endif
+ifndef LFUSE
+# 2.7V brownout, Xtal slow rising power
+atmega8535: LFUSE := BF
+endif
+atmega8535: hex_file
+
+################################################
 # Test platforms
+################################################
 # Virtual boot block test
 virboot8: TARGET := virboot8
 virboot8: save_vect_num := EE_RDY_vect_num

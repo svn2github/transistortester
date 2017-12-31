@@ -10,7 +10,9 @@ CPP = avr-g++
 
 CFLAGS = -Wall
 
-BAUD_RATE ?= 115200
+ifndef BAUD_RATE
+BAUD_RATE := 115200
+endif
 
 t84: PARTNO := t84
 t84: MCU := attiny84
@@ -18,6 +20,15 @@ ifndef AVR_FREQ
 t84: AVR_FREQ := 16000000
 endif
 t84: upload
+
+t85: PARTNO := t85
+t85: MCU := attiny85
+ifndef AVR_FREQ
+t85: AVR_FREQ := 8000000
+endif
+t85: BAUD_RATE := 38400
+t85: upload
+
 
 m8: PARTNO := m8
 m8: MCU = atmega8

@@ -155,6 +155,12 @@ TIMEOUT_MS		This option specifies a time limit in ms units for receiving boot da
 			Possible values for TIMEOUT_MS are 500, 1000, 2000, 4000 and 8000.
 			The effective value can be limited to 2 seconds because of processor limits for the watchdog.
 
+OSCCAL_CORRECTION	This option specifies a correction value for the OSCCAL Byte of the AVR-Processor.
+			The correction value is only effectual, if the internal RC-oscillator of the AVR processor
+			is used, not with the crystal operation.
+			Because the produced Baud-rate depends directly of the processor clock,
+			a calibrated clock frequency is important for a successfull serial data transfer.
+
 Recommendation:
 ===============
 The optiboot loader transfer the original content of the MCUSR register to the application

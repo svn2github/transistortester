@@ -9,128 +9,188 @@
 # Chip level targets
 #
 ################################################
-# generic atmega165p
+# generic atmega165
 # let board specific change the frequency and fuses
 ifndef TARGET
-atmega165p: TARGET := atmega165p
+atmega165: TARGET := atmega165
 endif
-atmega165p: MCU_TARGET := atmega165p
-atmega165p: override FLASH_SIZE := 16384
-atmega165p: override FLASH_PAGE_SIZE := 128
-atmega165p: override BOOT_PAGE_LEN := 256
+ifndef MCU_TARGET
+atmega165: MCU_TARGET := atmega165
+endif
+atmega165: override FLASH_SIZE := 16384
+atmega165: override FLASH_PAGE_SIZE := 128
+atmega165: override BOOT_PAGE_LEN := 256
 ifndef HFUSE
 # 512 byte boot
-atmega165p: HFUSE := 98
+atmega165: HFUSE := 98
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega165p: LFUSE := FF
+atmega165: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout
-atmega165p: EFUSE := FB
+atmega165: EFUSE := FB
 endif
-atmega165p: AVR_FREQ := 16000000
-atmega165p: hex_file
+atmega165: AVR_FREQ := 16000000
+atmega165: hex_file
+
+################################################
+# generic atmega165p
+atmega165p: TARGET := atmega165p
+atmega165p: MCU_TARGET := atmega165p
+export
+atmega165p:
+	$(SUB_MAKE) atmega165
+
+################################################
+# generic atmega165a
+atmega165a: TARGET := atmega165a
+atmega165a: MCU_TARGET := atmega165a
+export
+atmega165a:
+	$(SUB_MAKE) atmega165
+
+################################################
+# generic atmega325
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega325: TARGET := atmega325
+endif
+ifndef MCU_TARGET
+atmega325: MCU_TARGET := atmega325
+endif
+atmega325: override FLASH_SIZE := 32768
+atmega325: override FLASH_PAGE_SIZE := 128
+atmega325: override BOOT_PAGE_LEN := 512
+ifndef HFUSE
+# 512 byte boot
+atmega325: HFUSE := 98
+endif
+ifndef LFUSE
+# Full Swing xtal (16MHz) 16KCK/14CK+65ms
+atmega325: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.7V brownout
+atmega325: EFUSE := FB
+endif
+atmega325: AVR_FREQ := 16000000
+atmega325: hex_file
 
 ################################################
 # generic atmega325p
-# let board specific change the frequency and fuses
-ifndef TARGET
 atmega325p: TARGET := atmega325p
-endif
 atmega325p: MCU_TARGET := atmega325p
-atmega325p: override FLASH_SIZE := 32768
-atmega325p: override FLASH_PAGE_SIZE := 128
-atmega325p: override BOOT_PAGE_LEN := 512
-ifndef HFUSE
-# 512 byte boot
-atmega325p: HFUSE := 98
-endif
-ifndef LFUSE
-# Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega325p: LFUSE := FF
-endif
-ifndef EFUSE
-# 2.7V brownout
-atmega325p: EFUSE := FB
-endif
-atmega325p: AVR_FREQ := 16000000
-atmega325p: hex_file
+export
+atmega325p:
+	$(SUB_MAKE) atmega325
+
+################################################
+# generic atmega325a
+atmega325a: TARGET := atmega325a
+atmega325a: MCU_TARGET := atmega325a
+export
+atmega325a:
+	$(SUB_MAKE) atmega325
+
 
 ################################################
 # generic atmega3250p
+atmega3250p: TARGET := atmega3250p
+atmega3250p: MCU_TARGET := atmega3250p
+atmega3250p:
+	$(SUB_MAKE) atmega325
+
+################################################
+# generic atmega3250
+atmega3250: TARGET := atmega3250
+atmega3250: MCU_TARGET := atmega3250
+export
+atmega3250:
+	$(SUB_MAKE) atmega325
+
+################################################
+# generic atmega3250a
+atmega3250a: TARGET := atmega3250a
+atmega3250a: MCU_TARGET := atmega3250a
+export
+atmega3250a:
+	$(SUB_MAKE) atmega325
+
+################################################
+# generic atmega3250pa
+atmega3250pa: TARGET := atmega3250pa
+atmega3250pa: MCU_TARGET := atmega3250pa
+export
+atmega3250pa:
+	$(SUB_MAKE) atmega325
+
+################################################
+# generic atmega645
 # let board specific change the frequency and fuses
 ifndef TARGET
-atmega3250p: TARGET := atmega3250p
+atmega645: TARGET := atmega645
 endif
-atmega3250p: MCU_TARGET := atmega3250p
-atmega3250p: override FLASH_SIZE := 32768
-atmega3250p: override FLASH_PAGE_SIZE := 128
-atmega3250p: override BOOT_PAGE_LEN := 512
+ifndef MCU_TARGET
+atmega645: MCU_TARGET := atmega645
+endif
+atmega645: override FLASH_SIZE := 65536
+atmega645: override FLASH_PAGE_SIZE := 256
+atmega645: override BOOT_PAGE_LEN := 1024
 ifndef HFUSE
 # 512 byte boot
-atmega3250p: HFUSE := 98
+atmega645: HFUSE := 98
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega3250p: LFUSE := FF
+atmega645: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout
-atmega3250p: EFUSE := FB
+atmega645: EFUSE := FB
 endif
-atmega3250p: AVR_FREQ := 16000000
-atmega3250p: hex_file
+atmega645: AVR_FREQ := 16000000
+atmega645: hex_file
 
 ################################################
 # generic atmega645p
-# let board specific change the frequency and fuses
-ifndef TARGET
 atmega645p: TARGET := atmega645p
-endif
 atmega645p: MCU_TARGET := atmega645p
-atmega645p: override FLASH_SIZE := 65536
-atmega645p: override FLASH_PAGE_SIZE := 256
-atmega645p: override BOOT_PAGE_LEN := 1024
-ifndef HFUSE
-# 512 byte boot
-atmega645p: HFUSE := 98
-endif
-ifndef LFUSE
-# Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega645p: LFUSE := FF
-endif
-ifndef EFUSE
-# 2.7V brownout
-atmega645p: EFUSE := FB
-endif
-atmega645p: AVR_FREQ := 16000000
-atmega645p: hex_file
+export
+atmega645p:
+	$(SUB_MAKE) atmega645
+
+################################################
+# generic atmega645a
+atmega645a: TARGET := atmega645a
+atmega645a: MCU_TARGET := atmega645a
+export
+atmega645a:
+	$(SUB_MAKE) atmega645
 
 ################################################
 # generic atmega6450p
-# let board specific change the frequency and fuses
-ifndef TARGET
 atmega6450p: TARGET := atmega6450p
-endif
 atmega6450p: MCU_TARGET := atmega6450p
-atmega6450p: override FLASH_SIZE := 65536
-atmega6450p: override FLASH_PAGE_SIZE := 256
-atmega6450p: override BOOT_PAGE_LEN := 1024
-ifndef HFUSE
-# 512 byte boot
-atmega6450p: HFUSE := 98
-endif
-ifndef LFUSE
-# Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega6450p: LFUSE := FF
-endif
-ifndef EFUSE
-# 2.7V brownout
-atmega6450p: EFUSE := FB
-endif
-atmega6450p: AVR_FREQ := 16000000
-atmega6450p: hex_file
+export
+atmega6450p:
+	$(SUB_MAKE) atmega645
+
+################################################
+# generic atmega6450
+atmega6450: TARGET := atmega6450
+atmega6450: MCU_TARGET := atmega6450
+export
+atmega6450:
+	$(SUB_MAKE) atmega645
+
+################################################
+# generic atmega6450a
+atmega6450a: TARGET := atmega6450a
+atmega6450a: MCU_TARGET := atmega6450a
+export
+atmega6450a:
+	$(SUB_MAKE) atmega645
 
 ################################################

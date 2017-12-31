@@ -238,8 +238,8 @@ und \ref{tab:options2}
  LED\_DATA\_       & LED\_DATA\_    & Die Kontroll-LED leuchtet während des Wartens auf \\
       FLASH        &    FLASH=1     & Empfangsdaten der seriellen Kommunikation.\\
     \hline
- TIMEOUT\_MS       & TIMEOUT\_MS=2000 & Diese Option gibt eine Zeitschranke in Millisekunden \\
-                   &                & vor für den Empfang von Boot-Daten. Nach dieser Zeit\\
+ TIMEOUT\_MS       & TIMEOUT\_      & Diese Option gibt eine Zeitschranke in Millisekunden \\
+                   &  MS=2000       & vor für den Empfang von Boot-Daten. Nach dieser Zeit\\
                    &                & wird der Bootvorgang abgebrochen und versucht, das \\
                    &                & Anwenderprogramm zu starten. Mögliche Werte für \\
                    &                & TIMEOUT\_MS sind 500, 1000, 2000, 4000 und 8000. \\
@@ -248,11 +248,31 @@ und \ref{tab:options2}
                    &                & Wenn kein TIMEOUT\_MS angegeben wird, wird die \\
                    &                & Zeitschranke auf 1 Sekunde gesetzt. \\
     \hline
+ OSCCAL\_          & OSCCAL\_       & Mit der Option OSCCAL\_CORRECTION kann der interne \\
+ CORRECTION        & CORRECTION=5   & 8~MHz RC-Generator des AVR abgeglichen werden. \\
+                   &                & Ist bei Quarz-Betrieb oder externem Takt unwirksam! \\
+                   &                & Der Korrekturwert wird vom voreingestellten OSCCAL Byte \\
+                   &                & abgezogen. Bei positivem Korrekturwert wird die Frequenz \\
+                   &                & normalerweise niedriger. Da die erzeugte Baud-Rate direkt \\
+                   &                & vom Prozessortakt abhängt, ist ein richtig eingestellter \\
+                   &                & Prozessortakt für eine erfolgreiche serielle Kommunikation \\
+                   &                & wichtig. Der Wert muss zwischen -15 und +15 liegen. \\
+    \hline
     \end{tabular}
   \end{center}
   \caption{Wichtige Optionen für die optiboot Makefile}
   \label{tab:options1}
 \end{table}
+
+Bei Betrieb mit internem RC-Generator ist es durchaus möglich, daß ein serieller Datentransfer
+nicht auf Anhieb gelingt. Das ist prinzipiell auch unabhängig davon, ob die Hardware UART
+Schnittstelle oder eine Softwarelösung (SOFT\_UART) benutzt wird. Ohne zusätzliche Messungen
+ist man dann auf Probieren mit der OSCCAL\_CORRECTION angewiesen. Einen Hinweis kann
+das Datenblatt des Prozessors liefern. Hier ist beschrieben, bei welcher Betriebsspannung
+und bei welcher Temperatur der RC-Oszillator kalibriert wurde. Außerdem ist der
+prinzipielle Verlauf der Frequenzänderung mit der Betriebsspannung, mit der Temperatur und
+mit OSCCAL-Änderung beschrieben. 
+
 
 Weitere Optionen sind in der Tabelle~\ref{tab:options2} aufgezählt. 
 Diese Optionen sind nur für Software-Untersuchungen und für
