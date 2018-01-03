@@ -12,7 +12,8 @@
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || \
     defined(__AVR_ATmega168A__) || defined(__AVR_ATmega168PA__) || \
     defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
-    defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) 
+    defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
+    defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__)
   #define TST_COUNTER_PIN "PD6"
   #define CNT_ENABLE_DDR  DDRD
   #define CNT_ENABLE_PIN  DDD6
@@ -28,8 +29,8 @@
   #define TST_COUNTER_PIN "PB3"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB3
-  #define TST_TCCR_B TCCR0
-  #define TST_TCCR_B_SET ((1<<COM00) | (1<<CS00))
+  #define TST_TCCR_B TCCR2
+  #define TST_TCCR_B_SET ((1<<COM20) | (1<<CS20))
   #define MAX_OSCCAL 255
 #endif		/* __AVR_ATmega8__  ... */
 
@@ -151,11 +152,11 @@
     defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) || \
     defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
     defined(__AVR_ATmega1284A__) 
-  #define TST_COUNTER_PIN "PB3"
+  #define TST_COUNTER_PIN "PB4"
   #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB3
-  #define TST_TCCR_B TCCR0
-  #define TST_TCCR_B_SET ((1<<COM00) | (1<<CS00))
+  #define CNT_ENABLE_PIN  DDB4
+  #define TST_TCCR_B TCCR0A
+  #define TST_TCCR_B_SET ((1<<COM0A0) | (1<<CS00))
   #define MAX_OSCCAL 255
 #endif		/* __AVR_ATmega644P__  .. */
 
@@ -185,10 +186,8 @@
   #define TST_COUNTER_PIN "PB7"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB7
-  #define TST_TCCR_A TCCR0A
-  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
-  #define TST_TCCR_B TCCR0B
-  #define TST_TCCR_B_SET (1<<CS00)
+  #define TST_TCCR_B TCCR0A
+  #define TST_TCCR_B_SET (1<<COM0A0) | (1<<CS00)
   #define MAX_OSCCAL 127
 #endif		/* __AVR_AT90CAN... */
 
@@ -259,10 +258,8 @@
   #define TST_COUNTER_PIN "PB4"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB4
-  #define TST_TCCR_A TCCR0A
-  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
-  #define TST_TCCR_B TCCR0B
-  #define TST_TCCR_B_SET (1<<CS00)
+  #define TST_TCCR_B TCCR0A
+  #define TST_TCCR_B_SET (1<<COM0A0) | (1<<CS00)
   #define MAX_OSCCAL 127
 #endif
 
@@ -284,7 +281,7 @@
   #define CNT_ENABLE_PIN  DDB4
   #define TST_TCCR_A TCCR0A
   #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
-  #define TST_TCCR_B TCCR0B
+  #define TST_TCCR_B TCCR0A
   #define TST_TCCR_B_SET (1<<CS00)
   #define MAX_OSCCAL 255
 #endif
@@ -301,10 +298,8 @@
   #define TST_COUNTER_PIN "PB4"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB4
-  #define TST_TCCR_A TCCR0A
-  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
-  #define TST_TCCR_B TCCR0B
-  #define TST_TCCR_B_SET (1<<CS00)
+  #define TST_TCCR_B TCCR0A
+  #define TST_TCCR_B_SET (1<<COM0A0) | (1<<CS00)
   #define MAX_OSCCAL 255
 #endif
 

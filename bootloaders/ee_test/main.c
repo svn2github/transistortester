@@ -1,5 +1,4 @@
 	#include <avr/io.h>
-	#include <avr/sleep.h>
 // #include <stdlib.h>
 // #include <string.h>
 	#include <avr/eeprom.h>
@@ -263,7 +262,11 @@ int main(void) {
 	// look for status bits, which has the bootloader moved
 	// from MCUSR to GPIOR0
 #ifndef GPIOR0
- #define GPIOR0 OCR2      /* use OCR2 , if GPIOR0 is unknown */
+ #ifdef OCR2
+  #define GPIOR0 OCR2      /* use OCR2 , if GPIOR0 is unknown */
+ #else
+  #define GPIOR0 OCR1BH
+ #endif
 #endif
         uart_newline();
         if (GPIOR0 & (1<<PORF)) uart_mem_string(PowerOn);
@@ -297,7 +300,7 @@ int main(void) {
 	hex_putch( BAUD_DIV & 0xf);
         putch(' ');
         putch('(');
-	DisplayValue((BAUD_DIV,0,')',6);
+	DisplayValue(BAUD_DIV,0,')',6);
 #else
 	uart_mem_string(SW_UART);
 #endif

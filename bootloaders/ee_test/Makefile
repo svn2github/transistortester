@@ -10,110 +10,7 @@ CPP = avr-g++
 
 CFLAGS = -Wall
 
-ifndef BAUD_RATE
-BAUD_RATE := 115200
-endif
-
-t84: PARTNO := t84
-t84: MCU := attiny84
-ifndef AVR_FREQ
-t84: AVR_FREQ := 16000000
-endif
-t84: upload
-
-t85: PARTNO := t85
-t85: MCU := attiny85
-ifndef AVR_FREQ
-t85: AVR_FREQ := 8000000
-endif
-t85: BAUD_RATE := 38400
-t85: upload
-
-
-m8: PARTNO := m8
-m8: MCU = atmega8
-ifndef AVR_FREQ
-m8: AVR_FREQ := 16000000
-endif
-m8: upload
-
-m88: PARTNO := m88
-m88: MCU = atmega88
-ifndef AVR_FREQ
-m88: AVR_FREQ := 16000000
-endif
-m88: upload
-
-m16: PARTNO := m16
-m16: MCU = atmega16
-ifndef AVR_FREQ
-m16: AVR_FREQ := 16000000
-endif
-m16: upload
-
-m168: PARTNO := m168
-m168: MCU = atmega168
-ifndef AVR_FREQ
-m168: AVR_FREQ := 16000000
-endif
-m168: upload
-
-m168p: PARTNO := m168p
-m168p: MCU = atmega168p
-ifndef AVR_FREQ
-m168p: AVR_FREQ := 16000000
-endif
-m168p: upload
-
-m32: PARTNO := m32
-m32: MCU = atmega32
-ifndef AVR_FREQ
-m32: AVR_FREQ := 16000000
-endif
-m32: upload
-
-m328: PARTNO := m328
-m328: MCU := atmega328
-ifndef AVR_FREQ
-m328: AVR_FREQ := 16000000
-endif
-m328: upload
-
-m328p: PARTNO := m328p
-m328p: MCU := atmega328p
-ifndef AVR_FREQ
-m328p: AVR_FREQ := 16000000
-endif
-m328p: upload
-
-m644p: PARTNO := m644p
-m644p: MCU := atmega644p
-ifndef AVR_FREQ
-m644p: AVR_FREQ := 16000000
-endif
-m644p: upload
-
-m1284p: PARTNO := m1284p
-m1284p: MCU := atmega1284p
-ifndef AVR_FREQ
-m1284p: AVR_FREQ := 16000000
-endif
-m1284p: upload
-
-m1284: PARTNO := m1284
-m1284: MCU := atmega1284
-ifndef AVR_FREQ
-m1284: AVR_FREQ := 16000000
-endif
-m1284: upload
-
-m1280: PARTNO := m1280
-m1280: MCU := atmega1280
-ifndef AVR_FREQ
-m1280: AVR_FREQ := 16000000
-endif
-m1280: upload
-
+include Makefile.avr
 
 # Select your programmer type, speed and port, if you wish to use avrdude.
 # setting for DIAMEX ALL_AVR, Atmel AVRISP-mkII
@@ -157,9 +54,6 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS += $(COMMON)
-ifdef SOFT_UART
- CFLAGS += -DSOFT_UART=$(SOFT_UART)
-endif
 ifdef UART
  CFLAGS += -DUART=$(UART)
 endif
@@ -209,17 +103,19 @@ wait1000ms.o: wait1000ms.S $(MKFILES) FORCE
 	$(CC) $(INCLUDES) $(CFLAGS) -DF_CPU=$(AVR_FREQ) -c  -o $@ $<
 
 soft_uarts.o: soft_uarts.S $(MKFILES) FORCE
-	$(CC) $(INCLUDES) $(CFLAGS) -DF_CPU=$(AVR_FREQ) -c -o $@  $<
+	$(CC) $(INCLUDES) $(CFLAGS) -DSOFT_UART=0$(SOFT_UART) -DF_CPU=$(AVR_FREQ) \
+        -DUART=0$(UART) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -c -o $@  $<
 
 
 ########### Compile C source only 
 main.o: main.c $(MKFILES) FORCE
-	$(CC) $(INCLUDES) $(CFLAGS) -DF_CPU=$(AVR_FREQ) -c -o $@  $<
+	$(CC) $(INCLUDES) $(CFLAGS) -DSOFT_UART=0$(SOFT_UART) -DF_CPU=$(AVR_FREQ) \
+        -DUART=0$(UART) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -c -o $@  $<
 
 
 ##Link
 $(PARTNO)_test.elf: $(OBJECTS) FORCE
-	 $(CC) $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(PARTNO)_test.elf
+	 @$(CC) $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(PARTNO)_test.elf
 
 $(PARTNO)_test.hex: $(PARTNO)_test.elf FORCE
 	-avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $(PARTNO)_test.elf $(PARTNO)_test.hex
@@ -236,9 +132,10 @@ size: ${PARTNO}_test.elf FORCE
 	@avr-size -C --mcu=${MCU} ${PARTNO}_test.elf
 
 ## Clean target
-.PHONY: clean
+.PHONY: clean hexfile
 clean:
 	-rm -rf $(OBJECTS) *.elf  *.hex *.eep *.lst *.map main.d soft_uart.d soft_uarts.d wait1000ms.d
+hexfile: size
 
 
 ## Other dependencies

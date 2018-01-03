@@ -8,35 +8,71 @@
 
 /* First make undefined ports equal to p */
 #if !defined(UART_RX)
-#define UART_RX p
+ #define UART_RX p
 #endif
 #if !defined(UART_TX)
-#define UART_TX p
+ #define UART_TX p
 #endif
 
 
-#if !defined(UDR0) && defined(UDR)
+#if defined(UDR) && defined(UDRE)
   //Name conversion R.Wiersma
   // Make the only UART to the UART0
-  #define UCSR0A        UCSRA
-  #define UCSR0B        UCSRB
+  #undef UDR0			/* probably Bit 0 of UDR was named so */
   #define UDR0          UDR
   #define UDRE0         UDRE
   #define RXC0          RXC
-  #define FE0           FE
-  #define U2X0          U2X
-  #define TIFR1         TIFR
-  #define WDTCSR        WDTCR
-  #define RXEN0         RXEN
-  #define TXEN0         TXEN
-  #define UBRR0L        UBRRL
-  #define UBRR0H        UBRRH
-  #define UDR0          UDR
 #endif          /* the only UART has number 0 */
 
+#if !defined(TIFR1) && defined(TIFR)
+  #define TIFR1         TIFR
+#endif
+
+#ifndef UBRR0L
+ #if defined(UBRR)
+  #define UBRR0L        UBRR
+ #elif defined(UBRRL)
+  #define UBRR0L        UBRRL
+ #endif
+#endif
+
+#ifndef UBRR0H
+ #ifdef UBRRHI
+  #define UBRR0H        UBRRHI
+ #elif defined(UBRRH)
+  #define UBRR0H        UBRRH
+ #endif
+#endif
+
+#ifndef WDTCSR
+  #define WDTCSR        WDTCR
+#endif
+
+#if !defined(UCSR0A) && defined(UCSRA)
+  // Make the only UART to the UART0
+  #define UCSR0A        UCSRA
+  #define FE0           FE
+  #define U2X0          U2X
+  #define UCSR0B        UCSRB
+  #define RXEN0         RXEN
+  #define TXEN0         TXEN
+#endif
+
+#if defined(__AVR_ATmega163__) && !defined(UCSRC)
+ #define UCSR0C		_SFR_IO8(0x20)
+ #define UCSZ01		2
+ #define UCSZ00		1
+#endif
+
+#if !defined(UCSR0C) && defined(UCSRC)
+  #define UCSR0C        UCSRC
+  #define UCSZ01        UCSZ1
+  #define UCSZ00        UCSZ0
+#endif
+
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || \
-    defined(__AVR_ATtiny44A__) || defined(__AVR_ATtiny84A__)
+#if defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny24__) || \
+    defined(__AVR_ATtiny84A__) || defined(__AVR_ATtiny44A__) || defined(__AVR_ATtiny24A__)
 /*------------------------------------------------------------------------ */
 
 /* Default "SOFT" UART Ports for ATtiny84 */
@@ -61,30 +97,36 @@
 /*------------------------------------------------------------------------ */
 
  /* Default "SOFT" UART Ports for ATtiny441/841 */
- #if SOFT_UART > 0
-  #if UART_RX == n
-   #if UART_NR == 0
+ #if UART_RX == n
+  #if UART_NR == 0
+   #if SOFT_UART > 0
     #warning "SOFT_UART use Pin B2 as RX for UART 0"
-    #define UART_RXX    pB2
-   #else
+   #endif         /* SOFT_UART > 0 */
+   #define UART_RXX    pB2
+  #else
+   #if SOFT_UART > 0
     #warning "SOFT_UART use Pin A4 as RX for UART 1"
-    #define UART_RXX    pA4
-   #endif
-  #else
-   #define UART_RXX      UART_RX
+   #endif         /* SOFT_UART > 0 */
+   #define UART_RXX    pA4
   #endif
-  #if UART_TX == n
-   #if UART_NR == 0
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #if UART_NR == 0
+   #if SOFT_UART > 0
     #warning "SOFT_UART use Pin A7 as TX for UART 0"
-    #define UART_TXX    pA7
-   #else
-    #warning "SOFT_UART use Pin A5 as TX for UART 1"
-    #define UART_TXX    pA5
-   #endif
+   #endif         /* SOFT_UART > 0 */
+   #define UART_TXX    pA7
   #else
-   #define UART_TXX      UART_TX
+   #if SOFT_UART > 0
+    #warning "SOFT_UART use Pin A5 as TX for UART 1"
+   #endif         /* SOFT_UART > 0 */
+   #define UART_TXX    pA5
   #endif
- #endif         /* SOFT_UART > 0 */
+ #else
+  #define UART_TXX      UART_TX
+ #endif
 #endif          /* __AVR_ATiny841__  .. */
 
 /*------------------------------------------------------------------------ */
@@ -112,11 +154,72 @@
  #endif         /* SOFT_UART > 0 */
 #endif  /* __AVR_ATtiny44__ || __AVR_ATtiny84__ */
 
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny4313__) || defined(__AVR_ATtiny4313A__) || \
+    defined(__AVR_ATtiny2313__) || defined(__AVR_ATtiny2313A__)
+/*------------------------------------------------------------------------ */
+ #if UART_RX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin D0 as RX"
+  #endif         /* SOFT_UART > 0 */
+  #define UART_RXX     pD0
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin D1 as TX"
+  #endif         /* SOFT_UART > 0 */
+  #define UART_TXX     pD1
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif  /* __AVR_ATtiny4313__ || __AVR_ATtiny2313A__ */
+
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny861__) || defined(__AVR_ATtiny461__) || \
+    defined(__AVR_ATtiny261__) 
+/*------------------------------------------------------------------------ */
+ #if UART_RX == n
+   #warning "SOFT_UART use Pin B1 as RX"
+  #define UART_RXX     pB1
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+   #warning "SOFT_UART use Pin B2 as TX"
+  #define UART_TXX     pB2
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif  /* __AVR_ATtiny4313__ || __AVR_ATtiny2313A__ */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny1634__) 
+/*------------------------------------------------------------------------ */
+ #if UART_RX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin A7 as RX"
+  #endif         /* SOFT_UART > 0 */
+  #define UART_RXX     pA7
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin B0 as TX"
+  #endif         /* SOFT_UART > 0 */
+  #define UART_TXX     pB0
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif  /* __AVR_ATtiny1634__  */
 
 
 /* Support for ATtiny85 family*/
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) 
+#if defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny45__)  || defined(__AVR_ATtiny25__)
 /*------------------------------------------------------------------------ */
  /* Default "SOFT" UART Ports for ATtiny85 */
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
@@ -172,8 +275,31 @@
 #endif		/* __AVR_ATmega644P__  .. */
 
 /*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega162__) 
+/*------------------------------------------------------------------------ */
+ #if UART_RX == p
+  #if UART == 0
+   #define UART_RXX     pD0
+  #else
+   #define UART_RXX     pD1
+  #endif
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == p
+  #if UART == 0
+   #define UART_TXX     pB2
+  #else
+   #define UART_TXX     pB3
+  #endif
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif		/* __AVR_ATmega162__  .. */
+
+/*------------------------------------------------------------------------ */
 /* Mega support */
-#if defined(__AVR_ATmega1280__)
+#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
 /*------------------------------------------------------------------------ */
 
 /* Default "SOFT" UART Ports for ATmega1280 */
@@ -216,7 +342,10 @@
     defined(__AVR_ATmega168A__) || defined(__AVR_ATmega168PA__) || \
     defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
     defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
-    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
+    defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__) || \
+    defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__) || \
+    defined(__AVR_ATmega163__) || defined(__AVR_ATmega323__)
 /*------------------------------------------------------------------------ */
 /* Default "SOFT" UART Ports for ATmega08/168/328 */
  #if UART_RX == p
@@ -230,6 +359,68 @@
   #define UART_TXX      UART_TX
  #endif
 #endif		/* __AVR_ATmega88/168/328__ */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) || \
+    defined(__AVR_ATmega329__) || defined(__AVR_ATmega329P__) || \
+    defined(__AVR_ATmega3290__) || defined(__AVR_ATmega3290P__) || \
+    defined(__AVR_ATmega649__) || defined(__AVR_ATmega649P__) || \
+    defined(__AVR_ATmega6490__) || defined(__AVR_ATmega6490P__) || \
+    defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__) 
+/* Default "SOFT" UART Ports for ATmega169/169P ... */
+ #if UART_RX == p
+  #define UART_RXX      pE0
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == p
+  #define UART_TXX      pE1
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif		/* __AVR_ATmega/169/169P */
+
+/*------------------------------------------------------------------------ */
+/* Support for AT90CAN32_64_128 */
+#if defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) 
+ /* Default "SOFT" UART Ports for AT90CAN... */
+ #if UART_RX == n
+  #if UART_NR == 0
+   #define UART_RXX     pE0
+  #else
+   #define UART_RXX     pD2
+  #endif
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #if UART_NR == 0
+   #define UART_TXX     pE1
+  #else
+   #define UART_TXX     pD3
+  #endif
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif          /* __AVR_AT90CAN... */
+
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
+    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__)
+ /* Default "SOFT" UART Ports for AT90CAN */
+ #if UART_RX == n
+  #define UART_RXX      pD4
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #define UART_TXX      pD3
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif          /* __AVR_AT90PWM... */
+
 
 // UART_RX_BIT must be set to the bit number of the selected Port.
 // This is allways given by the lower Byte of the previous definition

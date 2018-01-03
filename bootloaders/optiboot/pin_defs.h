@@ -558,7 +558,7 @@
   #define LEDX           LED
  #endif
 
- /* Default "SOFT" UART Ports for AT90CAN */
+ /* Default "SOFT" UART Ports for AT90PWM */
  #if UART_RX == n
   #if SOFT_UART > 0
    #warning "SOFT_UART use Pin D4 as RX"
