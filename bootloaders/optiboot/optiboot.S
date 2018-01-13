@@ -143,7 +143,7 @@
 /* UART number (0..n) for devices with more than          */
 /* one hardware uart (644P, 1284P, etc)                   */
 /*                                                        */
-/* OSCCAL_CORRECTION:                                     */
+/* OSCCAL_CORR:                                           */
 /* The specified value is subtracted from the OSCCAL Byte */
 /* to correct the internal RC-oscillator frequency        */
 /* This option is only effectual, when the internal       */
@@ -309,13 +309,47 @@ optiboot_version:
 optiboot:
 	cli
 	eor	r1, r1
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega16__) || defined (__AVR_ATmega32__)
-/* only ATmega8/16/32 require a initializing of Stack Pointer SP */
-/* for ATtiny84 and ATmega324/644/1284/88/168/328 this has been done by reset! */
+#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__) || \
+    defined (__AVR_ATmega16__) || defined (__AVR_ATmega16A__) || \
+    defined (__AVR_ATmega32__) || defined (__AVR_ATmega32A__) || \
+    defined (__AVR_ATmega64__) || defined (__AVR_ATmega64A__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__) || \
+    defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
+    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__) || \
+  defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) || \
+    defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || \
+    defined(__AVR_ATmega323__) || \
+    defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) || \
+    defined(__AVR_ATmega169A__) || defined(__AVR_ATmega169PA__) || \
+    defined(__AVR_ATmega329__) || defined(__AVR_ATmega329P__) || \
+    defined(__AVR_ATmega329A__) || defined(__AVR_ATmega329PA__) || \
+    defined(__AVR_ATmega3290__) || defined(__AVR_ATmega3290P__) || \
+    defined(__AVR_ATmega3290A__) || defined(__AVR_ATmega3290PA__) || \
+    defined(__AVR_ATmega649__) || defined(__AVR_ATmega649P__) || \
+    defined(__AVR_ATmega649A__) || \
+    defined(__AVR_ATmega6490__) || defined(__AVR_ATmega6490P__) || \
+    defined(__AVR_ATmega6490A__)  || \
+    defined(__AVR_ATmega165__) || defined(__AVR_ATmega165P__) || \
+    defined(__AVR_ATmega165A__) || defined(__AVR_ATmega165PA__) || \
+    defined(__AVR_ATmega325__) || defined(__AVR_ATmega325P__) || \
+    defined(__AVR_ATmega325A__) || defined(__AVR_ATmega325PA__) || \
+    defined(__AVR_ATmega3250__) || defined(__AVR_ATmega3250P__) || \
+    defined(__AVR_ATmega3250A__) || defined(__AVR_ATmega3250PA__) || \
+    defined(__AVR_ATmega645__) || defined(__AVR_ATmega645P__) || \
+    defined(__AVR_ATmega645A__) || defined(__AVR_ATmega645PA__) || \
+    defined(__AVR_ATmega6450__) || defined(__AVR_ATmega6450P__) || \
+    defined(__AVR_ATmega6450A__) || defined(__AVR_ATmega6450PA__)
+/* only the above list of processors require a initializing of Stack Pointer SP */
+/* for ATtiny.. and ATmega324/644/1284/88/168/328 this has been done by reset! */
+ #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__) 
+  #define RAM_END_OFFSET 256	/* predefined RAMEND doesn't work */
+ #else
+  #define RAM_END_OFFSET 0
+ #endif
 
-	ldi	r24,hi8(RAMEND)
+	ldi	r24,hi8(RAMEND-RAM_END_OFFSET)
 	AOUT	SPH, r24
-	ldi	r24,lo8(RAMEND)
+	ldi	r24,lo8(RAMEND-RAM_END_OFFSET)
 	AOUT	SPL, r24
 #endif
 #if defined(__AVR_ATmega8__)
@@ -348,19 +382,20 @@ optiboot:
 #endif
 
 //#define RESET_CAUSE GPIOR1
-	AIN	r24, MCUSR
-	AOUT	MCUSR, r1	; MCUSR = 0
-	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUSR) in IO register
+	AIN	r24, MCUCSR
+;	clr	r1
+	AOUT	MCUCSR, r1	; MCUCSR = 0
+	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUCSR) in IO register
 #if defined(OSCCAL1) && !defined(OSCCAL)
  #define OSCCAL OSCCAL1
 #endif
 
-#if defined(OSCCAL_CORRECTION) && defined(OSCCAL)
- #if (OSCCAL_CORRECTION < -10) || (OSCCAL_CORRECTION > 10)
-  #warning "OSCCAL_CORRECTION is too big, should be greater -10 and less than 10"
- #elif (OSCCAL_CORRECTION != 0)
+#if defined(OSCCAL_CORR) && defined(OSCCAL)
+ #if (OSCCAL_CORR < -20) || (OSCCAL_CORR > 20)
+  #warning "OSCCAL_CORR is too big, should be greater -20 and less than 20"
+ #elif (OSCCAL_CORR != 0)
 	AIN	r25, OSCCAL
-	subi	r25, OSCCAL_CORRECTION
+	subi	r25, OSCCAL_CORR
 	AOUT	OSCCAL, r25
  #endif
 #endif
@@ -533,6 +568,7 @@ try_loader:
  #endif
  
 #endif		/* no SOFT_UART */
+
 #ifdef TIMEOUT_MS
  #if TIMEOUT_MS > 6000
 	ldi	r20, WATCHDOG_8S	;0x20
@@ -585,32 +621,24 @@ try_loader:
   ; Flash the LED is requested more than once, loop is required
 	ldi	r21, LED_START_FLASHES
 fl_lop:
- #endif
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
 	rcall	wait_T1ov
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
- #if TEST_OUTPUT == 1
- ; this output should only be used for checking the baud-rate with scope
- ; the bootloader sequence is disturbed with this output.
- #warning "debug out 'U' at TX, don't use a bootloader"
-	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23,(r24), r25
- #endif
- #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
 	subi	r21, 1
 	brne	fl_lop		; while (--count)
  #endif
-#else
-  ; no LED_START_FLASHES
- #if TEST_OUTPUT == 1
+#endif	/* LED_START_FLASHES > 0 */
+
+#if TEST_OUTPUT == 1
  ; this output should only be used for checking the baud-rate with scope
  ; the bootloader sequence is disturbed with this output.
- #warning "debug out 'U' at TX, don't use a bootloader"
+ #warning "##### endless loop out of 'U' at TX, don't use a bootloader"
+test_out:
 	ldi	r24, 'U'		; binary 01010101
 	rcall	putch			; putch can use r22, r23,(r24), r25
- #endif
-#endif	/* LED_START_FLASHES > 0 */
+	rjmp	test_out		; endless loop
+#endif
 
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   /* Forever loop */
@@ -885,7 +913,10 @@ wr_lop1:
 
 	movw	ZL, r4		; addrPtr = address
 #ifdef __AVR_ATmega163__
-	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
+	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163, 128 Byte Flash
+#endif
+#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
+	andi	ZL, 0xc0	; make shure a zero Z5:1 for ATtiny48/88, 64 Byte Flash
 #endif
         // Write from programming buffer
         // -----------------------------
@@ -1004,6 +1035,7 @@ ck8:
 	; interrupt table with RJMP	(2 Bytes for each entry)
 	cpi	ZL, 2
 	brne	ck8
+ 
 	; move vector address back to the reset vector address for read flash
 	subi	ZL, 2-save_vect_addr
 	lpm	r24, Z+ 		; get reset vector address from save_vect
@@ -1312,16 +1344,16 @@ watchdogConfig:
 #if defined(WDCE)
     	ldi	r21, (1<<WDCE) | (1<<WDE)	; 0x18
 	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCSR, r20		; WDTCSR = x;
 #else
  #if defined(WDTOE)
-    	ldi	r21, (1<<WDTOE) | (1<<WDE)	; 0x18
+   	ldi	r21, (1<<WDTOE) | (1<<WDE)	; 0x18
+	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
  #else
     	ldi	r21, (1<<WDE)	; 0x08
+	AOUT	WDTCSR, r21	; (1<<WDE) ; watchdogConfig(x);
  #endif
-	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCSR, r20		; WDTCR = x;
 #endif
+       	AOUT	WDTCSR, r20		; WDTCSR = x;
        	ret
 
 

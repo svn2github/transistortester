@@ -163,6 +163,13 @@ m48: AVR_FREQ := 16000000
 endif
 m48: $(DO_PGM)
 
+m48p: PARTNO := m48p
+m48p: MCU = atmega48p
+ifndef AVR_FREQ
+m48p: AVR_FREQ := 16000000
+endif
+m48p: $(DO_PGM)
+
 m88: PARTNO := m88
 m88: MCU = atmega88
 ifndef AVR_FREQ

@@ -48,6 +48,10 @@ ISPSPEED   = -b 115200
 #ISPTOOL	= stk500v1
 #ISPPORT	= /dev/tty.usbmodemfd3141 
 #ISPSPEED 	= -b19200
+#
+# determine the bit clock for avrdude
+BIT_CLOCK = $(shell $(ECHO_CMD) "scale=2;4000000/$(AVR_FREQ)" | $(BC_CMD))
+
 
 ifndef TARGET
  $(error the actual TARGET name is not known)
@@ -91,6 +95,12 @@ ifeq ($(MCU_TARGET), attiny44)
 USE_Edat := 2
 endif
 ifeq ($(MCU_TARGET), attiny44a)
+USE_Edat := 2
+endif
+ifeq ($(MCU_TARGET), attiny24)
+USE_Edat := 2
+endif
+ifeq ($(MCU_TARGET), attiny24a)
 USE_Edat := 2
 endif
 ifeq ($(MCU_TARGET), attiny85)
@@ -272,17 +282,25 @@ endif
 # lock it), but since the high two bits of the lock byte are
 # unused, avrdude would get confused.
 do_isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep) 
-ifeq ($(ISP), 2)
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 5 \
+ifeq ($(ISP), 3)
+        # read complete flash 
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
+              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
+	      -U flash:r:./Read_$(TARGET).hex:i
+
+else
+ ifeq ($(ISP), 2)
+        # verify mode
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
 	      -U flash:v:$(PROGRAM)_$(TARGET).hex
-        # verify mode
-else
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 5 \
+ else
+        # normal ISP programming mode. ISPFLASH set the Lock-Bits, if required.
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
               $(ISPFUSES) \
               $(ISPFLASH)
-        # normal ISP programming mode. ISPFLASH set the Lock-Bits, if required.
+ endif
 endif
 #
 #Test Output

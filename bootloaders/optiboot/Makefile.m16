@@ -112,6 +112,9 @@ ifndef LFUSE
 # 2.7V brownout, 8MHz Xtal, 16KCK/14CK+65ms
 atmega64: LFUSE := BF
 endif
+ifndef EFUSE
+atmega64: EFUSE := FF
+endif
 atmega64: hex_file
 
 #
@@ -134,6 +137,9 @@ endif
 ifndef LFUSE
 # 2.7V brownout, 8MHz Xtal, 16KCK/14CK+65ms
 atmega128: LFUSE := BF
+endif
+ifndef EFUSE
+atmega128: EFUSE := FF
 endif
 atmega128: hex_file
 

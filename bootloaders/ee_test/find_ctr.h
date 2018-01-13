@@ -12,6 +12,7 @@
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || \
     defined(__AVR_ATmega168A__) || defined(__AVR_ATmega168PA__) || \
     defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
+    defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
     defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__)
   #define TST_COUNTER_PIN "PD6"
@@ -279,10 +280,8 @@
   #define TST_COUNTER_PIN "PB4"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB4
-  #define TST_TCCR_A TCCR0A
-  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
   #define TST_TCCR_B TCCR0A
-  #define TST_TCCR_B_SET (1<<CS00)
+  #define TST_TCCR_B_SET (1<<COM0A0) | (1<<CS00)
   #define MAX_OSCCAL 255
 #endif
 /*------------------------------------------------------------------------ */

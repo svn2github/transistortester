@@ -42,7 +42,8 @@ according to the actual size.
 This kind of automatic is tested at a Linux system and should run at any Linux system.
 But it is completely untested for any Windows system.
 This optiboot bootloader is only tested with a Arduino-UNO and -Nano board and with 
-ATmega8, ATmega32, ATmega1284p and a ATtiny84.
+m8, m32, m64, m128, m48p, m88, m168, m328p, m1284p, m645, m169 and  t84, t44a, t24a,
+where m is the short form of ATmega and t is the short form of ATtiny.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -56,7 +57,9 @@ If your CPU clock rate is sufficient, the standard serial rate of 115200 baud
 is a good selection to get a fast transmission. 
 For a good CPU clock rate match is also 1 Mbaud possible with the hardware UART.
 
-Only the ATtiny84 example requires the VIRTUAL_BOOT_PARTITION option.
+Only the ATtiny84 and t44, t24 example is tested with the VIRTUAL_BOOT_PARTITION option.
+For all processors without a boot partition the option VIRTUAL_BOOT_PARTITION is
+set automatically.
 Normally the start vector is switched with the fuses (BOOTRST bit) to the
 bootloader start addresss, but this feature is missing at the ATtiny84.
 If the VIRTUAL_BOOT_PARTITION is selected, the AVR reset vector
@@ -155,7 +158,7 @@ TIMEOUT_MS		This option specifies a time limit in ms units for receiving boot da
 			Possible values for TIMEOUT_MS are 500, 1000, 2000, 4000 and 8000.
 			The effective value can be limited to 2 seconds because of processor limits for the watchdog.
 
-OSCCAL_CORRECTION	This option specifies a correction value for the OSCCAL Byte of the AVR-Processor.
+OSCCAL_CORR		This option specifies a correction value for the OSCCAL Byte of the AVR-Processor.
 			The correction value is only effectual, if the internal RC-oscillator of the AVR processor
 			is used, not with the crystal operation.
 			Because the produced Baud-rate depends directly of the processor clock,
@@ -183,7 +186,7 @@ ATmega169/329/649/6490
 ATmega640/1280
 AT90CAN32/64/128
 AT90PWM2/3
-ATtiny84/85/88/861/1634
-For the most processors the finish test is missing!
+ATtiny84/44/24/85/45/88/48/861/1634
+For many processors the finish test is missing!
 
 I look forward for any replies to the "assembly language optiboot" subject.

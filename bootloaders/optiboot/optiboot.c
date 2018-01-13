@@ -130,7 +130,7 @@
 /* UART number (0..n) for devices with more than          */
 /* one hardware uart (644P, 1284P, etc)                   */
 /*                                                        */
-/* OSCCAL_CORRECTION:                                     */
+/* OSCCAL_CORR:                                           */
 /* The specified value is subtracted from the OSCCAL Byte */
 /* to correct the internal RC-oscillator frequency        */
 /* This option is only effectual, when the internal       */
@@ -391,8 +391,41 @@ int main(void) {
   // If not, uncomment the following instructions:
   // cli();
   asm volatile ("clr __zero_reg__");
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
+#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__) || \
+    defined (__AVR_ATmega16__) || defined (__AVR_ATmega16A__) || \
+    defined (__AVR_ATmega32__) || defined (__AVR_ATmega32A__) || \
+    defined (__AVR_ATmega64__) || defined (__AVR_ATmega64A__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__) || \
+    defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
+    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__) || \
+  defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) || \
+    defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || \
+    defined(__AVR_ATmega323__) || \
+    defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) || \
+    defined(__AVR_ATmega169A__) || defined(__AVR_ATmega169PA__) || \
+    defined(__AVR_ATmega329__) || defined(__AVR_ATmega329P__) || \
+    defined(__AVR_ATmega329A__) || defined(__AVR_ATmega329PA__) || \
+    defined(__AVR_ATmega3290__) || defined(__AVR_ATmega3290P__) || \
+    defined(__AVR_ATmega3290A__) || defined(__AVR_ATmega3290PA__) || \
+    defined(__AVR_ATmega649__) || defined(__AVR_ATmega649P__) || \
+    defined(__AVR_ATmega649A__) || \
+    defined(__AVR_ATmega6490__) || defined(__AVR_ATmega6490P__) || \
+    defined(__AVR_ATmega6490A__)  || \
+    defined(__AVR_ATmega165__) || defined(__AVR_ATmega165P__) || \
+    defined(__AVR_ATmega165A__) || defined(__AVR_ATmega165PA__) || \
+    defined(__AVR_ATmega325__) || defined(__AVR_ATmega325P__) || \
+    defined(__AVR_ATmega325A__) || defined(__AVR_ATmega325PA__) || \
+    defined(__AVR_ATmega3250__) || defined(__AVR_ATmega3250P__) || \
+    defined(__AVR_ATmega3250A__) || defined(__AVR_ATmega3250PA__) || \
+    defined(__AVR_ATmega645__) || defined(__AVR_ATmega645P__) || \
+    defined(__AVR_ATmega645A__) || defined(__AVR_ATmega645PA__) || \
+    defined(__AVR_ATmega6450__) || defined(__AVR_ATmega6450P__) || \
+    defined(__AVR_ATmega6450A__) || defined(__AVR_ATmega6450PA__)
+ #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+  SP = RAMEND -256;
+ #else
   SP=RAMEND;  // This is done by hardware reset
+ #endif
 #endif
 
   /*
@@ -401,19 +434,15 @@ int main(void) {
    * can leave multiple reset flags set; we only want the bootloader to
    * run on an 'external reset only' status
    */
-#if !defined(__AVR_ATmega16__)
-  ch = MCUSR;
-  MCUSR = 0;
-#else
   // Adaboot no-wait mod
   ch = MCUCSR;
   MCUCSR = 0;
-#endif
-#if defined(OSCCAL_CORRECTION) && defined(OSCCAL)
- #if (OSCCAL_CORRECTION < -10) || (OSCCAL_CORRECTION > 10)
-  #warning "OSCCAL_CORRECTION is too big, should be greater -10 and less than 10"
- #elif (OSCCAL_CORRECTION != 0)
-  OSCCAL -= OSCCAL_CORRECTION;
+
+#if defined(OSCCAL_CORR) && defined(OSCCAL)
+ #if (OSCCAL_CORR < -10) || (OSCCAL_CORR > 10)
+  #warning "OSCCAL_CORR is too big, should be greater -10 and less than 10"
+ #elif (OSCCAL_CORR != 0)
+  OSCCAL -= OSCCAL_CORR;
  #endif
 #endif
 

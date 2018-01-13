@@ -51,8 +51,10 @@
  #define SELFPRGEN SPMEN                /* use different name of SELFPRGEN bit */
 #endif
 
-#if !defined(SPMCSR) && defined(SPMCR)
- #define SPMCSR SPMCR                   /* use different name of SPM register */
+#ifndef SPMCSR
+ #if defined(SPMCR)
+  #define SPMCSR SPMCR                   /* use different name of SPM register */
+ #endif
 #endif
 
 #if !defined(WDCE) 
@@ -63,8 +65,10 @@
  #endif
 #endif
 
-#if !defined(MCUSR) && defined(MCUCSR)
- #define MCUSR MCUCSR
+#ifndef MCUCSR
+ #if defined(MCUSR)
+  #define MCUCSR MCUSR
+ #endif
 #endif
 
 #ifndef RAMSTART
@@ -170,6 +174,7 @@
     defined(__AVR_ATmega168A__) || defined(__AVR_ATmega168PA__) || \
     defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
     defined(__AVR_ATmega8__) || defined(__AVR_ATmega8A__) || \
+    defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
     defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
 /*------------------------------------------------------------------------ */
@@ -592,8 +597,8 @@
  #define UART_NR 0
  /* Onboard LED is connected to pin PB0  */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
-  #warning "LED bit is set to default B0"
-  #define LEDX         nB0
+  #warning "LED bit is set to default B7"
+  #define LEDX         nB7
  #else
   #define LEDX         LED
  #endif
@@ -692,8 +697,8 @@
  
  /* Onboard LED can be connected to pin PG0 */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
-  #warning "LED bit is set to default G0"
-  #define LEDX         nG0
+  #warning "LED bit is set to default B7"
+  #define LEDX         nB7
  #else
   #define LEDX         LED
  #endif

@@ -31,11 +31,12 @@ optiboot:
 #endif
 
 //#define RESET_CAUSE GPIOR1
-	AIN	r24, MCUSR
+	AIN	r24, MCUCSR
     7e04:	84 b7       	in	r24, 0x34	; 52
-	AOUT	MCUSR, r1	; MCUSR = 0
+;	clr	r1
+	AOUT	MCUCSR, r1	; MCUCSR = 0
     7e06:	14 be       	out	0x34, r1	; 52
-	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUSR) in IO register
+	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUCSR) in IO register
     7e08:	8e bb       	out	0x1e, r24	; 30
  #define WATCHDOG_TIME WATCHDOG_4S
 #else		/* no FORCE_WATCHDOG */
@@ -149,18 +150,12 @@ appStart:
 
 00007e3e <fl_lop>:
 fl_lop:
- #endif
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
     7e3e:	2d 9a       	sbi	0x05, 5	; 5
 	rcall	wait_T1ov
     7e40:	bd d0       	rcall	.+378    	; 0x7fbc <wait_T1ov>
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
     7e42:	2d 98       	cbi	0x05, 5	; 5
- #warning "debug out 'U' at TX, don't use a bootloader"
-	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23,(r24), r25
- #endif
- #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
     7e44:	bb d0       	rcall	.+374    	; 0x7fbc <wait_T1ov>
 	subi	r21, 1
@@ -461,8 +456,8 @@ wr_lop1:
 
 	movw	ZL, r4		; addrPtr = address
     7ef2:	f2 01       	movw	r30, r4
-#ifdef __AVR_ATmega163__
-	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
+#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
+	andi	ZL, 0xc0	; make shure a zero Z5:1 for ATtiny48/88, 64 Byte Flash
 #endif
         // Write from programming buffer
         // -----------------------------
@@ -824,13 +819,13 @@ watchdogConfig:
     7fb0:	58 e1       	ldi	r21, 0x18	; 24
 	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
     7fb2:	50 93 60 00 	sts	0x0060, r21
+ #else
+    	ldi	r21, (1<<WDE)	; 0x08
+	AOUT	WDTCSR, r21	; (1<<WDE) ; watchdogConfig(x);
+ #endif
+#endif
        	AOUT	WDTCSR, r20		; WDTCSR = x;
     7fb6:	40 93 60 00 	sts	0x0060, r20
-    	ldi	r21, (1<<WDE)	; 0x08
- #endif
-	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCSR, r20		; WDTCR = x;
-#endif
        	ret
     7fba:	08 95       	ret
 

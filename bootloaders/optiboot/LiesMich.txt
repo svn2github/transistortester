@@ -40,7 +40,9 @@ Die automatische Grössenanpassung sollte auf Linux-Systemen laufen,
 bei Windows Systemen ist es völlig ungetestet. Auf jeden Fall wäre
 die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
-Arduino-UNO und -Nano Board, ATmega8, ATmega32, ATmega1284p und einem ATtiny84.
+Arduino-UNO und -Nano Board sowie mit 
+m8, m32, m64, m128, m48p, m88, m168, m328p, m1284p, m645, m169 und  t84, t44a, t24a,
+wobei m die Kurzform von ATmega und t die Kurzform von ATtiny ist.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas
@@ -54,7 +56,9 @@ auch noch 300 Baud wählbar. Wenn die CPU Taktrate hoch genug ist, ist als Stand
 115200 Baud eine gute Wahl.
 Unter bestimmten Umständen ist auch 1 MBAUD mit der Hardware Schnittstelle wählbar.
 
-Bisher nur mit einem ATtiny84 getestet ist die Option VIRTUAL_BOOT_PARTITION.
+Bisher nur mit einem ATtiny84 und t44, t24 getestet ist die Option VIRTUAL_BOOT_PARTITION.
+Bei allen Prozessoren ohne Bootpartition wird die VIRTUAL_BOOT_PARTITION Option
+automatisch gesetzt.
 Normalerweise wird der Start-Vektor mit den Fuses (BOOTRST-Bit) auf den 
 Boot Loader Reset eingestellt, aber der ATtiny84 hat diese Möglichkeit nicht.
 Mit der VIRTUAL_BOOT_PARTITION Option kann der
@@ -138,7 +142,7 @@ TIMEOUT_MS		Diese Option gibt eine Zeitschranke in Millisekunden vor für den Em
 			Mögliche Werte für TIMEOUT_MS sind 500, 1000, 2000, 4000 und 8000.
 			Der tatsächlich mögliche Wert kann abhängig vom Prozessor auf 2 Sekunden begrenzt sein.
 
-OSCCAL_CORRECTION	Diese Option gibt einen Korrekturwert für das OSCCAL Byte des AVR-Prozessors an.
+OSCCAL_CORR		Diese Option gibt einen Korrekturwert für das OSCCAL Byte des AVR-Prozessors an.
 			Der Wert ist nur wirksam, wenn der interne RC-Oszillator des AVR-Prozessors
 			benutzt wird, nicht bei Quarz-Betrieb.
 			Da die erzeugte Baudrate direkt vom Prozessortakt abhängt, ist eine kalibrierte
@@ -167,7 +171,7 @@ ATmega169/329/649/6490
 ATmega640/1280
 AT90CAN32/64/128
 AT90PWM2/3
-ATtiny84/85/88/861/1634
-Bei den meisten Prozessoren steht der abschließende Test noch aus!
+ATtiny84/44/24/85/88/48/861/1634
+Bei vielen Prozessoren steht der abschließende Test noch aus!
 
 An Rückmeldungen zum Thema "Assembler Optiboot" wäre ich durchaus interessiert.

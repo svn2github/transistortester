@@ -380,6 +380,29 @@
  #endif
 #endif		/* __AVR_ATmega/169/169P */
 
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega165__) || defined(__AVR_ATmega165P__) || \
+    defined(__AVR_ATmega165A__) || defined(__AVR_ATmega165PA__) || \
+    defined(__AVR_ATmega325__) || defined(__AVR_ATmega325P__) || \
+    defined(__AVR_ATmega325A__) || defined(__AVR_ATmega325PA__) || \
+    defined(__AVR_ATmega3250__) || defined(__AVR_ATmega3250P__) || \
+    defined(__AVR_ATmega3250A__) || defined(__AVR_ATmega3250PA__) || \
+    defined(__AVR_ATmega645__) || defined(__AVR_ATmega645P__) || \
+    defined(__AVR_ATmega645A__) || defined(__AVR_ATmega645PA__) || \
+    defined(__AVR_ATmega6450__) || defined(__AVR_ATmega6450P__) || \
+    defined(__AVR_ATmega6450A__) || defined(__AVR_ATmega6450PA__)
+ #if UART_RX == p
+  #define UART_RXX      pE0
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == p
+  #define UART_TXX      pE1
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif		/* __AVR_ATmega/645/ */
 /*------------------------------------------------------------------------ */
 /* Support for AT90CAN32_64_128 */
 #if defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) 

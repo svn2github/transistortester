@@ -248,15 +248,15 @@ und \ref{tab:options2}
                    &                & Wenn kein TIMEOUT\_MS angegeben wird, wird die \\
                    &                & Zeitschranke auf 1 Sekunde gesetzt. \\
     \hline
- OSCCAL\_          & OSCCAL\_       & Mit der Option OSCCAL\_CORRECTION kann der interne \\
- CORRECTION        & CORRECTION=5   & 8~MHz RC-Generator des AVR abgeglichen werden. \\
+ OSCCAL\_          & OSCCAL\_       & Mit der Option OSCCAL\_CORR kann der interne \\
+ CORR              & CORR=5         & 8~MHz RC-Generator des AVR abgeglichen werden. \\
                    &                & Ist bei Quarz-Betrieb oder externem Takt unwirksam! \\
                    &                & Der Korrekturwert wird vom voreingestellten OSCCAL Byte \\
                    &                & abgezogen. Bei positivem Korrekturwert wird die Frequenz \\
                    &                & normalerweise niedriger. Da die erzeugte Baud-Rate direkt \\
                    &                & vom Prozessortakt abhängt, ist ein richtig eingestellter \\
                    &                & Prozessortakt für eine erfolgreiche serielle Kommunikation \\
-                   &                & wichtig. Der Wert muss zwischen -15 und +15 liegen. \\
+                   &                & wichtig. Der Wert muss zwischen -20 und +20 liegen. \\
     \hline
     \end{tabular}
   \end{center}
@@ -267,7 +267,7 @@ und \ref{tab:options2}
 Bei Betrieb mit internem RC-Generator ist es durchaus möglich, daß ein serieller Datentransfer
 nicht auf Anhieb gelingt. Das ist prinzipiell auch unabhängig davon, ob die Hardware UART
 Schnittstelle oder eine Softwarelösung (SOFT\_UART) benutzt wird. Ohne zusätzliche Messungen
-ist man dann auf Probieren mit der OSCCAL\_CORRECTION angewiesen. Einen Hinweis kann
+ist man dann auf Probieren mit der OSCCAL\_CORR angewiesen. Einen Hinweis kann
 das Datenblatt des Prozessors liefern. Hier ist beschrieben, bei welcher Betriebsspannung
 und bei welcher Temperatur der RC-Oszillator kalibriert wurde. Außerdem ist der
 prinzipielle Verlauf der Frequenzänderung mit der Betriebsspannung, mit der Temperatur und
@@ -586,9 +586,9 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
  -fno-diagnostics-show-caret \
  -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
  -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:249:0
-pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.S:538:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
+In file included from optiboot.S:254:0
+pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+optiboot.S:530:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -599,14 +599,12 @@ Boot Loader start address: 0x7E00
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    472	      0	      0	    472	    1d8	optiboot.elf
+    474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328p.lst
-cp optiboot.hex optiboot_atmega328p.hex
+ -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Wenn keine zusätzliche Option angegeben wird, wird eine Baudrate von 115200 mit einer Taktfrequenz von \(16 MHz\) gewählt.
@@ -621,10 +619,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
  -fno-diagnostics-show-caret \
  -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
  -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:249:0:
-pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:67:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
-pin_defs.h:73:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
+In file included from optiboot.S:254:0:
+pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:192:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
+pin_defs.h:200:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
 ---------------------------------------------------------------------------
@@ -635,14 +633,12 @@ Boot Loader start address: 0x7E00
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    492	      0	      0	    492	    1ec	optiboot.elf
+    494	      0	      0	    494	    1ee	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328p.lst
-cp optiboot.hex optiboot_atmega328p.hex
+ -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Beachten Sie bitte, daß die Software-Lösung für die serielle Schnittstelle etwas mehr flash-Speicher braucht,
@@ -655,3 +651,246 @@ gewählt werden. In diesem Beispiel wird die Fähigkeit benutzt, automatisch die
 Die drei ,,warning'' Meldungen, die Sie über diese automatische Wahl informieren, können Sie ignorieren.
 Die automatische Wahl der IO-Pins hängt vom gewählten Prozessor-Typ und von der gewählten UART Nummer ab,
 wenn mehr als ein UART zur Verfügung steht.
+
+\section{Anpassung der Taktfrequenz bei internem RC-Generator}
+
+Die Benutzung der seriellen Schnittstelle ist nur möglich, wenn die eingestellte Baudrate
+hinreichend genau eingehalten wird. Die tatsächliche Baudrate hängt unmittelbar von dem tatsächlichen
+Prozessortakt und von dem berücksichtigtem Teilerverhältnis für die Takt der seriellen Ein-Ausgabe ab.
+Die Hardware UART Schnittstelle teilt den Prozessortakt generell durch 8 oder durch 16 und kann
+dann für den bereits vorgeteilten Takt einen weiteren einstellbaren Teiler zwischen 1:1 und 1:4096  
+zur Erzeugung des Taktes für die serielle Schnittstelle benutzen. Für niedrige Baudraten kann der
+Prozessortakt bei Bedarf noch um zusätzliche 2er Potenzen geteilt werden.
+Wenn das Verhältnis zwischen dem Prozessortakt zu dem Baudraten-Takt ausreichend hoch ist, kann damit
+die Baudrate ausreichend genau eingestellt werden. Bei der Erzeugung des Optiboot Bootloaders
+wird der systematische Fehler dieser Erzeugung protokolliert.
+Normalerweise sind Fehler von weniger als 2\%  als unkritisch anzusehen.
+Für die Implementation der seriellen Schnittstelle mit Software (SOFT\_UART) werden meistens geringere
+systematische Fehler der Baudrate erreicht. Hier liegen die Schwierigkeiten bei der fehlenden
+Fehlerunterdrückung der Einlese-Funktion und bei der mangelden Fähigkeit, die Schnittstelle
+,,voll duplex'' zu betreiben. Von der Ausgabe des letzten Bits bis zur Empfangsbereitschaft vergeht immer
+eine gewisse Zeit. Daher ist hier bei geringeren Baudraten mit weniger Schwierigkeiten zu rechnen.
+
+Alle diese Betrachtungen setzen aber voraus, daß der Prozessortakt selbst hinreichend genau eingehalten wird.
+Bei Quarz oder Keramik-Resonator Betrieb ist das meistens ohne weitere Maßnahmen der Fall.
+Anders sieht das aber bei der Benutzung des internen RC-Generators der AVR Prozessoren aus.
+Hier kann die Prozessorfrequenz deutlich vom Wunschwert abweichen. Die Prozessoren sind zwar ab Werk
+vorkalibriert. Dies gilt aber oft nur für eine Frequenz und für eine Temperatur und eine Betriebsspannung.
+Je nach Prozessortyp ist die Frequenz des RC-Generators mehr oder weniger abhängig von Temperatur
+und Betriebsspannung.
+
+Um vorhandene Fehler der Frequenz mit dem internen RC-Generators ausgleichen zu können,
+wird der Kalibrationswert des Herstellers beim Start des Prozessors in das IO-Register OSCCAL kopiert.
+Der Optiboot Bootloader kann die Option OSCCAL\_CORR benutzen, um den vorhandenen Restfehler
+auszugleichen. In den folgenden Unterkapiteln werde ich einige AVR-Typen exemplarisch näher
+untersuchen.
+\subsection{Untersuchung der RC-Generatoren des ATmega8}
+Der ATmega64 und der ATmega128 können 4 verschiedene Frequenzen mit dem internen RC-Generator
+über die Low-Fuse einstellen, 1~MHz, 2~MHz, 4~MHz und 8~MHz.
+In der Tabelle \ref{tab:mega8freq} habe ich alle 4 Frequenzeinstellungen untersucht.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -8  & 1050k &  4  & 983k  & 0  & 1004k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -8  & 2098k &  4  & 1967k & 0  & 2008k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -2  & 4201k & 10  & 3927k & 7  & 3999k \\
+    \hline
+                8M & 0xA4  & 57.6k &   0  & 8231k & 13  & 7723k & 6  & 7990k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega8}
+  \label{tab:mega8freq}
+\end{table}
+
+Die Tabelle \ref{tab:mega8freq} zeigt, daß für den 1Mhz und 2MHz Betrieb eine Korrektur des
+OSCCAL Registers nicht erforderlich ist. Dieser ATmega8 ist ab Werk für diese Frequenzen sehr gut kalibriert.
+Bei 4MHz kommt man noch ohne Korrektur aus, erreicht aber bei OSCCAL\_CORR=7 die richtige
+Schwingfrequenz. Bei 8MHz ist der Betrieb der seriellen Schnittstelle so gerade eben
+noch möglich, sicherer läuft die serielle Schnittstelle aber mit OSCCAL\_CORR=6.
+
+\subsection{Untersuchung der RC-Generatoren der ATmega328 Familie}
+
+Bei der ATmega328 Familie kann nur eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Die Frequenz kann
+aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden, so daß auch ein 1MHz Betrieb eingestellt
+werden kann. Die Tabelle~\ref{tab:mega328freq} zeigt die Resultate der untersuchten Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega48P &          8M & 0xE2  & 57.6k &  -6  & 8230k &  8  & 7720k  & 0  & 8010k \\
+    \hline
+mega88 &          8M & 0xE2  & 57.6k &  -2  & 8250k & 10  & 7770k  & 4  & 7990k \\
+    \hline
+mega168 &          8M & 0xE2  & 57.6k &  -5  & 8263k &  8  & 7720k  & 1  & 7970k \\
+    \hline
+mega328P &          8M & 0xE2  & 57.6k &  -5  & 8250k &  9  & 7723k  & 1  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega328 Familie}
+  \label{tab:mega328freq}
+\end{table}
+
+Bei allen untersuchten Prozessoren ist ein Betrieb der seriellen Schnittstelle 
+auch mit dem internen RC-Oszillator möglich. Nur bei dem untersuchten ATmega88 
+würde sich bei OSCCAL\_CORR=4 eine Korrektur überhaupt lohnen.
+
+
+\subsection{Untersuchung der RC-Generatoren des ATmega64 / 128}
+
+Der ATmega64 und der ATmega128 können 4 verschiedene Frequenzen mit dem internen RC-Generator
+über die Low-Fuse einstellen, 1~MHz, 2~MHz, 4~MHz und 8~MHz.
+In den Tabellen \ref{tab:mega64freq} und \ref{tab:mega128freq} habe ich alle 
+4 Frequenzeinstellungen untersucht.
+An dieser Stelle sei auch ein Hinweis erlaubt, das das Laden der Programmdaten über die 
+ISP-Schnittstelle nicht mit den Signalen MISO und MOSI, sondern über die Signale TXD (PE1) und RXD (PE0)
+erfolgt. Dies muß natürlich beim Anschluß an den Programmer berücksichtigt werden.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -4  & 1024k &  6  & 975k  & 1  & 1000k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -4  & 2047k &  6  & 1952k & 0  & 2015k \\
+    \hline
+                4M & 0xA3  & 19.2k &   4  & 4070k & 10  & 3939k & 8  & 3976k \\
+    \hline
+                8M & 0xA4  & 57.6k &   6  & 8028k & 10  & 7847k & 7  & 8005k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega64}
+  \label{tab:mega64freq}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -9  & 1051k &  3  & 985k  & 0  &  999k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -9  & 2102k &  3  & 1971k & 0  & 2000k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -3  & 4209k &  9  & 3960k & 6  & 4006k \\
+    \hline
+                8M & 0xA4  & 57.6k &   0  & 8225k & 13  & 7723k & 7  & 8005k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega128}
+  \label{tab:mega128freq}
+\end{table}
+
+Die Tabellen zeigen, daß für den 1Mhz und 2MHz Betrieb eine Korrektur des
+OSCCAL Registers nicht erforderlich ist. Bei 4MHz und 8MHz Betrieb kann die serielle Schnittstelle
+aber beim untersuchten ATmega64 nicht ohne Korrektur betrieben werden.
+Ohne Korrektur wäre die 4MHz Frequenz um etwa 4\% zu hoch und die 8MHz Frequenz um etwa 4.3\% zu hoch.
+In der Dokumentation von Atmel wird übrigens abgegeben, daß der
+RC-Generator des ATmega64 und ATmega128 bei 1MHz abgeglichen wird.
+Es sei noch einmal darauf hingewiesen, daß es sich bei den Tabellendaten um die Untersuchung eines einzelnen 
+Exemplars des ATmega handelt. Außerhalb der angegebenen Min- bzw. Max-Werte der OSCCAL Korrekturen war
+ein Betrieb der seriellen Schnittstelle bei der angegebenen Baud-Rate nicht möglich.
+
+\subsection{Untersuchung der RC-Generatoren der ATmega645 Familie}
+
+Bei der ATmega645 Familie kann nur eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Die Frequenz kann
+aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden, so daß auch ein 1MHz Betrieb eingestellt
+werden kann. Die Tabelle~\ref{tab:mega645freq} zeigt die Resultate der untersuchten Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega645 &          8M & 0xE2  & 57.6k &  0  & 8253k & 12  & 7726k  & 5  & 8012k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega645 Familie}
+  \label{tab:mega645freq}
+\end{table}
+
+Beim ATmega645 ist der Betrieb der seriellen Schnittstelle ohne OSCCAL Korrektur gerade noch möglich.
+Sicherer ist aber der Betrieb mit OSCCAL\_CORR=5, da dann die 8MHz besser eingehalten werden. 
+
+\subsection{Untersuchung der RC-Generatoren der ATmega649 Familie}
+
+Bei der ATmega649 Familie kann nur eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Die Frequenz kann
+aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden, so daß auch ein 1MHz Betrieb eingestellt
+werden kann. Die Tabelle~\ref{tab:mega649freq} zeigt die Resultate der untersuchten Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega169 &          8M & 0xE2  & 57.6k &  -9  & 8250k & 2  & 7864k  & -2  & 8010k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega649 Familie}
+  \label{tab:mega649freq}
+\end{table}
+
+\subsection{Untersuchung der RC-Generatoren der ATtiny84 Familie}
+
+Bei der ATtiny84 Familie kann außer dem 8MHz RC-Oszillator auch noch der 
+128kHz Takt der Watchdog-Schaltung benutzt werden.
+Der 128kHz Takt kann nicht kalibriert werden. Wenn man diesen Takt benutzen möchte,
+kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren.
+Bei einem ATtiny24a habe ich die erzeugte Baudrate kontrolliert. Statt der
+eingestellten 2400 Baud habe ich nur 2170 Baud gemessen. Das ergibt einen Frequenzfehler
+von etwa 9.6\% und damit deutlich zu viel, um ohne Korrektur benutzt werden zu können.
+Bei eingestellten 2640 Baud funktionierte der Download mit 2400 Baud.
+Die gemessene Taktrate betrug dann nur 115.2kHz anstelle der 128kHz.
+Die erste Tabelle~\ref{tab:tiny84freq} stellt für die untersuchten Exemplare die möglichen
+OSCCAL Änderungen für den 8MHz Betrieb dar.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny84 &          8M & 0xE2  & 19.2k &  -6  & 8453k & 14  & 7673k  & 5  & 8019k \\
+    \hline
+attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & 7  & 7984k \\
+    \hline
+attiny24a &         8M & 0xE2  & 19.2k &  -4  & 8388k & 11  & 7685k  & 4  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny84 Familie}
+  \label{tab:tiny84freq}
+\end{table}

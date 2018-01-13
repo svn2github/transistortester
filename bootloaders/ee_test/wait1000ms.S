@@ -170,35 +170,47 @@ wait100us:
 #if US100_TICS > (2 * US50_TICS)
  nop
 #endif
+#if US50_TICS > RCALL_TICS
  rcall wait50us	    	; 50us delay
+#endif
 wait50us:
 #ifdef WITHOUT_4_STEP
  #if US50_TICS > (US30_TICS + US20_TICS)
  nop
  #endif
 wait40us:
+ #if US20_TICS > RCALL_TICS
  rcall wait20us     	;20us delay
+ #endif
 #else
  #if US50_TICS > (US40_TICS + US10_TICS)
  nop
  #endif
+ #if US10_TICS > RCALL_TICS
  rcall wait10us     	;10us delay
+ #endif
 wait40us:
  #if US40_TICS > (US30_TICS + US10_TICS)
  nop
  #endif
+ #if US10_TICS > RCALL_TICS
  rcall wait10us     	;10us delay
+ #endif
 #endif
 wait30us:
 #if US30_TICS > (US20_TICS + US10_TICS)
  nop
 #endif
+ #if US10_TICS > RCALL_TICS
  rcall wait10us     	;10us delay
+ #endif
 wait20us:
 #if US20_TICS > (2 * US10_TICS)
  nop
 #endif
+ #if US10_TICS > RCALL_TICS
  rcall wait10us		;10us delay
+ #endif
 wait10us:		;
 
 #if US5_TICS >= RCALL_TICS
@@ -266,8 +278,17 @@ wait1us:
   #endif
  #endif
 #else
-; wait10us is the inner body
- #define INNER_TICS US10_TICS
+; wait10us is probably the inner body
+ #if US10_TICS < RCALL_TICS
+  ; check the 50us
+  #if US50_TICS < RCALL_TICS
+   #define INNER_TICS US100_TICS
+  #else
+   #define INNER_TICS US50_TICS
+  #endif
+ #else
+  #define INNER_TICS US10_TICS
+ #endif
 wait5us:
 wait4us:
 wait2us:
@@ -276,7 +297,7 @@ wait1us:
 ; Now we have to build the inner loop with INNER_TICS clock tics.
 ; The rcall and ret take RCALL_TICS clock tics (7 or 9).
 #if INNER_TICS < RCALL_TICS
- #error wait100ms can not build a function with 10us, F_CPU frequency too low!
+ #error wait100ms can not build a function with 100us, F_CPU frequency too low!
 #endif
 ;-----------------------------------------------------------------------------
 #if INNER_TICS >= (RCALL_TICS * 4)

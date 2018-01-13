@@ -26,15 +26,16 @@ optiboot:
     1e00:	f8 94       	cli
 	eor	r1, r1
     1e02:	11 24       	eor	r1, r1
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega16__) || defined (__AVR_ATmega32__)
-/* only ATmega8/16/32 require a initializing of Stack Pointer SP */
-/* for ATtiny84 and ATmega324/644/1284/88/168/328 this has been done by reset! */
+  #define RAM_END_OFFSET 256	/* predefined RAMEND doesn't work */
+ #else
+  #define RAM_END_OFFSET 0
+ #endif
 
-	ldi	r24,hi8(RAMEND)
+	ldi	r24,hi8(RAMEND-RAM_END_OFFSET)
     1e04:	84 e0       	ldi	r24, 0x04	; 4
 	AOUT	SPH, r24
     1e06:	8e bf       	out	0x3e, r24	; 62
-	ldi	r24,lo8(RAMEND)
+	ldi	r24,lo8(RAMEND-RAM_END_OFFSET)
     1e08:	8f e5       	ldi	r24, 0x5F	; 95
 	AOUT	SPL, r24
     1e0a:	8d bf       	out	0x3d, r24	; 61
@@ -43,11 +44,12 @@ optiboot:
 #endif
 
 //#define RESET_CAUSE GPIOR1
-	AIN	r24, MCUSR
+	AIN	r24, MCUCSR
     1e0c:	84 b7       	in	r24, 0x34	; 52
-	AOUT	MCUSR, r1	; MCUSR = 0
+;	clr	r1
+	AOUT	MCUCSR, r1	; MCUCSR = 0
     1e0e:	14 be       	out	0x34, r1	; 52
-	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUSR) in IO register
+	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUCSR) in IO register
     1e10:	83 bd       	out	0x23, r24	; 35
  #define WATCHDOG_TIME WATCHDOG_4S
 #else		/* no FORCE_WATCHDOG */
@@ -157,18 +159,12 @@ appStart:
 
 00001e3e <fl_lop>:
 fl_lop:
- #endif
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
     1e3e:	c5 9a       	sbi	0x18, 5	; 24
 	rcall	wait_T1ov
     1e40:	b7 d0       	rcall	.+366    	; 0x1fb0 <wait_T1ov>
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
     1e42:	c5 98       	cbi	0x18, 5	; 24
- #warning "debug out 'U' at TX, don't use a bootloader"
-	ldi	r24, 'U'		; binary 01010101
-	rcall	putch			; putch can use r22, r23,(r24), r25
- #endif
- #if LED_START_FLASHES > 1
 	rcall	wait_T1ov
     1e44:	b5 d0       	rcall	.+362    	; 0x1fb0 <wait_T1ov>
 	subi	r21, 1
@@ -467,8 +463,8 @@ wr_lop1:
 
 	movw	ZL, r4		; addrPtr = address
     1ef2:	f2 01       	movw	r30, r4
-#ifdef __AVR_ATmega163__
-	andi	ZL, 0x80	; make shure a zero Z6:1 for ATmega163
+#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
+	andi	ZL, 0xc0	; make shure a zero Z5:1 for ATtiny48/88, 64 Byte Flash
 #endif
         // Write from programming buffer
         // -----------------------------
@@ -830,13 +826,13 @@ watchdogConfig:
     1fa8:	58 e1       	ldi	r21, 0x18	; 24
 	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
     1faa:	51 bd       	out	0x21, r21	; 33
+ #else
+    	ldi	r21, (1<<WDE)	; 0x08
+	AOUT	WDTCSR, r21	; (1<<WDE) ; watchdogConfig(x);
+ #endif
+#endif
        	AOUT	WDTCSR, r20		; WDTCSR = x;
     1fac:	41 bd       	out	0x21, r20	; 33
-    	ldi	r21, (1<<WDE)	; 0x08
- #endif
-	AOUT	WDTCSR, r21	; (1<<WDCE) | (1<<WDE) ; watchdogConfig(x);
-       	AOUT	WDTCSR, r20		; WDTCR = x;
-#endif
        	ret
     1fae:	08 95       	ret
 

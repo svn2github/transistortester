@@ -242,8 +242,8 @@ ifdef TIMEOUT_MS
 COMMON_OPTIONS += -DTIMEOUT_MS=$(TIMEOUT_MS)
 endif
 
-ifdef OSCCAL_CORRECTION
-COMMON_OPTIONS += -DOSCCAL_CORRECTION=$(OSCCAL_CORRECTION)
+ifdef OSCCAL_CORR
+COMMON_OPTIONS += -DOSCCAL_CORR=$(OSCCAL_CORR)
 endif
 #
 
@@ -372,7 +372,7 @@ else
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
 endif
 
- export LFUSE HFUSE EFUSE TARGET BOOT_PAGE_LEN FLASH_SIZE VIRTUAL_BOOT_PARTITION MCU_TARGET PROGRAM CAT_CMD AVRDUDE_CONF GCCROOT
+ export LFUSE HFUSE EFUSE TARGET BOOT_PAGE_LEN FLASH_SIZE VIRTUAL_BOOT_PARTITION MCU_TARGET PROGRAM CAT_CMD AVRDUDE_CONF GCCROOT AVR_FREQ
 hex_file: hex_copy
 ifdef ISP
 	$(SUB_MAKE) --warn-undefined-variables -r -f Makefile.isp do_isp
@@ -420,7 +420,6 @@ else
 	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(BOOT_PAGE_LEN))" | $(BC_CMD) > BL_StartAdr.dat
 endif
 	@$(RM_CMD) $(PROGRAM)x.elf
-	sync
 
 # Generate the final $(PROGRAM).elf file at the right Start Address,
 # which is the base to generate the $(PROGRAM)_$(TARGET).hex and $(PROGRAM)_$(TARGET).lst files.

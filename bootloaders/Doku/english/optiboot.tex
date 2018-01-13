@@ -249,8 +249,8 @@ and \ref{tab:options2}
                    &                  & If no TIMEOUT\_MS is specified, the time limit is \\
                    &                  & set to 1 second. \\
     \hline
- OSCCAL\_          & OSCCAL\_       & With the option OSCCAL\_CORRECTION you can adjust the \\
- CORRECTION        & CORRECTION=5   & internal 8~MHz RC-generator of the AVR. \\
+ OSCCAL\_          & OSCCAL\_       & With the option OSCCAL\_CORR you can adjust the \\
+ CORR              & CORR=5         & internal 8~MHz RC-generator of the AVR. \\
                    &                & Is effectless with crystal-operation or external clock! \\
                    &                & The correction value will be subtracted from the actual \\
                    &                & OSCCAL byte. The frequency will be lower with a positive \\
@@ -268,7 +268,7 @@ and \ref{tab:options2}
 When operating with the internal RC generator, it is quite possible that a serial data transfer
 not immediately succeed. This is principle independent of whether the hardware UART interface
 or a software solution (SOFT\_UART) is used.
-Without additional measurement you can only try with estimated OSCCAL\_CORRECTION values.
+Without additional measurement you can only try with estimated OSCCAL\_CORR values.
 Probably the data sheet of the AVR processor can help a little bit.
 Here is described at which operating voltage and at what temperature the RC oscillator
 was calibrated. 
@@ -587,9 +587,9 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
  -fno-diagnostics-show-caret \
  -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
  -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:249:0
-pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.S:538:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
+In file included from optiboot.S:254:0
+pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+optiboot.S:530:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
 ---------------------------------------------------------------------------
@@ -600,14 +600,12 @@ Boot Loader start address: 0x7E00
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    472	      0	      0	    472	    1d8	optiboot.elf
+    474	      0	      0	    474	    1da	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328p.lst
-cp optiboot.hex optiboot_atmega328p.hex
+ -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 With no additional option a baudrate of 115200 with a clock frequency of \(16 MHz\) is selected.
@@ -621,10 +619,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
  -fno-diagnostics-show-caret \
  -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
  -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:249:0:
-pin_defs.h:58:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:67:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
-pin_defs.h:73:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
+In file included from optiboot.S:254:0:
+pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:192:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
+pin_defs.h:200:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
 ---------------------------------------------------------------------------
 BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
 ---------------------------------------------------------------------------
@@ -635,14 +633,12 @@ Boot Loader start address: 0x7E00
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    492	      0	      0	    492	    1ec	optiboot.elf
+    494	      0	      0	    494	    1ee	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
-avr-objdump -h -S optiboot.elf > optiboot.lst
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot.hex
-cp optiboot.lst optiboot_atmega328p.lst
-cp optiboot.hex optiboot_atmega328p.hex
+ -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Please note, that the software solution for the serial interface requires a little more flash memory,
