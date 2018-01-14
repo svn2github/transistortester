@@ -42,8 +42,8 @@ according to the actual size.
 This kind of automatic is tested at a Linux system and should run at any Linux system.
 But it is completely untested for any Windows system.
 This optiboot bootloader is only tested with a Arduino-UNO and -Nano board and with 
-m8, m32, m64, m128, m48p, m88, m168, m328p, m1284p, m645, m169 and  t84, t44a, t24a,
-where m is the short form of ATmega and t is the short form of ATtiny.
+m8, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p m1284p, m645, m169 and 
+t84, t44a, t24a, where m is the short form of ATmega and t is the short form of ATtiny.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.

@@ -20,14 +20,14 @@ atmega164a: MCU_TARGET := atmega164a
 endif
 atmega164a: override FLASH_SIZE := 16384
 atmega164a: override FLASH_PAGE_SIZE := 128
-atmega164a: override BOOT_PAGE_LEN := 512
+atmega164a: override BOOT_PAGE_LEN := 256
 ifndef HFUSE
 # 1024 byte boot
-atmega164a: HFUSE := DE
+atmega164a: HFUSE := 9C
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega164a: LFUSE := F7
+atmega164a: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout
@@ -70,11 +70,11 @@ atmega324a: override FLASH_PAGE_SIZE := 128
 atmega324a: override BOOT_PAGE_LEN := 512
 ifndef HFUSE
 # 1024 byte boot
-atmega324a: HFUSE := DE
+atmega324a: HFUSE := 9E
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega324a: LFUSE := F7
+atmega324a: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout
@@ -116,11 +116,11 @@ atmega644: override FLASH_PAGE_SIZE := 256
 atmega644: override BOOT_PAGE_LEN := 1024
 ifndef HFUSE
 # 1024 byte boot
-atmega644: HFUSE := DE
+atmega644: HFUSE := 9E
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega644: LFUSE := F7
+atmega644: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout
@@ -168,11 +168,11 @@ atmega1284p: override FLASH_PAGE_SIZE := 256
 atmega1284p: override BOOT_PAGE_LEN := 1024
 ifndef HFUSE
 # 1024 byte boot
-atmega1284p: HFUSE := DE
+atmega1284p: HFUSE := 9F
 endif
 ifndef LFUSE
 # Full Swing xtal (16MHz) 16KCK/14CK+65ms
-atmega1284p: LFUSE := F7
+atmega1284p: LFUSE := FF
 endif
 ifndef EFUSE
 # 2.7V brownout

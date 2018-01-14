@@ -814,6 +814,36 @@ Es sei noch einmal darauf hingewiesen, daß es sich bei den Tabellendaten um die
 Exemplars des ATmega handelt. Außerhalb der angegebenen Min- bzw. Max-Werte der OSCCAL Korrekturen war
 ein Betrieb der seriellen Schnittstelle bei der angegebenen Baud-Rate nicht möglich.
 
+\subsection{Untersuchung der RC-Generatoren der ATmega644 Familie}
+
+Bei der ATmega644 Familie kann  eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Daneben kann
+auch noch ein 128kHz Gererator als Takt gewählt werden, der sonst den Watchdog-Timer versorgt.
+Die gwählte Frequenz kann aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden,
+so daß auch ein 1MHz Betrieb eingestellt werden kann.
+Die Tabelle~\ref{tab:mega644freq} zeigt die Resultate der untersuchten Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega1284p &          8M & 0xC2  & 19.2k & -8  & 8416k & 7  & 7882k  & 4  & 7989k \\
+    \hline
+mega644p &          8M & 0xC2  & 19.2k &  -12 & 8416k & 3  & 7871k  & -1  & 8009k \\
+    \hline
+mega324p &          8M & 0xC2  & 19.2k &  -12 & 8398k & 3  & 7885k  & 0  & 7976k \\
+    \hline
+mega164p &          8M & 0xC2  & 19.2k &  -5  & 8401k & 4  & 7888k  & 2  & 8012k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega644 Familie}
+  \label{tab:mega644freq}
+\end{table}
+
 \subsection{Untersuchung der RC-Generatoren der ATmega645 Familie}
 
 Bei der ATmega645 Familie kann nur eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Die Frequenz kann

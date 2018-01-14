@@ -50,7 +50,7 @@ ISPSPEED   = -b 115200
 #ISPSPEED 	= -b19200
 #
 # determine the bit clock for avrdude
-BIT_CLOCK = $(shell $(ECHO_CMD) "scale=2;4000000/$(AVR_FREQ)" | $(BC_CMD))
+BIT_CLOCK = $(shell $(ECHO_CMD) "scale=2;8000000/$(AVR_FREQ)" | $(BC_CMD))
 
 
 ifndef TARGET

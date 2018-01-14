@@ -153,11 +153,13 @@
     defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) || \
     defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
     defined(__AVR_ATmega1284A__) 
-  #define TST_COUNTER_PIN "PB4"
-  #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB4
-  #define TST_TCCR_B TCCR0A
-  #define TST_TCCR_B_SET ((1<<COM0A0) | (1<<CS00))
+  #define TST_COUNTER_PIN "PD7"
+  #define CNT_ENABLE_DDR  DDRD
+  #define CNT_ENABLE_PIN  DDD7
+  #define TST_TCCR_A TCCR2A
+  #define TST_TCCR_A_SET ((0<<COM2A1) | (1<<COM2A0))
+  #define TST_TCCR_B TCCR2B
+  #define TST_TCCR_B_SET  (1<<CS20)
   #define MAX_OSCCAL 255
 #endif		/* __AVR_ATmega644P__  .. */
 
