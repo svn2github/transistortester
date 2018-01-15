@@ -111,7 +111,9 @@ UART			specifies the hardware UART-interface to use.
 
 LED_START_FLASHES	specifies, how often the LED should flicker, before the serial 
 			communication is started. If you specify a 0, no LED output is done.
-			If you specify a 1, the LED Flash only onces without the program loop.
+			If you specify a 1 or -1, the LED Flash only onces without the program loop.
+			Negative settings will force a break of the flashing loop by
+			incoming RX data.
 
 LED_DATA_FLASH		let the LED light during wait for a serial character input. 
 

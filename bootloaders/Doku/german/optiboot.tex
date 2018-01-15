@@ -226,6 +226,13 @@ und \ref{tab:options2}
     \hline
  LED\_START\_      & LED\_START\_   & Wählt für die Anzahl der Blink-Zyklen \\
    FLASHES         &   FLASHES=3    & für die Kontroll-LED.                            \\
+                   &                & Bei 1 oder -1 wird nur einmal geblinkt ohne Wiederholung. \\
+                   &                & Negative Vorgaben bewirken, daß in der Programmschleife \\
+                   &                & das RX Bit der seriellen Schnittstelle überwacht wird. \\
+                   &                & Sobald eingehende RX-Daten festgestellt werden, \\
+                   &                & wird die Schleife abgebrochen. Bitte beachten Sie, \\
+                   &                & daß das Blinken den Start des Anwenderprogramms \\
+                   &                & verzögert. \\
     \hline
  LED               & LED=B3         & Wählt das Port-Bit für die  Kontroll-LED. \\
                    &                & Beim Beispiel würde eine an das Bit 3 des Port B \\ 
@@ -248,16 +255,6 @@ und \ref{tab:options2}
                    &                & Wenn kein TIMEOUT\_MS angegeben wird, wird die \\
                    &                & Zeitschranke auf 1 Sekunde gesetzt. \\
     \hline
- OSCCAL\_          & OSCCAL\_       & Mit der Option OSCCAL\_CORR kann der interne \\
- CORR              & CORR=5         & 8~MHz RC-Generator des AVR abgeglichen werden. \\
-                   &                & Ist bei Quarz-Betrieb oder externem Takt unwirksam! \\
-                   &                & Der Korrekturwert wird vom voreingestellten OSCCAL Byte \\
-                   &                & abgezogen. Bei positivem Korrekturwert wird die Frequenz \\
-                   &                & normalerweise niedriger. Da die erzeugte Baud-Rate direkt \\
-                   &                & vom Prozessortakt abhängt, ist ein richtig eingestellter \\
-                   &                & Prozessortakt für eine erfolgreiche serielle Kommunikation \\
-                   &                & wichtig. Der Wert muss zwischen -20 und +20 liegen. \\
-    \hline
     \end{tabular}
   \end{center}
   \caption{Wichtige Optionen für die optiboot Makefile}
@@ -275,8 +272,8 @@ mit OSCCAL-Änderung beschrieben.
 
 
 Weitere Optionen sind in der Tabelle~\ref{tab:options2} aufgezählt. 
-Diese Optionen sind nur für Software-Untersuchungen und für
-Prozessoren ohne Bootloader-Bereich interessant.
+Diese Optionen sind nur für Software-Untersuchungen, die Frequenzkalibration des RC-Generators
+ und für Prozessoren ohne Bootloader-Bereich interessant.
 
 \begin{table}[H]
   \begin{center}
@@ -310,6 +307,16 @@ VIRTUAL\_          & VIRTUAL\_       &  Ändert die Programmdaten eines Anwender
     \hline
  save\_vect\_      & save\_vect\_    & Wählt eine Interrupt-Vektornummer für die  \\
       num          &    num=4        & VIRTUAL\_BOOT\_PARTITION Methode aus.        \\
+    \hline
+ OSCCAL\_          & OSCCAL\_       & Mit der Option OSCCAL\_CORR kann der interne \\
+ CORR              & CORR=5         & 8~MHz RC-Generator des AVR abgeglichen werden. \\
+                   &                & Ist bei Quarz-Betrieb oder externem Takt unwirksam! \\
+                   &                & Der Korrekturwert wird vom voreingestellten OSCCAL Byte \\
+                   &                & abgezogen. Bei positivem Korrekturwert wird die Frequenz \\
+                   &                & normalerweise niedriger. Da die erzeugte Baud-Rate direkt \\
+                   &                & vom Prozessortakt abhängt, ist ein richtig eingestellter \\
+                   &                & Prozessortakt für eine erfolgreiche serielle Kommunikation \\
+                   &                & wichtig. Der Wert sollte zwischen -20 und +20 liegen. \\
     \hline
     \end{tabular}
   \end{center}
@@ -749,6 +756,66 @@ Bei allen untersuchten Prozessoren ist ein Betrieb der seriellen Schnittstelle
 auch mit dem internen RC-Oszillator möglich. Nur bei dem untersuchten ATmega88 
 würde sich bei OSCCAL\_CORR=4 eine Korrektur überhaupt lohnen.
 
+\subsection{Untersuchung der RC-Generatoren des ATmega32 / 16}
+
+Der ATmega32 und der ATmega16 können 4 verschiedene Frequenzen mit dem internen RC-Generator
+über die Low-Fuse einstellen, 1~MHz, 2~MHz, 4~MHz und 8~MHz.
+In den Tabellen \ref{tab:mega32freq} und \ref{tab:mega16freq} habe ich alle 
+4 Frequenzeinstellungen untersucht.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c || c | c || c | c || c | c |}
+    \hline
+        &     AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+ Typ    &     FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+m32  &       1M    & 0xA1  &  9.6k &  -13  & 1049k & -1  & 980k  & -5  & 1001k \\
+m32a &             &       &       &  -7  & 1046k &  4  & 984k  & 1  & 998k \\
+    \hline
+m32  &       2M    & 0xA2  & 19.2k &  -12  & 2102k &  0  & 1968k & -3  & 1997k \\
+m32a &             &       &       &  -7  & 2105k &  6  & 1966k & 2  & 2005k \\
+    \hline
+m32  &       4M    & 0xA3  & 19.2k &  -5  & 4169k & 6  & 3942k & 3  & 3993k \\
+m32a &             &       &       &   2  & 4192k & 14  & 3939k & 10  & 4015k \\
+    \hline
+m32  &       8M    & 0xA4  & 19.2k &  -7  & 8425k &  6  & 7888k & 3  & 7983k \\
+m32a &             &       &       &   2  & 8408k & 14  & 7921k & 11  & 8014k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega32}
+  \label{tab:mega32freq}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -11  & 1047k &  1  & 982k  & -2  & 998k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -12  & 2099k &  0  & 1971k & -3 & 1995k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -9  & 4291k &  3  & 3932k & 0  & 4002k \\
+    \hline
+                8M & 0xA4  & 19.2k &  -11 & 8415k & 2  & 7857k & -2  & 8013k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega16A}
+  \label{tab:mega16freq}
+\end{table}
+
+Immer wenn in der MinCorr Spalte positive Werte oder in der MaxCorr Spalte negative
+Werte auftauchen, ist bei dieser Frequenz und diesem Prozessor-Exemplar der Betrieb
+der seriellen Schnittstelle ohne Korrektur nicht möglich.
+Wenn eine 0 in den Spalten auftaucht, ist der Betrieb der seriellen Schnittstelle
+gerade eben noch möglich.
 
 \subsection{Untersuchung der RC-Generatoren des ATmega64 / 128}
 

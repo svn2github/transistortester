@@ -128,7 +128,7 @@ appStart:
 /* If the LED_DDR bit would be switched, no prepare is needed */
 /* because the LED_PORT bit is set to 0 by reset */
 /* But the LED Anode must be connected to the VCC side */
-#if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
+//#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
 	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
     7e36:	25 9a       	sbi	0x04, 5	; 4
 	ASBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to high
@@ -141,25 +141,35 @@ appStart:
 	ldi	r19, hi8(RAMSTART)	; 
     7e3a:	31 e0       	ldi	r19, 0x01	; 1
 
-#if LED_START_FLASHES > 0
+#if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
- #if LED_START_FLASHES > 1
+ #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
   ; Flash the LED is requested more than once, loop is required
 	ldi	r21, LED_START_FLASHES
     7e3c:	53 e0       	ldi	r21, 0x03	; 3
 
 00007e3e <fl_lop>:
 fl_lop:
+ #endif
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
     7e3e:	2d 9a       	sbi	0x05, 5	; 5
 	rcall	wait_T1ov
     7e40:	bd d0       	rcall	.+378    	; 0x7fbc <wait_T1ov>
+  #if Check_RX != 0		/* Check for RX Start bit is detected */
+	brcs	get_nextp		; break loop if RX data present
+  #endif
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
     7e42:	2d 98       	cbi	0x05, 5	; 5
 	rcall	wait_T1ov
     7e44:	bb d0       	rcall	.+374    	; 0x7fbc <wait_T1ov>
+	brcs	get_nextp		; break loop if RX data present
+  #endif
+  #if LED_START_FLASHES < 0
+	inc	r21		; while (++count)
+  #else 
 	subi	r21, 1
     7e46:	51 50       	subi	r21, 0x01	; 1
+  #endif
 	brne	fl_lop		; while (--count)
     7e48:	d1 f7       	brne	.-12     	; 0x7e3e <fl_lop>
 
@@ -830,8 +840,8 @@ watchdogConfig:
     7fba:	08 95       	ret
 
 00007fbc <wait_T1ov>:
+; rcall wait_T1ov setup the timer1 to overflow in r24:r25 clock tics
 ; use  r24 and probably r0
- #define Check_RX 0
 wait_T1ov:
  #ifdef TCNT1H
 ; use 16-Bit counter
@@ -849,8 +859,8 @@ wait_T1ov:
     7fca:	80 93 81 00 	sts	0x0081, r24
 
 00007fce <wt_ov1>:
-  #endif
- #endif
+       	ret			; any character present at serial rx port
+  #endif		/* Check_RX */
 ;	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
 ;	rjmp	wt_ov		; no OverFlow, wait
 ;	ASBI	TIFR1, TOV1	; clear OV bit Timer1
@@ -862,13 +872,11 @@ wait_T1ov:
     7fd2:	fd cf       	rjmp	.-6      	; 0x7fce <wt_ov1>
 	AOUT	TIFR1, r24	; clear the flags
     7fd4:	86 bb       	out	0x16, r24	; 22
-
-00007fd6 <wt_fin>:
-	inc	r25
-	brne	wt_ov0		; wait to next OV
   #endif
  #endif
-wt_fin:
+ #if Check_RX != 0		/* Check for RX Start bit is detected */
+	clc		; clear carry
+ #endif
      	wdr		; watchdogReset();  /* prevent watch dog timeout during flashing the LED */
     7fd6:	a8 95       	wdr
 	ret

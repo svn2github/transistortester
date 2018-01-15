@@ -282,24 +282,32 @@ endif
 # lock it), but since the high two bits of the lock byte are
 # unused, avrdude would get confused.
 do_isp: $(PROGRAM)_$(TARGET).hex FuseSetPrint FuseChangePrint HFUSE.dat $(EF_dep) 
-ifeq ($(ISP), 3)
+ifeq ($(ISP), 4)
+        # read complete EEprom 
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
+              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
+	      -U eeprom:r:./Read_$(TARGET).eep:r
+else
+ ifeq ($(ISP), 3)
         # read complete flash 
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
 	      -U flash:r:./Read_$(TARGET).hex:i
-
-else
- ifeq ($(ISP), 2)
+ else
+  ifeq ($(ISP), 2)
         # verify mode
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
 	      -U flash:v:$(PROGRAM)_$(TARGET).hex
- else
+  else
         # normal ISP programming mode. ISPFLASH set the Lock-Bits, if required.
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 50 \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
-              $(ISPFUSES) \
+              $(ISPFUSES) 
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
+              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) -D \
               $(ISPFLASH)
+  endif
  endif
 endif
 #

@@ -366,6 +366,13 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
  #define BIGBOOT 0
 #endif
 
+#if LED_START_FLASHES < 0
+ // negative count of LED_START_FLASHES means a RX Pin monitoring!
+ #define Check_RX 1
+ #warning "LED flash loop with RX Pin monitoring!"
+#endif
+
+
 
 /* main program starts here */
 int main(void) {
@@ -556,14 +563,14 @@ int main(void) {
   watchdogConfig(WATCHDOG_1S);		/* set the watchdog timer to 1s (default) */
 #endif
 
-#if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
+#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
   /* Set LED pin as output */
   LED_DDR |= _BV(LEDbit);
 #endif
 
-#if LED_START_FLASHES > 0
+#if LED_START_FLASHES != 0
   /* Flash onboard LED to signal entering of bootloader */
- #if LED_START_FLASHES > 1
+ #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
   uint8_t count = LED_START_FLASHES;
   do {
  #endif
@@ -571,16 +578,22 @@ int main(void) {
     t1_delay();
     LED_PORT &= ~(_BV(LEDbit));
     t1_delay();
- #if TEST_OUTPUT == 1
-  #warning "optiboot with test output only!"
-    /* only a test output for baud rate check, the bootloader will not work with this */
-    putch('U');         // produce a 01010101 pattern for test
- #endif
 
  #if LED_START_FLASHES > 1
   } while (--count);
  #endif
-#endif	/* LED_START_FLASHES > 0 */
+ #if LED_START_FLASHES < -1
+  } while (++count);
+ #endif
+#endif	/* LED_START_FLASHES != 0 */
+
+#if TEST_OUTPUT == 1
+ #warning "optiboot with test output only!"
+    /* only a test output for baud rate check, the bootloader will not work with this */
+   do {
+    putch('U');         // produce a 01010101 pattern for test
+   } ;
+#endif
 
   /* Forever loop */
   for (;;) {
@@ -977,19 +990,27 @@ uint8_t getch(void) {
   return ch;
 }  /* end getch() */
 
-#if LED_START_FLASHES > 0
+#if LED_START_FLASHES != 0
 void t1_delay(void) {
  #ifdef TCNT1H
   // Set up Timer 1 for timeout counter
   TCCR1B = _BV(CS12) | _BV(CS10); // div 1024
   TCNT1 = -(F_CPU/(1024*16));
   TIFR1 = _BV(TOV1);
+  #ifdef Check_RX
+  while( !(TIFR1 & _BV(TOV1)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
+  #else
   while(!(TIFR1 & _BV(TOV1)));
+  #endif
  #elif defined(TCNT0H)
   TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
   TCNT0 = -(F_CPU/(1024*16));
   TIFR0 = _BV(TOV0);
+  #ifdef Check_RX
+  while( !(TIFR0 & _BV(TOV0)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
+  #else
   while(!(TIFR0 & _BV(TOV0)));
+  #endif
  #endif
   wdt_reset();		/* prevent wdt time-out during LED flashing */
 }

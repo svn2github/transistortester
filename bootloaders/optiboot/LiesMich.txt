@@ -104,7 +104,9 @@ UART			gibt die Nummer der verwendeten UART-Schnittstelle bei der Hardware UART
 			Lösung an. Möglich ist ein Wert von 0-3, wenn beim gewählten AVR vorhanden.
 
 LED_START_FLASHES	gibt an, wie oft die LED vor der seriellen Kommunikation blinken soll.
-			Bei 0 wird nicht geblinkt, bei 1 nur einmal (ohne Programmschleife).
+			Bei 0 wird nicht geblinkt, bei 1 oder -1 nur einmal (ohne Programmschleife).
+			Negavive Vorgaben lassen die Blinkschleife sofort abbrechen,
+			wenn ankommende Daten auf dem RX Pin festgestellt werden.
 
 LED_DATA_FLASH		Lässt die LED beim Warten auf den Empfang ein serielles Zeichen aufleuchten.
 

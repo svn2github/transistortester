@@ -1,0 +1,16 @@
+#!/bin/bash
+make clean
+#
+# The "big three" standard bootloaders.
+# These need to be built AFTER the platforms, or they'll get renamed
+echo " "; echo "***** make atmega8 ******"
+make atmega8 
+echo " "; echo "***** make atmega168 ******"
+make atmega168 
+echo " "; echo "***** make atmega328 ******"
+make atmega328
+echo " "; echo "***** make atmega328p ******"
+make atmega328p 
+#
+
+

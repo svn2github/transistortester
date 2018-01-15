@@ -226,7 +226,13 @@ and \ref{tab:options2}
                    &                & You can only select a UART if more than one is present. \\
     \hline
  LED\_START\_      & LED\_START\_   & Select a repetition count of flashing cycles for the \\
-   FLASHES         &   FLASHES=3    & control LED.                            \\
+   FLASHES         &   FLASHES=3    & control LED. A count of 1 or -1 will only flash once \\
+                   &                & without a loop. Negative values will force a \\
+                   &                & additional check of the RX pin of the serial interface. \\
+                   &                & The loop is interrupted immediately, if any incoming \\
+                   &                & serial data is detected. Please note, that the start of \\
+                   &                & application program is delayed with the blink cycles. \\
+
     \hline
  LED               & LED=B3         & Select a port and bit number for the control LED. \\
                    &                & The example would select the bit number 3 of the \\
@@ -248,16 +254,6 @@ and \ref{tab:options2}
                    &                  & to 2s because of processor limits for the watchdog. \\
                    &                  & If no TIMEOUT\_MS is specified, the time limit is \\
                    &                  & set to 1 second. \\
-    \hline
- OSCCAL\_          & OSCCAL\_       & With the option OSCCAL\_CORR you can adjust the \\
- CORR              & CORR=5         & internal 8~MHz RC-generator of the AVR. \\
-                   &                & Is effectless with crystal-operation or external clock! \\
-                   &                & The correction value will be subtracted from the actual \\
-                   &                & OSCCAL byte. The frequency will be lower with a positive \\
-                   &                & correction value. Because the produced Baud rate is \\
-                   &                & directly derived from the processor clock, a correct \\
-                   &                & selected processor clock is important for a successful \\
-                   &                & serial communication. The value must be between -15 and +15. \\
     \hline
     \end{tabular}
   \end{center}
@@ -310,6 +306,16 @@ VIRTUAL\_          & VIRTUAL\_       & Changes the interrupt vector table of a u
     \hline
  save\_vect\_      & save\_vect\_    & Choose a interrupt vector number for the  \\
       num          &    num=4        & VIRTUAL\_BOOT\_PARTITION method.        \\
+    \hline
+ OSCCAL\_          & OSCCAL\_       & With the option OSCCAL\_CORR you can adjust the \\
+ CORR              & CORR=5         & internal 8~MHz RC-generator of the AVR. \\
+                   &                & Is effectless with crystal-operation or external clock! \\
+                   &                & The correction value will be subtracted from the actual \\
+                   &                & OSCCAL byte. The frequency will be lower with a positive \\
+                   &                & correction value. Because the produced Baud rate is \\
+                   &                & directly derived from the processor clock, a correct \\
+                   &                & selected processor clock is important for a successful \\
+                   &                & serial communication. The value must be between -15 and +15. \\
     \hline
     \end{tabular}
   \end{center}

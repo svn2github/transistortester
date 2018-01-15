@@ -13,8 +13,6 @@
  * See optiboot.c for details.
  */
 
-#define TEST_OUTPUT 0	/* test output for serial data baud rate check (1) */
-
 #ifndef UART
  #define UART_NR 0		/* predefine 0 as default UART number */
 #else
@@ -175,19 +173,18 @@
     defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || \
     defined(__AVR_ATmega8__) || defined(__AVR_ATmega8A__) || \
     defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
-    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
+    defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) 
 /*------------------------------------------------------------------------ */
 
  /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
   #define LEDX           nB5	/* coded Port B Bit 5 */
  #else
   #define LEDX           LED
  #endif
 
- /* Default "SOFT" UART Ports for ATmega8/88/168/328/8535 */
+ /* Default "SOFT" UART Ports for ATmega8/48/88/168/328 */
  #if UART_RX == n
   #if SOFT_UART > 0
    #warning "SOFT_UART use Pin D0 as RX"
@@ -212,7 +209,7 @@
     defined(__AVR_ATtiny84A__) || defined(__AVR_ATtiny44A__) || defined(__AVR_ATtiny24A__)
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default A4"
    #define LEDX        nA4
  #else
@@ -244,7 +241,7 @@
 #if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) 
 /*------------------------------------------------------------------------ */
  /* Onboard LED can be connected to pin PB0 on Sanguino */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B0"
   #define LEDX         nB0
  #else
@@ -291,7 +288,7 @@
 #if defined(__AVR_ATtiny88__) || defined(__AVR_ATtiny48__)
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
    #define LEDX        nB5
  #else
@@ -323,7 +320,7 @@
 #if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) 
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B2"
    #define LEDX        nB2
  #else
@@ -356,7 +353,7 @@
     defined(__AVR_ATtiny861A__) || defined(__AVR_ATtiny461A__) || defined(__AVR_ATtiny261A__) 
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default A4"
    #define LEDX        nA0
  #else
@@ -387,7 +384,7 @@
     defined(__AVR_ATtiny4313A__) || defined(__AVR_ATtiny2313A__)
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
    #define LEDX        nB5
  #else
@@ -418,7 +415,7 @@
 #if defined(__AVR_ATtiny1634__)
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B1"
    #define LEDX        nB1
  #else
@@ -456,16 +453,18 @@
     defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
     defined(__AVR_ATmega1284A__) || \
     defined(__AVR_ATmega16__) || defined(__AVR_ATmega16A__) || \
-    defined(__AVR_ATmega32__) || defined(__AVR_ATmega32A__)
+    defined(__AVR_ATmega32__) || defined(__AVR_ATmega32A__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
 /*------------------------------------------------------------------------ */
  #if defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__) || \
-     defined(__AVR_ATmega16A__) || defined(__AVR_ATmega32A__)
+     defined(__AVR_ATmega16A__) || defined(__AVR_ATmega32A__) || \
+    defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
   /* ATmega16/32 support only one UART */
   #undef UART_NR
   #define UART_NR 0
  #endif
  /* Onboard LED is connected to pin PB0 on Sanguino */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B0"
   #define LEDX         nB0
  #else
@@ -510,7 +509,7 @@
 #if defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) 
 /*------------------------------------------------------------------------ */
  /* Onboard LED is connected to pin PB0  */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
   #define LEDX         nB5
  #else
@@ -556,7 +555,7 @@
 /*------------------------------------------------------------------------ */
 
  /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
   #define LEDX           nB5	/* coded Port B Bit 5 */
  #else
@@ -596,7 +595,7 @@
  #undef UART_NR
  #define UART_NR 0
  /* Onboard LED is connected to pin PB0  */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B7"
   #define LEDX         nB7
  #else
@@ -624,7 +623,7 @@
 
 #if defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || defined(__AVR_ATmega323__)
  /* Onboard LED is connected to pin PB5 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
   #define LEDX         nB5
  #else
@@ -651,7 +650,7 @@
 #if defined(__AVR_ATmega169__) || defined(__AVR_ATmega169P__) || \
     defined(__AVR_ATmega169A__) || defined(__AVR_ATmega169PA__)
  /* Onboard LED is connected to pin PB5 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
   #define LEDX         nB5
  #else
@@ -696,7 +695,7 @@
     defined(__AVR_ATmega6490A__) 
  
  /* Onboard LED can be connected to pin PG0 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B7"
   #define LEDX         nB7
  #else
@@ -725,7 +724,7 @@
 #if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
 /*------------------------------------------------------------------------ */
  /* Onboard LED is connected to pin PB7 on Arduino Mega1280 */ 
- #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B7"
   #define LEDX	nB7
  #else
@@ -817,7 +816,7 @@
 
 
 // The Preprocessor should have replaced LEDX with a constant now
-#if ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+#if ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
  #if (LEDX & 0xff) > 7
   #error "Unrecognized LED name. Should be like 'B5' "
   #error "probably the bit number is wrong!"
@@ -904,7 +903,7 @@
 #endif		/* SOFT_UART > 0 */
 
 // setup the Port definitions for LED
-#if ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0))
+#if ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
  #if (LEDX & 0xff00) == nB0
   #define LED_DDR     DDRB
   #define LED_PORT    PORTB
@@ -955,7 +954,7 @@
   #error "Unrecognized LED name.  Should be like 'B4' "
   #error "--------------------------------------------"
  #endif
-#endif		/*# ((LED_DATA_FLASH > 0) || (LED_START_FLASHES > 0)) */
+#endif		/*# ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0)) */
 
 //#if SOFT_UART > 0
  // setup the Port definitions for UART_RX
@@ -1183,7 +1182,11 @@
 	.if	((\adr) < 0x20 + __SFR_OFFSET)
 	sbic	_SFR_IO_ADDR(\adr), \bit
 	.else
+	 .if	_SFR_IO_REG_P(\adr)
+	in	r0, _SFR_IO_ADDR(\adr)
+	 .else
 	lds	r0, _SFR_MEM_ADDR(\adr)
+	 .endif
 	sbrc	r0, \bit
 	.endif
 	.endm
@@ -1193,7 +1196,11 @@
 	.if	((\adr) < 0x20 + __SFR_OFFSET)
 	sbis	_SFR_IO_ADDR(\adr), \bit
 	.else
+	 .if	_SFR_IO_REG_P(\adr)
+	in	r0, _SFR_IO_ADDR(\adr)
+	 .else
 	lds	r0, _SFR_MEM_ADDR(\adr)
+	 .endif
 	sbrs	r0, \bit
 	.endif
 	.endm
@@ -1203,9 +1210,15 @@
 	.if	((\adr) < 0x20 + __SFR_OFFSET)
 	sbi	_SFR_IO_ADDR(\adr), \bit
 	.else
+	 .if	_SFR_IO_REG_P(\adr)
+	in	r25, _SFR_IO_ADDR(\adr)
+	sbr	r25, \bit
+	out	_SFR_IO_ADDR(\adr), r25
+	 .else
 	lds	r25, _SFR_MEM_ADDR(\adr)
 	sbr	r25, \bit
 	sts	_SFR_MEM_ADDR(\adr), r25
+	 .endif
 	.endif
 	.endm
 /* define ACBI macro */
@@ -1214,9 +1227,15 @@
 	.if	((\adr) < 0x20 + __SFR_OFFSET)
 	cbi	_SFR_IO_ADDR(\adr), \bit
 	.else
+	 .if	_SFR_IO_REG_P(\adr)
+	in	r25, _SFR_IO_ADDR(\adr)
+	cbr	r25, \bit
+	out	_SFR_IO_ADDR(\adr), r25
+	 .else
 	lds	r25, _SFR_MEM_ADDR(\adr)
 	cbr	r25, \bit
 	sts	_SFR_MEM_ADDR(\adr), r25
+	 .endif
 	.endif
 	.endm
 #endif

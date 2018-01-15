@@ -47,11 +47,11 @@
 
 /*------------------------------------------------------------------------ */
 #if  defined(__AVR_ATmega8535__)
-  #define TST_COUNTER_PIN "PB3"
-  #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB3
-  #define TST_TCCR_B TCCR0
-  #define TST_TCCR_B_SET ((1<<COM00) | (1<<CS00))
+  #define TST_COUNTER_PIN "PD7"
+  #define CNT_ENABLE_DDR  DDRD
+  #define CNT_ENABLE_PIN  DDD7
+  #define TST_TCCR_B TCCR2
+  #define TST_TCCR_B_SET ((1<<COM20) | (1<<CS20))
   #define MAX_OSCCAL 255
 #endif		/* __AVR_ATmega8535__  ... */
 
@@ -164,24 +164,16 @@
 #endif		/* __AVR_ATmega644P__  .. */
 
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_ATmega16__) || defined(__AVR_ATmega16A__)
-  #define TST_COUNTER_PIN "PB2"
-  #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB2
-  #define TST_TCCR_B TCCR0
-  #define TST_TCCR_B_SET ((1<<COM00) | (1<<CS00))
+#if defined(__AVR_ATmega16__) || defined(__AVR_ATmega16A__) || \
+    defined(__AVR_ATmega32__) || defined(__AVR_ATmega32A__)
+  #define TST_COUNTER_PIN "PD7"
+  #define CNT_ENABLE_DDR  DDRD
+  #define CNT_ENABLE_PIN  DDD7
+  #define TST_TCCR_B TCCR2
+  #define TST_TCCR_B_SET ((1<<COM20) | (1<<CS20))
   #define MAX_OSCCAL 255
-#endif		/* __AVR_ATmage16__ */
+#endif		/* __AVR_ATmage16__ || AVR_ATmega32__ */
 
-/*------------------------------------------------------------------------ */
-#if defined(__AVR_ATmega32__) || defined(__AVR_ATmega32A__)
-  #define TST_COUNTER_PIN "PB3"
-  #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB3
-  #define TST_TCCR_B TCCR0
-  #define TST_TCCR_B_SET ((1<<COM00) | (1<<CS00))
-  #define MAX_OSCCAL 255
-#endif		/* __AVR_ATmage32__ */
 
 /*------------------------------------------------------------------------ */
 /* Support for AT90CAN32_64_128 */

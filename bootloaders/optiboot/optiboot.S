@@ -289,6 +289,12 @@
 #endif
 
 
+#if LED_START_FLASHES < 0
+ ; negative count of LED_START_FLASHES means a RX Pin monitoring!
+ #define Check_RX 1
+ #warning "LED flash loop with RX Pin monitoring!"
+#endif
+
 
 // #define SUPPORT_READ_FUSES 1
 
@@ -352,11 +358,12 @@ optiboot:
 	ldi	r24,lo8(RAMEND-RAM_END_OFFSET)
 	AOUT	SPL, r24
 #endif
-#if defined(__AVR_ATmega8__)
+#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega8A__) || \
+    defined(__AVR_ATmega8535__) 
  /* avrdude set a byte address for this processors (tested with ATmega8) */
  /* for the Program Page command. */
  /* For other processors like ATmega88/168/328 avrdude use a word address, */
- /* which is the same as with the Flash momory. */
+ /* which is the same as with the Flash memory. */
  #define EEprom_ByteAddress
 #endif
 
@@ -393,7 +400,8 @@ optiboot:
 #if defined(OSCCAL_CORR) && defined(OSCCAL)
  #if (OSCCAL_CORR < -20) || (OSCCAL_CORR > 20)
   #warning "OSCCAL_CORR is too big, should be greater -20 and less than 20"
- #elif (OSCCAL_CORR != 0)
+ #endif
+ #if (OSCCAL_CORR != 0)
 	AIN	r25, OSCCAL
 	subi	r25, OSCCAL_CORR
 	AOUT	OSCCAL, r25
@@ -543,7 +551,8 @@ try_loader:
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
  #endif
 	AOUT	UART_SRB, r24
- #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
+ #if defined(UCSRC) && defined(URSEL)
+	; version for m8, m16, m32 for example (with double function UCSRC)
 	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
 	AOUT	UCSRC, r25
   	; This processor family has no double register for the 12-bit scaler
@@ -589,9 +598,9 @@ try_loader:
 /* If the LED_DDR bit would be switched, no prepare is needed */
 /* because the LED_PORT bit is set to 0 by reset */
 /* But the LED Anode must be connected to the VCC side */
-#if (LED_START_FLASHES > 0) || (LED_DATA_FLASH > 0)
+//#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
 	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
-#endif
+//#endif
 
 #if SOFT_UART > 0
  #if (UART_TX_DDR == UART_RX_DDR) && (UART_TX_BIT == UART_RX_BIT)
@@ -615,25 +624,41 @@ try_loader:
 	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
 	ldi	r19, hi8(RAMSTART)	; 
 
-#if LED_START_FLASHES > 0
+#if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
- #if LED_START_FLASHES > 1
+ #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
   ; Flash the LED is requested more than once, loop is required
 	ldi	r21, LED_START_FLASHES
 fl_lop:
+ #endif
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
 	rcall	wait_T1ov
+  #if Check_RX != 0		/* Check for RX Start bit is detected */
+	brcs	get_nextp		; break loop if RX data present
+  #endif
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
 	rcall	wait_T1ov
+ #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
+  #if Check_RX != 0		/* Check for RX Start bit is detected */
+	brcs	get_nextp		; break loop if RX data present
+  #endif
+  #if LED_START_FLASHES < 0
+	inc	r21		; while (++count)
+  #else 
 	subi	r21, 1
+  #endif
 	brne	fl_lop		; while (--count)
  #endif
-#endif	/* LED_START_FLASHES > 0 */
+#endif	/* LED_START_FLASHES != 0 */
 
 #if TEST_OUTPUT == 1
+ #warning "Test output to serial TXD and OC2"
  ; this output should only be used for checking the baud-rate with scope
  ; the bootloader sequence is disturbed with this output.
  #warning "##### endless loop out of 'U' at TX, don't use a bootloader"
+	ASBI	DDRD, DDD7
+	ldi	r24, (1<<COM20) | (1<<CS20)	; start with full speed and OC2
+	AOUT	TCCR2, r24
 test_out:
 	ldi	r24, 'U'		; binary 01010101
 	rcall	putch			; putch can use r22, r23,(r24), r25
@@ -1358,10 +1383,9 @@ watchdogConfig:
 
 
 ;**********************************************************
-#if LED_START_FLASHES > 0
+#if LED_START_FLASHES != 0
 ; rcall wait_T1ov setup the timer1 to overflow in r24:r25 clock tics
 ; use  r24 and probably r0
- #define Check_RX 0
 wait_T1ov:
  #ifdef TCNT1H
 ; use 16-Bit counter
@@ -1374,14 +1398,12 @@ wait_T1ov:
 
 ; wait until timer 1 OV occur (optional soft serial input can break the loop )
 wt_ov1:
- #if Check_RX != 0		/* Check for RX Start bit is canceled */
-  #if SOFT_UART > 0
+  #if Check_RX != 0		/* Check for RX Start bit is detected */
 	; leave the wait for OV event loop, if data at the RX port are present
-	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
-     	sbrs	r24, RXC0
-       	rjmp	wt_fin			; any character present at serial rx port
-  #endif
- #endif
+	sec			; set carry for break
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+       	ret			; any character present at serial rx port
+  #endif		/* Check_RX */
 ;	ASBIS	TIFR1, TOV1	; wait until OV bit is set again
 ;	rjmp	wt_ov		; no OverFlow, wait
 ;	ASBI	TIFR1, TOV1	; clear OV bit Timer1
@@ -1404,14 +1426,12 @@ wt_ov1:
 	sts	_SFR_MEM_ADDR(TCCR0B), r24	
 ; wait until timer 0 OV occur (optional soft serial input can break the loop )
 wt_ov0:
- #if Check_RX != 0		/* Check for RX Start bit is canceled */
-  #if SOFT_UART > 0
+  #if Check_RX != 0		/* Check for RX Start bit is canceled */
 	; leave the wait for OV event loop, if data at the RX port are present
-	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
-     	sbrs	r24, RXC0
-       	rjmp	wt_fin			; any character present at serial rx port
-  #endif
- #endif
+	sec			; set carry for break
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+       	ret			; any character present at serial rx port
+  #endif		/* Check_RX */
 	AIN	r24, TIFR
 	sbrs	r24, TOV0
 	rjmp	wt_ov0		; no OverFlow, wait
@@ -1422,10 +1442,12 @@ wt_ov0:
 	brne	wt_ov0		; wait to next OV
   #endif
  #endif
-wt_fin:
+ #if Check_RX != 0		/* Check for RX Start bit is detected */
+	clc		; clear carry
+ #endif
      	wdr		; watchdogReset();  /* prevent watch dog timeout during flashing the LED */
 	ret
-#endif
+#endif		/* LED_FLASHES */
 
 ;-------------------------------------------------------------------------------------
 #if (BIGBOOT > 0)
