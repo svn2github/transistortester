@@ -656,9 +656,9 @@ fl_lop:
  ; this output should only be used for checking the baud-rate with scope
  ; the bootloader sequence is disturbed with this output.
  #warning "##### endless loop out of 'U' at TX, don't use a bootloader"
-	ASBI	DDRD, DDD7
-	ldi	r24, (1<<COM20) | (1<<CS20)	; start with full speed and OC2
-	AOUT	TCCR2, r24
+;	ASBI	DDRD, DDD7
+;	ldi	r24, (1<<COM20) | (1<<CS20)	; start with full speed and OC2
+;	AOUT	TCCR2, r24
 test_out:
 	ldi	r24, 'U'		; binary 01010101
 	rcall	putch			; putch can use r22, r23,(r24), r25
