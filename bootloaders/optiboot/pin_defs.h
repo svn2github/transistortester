@@ -624,8 +624,8 @@
 #if defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || defined(__AVR_ATmega323__)
  /* Onboard LED is connected to pin PB5 */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
-  #define LEDX         nB5
+  #warning "LED bit is set to default B0"
+  #define LEDX         nB0
  #else
   #define LEDX         LED
  #endif

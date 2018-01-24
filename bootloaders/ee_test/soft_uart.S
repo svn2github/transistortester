@@ -35,26 +35,31 @@
  #undef WAIT_START
  #undef GET_NEXT_BIT
  #undef FIN_RX
+ #undef G_BLIND_DELAY
  #if SOFT_UART_NUMBER == 1
   #define GET_CH getch_1
   #define WAIT_START wait_for_rx_1
   #define GET_NEXT_BIT getnextrx_1
   #define FIN_RX fini_rx1
+  #define G_BLIND_DELAY direct_return1
  #elif	SOFT_UART_NUMBER == 2
   #define GET_CH getch_2
   #define WAIT_START wait_for_rx_2
   #define GET_NEXT_BIT getnextrx_2
   #define FIN_RX fini_rx2
+  #define G_BLIND_DELAY direct_return2
  #elif	SOFT_UART_NUMBER == 3
   #define GET_CH getch_3
   #define WAIT_START wait_for_rx_3
   #define GET_NEXT_BIT getnextrx_3
   #define FIN_RX fini_rx3
+  #define G_BLIND_DELAY direct_return3
  #else
   #define GET_CH getch
   #define WAIT_START wait_for_rx
   #define GET_NEXT_BIT getnextrx
   #define FIN_RX fini_rx
+  #define G_BLIND_DELAY direct_return0
  #endif
  .global GET_CH
 #endif		/* #ifndef NO_SOFT_UART_RX */
@@ -113,6 +118,7 @@
 
 #ifndef QuickStopBit
  #define QuickStopBit 1		/* set the option by default */
+; #define QuickStopBit 0		/* reset the option by default */
 #endif
 
 
@@ -129,8 +135,8 @@
 #if !defined(NO_SOFT_UART_RX) && !defined(NO_SOFT_UART_TX)
  ; we can only check, if both RX and TX are enabled
  #if (SOFT_UART_TX_DDR == SOFT_UART_RX_DDR) && (SOFT_UART_TX_BIT == SOFT_UART_RX_BIT)
+  #undef UART_ONE_WIRE
   #define UART_ONE_WIRE 
-;// #undef QuickStopBit
   #ifdef INVERS_UART
    #warning UART RX and TX to the same Port Bit not possible with INVERS_UART! Option is canceled!
    #undef INVERS_UART
@@ -147,12 +153,20 @@
 #ifndef NO_SOFT_UART_TX
 ;**********************************************************
 #define SOFT_UART_PORT UART_TX_PORT	/* SOFT_UART_PORT is only used for Address range check in uart_delay.S */
-#include "uart_delay.S"		/* generate delay loop for SINGLE_DELAY_CALL and DOUBLE_DELAY_CALL */
+#include "uart_delay.S"		/* generate delay loop for SINGLE_DELAY_ADDR and DOUBLE_DELAY_ADDR */
 
 PUT_CH :	/*  void putch(char ch) */
+ #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
+	/* Use of The data direction bit DDR has advantage to the PORT bit because */
+        /* no prepare is needed (PORT bit is cleared by reset), but LED circuit must */
+	/* switch the LED on with a 0 signal level */
+	ASBI	LED_PORT, LEDbit
+ #endif
 	; r24 hold the data for serial output
 	; use r22, r23, r25
-	rcall	SINGLE_DELAY_CALL	; work simular to a second half stop bit
+	DOUBLE_DELAY_CALL
+	DOUBLE_DELAY_CALL
+;	SINGLE_DELAY_CALL	; work simular to a second half stop bit
 				; this can help to prevent framing error, if the
 				; baudrate has a error of 2% or more
 	ldi	r22, 10		; counter for the serial bit output
@@ -184,8 +198,8 @@ PUT_CH :	/*  void putch(char ch) */
 	sec			; set carry for start bit
  #endif
 PUT_LOP :
- #ifdef QuickStopBit
-	rcall	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
+ #if QuickStopBit > 0
+	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
  #endif
 	brcc	SET_BIT		; 1/2 clock tics
 ;############### clear the TX bit #######################
@@ -234,8 +248,8 @@ PUT_LOP :
   #endif
  #endif
 TX_IS_SET :
- #ifndef QuickStopBit
-	rcall	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
+ #if QuickStopBit == 0
+	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
  #endif
  #ifdef INVERS_UART
 	sec			; 5+1 set carry for stop bit
@@ -245,6 +259,10 @@ TX_IS_SET :
  #endif
 	dec	r22		; 5+1+1 decrement don't touch the carry
 	brne	PUT_LOP 	; 5+1+1+2 = 9, total 9 +(2*7) = 23 Clock tics
+     	wdr		; watchdogReset();
+ #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
+	ACBI	LED_PORT, LEDbit
+ #endif
       	ret
  #undef SOFT_UART_TX_PORT
  #undef SOFT_UART_TX_DDR
@@ -260,15 +278,20 @@ TX_IS_SET :
 #ifndef NO_SOFT_UART_RX
 ;**********************************************************
  #define SOFT_UART_PORT UART_RX_PORT	/* SOFT_UART_PORT is only used for Address range check in uart_delay.S */
- #include "uart_delay.S"		/* generate delay loop for SINGLE_DELAY_CALL and DOUBLE_DELAY_CALL */
+ #include "uart_delay.S"		/* generate delay loop for SINGLE_DELAY_ADDR and DOUBLE_DELAY_ADDR */
 	/* call getch fetch a character from serial interface */
 	; return value: r24 = new character read
 	; use r22, r25 (soft)
 GET_CH :
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
+ #if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
+	/* Use of The data direction bit DDR has advantage to the PORT bit because */
+        /* no prepare is needed (PORT bit is cleared by reset), but LED circuit must */
+	/* switch the LED on with a 0 signal level */
 	ASBI	LED_PORT, LEDbit
  #endif
-	ldi	r22, 9
+ #if FLASHEND > 0x1ffff
+	ldi	r22, 9		; load the loopcounter before the RX_pin observation
+ #endif
 WAIT_START :
  #if SOFT_UART_RX_PIN < (0x20 + __SFR_OFFSET)
   #ifdef INVERS_UART
@@ -289,9 +312,19 @@ WAIT_START :
   #endif
  #endif
 	rjmp	WAIT_START	; RX bit still set, wait
-	rcall	SINGLE_DELAY_CALL	; wait half BAUD time
+ #if FLASHEND <= 0x1ffff
+	ldi	r22, 9		; load the loopcounter behind the RX_pin observation
+ #endif
+	SINGLE_DELAY_CALL	; wait half BAUD time
+;  Last inp should be (LOOP_TICS-2) before without additional delay.
+;  Because of the wait-loop time the RX change can be between 0 and 3 clock tics before the inp.
+;  For (LOOP_TICS == 9) we have to get a 7 clocks delay without the half baud time delay.
+;  But the middle delay is only 4.5 (3.5 for FLASHEND>0x1ffff) CLOCK tics.
+;  Unfortunately the SINGLE_DELAY_CALL is without the LOOP_TICS/2 (4.5 tics for a 9 tic LOOP)
+;  So a total of 7 (8) clock tics must be wasted.
+;	rcall	direct_return0		; some clock ticks are missing to the half delay time
 GET_NEXT_BIT :
-	rcall	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
+	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
   #ifdef INVERS_UART
 	sec			; 1 set carry
   #else
@@ -321,15 +354,18 @@ e       in      r25, _SFR_IO_ADDR(SOFT_UART_RX_PIN)	; 1+1
   #endif
 	rjmp	GET_NEXT_BIT	; 7+2 + 2*7 clock tics (22 + UART_B_VALUE*6 + UART_R_VALUE*2)
 FIN_RX :
+#if 0
   #ifdef INVERS_UART
 	brcs	.+2	; skip wdr instruction, if carry is set, framing error, no STOP
   #else
 	brcc	.+2	; skip wdr instruction, if no carry set, framing error, no STOP
   #endif
+#endif
      	wdr		; watchdogReset();
- #if (LED_DATA_FLASH > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
+ #if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit) && (SOFT_UART_NUMBER == 0)
 	ACBI	LED_PORT, LEDbit
  #endif
+G_BLIND_DELAY:
        	ret
 
  #undef SOFT_UART_RX_PORT

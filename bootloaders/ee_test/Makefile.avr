@@ -311,6 +311,34 @@ m645p: AVR_FREQ := 16000000
 endif
 m645p: $(DO_PGM)
 
+m325: PARTNO := m325
+m325: MCU := atmega325
+ifndef AVR_FREQ
+m325: AVR_FREQ := 16000000
+endif
+m325: $(DO_PGM)
+
+m325p: PARTNO := m325p
+m325p: MCU := atmega325p
+ifndef AVR_FREQ
+m325p: AVR_FREQ := 16000000
+endif
+m325p: $(DO_PGM)
+
+m165: PARTNO := m165
+m165: MCU := atmega165
+ifndef AVR_FREQ
+m165: AVR_FREQ := 16000000
+endif
+m165: $(DO_PGM)
+
+m165p: PARTNO := m165p
+m165p: MCU := atmega165p
+ifndef AVR_FREQ
+m165p: AVR_FREQ := 16000000
+endif
+m165p: $(DO_PGM)
+
 # 64-Pin ATmega
 m169: PARTNO := m169
 m169: MCU = atmega169
@@ -467,21 +495,21 @@ at90pwm3b: AVR_FREQ := 16000000
 endif
 at90pwm3b: $(DO_PGM)
 
-at90can128 PARTNO := at90can128
+at90can128: PARTNO := at90can128
 at90can128: MCU := at90can128
 ifndef AVR_FREQ
 at90can128: AVR_FREQ := 16000000
 endif
 at90can128: $(DO_PGM)
 
-at90can64 PARTNO := at90can64
+at90can64: PARTNO := at90can64
 at90can64: MCU := at90can64
 ifndef AVR_FREQ
 at90can64: AVR_FREQ := 16000000
 endif
 at90can64: $(DO_PGM)
 
-at90can32 PARTNO := at90can32
+at90can32: PARTNO := at90can32
 at90can32: MCU := at90can32
 ifndef AVR_FREQ
 at90can32: AVR_FREQ := 16000000

@@ -241,6 +241,12 @@ ifdef FORCE_WATCHDOG
 COMMON_OPTIONS += -DFORCE_WATCHDOG
 endif
 
+ifdef FORCE_RSTDISBL
+ ifneq ($(FORCE_RSTDISBL), 0)
+  COMMON_OPTIONS += -DFORCE_RSTDISBL
+ endif
+endif
+
 ifdef TIMEOUT_MS
 COMMON_OPTIONS += -DTIMEOUT_MS=$(TIMEOUT_MS)
 endif
@@ -363,15 +369,18 @@ ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
  ifdef save_vect_num
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=$(save_vect_num) -DLED=n$(LED) \
         -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  else
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
         -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  endif 
 else
 	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
         -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+        -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
 endif
 

@@ -82,10 +82,11 @@
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB1
   #define TST_TCCR_A TCCR1A
-  #define TST_TCCR_A_SET ((0<<COM1A1) | (0<<COM1A0))
+  #define TST_TCCR_A_SET ((0<<COM1A1) | (1<<COM1A0))
   #define TST_TCCR_B TCCR1B
-  // use mode 4 with OCR1A = 0xff to simulate 8-Bit counter
+  // use mode 4 (CTC) with OCR1A = 0xff to simulate 8-Bit counter
   #define TST_TCCR_B_SET (0<<WGM13) | (1<<WGM12) | (1<<CS10)
+  #define MAX_CNTR1 255
   #define MAX_OSCCAL 255
 #endif	/* __AVR_ATtiny88__ || __AVR_ATtiny48__ */
 

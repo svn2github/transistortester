@@ -41,8 +41,10 @@ bei Windows Systemen ist es völlig ungetestet. Auf jeden Fall wäre
 die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
 Arduino-UNO und -Nano Board sowie mit 
-m8, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p, m1284p, m645, m169 und 
-t84, t44a, t24a, wobei m die Kurzform von ATmega und t die Kurzform von ATtiny ist.
+m8, m8535, m16, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p, m1284p,
+m165p, m645, m169 und 
+t84, t44a, t24a, t85, t45, t25, t88, t48  wobei m die Kurzform von ATmega
+und t die Kurzform von ATtiny ist.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas
@@ -56,7 +58,7 @@ auch noch 300 Baud wählbar. Wenn die CPU Taktrate hoch genug ist, ist als Stand
 115200 Baud eine gute Wahl.
 Unter bestimmten Umständen ist auch 1 MBAUD mit der Hardware Schnittstelle wählbar.
 
-Bisher nur mit einem ATtiny84 und t44, t24 getestet ist die Option VIRTUAL_BOOT_PARTITION.
+Bisher ist die VIRTUAL_BOOT_PARTITION nur mit den getesteten ATTinys geprüft.
 Bei allen Prozessoren ohne Bootpartition wird die VIRTUAL_BOOT_PARTITION Option
 automatisch gesetzt.
 Normalerweise wird der Start-Vektor mit den Fuses (BOOTRST-Bit) auf den 
@@ -150,6 +152,11 @@ OSCCAL_CORR		Diese Option gibt einen Korrekturwert für das OSCCAL Byte des AVR-
 			Da die erzeugte Baudrate direkt vom Prozessortakt abhängt, ist eine kalibrierte
 			Taktfrequenz wichtig, damit der serielle Datentransfer gelingt.
 
+FORCE_RSTDISBL		Sie müssen diese Option auf 1 setzen, wenn Sie vorhaben, die RSTDISBL Funktion
+			in der HFUSE zu setzen. Das Setzen des RSTDISBL Bits (auf 0) wird vom optiboot
+			entdeckt and das Übersetzen wird abgebrochen, wenn diese Option nicht
+			gesetzt ist.
+
 
 
 Vorschlag:
@@ -164,16 +171,16 @@ als Alternative zu einem GPIORx Register benutzt werden.
 
 Liste der AVR-Prozessoren:
 ==========================
-ATmega8/16/32/64
+ATmega8/16/32/64/128
 ATmega162/163
 ATmega164/324/644/1284 (P)
-ATmega88/168/328  (P)
+ATmega48/88/168/328  (P)
 ATmega165/325/3250/6450
 ATmega169/329/649/6490
 ATmega640/1280
 AT90CAN32/64/128
 AT90PWM2/3
-ATtiny84/44/24/85/88/48/861/1634
+ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634
 Bei vielen Prozessoren steht der abschließende Test noch aus!
 
 An Rückmeldungen zum Thema "Assembler Optiboot" wäre ich durchaus interessiert.

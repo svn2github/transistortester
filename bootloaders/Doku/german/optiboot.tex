@@ -691,8 +691,10 @@ wird der Kalibrationswert des Herstellers beim Start des Prozessors in das IO-Re
 Der Optiboot Bootloader kann die Option OSCCAL\_CORR benutzen, um den vorhandenen Restfehler
 auszugleichen. In den folgenden Unterkapiteln werde ich einige AVR-Typen exemplarisch näher
 untersuchen.
+
 \subsection{Untersuchung der RC-Generatoren des ATmega8}
-Der ATmega64 und der ATmega128 können 4 verschiedene Frequenzen mit dem internen RC-Generator
+
+Der ATmega8 kann 4 verschiedene Frequenzen mit dem internen RC-Generator
 über die Low-Fuse einstellen, 1~MHz, 2~MHz, 4~MHz und 8~MHz.
 In der Tabelle \ref{tab:mega8freq} habe ich alle 4 Frequenzeinstellungen untersucht.
 
@@ -723,6 +725,35 @@ OSCCAL Registers nicht erforderlich ist. Dieser ATmega8 ist ab Werk für diese F
 Bei 4MHz kommt man noch ohne Korrektur aus, erreicht aber bei OSCCAL\_CORR=7 die richtige
 Schwingfrequenz. Bei 8MHz ist der Betrieb der seriellen Schnittstelle so gerade eben
 noch möglich, sicherer läuft die serielle Schnittstelle aber mit OSCCAL\_CORR=6.
+
+\subsection{Untersuchung der RC-Generatoren des ATmega8535}
+
+Der ATmega8535 kann wie der ATmega8 4 verschiedene Frequenzen mit dem internen RC-Generator
+über die Low-Fuse einstellen, 1~MHz, 2~MHz, 4~MHz und 8~MHz.
+In der Tabelle \ref{tab:mega8535freq} sind die Ergebnisse bei einem Exemplar für
+ alle 4 Frequenzeinstellungen festgehalten.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -10  & 1053k &  3  & 982k  & 0  & 1001k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -9  & 2095k &  4  & 1965k & 1  & 1998k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -5  & 4204k &  8  & 3932k & 4  & 4012k \\
+    \hline
+                8M & 0xA4  & 19.2k &  -7  & 8420k &  6  & 7901k & 3  & 8003k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenzen des ATmega8535}
+  \label{tab:mega8535freq}
+\end{table}
 
 \subsection{Untersuchung der RC-Generatoren der ATmega328 Familie}
 
@@ -816,6 +847,29 @@ Werte auftauchen, ist bei dieser Frequenz und diesem Prozessor-Exemplar der Betr
 der seriellen Schnittstelle ohne Korrektur nicht möglich.
 Wenn eine 0 in den Spalten auftaucht, ist der Betrieb der seriellen Schnittstelle
 gerade eben noch möglich.
+
+\subsection{Untersuchung des RC-Generators des ATmega163L}
+
+Der ATmega163L besitzt nur einen 1MHz RC-Generator, der mit dem OSCCAL Register
+abgestimmt werden kann. Mein Exemplar hatte keine Voreinstellung des OSCCAL Wertes.
+Daher sind hier außergewöhnlich hohe Korrekturwerte erforderlich, um die Frequenz
+auf etwa 1MHz einstellen zu können.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0x92  &  9.6k &  -88  & 1026k &  -62  & 964k  & -77  &  998k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die RC-Frequenz des ATmega163L}
+  \label{tab:mega163freq}
+\end{table}
 
 \subsection{Untersuchung der RC-Generatoren des ATmega64 / 128}
 
@@ -925,6 +979,8 @@ werden kann. Die Tabelle~\ref{tab:mega645freq} zeigt die Resultate der untersuch
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
+mega165p &         8M & 0xE2  & 57.6k & -6  & 8235k &  7  & 7718k  & -1  & 8015k \\
+    \hline
 mega645 &          8M & 0xE2  & 57.6k &  0  & 8253k & 12  & 7726k  & 5  & 8012k \\
     \hline
     \end{tabular}
@@ -969,7 +1025,7 @@ eingestellten 2400 Baud habe ich nur 2170 Baud gemessen. Das ergibt einen Freque
 von etwa 9.6\% und damit deutlich zu viel, um ohne Korrektur benutzt werden zu können.
 Bei eingestellten 2640 Baud funktionierte der Download mit 2400 Baud.
 Die gemessene Taktrate betrug dann nur 115.2kHz anstelle der 128kHz.
-Die erste Tabelle~\ref{tab:tiny84freq} stellt für die untersuchten Exemplare die möglichen
+Die Tabelle~\ref{tab:tiny84freq} stellt für die untersuchten Exemplare die möglichen
 OSCCAL Änderungen für den 8MHz Betrieb dar.
 
 \begin{table}[H]
@@ -991,3 +1047,127 @@ attiny24a &         8M & 0xE2  & 19.2k &  -4  & 8388k & 11  & 7685k  & 4  & 7992
   \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny84 Familie}
   \label{tab:tiny84freq}
 \end{table}
+
+\subsection{Untersuchung der RC-Generatoren der ATtiny85 Familie}
+
+Bei der ATtiny84 Familie kann außer dem 8MHz RC-Oszillator auch noch der 
+ein 6.4MHz RC-Oszillator und der 128kHz Takt der Watchdog-Schaltung benutzt werden.
+Der 6.4MHz RC-Oszillator wird aber immer mit einem Frequenzteiler auf 1.6MHz
+heruntergeteilt.
+Der 128kHz Takt kann nicht kalibriert werden. Wenn man diesen Takt benutzen möchte,
+kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren.
+Die erste Tabelle~\ref{tab:tiny85freq8} stellt für die untersuchten Exemplare die möglichen
+OSCCAL Änderungen für den 8MHz Betrieb dar.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &          8M & 0xE2  & 38.4k &  -4  & 8370k &  9  & 7714k  & 3  & 8012k \\
+    \hline
+attiny45  &         8M & 0xE2  & 38.4k &  -4  & 8400k & 9  & 7706k  & 3  & 8030k \\
+    \hline
+attiny25  &         8M & 0xE2  & 38.4k &  -9  & 8424k & 46  & 7724k  & 40  & 8034k \\
+attiny25  &         8M & 0xE2  & 38.4k &  -12  & 8399k & 7  & 7680k  & -2  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny85 Familie bei 8MHz}
+  \label{tab:tiny85freq8}
+\end{table}
+
+Die Einstellwerte bei einem ATtiny25 sehen merkwürdig aus, aber bei der Korrektur 3 hat
+der OSCCAL Wert die Zahl 128 unterschritten und ist damit in einem anderen Stellbereich.
+Erst bei einem Korrekturwert von etwa 34 wurde dann wieder eine Frequenz von 8364kHz
+erreicht, bei der die serielle Schnittstelle wieder betrieben werden kann. Eine ähnliche
+Frequenz wurde im anderen Stellbereich beim Korrekturwert -6 erreicht.
+Die nächste Tabelle~\ref{tab:tiny85freq1} stellt für die untersuchten Exemplare die möglichen
+OSCCAL Änderungen für den 1.6MHz Betrieb dar. Der RC-Generator läuft dabei bei 6.4MHz,
+diese Frequenz wird aber immer durch Faktor 4 geteilt. 
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &         1.6M & 0xD3  & 9.6k &  -7  & 1684k &  9  & 1547k  & 2  & 1603k \\
+    \hline
+attiny45  &        1.6M & 0xD3  & 9.6k &  -5  & 1684k & 11  & 1559k  & 4  & 1603k \\
+    \hline
+attiny25  &        1.6M & 0xD3  & 9.6k &  -7   & 1689k & 10 & 1543k  & 3  & 1602k \\
+attiny25  &        1.6M & 0xD3  & 9.6k &  -10  & 1680k & 3  & 1550k  & -3  & 1609k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny85 Familie bei 1.6MHz}
+  \label{tab:tiny85freq1}
+\end{table}
+
+Bei dem Betrieb mit 1.6MHz hat sich die Besonderheit mit der OSCCAL Korrektur-Einstellung
+nicht gezeigt. Alle untersuchten Exemplare würden auch ohne Korrektur der Frequenz
+mit der seriellen Schnittstelle arbeiten können.
+Die ATtiny84 Prozessor Familie kann den Prozessor auch mit einem PLL-Oszillator betreiben,
+der vom 8MHz RC-Oszillator kontrolliert wird. Der PLL-Oszillator kann entweder 64MHz oder
+32MHz erzeugen, die normalerweise für den T1 Zähler benutzt werden können.
+Wenn der PLL-Takt als Prozessor-Takt verwendet werden soll, kann der PLL-Oszillator nur
+bei 64MHz arbeiten und wird immer durch Faktor 4 geteilt. Somit ergeben sich 16MHz 
+für den Prozessortakt. Die Tabelle~\ref{tab:tiny85freq16} zeigt die gemessenen
+Resultate. Erwartungsgemäß weichen diese Ergebnisse nicht wesentlich von den 8MHz Ergebnissen
+ab.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &         1.6M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
+    \hline
+attiny45  &        1.6M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
+    \hline
+attiny25  &        1.6M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
+attiny25  &        1.6M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny85 Familie bei 16MHz}
+  \label{tab:tiny85freq16}
+\end{table}
+
+\subsection{Untersuchung des RC-Generators der ATtiny88 Familie}
+
+Die ATtiny88 Familie kann außer einem 8MHz internem RC-Generator nur noch einen
+nicht kalibrierbaren 128kHz Generator oder einen externen Takt als Taktgeber für
+den Prozessor wählen. Ein Frequenzteiler mit Faktor 8 ist für den Prozessortakt
+bei der LFUSE auch einstellbar. In der Tabelle~\ref{tab:tiny88freq} sind die Ergebnisse
+für die Kalibration des internen 8MHz Generators bei zwei Exemplaren der Familie dargestellt. 
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny88 &          8M & 0xE2  & 38.4k &  -4  & 8397k & 15  & 7682k  & 6  & 8013k \\
+    \hline
+attiny48 &         8M & 0xE2  & 38.4k &  -5  & 8385k & 12  & 7739k  & 5  & 7995k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny88 Familie}
+  \label{tab:tiny88freq}
+\end{table}
+
+Bei beiden Exemplaren läuft die serielle Schnittstelle ohne Frequenz-Korrektur. 
+Die Takt-Frequenz wird aber bei einer Korrektur von 5 (6) besser eingehalten.

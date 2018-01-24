@@ -25,9 +25,9 @@ make atmega328p
 ATmega328P with 16MHz and 115200 Baud.
 
 With the simular call:
-*******************
-make atmega328p_isp 
-*******************
+*********************
+make atmega328p ISP=1
+*********************
 the program data will be transfered to the ISP-programmer and additionaly all fuses are set.
 You should know, that the Flash memory content is completely erased before
 programming the new bootloader code. Any application program must be programmed
@@ -42,8 +42,10 @@ according to the actual size.
 This kind of automatic is tested at a Linux system and should run at any Linux system.
 But it is completely untested for any Windows system.
 This optiboot bootloader is only tested with a Arduino-UNO and -Nano board and with 
-m8, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p m1284p, m645, m169 and 
-t84, t44a, t24a, where m is the short form of ATmega and t is the short form of ATtiny.
+m8, m8535, m16, m163, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p m1284p,
+m165p, m645, m169 and 
+t84, t44a, t24a, t85, t45, t25, t88, t48 where m is the short form of ATmegas
+and t is the short form of ATtiny.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -57,7 +59,7 @@ If your CPU clock rate is sufficient, the standard serial rate of 115200 baud
 is a good selection to get a fast transmission. 
 For a good CPU clock rate match is also 1 Mbaud possible with the hardware UART.
 
-Only the ATtiny84 and t44, t24 example is tested with the VIRTUAL_BOOT_PARTITION option.
+The VIRTUAL_BOOT_PARTITION feature is only checked with the tested ATtiny processors.
 For all processors without a boot partition the option VIRTUAL_BOOT_PARTITION is
 set automatically.
 Normally the start vector is switched with the fuses (BOOTRST bit) to the
@@ -166,6 +168,10 @@ OSCCAL_CORR		This option specifies a correction value for the OSCCAL Byte of the
 			Because the produced Baud-rate depends directly of the processor clock,
 			a calibrated clock frequency is important for a successfull serial data transfer.
 
+FORCE_RSTDISBL		You can set this option to 1, if you plan to set the RSTDISBL feature in the HFUSE.
+			The setting of the RSTDISBL bit (to 0) is detected by optiboot and
+			the compiling is aborted without the setting of this option. 
+
 Recommendation:
 ===============
 The optiboot loader transfer the original content of the MCUSR register to the application
@@ -179,16 +185,16 @@ For AVR mikrocontrollers without this IO register group the counter register OCR
 
 List of the supported AVR-Prozessors:
 ==========================
-ATmega8/16/32/64
+ATmega8/16/32/64/128
 ATmega162/163
 ATmega164/324/644/1284 (P)
-ATmega88/168/328  (P)
+ATmega48/88/168/328  (P)
 ATmega165/325/3250/6450
 ATmega169/329/649/6490
 ATmega640/1280
 AT90CAN32/64/128
 AT90PWM2/3
-ATtiny84/44/24/85/45/88/48/861/1634
+ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634
 For many processors the finish test is missing!
 
 I look forward for any replies to the "assembly language optiboot" subject.

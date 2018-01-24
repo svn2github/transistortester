@@ -208,9 +208,9 @@ int main(void) {
 #if defined(TST_TCCR_A)
 	TST_TCCR_A = TST_TCCR_A_SET;	// toggle OC0A on compare match
 #endif
-#if defined(__AVR_ATtiny48__) || defined(__AVR_ATtiny88__)
-	OCR1AH = 0;
-	OCR1AL = 0xff;		// set OCR1A to 255 to simulate 8-Bit counter
+#if defined(MAX_CNTR1)
+	OCR1AH = (MAX_CNTR1 / 256);
+	OCR1AL = (MAX_CNTR1 & 0xff);		// set OCR1A to 255 to simulate 8-Bit counter
 #endif
 #if defined(TST_TCCR_B)
         CNT_ENABLE_DDR |= (1<<CNT_ENABLE_PIN);	// enable output

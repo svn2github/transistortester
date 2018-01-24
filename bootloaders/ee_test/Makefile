@@ -146,23 +146,26 @@ hexfile: size
 
 # make upload  additionally calls make to compile the software for selected target
 upload: $(PARTNO)_test.hex $(PARTNO)_test.eep $(PARTNO)_test.lst size
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a \
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
+	-u -U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
-#	avrdude -vvvv -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a 
 program: $(PARTNO)_test.hex
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a \
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
+	-u -U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
 flash: $(PARTNO)_test.hex
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:w:./$(PARTNO)_test.hex:a 
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
+	-u -U flash:w:./$(PARTNO)_test.hex:a 
 eeprom: $(PARTNO)_test.eep
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-U eeprom:w:./$(PARTNO)_test.eep:a
+	-u -U eeprom:w:./$(PARTNO)_test.eep:a
 eeread:
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-U eeprom:r:./TTactual.eep:i
+	-u -U eeprom:r:./TTactual.eep:i
 read:
 	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-U flash:r:./TTactual.hex:i
+	-u -U flash:r:./TTactual.hex:i
 verify: $(PARTNO)_test.hex $(PARTNO)_test.eep
-	avrdude -D -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) -U flash:v:./$(PARTNO)_test.hex:a \
+	avrdude -D -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
+	-u -U flash:v:./$(PARTNO)_test.hex:a \
 	-U eeprom:v:./$(PARTNO)_test.eep:a -v

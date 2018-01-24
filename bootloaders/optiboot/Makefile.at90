@@ -125,7 +125,7 @@ at90pwm2b: hex_file
 #
 # AT90PWM2
 ################################################
-# generic at90pwm2
+# at90pwm2
 # let board specific change the frequency and fuses
 at90pwm2: TARGET:= at90pwm2
 # MCU_Target at90pwm2 has error in FLASHEND setting in GNU lib,
@@ -167,7 +167,7 @@ at90pwm3b: hex_file
 #
 # AT90PWM2
 ################################################
-# generic at90pwm3
+# at90pwm3
 # let board specific change the frequency and fuses
 at90pwm3: TARGET:= at90pwm3
 # MCU_Target at90pwm3 has error in FLASHEND setting in GNU lib,

@@ -24,13 +24,15 @@
 ; so that sequential serial output is timed correctly.
 
 #if SOFT_UART > 0
+ #define SOFT_UART_PORT UART_TX_PORT
+ #include "uart_delay.S"
  ; soft putch() uses registers r22,r23 and r25
- ; #define SOFT_UART_RX_PORT UART_RX_PORT
- ; #define SOFT_UART_RX_BIT UART_RX_BIT
+ #define SOFT_UART_RX_PORT UART_RX_PORT
+ #define SOFT_UART_RX_BIT UART_RX_BIT
  #define SOFT_UART_TX_PORT UART_TX_PORT
  #define SOFT_UART_TX_BIT UART_TX_BIT
- #define NO_SOFT_UART_RX
- ; #define FORCE_ONE_WIRE_MODE
+; #define NO_SOFT_UART_RX
+; #define FORCE_ONE_WIRE_MODE
  #include "soft_uart.S"
 
  ; use the Pin 2 of the UART_TX_PORT as second TX
@@ -40,7 +42,7 @@
  #define SOFT_UART_TX_BIT 2	/* set second TX to Bit 2 of same TX-Port */
  #define NO_SOFT_UART_RX
  ; #define FORCE_ONE_WIRE_MODE
- #include "soft_uart.S"
+; #include "soft_uart.S"
 #endif
 
 

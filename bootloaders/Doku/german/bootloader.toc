@@ -1,35 +1,39 @@
 \select@language {ngerman}
-\contentsline {chapter}{\numberline {1}Prinzipielle Arbeitsweise eines Bootloaders}{3}{chapter.1}
-\contentsline {chapter}{\numberline {2}Die Hardware der AVR 8-Bit Mikrocontroller}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}CPU und Speicherzugriff}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Eingabe und Ausgabefunktion}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}Das Starten des AVR Mikrocontrollers}{8}{section.2.3}
-\contentsline {section}{\numberline {2.4}Das Beschreiben des AVR Speichers}{10}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}parallele Programmierung}{11}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}serieller Download mit ISP}{11}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Selbstprogrammierung mit serieller Schnittstelle}{12}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Diagnose Werkzeuge}{13}{subsection.2.4.4}
-\contentsline {chapter}{\numberline {3}Der optiboot Bootloader f\IeC {\"u}r AVR Mikrocontroller}{15}{chapter.3}
-\contentsline {section}{\numberline {3.1}\IeC {\"A}nderungen und Weiterentwicklung von Version 6.2}{15}{section.3.1}
-\contentsline {section}{\numberline {3.2}Automatische Gr\IeC {\"o}\IeC {\ss }enanpassung in der optiboot Makefile}{16}{section.3.2}
-\contentsline {section}{\numberline {3.3}Zielvorgaben f\IeC {\"u}r optiboot Makefile}{16}{section.3.3}
-\contentsline {section}{\numberline {3.4}Die Optionen f\IeC {\"u}r die optiboot Makefile}{18}{section.3.4}
-\contentsline {section}{\numberline {3.5}Benutzung von optiboot ohne Bootloader-Bereich}{20}{section.3.5}
-\contentsline {section}{\numberline {3.6}Die M\IeC {\"o}glichkeiten der seriellen Schnittstelle mit der verwendeten Software}{22}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Berechnung der Verz\IeC {\"o}gerungszeit}{24}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Benutzung von mehr als einer seriellen Schnittstelle}{25}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Serielle Eingabe und Ausgabe \IeC {\"u}ber nur einen AVR Pin}{26}{subsection.3.6.3}
-\contentsline {section}{\numberline {3.7}Einige Beispiele f\IeC {\"u}r die Erzeugung eines optiboot Bootloaders}{28}{section.3.7}
-\contentsline {section}{\numberline {3.8}Anpassung der Taktfrequenz bei internem RC-Generator}{29}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}Untersuchung der RC-Generatoren des ATmega8}{30}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Untersuchung der RC-Generatoren der ATmega328 Familie}{30}{subsection.3.8.2}
-\contentsline {subsection}{\numberline {3.8.3}Untersuchung der RC-Generatoren des ATmega32 / 16}{31}{subsection.3.8.3}
-\contentsline {subsection}{\numberline {3.8.4}Untersuchung der RC-Generatoren des ATmega64 / 128}{32}{subsection.3.8.4}
-\contentsline {subsection}{\numberline {3.8.5}Untersuchung der RC-Generatoren der ATmega644 Familie}{32}{subsection.3.8.5}
-\contentsline {subsection}{\numberline {3.8.6}Untersuchung der RC-Generatoren der ATmega645 Familie}{33}{subsection.3.8.6}
-\contentsline {subsection}{\numberline {3.8.7}Untersuchung der RC-Generatoren der ATmega649 Familie}{33}{subsection.3.8.7}
-\contentsline {subsection}{\numberline {3.8.8}Untersuchung der RC-Generatoren der ATtiny84 Familie}{33}{subsection.3.8.8}
-\contentsline {chapter}{\numberline {4}Verschiedene USB zu Seriell Wandler mit Linux}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Der CH340G und der CP2102 Wandler }{35}{section.4.1}
-\contentsline {section}{\numberline {4.2}Der PL-2303 und der FT232R Wandler}{38}{section.4.2}
-\contentsline {section}{\numberline {4.3}Der USB-serial Wandler mit der ATmega16X2 Software}{41}{section.4.3}
+\contentsline {chapter}{\numberline {1}Prinzipielle Arbeitsweise eines Bootloaders}{4}{chapter.1}
+\contentsline {chapter}{\numberline {2}Die Hardware der AVR 8-Bit Mikrocontroller}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}CPU und Speicherzugriff}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Eingabe und Ausgabefunktion}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Das Starten des AVR Mikrocontrollers}{9}{section.2.3}
+\contentsline {section}{\numberline {2.4}Das Beschreiben des AVR Speichers}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}parallele Programmierung}{12}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}serieller Download mit ISP}{12}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Selbstprogrammierung mit serieller Schnittstelle}{13}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Diagnose Werkzeuge}{14}{subsection.2.4.4}
+\contentsline {chapter}{\numberline {3}Der optiboot Bootloader f\IeC {\"u}r AVR Mikrocontroller}{16}{chapter.3}
+\contentsline {section}{\numberline {3.1}\IeC {\"A}nderungen und Weiterentwicklung von Version 6.2}{16}{section.3.1}
+\contentsline {section}{\numberline {3.2}Automatische Gr\IeC {\"o}\IeC {\ss }enanpassung in der optiboot Makefile}{17}{section.3.2}
+\contentsline {section}{\numberline {3.3}Zielvorgaben f\IeC {\"u}r optiboot Makefile}{17}{section.3.3}
+\contentsline {section}{\numberline {3.4}Die Optionen f\IeC {\"u}r die optiboot Makefile}{19}{section.3.4}
+\contentsline {section}{\numberline {3.5}Benutzung von optiboot ohne Bootloader-Bereich}{21}{section.3.5}
+\contentsline {section}{\numberline {3.6}Die M\IeC {\"o}glichkeiten der seriellen Schnittstelle mit der verwendeten Software}{23}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Berechnung der Verz\IeC {\"o}gerungszeit}{25}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Benutzung von mehr als einer seriellen Schnittstelle}{26}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Serielle Eingabe und Ausgabe \IeC {\"u}ber nur einen AVR Pin}{27}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Einige Beispiele f\IeC {\"u}r die Erzeugung eines optiboot Bootloaders}{29}{section.3.7}
+\contentsline {section}{\numberline {3.8}Anpassung der Taktfrequenz bei internem RC-Generator}{30}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Untersuchung der RC-Generatoren des ATmega8}{31}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Untersuchung der RC-Generatoren des ATmega8535}{31}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}Untersuchung der RC-Generatoren der ATmega328 Familie}{32}{subsection.3.8.3}
+\contentsline {subsection}{\numberline {3.8.4}Untersuchung der RC-Generatoren des ATmega32 / 16}{32}{subsection.3.8.4}
+\contentsline {subsection}{\numberline {3.8.5}Untersuchung des RC-Generators des ATmega163L}{33}{subsection.3.8.5}
+\contentsline {subsection}{\numberline {3.8.6}Untersuchung der RC-Generatoren des ATmega64 / 128}{33}{subsection.3.8.6}
+\contentsline {subsection}{\numberline {3.8.7}Untersuchung der RC-Generatoren der ATmega644 Familie}{34}{subsection.3.8.7}
+\contentsline {subsection}{\numberline {3.8.8}Untersuchung der RC-Generatoren der ATmega645 Familie}{34}{subsection.3.8.8}
+\contentsline {subsection}{\numberline {3.8.9}Untersuchung der RC-Generatoren der ATmega649 Familie}{35}{subsection.3.8.9}
+\contentsline {subsection}{\numberline {3.8.10}Untersuchung der RC-Generatoren der ATtiny84 Familie}{35}{subsection.3.8.10}
+\contentsline {subsection}{\numberline {3.8.11}Untersuchung der RC-Generatoren der ATtiny85 Familie}{35}{subsection.3.8.11}
+\contentsline {subsection}{\numberline {3.8.12}Untersuchung des RC-Generators der ATtiny88 Familie}{37}{subsection.3.8.12}
+\contentsline {chapter}{\numberline {4}Verschiedene USB zu Seriell Wandler mit Linux}{38}{chapter.4}
+\contentsline {section}{\numberline {4.1}Der CH340G und der CP2102 Wandler }{38}{section.4.1}
+\contentsline {section}{\numberline {4.2}Der PL-2303 und der FT232R Wandler}{41}{section.4.2}
+\contentsline {section}{\numberline {4.3}Der USB-serial Wandler mit der ATmega16X2 Software}{44}{section.4.3}

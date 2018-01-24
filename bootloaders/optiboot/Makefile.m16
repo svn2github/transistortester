@@ -185,8 +185,11 @@ ifndef HFUSE
 atmega163: HFUSE := FC
 endif
 ifndef LFUSE
+## 2.7V brownout, internal RC
+#atmega163: LFUSE := 92
+#  Attention: OSCAL_CORR=-76 !!!
 # 2.7V brownout, Xtal slow rising power
-atmega163: LFUSE := BC
+atmega163: LFUSE := 9A
 endif
 atmega163: BAUD_RATE := 38400
 atmega163: hex_file

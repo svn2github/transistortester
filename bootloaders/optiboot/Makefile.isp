@@ -49,8 +49,8 @@ ISPSPEED   = -b 115200
 #ISPPORT	= /dev/tty.usbmodemfd3141 
 #ISPSPEED 	= -b19200
 #
-# determine the bit clock for avrdude
-BIT_CLOCK = $(shell $(ECHO_CMD) "scale=2;8000000/$(AVR_FREQ)" | $(BC_CMD))
+# determine the bit clock (us) for avrdude
+BIT_CLOCK = $(shell $(ECHO_CMD) "scale=2;8000000/$(AVR_FREQ)+1" | $(BC_CMD))
 
 
 ifndef TARGET
@@ -107,6 +107,9 @@ ifeq ($(MCU_TARGET), attiny85)
 USE_Edat := 2
 endif
 ifeq ($(MCU_TARGET), attiny45)
+USE_Edat := 2
+endif
+ifeq ($(MCU_TARGET), attiny25)
 USE_Edat := 2
 endif
 ifeq ($(MCU_TARGET), attiny88)

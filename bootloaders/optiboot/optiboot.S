@@ -253,6 +253,9 @@
 #include "stk500.h"
 #include "pin_defs.h"
 
+#include "check_fuses.h"
+
+
 #define OPTIBOOT_MAJVER 6
 #define OPTIBOOT_MINVER 3
 /*
@@ -288,11 +291,26 @@
  #define BIGBOOT 0		/* set dummy size to 0 */
 #endif
 
+#ifndef TEST_OUTPUT
+ #define TEST_OUTPUT 0
+#endif
 
 #if LED_START_FLASHES < 0
  ; negative count of LED_START_FLASHES means a RX Pin monitoring!
  #define Check_RX 1
  #warning "LED flash loop with RX Pin monitoring!"
+#endif
+
+#ifdef __AVR_ATmega163__
+ #ifdef NRWWSTART
+  #if NRWWSTART != 0
+   #warning "NRWWSTART for ATmega163 must be unset or zero!"
+   #undef NRWWSTART
+   #define NRWWSTART 0
+  #endif
+ #else
+   #define NRWWSTART 0
+ #endif
 #endif
 
 
@@ -389,10 +407,10 @@ optiboot:
 #endif
 
 //#define RESET_CAUSE GPIOR1
-	AIN	r24, MCUCSR
+	AIN	r2, MCUCSR
 ;	clr	r1
 	AOUT	MCUCSR, r1	; MCUCSR = 0
-	AOUT	RESET_CAUSE, r24	; save reason of restart (MCUCSR) in IO register
+	AOUT	RESET_CAUSE, r2	; save reason of restart (MCUCSR) in IO register
 #if defined(OSCCAL1) && !defined(OSCCAL)
  #define OSCCAL OSCCAL1
 #endif
@@ -423,8 +441,10 @@ optiboot:
 //    marker = 0;
 //    appStart(reset_cause);
 //  }
-	andi	r24, (1<<WDRF)
-	breq	no_app_start
+;	andi	r24, (1<<WDRF)
+;	breq	no_app_start
+	sbrs	r2, WDRF
+	rjmp	no_app_start
 #if 0
 	AIN	r20, MARKER1		; if MARKER1:4 == 0xDEADBEEF
 	cpi	r20, 0xDE
@@ -440,7 +460,7 @@ optiboot:
 	AOUT	MARKER2, r1		;
 	AOUT	MARKER3, r1		;
 	AOUT	MARKER4, r1		;
-	AIN	r24, RESET_CAUSE
+;	AIN	r24, RESET_CAUSE
 	rjmp	appStart
 no_app_start:
 	ldi	r20, 0xDE		; marker = 0xdeadbeef
@@ -457,7 +477,9 @@ no_app_start:
   // save the reset flags in the designated register
   //  This can be saved in a main program by putting code in .init0 (which
   //  executes before normal c init code) to save R2 to a global variable.
-	andi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D	
+;	andi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D	
+	ldi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D
+	and	r24, r2		; r2 hold the reset reason , MCUCSR
 		; none of the WatchDog, PowerOn or BrownOut reason ?
 	breq	try_loader	; interrupt must be caused by a external reset
  #define WATCHDOG_TIME WATCHDOG_OFF
@@ -478,7 +500,10 @@ appStart:
 	AOUT	ICR1L, ZH
 ;##############################################################
 #endif
-	AIN	r2, RESET_CAUSE			; R2  is compatible  to older optiboot version
+;	AIN	r2, RESET_CAUSE			; R2  is compatible  to older optiboot version
+	; R2 is never used and should still hold the content of last MCUCSR read
+;	mov	r24,r2			; I believe, that r24 must not be set 
+					; The reset cause  is in R2 and IO-Reg RESET_CAUSE
 	; application program should look to the RESET_CAUSE register directly instead
 
 #ifdef	VIRTUAL_BOOT_PARTITION
@@ -492,91 +517,17 @@ appStart:
 
 ;***************************************************************
 try_loader:
-
-#if SOFT_UART == 0
- /* AI don't know the reason for disabling the Pull-Up resistors!
-  * The port D is only correct for ATmega8/88/168/328.
-  * Other processors must use other Ports, probably depending
-  * on the selected UART number!
-  * Therefore this code is disabled!  K.-H. Kuebbeler
- #if defined(PORTD) && defined(PD1)
-	ACBI	PORTD, PD0	; RXD, disable PullUp
-	ACBI	PORTD, PD1	; TX0   ????
+#if 0
+ ; if a PLL is present ans enabled, wait for the lock signal
+ #ifdef PLLCSR
+	ASBIS	PLLCSR, PLLE		; skip, if PLL is enabled
+	rjmp	no_pll
+wait_locked:
+	ASBIS	PLLCSR, PLOCK		; wait until PLL is locked
+	rjmp	wait_locked
+no_pll:
  #endif
-  */
-
- ; setup the correct BAUD_RATE divider for Clock-frequency F_CPU
- #define BAUD_DIV (((F_CPU / 4 / BAUD_RATE) - 1) / 2)
- #if BAUD_DIV > 255
-  #undef BAUD_DIV
-  #define BAUD_DIV (((F_CPU / 8 / BAUD_RATE) - 1) / 2)
-  #if BAUD_DIV > 4095
-   #error "Unachievable baud rate (too slow) BAUD_RATE"
-  #endif // baud rate slow check
-  #define BAUD_ACTUAL (F_CPU/(16 * ((BAUD_DIV)+1)))
-  #undef UART_MODE_2x
- 	ldi	r24, (0<<U2X0)		; single speed mode
- #else
-  #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
-  #define UART_MODE_2x
-	ldi	r24, (1<<U2X0)		; double speed mode
- #endif
-	AOUT	UART_SRA, r24
-
-#if BAUD_ACTUAL <= BAUD_RATE
-  #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error "BAUD_RATE error less than -5%"
-  #elif BAUD_ERROR >= 2
-    #warning "BAUD_RATE error less than -2%"
-  #endif
-#else
-  #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error "BAUD_RATE error greater than 5%"
-  #elif BAUD_ERROR >= 2
-    #warning "BAUD_RATE error greater than 2%"
-  #endif
 #endif
-
-#if ((BAUD_DIV < 3) && (BAUD_ERROR != 0))  || (BAUD_DIV < 1)
-  // permit high bitrates (ie 1Mbps@16MHz) if error is zero
-  #error "Unachievable baud rate (too fast) BAUD_RATE"
-#endif // baud rate fastn check
-#include "report_baud_div.h"
-
- #ifdef UART_ONE_WIRE
-	ldi	r24, (1<<RXEN0)		;0x10	
- #else
-	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
- #endif
-	AOUT	UART_SRB, r24
- #if defined(UCSRC) && defined(URSEL)
-	; version for m8, m16, m32 for example (with double function UCSRC)
-	ldi	r25, (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0)	;config UART
-	AOUT	UCSRC, r25
-  	; This processor family has no double register for the 12-bit scaler
-	ldi	r25, lo8(BAUD_DIV)	; 0x10
-	AOUT	UART_SRRL, r25
-  #if (BAUD_DIV/256) != 0
-	ldi	r25, hi8(BAUD_DIV)	; 0x10
-	AOUT	UCSRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
-  #endif
- #else
-    /* no ATmega8_16_32 */
-  #ifndef __AVR_ATmega163__
-	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
-	AOUT	UART_SRC, r25
-  #endif
-	ldi	r25, lo8(BAUD_DIV)	; 0x10
-	AOUT	UART_SRRL, r25
-  #if (BAUD_DIV/256) != 0
-	ldi	r25, hi8(BAUD_DIV)	; 0x10
-	AOUT	UART_SRRH, r25
-  #endif
- #endif
- 
-#endif		/* no SOFT_UART */
 
 #ifdef TIMEOUT_MS
  #if TIMEOUT_MS > 6000
@@ -595,12 +546,40 @@ try_loader:
 #endif
 	rcall	watchdogConfig
 
+#if SOFT_UART == 0
+ /* I don't know the reason for disabling the Pull-Up resistors!
+  * The port D is only correct for ATmega8/88/168/328.
+  * Other processors must use other Ports, probably depending
+  * on the selected UART number!
+  * Therefore this code is disabled!  K.-H. Kuebbeler
+ #if defined(PORTD) && defined(PD1)
+	ACBI	PORTD, PD0	; RXD, disable PullUp
+	ACBI	PORTD, PD1	; TX0   ????
+ #endif
+   ; usually the PORT Bits are initialized to zero allready.
+	ACBI	UART_RX_PORT, UART_RX_BIT	; disable Pullup Resistor for RX
+	ACBI	UART_TX_PORT, UART_TX_BIT	; disable Pullup Resistor for TX
+  */
+ #if BAUD_RATE < 100
+  ; try with Auto-baud
+
+ #include "flash_led_opti.S"	/* flash the led before init of UART */
+ #include "init_uart_auto_baud.S"
+
+ #else
+
+ #include "init_uart_fix_baud.S"
+
+ #endif		/* BAUD_RATE < 100 */
+ 
+#endif		/* no SOFT_UART */
+
 /* If the LED_DDR bit would be switched, no prepare is needed */
 /* because the LED_PORT bit is set to 0 by reset */
 /* But the LED Anode must be connected to the VCC side */
-//#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
+#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
 	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
-//#endif
+#endif
 
 #if SOFT_UART > 0
  #if (UART_TX_DDR == UART_RX_DDR) && (UART_TX_BIT == UART_RX_BIT)
@@ -624,34 +603,11 @@ try_loader:
 	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
 	ldi	r19, hi8(RAMSTART)	; 
 
-#if (LED_START_FLASHES) != 0
- ; Flash the LED is requested
- #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
-  ; Flash the LED is requested more than once, loop is required
-	ldi	r21, LED_START_FLASHES
-fl_lop:
- #endif
-	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
-	rcall	wait_T1ov
-  #if Check_RX != 0		/* Check for RX Start bit is detected */
-	brcs	get_nextp		; break loop if RX data present
-  #endif
-	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
-	rcall	wait_T1ov
- #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
-  #if Check_RX != 0		/* Check for RX Start bit is detected */
-	brcs	get_nextp		; break loop if RX data present
-  #endif
-  #if LED_START_FLASHES < 0
-	inc	r21		; while (++count)
-  #else 
-	subi	r21, 1
-  #endif
-	brne	fl_lop		; while (--count)
- #endif
-#endif	/* LED_START_FLASHES != 0 */
+#if BAUD_RATE >= 100
+ #include "flash_led_opti.S"	/* flash the led after init of UART */
+#endif
 
-#if TEST_OUTPUT == 1
+#if TEST_OUTPUT != 0
  #warning "Test output to serial TXD and OC2"
  ; this output should only be used for checking the baud-rate with scope
  ; the bootloader sequence is disturbed with this output.
@@ -664,6 +620,22 @@ test_out:
 	rcall	putch			; putch can use r22, r23,(r24), r25
 	rjmp	test_out		; endless loop
 #endif
+#if 0
+wait_for_sync:
+	rcall	getch
+	cpi	r24, STK_GET_SYNC
+	brne	wait_for_sync
+sync_is_found:
+	rcall	verifySpace
+#endif
+
+;	if the serial interface set no address, initialize to zero
+	clr	r4
+	clr	r5
+#if SUPPORT_EEPROM
+	movw	r30, r4		; Z = 0
+#endif
+	
 
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   /* Forever loop */
@@ -1013,7 +985,16 @@ flash_rd_lop:
           //      do putch(pgm_read_byte_near(address++));
           //      while (--length);
           // read a Flash and increment the address (may increment RAMPZ)
+ #if FLASHEND < 0x20000
 	elpm	r24, Z+
+ #else
+;	the Z+ of elpm does not update the carry !!
+	elpm	r24, Z
+	AIN	r14, RAMPZ
+	adiw	r30, 1		; is equal to Z+
+	adc	r14, r1		; add carry to the RAMPZ content
+	AOUT	r14, RAMPZ	; try to increment RAMPZ
+ #endif
 #else
 	lpm	r24, Z+
 #endif
@@ -1023,11 +1004,11 @@ flash_rd_lop:
 	// Undo vector patch in bottom page so verify passes
  #undef LenDecrement 
  #define LenDecrement 2
-	eor	r1, r1
+	eor	r1, r1		; make shure a zero r1
  #ifdef RAMPZ
 	elpm	r25, Z+
-	AIN	r2, RAMPZ	; upper address bits in RAMPZ must be 0
-	cp	r1, r2
+	AIN	r14, RAMPZ	; upper address bits in RAMPZ must be 0
+	cp	r1, r14
 	; RAMPZ is zero, when carry is unset
 	cpc	r1, ZH
  #else
@@ -1051,11 +1032,11 @@ ck8:
 	ldi	ZL, lo8(E2END-1)		; last two bytes of EEprom memory
 	ldi	ZH, hi8(E2END-1)		; 
 	rcall	rd_eeprom		; get the original save_vect content
-	mov	r2, r24
+	mov	r14, r24
 	rcall	rd_eeprom
 	movw	ZL, r8			; restore Z for loop
 	mov	r25, r24
-	mov	r24, r2 		; old wdtVect	from EEprom save
+	mov	r24, r14 		; old wdtVect	from EEprom save
  #else
 	; interrupt table with RJMP	(2 Bytes for each entry)
 	cpi	ZL, 2
@@ -1074,11 +1055,11 @@ ck8:
 	ldi	ZL, lo8(E2END-1)		; last two bytes of EEprom memory
 	ldi	ZH, hi8(E2END-1)		; 
 	rcall	rd_eeprom		; get the original save_vect content
-	mov	r2, r24
+	mov	r14, r24
 	rcall	rd_eeprom
 	movw	ZL, r8			; restore Z for loop
 	mov	r25, r24
-	mov	r24, r2 		; old wdtVect	from EEprom save
+	mov	r24, r14 		; old wdtVect	from EEprom save
  #endif		/* FLASHEND > 8192 */
 nopatch:
 	mov	r21, r25	; save second byte
@@ -1144,7 +1125,7 @@ verifySpace:		/* void verifySpace(void) { */
      	rcall	getch		; if (getch() != CRC_EOP)
        	cpi	r24, CRC_EOP	; 0x20
        	breq	no_to
-#if 1
+#if 0
      	rcall	wait_timeout		;wait_timeout();
 #else
 	ldi	r24, STK_NOSYNC
@@ -1248,11 +1229,14 @@ wr_eeprom:
 	sbi	_SFR_IO_ADDR(EECR), EEMPE
 	sbi	_SFR_IO_ADDR(EECR), EEPE	/* Start EEprom write by setting EEPE */
  #else
-	lds	r24, _SFR_MEM_ADDR(EECR)
+;	lds	r24, _SFR_MEM_ADDR(EECR)
+	AIN	r24, EECR
 	sbr	r24, EEMPE
-	sts	_SFR_MEM_ADDR(EECR), r24
+;	sts	_SFR_MEM_ADDR(EECR), r24
+	AOUT	EECR, r24
 	sbr	r24, EEPE		/* Start EEprom write by setting EEPE */
-	sts	_SFR_MEM_ADDR(EECR), r24
+;	sts	_SFR_MEM_ADDR(EECR), r24
+	AOUT	EECR, r24
  #endif
 	ret			; return wr_eeprom function
 
@@ -1394,7 +1378,8 @@ wait_T1ov:
 	ldi	r24, lo8(0xffff-(F_CPU/(1024*16)))
 	AOUT	TCNT1L, r24
 	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 0
-	sts	_SFR_MEM_ADDR(TCCR1B), r24	
+;	sts	_SFR_MEM_ADDR(TCCR1B), r24	
+	AOUT	TCCR1B, r24
 
 ; wait until timer 1 OV occur (optional soft serial input can break the loop )
 wt_ov1:
@@ -1423,7 +1408,8 @@ wt_ov1:
 	AOUT	TCNT0, r24
   #endif
 	ldi	r24, (1<<CS12)|(1<<CS10)	; internal clock, divide by 1024, mode 0
-	sts	_SFR_MEM_ADDR(TCCR0B), r24	
+;	sts	_SFR_MEM_ADDR(TCCR0B), r24	
+	AOUT	TCCR0B, r24
 ; wait until timer 0 OV occur (optional soft serial input can break the loop )
 wt_ov0:
   #if Check_RX != 0		/* Check for RX Start bit is canceled */

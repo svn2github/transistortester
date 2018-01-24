@@ -277,6 +277,8 @@ optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
  */
 #include "stk500.h"
 
+#include "check_fuses.h"
+
 #ifdef LUDICROUS_SPEED
  #define BAUD_RATE 230400L
 #endif
@@ -583,7 +585,7 @@ int main(void) {
   } while (--count);
  #endif
  #if LED_START_FLASHES < -1
-  } while (++count);
+  } while (++count);	/* { */
  #endif
 #endif	/* LED_START_FLASHES != 0 */
 

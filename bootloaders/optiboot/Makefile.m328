@@ -43,20 +43,21 @@ ifndef HFUSE
 atmega168: HFUSE := DD
 endif
 ifndef LFUSE
-# Low power xtal (16MHz) 16KCK/14CK+65ms :=FF
-# Full swing xtal (16MHz) 16KCK/14CK+65ms  := FC
-atmega168: LFUSE := FC
+# Ext. xtal (16MHz) 16KCK/14CK+65ms :=FF
+atmega168: LFUSE := FF
 endif
 ifndef EFUSE
 # 512 byte boot
 atmega168: EFUSE := FC
 endif
+ifndef AVR_FREQ
 atmega168: AVR_FREQ := 16000000 
+endif
 atmega168: hex_file
 
 
 ################################################
-# generic atmega168p
+#  atmega168p
 atmega168p: TARGET := atmega168p
 atmega168p: MCU_TARGET := atmega168p
 export
@@ -64,7 +65,7 @@ atmega168p:
 	$(SUB_MAKE) atmega168
 
 ################################################
-# generic atmega168a
+#  atmega168a
 atmega168a: TARGET := atmega168a
 atmega168a: MCU_TARGET := atmega168a
 export
@@ -95,12 +96,14 @@ ifndef EFUSE
 # 2.7V brownout
 atmega328: EFUSE := FD
 endif
+ifndef AVR_FREQ
 atmega328: AVR_FREQ := 16000000
+endif
 atmega328: hex_file
 
 
 ################################################
-# generic atmega328p
+# atmega328p
 atmega328p: TARGET := atmega328p
 atmega328p: MCU_TARGET := atmega328p
 export
@@ -132,12 +135,14 @@ ifndef EFUSE
 # 512 byte boot
 atmega88: EFUSE := FC
 endif
+ifndef AVR_FREQ
 atmega88: AVR_FREQ := 16000000 
+endif
 atmega88: hex_file
 
 #
 ################################################
-# generic atmega88p
+# atmega88p
 atmega88p: TARGET := atmega88p
 atmega88p: MCU_TARGET := atmega88p
 export
