@@ -46,6 +46,8 @@ The nearly constant errors can be explained with a little frequency difference o
 \label{fig:freq-ppm}
 \end{figure}
 
+\subsection{Calibration of frequency with a GPS- or GLONASS-receiver}
+
 Tuning of the cystal frequency is possible with a adjustable capacitor (5-25pF) at the crystal.
 The one pulse per second (1PPS) from the GPS receiver {\bf UP501} from {\bf Fastrax Ltd.} and from the GPS/GLONASS receiver
 {\bf GNS701} from {\bf Global Navigation Systems GmbH} has been tested successfully for the calibration of the
@@ -77,3 +79,54 @@ Only the \(5V\) supply voltage must be provided to the USB connector.
   \caption{Generation of a 1PPS signal with GPS receiver }
   \label{fig:GPS-1PPS}
 \end{figure}
+
+\subsection{Calibration of the crystal frequency with a clock modul}
+
+To tune the crystal frequency of the transistor tester you must first exchange one of the
+crystal capacitors against a trimmer with adjustable capacity.
+The advantage of using watch modules for frequency calibration instead of GPS or GLONASS modules is,
+that you need no clear view to sky. You can adjust the frequency nearly at any place.
+I examined watch modules with a DS3231 chip and a printed board labled with ''ZS-042''.
+The examined moduls are probably build in china and are all of the boards are equipped
+with a DS3231M chip. The DS3231M chip use a MEMS (Micro Electro Mechanical System) resonator 
+instead of the DS3231SN chip, which use a crystal with \(32768Hz\).
+A simular MEMS resonator is also used by the DCP1301 chip.
+The picture~\ref{fig:DS3231M} shows one of the used modules.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{../PNG/DS3231M.jpg}
+\caption{One example of the examined DS3231 modules}
+\label{fig:DS3231M}
+\end{figure}
+
+Both DS3231 chip versions use a internal temperature measurement to control the frequency of
+the time base in a manner, that the frequency drift with temperature is nearly
+perfect compensated in a wide range.
+Unfortunately the provided \(32kHz\) Signal of the DS3231M chip can not be used for a
+frequency calibration. I have measured different frequencies of \(32641Hz\), \(32710Hz\),
+\(32730Hz\) and \(32748Hz\) for all four tested modules. 
+All of these Frequencies are far away from the expected exactly \(32768Hz\).
+If you connect the modules to a Arduino UNO, you can also enable a 1PPS (\(1Hz\)) output
+to the SQW pin.
+This output is so stable and exactly, that it can be used for the calibration.
+The data sheet of the DS3231M promise for the 1PPS output a accuracy of \(pm 5ppm\) for
+the full temperature range of \(-45\celsius\) to \(+85\celsius\), while the accuracy of the
+\(32kHz\) output is only specified to \(\pm 2.5\%\) (\(25000ppm\)).
+
+The data sheet of the DS3231SN chip promise a accuracy of \(pm 3.5ppm\) for the full
+temperature range from \(-40\celsius\) to \(+85\celsius\) and a accuracy of \(\pm 2ppm\)
+for the temperature between \(0\celsius\) to \(+40\celsius\).
+The DS3231SN chip use a internal clock crystal with a frequency of \(32768Hz\), which is
+controlled with switchable capacitors over a wide temperature range.
+With the known temperature drift of the crystal and a build in temperature measurement
+the frequency of the controlled crystal is nearly constant.
+To examine these chips too, I have replaced the DS3231M chips by DS3231DS chips for
+all four modules.
+With a fresh calibrated transistor tester (\(16MHz\) model) I have measured the output frequency of all
+modules with the same result of \(32.76800kHz\). Very rarely a differerence of \(0.03Hz\)
+was shown during the measurements. This is only a difference of \(1ppm\).
+A fractional amount of \(1Hz\) is only shown, if the frequency is calculated of a period measurement.
+The limit for period measurement is changed from \(25kHz\) to \(33kHz\) to enable
+the period measurement for the \(32768Hz\) signal.
+

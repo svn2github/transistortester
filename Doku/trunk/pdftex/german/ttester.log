@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.29)  31 OCT 2017 11:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.20)  27 JAN 2018 00:25
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
 **ttester.tex
 (./ttester.tex
-LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
-Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -64,10 +64,10 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2008/03/30 v1.1d Input encoding file
+Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
@@ -90,13 +90,13 @@ Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip43
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2013/12/03 3.9h The Babel package
+Package: babel 2016/02/24 3.9q The Babel package
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2012/08/20 v3.3p English support from the babel system
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2013/12/03 3.9h Babel common definitions
+File: babel.def 2016/02/24 3.9q Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen103
 )
@@ -104,29 +104,32 @@ File: babel.def 2013/12/03 3.9h Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 )
+(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngerman.ldf
+Language: ngerman 2013/12/13 v2.7 German support for babel (new orthography)
+
 (/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
 Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
 \l@naustrian = a dialect from \language\l@ngerman 
 \l@nswissgerman = a dialect from \language\l@ngerman 
 Package babel Info: Making " an active character on input line 88.
-))
+)))
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks19
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -143,11 +146,11 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@width=\dimen105
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 57.
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
 \captionmargin=\dimen106
 \captionmargin@=\dimen107
 \captionwidth=\dimen108
@@ -159,23 +162,27 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 \c@ContinuedFloat=\count91
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
 \c@subfigure=\count92
 \c@subtable=\count93
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: pdftex.def on input line 143.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/fixltx2e.sty
-Package: fixltx2e 2006/09/13 v1.1m fixes to LaTeX
-LaTeX Info: Redefining \em on input line 420.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: fixltx2e 2015/06/22 v2.0b fixes to LaTeX (obsolete)
+
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
@@ -328,6 +335,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip44
 )
+(/usr/share/texlive/texmf-dist/tex/latex/was/gensymb.sty
+Package: gensymb 2003/07/02 v1.0 (WaS)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count104
@@ -337,73 +347,80 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box27
 )
 (/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz.sty
-Package: circuitikz 2012/12/29 The CircuiTikz circuit drawing package version 0
-.3.0
+Package: circuitikz 2015/05/15 The CircuiTikz circuit drawing package version 0
+.4
 
-(/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/share/texmf/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-common.tex
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks22
-)
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box28
+\pgfutil@tempdima=\dimen117
+\pgfutil@tempdimb=\dimen118
 
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box28
 (/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 ))
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfrcs.code.tex
-Package: pgfrcs 2010/10/25 v2.10 (rcs-revision 1.24)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+Package: pgfrcs 2015/08/07 v3.0.1a (rcs-revision 1.31)
 ))
-Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
+Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
 
-(/usr/share/texmf/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/share/texmf/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2010/06/30 v2.10 (rcs-revision 1.37)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
 
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks23
 \pgfkeys@temptoks=\toks24
 
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
 \pgfkeys@tmptoks=\toks25
 ))
-\pgf@x=\dimen117
-\pgf@y=\dimen118
-\pgf@xa=\dimen119
-\pgf@ya=\dimen120
-\pgf@xb=\dimen121
-\pgf@yb=\dimen122
-\pgf@xc=\dimen123
-\pgf@yc=\dimen124
+\pgf@x=\dimen119
+\pgf@y=\dimen120
+\pgf@xa=\dimen121
+\pgf@ya=\dimen122
+\pgf@xb=\dimen123
+\pgf@yb=\dimen124
+\pgf@xc=\dimen125
+\pgf@yc=\dimen126
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
 \c@pgf@counta=\count105
 \c@pgf@countb=\count106
 \c@pgf@countc=\count107
 \c@pgf@countd=\count108
-
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgf.cfg
+\t@pgf@toka=\toks26
+\t@pgf@tokb=\toks27
+\t@pgf@tokc=\toks28
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
 )
-Package pgfsys Info: Driver file for pgf: pgfsys-pdftex.def on input line 900.
+Driver file for pgf: pgfsys-pdftex.def
 
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-File: pgfsys-pdftex.def 2009/05/22  (rcs-revision 1.26)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2014/10/11  (rcs-revision 1.35)
 
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
-File: pgfsys-common-pdf.def 2008/05/19  (rcs-revision 1.10)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
+File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
 )))
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
-File: pgfsyssoftpath.code.tex 2008/07/18  (rcs-revision 1.7)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
+File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
 \pgfsyssoftpath@smallbuffer@items=\count109
 \pgfsyssoftpath@bigbuffer@items=\count110
 )
-(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
 File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
-))
-(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
@@ -421,208 +438,229 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
 
-(/usr/share/texmf/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen125
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen127
 \pgfmath@count=\count111
 \pgfmath@box=\box29
-\pgfmath@toks=\toks26
-\pgfmath@stack@operand=\toks27
-\pgfmath@stack@operation=\toks28
+\pgfmath@toks=\toks29
+\pgfmath@stack@operand=\toks30
+\pgfmath@stack@operation=\toks31
 )
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.random.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)))
-(/usr/share/texmf/tex/generic/pgf/math/pgfmathfloat.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count112
 ))
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
-File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
-\pgf@picminx=\dimen126
-\pgf@picmaxx=\dimen127
-\pgf@picminy=\dimen128
-\pgf@picmaxy=\dimen129
-\pgf@pathminx=\dimen130
-\pgf@pathmaxx=\dimen131
-\pgf@pathminy=\dimen132
-\pgf@pathmaxy=\dimen133
-\pgf@xx=\dimen134
-\pgf@xy=\dimen135
-\pgf@yx=\dimen136
-\pgf@yy=\dimen137
-\pgf@zx=\dimen138
-\pgf@zy=\dimen139
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
+File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
+\pgf@picminx=\dimen128
+\pgf@picmaxx=\dimen129
+\pgf@picminy=\dimen130
+\pgf@picmaxy=\dimen131
+\pgf@pathminx=\dimen132
+\pgf@pathmaxx=\dimen133
+\pgf@pathminy=\dimen134
+\pgf@pathmaxy=\dimen135
+\pgf@xx=\dimen136
+\pgf@xy=\dimen137
+\pgf@yx=\dimen138
+\pgf@yy=\dimen139
+\pgf@zx=\dimen140
+\pgf@zy=\dimen141
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
-File: pgfcorepathconstruct.code.tex 2010/08/03  (rcs-revision 1.24)
-\pgf@path@lastx=\dimen140
-\pgf@path@lasty=\dimen141
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
+File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
+\pgf@path@lastx=\dimen142
+\pgf@path@lasty=\dimen143
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
-File: pgfcorepathusage.code.tex 2008/04/22  (rcs-revision 1.12)
-\pgf@shorten@end@additional=\dimen142
-\pgf@shorten@start@additional=\dimen143
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
+File: pgfcorepathusage.code.tex 2014/11/02  (rcs-revision 1.24)
+\pgf@shorten@end@additional=\dimen144
+\pgf@shorten@start@additional=\dimen145
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
-File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
+File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
 \pgfpic=\box30
 \pgf@hbox=\box31
 \pgf@layerbox@main=\box32
 \pgf@picture@serial@count=\count113
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
-File: pgfcoregraphicstate.code.tex 2008/04/22  (rcs-revision 1.9)
-\pgflinewidth=\dimen144
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
+File: pgfcoregraphicstate.code.tex 2014/11/02  (rcs-revision 1.12)
+\pgflinewidth=\dimen146
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
-File: pgfcoretransformations.code.tex 2009/06/10  (rcs-revision 1.11)
-\pgf@pt@x=\dimen145
-\pgf@pt@y=\dimen146
-\pgf@pt@temp=\dimen147
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
+File: pgfcoretransformations.code.tex 2015/08/07  (rcs-revision 1.20)
+\pgf@pt@x=\dimen147
+\pgf@pt@y=\dimen148
+\pgf@pt@temp=\dimen149
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
 File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
-File: pgfcorepathprocessing.code.tex 2008/10/09  (rcs-revision 1.8)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
+File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
-File: pgfcorearrows.code.tex 2008/04/23  (rcs-revision 1.11)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
+File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
+\pgfarrowsep=\dimen150
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
-File: pgfcoreshade.code.tex 2008/11/23  (rcs-revision 1.13)
-\pgf@max=\dimen148
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
+\pgf@max=\dimen151
 \pgf@sys@shading@range@num=\count114
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
-File: pgfcoreimage.code.tex 2010/03/25  (rcs-revision 1.16)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
 
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
-File: pgfcoreexternal.code.tex 2010/09/01  (rcs-revision 1.17)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
+File: pgfcoreexternal.code.tex 2014/07/09  (rcs-revision 1.21)
 \pgfexternal@startupbox=\box33
 ))
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
-File: pgfcorelayers.code.tex 2010/08/27  (rcs-revision 1.2)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
+File: pgfcorelayers.code.tex 2013/07/18  (rcs-revision 1.7)
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
-File: pgfcoretransparency.code.tex 2008/01/17  (rcs-revision 1.2)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
+File: pgfcoretransparency.code.tex 2013/09/30  (rcs-revision 1.5)
 )
-(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
-File: pgfcorepatterns.code.tex 2009/07/02  (rcs-revision 1.3)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
+File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
 )))
-(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-File: pgfmoduleshapes.code.tex 2010/09/09  (rcs-revision 1.13)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
 \pgfnodeparttextbox=\box34
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
 )
-(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleplot.code.tex
-File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty
+Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen152
+\pgf@nodesepend=\dimen153
 )
-(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
-Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen149
-\pgf@nodesepend=\dimen150
-)
-(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
-Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
-))
-(/usr/share/texmf/tex/latex/pgf/utilities/pgffor.sty
-(/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
-(/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen151
-\pgffor@skip=\dimen152
-\pgffor@stack=\toks29
-\pgffor@toks=\toks30
-))
-(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty
+Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
+)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
 
-(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
-File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen154
+\pgffor@skip=\dimen155
+\pgffor@stack=\toks32
+\pgffor@toks=\toks33
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex
+File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
 \pgf@plot@mark@count=\count115
-\pgfplotmarksize=\dimen153
+\pgfplotmarksize=\dimen156
 )
-\tikz@lastx=\dimen154
-\tikz@lasty=\dimen155
-\tikz@lastxsaved=\dimen156
-\tikz@lastysaved=\dimen157
-\tikzleveldistance=\dimen158
-\tikzsiblingdistance=\dimen159
+\tikz@lastx=\dimen157
+\tikz@lasty=\dimen158
+\tikz@lastxsaved=\dimen159
+\tikz@lastysaved=\dimen160
+\tikzleveldistance=\dimen161
+\tikzsiblingdistance=\dimen162
 \tikz@figbox=\box35
-\tikz@tempbox=\box36
+\tikz@figbox@bg=\box36
+\tikz@tempbox=\box37
+\tikz@tempbox@bg=\box38
 \tikztreelevel=\count116
 \tikznumberofchildren=\count117
 \tikznumberofcurrentchild=\count118
 \tikz@fig@count=\count119
 
-(/usr/share/texmf/tex/generic/pgf/modules/pgfmodulematrix.code.tex
-File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
 \pgfmatrixcurrentrow=\count120
 \pgfmatrixcurrentcolumn=\count121
 \pgf@matrix@numberofcolumns=\count122
 )
 \tikz@expandcount=\count123
 
-(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopat
-hs.code.tex
-File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.1a (rcs-revision 1.2)
 )))
-(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.
-code.tex
-File: tikzlibrarycalc.code.tex 2009/09/04 v2.10 (rcs-revision 1.6)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
 )
-(/usr/share/texmf/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.p
-athmorphing.code.tex
-(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen160
-\pgfdecoratedremainingdistance=\dimen161
-\pgfdecoratedinputsegmentcompleteddistance=\dimen162
-\pgfdecoratedinputsegmentremainingdistance=\dimen163
-\pgf@decorate@distancetomove=\dimen164
-\pgf@decorate@repeatstate=\count124
-\pgfdecorationsegmentamplitude=\dimen165
-\pgfdecorationsegmentlength=\dimen166
-))
-(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
-File: pgflibraryarrows.code.tex 2008/10/27 v2.10 (rcs-revision 1.9)
-\arrowsize=\dimen167
-)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz.code.tex
-\pgf@circ@Rlen=\dimen168
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.1a (rcs-revision 1.16)
+\arrowsize=\dimen163
+) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/circuitikz.code.tex
+\pgf@circ@Rlen=\dimen164
 
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircutils.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircmath.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircshapes.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircmonopoles.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircbipoles.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirctripoles.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircquadpoles.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirclabel.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircvoltage.sty)
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirccurrent.sty))
-(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz1.code.tex
-\pgf@circ@res@up=\dimen169
-\pgf@circ@res@down=\dimen170
-\pgf@circ@res@zero=\dimen171
-\pgf@circ@res@left=\dimen172
-\pgf@circ@res@right=\dimen173
-\pgf@circ@res@other=\dimen174
-\pgf@circ@res@step=\dimen175
-\pgfstartlinewidth=\dimen176
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircutils.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircmath.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircshapes.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircmonopoles.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircbipoles.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirctripoles.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircnpoles.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircinputarrows.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/circuitikz/circuitikz1.code.tex
+\pgf@circ@res@up=\dimen165
+\pgf@circ@res@down=\dimen166
+\pgf@circ@res@zero=\dimen167
+\pgf@circ@res@left=\dimen168
+\pgf@circ@res@right=\dimen169
+\pgf@circ@res@other=\dimen170
+\pgf@circ@res@step=\dimen171
+\pgf@circ@res@temp=\dimen172
+\pgfstartlinewidth=\dimen173
 ))
 (./ttester.aux (./00-preface.aux) (./10-features.aux) (./20-hardware.aux)
 (./30-manual.aux) (./40-configuring.aux) (./50-measurement.aux)
@@ -631,21 +669,21 @@ File: pgflibraryarrows.code.tex 2008/10/27 v2.10 (rcs-revision 1.9)
 (./60-generators.aux) (./70-errors.aux) (./80-special.aux) (./90-todo.aux))
 \openout1 = `ttester.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 21.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -655,86 +693,96 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count125
-\scratchdimen=\dimen177
-\scratchbox=\box37
-\nofMPsegments=\count126
-\nofMParguments=\count127
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count128
-\MPscratchDim=\dimen178
-\MPnumerator=\count129
-\makeMPintoPDFobject=\count130
-\everyMPtoPDFconversion=\toks32
+\scratchcounter=\count124
+\scratchdimen=\dimen174
+\scratchbox=\box39
+\nofMPsegments=\count125
+\nofMParguments=\count126
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count127
+\MPscratchDim=\dimen175
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
+\everyMPtoPDFconversion=\toks35
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 20.
+\AtBeginShipoutBox=\box40
+Package hyperref Info: Link coloring OFF on input line 21.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count131
+\c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
-LaTeX Info: Redefining \nameref on input line 20.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
 (./ttester.out) (./ttester.out)
 \@outlinefile=\write4
 \openout4 = `ttester.out'.
 
- ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 63.
+LaTeX Info: Redefining \celsius on input line 21.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 21.
 
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+
+
+Package gensymb Warning: Not defining \perthousand.
+
+LaTeX Info: Redefining \ohm on input line 21.
+Package gensymb Info: Using \Omega for \ohm on input line 21.
+
+Package gensymb Warning: Not defining \micro.
+
+ABD: EveryShipout initializing macros
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 64.
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 63.
-
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 64.
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 63.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 64.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 63.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 64.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 63.
+(Font)              <14.4> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 63.
+(Font)              <10> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 63.
+(Font)              <7> on input line 64.
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 63.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 64.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
  [1
 
 
@@ -766,13 +814,13 @@ l.40 ...Transistorerkennung}{70}{subsection.5.1.3}
 \openout5 = `ttester.toc'.
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
  [2]
 \openout2 = `00-preface.aux'.
 
@@ -790,13 +838,13 @@ Package babel Info: Redefining ngerman shorthand "~
 
 ])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
  [4]
 \openout2 = `10-features.aux'.
 
@@ -844,13 +892,13 @@ Overfull \hbox (3.8487pt too wide) in paragraph at lines 119--123
 
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 67.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 67.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 67.
+(babel)             in language  on input line 68.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 67.
+(babel)             in language  on input line 68.
  [8]
 \openout2 = `20-hardware.aux'.
 
@@ -874,7 +922,7 @@ Package epstopdf Info: Source file: <../FIG/ttester.eps>
 d-to.pdf ../FIG/ttester.eps>
 (epstopdf)             \includegraphics on input line 50.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/ttester-eps-converted-to.pdf, id=455, 768.8725pt x 404.51125pt>
+<../FIG/ttester-eps-converted-to.pdf, id=465, 768.8725pt x 404.51125pt>
 File: ../FIG/ttester-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ttester-eps-converted-to.pdf>
@@ -926,7 +974,7 @@ erted-to.pdf ../FIG/relay_addon.eps>
 (epstopdf)             \includegraphics on input line 148.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/relay_addon-eps-converted-to.pdf, id=480, 261.97874pt x 126.4725pt>
+<../FIG/relay_addon-eps-converted-to.pdf, id=490, 261.97874pt x 126.4725pt>
 File: ../FIG/relay_addon-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/relay_addon-eps-converted-to.pdf>
@@ -944,7 +992,7 @@ erted-to.pdf ../FIG/diode_addon.eps>
 (epstopdf)             \includegraphics on input line 154.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/diode_addon-eps-converted-to.pdf, id=481, 232.87pt x 124.465pt>
+<../FIG/diode_addon-eps-converted-to.pdf, id=491, 232.87pt x 124.465pt>
 File: ../FIG/diode_addon-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/diode_addon-eps-converted-to.pdf>
@@ -968,7 +1016,7 @@ onverted-to.pdf ../FIG/relay_um_addon.eps>
 (epstopdf)             \includegraphics on input line 167.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/relay_um_addon-eps-converted-to.pdf, id=483, 299.1175pt x 167.62625pt>
+<../FIG/relay_um_addon-eps-converted-to.pdf, id=493, 299.1175pt x 167.62625pt>
 File: ../FIG/relay_um_addon-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/relay_um_addon-eps-converted-to.pdf>
@@ -1000,7 +1048,7 @@ ted-to.pdf ../FIG/zener_exp.eps>
 (epstopdf)             \includegraphics on input line 185.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/zener_exp-eps-converted-to.pdf, id=512, 601.24625pt x 162.6075pt>
+<../FIG/zener_exp-eps-converted-to.pdf, id=522, 601.24625pt x 162.6075pt>
 File: ../FIG/zener_exp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/zener_exp-eps-converted-to.pdf>
@@ -1037,7 +1085,7 @@ converted-to.pdf ../FIG/Frequency_addon.eps>
 (epstopdf)             \includegraphics on input line 224.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Frequency_addon-eps-converted-to.pdf, id=534, 175.65625pt x 131.49126pt
+<../FIG/Frequency_addon-eps-converted-to.pdf, id=544, 175.65625pt x 131.49126pt
 >
 File: ../FIG/Frequency_addon-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/Frequency_addon-eps-converted-to.pdf>
@@ -1060,7 +1108,7 @@ df>
 (epstopdf)             \includegraphics on input line 241.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/rotary_extension-eps-converted-to.pdf, id=536, 126.4725pt x 195.73125pt
+<../FIG/rotary_extension-eps-converted-to.pdf, id=546, 126.4725pt x 195.73125pt
 >
 File: ../FIG/rotary_extension-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/rotary_extension-eps-converted-to.pdf>
@@ -1088,7 +1136,7 @@ onverted-to.pdf ../FIG/rotary_encoder.eps>
 (epstopdf)             \includegraphics on input line 255.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/rotary_encoder-eps-converted-to.pdf, id=552, 465.74pt x 364.36125pt>
+<../FIG/rotary_encoder-eps-converted-to.pdf, id=562, 465.74pt x 364.36125pt>
 File: ../FIG/rotary_encoder-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/rotary_encoder-eps-converted-to.pdf>
@@ -1117,7 +1165,7 @@ converted-to.pdf ../FIG/rotary_bouncing.eps>
 (epstopdf)             \includegraphics on input line 278.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/rotary_bouncing-eps-converted-to.pdf, id=573, 505.89pt x 230.8625pt>
+<../FIG/rotary_bouncing-eps-converted-to.pdf, id=583, 505.89pt x 230.8625pt>
 File: ../FIG/rotary_bouncing-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/rotary_bouncing-eps-converted-to.pdf>
@@ -1153,7 +1201,7 @@ ted-to.pdf ../FIG/ST7565lcd.eps>
 (epstopdf)             \includegraphics on input line 309.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7565lcd-eps-converted-to.pdf, id=587, 485.815pt x 394.47375pt>
+<../FIG/ST7565lcd-eps-converted-to.pdf, id=597, 485.815pt x 394.47375pt>
 File: ../FIG/ST7565lcd-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ST7565lcd-eps-converted-to.pdf>
@@ -1186,7 +1234,7 @@ erted-to.pdf ../FIG/SSD1306_I2C.eps>
 (epstopdf)             \includegraphics on input line 368.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/SSD1306_I2C-eps-converted-to.pdf, id=605, 632.3625pt x 188.705pt>
+<../FIG/SSD1306_I2C-eps-converted-to.pdf, id=615, 632.3625pt x 188.705pt>
 File: ../FIG/SSD1306_I2C-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/SSD1306_I2C-eps-converted-to.pdf>
@@ -1205,7 +1253,7 @@ converted-to.pdf ../FIG/ST7920interface.eps>
 (epstopdf)             \includegraphics on input line 385.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7920interface-eps-converted-to.pdf, id=607, 537.00626pt x 369.38pt>
+<../FIG/ST7920interface-eps-converted-to.pdf, id=617, 537.00626pt x 369.38pt>
 File: ../FIG/ST7920interface-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ST7920interface-eps-converted-to.pdf>
@@ -1237,7 +1285,7 @@ converted-to.pdf ../FIG/ST7108serial164.eps>
 (epstopdf)             \includegraphics on input line 428.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial164-eps-converted-to.pdf, id=622, 406.51875pt x 308.15125pt
+<../FIG/ST7108serial164-eps-converted-to.pdf, id=632, 406.51875pt x 308.15125pt
 >
 File: ../FIG/ST7108serial164-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial164-eps-converted-to.pdf>
@@ -1256,7 +1304,7 @@ converted-to.pdf ../FIG/ST7108serial595.eps>
 (epstopdf)             \includegraphics on input line 434.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial595-eps-converted-to.pdf, id=623, 406.51875pt x 308.15125pt
+<../FIG/ST7108serial595-eps-converted-to.pdf, id=633, 406.51875pt x 308.15125pt
 >
 File: ../FIG/ST7108serial595-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial595-eps-converted-to.pdf>
@@ -1292,7 +1340,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 557.
 
-<../PNG/Color_ILI9163_ST7735.jpg, id=663, 185.0112pt x 225.0006pt>
+<../PNG/Color_ILI9163_ST7735.jpg, id=673, 185.0112pt x 225.0006pt>
 File: ../PNG/Color_ILI9163_ST7735.jpg Graphic file (type jpg)
 
 <use ../PNG/Color_ILI9163_ST7735.jpg>
@@ -1308,7 +1356,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 571.
  [20]
-<../PNG/Color_PNP_ILI9163.jpg, id=671, 154.176pt x 158.994pt>
+<../PNG/Color_PNP_ILI9163.jpg, id=681, 154.176pt x 158.994pt>
 File: ../PNG/Color_PNP_ILI9163.jpg Graphic file (type jpg)
 
 <use ../PNG/Color_PNP_ILI9163.jpg>
@@ -1377,7 +1425,7 @@ ed-to.pdf ../FIG/Fish8840.eps>
 (epstopdf)             \includegraphics on input line 768.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Fish8840-eps-converted-to.pdf, id=692, 397.485pt x 202.7575pt>
+<../FIG/Fish8840-eps-converted-to.pdf, id=702, 397.485pt x 202.7575pt>
 File: ../FIG/Fish8840-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Fish8840-eps-converted-to.pdf>
@@ -1385,7 +1433,7 @@ Package pdftex.def Info: ../FIG/Fish8840-eps-converted-to.pdf used on input lin
 e 768.
 (pdftex.def)             Requested size: 341.43306pt x 174.17004pt.
 
-<../PNG/Fish8840patch.jpg, id=694, 143.81488pt x 107.80074pt>
+<../PNG/Fish8840patch.jpg, id=704, 143.81488pt x 107.80074pt>
 File: ../PNG/Fish8840patch.jpg Graphic file (type jpg)
 
 <use ../PNG/Fish8840patch.jpg>
@@ -1400,14 +1448,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 791.
  [25 <../FIG/Fish8840-eps-converted-to.pdf> <../PNG/Fish8840patch.jpg>]
-<../PNG/Fish8840Adapt1.jpg, id=710, 185.62996pt x 139.22247pt>
+<../PNG/Fish8840Adapt1.jpg, id=720, 185.62996pt x 139.22247pt>
 File: ../PNG/Fish8840Adapt1.jpg Graphic file (type jpg)
 
 <use ../PNG/Fish8840Adapt1.jpg>
 Package pdftex.def Info: ../PNG/Fish8840Adapt1.jpg used on input line 805.
 (pdftex.def)             Requested size: 256.0748pt x 192.05922pt.
 
-<../PNG/Fish8840Adapt2.jpg, id=711, 185.62996pt x 139.22247pt>
+<../PNG/Fish8840Adapt2.jpg, id=721, 185.62996pt x 139.22247pt>
 File: ../PNG/Fish8840Adapt2.jpg Graphic file (type jpg)
 
 <use ../PNG/Fish8840Adapt2.jpg>
@@ -1428,7 +1476,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 836--840
 
  []
 
-<../PNG/WEI_M8.JPG, id=713, 185.0112pt x 138.7584pt>
+<../PNG/WEI_M8.JPG, id=723, 185.0112pt x 138.7584pt>
 File: ../PNG/WEI_M8.JPG Graphic file (type jpg)
  <use ../PNG/WEI_M8.JPG>
 Package pdftex.def Info: ../PNG/WEI_M8.JPG used on input line 848.
@@ -1443,14 +1491,14 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 852.
 
 [26 <../PNG/Fish8840Adapt1.jpg> <../PNG/Fish8840Adapt2.jpg>]
-<../PNG/WEI_M8_D.JPG, id=721, 185.0112pt x 138.7584pt>
+<../PNG/WEI_M8_D.JPG, id=732, 185.0112pt x 138.7584pt>
 File: ../PNG/WEI_M8_D.JPG Graphic file (type jpg)
 
 <use ../PNG/WEI_M8_D.JPG>
 Package pdftex.def Info: ../PNG/WEI_M8_D.JPG used on input line 861.
 (pdftex.def)             Requested size: 256.0748pt x 192.06693pt.
 
-<../PNG/WEI_M8_L.JPG, id=722, 185.0112pt x 138.7584pt>
+<../PNG/WEI_M8_L.JPG, id=733, 185.0112pt x 138.7584pt>
 File: ../PNG/WEI_M8_L.JPG Graphic file (type jpg)
 
 <use ../PNG/WEI_M8_L.JPG>
@@ -1470,20 +1518,20 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 888.
 [27 <../PNG/WEI_M8.JPG> <../PNG/WEI_M8_D.JPG> <../PNG/WEI_M8_L.JPG>]
-<../PNG/WEI_M8_modified.JPG, id=730, 185.0112pt x 138.7584pt>
+<../PNG/WEI_M8_modified.JPG, id=740, 185.0112pt x 138.7584pt>
 File: ../PNG/WEI_M8_modified.JPG Graphic file (type jpg)
 
 <use ../PNG/WEI_M8_modified.JPG>
 Package pdftex.def Info: ../PNG/WEI_M8_modified.JPG used on input line 891.
 (pdftex.def)             Requested size: 341.43306pt x 256.08923pt.
 
-<../PNG/T4_front.JPG, id=732, 770.88pt x 578.16pt>
+<../PNG/T4_front.JPG, id=742, 770.88pt x 578.16pt>
 File: ../PNG/T4_front.JPG Graphic file (type jpg)
  <use ../PNG/T4_front.JPG>
 Package pdftex.def Info: ../PNG/T4_front.JPG used on input line 911.
 (pdftex.def)             Requested size: 256.0748pt x 192.05493pt.
 
-<../PNG/T4_front_noLCD.JPG, id=733, 770.88pt x 578.16pt>
+<../PNG/T4_front_noLCD.JPG, id=743, 770.88pt x 578.16pt>
 File: ../PNG/T4_front_noLCD.JPG Graphic file (type jpg)
 
 <use ../PNG/T4_front_noLCD.JPG>
@@ -1506,13 +1554,13 @@ Package babel Info: Redefining ngerman shorthand "~
 
 LaTeX Warning: Command \textgreater invalid in math mode on input line 927.
 
-<../PNG/T4_back.JPG, id=741, 770.88pt x 578.16pt>
+<../PNG/T4_back.JPG, id=751, 770.88pt x 578.16pt>
 File: ../PNG/T4_back.JPG Graphic file (type jpg)
  <use ../PNG/T4_back.JPG>
 Package pdftex.def Info: ../PNG/T4_back.JPG used on input line 937.
 (pdftex.def)             Requested size: 256.0748pt x 192.05493pt.
 
-<../PNG/T4_back_clips.JPG, id=742, 770.88pt x 578.16pt>
+<../PNG/T4_back_clips.JPG, id=752, 770.88pt x 578.16pt>
 File: ../PNG/T4_back_clips.JPG Graphic file (type jpg)
 
 <use ../PNG/T4_back_clips.JPG>
@@ -1536,14 +1584,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 973.
 [29 <../PNG/T4_front.JPG> <../PNG/T4_front_noLCD.JPG> <../PNG/T4_back.JPG> <../
-PNG/T4_back_clips.JPG>] <../PNG/Kit_ST7565a.jpg, id=750, 770.88pt x 578.16pt>
+PNG/T4_back_clips.JPG>] <../PNG/Kit_ST7565a.jpg, id=760, 770.88pt x 578.16pt>
 File: ../PNG/Kit_ST7565a.jpg Graphic file (type jpg)
 
 <use ../PNG/Kit_ST7565a.jpg>
 Package pdftex.def Info: ../PNG/Kit_ST7565a.jpg used on input line 977.
 (pdftex.def)             Requested size: 256.0748pt x 192.05493pt.
 
-<../PNG/Kit_ST7565b.jpg, id=751, 770.88pt x 578.16pt>
+<../PNG/Kit_ST7565b.jpg, id=761, 770.88pt x 578.16pt>
 File: ../PNG/Kit_ST7565b.jpg Graphic file (type jpg)
 
 <use ../PNG/Kit_ST7565b.jpg>
@@ -1554,14 +1602,14 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 975--986
 [][]   [] 
  []
 
-<../PNG/Kit_Color_a.jpg, id=753, 770.88pt x 578.16pt>
+<../PNG/Kit_Color_a.jpg, id=763, 770.88pt x 578.16pt>
 File: ../PNG/Kit_Color_a.jpg Graphic file (type jpg)
 
 <use ../PNG/Kit_Color_a.jpg>
 Package pdftex.def Info: ../PNG/Kit_Color_a.jpg used on input line 1002.
 (pdftex.def)             Requested size: 256.0748pt x 192.05493pt.
 
-<../PNG/Kit_Color_b.jpg, id=754, 770.88pt x 578.16pt>
+<../PNG/Kit_Color_b.jpg, id=764, 770.88pt x 578.16pt>
 File: ../PNG/Kit_Color_b.jpg Graphic file (type jpg)
 
 <use ../PNG/Kit_Color_b.jpg>
@@ -1615,7 +1663,7 @@ eps-converted-to.pdf ../FIG/ST7108serial164_644.eps>
 (epstopdf)             \includegraphics on input line 1093.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial164_644-eps-converted-to.pdf, id=775, 406.51875pt x 308.151
+<../FIG/ST7108serial164_644-eps-converted-to.pdf, id=785, 406.51875pt x 308.151
 25pt>
 File: ../FIG/ST7108serial164_644-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial164_644-eps-converted-to.pdf>
@@ -1634,7 +1682,7 @@ eps-converted-to.pdf ../FIG/ST7108serial595_644.eps>
 (epstopdf)             \includegraphics on input line 1099.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ST7108serial595_644-eps-converted-to.pdf, id=776, 406.51875pt x 308.151
+<../FIG/ST7108serial595_644-eps-converted-to.pdf, id=786, 406.51875pt x 308.151
 25pt>
 File: ../FIG/ST7108serial595_644-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ST7108serial595_644-eps-converted-to.pdf>
@@ -1656,7 +1704,7 @@ Package epstopdf Info: Source file: <../FIG/t644tester.eps>
 rted-to.pdf ../FIG/t644tester.eps>
 (epstopdf)             \includegraphics on input line 1110.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/t644tester-eps-converted-to.pdf, id=777, 828.09375pt x 964.60374pt>
+<../FIG/t644tester-eps-converted-to.pdf, id=787, 828.09375pt x 964.60374pt>
 File: ../FIG/t644tester-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/t644tester-eps-converted-to.pdf>
@@ -1697,7 +1745,7 @@ erted-to.pdf ../FIG/t1280tester.eps>
 (epstopdf)             \includegraphics on input line 1140.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/t1280tester-eps-converted-to.pdf, id=815, 571.13374pt x 489.83pt>
+<../FIG/t1280tester-eps-converted-to.pdf, id=825, 571.13374pt x 489.83pt>
 File: ../FIG/t1280tester-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/t1280tester-eps-converted-to.pdf>
@@ -1734,14 +1782,14 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 1261.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 1261.
- <../PNG/Notepad_open.png, id=843, 757.83125pt x 813.0375pt>
+ <../PNG/Notepad_open.png, id=853, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_open.png Graphic file (type png)
 
 <use ../PNG/Notepad_open.png>
 Package pdftex.def Info: ../PNG/Notepad_open.png used on input line 1273.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-<../PNG/Notepad_save.png, id=844, 757.83125pt x 813.0375pt>
+<../PNG/Notepad_save.png, id=854, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_save.png Graphic file (type png)
 
 <use ../PNG/Notepad_save.png>
@@ -1760,14 +1808,14 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 1285.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 1285.
-[36] <../PNG/Notepad_make.png, id=855, 757.83125pt x 813.0375pt>
+[36] <../PNG/Notepad_make.png, id=865, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_make.png Graphic file (type png)
 
 <use ../PNG/Notepad_make.png>
 Package pdftex.def Info: ../PNG/Notepad_make.png used on input line 1292.
 (pdftex.def)             Requested size: 256.0748pt x 274.72948pt.
 
-<../PNG/Notepad_program.png, id=856, 757.83125pt x 813.0375pt>
+<../PNG/Notepad_program.png, id=866, 757.83125pt x 813.0375pt>
 File: ../PNG/Notepad_program.png Graphic file (type png)
 
 <use ../PNG/Notepad_program.png>
@@ -1806,13 +1854,13 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 1373.
 [38])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 70.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 70.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 70.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 69.
+(babel)             in language  on input line 70.
  [39]
 \openout2 = `30-manual.aux'.
 
@@ -1881,6 +1929,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 96--101
 
 Underfull \hbox (badness 10000) in paragraph at lines 103--109
 
+ []
+
+
+Overfull \hbox (9.93416pt too wide) in paragraph at lines 128--137
+[]\T1/lmr/m/n/12 Mit dem [] Sym-bol wird der Tes-ter in ein rei-nes Kondensator
+-Meÿgerät
  []
 
 
@@ -2019,22 +2073,22 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 427.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
  [48]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 72.
  [49]
 \openout2 = `40-configuring.aux'.
 
@@ -2144,7 +2198,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 426.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 426.
- [58] <../PNG/AREF2_1V.png, id=968, 321.2pt x 234.8775pt>
+ [58] <../PNG/AREF2_1V.png, id=978, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2_1V.png Graphic file (type png)
 
 <use ../PNG/AREF2_1V.png>
@@ -2152,7 +2206,7 @@ Package pdftex.def Info: ../PNG/AREF2_1V.png used on input line 450.
 (pdftex.def)             Requested size: 236.15796pt x 172.6956pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 451.
- <../PNG/AREF2VCC.png, id=969, 321.2pt x 234.8775pt>
+ <../PNG/AREF2VCC.png, id=979, 321.2pt x 234.8775pt>
 File: ../PNG/AREF2VCC.png Graphic file (type png)
 
 <use ../PNG/AREF2VCC.png>
@@ -2187,13 +2241,13 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 571.
  [61])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 74.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 74.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 74.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 74.
  [62]
 \openout2 = `50-measurement.aux'.
 
@@ -2213,7 +2267,7 @@ Package epstopdf Info: Source file: <../FIG/port.eps>
 o.pdf ../FIG/port.eps>
 (epstopdf)             \includegraphics on input line 13.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/port-eps-converted-to.pdf, id=995, 224.84pt x 123.46124pt>
+<../FIG/port-eps-converted-to.pdf, id=1005, 224.84pt x 123.46124pt>
 File: ../FIG/port-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/port-eps-converted-to.pdf>
@@ -2231,7 +2285,7 @@ ed-to.pdf ../FIG/terminal.eps>
 (epstopdf)             \includegraphics on input line 23.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/terminal-eps-converted-to.pdf, id=997, 224.84pt x 152.57pt>
+<../FIG/terminal-eps-converted-to.pdf, id=1007, 224.84pt x 152.57pt>
 File: ../FIG/terminal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/terminal-eps-converted-to.pdf>
@@ -2252,13 +2306,13 @@ Package babel Info: Redefining ngerman shorthand "~
 
  <../FIG/port-eps-converted-to.pdf> <../FIG/terminal-eps-converted-to.pdf>])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 75.
+(babel)             in language  on input line 76.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 75.
+(babel)             in language  on input line 76.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 75.
+(babel)             in language  on input line 76.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 75.
+(babel)             in language  on input line 76.
  [64]
 \openout2 = `51-semicon.aux'.
 
@@ -2278,7 +2332,7 @@ Package epstopdf Info: Source file: <../FIG/JFETcd.eps>
 (epstopdf)             \includegraphics on input line 38.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/JFETcd-eps-converted-to.pdf, id=1027, 406.51875pt x 309.155pt>
+<../FIG/JFETcd-eps-converted-to.pdf, id=1037, 406.51875pt x 309.155pt>
 File: ../FIG/JFETcd-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/JFETcd-eps-converted-to.pdf>
@@ -2311,7 +2365,7 @@ Package epstopdf Info: Source file: <../FIG/PNPcc.eps>
 to.pdf ../FIG/PNPcc.eps>
 (epstopdf)             \includegraphics on input line 61.
 Package epstopdf Info: Output file is already uptodate.
- <../FIG/PNPcc-eps-converted-to.pdf, id=1047, 406.51875pt x 309.155pt>
+ <../FIG/PNPcc-eps-converted-to.pdf, id=1057, 406.51875pt x 309.155pt>
 File: ../FIG/PNPcc-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/PNPcc-eps-converted-to.pdf>
@@ -2337,7 +2391,7 @@ Package epstopdf Info: Source file: <../FIG/PNPce.eps>
 to.pdf ../FIG/PNPce.eps>
 (epstopdf)             \includegraphics on input line 91.
 Package epstopdf Info: Output file is already uptodate.
- <../FIG/PNPce-eps-converted-to.pdf, id=1067, 406.51875pt x 309.155pt>
+ <../FIG/PNPce-eps-converted-to.pdf, id=1077, 406.51875pt x 309.155pt>
 File: ../FIG/PNPce-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/PNPce-eps-converted-to.pdf>
@@ -2359,7 +2413,7 @@ to.pdf ../FIG/NPNce.eps>
 (epstopdf)             \includegraphics on input line 104.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/NPNce-eps-converted-to.pdf, id=1069, 406.51875pt x 309.155pt>
+<../FIG/NPNce-eps-converted-to.pdf, id=1079, 406.51875pt x 309.155pt>
 File: ../FIG/NPNce-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/NPNce-eps-converted-to.pdf>
@@ -2374,7 +2428,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 108.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 108.
- [67 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=1087, 321
+ [67 <../FIG/PNPce-eps-converted-to.pdf>] <../PNG/IRFU120gate.png, id=1097, 321
 .2pt x 234.8775pt>
 File: ../PNG/IRFU120gate.png Graphic file (type png)
 
@@ -2405,7 +2459,7 @@ rted-to.pdf ../FIG/CheckSemi1.eps>
 (epstopdf)             \includegraphics on input line 143.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi1-eps-converted-to.pdf, id=1104, 476.78125pt x 668.4975pt>
+<../FIG/CheckSemi1-eps-converted-to.pdf, id=1114, 476.78125pt x 668.4975pt>
 File: ../FIG/CheckSemi1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi1-eps-converted-to.pdf>
@@ -2432,7 +2486,7 @@ rted-to.pdf ../FIG/CheckSemi2.eps>
 (epstopdf)             \includegraphics on input line 150.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi2-eps-converted-to.pdf, id=1110, 504.88625pt x 711.65875pt>
+<../FIG/CheckSemi2-eps-converted-to.pdf, id=1120, 504.88625pt x 711.65875pt>
 File: ../FIG/CheckSemi2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi2-eps-converted-to.pdf>
@@ -2471,7 +2525,7 @@ rted-to.pdf ../FIG/CheckSemi3.eps>
 (epstopdf)             \includegraphics on input line 157.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/CheckSemi3-eps-converted-to.pdf, id=1134, 228.855pt x 515.9275pt>
+<../FIG/CheckSemi3-eps-converted-to.pdf, id=1144, 228.855pt x 515.9275pt>
 File: ../FIG/CheckSemi3-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/CheckSemi3-eps-converted-to.pdf>
@@ -2520,22 +2574,22 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 349.
  [74])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
  [75]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 77.
+(babel)             in language  on input line 78.
  [76]
 \openout2 = `52-resistors.aux'.
 
@@ -2560,7 +2614,7 @@ onverted-to.pdf ../FIG/ResistormessL1.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessL1-eps-converted-to.pdf, id=1172, 406.51875pt x 159.59625pt
+<../FIG/ResistormessL1-eps-converted-to.pdf, id=1182, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessL1-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessL1-eps-converted-to.pdf>
@@ -2579,7 +2633,7 @@ onverted-to.pdf ../FIG/ResistormessL2.eps>
 (epstopdf)             \includegraphics on input line 22.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessL2-eps-converted-to.pdf, id=1173, 406.51875pt x 159.59625pt
+<../FIG/ResistormessL2-eps-converted-to.pdf, id=1183, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessL2-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessL2-eps-converted-to.pdf>
@@ -2598,7 +2652,7 @@ Package epstopdf Info: Source file: <../GNU/RLvtot.eps>
 (epstopdf)             \includegraphics on input line 115.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvtot-eps-converted-to.pdf, id=1175, 361.35pt x 252.945pt>
+<../GNU/RLvtot-eps-converted-to.pdf, id=1185, 361.35pt x 252.945pt>
 File: ../GNU/RLvtot-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvtot-eps-converted-to.pdf>
@@ -2630,7 +2684,7 @@ Package epstopdf Info: Source file: <../GNU/RLvlow.eps>
 (epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvlow-eps-converted-to.pdf, id=1206, 361.35pt x 252.945pt>
+<../GNU/RLvlow-eps-converted-to.pdf, id=1216, 361.35pt x 252.945pt>
 File: ../GNU/RLvlow-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvlow-eps-converted-to.pdf>
@@ -2649,7 +2703,7 @@ d-to.pdf ../GNU/RLvhigh.eps>
 (epstopdf)             \includegraphics on input line 139.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RLvhigh-eps-converted-to.pdf, id=1207, 361.35pt x 252.945pt>
+<../GNU/RLvhigh-eps-converted-to.pdf, id=1217, 361.35pt x 252.945pt>
 File: ../GNU/RLvhigh-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RLvhigh-eps-converted-to.pdf>
@@ -2686,7 +2740,7 @@ onverted-to.pdf ../FIG/ResistormessH1.eps>
 (epstopdf)             \includegraphics on input line 112.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessH1-eps-converted-to.pdf, id=1220, 406.51875pt x 159.59625pt
+<../FIG/ResistormessH1-eps-converted-to.pdf, id=1230, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessH1-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessH1-eps-converted-to.pdf>
@@ -2705,7 +2759,7 @@ onverted-to.pdf ../FIG/ResistormessH2.eps>
 (epstopdf)             \includegraphics on input line 119.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ResistormessH2-eps-converted-to.pdf, id=1221, 406.51875pt x 159.59625pt
+<../FIG/ResistormessH2-eps-converted-to.pdf, id=1231, 406.51875pt x 159.59625pt
 >
 File: ../FIG/ResistormessH2-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/ResistormessH2-eps-converted-to.pdf>
@@ -2733,7 +2787,7 @@ Package epstopdf Info: Source file: <../GNU/RHv.eps>
 (epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/RHv-eps-converted-to.pdf, id=1244, 361.35pt x 252.945pt>
+<../GNU/RHv-eps-converted-to.pdf, id=1255, 361.35pt x 252.945pt>
 File: ../GNU/RHv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/RHv-eps-converted-to.pdf>
@@ -2766,7 +2820,7 @@ ed-to.pdf ../GNU/Mega8res.eps>
 (epstopdf)             \includegraphics on input line 131.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8res-eps-converted-to.pdf, id=1267, 361.35pt x 252.945pt>
+<../GNU/Mega8res-eps-converted-to.pdf, id=1277, 361.35pt x 252.945pt>
 File: ../GNU/Mega8res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8res-eps-converted-to.pdf>
@@ -2785,7 +2839,7 @@ ted-to.pdf ../GNU/Mega8Ares.eps>
 (epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Ares-eps-converted-to.pdf, id=1268, 361.35pt x 252.945pt>
+<../GNU/Mega8Ares-eps-converted-to.pdf, id=1278, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Ares-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Ares-eps-converted-to.pdf>
@@ -2804,7 +2858,7 @@ ted-to.pdf ../GNU/Mega8Lres.eps>
 (epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Lres-eps-converted-to.pdf, id=1269, 361.35pt x 252.945pt>
+<../GNU/Mega8Lres-eps-converted-to.pdf, id=1279, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Lres-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Lres-eps-converted-to.pdf>
@@ -2828,7 +2882,7 @@ rted-to.pdf ../GNU/Mega168res.eps>
 (epstopdf)             \includegraphics on input line 127.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168res-eps-converted-to.pdf, id=1270, 361.35pt x 252.945pt>
+<../GNU/Mega168res-eps-converted-to.pdf, id=1280, 361.35pt x 252.945pt>
 File: ../GNU/Mega168res-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168res-eps-converted-to.pdf>
@@ -2857,7 +2911,7 @@ erted-to.pdf ../GNU/m168res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168res_all-eps-converted-to.pdf, id=1286, 361.35pt x 252.945pt>
+<../GNU/m168res_all-eps-converted-to.pdf, id=1296, 361.35pt x 252.945pt>
 File: ../GNU/m168res_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168res_all-eps-converted-to.pdf>
@@ -2876,7 +2930,7 @@ verted-to.pdf ../GNU/m168ares_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168ares_all-eps-converted-to.pdf, id=1287, 361.35pt x 252.945pt>
+<../GNU/m168ares_all-eps-converted-to.pdf, id=1297, 361.35pt x 252.945pt>
 File: ../GNU/m168ares_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168ares_all-eps-converted-to.pdf>
@@ -2908,7 +2962,7 @@ verted-to.pdf ../GNU/m168pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m168pres_all-eps-converted-to.pdf, id=1297, 361.35pt x 252.945pt>
+<../GNU/m168pres_all-eps-converted-to.pdf, id=1307, 361.35pt x 252.945pt>
 File: ../GNU/m168pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m168pres_all-eps-converted-to.pdf>
@@ -2927,7 +2981,7 @@ erted-to.pdf ../GNU/m328res_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m328res_all-eps-converted-to.pdf, id=1298, 361.35pt x 252.945pt>
+<../GNU/m328res_all-eps-converted-to.pdf, id=1308, 361.35pt x 252.945pt>
 File: ../GNU/m328res_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m328res_all-eps-converted-to.pdf>
@@ -2946,7 +3000,7 @@ verted-to.pdf ../GNU/m328pres_all.eps>
 (epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/m328pres_all-eps-converted-to.pdf, id=1299, 361.35pt x 252.945pt>
+<../GNU/m328pres_all-eps-converted-to.pdf, id=1309, 361.35pt x 252.945pt>
 File: ../GNU/m328pres_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/m328pres_all-eps-converted-to.pdf>
@@ -2969,13 +3023,13 @@ Package babel Info: Redefining ngerman shorthand "~
 [83 <../GNU/m168res_all-eps-converted-to.pdf> <../GNU/m168ares_all-eps-converte
 d-to.pdf> <../GNU/m168pres_all-eps-converted-to.pdf>])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 78.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 78.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 78.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 78.
+(babel)             in language  on input line 79.
  [84 <../GNU/m328res_all-eps-converted-to.pdf> <../GNU/m328pres_all-eps-convert
 ed-to.pdf>]
 \openout2 = `53-capacitors.aux'.
@@ -3011,7 +3065,7 @@ Package epstopdf Info: Source file: <../FIG/Bigcap.eps>
 -to.pdf ../FIG/Bigcap.eps>
 (epstopdf)             \includegraphics on input line 41.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/Bigcap-eps-converted-to.pdf, id=1321, 406.51875pt x 546.04pt>
+<../FIG/Bigcap-eps-converted-to.pdf, id=1331, 406.51875pt x 546.04pt>
 File: ../FIG/Bigcap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Bigcap-eps-converted-to.pdf>
@@ -3050,7 +3104,7 @@ rted-to.pdf ../FIG/Cap_residV.eps>
 (epstopdf)             \includegraphics on input line 60.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Cap_residV-eps-converted-to.pdf, id=1345, 406.51875pt x 155.58125pt>
+<../FIG/Cap_residV-eps-converted-to.pdf, id=1355, 406.51875pt x 155.58125pt>
 File: ../FIG/Cap_residV-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_residV-eps-converted-to.pdf>
@@ -3058,14 +3112,14 @@ Package pdftex.def Info: ../FIG/Cap_residV-eps-converted-to.pdf used on input l
 ine 60.
 (pdftex.def)             Requested size: 406.51775pt x 155.58086pt.
 
-<../PNG/charge_229uF.png, id=1349, 321.2pt x 234.8775pt>
+<../PNG/charge_229uF.png, id=1359, 321.2pt x 234.8775pt>
 File: ../PNG/charge_229uF.png Graphic file (type png)
 
 <use ../PNG/charge_229uF.png>
 Package pdftex.def Info: ../PNG/charge_229uF.png used on input line 74.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/charge_5mF.png, id=1350, 321.2pt x 234.8775pt>
+<../PNG/charge_5mF.png, id=1360, 321.2pt x 234.8775pt>
 File: ../PNG/charge_5mF.png Graphic file (type png)
 
 <use ../PNG/charge_5mF.png>
@@ -3076,7 +3130,7 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 72--85
 [][]   [] 
  []
 
-<../PNG/charge_15mF.png, id=1351, 321.2pt x 234.8775pt>
+<../PNG/charge_15mF.png, id=1361, 321.2pt x 234.8775pt>
 File: ../PNG/charge_15mF.png Graphic file (type png)
 
 <use ../PNG/charge_15mF.png>
@@ -3116,7 +3170,7 @@ ed-to.pdf ../FIG/Comparat.eps>
 (epstopdf)             \includegraphics on input line 146.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Comparat-eps-converted-to.pdf, id=1381, 375.4025pt x 188.705pt>
+<../FIG/Comparat-eps-converted-to.pdf, id=1392, 375.4025pt x 188.705pt>
 File: ../FIG/Comparat-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Comparat-eps-converted-to.pdf>
@@ -3124,7 +3178,7 @@ Package pdftex.def Info: ../FIG/Comparat-eps-converted-to.pdf used on input lin
 e 146.
 (pdftex.def)             Requested size: 375.40158pt x 188.70453pt.
 
-<../PNG/charge_22uF.png, id=1382, 321.2pt x 234.8775pt>
+<../PNG/charge_22uF.png, id=1393, 321.2pt x 234.8775pt>
 File: ../PNG/charge_22uF.png Graphic file (type png)
 
 <use ../PNG/charge_22uF.png>
@@ -3154,7 +3208,7 @@ ed-to.pdf ../FIG/sampling.eps>
 (epstopdf)             \includegraphics on input line 192.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/sampling-eps-converted-to.pdf, id=1404, 595.22375pt x 72.27pt>
+<../FIG/sampling-eps-converted-to.pdf, id=1414, 595.22375pt x 72.27pt>
 File: ../FIG/sampling-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/sampling-eps-converted-to.pdf>
@@ -3185,7 +3239,7 @@ ted-to.pdf ../FIG/Cap_equiv.eps>
 (epstopdf)             \includegraphics on input line 233.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Cap_equiv-eps-converted-to.pdf, id=1418, 94.3525pt x 58.2175pt>
+<../FIG/Cap_equiv-eps-converted-to.pdf, id=1428, 94.3525pt x 58.2175pt>
 File: ../FIG/Cap_equiv-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_equiv-eps-converted-to.pdf>
@@ -3211,7 +3265,7 @@ erted-to.pdf ../GNU/Cap_FC_data.eps>
 (epstopdf)             \includegraphics on input line 115.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cap_FC_data-eps-converted-to.pdf, id=1422, 361.35pt x 252.945pt>
+<../GNU/Cap_FC_data-eps-converted-to.pdf, id=1432, 361.35pt x 252.945pt>
 File: ../GNU/Cap_FC_data-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cap_FC_data-eps-converted-to.pdf>
@@ -3239,7 +3293,7 @@ erted-to.pdf ../GNU/Cap_FR_data.eps>
 (epstopdf)             \includegraphics on input line 108.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cap_FR_data-eps-converted-to.pdf, id=1437, 361.35pt x 252.945pt>
+<../GNU/Cap_FR_data-eps-converted-to.pdf, id=1447, 361.35pt x 252.945pt>
 File: ../GNU/Cap_FR_data-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cap_FR_data-eps-converted-to.pdf>
@@ -3259,7 +3313,7 @@ onverted-to.pdf ../GNU/Cap_FC_FR_data.eps>
 (epstopdf)             \includegraphics on input line 105.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cap_FC_FR_data-eps-converted-to.pdf, id=1438, 361.35pt x 252.945pt>
+<../GNU/Cap_FC_FR_data-eps-converted-to.pdf, id=1448, 361.35pt x 252.945pt>
 File: ../GNU/Cap_FC_FR_data-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cap_FC_FR_data-eps-converted-to.pdf>
@@ -3301,7 +3355,7 @@ d-to.pdf ../FIG/Cap_esr.eps>
 (epstopdf)             \includegraphics on input line 344.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Cap_esr-eps-converted-to.pdf, id=1457, 406.51875pt x 360.34625pt>
+<../FIG/Cap_esr-eps-converted-to.pdf, id=1467, 406.51875pt x 360.34625pt>
 File: ../FIG/Cap_esr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_esr-eps-converted-to.pdf>
@@ -3317,13 +3371,13 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 348.
  [94]
-<../PNG/ESR_4uF.png, id=1465, 321.2pt x 234.8775pt>
+<../PNG/ESR_4uF.png, id=1475, 321.2pt x 234.8775pt>
 File: ../PNG/ESR_4uF.png Graphic file (type png)
  <use ../PNG/ESR_4uF.png>
 Package pdftex.def Info: ../PNG/ESR_4uF.png used on input line 375.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/ESR4uF6R8.png, id=1466, 321.2pt x 234.8775pt>
+<../PNG/ESR4uF6R8.png, id=1476, 321.2pt x 234.8775pt>
 File: ../PNG/ESR4uF6R8.png Graphic file (type png)
 
 <use ../PNG/ESR4uF6R8.png>
@@ -3343,14 +3397,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 387.
 [95 <../FIG/Cap_esr-eps-converted-to.pdf>]
-<../PNG/ESR_2uF_pin2GND.png, id=1484, 321.2pt x 234.8775pt>
+<../PNG/ESR_2uF_pin2GND.png, id=1494, 321.2pt x 234.8775pt>
 File: ../PNG/ESR_2uF_pin2GND.png Graphic file (type png)
 
 <use ../PNG/ESR_2uF_pin2GND.png>
 Package pdftex.def Info: ../PNG/ESR_2uF_pin2GND.png used on input line 391.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/ESR_2uF_pin2pin.png, id=1485, 321.2pt x 234.8775pt>
+<../PNG/ESR_2uF_pin2pin.png, id=1495, 321.2pt x 234.8775pt>
 File: ../PNG/ESR_2uF_pin2pin.png Graphic file (type png)
 
 <use ../PNG/ESR_2uF_pin2pin.png>
@@ -3382,7 +3436,7 @@ o.pdf ../GNU/Cesr.eps>
 (epstopdf)             \includegraphics on input line 122.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cesr-eps-converted-to.pdf, id=1499, 361.35pt x 252.945pt>
+<../GNU/Cesr-eps-converted-to.pdf, id=1509, 361.35pt x 252.945pt>
 File: ../GNU/Cesr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cesr-eps-converted-to.pdf>
@@ -3414,7 +3468,7 @@ f>
 converted-to.pdf ../FIG/Cap_esr2_timing.eps>
 (epstopdf)             \includegraphics on input line 463.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/Cap_esr2_timing-eps-converted-to.pdf, id=1511, 682.55pt x 142.5325pt>
+<../FIG/Cap_esr2_timing-eps-converted-to.pdf, id=1521, 682.55pt x 142.5325pt>
 File: ../FIG/Cap_esr2_timing-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_esr2_timing-eps-converted-to.pdf>
@@ -3432,7 +3486,7 @@ ed-to.pdf ../FIG/Cap_esr2.eps>
 (epstopdf)             \includegraphics on input line 470.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Cap_esr2-eps-converted-to.pdf, id=1512, 406.51875pt x 685.56125pt>
+<../FIG/Cap_esr2-eps-converted-to.pdf, id=1522, 406.51875pt x 685.56125pt>
 File: ../FIG/Cap_esr2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Cap_esr2-eps-converted-to.pdf>
@@ -3457,14 +3511,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 492.
  [99 <../FIG/Cap_esr2-eps-converted-to.pdf>]
-<../PNG/NewEsr10uF0R0.png, id=1541, 321.2pt x 234.8775pt>
+<../PNG/NewEsr10uF0R0.png, id=1551, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr10uF0R0.png Graphic file (type png)
 
 <use ../PNG/NewEsr10uF0R0.png>
 Package pdftex.def Info: ../PNG/NewEsr10uF0R0.png used on input line 496.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/NewEsr10uF2R7.png, id=1542, 321.2pt x 234.8775pt>
+<../PNG/NewEsr10uF2R7.png, id=1552, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr10uF2R7.png Graphic file (type png)
 
 <use ../PNG/NewEsr10uF2R7.png>
@@ -3475,14 +3529,14 @@ Overfull \hbox (7.83318pt too wide) in paragraph at lines 494--505
 [][]   [] 
  []
 
-<../PNG/NewEsr2u2F0R0.png, id=1544, 321.2pt x 234.8775pt>
+<../PNG/NewEsr2u2F0R0.png, id=1554, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr2u2F0R0.png Graphic file (type png)
 
 <use ../PNG/NewEsr2u2F0R0.png>
 Package pdftex.def Info: ../PNG/NewEsr2u2F0R0.png used on input line 517.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/NewEsr2u2F2R7.png, id=1545, 321.2pt x 234.8775pt>
+<../PNG/NewEsr2u2F2R7.png, id=1555, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr2u2F2R7.png Graphic file (type png)
 
 <use ../PNG/NewEsr2u2F2R7.png>
@@ -3502,14 +3556,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 529.
 [100 <../PNG/NewEsr10uF0R0.png> <../PNG/NewEsr10uF2R7.png>]
-<../PNG/NewEsr2u2F0R0zoom.png, id=1556, 321.2pt x 234.8775pt>
+<../PNG/NewEsr2u2F0R0zoom.png, id=1566, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr2u2F0R0zoom.png Graphic file (type png)
 
 <use ../PNG/NewEsr2u2F0R0zoom.png>
 Package pdftex.def Info: ../PNG/NewEsr2u2F0R0zoom.png used on input line 537.
 (pdftex.def)             Requested size: 256.0748pt x 187.26073pt.
 
-<../PNG/NewEsr2u2F2R7zoom.png, id=1557, 321.2pt x 234.8775pt>
+<../PNG/NewEsr2u2F2R7zoom.png, id=1567, 321.2pt x 234.8775pt>
 File: ../PNG/NewEsr2u2F2R7zoom.png Graphic file (type png)
 
 <use ../PNG/NewEsr2u2F2R7zoom.png>
@@ -3532,7 +3586,7 @@ to.pdf ../GNU/Cesr2.eps>
 (epstopdf)             \includegraphics on input line 114.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cesr2-eps-converted-to.pdf, id=1560, 361.35pt x 252.945pt>
+<../GNU/Cesr2-eps-converted-to.pdf, id=1570, 361.35pt x 252.945pt>
 File: ../GNU/Cesr2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cesr2-eps-converted-to.pdf>
@@ -3561,7 +3615,7 @@ ed-to.pdf ../GNU/Elco_esr.eps>
 (epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Elco_esr-eps-converted-to.pdf, id=1572, 361.35pt x 252.945pt>
+<../GNU/Elco_esr-eps-converted-to.pdf, id=1582, 361.35pt x 252.945pt>
 File: ../GNU/Elco_esr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Elco_esr-eps-converted-to.pdf>
@@ -3580,7 +3634,7 @@ d-to.pdf ../GNU/res_esr.eps>
 (epstopdf)             \includegraphics on input line 127.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/res_esr-eps-converted-to.pdf, id=1574, 361.35pt x 252.945pt>
+<../GNU/res_esr-eps-converted-to.pdf, id=1584, 361.35pt x 252.945pt>
 File: ../GNU/res_esr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/res_esr-eps-converted-to.pdf>
@@ -3609,7 +3663,7 @@ ed-to.pdf ../GNU/Cesr_22n.eps>
 (epstopdf)             \includegraphics on input line 116.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cesr_22n-eps-converted-to.pdf, id=1587, 361.35pt x 252.945pt>
+<../GNU/Cesr_22n-eps-converted-to.pdf, id=1597, 361.35pt x 252.945pt>
 File: ../GNU/Cesr_22n-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cesr_22n-eps-converted-to.pdf>
@@ -3628,7 +3682,7 @@ verted-to.pdf ../GNU/Cesr_22n_low.eps>
 (epstopdf)             \includegraphics on input line 106.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Cesr_22n_low-eps-converted-to.pdf, id=1588, 361.35pt x 252.945pt>
+<../GNU/Cesr_22n_low-eps-converted-to.pdf, id=1598, 361.35pt x 252.945pt>
 File: ../GNU/Cesr_22n_low-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Cesr_22n_low-eps-converted-to.pdf>
@@ -3691,7 +3745,7 @@ Package epstopdf Info: Source file: <../GNU/Mega8cap.eps>
 ed-to.pdf ../GNU/Mega8cap.eps>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
-<../GNU/Mega8cap-eps-converted-to.pdf, id=1613, 361.35pt x 252.945pt>
+<../GNU/Mega8cap-eps-converted-to.pdf, id=1623, 361.35pt x 252.945pt>
 File: ../GNU/Mega8cap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8cap-eps-converted-to.pdf>
@@ -3710,7 +3764,7 @@ ted-to.pdf ../GNU/Mega8Acap.eps>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Acap-eps-converted-to.pdf, id=1614, 361.35pt x 252.945pt>
+<../GNU/Mega8Acap-eps-converted-to.pdf, id=1624, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Acap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Acap-eps-converted-to.pdf>
@@ -3729,7 +3783,7 @@ ted-to.pdf ../GNU/Mega8Lcap.eps>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega8Lcap-eps-converted-to.pdf, id=1615, 361.35pt x 252.945pt>
+<../GNU/Mega8Lcap-eps-converted-to.pdf, id=1625, 361.35pt x 252.945pt>
 File: ../GNU/Mega8Lcap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega8Lcap-eps-converted-to.pdf>
@@ -3753,7 +3807,7 @@ rted-to.pdf ../GNU/Mega168cap.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168cap-eps-converted-to.pdf, id=1616, 361.35pt x 252.945pt>
+<../GNU/Mega168cap-eps-converted-to.pdf, id=1626, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168cap-eps-converted-to.pdf>
@@ -3782,7 +3836,7 @@ rted-to.pdf ../GNU/capcompare.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/capcompare-eps-converted-to.pdf, id=1631, 361.35pt x 252.945pt>
+<../GNU/capcompare-eps-converted-to.pdf, id=1641, 361.35pt x 252.945pt>
 File: ../GNU/capcompare-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/capcompare-eps-converted-to.pdf>
@@ -3811,7 +3865,7 @@ rted-to.pdf ../GNU/Mega168all.eps>
 (epstopdf)             \includegraphics on input line 132.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168all-eps-converted-to.pdf, id=1646, 361.35pt x 252.945pt>
+<../GNU/Mega168all-eps-converted-to.pdf, id=1656, 361.35pt x 252.945pt>
 File: ../GNU/Mega168all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168all-eps-converted-to.pdf>
@@ -3830,7 +3884,7 @@ erted-to.pdf ../GNU/Mega168Aall.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168Aall-eps-converted-to.pdf, id=1647, 361.35pt x 252.945pt>
+<../GNU/Mega168Aall-eps-converted-to.pdf, id=1657, 361.35pt x 252.945pt>
 File: ../GNU/Mega168Aall-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168Aall-eps-converted-to.pdf>
@@ -3854,7 +3908,7 @@ verted-to.pdf ../GNU/Mega168PAall.eps>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168PAall-eps-converted-to.pdf, id=1648, 361.35pt x 252.945pt>
+<../GNU/Mega168PAall-eps-converted-to.pdf, id=1658, 361.35pt x 252.945pt>
 File: ../GNU/Mega168PAall-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168PAall-eps-converted-to.pdf>
@@ -3873,7 +3927,7 @@ rted-to.pdf ../GNU/Mega328all.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega328all-eps-converted-to.pdf, id=1649, 361.35pt x 252.945pt>
+<../GNU/Mega328all-eps-converted-to.pdf, id=1659, 361.35pt x 252.945pt>
 File: ../GNU/Mega328all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega328all-eps-converted-to.pdf>
@@ -3892,7 +3946,7 @@ erted-to.pdf ../GNU/Mega328Pall.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega328Pall-eps-converted-to.pdf, id=1650, 361.35pt x 252.945pt>
+<../GNU/Mega328Pall-eps-converted-to.pdf, id=1660, 361.35pt x 252.945pt>
 File: ../GNU/Mega328Pall-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega328Pall-eps-converted-to.pdf>
@@ -3925,7 +3979,7 @@ Package epstopdf Info: Source file: <../GNU/Mega168cap_opt.eps>
 onverted-to.pdf ../GNU/Mega168cap_opt.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
-<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=1667, 361.35pt x 252.945pt>
+<../GNU/Mega168cap_opt-eps-converted-to.pdf, id=1677, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cap_opt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168cap_opt-eps-converted-to.pdf>
@@ -3961,7 +4015,7 @@ df>
 (epstopdf)             \includegraphics on input line 123.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=1684, 361.35pt x 252.945pt>
+<../GNU/ComparatorAdjust-eps-converted-to.pdf, id=1694, 361.35pt x 252.945pt>
 File: ../GNU/ComparatorAdjust-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/ComparatorAdjust-eps-converted-to.pdf>
@@ -3989,7 +4043,7 @@ rted-to.pdf ../GNU/Mega168cal.eps>
 (epstopdf)             \includegraphics on input line 132.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168cal-eps-converted-to.pdf, id=1697, 361.35pt x 252.945pt>
+<../GNU/Mega168cal-eps-converted-to.pdf, id=1707, 361.35pt x 252.945pt>
 File: ../GNU/Mega168cal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168cal-eps-converted-to.pdf>
@@ -4008,7 +4062,7 @@ erted-to.pdf ../GNU/Mega168Acal.eps>
 (epstopdf)             \includegraphics on input line 132.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168Acal-eps-converted-to.pdf, id=1698, 361.35pt x 252.945pt>
+<../GNU/Mega168Acal-eps-converted-to.pdf, id=1708, 361.35pt x 252.945pt>
 File: ../GNU/Mega168Acal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168Acal-eps-converted-to.pdf>
@@ -4032,7 +4086,7 @@ verted-to.pdf ../GNU/Mega168PAcal.eps>
 (epstopdf)             \includegraphics on input line 132.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega168PAcal-eps-converted-to.pdf, id=1699, 361.35pt x 252.945pt>
+<../GNU/Mega168PAcal-eps-converted-to.pdf, id=1709, 361.35pt x 252.945pt>
 File: ../GNU/Mega168PAcal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega168PAcal-eps-converted-to.pdf>
@@ -4062,7 +4116,7 @@ rted-to.pdf ../GNU/Mega328cal.eps>
 (epstopdf)             \includegraphics on input line 132.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega328cal-eps-converted-to.pdf, id=1713, 361.35pt x 252.945pt>
+<../GNU/Mega328cal-eps-converted-to.pdf, id=1723, 361.35pt x 252.945pt>
 File: ../GNU/Mega328cal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega328cal-eps-converted-to.pdf>
@@ -4081,7 +4135,7 @@ erted-to.pdf ../GNU/Mega328Pcal.eps>
 (epstopdf)             \includegraphics on input line 124.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega328Pcal-eps-converted-to.pdf, id=1714, 361.35pt x 252.945pt>
+<../GNU/Mega328Pcal-eps-converted-to.pdf, id=1724, 361.35pt x 252.945pt>
 File: ../GNU/Mega328Pcal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega328Pcal-eps-converted-to.pdf>
@@ -4105,7 +4159,7 @@ ed-to.pdf ../GNU/MegaAuto.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/MegaAuto-eps-converted-to.pdf, id=1716, 361.35pt x 252.945pt>
+<../GNU/MegaAuto-eps-converted-to.pdf, id=1726, 361.35pt x 252.945pt>
 File: ../GNU/MegaAuto-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/MegaAuto-eps-converted-to.pdf>
@@ -4134,7 +4188,7 @@ ed-to.pdf ../GNU/Mega1284.eps>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/Mega1284-eps-converted-to.pdf, id=1729, 361.35pt x 252.945pt>
+<../GNU/Mega1284-eps-converted-to.pdf, id=1739, 361.35pt x 252.945pt>
 File: ../GNU/Mega1284-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/Mega1284-eps-converted-to.pdf>
@@ -4143,13 +4197,13 @@ e 128.
 (pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
 ))
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 79.
+(babel)             in language  on input line 80.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 79.
+(babel)             in language  on input line 80.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 79.
+(babel)             in language  on input line 80.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 79.
+(babel)             in language  on input line 80.
  [113 <../GNU/MegaAuto-eps-converted-to.pdf> <../GNU/Mega1284-eps-converted-to.
 pdf>]
 \openout2 = `54-inductors.aux'.
@@ -4170,7 +4224,7 @@ rted-to.pdf ../FIG/Inductance.eps>
 (epstopdf)             \includegraphics on input line 26.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Inductance-eps-converted-to.pdf, id=1740, 375.4025pt x 222.8325pt>
+<../FIG/Inductance-eps-converted-to.pdf, id=1750, 375.4025pt x 222.8325pt>
 File: ../FIG/Inductance-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Inductance-eps-converted-to.pdf>
@@ -4205,7 +4259,7 @@ rted-to.pdf ../GNU/induct328p.eps>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/induct328p-eps-converted-to.pdf, id=1757, 361.35pt x 252.945pt>
+<../GNU/induct328p-eps-converted-to.pdf, id=1767, 361.35pt x 252.945pt>
 File: ../GNU/induct328p-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/induct328p-eps-converted-to.pdf>
@@ -4246,7 +4300,7 @@ rted-to.pdf ../GNU/W12compare.eps>
 (epstopdf)             \includegraphics on input line 113.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/W12compare-eps-converted-to.pdf, id=1772, 361.35pt x 252.945pt>
+<../GNU/W12compare-eps-converted-to.pdf, id=1782, 361.35pt x 252.945pt>
 File: ../GNU/W12compare-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/W12compare-eps-converted-to.pdf>
@@ -4264,13 +4318,13 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 195.
  [117])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 80.
+(babel)             in language  on input line 81.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 80.
+(babel)             in language  on input line 81.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 80.
+(babel)             in language  on input line 81.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 80.
+(babel)             in language  on input line 81.
  [118 <../GNU/W12compare-eps-converted-to.pdf>]
 \openout2 = `55-selftest.aux'.
 
@@ -4302,7 +4356,7 @@ to.pdf ../FIG/Test2.eps>
 (epstopdf)             \includegraphics on input line 70.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Test2-eps-converted-to.pdf, id=1792, 611.28375pt x 166.6225pt>
+<../FIG/Test2-eps-converted-to.pdf, id=1802, 611.28375pt x 166.6225pt>
 File: ../FIG/Test2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Test2-eps-converted-to.pdf>
@@ -4320,7 +4374,7 @@ to.pdf ../FIG/Test7.eps>
 (epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/Test7-eps-converted-to.pdf, id=1794, 375.4025pt x 166.6225pt>
+<../FIG/Test7-eps-converted-to.pdf, id=1804, 375.4025pt x 166.6225pt>
 File: ../FIG/Test7-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Test7-eps-converted-to.pdf>
@@ -4346,7 +4400,7 @@ Package epstopdf Info: Source file: <../FIG/Test8.eps>
 to.pdf ../FIG/Test8.eps>
 (epstopdf)             \includegraphics on input line 125.
 Package epstopdf Info: Output file is already uptodate.
- <../FIG/Test8-eps-converted-to.pdf, id=1820, 373.395pt x 166.6225pt>
+ <../FIG/Test8-eps-converted-to.pdf, id=1830, 373.395pt x 166.6225pt>
 File: ../FIG/Test8-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/Test8-eps-converted-to.pdf>
@@ -4362,7 +4416,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 149.
  [121 <../FIG/Test7-eps-converted-to.pdf> <../FIG/Test8-eps-converted-to.pdf>]
-<../PNG/Frequency50.png, id=1851, 321.2pt x 234.8775pt>
+<../PNG/Frequency50.png, id=1861, 321.2pt x 234.8775pt>
 File: ../PNG/Frequency50.png Graphic file (type png)
 
 <use ../PNG/Frequency50.png>
@@ -4393,7 +4447,7 @@ ed-to.pdf ../GNU/SelfTref.eps>
 (epstopdf)             \includegraphics on input line 134.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTref-eps-converted-to.pdf, id=1869, 361.35pt x 252.945pt>
+<../GNU/SelfTref-eps-converted-to.pdf, id=1879, 361.35pt x 252.945pt>
 File: ../GNU/SelfTref-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTref-eps-converted-to.pdf>
@@ -4422,7 +4476,7 @@ ted-to.pdf ../GNU/SelfTMitL.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTMitL-eps-converted-to.pdf, id=1882, 361.35pt x 252.945pt>
+<../GNU/SelfTMitL-eps-converted-to.pdf, id=1892, 361.35pt x 252.945pt>
 File: ../GNU/SelfTMitL-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTMitL-eps-converted-to.pdf>
@@ -4441,7 +4495,7 @@ ted-to.pdf ../GNU/SelfTMitH.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTMitH-eps-converted-to.pdf, id=1883, 361.35pt x 252.945pt>
+<../GNU/SelfTMitH-eps-converted-to.pdf, id=1893, 361.35pt x 252.945pt>
 File: ../GNU/SelfTMitH-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTMitH-eps-converted-to.pdf>
@@ -4465,7 +4519,7 @@ verted-to.pdf ../GNU/SelfTbottomH.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTbottomH-eps-converted-to.pdf, id=1884, 361.35pt x 252.945pt>
+<../GNU/SelfTbottomH-eps-converted-to.pdf, id=1894, 361.35pt x 252.945pt>
 File: ../GNU/SelfTbottomH-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTbottomH-eps-converted-to.pdf>
@@ -4484,7 +4538,7 @@ ted-to.pdf ../GNU/SelfTtopH.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTtopH-eps-converted-to.pdf, id=1885, 361.35pt x 252.945pt>
+<../GNU/SelfTtopH-eps-converted-to.pdf, id=1895, 361.35pt x 252.945pt>
 File: ../GNU/SelfTtopH-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTtopH-eps-converted-to.pdf>
@@ -4517,7 +4571,7 @@ ted-to.pdf ../GNU/SelfTRiLo.eps>
 (epstopdf)             \includegraphics on input line 142.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTRiLo-eps-converted-to.pdf, id=1896, 361.35pt x 252.945pt>
+<../GNU/SelfTRiLo-eps-converted-to.pdf, id=1906, 361.35pt x 252.945pt>
 File: ../GNU/SelfTRiLo-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTRiLo-eps-converted-to.pdf>
@@ -4536,7 +4590,7 @@ ted-to.pdf ../GNU/SelfTRiHi.eps>
 (epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTRiHi-eps-converted-to.pdf, id=1897, 361.35pt x 252.945pt>
+<../GNU/SelfTRiHi-eps-converted-to.pdf, id=1907, 361.35pt x 252.945pt>
 File: ../GNU/SelfTRiHi-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTRiHi-eps-converted-to.pdf>
@@ -4560,7 +4614,7 @@ ted-to.pdf ../GNU/SelfTcap0.eps>
 (epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTcap0-eps-converted-to.pdf, id=1898, 361.35pt x 252.945pt>
+<../GNU/SelfTcap0-eps-converted-to.pdf, id=1908, 361.35pt x 252.945pt>
 File: ../GNU/SelfTcap0-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTcap0-eps-converted-to.pdf>
@@ -4579,7 +4633,7 @@ verted-to.pdf ../GNU/SelfTrefKorr.eps>
 (epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTrefKorr-eps-converted-to.pdf, id=1899, 361.35pt x 252.945pt>
+<../GNU/SelfTrefKorr-eps-converted-to.pdf, id=1909, 361.35pt x 252.945pt>
 File: ../GNU/SelfTrefKorr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTrefKorr-eps-converted-to.pdf>
@@ -4609,7 +4663,7 @@ verted-to.pdf ../GNU/SelfTrefDiff.eps>
 (epstopdf)             \includegraphics on input line 140.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/SelfTrefDiff-eps-converted-to.pdf, id=1916, 361.35pt x 252.945pt>
+<../GNU/SelfTrefDiff-eps-converted-to.pdf, id=1926, 361.35pt x 252.945pt>
 File: ../GNU/SelfTrefDiff-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/SelfTrefDiff-eps-converted-to.pdf>
@@ -4618,13 +4672,13 @@ Package pdftex.def Info: ../GNU/SelfTrefDiff-eps-converted-to.pdf used on input
 (pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
 ))
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 81.
+(babel)             in language  on input line 82.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 81.
+(babel)             in language  on input line 82.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 81.
+(babel)             in language  on input line 82.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 81.
+(babel)             in language  on input line 82.
  [126 <../GNU/SelfTrefKorr-eps-converted-to.pdf> <../GNU/SelfTrefDiff-eps-conve
 rted-to.pdf>]
 \openout2 = `56-frequency.aux'.
@@ -4653,7 +4707,7 @@ nverted-to.pdf ../GNU/frequency-ppm.eps>
 (epstopdf)             \includegraphics on input line 119.
 Package epstopdf Info: Output file is already uptodate.
 
-<../GNU/frequency-ppm-eps-converted-to.pdf, id=1928, 361.35pt x 252.945pt>
+<../GNU/frequency-ppm-eps-converted-to.pdf, id=1938, 361.35pt x 252.945pt>
 File: ../GNU/frequency-ppm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../GNU/frequency-ppm-eps-converted-to.pdf>
@@ -4673,6 +4727,10 @@ Package babel Info: Redefining ngerman shorthand "~
 
 
 ]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 49.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 49.
 Package epstopdf Info: Source file: <../FIG/GPS_UP501.eps>
 (epstopdf)                    date: 2015-10-09 21:40:38
 (epstopdf)                    size: 32904 bytes
@@ -4681,15 +4739,15 @@ Package epstopdf Info: Source file: <../FIG/GPS_UP501.eps>
 (epstopdf)                    size: 11002 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/GPS_UP501-eps-conver
 ted-to.pdf ../FIG/GPS_UP501.eps>
-(epstopdf)             \includegraphics on input line 67.
+(epstopdf)             \includegraphics on input line 69.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/GPS_UP501-eps-converted-to.pdf, id=1935, 531.9875pt x 294.09875pt>
+<../FIG/GPS_UP501-eps-converted-to.pdf, id=1945, 531.9875pt x 294.09875pt>
 File: ../FIG/GPS_UP501-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/GPS_UP501-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/GPS_UP501-eps-converted-to.pdf used on input li
-ne 67.
+ne 69.
 (pdftex.def)             Requested size: 241.84842pt x 133.69846pt.
 Package epstopdf Info: Source file: <../FIG/GPS_GNS701.eps>
 (epstopdf)                    date: 2015-10-09 21:40:39
@@ -4699,32 +4757,60 @@ Package epstopdf Info: Source file: <../FIG/GPS_GNS701.eps>
 (epstopdf)                    size: 10504 bytes
 (epstopdf)             Command: <epstopdf --outfile=../FIG/GPS_GNS701-eps-conve
 rted-to.pdf ../FIG/GPS_GNS701.eps>
-(epstopdf)             \includegraphics on input line 73.
+(epstopdf)             \includegraphics on input line 75.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/GPS_GNS701-eps-converted-to.pdf, id=1936, 500.87125pt x 294.09875pt>
+<../FIG/GPS_GNS701-eps-converted-to.pdf, id=1946, 500.87125pt x 294.09875pt>
 File: ../FIG/GPS_GNS701-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/GPS_GNS701-eps-converted-to.pdf>
 Package pdftex.def Info: ../FIG/GPS_GNS701-eps-converted-to.pdf used on input l
-ine 73.
+ine 75.
 (pdftex.def)             Requested size: 241.84842pt x 142.00945pt.
 
-Overfull \hbox (7.83318pt too wide) in paragraph at lines 65--76
+Overfull \hbox (7.83318pt too wide) in paragraph at lines 67--78
 [][]   [] 
  []
 
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 82.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 82.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 93.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 93.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 93.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 93.
+[128 <../GNU/frequency-ppm-eps-converted-to.pdf> <../FIG/GPS_UP501-eps-converte
+d-to.pdf> <../FIG/GPS_GNS701-eps-converted-to.pdf>]
+<../PNG/DS3231M.jpg, id=1967, 770.88pt x 578.16pt>
+File: ../PNG/DS3231M.jpg Graphic file (type jpg)
+ <use ../PNG/DS3231M.jpg>
+Package pdftex.def Info: ../PNG/DS3231M.jpg used on input line 96.
+(pdftex.def)             Requested size: 256.0748pt x 192.05493pt.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 83.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 83.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 83.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 82.
- [128 <../GNU/frequency-ppm-eps-converted-to.pdf> <../FIG/GPS_UP501-eps-convert
-ed-to.pdf> <../FIG/GPS_GNS701-eps-converted-to.pdf>]
+(babel)             in language  on input line 83.
+
+[129 <../PNG/DS3231M.jpg>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 83.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 83.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 83.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 83.
+ [130]
 \openout2 = `60-generators.aux'.
 
  (./60-generators.tex
@@ -4743,27 +4829,27 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 39.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 84.
- [129
+(babel)             in language  on input line 85.
+ [131
 
 
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 85.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 84.
- [130]
+(babel)             in language  on input line 85.
+ [132]
 \openout2 = `70-errors.aux'.
 
  (./70-errors.tex
@@ -4787,20 +4873,20 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 47.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 47.
-[131
+[133
 
 
 
 ])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 85.
+(babel)             in language  on input line 86.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 85.
+(babel)             in language  on input line 86.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 85.
+(babel)             in language  on input line 86.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 85.
- [132]
+(babel)             in language  on input line 86.
+ [134]
 \openout2 = `80-special.aux'.
 
  (./80-special.tex
@@ -4811,14 +4897,14 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 3.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 86.
+(babel)             in language  on input line 87.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 86.
+(babel)             in language  on input line 87.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 86.
+(babel)             in language  on input line 87.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 86.
- [133
+(babel)             in language  on input line 87.
+ [135
 
 
 
@@ -4833,70 +4919,70 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 3.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 87.
+(babel)             in language  on input line 88.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 87.
+(babel)             in language  on input line 88.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 87.
+(babel)             in language  on input line 88.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 87.
- [134
+(babel)             in language  on input line 88.
+ [136
 
 
 
 ]
-Underfull \hbox (badness 5475) in paragraph at lines 139--144
+Underfull \hbox (badness 5475) in paragraph at lines 140--145
 []\T1/lmr/m/n/12 Wikipedia []$\T1/lmtt/m/n/12 http : / / de . wikipedia . org /
  wiki / Equivalent _ Series _ Resistance$[] \T1/lmr/m/it/12 Er-läu-te-rung
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 204.
+(babel)             in language  on input line 205.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 204.
+(babel)             in language  on input line 205.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 204.
+(babel)             in language  on input line 205.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 204.
-[135
+(babel)             in language  on input line 205.
+[137
 
 
 ]
-Underfull \hbox (badness 6078) in paragraph at lines 206--210
+Underfull \hbox (badness 6078) in paragraph at lines 207--211
 [][]$\T1/lmtt/m/n/12 http : / / www . orientdisplay . com / pdf / ST7565 . pdf$
 [] \T1/lmr/m/it/12 Da-ten-blatt des gra-fi-schen Con-trol-lers
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 213.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 213.
+(babel)             in language  on input line 230.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 213.
+(babel)             in language  on input line 230.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 213.
+(babel)             in language  on input line 230.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 213.
-[136]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 213.
+(babel)             in language  on input line 230.
+[138]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
  (./ttester.aux (./00-preface.aux) (./10-features.aux) (./20-hardware.aux) (./3
 0-manual.aux) (./40-configuring.aux) (./50-measurement.aux)
 (./51-semicon.aux) (./52-resistors.aux) (./53-capacitors.aux)
 (./54-inductors.aux) (./55-selftest.aux) (./56-frequency.aux)
 (./60-generators.aux) (./70-errors.aux) (./80-special.aux) (./90-todo.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 213.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 213.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
 Package rerunfilecheck Info: File `ttester.out' has not changed.
-(rerunfilecheck)             Checksum: 2582625379BC4FE28BF15B71CA8098AD;5669.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 213.
+(rerunfilecheck)             Checksum: 9AD20DC925117B59D61121C533DFBF08;5886.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
  ) 
 Here is how much of TeX's memory you used:
- 22408 strings out of 493304
- 460163 string characters out of 6139871
- 584917 words of memory out of 5000000
- 24675 multiletter control sequences out of 15000+600000
- 68061 words of font info for 52 fonts, out of 8000000 for 9000
- 957 hyphenation exceptions out of 8191
- 63i,12n,57p,441b,852s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 25483 strings out of 493029
+ 548354 string characters out of 6136234
+ 685629 words of memory out of 5000000
+ 27798 multiletter control sequences out of 15000+600000
+ 72325 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 62i,12n,56p,432b,748s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share
 /texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm
@@ -4906,12 +4992,13 @@ f/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi
 /type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></
 usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on ttester.pdf (137 pages, 3323942 bytes).
+e/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmtt12.pfb>
+Output written on ttester.pdf (139 pages, 3519367 bytes).
 PDF statistics:
- 2184 PDF objects out of 2487 (max. 8388607)
- 1762 compressed objects within 18 object streams
- 433 named destinations out of 1000 (max. 500000)
- 1260 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2215 PDF objects out of 2487 (max. 8388607)
+ 1789 compressed objects within 18 object streams
+ 440 named destinations out of 1000 (max. 500000)
+ 1281 words of extra memory for PDF output out of 10000 (max. 10000000)
 
