@@ -40,11 +40,9 @@ Die automatische Grössenanpassung sollte auf Linux-Systemen laufen,
 bei Windows Systemen ist es völlig ungetestet. Auf jeden Fall wäre
 die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
-Arduino-UNO und -Nano Board sowie mit 
-m8, m8535, m16, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p, m1284p,
-m165p, m645, m169 und 
-t84, t44a, t24a, t85, t45, t25, t88, t48  wobei m die Kurzform von ATmega
-und t die Kurzform von ATtiny ist.
+Arduino-UNO und -Nano Board sowie mit fast allen Prozessoren, die unterstützt
+werden (siehe Liste am Ende der LiesMich Datei). 
+Nur die AT90CAN Familie is ungetestet.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas
@@ -179,8 +177,7 @@ ATmega165/325/3250/6450
 ATmega169/329/649/6490
 ATmega640/1280
 AT90CAN32/64/128
-AT90PWM2/3
+AT90PWM2/3 (B)
 ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634
-Bei vielen Prozessoren steht der abschließende Test noch aus!
 
 An Rückmeldungen zum Thema "Assembler Optiboot" wäre ich durchaus interessiert.

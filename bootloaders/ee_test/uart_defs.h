@@ -182,14 +182,14 @@
     defined(__AVR_ATtiny261__) 
 /*------------------------------------------------------------------------ */
  #if UART_RX == n
-   #warning "SOFT_UART use Pin B1 as RX"
-  #define UART_RXX     pB1
+   #warning "SOFT_UART use Pin B0 as RX"
+  #define UART_RXX     pB0
  #else
   #define UART_RXX      UART_RX
  #endif
  #if UART_TX == n
-   #warning "SOFT_UART use Pin B2 as TX"
-  #define UART_TXX     pB2
+   #warning "SOFT_UART use Pin B1 as TX"
+  #define UART_TXX     pB1
  #else
   #define UART_TXX      UART_TX
  #endif

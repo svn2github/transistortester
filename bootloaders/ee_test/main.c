@@ -16,6 +16,7 @@
 
 
 const unsigned char Hello1[] PROGMEM = "Hello World from Flash!";
+const unsigned char OscCal[] PROGMEM = "RC-Oscillator Calibration Byte is 0x";
 const unsigned char External[] PROGMEM = "External ";
 const unsigned char WatchDog[] PROGMEM = "Watch-dog ";
 const unsigned char BrownOut[] PROGMEM = "Brown-Out ";
@@ -24,10 +25,9 @@ const unsigned char Interrupt[] PROGMEM = "Interrupt";
 
 const unsigned char HW_UART[] PROGMEM = "HW_UART #";
 const unsigned char SW_UART[] PROGMEM = "Soft_UART";
-const unsigned char OscCal[] PROGMEM = "RC-Oscillator Calibration Byte is 0x";
+const unsigned char FreqOut[] PROGMEM = "Test Frequency Output at Pin ";
 
 const unsigned char Hello2[] EEMEM = "Hello World from EEprom!";
-const unsigned char PrefixTab[] PROGMEM = { 'f','p','n','u','m',0,'k','M'}; // f,p,n,u,m,-,k,M
 
 void putch(char data);
 void putch_1(char data);
@@ -62,7 +62,7 @@ void uart_string(char *data) {
 void uart_newline(void) {
           putch('\n');
           putch('\r');
-	wait1s();
+	  wait1s();
 }
 
  void hex_putch(unsigned char ch) {
@@ -73,8 +73,11 @@ void uart_newline(void) {
  void putch(char ch) {
   while (!(UART_SRA & _BV(UDRE0)));
   UART_UDR = ch;
+  wdt_reset();
 }
 #endif
+
+const unsigned char PrefixTab[] PROGMEM = { 'f','p','n','u','m',0,'k','M'}; // f,p,n,u,m,-,k,M
 
 /* ************************************************************************
  *   display of values and units
@@ -204,6 +207,7 @@ void DisplayValue(unsigned long Value, int8_t Exponent, unsigned char Unit, uint
 	//begin of Test program
 int main(void) {
 
+ // #####################################################################################
  // setup Counter 0 for frequency measurement
 #if defined(TST_TCCR_A)
 	TST_TCCR_A = TST_TCCR_A_SET;	// toggle OC0A on compare match
@@ -216,7 +220,37 @@ int main(void) {
         CNT_ENABLE_DDR |= (1<<CNT_ENABLE_PIN);	// enable output
 	TST_TCCR_B = TST_TCCR_B_SET;	// run with full clock speed
 #endif
+#if defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny841__)
+// #if (CNT_ENABLE_DDR == DDRB) && (CNT_ENABLE_PIN == DDB2)
+ #if (CNT_ENABLE_PIN == DDB2)
+	TOCPMCOE = (1<<TOCC7OE);
+ #endif
+// #if CNT_ENABLE_DDR == DDRA
+  #if CNT_ENABLE_PIN == DDA7
+	TOCPMCOE = (1<<TOCC6OE);
+  #endif
+  #if CNT_ENABLE_PIN == DDA6
+	TOCPMCOE = (1<<TOCC5OE);
+  #endif
+  #if CNT_ENABLE_PIN == DDA5
+	TOCPMCOE = (1<<TOCC4OE);
+  #endif
+  #if CNT_ENABLE_PIN == DDA4
+	TOCPMCOE = (1<<TOCC3OE);
+  #endif
+  #if CNT_ENABLE_PIN == DDA3
+	TOCPMCOE = (1<<TOCC2OE);
+  #endif
+//  #if CNT_ENABLE_PIN == DDA2
+//	TOCPMCOE = (1<<TOCC1OE);
+//  #endif
+  #if CNT_ENABLE_PIN == DDA1
+	TOCPMCOE = (1<<TOCC0OE);
+  #endif
+// #endif
+#endif
 
+ // #####################################################################################
  // setup UART
 #if defined(UART_SRA) && (SOFT_UART == 0) 
  // setup the correct BAUD_RATE divider for Clock-frequency F_CPU
@@ -279,16 +313,20 @@ int main(void) {
 
 //***************************************************
 // output of Calibration byte
-#if defined(OSCCAL1) && !defined(OSCCAL)
- #define OSCCAL OSCCAL1
+#if !defined(OSCCAL)
+ #if defined(OSCCAL0)
+  #define OSCCAL OSCCAL0
+ #endif
 #endif
-#ifdef OSCCAL
+
+#if defined(OSCCAL)
         uart_mem_string(OscCal);
         hex_putch( OSCCAL / 16);
         hex_putch( OSCCAL & 0x0f);
         putch(' ');
         putch('(');
 	DisplayValue((OSCCAL & MAX_OSCCAL),0,')',3);
+        putch(' ');
         uart_newline();
 #endif
 
@@ -307,7 +345,7 @@ int main(void) {
         uart_newline();
 
 #if defined(TST_TCCR_B)
-	uart_string("Test Frequency Output at Pin ");
+        uart_mem_string(FreqOut);	// "Test Frequency Output at Pin "
         uart_string(TST_COUNTER_PIN);
 	putch(' ');
 	DisplayValue((F_CPU*100)/512,-2,'H',6);
@@ -320,12 +358,17 @@ int main(void) {
         while (1)
 #endif
         {
+#if RAMSIZE < 512
+	  uart_ee_string(Hello2);
+        uart_newline();
+#else
 	  uart_mem_string(Hello1);
         uart_newline();
 	  uart_ee_string(Hello2);
         uart_newline();
 	  uart_string("Hello World with string!");
         uart_newline();
+#endif
         uart_newline();
         } 
 #if	SOFT_UART > 1

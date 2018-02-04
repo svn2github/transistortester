@@ -41,11 +41,9 @@ automatically and set the start address and the required fuses right
 according to the actual size.
 This kind of automatic is tested at a Linux system and should run at any Linux system.
 But it is completely untested for any Windows system.
-This optiboot bootloader is only tested with a Arduino-UNO and -Nano board and with 
-m8, m8535, m16, m163, m32, m64, m128, m48p, m88, m168, m328p, m164p, m324p, m644p m1284p,
-m165p, m645, m169 and 
-t84, t44a, t24a, t85, t45, t25, t88, t48 where m is the short form of ATmegas
-and t is the short form of ATtiny.
+This optiboot bootloader is tested with a Arduino-UNO and -Nano board and with 
+nearly all supported processors (see the list at the end of this ReadMe2).
+Only the AT90CAN series is untested.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -195,6 +193,6 @@ ATmega640/1280
 AT90CAN32/64/128
 AT90PWM2/3
 ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634
-For many processors the finish test is missing!
+For some processors the finish test is missing!
 
 I look forward for any replies to the "assembly language optiboot" subject.

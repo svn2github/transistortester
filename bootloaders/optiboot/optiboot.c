@@ -447,6 +447,14 @@ int main(void) {
   ch = MCUCSR;
   MCUCSR = 0;
 
+#if !defined(OSCCAL)
+ // OSCCAL0 can be Bit 0 of OSCCAL, if OSCCAL is defined
+ #if defined(OSCCAL0)
+  // OSCCAL0 is the name if the first OSCCAL register
+  #define OSCCAL OSCCAL0
+ #endif
+#endif
+
 #if defined(OSCCAL_CORR) && defined(OSCCAL)
  #if (OSCCAL_CORR < -10) || (OSCCAL_CORR > 10)
   #warning "OSCCAL_CORR is too big, should be greater -10 and less than 10"

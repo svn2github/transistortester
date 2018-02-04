@@ -656,3 +656,739 @@ In this example the feature is used to automatically select the RX and TX of the
 Please ignore the three warning messages, which tell you about the automatic selection.
 The automatic IO-pin selection depends on the selected processor type and the selected UART number, if more than
 one UART is available.
+
+\section{Clock Frequency Correction of the internal RC-Generator}
+
+The use of the serial interface is only possible, if the selected baudrate is
+matched by both interfaces with only two percent deviation.
+The actual baudrate is given by the processor clock and the selected scaling factor for
+the serial IO-clock. 
+The hardware UART interface scaled the processor clock with factor 8 or 16 and a
+additional selectable divider between 1:1 and 1:4096 for generating the clock
+for the serial IO.
+For lower baudrates additional dividers with power of 2 can be additional selected.
+If the relationship between the processor clock and the baudrate clock is
+sufficiently high, the desired baudrate can be selected with low deviation.
+By generating the optiboot bootloader code the systematic error is shown
+at the terminal protocol.
+Usually errors lower than 2\% are uncritical.
+The implemented coding of the serial interface with software (SOFT\_UART) produce
+lower systematic errors as the hardware UART.
+The problems with the software solution of the serial interface is caused with
+no filter for input data and the missing feature to organize the interface
+full duplex. From the output of the last bit to the ability to receive
+the next data is allways a little time delay.
+For this reason you can expect fewer difficulties with lower baudrates for
+the software UART.
+All this considerations assume however, that the processor clock itself is
+selected with sufficient accuracy.
+With a crystal or ceramic resonator the clock frequency is usually accurate enough
+without special activities. But for the internal RC-generator of the AVR processors
+the situation is different.
+The actual processor clock can differ too much from the desired value.
+The processors are precalibrated at factory. But this calibration is
+valid only for one temperature and operating voltage.
+The sensivity of frequency changes with temperature and operating voltage
+differ for the different processor types.
+To enable a correction for the user of the processor, the calibration value
+of the clock frequency is copied to a special IO register with the name OSCCAL
+at every start of the processor.
+The Optiboot bootloader can use the option OSCCAL\_CORR to correct a
+known residual error of the clock frequency.
+In the following subsections I have analysed the correction of the
+RC clock frequency for some AVR examples.
+
+
+\subsection{RC-generators check of the ATmega8}
+
+The Atmega8 can select 4 different frequencies for the internal RC generator
+with the Low-fuse, \(1MHz\), \(2MHz\), \(4MHz\) and \(8MHz\).
+In the table~\ref{tab:mega8freq} I have analysed all 4 selections.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -8  & 1050k &  4  & 983k  & 0  & 1004k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -8  & 2098k &  4  & 1967k & 0  & 2008k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -2  & 4201k & 10  & 3927k & 7  & 3999k \\
+    \hline
+                8M & 0xA4  & 57.6k &   0  & 8231k & 13  & 7723k & 6  & 7990k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega8}
+  \label{tab:mega8freq}
+\end{table}
+
+The table~\ref{tab:mega8freq} shows, that for the \(1Mhz\) and \(2MHz\) operation a correction of the
+OSCCAL register is not required. This ATmega8 is calibrated for these frequencies
+very good at the factory.
+For the \(4MHz\) clock frequency a operation without correction is still possible,
+but the correct clock frequency is better approximated with a OSCCAL\_CORR value of 7.
+For the \(8MHz\) clock frequency the serial interface was still possible
+withou the correction, but the serial interface runs more safely with
+the OSCCAL\_CORR value 6.
+
+\subsection{RC-Generators check of the ATmega8535}
+
+The ATmega8535 can select 4 different frequencies for the internal RC generator
+with the Low-fuse, \(1MHz\), \(2MHz\), \(4MHz\) and \(8MHz\).
+The table~\ref{tab:mega8535freq} shows the results for one example for
+all 4 frequencies.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -10  & 1053k &  3  & 982k  & 0  & 1001k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -9  & 2095k &  4  & 1965k & 1  & 1998k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -5  & 4204k &  8  & 3932k & 4  & 4012k \\
+    \hline
+                8M & 0xA4  & 19.2k &  -7  & 8420k &  6  & 7901k & 3  & 8003k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega8535}
+  \label{tab:mega8535freq}
+\end{table}
+
+\subsection{RC-Generators check of the ATmega8515 and the ATmega162}
+
+The ATmega8515 can select 4 different frequencies for the internal RC generator
+with the Low fuse, \(1MHz\), \(2MHz\), \(4MHz\) and \(8MHz\).
+The table~\ref{tab:mega8515freq} shows the results of one exemplar 
+for all 4 frequency selections.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -10  & 1053k &  2  & 985k  & -1  & 997k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -10  & 2099k &  3  & 1963k & -1  & 1999k \\
+    \hline
+                4M & 0xA3  & 38.4k &  -3  & 4192k &  10  & 3928k & 7  & 3979k \\
+    \hline
+                8M & 0xA4  & 38.4k &  -3  & 8396k &  10  & 7860k & 7  & 7966k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega8515}
+  \label{tab:mega8515freq}
+\end{table}
+
+The ATmega162 with a simular pin layout can only operate with the
+\(8MHz\) RC generator frequency.
+Table~\ref{tab:mega162freq} shows the result of one exemplar.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                8M & 0xE2  & 38.4k &  0  & 8190k &   6  & 7718k & 2  & 8000k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-oscillator of the ATmega162}
+  \label{tab:mega162freq}
+\end{table}
+
+
+\subsection{RC-Generators check of the ATmega328 family}
+
+For the ATmega328 family only a RC oscillator frequency of \(8MHz\) can be selected.
+This Frequency can be divided by factor 8 with a fuse-bit, so that a
+operation with \(1MHz\) can be also selected.
+The table~\ref{tab:mega328freq} shows the results for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega48P &          8M & 0xE2  & 57.6k &  -6  & 8230k &  8  & 7720k  & 0  & 8010k \\
+    \hline
+mega88 &          8M & 0xE2  & 57.6k &  -2  & 8250k & 10  & 7770k  & 4  & 7990k \\
+    \hline
+mega168 &          8M & 0xE2  & 57.6k &  -5  & 8263k &  8  & 7720k  & 1  & 7970k \\
+    \hline
+mega328P &          8M & 0xE2  & 57.6k &  -5  & 8250k &  9  & 7723k  & 1  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATmega328 family}
+  \label{tab:mega328freq}
+\end{table}
+
+For all checked processors the serial interface can be used with the internal
+RC generator without any OSCCAL correction.
+Only for the checked ATmega88 a correction would be worthwhile (OSCCAL\_CORR=4).
+
+\subsection{RC-Generators check of the ATmega32 / 16}
+
+You can select 4 different frequencies with the internal RC-generator for
+the ATmega32 and the ATmega16, \(1MHz\), \(2MHz\), \(4MHz\) and \(8MHz\).
+The tables~\ref{tab:mega32freq} and \ref{tab:mega16freq} shows the results
+with one test exemplar each.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c || c | c || c | c || c | c |}
+    \hline
+        &     AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+ Typ    &     FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+m32  &       1M    & 0xA1  &  9.6k &  -13  & 1049k & -1  & 980k  & -5  & 1001k \\
+m32a &             &       &       &  -7  & 1046k &  4  & 984k  & 1  & 998k \\
+    \hline
+m32  &       2M    & 0xA2  & 19.2k &  -12  & 2102k &  0  & 1968k & -3  & 1997k \\
+m32a &             &       &       &  -7  & 2105k &  6  & 1966k & 2  & 2005k \\
+    \hline
+m32  &       4M    & 0xA3  & 19.2k &  -5  & 4169k & 6  & 3942k & 3  & 3993k \\
+m32a &             &       &       &   2  & 4192k & 14  & 3939k & 10  & 4015k \\
+    \hline
+m32  &       8M    & 0xA4  & 19.2k &  -7  & 8425k &  6  & 7888k & 3  & 7983k \\
+m32a &             &       &       &   2  & 8408k & 14  & 7921k & 11  & 8014k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega32}
+  \label{tab:mega32freq}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -11  & 1047k &  1  & 982k  & -2  & 998k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -12  & 2099k &  0  & 1971k & -3 & 1995k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -9  & 4291k &  3  & 3932k & 0  & 4002k \\
+    \hline
+                8M & 0xA4  & 19.2k &  -11 & 8415k & 2  & 7857k & -2  & 8013k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega16}
+  \label{tab:mega16freq}
+\end{table}
+
+Whenever positive values appear in the MinCorr column or negative values in the MaxCorr
+column, it is impossible to use the serial interface with this processor at this frequency 
+without a frequency correction.
+If a 0 appear in any of the Corr columns, the operation of the serial interface
+is just possible.
+
+\subsection{RC-Generator check of the ATmega163L}
+
+The ATmega163L has only one \(1MHz\) RC-generator, which can be adjusted
+with the OSCCAL register.
+My exemplar had no preselection of the OSCCAL value.
+Therefore, exceptiionally high correction values are required to select
+a clock frequency of about \(1MHz\).
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0x92  &  9.6k &  -88  & 1026k &  -62  & 964k  & -77  &  998k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequency of the ATmega163L}
+  \label{tab:mega163freq}
+\end{table}
+
+\subsection{RC-Generator check of the ATmega64 / 128}
+
+The ATmega64 and the ATmega128 can select 4 different frequencies for the
+internal RC-generator with the Low-fuse, \(1MHz\), \(2MHz\), \(4MHz\) and \(8MHz\).
+In then tables~\ref{tab:mega64freq} and \ref{tab:mega128freq} all 4 frequencies
+are checked.
+At this point it should also be noticed, that the program data is loaded via the ISP
+interface not with the signals MISO and MOSI but via the signals TXD (PE1) and
+RXD (PE0). Of course this must be taken into account when connecting the
+processor to the programmer.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -4  & 1024k &  6  & 975k  & 1  & 1000k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -4  & 2047k &  6  & 1952k & 0  & 2015k \\
+    \hline
+                4M & 0xA3  & 19.2k &   4  & 4070k & 10  & 3939k & 8  & 3976k \\
+    \hline
+                8M & 0xA4  & 57.6k &   6  & 8028k & 10  & 7847k & 7  & 8005k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega64}
+  \label{tab:mega64freq}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+                1M & 0xA1  &  9.6k &  -9  & 1051k &  3  & 985k  & 0  &  999k \\
+    \hline
+                2M & 0xA2  & 19.2k &  -9  & 2102k &  3  & 1971k & 0  & 2000k \\
+    \hline
+                4M & 0xA3  & 19.2k &  -3  & 4209k &  9  & 3960k & 6  & 4006k \\
+    \hline
+                8M & 0xA4  & 57.6k &   0  & 8225k & 13  & 7723k & 7  & 8005k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the RC-frequencies of the ATmega128}
+  \label{tab:mega128freq}
+\end{table}
+
+You can see at the tables, that there is no correction of the OSCCAL register necessary 
+at \(1MHz\) and \(2MHz\) operation for using the serial interface.
+For operation at \(4MHz\) or \(8MHz\) the checked ATmega64 can not use
+the serial interface without a frequency correction.
+The \(4MHz\) frequency is about 4\% too high Without the correction and
+the \(8MHz\) frequency is about 4.3\% too high.
+You can find a hint in the Atmel documentation, that the RC-generator of the
+ATmega64 and ATmega128 is calibrated at \(1MHz\).
+It should be noted once again, that the the tabular data is the test result of a single copy
+of the ATmega. Outside the specified minimum or maximum values of the OSCCAL-corrections,
+it was not possible to operate the serial interface at thespecified baud rate.
+
+\subsection{RC-Generator check of the ATmega644 family}
+
+For the ATmega644 family an RC oscillator frequency of \(8MHz\) can be selected.
+In addition a \(128kHz\) generator can be selected as the clock, which
+otherwise supplies the watchdog timer.
+The selected frequency can be pre-divided with a factor 8 fuse bit,
+so that a \(1MHz\) operation is also possible.
+The table~\ref{tab:mega644freq} shows the results for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega1284p &          8M & 0xC2  & 19.2k & -8  & 8416k & 7  & 7882k  & 4  & 7989k \\
+    \hline
+mega644p &          8M & 0xC2  & 19.2k &  -12 & 8416k & 3  & 7871k  & -1  & 8009k \\
+    \hline
+mega324p &          8M & 0xC2  & 19.2k &  -12 & 8398k & 3  & 7885k  & 0  & 7976k \\
+    \hline
+mega164p &          8M & 0xC2  & 19.2k &  -5  & 8401k & 4  & 7888k  & 2  & 8012k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATmega644 family}
+  \label{tab:mega644freq}
+\end{table}
+
+\subsection{RC-Generator check of the ATmega645 family}
+
+For the ATmega645 family an RC oscillator frequency of \(8MHz\) can be selected.
+Bei der ATmega645 Familie kann nur eine RC-Oszillatorfrequenz von 8MHz gewählt werden.
+The selected frequency can be pre-divided with a factor 8 fuse bit,
+so that a \(1MHz\) operation is also possible.
+The table~\ref{tab:mega645freq} shows the results for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega165p &         8M & 0xE2  & 57.6k & -6  & 8235k &  7  & 7718k  & -1  & 8015k \\
+    \hline
+mega325  &         8M & 0xE2  & 38.4k & -10 & 8403k &  5  & 7868k  &  1  & 7992k \\
+    \hline
+mega645 &          8M & 0xE2  & 57.6k &  0  & 8253k & 12  & 7726k  & 5  & 8012k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATmega645 family}
+  \label{tab:mega645freq}
+\end{table}
+
+Beim ATmega645 ist der Betrieb der seriellen Schnittstelle ohne OSCCAL Korrektur gerade noch möglich.
+Sicherer ist aber der Betrieb mit OSCCAL\_CORR=5, da dann die 8MHz besser eingehalten werden. 
+
+\subsection{RC-Generator check of the ATmega649 family}
+
+For the ATmega649 family an RC oscillator frequency of \(8MHz\) can be selected.
+The selected frequency can be pre-divided with a factor 8 fuse bit,
+so that a \(1MHz\) operation is also possible.
+The table~\ref{tab:mega649freq} shows the results for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega169 &          8M & 0xE2  & 57.6k &  -9  & 8250k & 2  & 7864k  & -2  & 8010k \\
+    \hline
+mega329 &          8M & 0xE2  & 38.4k &  -2  & 8330k & 7  & 7877k  &  4  & 8013k \\
+    \hline
+mega649 &          8M & 0xE2  & 38.4k &  -2  & 8370k & 8  & 7895k  &  6  & 7988k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATmega649 family}
+  \label{tab:mega649freq}
+\end{table}
+
+\subsection{RC-Generator check of the ATtiny4313 family}
+
+The ATtiny4313 und the ATtiny2313 can select a RC-generator frequency of
+\(8MHz\) and \(4MHz\) with the Low-fuse.
+In addition a \(128kHz\) generator can be selected as the clock, which
+otherwise supplies the watchdog timer.
+The table~\ref{tab:tiny4313freq} shows the results of the frequeny measurement
+at \(4MHz\) and \(8MHz\) operation for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+tiny4313 &         8M & 0xE4  & 38.4k &  -4  & 8342k & 0  & 7975k  & -1  & 7983k \\
+         &            &       &       &  -2  & 8326k & 3  & 7905k  & 1  & 8010k \\
+    \hline
+tiny2313 &         8M & 0xE4  & 38.4k &  -4  & 8400k & 3  & 7909k  &  2  & 7980k \\
+    \hline
+tiny4313 &         4M & 0xE2  & 38.4k &  -6  & 4193k & -3  & 3976k  & -3  & 3976k \\
+         &            &       &       &   1  & 4169k & 6  & 3961k  & 5  & 4017k \\
+    \hline
+tiny2313 &         4M & 0xE2  & 38.4k &   0  & 4160k & 6  & 3960k  &  5  & 3998k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny4313 family}
+  \label{tab:tiny4313freq}
+\end{table}
+
+For all three checked ATtinys of this series the setting of the frequency was difficult
+because a small OSCCAL correction results to a relatively strong frequency change.
+
+
+\subsection{RC-Generator check of the ATtiny84 family}
+
+The ATtiny84 family can select the \(128kHz\) clock of the watch dog additional
+to the \(8MHz\) internal RC-generator as the main clock.
+But the \(128kHz\) clock can not be adjusted. If you use this clock,
+you can only correct the generated baud rate by selecting another baud rate value.
+For a ATtiny24a I have checked the generated baud rate. Instead of the selected
+2400 Baud I could measure only 2170 Baud.
+This results to a frequency error of about 9.6\%, which is much too high for
+using it without a correction.
+If I select a baud rate of 2640 Baud for the optiboot, the download could operate with 
+2400 Baud. The measured clock frequency of the processor was \(115.2kHz\) instead
+of the \(128kHz\).
+The table~\ref{tab:tiny84freq} shows the results of the frequeny measurement
+at the \(8Mhz\) operation for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny84 &          8M & 0xE2  & 19.2k &  -6  & 8453k & 14  & 7673k  & 5  & 8019k \\
+    \hline
+attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & 7  & 7984k \\
+    \hline
+attiny24a &         8M & 0xE2  & 19.2k &  -4  & 8388k & 11  & 7685k  & 4  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny84 family}
+  \label{tab:tiny84freq}
+\end{table}
+
+\subsection{RC-Generators check of the ATtiny85 family}
+
+The ATtiny84 family can select a \(8MHz\) and a \(6.4MHz\) RC-generator and
+a \(128kHz\) clock of the watchdog circuit.
+The \(6.4MHz\) RC-generator clock is allways scaled to \(1.6Mhz\) for
+the processor clock.
+The \(128kHz\) clock can not be calibrated. If you wish to use this clock,
+you can adjust the baud rate only by selecting a corrected baud rate value.
+The first table~\ref{tab:tiny85freq8} shows the results of the frequeny measurement
+at the \(8Mhz\) operation for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &          8M & 0xE2  & 38.4k &  -4  & 8370k &  9  & 7714k  & 3  & 8012k \\
+    \hline
+attiny45  &         8M & 0xE2  & 38.4k &  -4  & 8400k & 9  & 7706k  & 3  & 8030k \\
+    \hline
+attiny25  &         8M & 0xE2  & 38.4k &  -9  & 8424k & 46  & 7724k  & 40  & 8034k \\
+attiny25  &         8M & 0xE2  & 38.4k &  -12  & 8399k & 7  & 7680k  & -2  & 7992k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny85 family at \(8MHz\) operation}
+  \label{tab:tiny85freq8}
+\end{table}
+
+The setting values for the ATtiny25 look strange, but in the case of correction 3
+the OSCCAL value has fallen below the number 128 and is therefore in a different
+setting range.
+Not before a correction value of 34 a frequency of \(8364kHz\) was reached again,
+at which a operation of the serial interface was possible.
+A simular frequency could be selected with the correction value -6 in the other
+setting range.
+The next table~\ref{tab:tiny85freq1} shows the results of the frequeny measurement
+at the \(1.6Mhz\) operation for the checked processors.
+The RC-generator operates at \(6.4Mhz\), but this frequency is allways divided
+ba factor 4 for the processor.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &         1.6M & 0xD3  & 9.6k &  -7  & 1684k &  9  & 1547k  & 2  & 1603k \\
+    \hline
+attiny45  &        1.6M & 0xD3  & 9.6k &  -5  & 1684k & 11  & 1559k  & 4  & 1603k \\
+    \hline
+attiny25  &        1.6M & 0xD3  & 9.6k &  -7   & 1689k & 10 & 1543k  & 3  & 1602k \\
+attiny25  &        1.6M & 0xD3  & 9.6k &  -10  & 1680k & 3  & 1550k  & -3  & 1609k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny85 family at \(1.6MHz\) operation}
+  \label{tab:tiny85freq1}
+\end{table}
+
+The operation with \(1.6MHz\) clock frequency has not shown the anomaly of the
+OSCCAL setting for the ATtiny25.
+All checked examples can use the serial interface without any correction
+at this frequency.
+The ATtiny84 processor family can also use a PLL-oscillator, which is controlled
+with the internal \(8MHz\) RC generator. The PLL-oscillator can operate at
+\(64MHz\) or at \(32MHz\) clock, which is typically used for the T1 counter.
+If you use the PLL-clock for the processor, you can only select the \(64MHz\) operation
+and the clock is scaled by factor 4. So you will get a resulting \(16MHz\) clock
+for the processor.
+The table~\ref{tab:tiny85freq16} shows the measured results.
+As expected, these results do not differ significantly from the \(8MHz\) results.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny85 &         1.6M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
+    \hline
+attiny45  &        1.6M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
+    \hline
+attiny25  &        1.6M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
+attiny25  &        1.6M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny85 family at \(16MHz\) operation}
+  \label{tab:tiny85freq16}
+\end{table}
+
+\subsection{RC-Generators check of the ATtiny841 family}
+
+The ATtiny841 and the ATtiny441 can use also a internal \(8MHz\) RC-generator,
+which can be adjusted.
+For the support of this family some special modifications must be done
+at the optiboot bootloader source.
+The table~\ref{tab:tiny841freq8} shows the results of some checked examples.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny841 &          8M & 0xE2  & 38.4k &  -4  & 8369k & 10  & 7861k  & 6  & 8003k \\
+          &             &       &       &  -5  & 8389k &  9  & 7874k  & 6  & 7990k \\
+    \hline
+attiny441  &         8M & 0xE2  & 38.4k &  -4  & 8399k & 10 & 7870k  & 7  & 7985k \\
+           &            &       &       &  -4  & 8380k &  9 & 7900k  & 7  & 7985k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny841 family at \(8MHz\) operation}
+  \label{tab:tiny841freq8}
+\end{table}
+
+For all checked examples the serial interface can be used without the
+OSCCAL correction.
+
+
+\subsection{RC-Generators check of the ATtiny861 family}
+
+The ATtiny861 family can use a \(8MHz\) internal RC generator, a PLL oscillator
+and the \(128kHz\) clock of the watchdog circuit.
+The \(128kHz\) clock of the watchdog circuit can not be calibrated und is
+therefore limited for use with the bootloader application.
+The PLL-Oscillator has a resulting frequency of \(16MHz\) for the processor,
+which can only synchronized by the internal RC-generator.
+Therefore you can not use the PLL-oscillator with the T1 counter
+for precise time measurements.
+The first table~\ref{tab:tiny861freq8} shows the OSCCAL correction results of the checked examples
+for the \(8MHz\) operation.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny861 &          8M & 0xE2  & 38.4k &  -2  & 8415k & 18  & 7693k  & 9  & 8007k \\
+          &             &       &       &  -1  & 8436k & 19  & 7678k  & 10 & 8011k \\
+    \hline
+attiny461  &         8M & 0xE2  & 38.4k &  -2  & 8418k & 17 & 7690k  & 9  & 7995k \\
+           &            &       &       &  -4  & 8380k & 14 & 7695k  & 3  & 8030k \\
+    \hline
+attiny261  &         8M & 0xE2  & 38.4k &  -4  & 8403k & 17 & 7710k  & 9  & 7986k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny861 family at \(8MHz\) operation}
+  \label{tab:tiny861freq8}
+\end{table}
+
+For the ATtiny261 I have omitted the optional LED-flashing at the start of the optiboot
+to get enough space for the test program (option LED\_START\_FLASHES=0).
+
+
+\subsection{RC-Generators check of the ATtiny88 family}
+
+The ATtiny88 family can select a internal \(8MHz\) RC-generator and a
+internal \(128kHz\) generator as processor clock.
+You can also select a factor 8 scaler for the processor clock with the Low-fuse.
+The table~\ref{tab:tiny88freq} shows the calibration results of two examples of this family.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny88 &          8M & 0xE2  & 38.4k &  -4  & 8397k & 15  & 7682k  & 6  & 8013k \\
+    \hline
+attiny48 &         8M & 0xE2  & 38.4k &  -5  & 8385k & 12  & 7739k  & 5  & 7995k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny88 family}
+  \label{tab:tiny88freq}
+\end{table}
+
+Both examples can operate the serial interface without a frequency correction.
+But the processor clock will match the \(8MHz\) better, if you choose
+a correction value of 5 (6).
+
+\subsection{RC-Generators check of the AT90PWM family}
+
+Beside the usual \(8MHz\) internal RC-generator the AT90PWM family can also
+select a PLL-oscillator with a resulting processor clock of \(16MHz\).
+The PLL-oscillator is synchronized by the internal \(8MHz\) RC-generator.
+The table~\ref{tab:t90pwmfreq} shows the OSCCAL correction results
+of two examples.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+at90pwm2b &         8M & 0xE2  & 38.4k &  -13  & 8350k & -1  & 7862k  & -5  & 8020k \\
+    \hline
+at90pwm3  &         8M & 0xE2  & 38.4k &  -10  & 8359k &  4  & 7885k  & 1  & 7991k \\
+    \hline
+at90pwm2b &        16M & 0xE3  & 38.4k &  -14  & 16.74M & -1  & 15.74M  & -4  & 15.97M \\
+    \hline
+at90pwm3  &        16M & 0xE3  & 38.4k &  -10  & 16.76M &  4  & 7885k  & 2  & 15.97M \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the AT90PWM family}
+  \label{tab:t90pwmfreq}
+\end{table}
+
+The AT90PWM2B can not use the serial interface without a OSCCAL correction.

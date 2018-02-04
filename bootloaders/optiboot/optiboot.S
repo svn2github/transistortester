@@ -411,8 +411,13 @@ optiboot:
 ;	clr	r1
 	AOUT	MCUCSR, r1	; MCUCSR = 0
 	AOUT	RESET_CAUSE, r2	; save reason of restart (MCUCSR) in IO register
-#if defined(OSCCAL1) && !defined(OSCCAL)
- #define OSCCAL OSCCAL1
+
+#if !defined(OSCCAL)
+ // OSCCAL0 can be Bit 0 of OSCCAL, if OSCCAL is defined
+ #if defined(OSCCAL0)
+  // OSCCAL0 is the name if the first OSCCAL register
+  #define OSCCAL OSCCAL0
+ #endif
 #endif
 
 #if defined(OSCCAL_CORR) && defined(OSCCAL)
@@ -441,11 +446,11 @@ optiboot:
 //    marker = 0;
 //    appStart(reset_cause);
 //  }
-;	andi	r24, (1<<WDRF)
-;	breq	no_app_start
+ #if TEST_OUTPUT == 0
 	sbrs	r2, WDRF
+ #endif
 	rjmp	no_app_start
-#if 0
+ #if 0
 	AIN	r20, MARKER1		; if MARKER1:4 == 0xDEADBEEF
 	cpi	r20, 0xDE
 	AIN	r20, MARKER2
@@ -455,7 +460,7 @@ optiboot:
 	AIN	r20, MARKER4
 	sbci	r20, 0xEF
 	brne	no_app_start
-#endif
+ #endif
 	AOUT	MARKER1, r1		; marker = 0
 	AOUT	MARKER2, r1		;
 	AOUT	MARKER3, r1		;
@@ -477,18 +482,27 @@ no_app_start:
   // save the reset flags in the designated register
   //  This can be saved in a main program by putting code in .init0 (which
   //  executes before normal c init code) to save R2 to a global variable.
-;	andi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D	
+ #if TEST_OUTPUT == 0
 	ldi	r24, (1<<WDRF)|(1<<PORF)|(1<<BORF)  ;0x0D
 	and	r24, r2		; r2 hold the reset reason , MCUCSR
 		; none of the WatchDog, PowerOn or BrownOut reason ?
 	breq	try_loader	; interrupt must be caused by a external reset
+ #else
+	rjmp	try_loader	; never start application with option TEST_OUTPUT
+ #endif
  #define WATCHDOG_TIME WATCHDOG_OFF
 #endif		/* FORCE_WATCHDOG */
 ;***************************************************************
 appStart:
 
+#if (defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny1634__)) && (WATCHDOG_TIME == WATCHDOG_OFF)
+	ldi	r21, 0xD8	; special signature to change protected I/O register
+	AOUT	CCP, r21
+	AOUT	WDTCSR, r1	; clear watchdog timer
+#else
 	ldi	r20, WATCHDOG_TIME	; _OFF or _4S depending on FORCE_WATCHDOG
 	rcall	watchdogConfig		; WATCHDOG_OFF (or _4S if FORCE_WATCHDOG)
+#endif
 #if 0
 ;##############################################################
 	; talk to the application 
@@ -517,16 +531,25 @@ appStart:
 
 ;***************************************************************
 try_loader:
-#if 0
- ; if a PLL is present ans enabled, wait for the lock signal
- #ifdef PLLCSR
-	ASBIS	PLLCSR, PLLE		; skip, if PLL is enabled
-	rjmp	no_pll
+
+/* If the LED_DDR bit would be switched, no prepare is needed */
+/* because the LED_PORT bit is set to 0 by reset */
+/* But the LED Anode must be connected to the VCC side */
+#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
+	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
+#endif
+
+; The check for locked PLL is disabled (1 == 0), because the PLL was 
+; allways locked during the tests.
+#if (1 == 0) && defined(PLL_MODE) && defined(PLLCSR)
+ ; if a PLL is present and enabled, wait for the lock signal
+;	if PLL_MODE is set, PLLE should be enabled allways in PLLCSR
+;	ASBIS	PLLCSR, PLLE		; skip, if PLL is enabled
+;	rjmp	no_pll
 wait_locked:
 	ASBIS	PLLCSR, PLOCK		; wait until PLL is locked
 	rjmp	wait_locked
 no_pll:
- #endif
 #endif
 
 #ifdef TIMEOUT_MS
@@ -546,6 +569,7 @@ no_pll:
 #endif
 	rcall	watchdogConfig
 
+
 #if SOFT_UART == 0
  /* I don't know the reason for disabling the Pull-Up resistors!
   * The port D is only correct for ATmega8/88/168/328.
@@ -560,26 +584,20 @@ no_pll:
 	ACBI	UART_RX_PORT, UART_RX_BIT	; disable Pullup Resistor for RX
 	ACBI	UART_TX_PORT, UART_TX_BIT	; disable Pullup Resistor for TX
   */
+
  #if BAUD_RATE < 100
   ; try with Auto-baud
 
- #include "flash_led_opti.S"	/* flash the led before init of UART */
- #include "init_uart_auto_baud.S"
+  #include "flash_led_opti.S"	/* flash the led before init of UART */
+  #include "init_uart_auto_baud.S"
 
  #else
 
- #include "init_uart_fix_baud.S"
+  #include "init_uart_fix_baud.S"
 
  #endif		/* BAUD_RATE < 100 */
  
 #endif		/* no SOFT_UART */
-
-/* If the LED_DDR bit would be switched, no prepare is needed */
-/* because the LED_PORT bit is set to 0 by reset */
-/* But the LED Anode must be connected to the VCC side */
-#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
-	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
-#endif
 
 #if SOFT_UART > 0
  #if (UART_TX_DDR == UART_RX_DDR) && (UART_TX_BIT == UART_RX_BIT)
@@ -612,7 +630,7 @@ no_pll:
  ; this output should only be used for checking the baud-rate with scope
  ; the bootloader sequence is disturbed with this output.
  #warning "##### endless loop out of 'U' at TX, don't use a bootloader"
-;	ASBI	DDRD, DDD7
+;	ASBI	DDRB, DDD1
 ;	ldi	r24, (1<<COM20) | (1<<CS20)	; start with full speed and OC2
 ;	AOUT	TCCR2, r24
 test_out:
@@ -620,7 +638,9 @@ test_out:
 	rcall	putch			; putch can use r22, r23,(r24), r25
 	rjmp	test_out		; endless loop
 #endif
+
 #if 0
+;####### Test code
 wait_for_sync:
 	rcall	getch
 	cpi	r24, STK_GET_SYNC
@@ -629,13 +649,6 @@ sync_is_found:
 	rcall	verifySpace
 #endif
 
-;	if the serial interface set no address, initialize to zero
-	clr	r4
-	clr	r5
-#if SUPPORT_EEPROM
-	movw	r30, r4		; Z = 0
-#endif
-	
 
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   /* Forever loop */
@@ -846,7 +859,7 @@ no_erase1:
  #if FLASHEND > 8192
  /*
   * We assume, that the vector table is filled with jmp instructions.
-  * But this ist not checked!! If the table is "optimized" with rjmp
+  * But this is not checked!! If the table is "optimized" with rjmp
   * instructions (Option -relax to the binder),
   * the two bytes loaded here, are  usually filled with
   * a nop instruction behind the rjmp.
@@ -992,8 +1005,10 @@ flash_rd_lop:
 	elpm	r24, Z
 	AIN	r14, RAMPZ
 	adiw	r30, 1		; is equal to Z+
+	brne	no_increment	; only increment RAMPZ, if first address wrap of 65k
 	adc	r14, r1		; add carry to the RAMPZ content
 	AOUT	r14, RAMPZ	; try to increment RAMPZ
+no_increment:
  #endif
 #else
 	lpm	r24, Z+
@@ -1319,11 +1334,24 @@ wait_flash_ready:
 boot_page_erase:
 ;	rcall	wait_flash_ready
     	movw	ZL, r4		; __boot_page_erase_short((uint16_t)(void*)address)
-	ldi	r20, (1<<PGERS)|(1<<SELFPRGEN)	; 0x03
 ;	second entry	***********************************
 ;	rcall do_spm
 ;	r20 must contain the spm command
 ;	no register is destroyed
+ #if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny1634__) 
+ ;	this processors do a 4 page erase, so only every fourth page
+ ;	must do a page erage (page size is 16 bytes only)
+  #if defined(__AVR_ATtiny1634__)
+	ldi	r20, 0x60	; the lower two bits of the page address t1634
+   #warning "4 page erase for t1634"
+  #else
+	ldi	r20, 0x30	; the lower two bits of the page address t841/t441.
+   #warning "4 page erase for t841/441"
+  #endif
+	and	r20, r4
+	brne	no_erase4	; not a fourth page
+ #endif
+	ldi	r20, (1<<PGERS)|(1<<SELFPRGEN)	; 0x03
 do_spm:
 	AOUT	SPMCSR, r20	; (1<<PGERS)|(SELFPRGEN)
 	spm
@@ -1332,6 +1360,7 @@ do_spm:
 	.word	0xffff
 	nop
 #endif
+no_erase4:
 	ret
 
 ;**********************************************************

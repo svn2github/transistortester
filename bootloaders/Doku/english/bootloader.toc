@@ -1,26 +1,46 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Principle function of a boot-loader}{3}{chapter.1}
-\contentsline {chapter}{\numberline {2}The Hardware of the AVR 8-bit micro controllers}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}CPU and memory access}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Input and Output function}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}The start of AVR micro-controllers}{8}{section.2.3}
-\contentsline {section}{\numberline {2.4}Writing to the AVR memories}{10}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Parallel programming}{11}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}serial download with ISP}{11}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Self programming with serial interface}{12}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Diagnostic Tools}{13}{subsection.2.4.4}
-\contentsline {chapter}{\numberline {3}The optiboot boot-loader for AVR Micro-controllers}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}Changes and enhancements to the version 6.2}{14}{section.3.1}
-\contentsline {section}{\numberline {3.2}Automatic size adaption in the optiboot Makefile}{14}{section.3.2}
-\contentsline {section}{\numberline {3.3}target selection for the optiboot Makefile}{15}{section.3.3}
-\contentsline {section}{\numberline {3.4}The Options for the optiboot Makefile}{17}{section.3.4}
-\contentsline {section}{\numberline {3.5}Usage of optiboot without a boot-loader area}{19}{section.3.5}
-\contentsline {section}{\numberline {3.6}Capabilities of the serial interface with the applied software}{21}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Computing of the delay time}{23}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Using more than one serial interface}{24}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Serial Input and Output with only one AVR Pin}{25}{subsection.3.6.3}
-\contentsline {section}{\numberline {3.7}Some examples of building a optiboot bootloader}{26}{section.3.7}
-\contentsline {chapter}{\numberline {4}Various USB to serial converter with Linux}{29}{chapter.4}
-\contentsline {section}{\numberline {4.1}The CH340G and the CP2102 converter }{29}{section.4.1}
-\contentsline {section}{\numberline {4.2}The PL-2303 and the FT232R converter}{31}{section.4.2}
-\contentsline {section}{\numberline {4.3}The USB-serial converter with the ATmega16X2 software}{34}{section.4.3}
+\contentsline {chapter}{\numberline {1}Principle function of a boot-loader}{4}{chapter.1}
+\contentsline {chapter}{\numberline {2}The Hardware of the AVR 8-bit micro controllers}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}CPU and memory access}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Input and Output function}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}The start of AVR micro-controllers}{9}{section.2.3}
+\contentsline {section}{\numberline {2.4}Writing to the AVR memories}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Parallel programming}{12}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}serial download with ISP}{12}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Self programming with serial interface}{13}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Diagnostic Tools}{14}{subsection.2.4.4}
+\contentsline {chapter}{\numberline {3}The optiboot boot-loader for AVR Micro-controllers}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Changes and enhancements to the version 6.2}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}Automatic size adaption in the optiboot Makefile}{15}{section.3.2}
+\contentsline {section}{\numberline {3.3}target selection for the optiboot Makefile}{16}{section.3.3}
+\contentsline {section}{\numberline {3.4}The Options for the optiboot Makefile}{18}{section.3.4}
+\contentsline {section}{\numberline {3.5}Usage of optiboot without a boot-loader area}{20}{section.3.5}
+\contentsline {section}{\numberline {3.6}Capabilities of the serial interface with the applied software}{22}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Computing of the delay time}{24}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Using more than one serial interface}{25}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Serial Input and Output with only one AVR Pin}{26}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Some examples of building a optiboot bootloader}{27}{section.3.7}
+\contentsline {section}{\numberline {3.8}Clock Frequency Correction of the internal RC-Generator}{29}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}RC-generators check of the ATmega8}{29}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}RC-Generators check of the ATmega8535}{30}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}RC-Generators check of the ATmega8515 and the ATmega162}{30}{subsection.3.8.3}
+\contentsline {subsection}{\numberline {3.8.4}RC-Generators check of the ATmega328 family}{31}{subsection.3.8.4}
+\contentsline {subsection}{\numberline {3.8.5}RC-Generators check of the ATmega32 / 16}{31}{subsection.3.8.5}
+\contentsline {subsection}{\numberline {3.8.6}RC-Generator check of the ATmega163L}{32}{subsection.3.8.6}
+\contentsline {subsection}{\numberline {3.8.7}RC-Generator check of the ATmega64 / 128}{32}{subsection.3.8.7}
+\contentsline {subsection}{\numberline {3.8.8}RC-Generator check of the ATmega644 family}{33}{subsection.3.8.8}
+\contentsline {subsection}{\numberline {3.8.9}RC-Generator check of the ATmega645 family}{33}{subsection.3.8.9}
+\contentsline {subsection}{\numberline {3.8.10}RC-Generator check of the ATmega649 family}{33}{subsection.3.8.10}
+\contentsline {subsection}{\numberline {3.8.11}RC-Generator check of the ATtiny4313 family}{34}{subsection.3.8.11}
+\contentsline {subsection}{\numberline {3.8.12}RC-Generator check of the ATtiny84 family}{34}{subsection.3.8.12}
+\contentsline {subsection}{\numberline {3.8.13}RC-Generators check of the ATtiny85 family}{35}{subsection.3.8.13}
+\contentsline {subsection}{\numberline {3.8.14}RC-Generators check of the ATtiny841 family}{36}{subsection.3.8.14}
+\contentsline {subsection}{\numberline {3.8.15}RC-Generators check of the ATtiny861 family}{36}{subsection.3.8.15}
+\contentsline {subsection}{\numberline {3.8.16}RC-Generators check of the ATtiny88 family}{37}{subsection.3.8.16}
+\contentsline {subsection}{\numberline {3.8.17}RC-Generators check of the AT90PWM family}{37}{subsection.3.8.17}
+\contentsline {chapter}{\numberline {4}Daten der AVR 8-Bit Mikrocontroller}{38}{chapter.4}
+\contentsline {section}{\numberline {4.1}Signature Bytes and default Fuse setting}{38}{section.4.1}
+\contentsline {chapter}{\numberline {5}Various USB to serial converter with Linux}{41}{chapter.5}
+\contentsline {section}{\numberline {5.1}The CH340G and the CP2102 converter }{41}{section.5.1}
+\contentsline {section}{\numberline {5.2}The PL-2303 and the FT232R converter}{43}{section.5.2}
+\contentsline {section}{\numberline {5.3}The USB-serial converter with the ATmega16X2 software}{46}{section.5.3}

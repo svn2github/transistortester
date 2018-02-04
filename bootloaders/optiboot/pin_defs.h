@@ -145,24 +145,31 @@
   #define WDTCSR	WDTCR
 #endif
 
-#if !defined(UCSR0A) && defined(UCSRA)
+#if (!defined(UCSR0A)) && defined(UCSRA)
   // Make the only UART to the UART0
   #define UCSR0A	UCSRA
   #define UCSR0B	UCSRB
 #endif
-#if !defined(UCSR0C) && defined(UCSRC)
+#if (!defined(UCSR0C)) && defined(UCSRC)
   #define UCSR0C	UCSRC
   #define UCSZ01	UCSZ1
   #define UCSZ00	UCSZ0
 #endif
+#if (!defined(URSEL0)) && defined(URSEL)
+  #define URSEL0	URSEL
+#endif
+#if (!defined(URSZ00)) && defined(URSZ0)
+  #define URSZ00	URSZ0
+  #define URSZ01	URSZ1
+#endif
 
-#if !defined(EEPE) && defined(EEWE) 
+#if (!defined(EEPE)) && defined(EEWE) 
   // bits in EECR has other names
  #define EEPE		EEWE
  #define EEMPE		EEMWE
 #endif
 
-#if !defined(TIFR1) && defined(TIFR)
+#if (!defined(TIFR1)) && defined(TIFR)
  #define TIFR1 		TIFR
 #endif
 
@@ -240,10 +247,15 @@
 /* support for attiny841 and attiny441 */
 #if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) 
 /*------------------------------------------------------------------------ */
+ /* usually all AVR devices without a bootpage region has set
+    BOOT_PAGE_LEN and SPM_PAGESIZE to the same value,
+    but tiny441 and tiny841 not */
+  #undef NRWWSTART
+  #define NRWWSTART 0
  /* Onboard LED can be connected to pin PB0 on Sanguino */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B0"
-  #define LEDX         nB0
+  #warning "LED bit is set to default A0"
+  #define LEDX         nA0
  #else
   #define LEDX         LED
  #endif
@@ -251,10 +263,11 @@
  /* Default "SOFT" UART Ports for ATtiny441/841 */
  #if UART_RX == n
   #if UART_NR == 0
+    /* UART0 RX can be remapped to B2 with Bit U0MAP in the REMAP register */
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin B2 as RX for UART 0"
+    #warning "SOFT_UART use Pin A2 as RX for UART 0"
    #endif		/* SOFT_UART > 0 */
-   #define UART_RXX	nB2
+   #define UART_RXX	nA2
   #else
    #if SOFT_UART > 0
     #warning "SOFT_UART use Pin A4 as RX for UART 1"
@@ -267,9 +280,10 @@
  #if UART_TX == n
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin A7 as TX for UART 0"
+    /* UART0 TX can be remapped to A7 with Bit U0MAP in the REMAP register */
+    #warning "SOFT_UART use Pin A1 as TX for UART 0"
    #endif
-   #define UART_TXX	nA7
+   #define UART_TXX	nA1
   #else
    #if SOFT_UART > 0
     #warning "SOFT_UART use Pin A5 as TX for UART 1"
@@ -354,7 +368,7 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default A4"
+  #warning "LED bit is set to default A0"
    #define LEDX        nA0
  #else
   #define LEDX         LED
@@ -386,7 +400,7 @@
  /* Red LED is connected to pin PA4 */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B5"
-   #define LEDX        nB5
+   #define LEDX        nB1
  #else
   #define LEDX         LED
  #endif
@@ -414,6 +428,11 @@
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_ATtiny1634__)
 /*------------------------------------------------------------------------ */
+ /* usually all AVR devices without a bootpage region has set
+    BOOT_PAGE_LEN and SPM_PAGESIZE to the same value,
+    but tiny1634 not */
+  #undef NRWWSTART
+  #define NRWWSTART 0
  /* Red LED is connected to pin PA4 */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #warning "LED bit is set to default B1"
@@ -550,14 +569,12 @@
 #endif		/* __AVR_AT90CAN... */
 
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
-    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__)
+#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM2B__)
 /*------------------------------------------------------------------------ */
 
- /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
-  #define LEDX           nB5	/* coded Port B Bit 5 */
+  #warning "LED bit is set to default D2"
+  #define LEDX           nD2	/* coded Port D Bit 2 */
  #else
   #define LEDX           LED
  #endif
@@ -579,7 +596,43 @@
  #else
   #define UART_TXX      UART_TX
  #endif
- #if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) 
+ #if defined(__AVR_AT90PWM2__) && !defined(SIGNATURE_2)
+   /* add missing Signature bytes */
+   #define SIGNATURE_0	0x1e
+   #define SIGNATURE_1	0x93
+   #define SIGNATURE_2	0x81
+ #endif
+#endif		/* __AVR_AT90PWM... */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_AT90PWM3__) || defined(__AVR_AT90PWM3B__)
+/*------------------------------------------------------------------------ */
+
+ #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
+  #warning "LED bit is set to default C1"
+  #define LEDX           nC1	/* coded Port C Bit 1 */
+ #else
+  #define LEDX           LED
+ #endif
+
+ /* Default "SOFT" UART Ports for AT90PWM */
+ #if UART_RX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin D4 as RX"
+  #endif		/* SOFT_UART > 0 */
+  #define UART_RXX      nD4
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == n
+  #if SOFT_UART > 0
+   #warning "SOFT_UART use Pin D3 as TX"
+  #endif		/* SOFT_UART > 0 */
+  #define UART_TXX      nD3
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+ #if defined(__AVR_AT90PWM3__) && !defined(SIGNATURE_2)
    /* add missing Signature bytes */
    #define SIGNATURE_0	0x1e
    #define SIGNATURE_1	0x93
@@ -863,6 +916,9 @@
   #ifdef UCSR0C
    #define UART_SRC UCSR0C
   #endif
+  #ifdef URSEL0
+   #define UART_SEL URSEL0
+  #endif
   #define UART_SRRL UBRR0L
   #define UART_SRRH UBRR0H
   #define UART_UDR UDR0
@@ -873,6 +929,9 @@
   #define UART_SRA UCSR1A
   #define UART_SRB UCSR1B
   #define UART_SRC UCSR1C
+  #ifdef URSEL1
+   #define UART_SEL URSEL1
+  #endif
   #define UART_SRRL UBRR1L
   #define UART_SRRH UBRR1H
   #define UART_UDR UDR1
@@ -883,6 +942,9 @@
   #define UART_SRA UCSR2A
   #define UART_SRB UCSR2B
   #define UART_SRC UCSR2C
+  #ifdef URSEL2
+   #define UART_SEL URSEL2
+  #endif
   #define UART_SRRL UBRR2L
   #define UART_SRRH UBRR2H
   #define UART_UDR UDR2
@@ -893,6 +955,9 @@
   #define UART_SRA UCSR3A
   #define UART_SRB UCSR3B
   #define UART_SRC UCSR3C
+  #ifdef URSEL3
+   #define UART_SEL URSEL3
+  #endif
   #define UART_SRRL UBRR3L
   #define UART_SRRH UBRR3H
   #define UART_UDR UDR3
@@ -1078,10 +1143,10 @@
 
 /* Virtual boot partition support */
 #ifdef VIRTUAL_BOOT_PARTITION
- #define rstVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+4))
- #define rstVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+5))
- #define saveVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+6))
- #define saveVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE*2+7))
+ #define rstVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE+4))
+ #define rstVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE+5))
+ #define saveVect0_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE+6))
+ #define saveVect1_sav (*(uint8_t*)(RAMSTART+SPM_PAGESIZE+7))
 // Vector to save original reset jump:
 //   SPM Ready is least probably used, so it's default
 //   if not, use old way WDT_vect_num,
@@ -1105,6 +1170,11 @@
   #define WDT_vect_num (WDT_OVERFLOW_vect_num)
  #endif
 
+ #if !defined(UART_TX_vect_num) && defined(USART_TX_vect_num)
+  // rename USART_TX_ to UART_TX_
+  #define UART_TX_vect_num USART_TX_vect_num
+ #endif
+
  #if FLASHEND > 8192
   #define Vect2Byte 4
  #else
@@ -1112,22 +1182,25 @@
  #endif
 
  #if !defined (save_vect_num)
-  #if (defined (SPM_RDY_vect_num)) && ((SPM_RDY_vect_num * Vect2Byte) < (SPM_PAGESIZE*2))
+  #if (defined (SPM_RDY_vect_num)) && ((SPM_RDY_vect_num * Vect2Byte) < SPM_PAGESIZE)
    #warning "SPM_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
    #define save_vect_num (SPM_RDY_vect_num)
-  #elif (defined (EE_RDY_vect_num)) && ((EE_RDY_vect_num * Vect2Byte) < (SPM_PAGESIZE*2))
+  #elif (defined (EE_RDY_vect_num)) && ((EE_RDY_vect_num * Vect2Byte) < SPM_PAGESIZE)
    #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
    #define save_vect_num (EE_RDY_vect_num)
-  #elif (defined (WDT_vect_num)) && ((WDT_vect_num * Vect2Byte) < (SPM_PAGESIZE*2))
+  #elif (defined (WDT_vect_num)) && ((WDT_vect_num * Vect2Byte) < SPM_PAGESIZE)
    #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!"
    #define save_vect_num (WDT_vect_num)
+  #elif (defined (UART_TX_vect_num)) && ((UART_TX_vect_num * Vect2Byte) < SPM_PAGESIZE)
+   #warning "UART_TX_vect_num is selected as save_vect_num for virtual boot partition!"
+   #define save_vect_num (UART_TX_vect_num)
   #else
-   #error "Cant find SPM, EE or WDT interrupt vector for this CPU to support virtual boot partition"
+   #error "Cant find SPM, EE, WDT or UART_TX interrupt vector for this CPU to support virtual boot partition"
   #endif
  #endif //save_vect_num
 
  // check if it's on the same page (code assumes that)
- #if ((SPM_PAGESIZE*2) <= (save_vect_num * Vect2Byte))
+ #if (SPM_PAGESIZE <= (save_vect_num * Vect2Byte))
   #error "Save vector not in the same page as reset vector!"
  #endif
 

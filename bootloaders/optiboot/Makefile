@@ -418,7 +418,7 @@ $(PROGRAM)x.elf: $(PROGRAM).o
 # this processor, so the number of pages is more than 7 pages for the actual size of optiboot.
 BootPages.dat: $(PROGRAM)x.elf
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-	@$(ECHO_CMD) "($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(FLASH_PAGE_SIZE) +1)" | $(BC_CMD) > BootPages.dat
+	@$(ECHO_CMD) "($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(BOOT_PAGE_LEN) +1)" | $(BC_CMD) > BootPages.dat
 else
 	@$(ECHO_CMD) "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3 ) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | $(BC_CMD) > BootPages.dat
 endif
@@ -426,11 +426,7 @@ endif
 # With the file BootPages.dat and the $(BOOT_PAGE_LEN) or $(FLASH_PAGE_SIZE) we can compute the 
 # Start Address of the bootloader depending on the $(FLASH_SIZE) 
 BL_StartAdr.dat:  BootPages.dat
-ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(FLASH_PAGE_SIZE))" | $(BC_CMD) > BL_StartAdr.dat
-else
 	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(BOOT_PAGE_LEN))" | $(BC_CMD) > BL_StartAdr.dat
-endif
 	@$(RM_CMD) $(PROGRAM)x.elf
 
 # Generate the final $(PROGRAM).elf file at the right Start Address,
@@ -458,7 +454,7 @@ steril:
 # With option VIRTUAL_BOOT_PARTITION BOOTSZ.dat is allways set to 3
 BOOTSZ.dat: $(PROGRAM).elf BootPages.dat
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-	@$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Flash Pages, $(FLASH_PAGE_SIZE) Bytes each"
+	@$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Flash Pages, $(BOOT_PAGE_LEN) Bytes each"
 	@$(ECHO_CMD) "3" > BOOTSZ.dat
 else
 	@$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Boot Pages, $(BOOT_PAGE_LEN) Bytes each"

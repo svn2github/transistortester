@@ -71,6 +71,14 @@
 /*------------------------------------------------------------------------ */
 /* support for attiny841 and attiny441 */
 #if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) 
+  #define TST_COUNTER_PIN "PB2"
+  #define CNT_ENABLE_DDR  DDRB
+  #define CNT_ENABLE_PIN  DDB2
+  #define TST_TCCR_A TCCR0A
+  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
+  #define TST_TCCR_B TCCR0B
+  #define TST_TCCR_B_SET (1<<CS00)
+  #define MAX_OSCCAL 255
 #endif		/* __AVR_ATiny841__  .. */
 
 /*------------------------------------------------------------------------ */
@@ -107,11 +115,11 @@
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_ATtiny861__) || defined(__AVR_ATtiny461__) || defined(__AVR_ATtiny261__) || \
     defined(__AVR_ATtiny861A__) || defined(__AVR_ATtiny461A__) || defined(__AVR_ATtiny261A__) 
-  #define TST_COUNTER_PIN "PB1"
+  #define TST_COUNTER_PIN "PB3"
   #define CNT_ENABLE_DDR  DDRB
-  #define CNT_ENABLE_PIN  DDB1
+  #define CNT_ENABLE_PIN  DDB3
   #define TST_TCCR_A TCCR1A
-  #define TST_TCCR_A_SET ((0<<COM1A1) | (1<<COM1A0))
+  #define TST_TCCR_A_SET ((0<<COM1B1) | (1<<COM1B0))
   #define TST_TCCR_B TCCR1B
   #define TST_TCCR_B_SET (1<<CS10)
   #define MAX_OSCCAL 255
@@ -136,7 +144,7 @@
 #if defined(__AVR_ATtiny1634__)
   #define TST_COUNTER_PIN "PC0"
   #define CNT_ENABLE_DDR  DDRC
-  #define CNT_ENABLE_PIN  DDC0
+  #define CNT_ENABLE_PIN  DDRC0
   #define TST_TCCR_A TCCR0A
   #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
   #define TST_TCCR_B TCCR0B
@@ -189,15 +197,40 @@
 
 /* Support for AT90PWM2 family */
 /*------------------------------------------------------------------------ */
-#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM3__) || \
-    defined(__AVR_AT90PWM2B__) || defined(__AVR_AT90PWM3B__)
-  #define TST_COUNTER_PIN "PD3"
+#if defined(__AVR_AT90PWM2__) || defined(__AVR_AT90PWM2B__)
+  #define TST_COUNTER_PIN "PD2"
   #define CNT_ENABLE_DDR  DDRD
-  #define CNT_ENABLE_PIN  DDD3
-  #define TST_TCCR_A TCCR0A
-  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
-  #define TST_TCCR_B TCCR0B
-  #define TST_TCCR_B_SET (1<<CS00)
+  #define CNT_ENABLE_PIN  DDD2
+
+/* PD3 (OC0A) is also TXD */
+//  #define TST_TCCR_A TCCR0A
+//  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
+//  #define TST_TCCR_B TCCR0B
+//  #define TST_TCCR_B_SET (1<<CS00)
+
+  #define TST_TCCR_A TCCR1A
+  #define TST_TCCR_A_SET ((0<<COM1A1) | (1<<COM1A0))
+  #define TST_TCCR_B TCCR1B
+  // use mode 4 (CTC) with OCR1A = 0xff to simulate 8-Bit counter
+  #define TST_TCCR_B_SET (0<<WGM13) | (1<<WGM12) | (1<<CS10)
+  #define MAX_CNTR1 255
+  #define MAX_OSCCAL 127
+
+#endif		/* __AVR_AT90PWM... */
+
+/* Support for AT90PWM3 family */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_AT90PWM3__) || defined(__AVR_AT90PWM3B__)
+  #define TST_COUNTER_PIN "PC1"
+  #define CNT_ENABLE_DDR  DDRC
+  #define CNT_ENABLE_PIN  DDD1
+
+  #define TST_TCCR_A TCCR1A
+  #define TST_TCCR_A_SET ((0<<COM1B1) | (1<<COM1B0))
+  #define TST_TCCR_B TCCR1B
+  // use mode 4 (CTC) with OCR1A = 0xff to simulate 8-Bit counter
+  #define TST_TCCR_B_SET (0<<WGM13) | (1<<WGM12) | (1<<CS10)
+  #define MAX_CNTR1 255
   #define MAX_OSCCAL 127
 
 #endif		/* __AVR_AT90PWM... */

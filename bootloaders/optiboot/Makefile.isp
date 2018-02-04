@@ -179,20 +179,20 @@ ifeq ($(USE_Edat), 0)
    # most processors have the Bootloader bits BOOTSZ in the HFUSE.
 ISPFUSES =	-e -u $(EFUSE_CMD) -U hfuse:w:0x$(shell $(CAT_CMD) HFUSE.dat):m -U lfuse:w:0x$(LFUSE):m
  ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex 
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex:i 
  else
 # program bootloader and set lock bits
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0xef:m
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex:i -U lock:w:0xef:m
  endif
 endif
 
 ifeq ($(USE_Edat), 1)
 ISPFUSES =	-e -u -U efuse:w:0x$(shell $(CAT_CMD) EFUSE.dat):m -U hfuse:w:0x$(HFUSE):m -U lfuse:w:0x$(LFUSE):m
  ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex 
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex:i 
  else
 # program bootloader and set lock bits
-ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex -U lock:w:0xef:m
+ISPFLASH =	-U flash:w:$(PROGRAM)_$(TARGET).hex:i -U lock:w:0xef:m
  endif
 endif
 
@@ -289,7 +289,7 @@ ifeq ($(ISP), 4)
         # read complete EEprom 
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
-	      -U eeprom:r:./Read_$(TARGET).eep:r
+	      -U eeprom:r:./Read_$(TARGET).eep:i
 else
  ifeq ($(ISP), 3)
         # read complete flash 
@@ -301,11 +301,11 @@ else
         # verify mode
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
-	      -U flash:v:$(PROGRAM)_$(TARGET).hex
+	      -U flash:v:$(PROGRAM)_$(TARGET).hex:i
   else
         # normal ISP programming mode. ISPFLASH set the Lock-Bits, if required.
-	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 50 \
-              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) \
+	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B 200 \
+              -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) -q -q \
               $(ISPFUSES) 
 	$(AVRDUDE_ROOT)avrdude $(AVRDUDE_CONF) -c $(ISPTOOL) -B $(BIT_CLOCK) \
               -p $(MCU_TARGET) -P $(ISPPORT) $(ISPSPEED) -D \

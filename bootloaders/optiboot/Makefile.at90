@@ -102,7 +102,9 @@ at90can128: hex_file
 ifndef TARGET
 at90pwm2b: TARGET:= at90pwm2b
 endif
-at90pwm2b: override MCU_TARGET := at90pwm2b
+ifndef MCU_TARGET
+at90pwm2b: MCU_TARGET := at90pwm2b
+endif
 at90pwm2b: override FLASH_SIZE := 8192
 at90pwm2b: override FLASH_PAGE_SIZE := 64
 at90pwm2b: override BOOT_PAGE_LEN := 256
@@ -128,6 +130,7 @@ at90pwm2b: hex_file
 # at90pwm2
 # let board specific change the frequency and fuses
 at90pwm2: TARGET:= at90pwm2
+at90pwm2: MCU_TARGET := at90pwm2b
 # MCU_Target at90pwm2 has error in FLASHEND setting in GNU lib,
 # so we use the at90pwm2b instead.
 export
@@ -142,7 +145,9 @@ at90pwm2:
 ifndef TARGET
 at90pwm3b: TARGET:= at90pwm3b
 endif
-at90pwm3b: override MCU_TARGET := at90pwm3b
+ifndef MCU_TARGET
+at90pwm3b: MCU_TARGET := at90pwm3b
+endif
 at90pwm3b: override FLASH_SIZE := 8192
 at90pwm3b: override FLASH_PAGE_SIZE := 64
 at90pwm3b: override BOOT_PAGE_LEN := 256
@@ -170,6 +175,7 @@ at90pwm3b: hex_file
 # at90pwm3
 # let board specific change the frequency and fuses
 at90pwm3: TARGET:= at90pwm3
+at90pwm3: MCU_TARGET := at90pwm3
 # MCU_Target at90pwm3 has error in FLASHEND setting in GNU lib,
 # so we use the at90pwm3b instead.
 export

@@ -519,6 +519,7 @@
   #if (F_CPU < 14000000) || (F_CPU > 18000000)
    #error "Int PLL mode, wrong Lfuse setting for this frequency (ATtiny861/461/261)!"
   #endif
+  #define PLL_MODE 1
  #endif
 
  #if ((BLFUSE & 0x0f) == 2)
@@ -1110,6 +1111,7 @@
   #if (CK_FREQ < 14600000) || (CK_FREQ > 16200000)
    #error "Int PLL mode, wrong Lfuse setting for this frequency (AT90PWM..)!"
   #endif
+  #define PLL_MODE 1
  #endif
 
  #if ((BLFUSE & 0x0e) == 0x08)
