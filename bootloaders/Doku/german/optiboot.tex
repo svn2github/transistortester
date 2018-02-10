@@ -989,7 +989,7 @@ ein Betrieb der seriellen Schnittstelle bei der angegebenen Baud-Rate nicht mög
 
 Bei der ATmega644 Familie kann  eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Daneben kann
 auch noch ein \(128kHz\) Gererator als Takt gewählt werden, der sonst den Watchdog-Timer versorgt.
-Die gwählte Frequenz kann aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden,
+Die gewählte Frequenz kann aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden,
 so daß auch ein \(1MHz\) Betrieb eingestellt werden kann.
 Die Tabelle~\ref{tab:mega644freq} zeigt die Resultate der untersuchten Prozessoren.
 
@@ -1069,6 +1069,40 @@ mega649 &          8M & 0xE2  & 38.4k &  -2  & 8370k & 8  & 7895k  &  6  & 7988k
   \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega649 Familie}
   \label{tab:mega649freq}
 \end{table}
+
+\subsection{Untersuchung des RC-Generators der ATmega2560 Familie}
+
+Bei der ATmega2560 Familie kann  eine RC-Oszillatorfrequenz von 8MHz gewählt werden. Daneben kann
+auch noch ein \(128kHz\) Gererator als Takt gewählt werden, der sonst den Watchdog-Timer versorgt.
+Die gewählte Frequenz kann aber mit einem Fuse-Bit mit Faktor 8 vorgeteilt werden,
+so daß auch ein \(1MHz\) Betrieb eingestellt werden kann.
+Die Tabelle~\ref{tab:mega2560freq} zeigt die Resultate der untersuchten Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega1281 &          8M & 0xC2  & 38.4k &   &  &   &   &   &  \\
+    \hline
+mega2561 &          8M & 0xC2  & 38.4k &  -8 & 8363k & 4  & 7870k  & 1  & 7990k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATmega2560 Familie}
+  \label{tab:mega2560freq}
+\end{table}
+
+Das Laden von mehr als 128KByte Daten wurde mit dem ATmega2561 erfolgreich getestet.
+Normalerweise beginnen die Anwenderdaten für den Flash-Speicher bei der Addresse 0.
+Das ist für den Daten-Download über die serielle Schnittstelle nicht unbedingt erforderlich.
+Die Anfangs-Addresse muß aber auf jeden Fall unter 128K (0x20000) liegen, 
+damit das Laden von Daten in die obere Speicherhälfte funktioniert.
+Die Option VIRTUAL\_BOOT\_PARTITION kann bei Prozessoren mit mehr
+als 128Kbyte Flash Speicher nicht benutzt werden.
 
 \subsection{Untersuchung der RC-Generatoren der ATtiny4313 Familie}
 
@@ -1335,6 +1369,34 @@ attiny48 &         8M & 0xE2  & 38.4k &  -5  & 8385k & 12  & 7739k  & 5  & 7995k
 
 Bei beiden Exemplaren läuft die serielle Schnittstelle ohne Frequenz-Korrektur. 
 Die Takt-Frequenz wird aber bei einer Korrektur von 5 (6) besser eingehalten.
+
+\subsection{Untersuchung der RC-Generatoren des ATtiny1634}
+
+Für den ATtiny1634 habe ich zwei Exemplare mit dem \(8MHz\) internem RC-Generator
+untersucht. Neben der Frequenz kann auch noch der Frequenz-Temperaturgang des
+RC-Generators mit zwei zusätzlichen Kalibrations-Registern eingestellt werden.
+Den Abgleich des Temperaturgangs habe ich in der Tabelle~\ref{tab:tiny1634freq}
+nicht untersucht. Neben dem \(8MHz\) RC-Generator kann bei diesem Prozessor
+auch die Frequenz des internen \(32kHz\) Generators mit einem zusätzlichen
+Kalibrations-Register (OSCCAL1) abgeglichen werden. Das wird derzeit aber noch
+nicht vom Optiboot Bootloader unterstützt.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+         8M & 0xE2  & 19.2k &  -5  & 8404k &  9  & 7867k  & 6  & 7983k \\
+         8M & 0xE2  & 19.2k &  -7  & 8410k &  7  & 7867k  & 4  & 7986k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für den ATtinye1634}
+  \label{tab:tiny1634freq}
+\end{table}
 
 \subsection{Untersuchung des RC-Generators der AT90PWM Familie}
 

@@ -1089,6 +1089,39 @@ mega649 &          8M & 0xE2  & 38.4k &  -2  & 8370k & 8  & 7895k  &  6  & 7988k
   \label{tab:mega649freq}
 \end{table}
 
+\subsection{RC-Generator check of the ATmega2560 family}
+
+For the ATmega2560 family an RC oscillator frequency of \(8MHz\) can be selected.
+The selected frequency can be pre-divided with a factor 8 fuse bit,
+so that a \(1MHz\) operation is also possible.
+The table~\ref{tab:mega2560freq} shows the results for the checked processors.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+mega1281 &          8M & 0xC2  & 38.4k &   &  &   &   &   &  \\
+    \hline
+mega2561 &          8M & 0xC2  & 38.4k &  -8 & 8363k & 4  & 7870k  & 1  & 7990k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATmega2560 family}
+  \label{tab:mega2560freq}
+\end{table}
+
+Loading of more than 128Kbyte data was successfully tested with the ATmega2561.
+Normally the user data for the flash memory starts withh the address 0.
+This is not absolutely nessesary for data download via the serial interface.
+But the initial address must be below 128K (0x20000), so that the loading
+of data into the upper flash memory half works.
+The option VIRTUAL\_BOOT\_PARTITION can not be used by processors with
+more than 128Kbyte flash memory.
+
 \subsection{RC-Generator check of the ATtiny4313 family}
 
 The ATtiny4313 und the ATtiny2313 can select a RC-generator frequency of
@@ -1360,6 +1393,35 @@ attiny48 &         8M & 0xE2  & 38.4k &  -5  & 8385k & 12  & 7739k  & 5  & 7995k
 Both examples can operate the serial interface without a frequency correction.
 But the processor clock will match the \(8MHz\) better, if you choose
 a correction value of 5 (6).
+
+\subsection{RC-Generator check of the ATtiny1634}
+
+I have checked the \(8MHz\) internal RC-generator of the ATtiny1634
+with two examples.
+The ATtiny1634 support two additional calibration register for adjusting the
+temperature drift of the \(8MHz\) RC-generator.
+In the table~\ref{tab:tiny1634freq} I have not checked the effect of
+the temperature drift compensation.
+Additional to the \(8MHz\) RC-generator the ATmega1634 can also adjust
+the internal \(32kHz\) generator with a additional calibration register (OSCCAL1).
+This adjustment is currently unsupported by the Optiboot bootloader.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
+    \hline
+       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+         8M & 0xE2  & 19.2k &  -5  & 8404k &  9  & 7867k  & 6  & 7983k \\
+         8M & 0xE2  & 19.2k &  -7  & 8410k &  7  & 7867k  & 4  & 7986k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny1634}
+  \label{tab:tiny1634freq}
+\end{table}
 
 \subsection{RC-Generators check of the AT90PWM family}
 

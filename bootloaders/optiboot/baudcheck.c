@@ -54,7 +54,7 @@ fcpu=`$ECHO_CMD F_CPU | $TR_CMD -d LU`
 /*
  * Compute the divisor
  */
-$ECHO_CMD ---------------------------------------------------------------------------
+$ECHO_CMD --------------------------------------------------------------------------------
 #if SOFT_UART > 0
  #if FLASHEND > 0x1ffff
   #define RCALL_TICS 9
@@ -173,7 +173,7 @@ $ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=1;($fcpu / $U
 $ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
  #endif
 #endif	/* SOFT_UART */
-$ECHO_CMD ---------------------------------------------------------------------------
+$ECHO_CMD --------------------------------------------------------------------------------
 
 
 

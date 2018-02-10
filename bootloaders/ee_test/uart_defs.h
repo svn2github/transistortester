@@ -299,7 +299,8 @@
 
 /*------------------------------------------------------------------------ */
 /* Mega support */
-#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
+#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || \
+    defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
 /*------------------------------------------------------------------------ */
 
 /* Default "SOFT" UART Ports for ATmega1280 */

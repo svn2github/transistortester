@@ -122,6 +122,7 @@ attiny841: override FLASH_SIZE := 8192
 attiny841: override FLASH_PAGE_SIZE := 16
 # use the flash page size of tiny841 to prevent unaligned Start-Address
 # but tiny841 with a 16 byte page size can only erase 4 pages (64 byte)
+attiny841: override FLASH_ERASE_CNT = 4
 attiny841: override BOOT_PAGE_LEN := 64
 attiny841: override VIRTUAL_BOOT_PARTITION = 1
 ifndef AVR_FREQ
@@ -162,6 +163,7 @@ attiny441: override FLASH_SIZE := 4096
 attiny441: override FLASH_PAGE_SIZE := 16
 # use the flash page size of tiny841 to prevent unaligned Start-Address
 # but tiny441 with a 16 byte page size, can only erase 4 pages (64 byte)
+attiny441: override FLASH_ERASE_CNT = 4
 attiny441: override BOOT_PAGE_LEN := 64
 attiny441: override VIRTUAL_BOOT_PARTITION = 1
 ifndef AVR_FREQ
@@ -519,6 +521,7 @@ attiny1634: override FLASH_SIZE := 16384
 attiny1634: override FLASH_PAGE_SIZE := 32
 # use the flash page size of tiny1634 to prevent unaligned Start-Address
 # but tiny1634 with a 32 byte page size, can only erase 4 pages (64 byte)
+attiny1634: override FLASH_ERASE_CNT = 4
 attiny1634: override BOOT_PAGE_LEN := 128
 attiny1634: override VIRTUAL_BOOT_PARTITION := 1
 ifndef AVR_FREQ

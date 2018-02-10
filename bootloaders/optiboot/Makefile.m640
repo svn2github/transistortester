@@ -34,6 +34,30 @@ atmega1280: AVR_FREQ := 16000000
 atmega1280: hex_file 
 
 ################################################
+# generic atmega2560
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega2560: TARGET := atmega2560
+endif
+atmega2560: MCU_TARGET := atmega2560
+atmega2560: override FLASH_SIZE := 262144
+atmega2560: override FLASH_PAGE_SIZE := 256
+atmega2560: override BOOT_PAGE_LEN := 1024
+ifndef HFUSE
+# 1024 byte boot
+atmega2560: HFUSE := 9E
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+atmega2560: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.7V brownout;
+atmega2560: EFUSE := FD
+endif
+atmega2560: AVR_FREQ := 16000000
+
+################################################
 # generic atmega1281
 # let board specific change the frequency and fuses
 ifndef TARGET
@@ -57,6 +81,31 @@ atmega1281: EFUSE := 05
 endif
 atmega1281: AVR_FREQ := 16000000
 atmega1281: hex_file 
+
+################################################
+# generic atmega2561
+# let board specific change the frequency and fuses
+ifndef TARGET
+atmega2561: TARGET := atmega2561
+endif
+atmega2561: MCU_TARGET := atmega2561
+atmega2561: override FLASH_SIZE := 262144
+atmega2561: override FLASH_PAGE_SIZE := 256
+atmega2561: override BOOT_PAGE_LEN := 1024
+ifndef HFUSE
+# 1024 byte boot
+atmega2561: HFUSE := 9E
+endif
+ifndef LFUSE
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+atmega2561: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.7V brownout;
+atmega2561: EFUSE := FD
+endif
+atmega2561: AVR_FREQ := 16000000
+atmega2561: hex_file 
 
 
 

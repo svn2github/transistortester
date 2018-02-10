@@ -232,22 +232,6 @@
 /* 4.1 WestfW: put version number in binary.		  */
 /**********************************************************/
 
-#define OPTIBOOT_MAJVER 6
-#define OPTIBOOT_MINVER 2
-
-/*
- * OPTIBOOT_CUSTOMVER should be defined (by the makefile) for custom edits
- * of optiboot.  That way you don't wind up with very different code that
- * matches the version number of a "released" optiboot.
- */
-
-#if !defined(OPTIBOOT_CUSTOMVER)
- #define OPTIBOOT_CUSTOMVER 0
-#endif
-
-unsigned const int __attribute__((section(".version"))) 
-optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
-
 
 #include <inttypes.h>
 #include <avr/io.h>
@@ -278,6 +262,23 @@ optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
 #include "stk500.h"
 
 #include "check_fuses.h"
+
+
+#define OPTIBOOT_MAJVER 6
+#define OPTIBOOT_MINVER 2
+
+/*
+ * OPTIBOOT_CUSTOMVER should be defined (by the makefile) for custom edits
+ * of optiboot.  That way you don't wind up with very different code that
+ * matches the version number of a "released" optiboot.
+ */
+
+#if !defined(OPTIBOOT_CUSTOMVER)
+ #define OPTIBOOT_CUSTOMVER 110
+#endif
+
+unsigned const int __attribute__((section(".version"))) 
+optiboot_version = 256*(OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
 
 #ifdef LUDICROUS_SPEED
  #define BAUD_RATE 230400L
@@ -346,9 +347,14 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
  * RAMSTART should be self-explanatory.  It's bigger on parts with a
  * lot of peripheral registers.
  */
-#if defined(__AVR_ATmega1280__)
- #undef RAMSTART
- #define RAMSTART (0x200)
+#ifndef RAMSTART
+ #if RAMEND > 0x2000
+  #warning "RAMSTART was unset, is now 0x200"
+  #define RAMSTART (0x200)
+ #else
+  #warning "RAMSTART was unset, is now 0x100"
+  #define RAMSTART (0x100)
+ #endif
 #endif
 
 
@@ -361,11 +367,16 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
 #ifndef SUPPORT_EEPROM
  #define SUPPORT_EEPROM 0
 #endif
+
 #ifdef BIGBOOT
  #undef SUPPORT_EEPROM		/* prevent compiler error, if previously set */
  #define SUPPORT_EEPROM 1	/* allways set the EEprom support */
 #else
  #define BIGBOOT 0
+#endif
+
+#ifndef TEST_OUTPUT
+ #define TEST_OUTPUT 0
 #endif
 
 #if LED_START_FLASHES < 0
@@ -374,6 +385,40 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
  #warning "LED flash loop with RX Pin monitoring!"
 #endif
 
+#ifdef __AVR_ATmega163__
+ #ifdef NRWWSTART
+   #warning "NRWWSTART for ATmega163 must be unset or zero!"
+   #undef NRWWSTART
+   #define NRWWSTART 0
+ #else
+   #define NRWWSTART 0
+ #endif
+#endif
+
+#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega8A__) || \
+    defined(__AVR_ATmega8535__) || defined(__AVR_ATmega8515__) || \
+    defined (__AVR_ATmega64__) || defined (__AVR_ATmega64A__) || \
+    defined(__AVR_ATmega128__) || \
+    defined(__AVR_ATmega163__)
+ /* avrdude set a byte address for this processors (tested with ATmega8) */
+ /* for the Program Page command. */
+ /* For other processors like ATmega88/168/328 avrdude use a word address, */
+ /* which is the same as with the Flash memory. */
+ #define EEprom_ByteAddress
+#else
+ #define e_address f_address
+#endif
+
+// the reset cause is hold in GPIOR0 (or OCR2 for ATmega8/16/32)
+#ifdef GPIOR0
+ #define RESET_CAUSE GPIOR0
+#else
+ #ifdef OCR2
+  #define RESET_CAUSE OCR2
+ #else
+  #define RESET_CAUSE ICR1L
+ #endif
+#endif
 
 
 /* main program starts here */
@@ -387,7 +432,10 @@ int main(void) {
    *  necessary, and uses 4 bytes of flash.)
    * A "address = address" solve the problem because no code is generated.
    */
-  register uint16_t address = address;
+  register uint16_t f_address = f_address;
+#ifdef EEprom_ByteAddress
+  register uint8_t e_address = e_address;
+#endif
   register pagelen_t  length;
 
   // After the zero init loop, this is the first code to run.
@@ -431,9 +479,9 @@ int main(void) {
     defined(__AVR_ATmega6450__) || defined(__AVR_ATmega6450P__) || \
     defined(__AVR_ATmega6450A__) || defined(__AVR_ATmega6450PA__)
  #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
-  SP = RAMEND -256;
+  SP = RAMEND - 256;
  #else
-  SP=RAMEND;  // This is done by hardware reset
+  SP = RAMEND;  // This is done by hardware reset
  #endif
 #endif
 
@@ -456,10 +504,11 @@ int main(void) {
 #endif
 
 #if defined(OSCCAL_CORR) && defined(OSCCAL)
- #if (OSCCAL_CORR < -10) || (OSCCAL_CORR > 10)
-  #warning "OSCCAL_CORR is too big, should be greater -10 and less than 10"
- #elif (OSCCAL_CORR != 0)
-  OSCCAL -= OSCCAL_CORR;
+ #if (OSCCAL_CORR < -20) || (OSCCAL_CORR > 20)
+  #warning "OSCCAL_CORR is too big, should be greater -20 and less than 20"
+ #endif
+ #if (OSCCAL_CORR != 0)
+  if(ch != 0) OSCCAL -= OSCCAL_CORR;
  #endif
 #endif
 
@@ -499,17 +548,18 @@ int main(void) {
    #error "Unachievable baud rate (too slow) BAUD_RATE"
   #endif
  #endif
- #if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
+ //#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
+ #if defined(UART_SRC) && defined(UART_SEL)
   #ifdef UART_MODE_2X
-   UCSRA = _BV(U2X);	// Double speed mode USART
+   UART_SRA = _BV(U2X0);	// Double speed mode USART
   #else
-   UCSRA = 0;		// Single speed mode USART
+   UART_SRA = 0;		// Single speed mode USART
   #endif
-  UCSRB = _BV(RXEN) | _BV(TXEN);  // enable Rx & Tx
-  UCSRC = _BV(URSEL) | _BV(UCSZ1) | _BV(UCSZ0);  // config USART; 8N1
-  UBRRL = (uint8_t)( BAUD_DIV );
+  UART_SRB = _BV(RXEN0) | _BV(TXEN0);  // enable Rx & Tx
+  UART_SRC = _BV(URSEL0) | _BV(UCSZ01) | _BV(UCSZ00);  // config USART; 8N1
+  UART_SRRL = (uint8_t)( BAUD_DIV );
   #if (BAUD_DIV/256) != 0
-   UCSRC = (uint8_t)( BAUD_DIV/256 );	// without URSEL bit this register hold the upper bits
+   UART_SRC = (uint8_t)( BAUD_DIV/256 );	// without URSEL bit this register hold the upper bits
   #endif
  #else		/* no ATmega8 ... */
   #ifdef UART_MODE_2X
@@ -590,26 +640,35 @@ int main(void) {
     t1_delay();
 
  #if LED_START_FLASHES > 1
-  } while (--count);
+  } while (--count);	/* { */
  #endif
  #if LED_START_FLASHES < -1
-  } while (++count);	/* { */
+  } while (++count);
  #endif
 #endif	/* LED_START_FLASHES != 0 */
 
 #if TEST_OUTPUT == 1
  #warning "optiboot with test output only!"
     /* only a test output for baud rate check, the bootloader will not work with this */
-   do {
+   for (;;) {
     putch('U');         // produce a 01010101 pattern for test
    } ;
 #endif
 
+#if FLASHEND > 0x1ffff
+      uint8_t operation_mode;
+      operation_mode = 0;	// preset operation mode, is changed by STK_PROG_PAGE / STK_READ_PAGE
+#endif
+
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   /* Forever loop */
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   for (;;) {
     /* get character from UART */
     ch = getch();
 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     if(ch == STK_GET_PARAMETER) {
       unsigned char which = getch();
       verifySpace();
@@ -629,14 +688,17 @@ int main(void) {
 	putch(0x03);
       }
     }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_SET_DEVICE) {
       // SET DEVICE is ignored
       getNch(20);
     }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_SET_DEVICE_EXT) {
       // SET DEVICE EXT is ignored
       getNch(5);
     }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_LOAD_ADDRESS) {
       // LOAD ADDRESS
       union {
@@ -648,55 +710,77 @@ int main(void) {
       newAddress.b[1] = getch();	// next byte to upper bits
 #ifdef RAMPZ
       // Transfer top bit to RAMPZ
+ #if FLASHEND > 0x1ffff
+      // set the lowest bit of RAMPZ from newAddress
+      uint8_t temp8 = RAMPZ & 0xfe;
+      if ((newAddress.b[1] & 0x80) != 0) temp8 |= 1;
+      RAMPZ = temp8;
+ #else
       RAMPZ = (newAddress.b[1] & 0x80) ? 1 : 0;
+ #endif
+#endif
+#if (SUPPORT_EEPROM > 0) && defined(EEprom_ByteAddress)
+      e_address = newAddress.w;
 #endif
       newAddress.w += newAddress.w; // Convert from word address to byte address
-      address = newAddress.w;
+      f_address = newAddress.w;
+      // if EEprom_ByteAddress is not set, e_address is replaced by f_address
       verifySpace();
     }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_UNIVERSAL) {
       // UNIVERSAL command is ignored
       getNch(4);
       putch(0x00);
     }
     /* Write memory, length is big endian and is in bytes */
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_PROG_PAGE) {
+#if FLASHEND > 0x1ffff
+      if (operation_mode != ch) {
+         operation_mode = ch;	// update operation mode
+         RAMPZ &= 0x01;		// leave lowest bit, probably set by STK_LOAD_ADDRESS
+      }
+#endif
       // PROGRAM PAGE - we support flash and optional EEPROM programming
       uint8_t *bufPtr;
       uint16_t addrPtr;
 
       GETLENGTH(length);
-
-#if SUPPORT_EEPROM > 0
       pagelen_t savelength;
       savelength = length;
+
+#if SUPPORT_EEPROM > 0
       uint8_t desttype = getch() - 'E';	/* desttype = 0, if EEprom */
-      if (desttype)
-#else
-      getch();			/* dummy type */
-#endif 
+ #if NRWWSTART != 0
         // If we are in RWW section, immediately start page erase
-      if (address < NRWWSTART) {
-//#if defined(__AVR_ATmega64__)
-//         __boot_page_erase_normal((uint16_t)(void*)address);
-//#else
-//         __boot_page_erase_short((uint16_t)(void*)address);
-//#endif
-         boot_page_erase((uint16_t)(void*)address);
+      if ((desttype != 0) && (f_address < NRWWSTART)) {
+         boot_page_erase((uint16_t)(void*)f_address);	// early page erase
       }
+ #endif
+#else	/* no EEprom Support */
+      getch();			/* dummy type */
+ #if NRWWSTART != 0
+        // If we are in RWW section, immediately start page erase
+      if (f_address < NRWWSTART) {
+         boot_page_erase((uint16_t)(void*)f_address);	// early page erase
+      }
+ #endif
+#endif 
 
       // While that is going on, read in page contents
       bufPtr = buff;
       do *bufPtr++ = getch();
       while (--length);
 
+      // Read command terminator, start reply
+      verifySpace();
+
 #if SUPPORT_EEPROM > 0
       if (!desttype) {	/* EEPROM */
-        // Read command terminator, start reply
-        verifySpace();
 
         length = savelength;
-        addrPtr = address;
+        addrPtr = e_address;
         bufPtr = buff;
         while (length--) {
           wdt_reset();
@@ -707,23 +791,33 @@ int main(void) {
           EECR |= 1 << EEMPE;	/* Write logical one to EEMPE */
           EECR |= 1 << EEPE;	/* Start eeprom write by setting EEPE */
         }
-      } else {
+      } else {	/* Flash */
 #endif
         // If we are in NRWW section, page erase has to be delayed until now.
         // Todo: Take RAMPZ into account (not doing so just means that we will
         //  treat the top of both "pages" of flash as NRWW, for a slight speed
         //  decrease, so fixing this is not urgent.)
-        if (address >= NRWWSTART) {
-//#if defined(__AVR_ATmega64__)
-//           __boot_page_erase_normal((uint16_t)(void*)address);
-//#else
-//           __boot_page_erase_short((uint16_t)(void*)address);
-//#endif
-           boot_page_erase((uint16_t)(void*)address);
+#if NRWWSTART == 0
+ #if defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny1634__) 
+   //     this processors do a 4 page erase, so only every fourth page
+   //     must do a page erage (page size is 16 bytes only)
+	uint8_t check_fourth;
+  #if defined(__AVR_ATtiny1634__)
+	check_fourth = f_address & 0x60;	// the lower two bits of the page address t1634
+   #warning "4 page erase for t1634"
+  #else
+	check_fourth = f_address & 0x30;	// the lower two bits of the page address t841/t441.
+   #warning "4 page erase for t841/441"
+  #endif
+	if (check_fourth == 0) boot_page_erase((uint16_t)(void*)f_address);
+ #else	/* erase every page */
+	boot_page_erase((uint16_t)(void*)f_address);
+ #endif
+#else
+        if ((f_address) >= NRWWSTART) {
+           boot_page_erase((uint16_t)(void*)f_address);
         }
-
-        // Read command terminator, start reply
-        verifySpace();
+#endif
 
         // If only a partial page is to be programmed, the erase might not be complete.
         // So check that here
@@ -735,7 +829,7 @@ int main(void) {
  * AVR with 4-byte ISR Vectors and "jmp"
  * WARNING: this works only up to 128KB flash!
  */
-      if (address == 0) {
+      if (f_address == 0) {
         // This is the reset vector page. We need to live-patch the
         // code so the bootloader runs first.
         //
@@ -761,7 +855,7 @@ int main(void) {
 /*
  * AVR with 2-byte ISR Vectors and rjmp
  */
-      if ((uint16_t)(void*)address == rstVect0) {
+      if ((uint16_t)(void*)f_address == rstVect0) {
         // This is the reset vector page. We need to live-patch
         // the code so the bootloader runs first.
         //
@@ -789,42 +883,43 @@ int main(void) {
 #endif // VBP
 
 
-        // Copy buffer into programming buffer
+        // Copy RAM-buffer into programming buffer
         uint16_t *buf16Ptr;
         buf16Ptr = (uint16_t *)buff;
-        addrPtr = (uint16_t)(void*)address;
-        ch = SPM_PAGESIZE / 2;
+        addrPtr = (uint16_t)(void*)f_address;
+//        ch = SPM_PAGESIZE / 2;
+        ch = savelength/2;
         do {
-//#if defined(__AVR_ATmega64__)
-//          __boot_page_fill_normal((uint16_t)(void*)addrPtr,*buf16Ptr++);
-//#else
-//          __boot_page_fill_short((uint16_t)(void*)addrPtr,*buf16Ptr++);
-//#endif
 	  boot_page_fill((uint16_t)(void *)addrPtr,*buf16Ptr++);
           addrPtr += 2;
         } while (--ch);
 
-        // Write from programming buffer
-//#if defined(__AVR_ATmega64__)
-//        __boot_page_write_normal((uint16_t)(void*)address);
-//#else
-//        __boot_page_write_short((uint16_t)(void*)address);
-//#endif
-        boot_page_write((uint16_t)(void*)address);
+        // Write from programming buffer to flash
+        boot_page_write((uint16_t)(void*)f_address);
         boot_spm_busy_wait();
 
 #if defined(RWWSRE)
         // Reenable read access to flash
         boot_rww_enable();
 #endif
-#if SUPPORT_EEPROM > 0
-      }
+#if FLASHEND > 0x1ffff
+	if (addrPtr == 0) RAMPZ += 1;		// increment RAMPZ, Address Overflow
 #endif
-    }
+#if SUPPORT_EEPROM > 0
+      }  /* end if (!desttype) */
+#endif
+    }  /* end else if(ch == STK_PROG_PAGE) */
+
     /* Read memory block mode, length is big endian.  */
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_READ_PAGE) {
       // READ PAGE - we only read flash and EEPROM
-
+#if FLASHEND > 0x1ffff
+      if (operation_mode != ch) {
+         operation_mode = ch;	// update operation mode
+         RAMPZ &= 0x01;		// leave lowest bit, probably set by STK_LOAD_ADDRESS
+      }
+#endif
       GETLENGTH(length);
 #if SUPPORT_EEPROM > 0
       uint8_t desttype = getch() - 'E';     /* 0 if EEprom */
@@ -841,22 +936,22 @@ int main(void) {
         do {
 #ifdef VIRTUAL_BOOT_PARTITION
         // Undo vector patch in bottom page so verify passes
-            if (address == rstVect0) ch = rstVect0_sav;
-            else if (address == rstVect1) ch = rstVect1_sav;
-            else if (address == saveVect0) ch = saveVect0_sav;
-            else if (address == saveVect1) ch = saveVect1_sav;
-            else ch = pgm_read_byte_near(address);
-            address++;
+            if (f_address == rstVect0) ch = rstVect0_sav;
+            else if (f_address == rstVect1) ch = rstVect1_sav;
+            else if (f_address == saveVect0) ch = saveVect0_sav;
+            else if (f_address == saveVect1) ch = saveVect1_sav;
+            else ch = pgm_read_byte_near(f_address);
+            f_address++;
 #elif defined(RAMPZ)
           // Since RAMPZ should already be set, we need to use EPLM directly.
-          // Also, we can use the autoincrement version of lpm to update "address"
-          //      do putch(pgm_read_byte_near(address++));
+          // Also, we can use the autoincrement version of lpm to update "f_address"
+          //      do putch(pgm_read_byte_near(f_address++));
           //      while (--length);
-          // read a Flash and increment the address (may increment RAMPZ)
-          __asm__ ("elpm %0,Z+\n" : "=r" (ch), "=z" (address): "1" (address));
+          // read a Flash and increment the f_address (may increment RAMPZ)
+          __asm__ ("elpm %0,Z+\n" : "=r" (ch), "=z" (f_address): "1" (f_address));
 #else
-          // read a Flash byte and increment the address
-          __asm__ ("lpm %0,Z+\n" : "=r" (ch), "=z" (address): "1" (address));
+          // read a Flash byte and increment the f_address
+          __asm__ ("lpm %0,Z+\n" : "=r" (ch), "=z" (f_address): "1" (f_address));
 #endif
           putch(ch);
         } while (--length);
@@ -865,7 +960,7 @@ int main(void) {
         while (length--) {
           while (!eeprom_is_ready());
 
-          EEAR = address++;
+          EEAR = e_address++;
           EECR |= 1 << EERE;	/* Start eeprom read by writing EERE */
 
           putch( EEDR );
@@ -874,6 +969,7 @@ int main(void) {
     }
 
     /* Get device signature bytes  */
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if(ch == STK_READ_SIGN) {
       // READ SIGN - return what Avrdude wants to hear
       verifySpace();
@@ -881,18 +977,27 @@ int main(void) {
       putch(SIGNATURE_1);
       putch(SIGNATURE_2);
     }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    else if (ch == CRC_EOP) { /* ' ' */
+// avrdude send a STK_GET_SYNC followed by CRC_EOP
+// if the STK_GET_SYNC is loose out, the CRC_EOP is detected as last character
+// ignore this CRC_EOP and wait for next STK_GET_SYNC
+      continue;
+    }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if (ch == STK_LEAVE_PROGMODE) { /* 'Q' */
       // Adaboot no-wait mod
       watchdogConfig(WATCHDOG_16MS);
       verifySpace();
     }
     else {
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
       // This covers the response to commands like STK_ENTER_PROGMODE
       verifySpace();
     }
     putch(STK_OK);
-  }
-}
+  }  /* end for */
+} /* end main */
 
 
 void putch(uint8_t ch) {
@@ -1004,8 +1109,8 @@ uint8_t getch(void) {
 void t1_delay(void) {
  #ifdef TCNT1H
   // Set up Timer 1 for timeout counter
+  TCNT1 = -(F_CPU/(1024*20));
   TCCR1B = _BV(CS12) | _BV(CS10); // div 1024
-  TCNT1 = -(F_CPU/(1024*16));
   TIFR1 = _BV(TOV1);
   #ifdef Check_RX
   while( !(TIFR1 & _BV(TOV1)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
@@ -1013,14 +1118,30 @@ void t1_delay(void) {
   while(!(TIFR1 & _BV(TOV1)));
   #endif
  #elif defined(TCNT0H)
+  // counter 0 is a 16-Bit counter
+  TCNT0H = (-(F_CPU/(1024*20))) / 256;
+  TCNT0L = (-(F_CPU/(1024*20))) & 0xff;
   TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
-  TCNT0 = -(F_CPU/(1024*16));
-  TIFR0 = _BV(TOV0);
+  TIFR = _BV(TOV0);
   #ifdef Check_RX
-  while( !(TIFR0 & _BV(TOV0)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
+  while( !(TIFR & _BV(TOV0)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
   #else
-  while(!(TIFR0 & _BV(TOV0)));
+  while(!(TIFR & _BV(TOV0)));
   #endif
+ #else
+  // no 16-Bit counter, use 8-Bit and external counter
+  uint8_t ecnt;
+  ecnt = (-(F_CPU/(1024*20)))/256;
+  TCNT0 = (-(F_CPU/(1024*20))) & 0xff;
+  TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
+  for(;ecnt!=0;ecnt++) {
+    TIFR = _BV(TOV0);
+    #ifdef Check_RX
+    while( !(TIFR & _BV(TOV0)) && (UART_RX_PIN & _BV(UART_RX_BIT)) );
+    #else
+    while(!(TIFR & _BV(TOV0)));
+    #endif
+  }
  #endif
   wdt_reset();		/* prevent wdt time-out during LED flashing */
 }
@@ -1087,6 +1208,7 @@ void appStart(uint8_t rstFlags) {
 #else
   watchdogConfig(WATCHDOG_OFF);
 #endif
+ RESET_CAUSE = rstFlags;
 
   // save the reset flags in the designated register
   //  This can be saved in a main program by putting code in .init0 (which

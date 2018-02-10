@@ -467,6 +467,27 @@ m1280: AVR_FREQ := 16000000
 endif
 m1280: $(DO_PGM)
 
+m1281: PARTNO := m1281
+m1281: MCU := atmega1281
+ifndef AVR_FREQ
+m1281: AVR_FREQ := 16000000
+endif
+m1281: $(DO_PGM)
+
+m2560: PARTNO := m2560
+m2560: MCU := atmega2560
+ifndef AVR_FREQ
+m2560: AVR_FREQ := 16000000
+endif
+m2560: $(DO_PGM)
+
+m2561: PARTNO := m2561
+m2561: MCU := atmega2561
+ifndef AVR_FREQ
+m2561: AVR_FREQ := 16000000
+endif
+m2561: $(DO_PGM)
+
 at90pwm2: PARTNO := at90pwm2
 at90pwm2: MCU := at90pwm2
 ifndef AVR_FREQ

@@ -136,6 +136,9 @@ else
 # no ENV set
 GCCROOT =
 AVRDUDE_CONF =
+ ifdef ETC_CONF
+  AVRDUDE_CONF += -C /etc/avrdude.conf
+ endif
 endif
 
 STK500 = "C:\Program Files\Atmel\AVR Tools\STK500\Stk500.exe"
@@ -351,6 +354,10 @@ override LDFLAGS       = -Wl,--relax -nostartfiles -nostdlib
 OBJCOPY        = $(GCCROOT)avr-objcopy
 OBJDUMP        = $(call fixpath,$(GCCROOT)avr-objdump)
 
+ifndef FLASH_ERASE_CNT
+ FLASH_ERASE_CNT = 1
+endif
+
 
 #---------------------------------------------------------------------------
 #
@@ -367,19 +374,19 @@ baudcheck: FORCE
 $(PROGRAM).o: $(PROGRAM).$(SOURCE_TYPE) FORCE
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
  ifdef save_vect_num
-	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=$(save_vect_num) -DLED=n$(LED) \
-        -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -Dsave_vect_num=$(save_vect_num) -DLED=p$(LED) \
+        -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -DF_CPU=$(AVR_FREQ) \
         -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  else
-	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
-        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DVIRTUAL_BOOT_PARTITION -DLED=p$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
+        -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -DF_CPU=$(AVR_FREQ) \
         -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
  endif 
 else
-	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=n$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
-        -DUART_RX=n$(UART_RX) -DUART_TX=n$(UART_TX) -DF_CPU=$(AVR_FREQ) \
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DLED=p$(LED) -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) \
+        -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -DF_CPU=$(AVR_FREQ) \
         -DHFUSE=hex$(HFUSE) -DLFUSE=hex$(LFUSE) \
         -DBOOT_PAGE_LEN=$(BOOT_PAGE_LEN) -c -o $@ $<
 endif
@@ -418,7 +425,7 @@ $(PROGRAM)x.elf: $(PROGRAM).o
 # this processor, so the number of pages is more than 7 pages for the actual size of optiboot.
 BootPages.dat: $(PROGRAM)x.elf
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-	@$(ECHO_CMD) "($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(BOOT_PAGE_LEN) +1)" | $(BC_CMD) > BootPages.dat
+	@$(ECHO_CMD) "(($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(FLASH_PAGE_SIZE)/$(FLASH_ERASE_CNT) +1)*$(FLASH_ERASE_CNT)" | $(BC_CMD) > BootPages.dat
 else
 	@$(ECHO_CMD) "pg_anz=($(shell $(SIZE) -C $(PROGRAM)x.elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16)/$(BOOT_PAGE_LEN) +1); pg_anz + (pg_anz==3 ) + (pg_anz==5)*3 + (pg_anz==6)*2 + (pg_anz == 7)" | $(BC_CMD) > BootPages.dat
 endif
@@ -426,15 +433,19 @@ endif
 # With the file BootPages.dat and the $(BOOT_PAGE_LEN) or $(FLASH_PAGE_SIZE) we can compute the 
 # Start Address of the bootloader depending on the $(FLASH_SIZE) 
 BL_StartAdr.dat:  BootPages.dat
+ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
+	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(FLASH_PAGE_SIZE))" | $(BC_CMD) > BL_StartAdr.dat
+else
 	@$(ECHO_CMD) "obase=16;$(FLASH_SIZE) - ($(shell $(CAT_CMD) BootPages.dat)*$(BOOT_PAGE_LEN))" | $(BC_CMD) > BL_StartAdr.dat
+endif
 	@$(RM_CMD) $(PROGRAM)x.elf
 
 # Generate the final $(PROGRAM).elf file at the right Start Address,
 # which is the base to generate the $(PROGRAM)_$(TARGET).hex and $(PROGRAM)_$(TARGET).lst files.
 $(PROGRAM).elf:  $(PROGRAM).o baudcheck  BL_StartAdr.dat
-	@$(ECHO_CMD) "######################################"
-	@$(ECHO_CMD) "Boot Loader start address: 0x$(shell $(CAT_CMD) BL_StartAdr.dat)"
-	@$(ECHO_CMD) "######################################"
+	@$(ECHO_CMD) "###########################################"
+	@$(ECHO_CMD) "Boot Loader start address: 0x$(shell $(CAT_CMD) BL_StartAdr.dat) = $(shell $(CAT_CMD) base_cmd BL_StartAdr.dat | $(BC_CMD))"
+	@$(ECHO_CMD) "###########################################"
 	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) \
         -Wl,--section-start=.text=0x$(shell $(CAT_CMD) BL_StartAdr.dat) $(LDFLAGS) -o $(PROGRAM).elf $< $(LIBS)
 	@$(ECHO_CMD)

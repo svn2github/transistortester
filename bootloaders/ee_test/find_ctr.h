@@ -249,7 +249,8 @@
 
 /*------------------------------------------------------------------------ */
 /* Mega support */
-#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
+#if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || \
+    defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
   #define TST_COUNTER_PIN "PB7"
   #define CNT_ENABLE_DDR  DDRB
   #define CNT_ENABLE_PIN  DDB7
@@ -258,7 +259,7 @@
   #define TST_TCCR_B TCCR0B
   #define TST_TCCR_B_SET (1<<CS00)
   #define MAX_OSCCAL 255
-#endif          /* __AVR_ATmega640__ || __AVR_ATmega1280__ */
+#endif          /* __AVR_ATmega640__ || __AVR_ATmega1280__ ... */
 
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_ATmega162__) 

@@ -43,6 +43,11 @@ BitClock=5.0
 AVRDUDE_BAUD = -b $(BAUD_RATE) -D
 # ********************** end of selectable options
 
+AVRDUDE_CONF =
+ifdef ETC_CONF
+ AVRDUDE_CONF += -C /etc/avrdude.conf
+endif
+
 CFLAGS += -mcall-prologues
 # you can set the EFUSE_VAL to 0xfc or to 0x04, if your avrdude mask out the unused bits
 
@@ -84,9 +89,12 @@ ifdef F_CPU
 AVR_FREQ := $(F_CPU)
 endif
 
+ifndef BIGPROGRAM
+ BIGPROGRAM = 0
+endif
 
 ## Objects that must be built in order to link
-OBJECTS = main.o wait1000ms.o soft_uarts.o
+OBJECTS = main.o wait1000ms.o soft_uarts.o wast_bytes.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -105,6 +113,9 @@ wait1000ms.o: wait1000ms.S $(MKFILES) FORCE
 soft_uarts.o: soft_uarts.S $(MKFILES) FORCE
 	$(CC) $(INCLUDES) $(CFLAGS) -DSOFT_UART=0$(SOFT_UART) -DF_CPU=$(AVR_FREQ) \
         -DUART=0$(UART) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) -c -o $@  $<
+
+wast_bytes.o: wast_bytes.S $(MKFILES) FORCE
+	$(CC) $(INCLUDES) $(CFLAGS) -DBIGPROGRAM=$(BIGPROGRAM) -c  -o $@ $<
 
 
 ########### Compile C source only 
@@ -132,9 +143,9 @@ size: ${PARTNO}_test.elf FORCE
 	@avr-size -C --mcu=${MCU} ${PARTNO}_test.elf
 
 ## Clean target
-.PHONY: clean hexfile
+.PHONY: clean size hexfile
 clean:
-	-rm -rf $(OBJECTS) *.elf  *.hex *.eep *.lst *.map main.d soft_uart.d soft_uarts.d wait1000ms.d
+	-rm -rf $(OBJECTS) *.elf  *.hex *.eep *.lst *.map main.d soft_uart.d soft_uarts.d wait1000ms.d wast_bytes.d
 hexfile: size
 
 
@@ -142,30 +153,29 @@ hexfile: size
 
 
 # device programming
-# make fuses  call if you don't have installed a crystal
 
 # make upload  additionally calls make to compile the software for selected target
 upload: $(PARTNO)_test.hex $(PARTNO)_test.eep $(PARTNO)_test.lst size
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U flash:w:./$(PARTNO)_test.hex:a \
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) $(AVRDUDE_CONF) -p $(PARTNO) -P $(PORT) -u \
+	-U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
 program: $(PARTNO)_test.hex
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U flash:w:./$(PARTNO)_test.hex:a \
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) $(AVRDUDE_CONF) -p $(PARTNO) -P $(PORT) -u \
+	-U flash:w:./$(PARTNO)_test.hex:a \
 	-U eeprom:w:./$(PARTNO)_test.eep:a
 flash: $(PARTNO)_test.hex
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U flash:w:./$(PARTNO)_test.hex:a 
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) $(AVRDUDE_CONF) -p $(PARTNO) -P $(PORT) -u \
+	-U flash:w:./$(PARTNO)_test.hex:a 
 eeprom: $(PARTNO)_test.eep
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U eeprom:w:./$(PARTNO)_test.eep:a
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) $(AVRDUDE_CONF) -p $(PARTNO) -P $(PORT) -u \
+	-U eeprom:w:./$(PARTNO)_test.eep:a
 eeread:
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U eeprom:r:./TTactual.eep:i
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) $(AVRDUDE_CONF) -p $(PARTNO) -P $(PORT) -u \
+	-U eeprom:r:./Read.eep:i
 read:
-	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U flash:r:./TTactual.hex:i
+	avrdude -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) $(AVRDUDE_CONF) -P $(PORT) -u \
+	-U flash:r:./Read.hex:i
 verify: $(PARTNO)_test.hex $(PARTNO)_test.eep
-	avrdude -D -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) -P $(PORT) \
-	-u -U flash:v:./$(PARTNO)_test.hex:a \
+	avrdude -D -c $(PROGRAMMER) -B $(BitClock) $(AVRDUDE_BAUD) -p $(PARTNO) $(AVRDUDE_CONF) -P $(PORT) -u \
+	-U flash:v:./$(PARTNO)_test.hex:a \
 	-U eeprom:v:./$(PARTNO)_test.eep:a -v

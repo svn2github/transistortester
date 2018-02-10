@@ -733,7 +733,8 @@
     defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) || \
     defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || \
     defined(__AVR_ATmega1284A__) || \
-    defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
+    defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || \
+    defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
 /* RSTDISBL in HFUSE 7 */ 
 /* CKDIV8 in LFUSE 7, CKSEL 3:0 in LFUSE 3:0 */
 
@@ -743,7 +744,8 @@
   #define CK_FREQ  F_CPU
  #endif
 
- #if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__)
+ #if defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || \
+     defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
   #define MAX_FREQ 16000000
  #else
   #define MAX_FREQ 20000000
@@ -808,7 +810,8 @@
   #endif
  #endif
 
- #if !defined(__AVR_ATmega640__) && !defined(__AVR_ATmega1280__) && !defined(__AVR_ATmega1281__)
+ #if !defined(__AVR_ATmega640__) && !defined(__AVR_ATmega1280__) && !defined(__AVR_ATmega1281__) && \
+     !defined(__AVR_ATmega2560__) && !defined(__AVR_ATmega2561__)
   #if ((BHFUSE & 0x80) == 0)
    #warning "RSTDISBL is set in HFUSE, you can NOT use ISP again."
    #if !defined(FORCE_RSTDISBL)

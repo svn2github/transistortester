@@ -76,6 +76,7 @@ void uart_newline(void) {
   wdt_reset();
 }
 #endif
+#if FLASHEND > 2048
 
 const unsigned char PrefixTab[] PROGMEM = { 'f','p','n','u','m',0,'k','M'}; // f,p,n,u,m,-,k,M
 
@@ -201,11 +202,13 @@ void DisplayValue(unsigned long Value, int8_t Exponent, unsigned char Unit, uint
   }
   return;
 }
+#endif
 
  
 //
 	//begin of Test program
 int main(void) {
+ char outval[12];
 
  // #####################################################################################
  // setup Counter 0 for frequency measurement
@@ -295,19 +298,24 @@ int main(void) {
 #endif
 	// look for status bits, which has the bootloader moved
 	// from MCUSR to GPIOR0
-#ifndef GPIOR0
+#ifdef GPIOR0
+ #define RESET_CAUSE GPIOR0
+#else
  #ifdef OCR2
-  #define GPIOR0 OCR2      /* use OCR2 , if GPIOR0 is unknown */
+  #define RESET_CAUSE OCR2      /* use OCR2 , if GPIOR0 is unknown */
  #else
-  #define GPIOR0 OCR1BH
+  #define RESET_CAUSE ICR1L
  #endif
 #endif
         uart_newline();
-        if (GPIOR0 & (1<<PORF)) uart_mem_string(PowerOn);
-        if (GPIOR0 & (1<<EXTRF)) uart_mem_string(External);
-        if (GPIOR0 & (1<<BORF)) uart_mem_string(BrownOut);
-        if (GPIOR0 & (1<<WDRF)) uart_mem_string(WatchDog);
+        if (RESET_CAUSE & (1<<PORF)) uart_mem_string(PowerOn);
+        if (RESET_CAUSE & (1<<EXTRF)) uart_mem_string(External);
+        if (RESET_CAUSE & (1<<BORF)) uart_mem_string(BrownOut);
+        if (RESET_CAUSE & (1<<WDRF)) uart_mem_string(WatchDog);
 	uart_mem_string(Interrupt);
+        putch(' ');
+	hex_putch(RESET_CAUSE / 16);
+        hex_putch(RESET_CAUSE & 0x0f);
         uart_newline();
 	// further application program can use the GPIOR0 for other purpose
 
@@ -325,8 +333,8 @@ int main(void) {
         hex_putch( OSCCAL & 0x0f);
         putch(' ');
         putch('(');
-	DisplayValue((OSCCAL & MAX_OSCCAL),0,')',3);
-        putch(' ');
+        uart_string(itoa(OSCCAL,outval,10));
+        putch(')');
         uart_newline();
 #endif
 
@@ -338,7 +346,8 @@ int main(void) {
 	hex_putch( BAUD_DIV & 0xf);
         putch(' ');
         putch('(');
-	DisplayValue(BAUD_DIV,0,')',6);
+        uart_string(itoa(BAUD_DIV,outval,10));
+        putch(')');
 #else
 	uart_mem_string(SW_UART);
 #endif
@@ -347,9 +356,11 @@ int main(void) {
 #if defined(TST_TCCR_B)
         uart_mem_string(FreqOut);	// "Test Frequency Output at Pin "
         uart_string(TST_COUNTER_PIN);
+#if FLASHEND > 2048
 	putch(' ');
 	DisplayValue((F_CPU*100)/512,-2,'H',6);
 	putch('z');
+#endif
         uart_newline();
 #endif
 	
