@@ -547,19 +547,6 @@ try_loader:
 	ASBI	LED_DDR, LEDbit			; set LED Port bit to output mode
 #endif
 
-; The check for locked PLL is disabled (1 == 0), because the PLL was 
-; allways locked during the tests.
-#if (1 == 0) && defined(PLL_MODE) && defined(PLLCSR)
- ; if a PLL is present and enabled, wait for the lock signal
-;	if PLL_MODE is set, PLLE should be enabled allways in PLLCSR
-;	ASBIS	PLLCSR, PLLE		; skip, if PLL is enabled
-;	rjmp	no_pll
-wait_locked:
-	ASBIS	PLLCSR, PLOCK		; wait until PLL is locked
-	rjmp	wait_locked
-no_pll:
-#endif
-
 #ifdef TIMEOUT_MS
  #if TIMEOUT_MS > 6000
 	ldi	r20, WATCHDOG_8S	;0x20
@@ -577,6 +564,24 @@ no_pll:
 #endif
 	rcall	watchdogConfig
 
+; The check for locked PLL is disabled (1 == 0), because the PLL was 
+; allways locked during the tests.
+#if (1 == 0) && defined(PLL_MODE) && defined(PLLCSR)
+ ; if a PLL is present and enabled, wait for the lock signal
+;	if PLL_MODE is set, PLLE should be enabled allways in PLLCSR
+;	ASBIS	PLLCSR, PLLE		; skip, if PLL is enabled
+;	rjmp	no_pll
+wait_locked:
+	ASBIS	PLLCSR, PLOCK		; wait until PLL is locked
+	rjmp	wait_locked
+no_pll:
+#endif
+
+#if FLASHEND > 0x1ffff
+	clr	r3			; reset mode
+#endif
+	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
+	ldi	r19, hi8(RAMSTART)	; 
 
 #if SOFT_UART == 0
  /* I don't know the reason for disabling the Pull-Up resistors!
@@ -626,8 +631,6 @@ no_pll:
 	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as output
  #endif
 #endif
-	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
-	ldi	r19, hi8(RAMSTART)	; 
 
 #if BAUD_RATE >= 100
  #include "flash_led_opti.S"	/* flash the led after init of UART */
@@ -647,9 +650,6 @@ test_out:
 	rjmp	test_out		; endless loop
 #endif
 
-#if FLASHEND > 0x1ffff
-	clr	r3			; reset mode
-#endif
 
 
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -752,10 +752,34 @@ no_update:
 ck_UNI:
        	cpi	r24, STK_UNIVERSAL 	; 'V'
        	brne	ck_PP
+#if 0
+	; The following code is not tested, the RAMPZ is updated with the
+	; Address Overflow instead. If the Begin of the Update-region is
+	; below 0x1ff80, this method will work well and requires less code.
+        ; 'V', 'M', 0x00, 0x0R, 0x00, ' '  is the sequence for RAMPZ setting to R*2
+	rcall	getch
+	cpi	r24, 0x4d		; 'M' = Map Flash memory
+	breq	isMap
+	ldi	r20, 3
+	rcall	getNch
+	ldi	r24, 0
+	rjmp	to_putch	; rcall putch, rjmp put_ok
+isMap:
+	rcall 	getch		; MSB for Program Memory Page is ignored
+	rcall	getch		; LSB for Program Memory Page
+	add	r24, r24	; * 2
+	AOUT	RAMPZ, r24
+	rcall	getch		; 0x00 is ignored
+	rcall	verifySpace
+	ldi	r24,0
+	rcall	putch
+	rjmp	rjmp put_ok
+#else
 	ldi	r20, 4		; getNch(4)
 	rcall	getNch
  	ldi	r24, 0
 	rjmp	to_putch	; rcall putch, rjmp put_ok
+#endif
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ck_PP:
   	cpi	r24, STK_PROG_PAGE 	; 'd'

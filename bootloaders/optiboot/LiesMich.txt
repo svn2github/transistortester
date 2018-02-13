@@ -42,7 +42,7 @@ die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
 Arduino-UNO und -Nano Board sowie mit fast allen Prozessoren, die unterstützt
 werden (siehe Liste am Ende der LiesMich Datei). 
-Nur die AT90CAN Familie is ungetestet.
+Nur die AT90CAN Familie und der ATmega1280/1281/2560 ist ungetestet.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas
@@ -84,6 +84,13 @@ Verwendete Optionen
 AVR_FREQ		definiert die Frequenz (Hz), mit der der AVR Mikrocontroller laufen soll.
 
 BAUD_RATE		definiert die Baud Rate, mit der die serielle Schnittstelle laufen soll.
+			Bei Werten unter 100 Baud wird statt einer festen Baudrate eine
+			Messung der Baudrate von optiboot vorgenommen.
+			Wenn die Baudrate unter 60 angegeben wird, wird ein einfacheres
+			Messverfahren benutzt, um Speicherplatz zu sparen.
+			Wenn die Baudrate unter 50 angebeben wird, wird auf eine zusätzliche
+			Zeitüberwachung bei der Zeitmessung verzichtet.
+			
 
 SOFT_UART		gibt an, dass anstelle der Hardware UART-Schnittstelle eine Software-Lösung
 			benutzt werden soll. Damit können nahezu beliebige Bits für die
@@ -175,7 +182,7 @@ ATmega164/324/644/1284 (P)
 ATmega48/88/168/328  (P)
 ATmega165/325/3250/6450
 ATmega169/329/649/6490
-ATmega640/1280
+ATmega640/1280/1281/2560/2561
 AT90CAN32/64/128
 AT90PWM2/3 (B)
 ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634

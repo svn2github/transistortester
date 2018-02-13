@@ -9,9 +9,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   2 .text         000001dc  00007e00  00007e00  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  3 .stab         00000b04  00000000  00000000  00000254  2**2
+  3 .stab         00000af8  00000000  00000000  00000254  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000058  00000000  00000000  00000d58  2**0
+  4 .stabstr      00000058  00000000  00000000  00000d4c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -92,49 +92,49 @@ optiboot:
 #endif
 	rcall	watchdogConfig
     7e1e:	c9 d0       	rcall	.+402    	; 0x7fb2 <watchdogConfig>
+#endif
+
+#if FLASHEND > 0x1ffff
+	clr	r3			; reset mode
+#endif
+	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
+    7e20:	20 e0       	ldi	r18, 0x00	; 0
+	ldi	r19, hi8(RAMSTART)	; 
+    7e22:	31 e0       	ldi	r19, 0x01	; 1
    #undef UART_MODE_2x
  	ldi	r24, (0<<U2X0)		; single speed mode
   #else
    #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
    #define UART_MODE_2x
 	ldi	r24, (1<<U2X0)		; double speed mode
-    7e20:	82 e0       	ldi	r24, 0x02	; 2
+    7e24:	82 e0       	ldi	r24, 0x02	; 2
   #endif		/* BAUD_DIV > 255 */
 	AOUT	UART_SRA, r24
-    7e22:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
+    7e26:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
   #include "report_baud_div.h"
 
   #ifdef UART_ONE_WIRE
 	ldi	r24, (1<<RXEN0)		;0x10	
   #else
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-    7e26:	88 e1       	ldi	r24, 0x18	; 24
+    7e2a:	88 e1       	ldi	r24, 0x18	; 24
   #endif
 	AOUT	UART_SRB, r24
-    7e28:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
+    7e2c:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
 	AOUT	UART_SRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
    #endif
   #else
     /* no ATmega8_16_32 */
    #ifndef __AVR_ATmega163__
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
-    7e2c:	96 e0       	ldi	r25, 0x06	; 6
+    7e30:	96 e0       	ldi	r25, 0x06	; 6
 	AOUT	UART_SRC, r25
-    7e2e:	90 93 c2 00 	sts	0x00C2, r25	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
+    7e32:	90 93 c2 00 	sts	0x00C2, r25	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
    #endif
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
-    7e32:	90 e1       	ldi	r25, 0x10	; 16
+    7e36:	90 e1       	ldi	r25, 0x10	; 16
 	AOUT	UART_SRRL, r25
-    7e34:	90 93 c4 00 	sts	0x00C4, r25	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
-	ASBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to high
-  #endif
-	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as output
- #endif
-#endif
-	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
-    7e38:	20 e0       	ldi	r18, 0x00	; 0
-	ldi	r19, hi8(RAMSTART)	; 
-    7e3a:	31 e0       	ldi	r19, 0x01	; 1
+    7e38:	90 93 c4 00 	sts	0x00C4, r25	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
 
 #if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
@@ -284,6 +284,11 @@ ck_UNI:
     7e8c:	86 35       	cpi	r24, 0x56	; 86
        	brne	ck_PP
     7e8e:	21 f4       	brne	.+8      	; 0x7e98 <ck_PP>
+	rcall	verifySpace
+	ldi	r24,0
+	rcall	putch
+	rjmp	rjmp put_ok
+#else
 	ldi	r20, 4		; getNch(4)
     7e90:	44 e0       	ldi	r20, 0x04	; 4
 	rcall	getNch
@@ -294,6 +299,7 @@ ck_UNI:
     7e96:	e6 cf       	rjmp	.-52     	; 0x7e64 <to_putch>
 
 00007e98 <ck_PP>:
+#endif
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ck_PP:
   	cpi	r24, STK_PROG_PAGE 	; 'd'

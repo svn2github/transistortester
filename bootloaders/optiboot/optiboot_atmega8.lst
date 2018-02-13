@@ -9,9 +9,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .data         00000000  00800060  00001fca  0000023e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .stab         00000b34  00000000  00000000  00000240  2**2
+  3 .stab         00000b28  00000000  00000000  00000240  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000058  00000000  00000000  00000d74  2**0
+  4 .stabstr      00000058  00000000  00000000  00000d68  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -105,46 +105,46 @@ optiboot:
 #endif
 	rcall	watchdogConfig
     1e26:	c1 d0       	rcall	.+386    	; 0x1faa <watchdogConfig>
+#endif
+
+#if FLASHEND > 0x1ffff
+	clr	r3			; reset mode
+#endif
+	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
+    1e28:	20 e6       	ldi	r18, 0x60	; 96
+	ldi	r19, hi8(RAMSTART)	; 
+    1e2a:	30 e0       	ldi	r19, 0x00	; 0
    #undef UART_MODE_2x
  	ldi	r24, (0<<U2X0)		; single speed mode
   #else
    #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
    #define UART_MODE_2x
 	ldi	r24, (1<<U2X0)		; double speed mode
-    1e28:	82 e0       	ldi	r24, 0x02	; 2
+    1e2c:	82 e0       	ldi	r24, 0x02	; 2
   #endif		/* BAUD_DIV > 255 */
 	AOUT	UART_SRA, r24
-    1e2a:	8b b9       	out	0x0b, r24	; 11
+    1e2e:	8b b9       	out	0x0b, r24	; 11
   #include "report_baud_div.h"
 
   #ifdef UART_ONE_WIRE
 	ldi	r24, (1<<RXEN0)		;0x10	
   #else
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-    1e2c:	88 e1       	ldi	r24, 0x18	; 24
+    1e30:	88 e1       	ldi	r24, 0x18	; 24
   #endif
 	AOUT	UART_SRB, r24
-    1e2e:	8a b9       	out	0x0a, r24	; 10
+    1e32:	8a b9       	out	0x0a, r24	; 10
   #if defined(UART_SRC) && defined(UART_SEL)
 	; version for m8, m16, m32 for example (with double function UCSRC)
 	ldi	r25, (1<<UART_SEL)|(1<<UCSZ01)|(1<<UCSZ00)	; config UART
-    1e30:	96 e8       	ldi	r25, 0x86	; 134
+    1e34:	96 e8       	ldi	r25, 0x86	; 134
 	AOUT	UART_SRC, r25
-    1e32:	90 bd       	out	0x20, r25	; 32
+    1e36:	90 bd       	out	0x20, r25	; 32
   	; This processor family has no double register for the 12-bit scaler
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
-    1e34:	90 e1       	ldi	r25, 0x10	; 16
+    1e38:	90 e1       	ldi	r25, 0x10	; 16
 	AOUT	UART_SRRL, r25
-    1e36:	99 b9       	out	0x09, r25	; 9
-	ASBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to high
-  #endif
-	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as output
- #endif
-#endif
-	ldi	r18, lo8(RAMSTART)	; r18:r19 = RAMSTART
-    1e38:	20 e6       	ldi	r18, 0x60	; 96
-	ldi	r19, hi8(RAMSTART)	; 
-    1e3a:	30 e0       	ldi	r19, 0x00	; 0
+    1e3a:	99 b9       	out	0x09, r25	; 9
 
 #if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
@@ -292,6 +292,11 @@ ck_UNI:
     1e8c:	86 35       	cpi	r24, 0x56	; 86
        	brne	ck_PP
     1e8e:	21 f4       	brne	.+8      	; 0x1e98 <ck_PP>
+	rcall	verifySpace
+	ldi	r24,0
+	rcall	putch
+	rjmp	rjmp put_ok
+#else
 	ldi	r20, 4		; getNch(4)
     1e90:	44 e0       	ldi	r20, 0x04	; 4
 	rcall	getNch
@@ -302,6 +307,7 @@ ck_UNI:
     1e96:	e6 cf       	rjmp	.-52     	; 0x1e64 <to_putch>
 
 00001e98 <ck_PP>:
+#endif
 ;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ck_PP:
   	cpi	r24, STK_PROG_PAGE 	; 'd'

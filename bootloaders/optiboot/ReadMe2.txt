@@ -43,7 +43,7 @@ This kind of automatic is tested at a Linux system and should run at any Linux s
 But it is completely untested for any Windows system.
 This optiboot bootloader is tested with a Arduino-UNO and -Nano board and with 
 nearly all supported processors (see the list at the end of this ReadMe2).
-Only the AT90CAN series is untested.
+Only the AT90CAN series and ATmega1280/1281/2560 is untested.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -90,6 +90,12 @@ Available options
 AVR_FREQ		specifies the frequency (Hz), at which the AVR mikrocontroller should run.
 
 BAUD_RATE		specifies the baud rate for the serial interface.
+			If a value below 100 Baud is specified, optiboot use a
+			measurement of the baud rate instead of a fixed baud rate.
+			If a baud rate below 60 is specified, a simpler measurement
+			is used to save memory.
+			If a baud rate below 50 is specified, a additional monitoring
+			of the time is omitted with this simpler measurement.
 
 SOFT_UART		Whith this option you select a software UART solution instead of
 			a hardware UART. With the software solutions you are free to select
@@ -189,7 +195,7 @@ ATmega164/324/644/1284 (P)
 ATmega48/88/168/328  (P)
 ATmega165/325/3250/6450
 ATmega169/329/649/6490
-ATmega640/1280
+ATmega640/1280/1281/2560/2561
 AT90CAN32/64/128
 AT90PWM2/3
 ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634

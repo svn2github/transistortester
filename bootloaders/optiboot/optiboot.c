@@ -419,6 +419,11 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked))  __attribute__ ((__noret
   #define RESET_CAUSE ICR1L
  #endif
 #endif
+#if defined(UART_SRC) && defined(UART_SEL)
+ // without the Option bit UART_SEL (URSEL) the UART_SRC (UCSRC) register
+ // hold the upper SRR bits.
+ #define UART_SRRH UART_SRC
+#endif
 
 
 /* main program starts here */
@@ -534,77 +539,79 @@ int main(void) {
   UART_TX_DDR |= _BV(UART_TX_BIT);
 #else	/* no SOFT_UART */
  /* Prepare the hardware UART */
- #define BAUD_DIV (((F_CPU / 4L / BAUD_RATE) - 1) / 2)
- #define BAUD_ACTUAL (F_CPU / 8L / ((BAUD_DIV)+1))
  #define UART_MODE_2X
- #if (BAUD_DIV > 255) && (BAUD_DIV < 2046)
-  // try with single speed
-  #undef UART_MODE_2X
-  #undef BAUD_DIV
-  #define BAUD_DIV ((F_CPU + BAUD_RATE * 8L) / (BAUD_RATE * 16L) - 1)
-  #define BAUD_DIV (((F_CPU / 8L / BAUD_RATE) - 1) / 2)
-  #define BAUD_ACTUAL (F_CPU / 16L / ((BAUD_DIV)+1))
-  #if BAUD_DIV > 4095
-   #error "Unachievable baud rate (too slow) BAUD_RATE"
-  #endif
+ #if BAUD_RATE >= 100
+  #define BAUD_DIV (((F_CPU / 4L / BAUD_RATE) - 1) / 2)
+  #define BAUD_ACTUAL (F_CPU / 8L / ((BAUD_DIV)+1))
+  #if (BAUD_DIV > 255) && (BAUD_DIV < 2046)
+   // try with single speed
+   #undef UART_MODE_2X
+   #undef BAUD_DIV
+   #define BAUD_DIV ((F_CPU + BAUD_RATE * 8L) / (BAUD_RATE * 16L) - 1)
+   #define BAUD_DIV (((F_CPU / 8L / BAUD_RATE) - 1) / 2)
+   #define BAUD_ACTUAL (F_CPU / 16L / ((BAUD_DIV)+1))
+   #if BAUD_DIV > 4095
+    #error "Unachievable baud rate (too slow) BAUD_RATE"
+   #endif
+  #endif	/* (BAUD_DIV > 255) && (BAUD_DIV < 2046) */
+ #endif		/* BAUD_RATE >= 100 */
+
+ #ifdef UART_MODE_2X
+   UART_SRA = _BV(U2X0);	// Double speed mode USART
+ #else
+   UART_SRA = 0;		// Single speed mode USART
  #endif
  //#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
  #if defined(UART_SRC) && defined(UART_SEL)
-  #ifdef UART_MODE_2X
-   UART_SRA = _BV(U2X0);	// Double speed mode USART
-  #else
-   UART_SRA = 0;		// Single speed mode USART
+  UART_SRC = _BV(UART_SEL) | _BV(UCSZ01) | _BV(UCSZ00);  // config USART; 8N1
+ #else		/* no ATmega8 ... */
+  #if defined(UART_SRC)
+  UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
   #endif
-  UART_SRB = _BV(RXEN0) | _BV(TXEN0);  // enable Rx & Tx
-  UART_SRC = _BV(URSEL0) | _BV(UCSZ01) | _BV(UCSZ00);  // config USART; 8N1
+ #endif		/* defined(ATmega8) ... */
+ #if BAUD_RATE >= 100
   UART_SRRL = (uint8_t)( BAUD_DIV );
   #if (BAUD_DIV/256) != 0
-   UART_SRC = (uint8_t)( BAUD_DIV/256 );	// without URSEL bit this register hold the upper bits
-  #endif
- #else		/* no ATmega8 ... */
-  #ifdef UART_MODE_2X
-   UART_SRA = _BV(U2X0);	// Double speed mode USART0
-  #else
-   UART_SRA = 0;		// Single speed mode USART0
+   UART_SRRH = (uint8_t)( BAUD_DIV/256 );
   #endif
   #ifdef UART_ONE_WIRE
   UART_SRB = _BV(RXEN0);		// enable only UART input
   #else
   UART_SRB = _BV(RXEN0) | _BV(TXEN0);	// enable UART input and output
   #endif
-  #if defined(UART_SRC)
-  UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
-  #endif
-  UART_SRRL = (uint8_t)( BAUD_DIV );
-  #if (BAUD_DIV/256) != 0
-   UART_SRRH = (uint8_t)( BAUD_DIV/256 );
-  #endif
- #endif		/* defined(ATmega8) ... */
-#endif
-
-// check the ACTUAL Baud Rate for soft and hard
-#if BAUD_ACTUAL <= BAUD_RATE
-  #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error "BAUD_RATE error greater than -5%"
-  #elif BAUD_ERROR >= 2
-    #warning "BAUD_RATE error greater than -2%"
-  #endif
-#else
-  #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
-  #if BAUD_ERROR >= 5
-    #error "BAUD_RATE error greater than 5%"
-  #elif BAUD_ERROR >= 2
-    #warning "BAUD_RATE error greater than 2%"
-  #endif
-#endif
-
-#if (BAUD_DIV < 3)
- #if BAUD_ERROR != 0 // permit high bitrates (ie 1Mbps@16MHz) if error is zero
-  #error "Unachievable baud rate (too fast) BAUD_RATE"
  #endif
-#endif // baud rate fastn check
-#include "report_baud_div.h"
+#endif		/* SOFT_UART > 0 */
+
+#if BAUD_RATE >= 100
+ // check the ACTUAL Baud Rate for soft and hard
+ #if BAUD_ACTUAL <= BAUD_RATE
+   #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
+   #if BAUD_ERROR >= 5
+     #error "BAUD_RATE error greater than -5%"
+   #elif BAUD_ERROR >= 2
+     #warning "BAUD_RATE error greater than -2%"
+   #endif
+ #else
+   #define BAUD_ERROR (( 100*(BAUD_ACTUAL - BAUD_RATE) ) / BAUD_RATE)
+   #if BAUD_ERROR >= 5
+     #error "BAUD_RATE error greater than 5%"
+   #elif BAUD_ERROR >= 2
+     #warning "BAUD_RATE error greater than 2%"
+   #endif
+ #endif
+
+ #if (BAUD_DIV < 3)
+  #if BAUD_ERROR != 0 // permit high bitrates (ie 1Mbps@16MHz) if error is zero
+   #error "Unachievable baud rate (too fast) BAUD_RATE"
+  #endif
+ #endif // baud rate fastn check
+ #include "report_baud_div.h"
+#endif		/* BAUD_RATE >= 100 */
+
+#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
+  /* Set LED pin as output */
+  LED_DDR |= _BV(LEDbit);
+#endif
 
   // Set up watchdog to trigger after 500ms
 #ifdef TIMEOUT_MS
@@ -623,29 +630,203 @@ int main(void) {
   watchdogConfig(WATCHDOG_1S);		/* set the watchdog timer to 1s (default) */
 #endif
 
-#if (LED_START_FLASHES != 0) || (LED_DATA_FLASH > 0)
-  /* Set LED pin as output */
-  LED_DDR |= _BV(LEDbit);
+// The check for locked PLL is disabled (1 == 0), because the PLL was 
+// allways locked during the tests.
+#if (1 == 0) && defined(PLL_MODE) && defined(PLLCSR)
+ 
+  // if a PLL is present and enabled, wait for the lock signal
+  // if PLL_MODE is set, PLLE should be enabled allways in PLLCSR
+  if ((PLLCSR & _BV(PLLE)) != 0) while((PLLCSR & _BV(PLOCK)) == 0);
+#endif
+
+#if FLASHEND > 0x1ffff
+      uint8_t operation_mode;
+      operation_mode = 0;	// preset operation mode, is changed by STK_PROG_PAGE / STK_READ_PAGE
 #endif
 
 #if LED_START_FLASHES != 0
   /* Flash onboard LED to signal entering of bootloader */
- #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
+ #if (LED_START_FLASHES > 1) 
   uint8_t count = LED_START_FLASHES;
   do {
- #endif
     LED_PORT |= _BV(LEDbit);
     t1_delay();
     LED_PORT &= ~(_BV(LEDbit));
     t1_delay();
-
- #if LED_START_FLASHES > 1
-  } while (--count);	/* { */
- #endif
- #if LED_START_FLASHES < -1
+  } while (--count);
+ #elif (LED_START_FLASHES < -1)
+  uint8_t count = LED_START_FLASHES;
+  do {
+    LED_PORT |= _BV(LEDbit);
+    t1_delay();
+    LED_PORT &= ~(_BV(LEDbit));
+    t1_delay();
   } while (++count);
+ #else
+    LED_PORT |= _BV(LEDbit);
+    t1_delay();
+    LED_PORT &= ~(_BV(LEDbit));
+    t1_delay();
  #endif
 #endif	/* LED_START_FLASHES != 0 */
+
+//-------------------------------------------------------------------------------------------------
+#if BAUD_RATE < 100
+ // this is the Auto Baud section
+ // Time of RX bit change is measured with a 16-Bit counter
+ #ifdef TCNT1H
+  #define CNT16_CNTH TCNT1H
+  #define CNT16_CNTL TCNT1L
+  #define CNT16_CCRB TCCR1B
+  #define CNT16_OCREGH OCR1AH
+  #define CNT16_OCREGL OCR1AL
+  #define OCFLAG OCF1A
+ #elif defined(TCNT0H)
+  #define CNT16_CNTH TCNT0H
+  #define CNT16_CNTL TCNT0L
+  TCCR0A = _BV(TCW0);		// switch counter 0 to 16-Bit (tiny861)
+  #define CNT16_CCRB TCCR0B
+  #define CNT16_OCREGL OCR0A
+  #define CNT16_OCREGH OCR0B
+  #define OCFLAG OCF0A
+ #else
+  #error "Auto Baud mode requires a 16-Bit counter !"
+ #endif
+ #if !defined(TIFR1) && defined(TIFR)
+  #define TIFR1 TIFR
+ #endif
+ typedef union {
+  uint8_t b[2];
+  uint16_t w;
+ } cnt16_t;
+ #if BAUD_RATE < 60
+  // short version of the Auto-Baud time measurement, only one time is measured.
+  // this version will get wrong baud rate, if a wrong start bit is detected.
+  #warning "short Auto-Baud version"
+  cnt16_t baud_t1;
+next_try1:
+  wdt_reset();
+  CNT16_CCRB = 0;		// stop 16-bit counter 
+  #if LED_START_FLASHES >= 0
+   while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0
+  #endif
+  CNT16_CNTH = -1;
+  CNT16_CNTL = -1;
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0 );	// wait until RX is not 1, Start Bit
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0, S0000 sequence
+
+  CNT16_CCRB = _BV(CS11);		// start counter with /8 scaler
+  #if BAUD_RATE > 49
+  CNT16_OCREGH = (4864/256);
+  CNT16_OCREGL = 0;
+  TIFR1 |= (1<<OCFLAG);
+  do {
+    if ((TIFR1 & (1<<OCFLAG)) != 0) goto next_try1;
+  } while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0);	// wait until RX is not 1, S000011 sequence finished
+  #else
+  while(UART_RX_PIN & _BV(UART_RX_BIT) != 0);	// wait until RX is not 1, S000011 sequence finished
+  #endif
+  baud_t1.b[0] = CNT16_CNTL;
+  baud_t1.b[1] = CNT16_CNTH;
+  baud_t1.w = baud_t1.w / 2;
+  // transmission of the byte is not finished, we must wait for the last two "0" bits
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0, S00001100 sequence finished
+   UART_SRRL = baud_t1.b[0];
+   UART_SRRH = baud_t1.b[1];
+
+ #else		/* BAUD_RATE >= 60 */
+
+  #warning "long Auto-Baud version"
+  // This is a version with a more complex check of the received bit change sequence.
+  // Three time values are measured for the received bit changes.
+  // STK500 protocol send a '3'=0x30 followed by ' '=0x20.
+  // P is a pause condition (STOP bit = 1) and S is a START bit (0),
+  // the 0 and 1 represent the expected data bits.
+  // the full bit sequence send is PS00001100PS00000100PPP
+  //                                ^      ^  ^      ^
+  //                                1      2  3      4
+  // Every of the marked Position is a 1 to 0 transition!
+  cnt16_t baud_t1;
+  cnt16_t baud_t2;
+  cnt16_t baud_t3;
+next_try2:
+  wdt_reset();
+  CNT16_CCRB = 0;		// stop 16-bit counter 
+  #if LED_START_FLASHES >= 0
+   while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0
+  #endif
+  CNT16_CNTH = 0;
+  CNT16_CNTL = 0;
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0);	// wait until RX is not 1, Start Bit
+  // first 1/0 RX bit change detected
+  // If we begin now with the time measurement, we get the following result
+  // for the next three bit changes:
+  // Position 1: 5B,   7B  , 9B
+  // Position 2: 2B+d, 3B+d, 9B+d
+  // Position 3: 6B  , 7B  , 9B
+  // Position 4: 2B  , 5B+Delay	, 7B+Delay
+  // B means the time of one bit (Baud-time), d means a possible short delay between two characters
+  // Delay means a long time delay, because the sender of the RX data will wait for a reply!
+  // The best way to solve the Delay problem with Position 4 is to monitor
+  // the counter time for exceed of a 4*(2B) limit.
+  CNT16_CCRB = _BV(CS11);		// start counter with /8 scaler
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0, S0000 sequence
+  baud_t1.b[0] = CNT16_CNTL;	// time of S0000
+  baud_t1.b[1] |= CNT16_CNTH;
+
+  baud_t1.w = baud_t1.w * 4;
+  CNT16_OCREGH = baud_t1.b[1];
+  CNT16_OCREGL = baud_t1.b[0];
+  TIFR1 |= (1<<OCFLAG);
+  do {
+    if (TIFR1 & (1<<OCFLAG) != 0) goto next_try2;
+  } while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0);	// wait until RX is not 1, S000011 sequence finished
+  baud_t2.b[0] = CNT16_CNTL;	// time of S000011
+  baud_t2.b[1] |= CNT16_CNTH;
+
+  while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0, S00001100 sequence finished
+  baud_t3.b[0] = CNT16_CNTL;	// time of S00001100
+  baud_t3.b[1] |= CNT16_CNTH;
+
+  // check the measured time sequence
+  if (((baud_t3.w - baud_t1.w) > baud_t1.w) || ((baud_t3.w - baud_t2.w) > (baud_t2.w - baud_t1.w + 4))) {
+  //  S00001100   - S0000                        S00001100 - S000011         S000011 - S0000 +
+  //            1100              S0000                   00                         11+
+    // wrong sync, data bit was detected as Start bit.
+    while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0);	// wait until RX is not 1
+   #if LED_START_FLASHES < 0
+     while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 0
+   #endif
+    goto next_try2;
+  }
+  #if BAUD_RATE >= 80 
+  baud_t3.w = (baud_t3.w - baud_t1.w - 2) / 4;	// (S00001100-S0000-2)/4 = (1100 - 2) / 4
+  #else   /* no FOUR_BIT_MODE */
+  if ((baud_t3.w - baud_t1.w) > baud_t1.w) {
+    while((UART_RX_PIN & _BV(UART_RX_BIT)) == 0);	// wait until RX is not 1
+   #if LED_START_FLASHES < 0
+     while((UART_RX_PIN & _BV(UART_RX_BIT)) != 0);	// wait until RX is not 0
+   #endif
+    goto next_try2;
+  }
+  baud_t3.w = (baud_t3.w - baud_t2.w - 1) / 2;	// (S00001100-S000011-1)/2 = (00 -2) / 2
+  #endif   /* BAUD_RATE >= 80 */
+
+  UART_SRRL = baud_t3.b[0];
+  UART_SRRH = baud_t3.b[1];
+ #endif		/* BOOT_PAGE_LEN < 1024 */
+ #ifdef UART_ONE_WIRE
+  UART_SRB = _BV(RXEN0);		// enable only UART input
+ #else
+  UART_SRB = _BV(RXEN0) | _BV(TXEN0);	// enable UART input and output
+ #endif
+ #if TEST_OUTPUT == 0
+//   verifySpace();
+//   putch(STK_OK);
+   goto ver_put;
+ #endif
+#endif		/* BAUD_RATE < 100 */
+//-------------------------------------------------------------------------------------------------
 
 #if TEST_OUTPUT == 1
  #warning "optiboot with test output only!"
@@ -653,11 +834,6 @@ int main(void) {
    for (;;) {
     putch('U');         // produce a 01010101 pattern for test
    } ;
-#endif
-
-#if FLASHEND > 0x1ffff
-      uint8_t operation_mode;
-      operation_mode = 0;	// preset operation mode, is changed by STK_PROG_PAGE / STK_READ_PAGE
 #endif
 
 
@@ -979,9 +1155,9 @@ int main(void) {
     }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     else if (ch == CRC_EOP) { /* ' ' */
-// avrdude send a STK_GET_SYNC followed by CRC_EOP
-// if the STK_GET_SYNC is loose out, the CRC_EOP is detected as last character
-// ignore this CRC_EOP and wait for next STK_GET_SYNC
+// avrdude send a STK_GET_SYNC followed by CRC_EOP.
+// If the STK_GET_SYNC is loose out, the CRC_EOP is detected as last character.
+// Ignore this CRC_EOP and wait for next STK_GET_SYNC
       continue;
     }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -993,6 +1169,9 @@ int main(void) {
     else {
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
       // This covers the response to commands like STK_ENTER_PROGMODE
+#if BAUD_RATE < 100
+ver_put:
+#endif
       verifySpace();
     }
     putch(STK_OK);
@@ -1119,6 +1298,7 @@ void t1_delay(void) {
   #endif
  #elif defined(TCNT0H)
   // counter 0 is a 16-Bit counter
+  #warning "16-Bit counter 0 is used instead of counter1"
   TCNT0H = (-(F_CPU/(1024*20))) / 256;
   TCNT0L = (-(F_CPU/(1024*20))) & 0xff;
   TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
@@ -1131,6 +1311,7 @@ void t1_delay(void) {
  #else
   // no 16-Bit counter, use 8-Bit and external counter
   uint8_t ecnt;
+  #warning "no 16-Bit counter, no 16-Bit counter1"
   ecnt = (-(F_CPU/(1024*20)))/256;
   TCNT0 = (-(F_CPU/(1024*20))) & 0xff;
   TCCR0B = _BV(CS02) | _BV(CS00); // div 1024
@@ -1144,8 +1325,8 @@ void t1_delay(void) {
   }
  #endif
   wdt_reset();		/* prevent wdt time-out during LED flashing */
-}
-#endif
+}	/* end t1_delay() */
+#endif		/* LED_START_FLASHES != 0 */
 
 #if SOFT_UART > 0
 // AVR305 equation: #define UART_B_VALUE (((F_CPU/BAUD_RATE)-23)/6)
@@ -1193,8 +1374,8 @@ void verifySpace(void) {
 
 void wait_timeout(void) {
   watchdogConfig(WATCHDOG_16MS);      // shorten WD timeout
-  while (1)			      // and busy-loop so that WD causes
-    ;				      //  a reset and app start.
+  while (1);			      // and busy-loop so that WD causes
+    				      //  a reset and app start.
 }
 
 void watchdogConfig(uint8_t x) {

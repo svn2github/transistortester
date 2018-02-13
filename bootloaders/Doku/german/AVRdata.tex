@@ -2,7 +2,8 @@
 
 \section{Signatur Bytes und Standard Fuse Einstellung}
 
-Die folgenden Tabellen zeigen die Signatur-Bytes verschiedener AVR-Familien.
+Die folgenden Tabellen zeigen die Signatur-Bytes und
+die Standard-Werte für die Fuses verschiedener AVR-Familien.
 
 \begin{table}[H]
   \begin{center}
@@ -216,4 +217,126 @@ AT90CAN128 & 0x1E & 0x97  & 0x81 & 0x62 & 0x99 & 0xFF & 8/8MHz RC \\
   \end{center}
   \caption{Signatur Bytes der AT90 Prozessoren und Standard Fuses}
   \label{tab:at90Signature}
+\end{table}
+
+\section{Belegung der Fuses}
+
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c | c || c | c | c | c |}
+    \hline
+   Typ     &   Bit 7  &  Bit 6  & Bit 5 & Bit 4 & Bit 3  & Bit 2  & Bit 1  & Bit 0 \\
+    \hline
+    \hline
+m8         & BODLEVEL & BODEN  & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m16/32     & BODLEVEL & BODEN  & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m64/128    & BODLEVEL & BODEN  & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+    \hline
+t24/25     & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t2313/261  & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t4313/44   & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t45/461    & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t84/85     & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t861/87    & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+t167       & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m48/88     & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m165/168/169 & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m325/328/329 & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m645/649     & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+90PWM2/3   & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+    \hline
+t441/841   & CKDIV8   & CKOUT   &   -   & SUT   & \multicolumn{4}{c |}{CKSEL3:0} \\
+    \hline
+t48/88     & CKDIV8   & CKOUT   &   -   & SUT   & \multicolumn{4}{c |}{CKSEL3:0} \\
+    \hline
+t1634      & CKDIV8   & CKOUT   &   -   & SUT   & \multicolumn{4}{c |}{CKSEL3:0} \\
+    \hline
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Belegung der Low Fuse von AVR Prozessoren}
+  \label{tab:fuseLow}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c | c || c | c | c | c |}
+    \hline
+   Typ     &   Bit 7  &  Bit 6  & Bit 5 & Bit 4 & Bit 3  & Bit 2  & Bit 1  & Bit 0 \\
+    \hline
+    \hline
+m8        & RSTDISBL   & WDTON  & SPIEN  & CKOPT  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+    \hline
+m16/32    & OCDEN     & JTAGEN  & SPIEN  & CKOPT  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m64/128   & OCDEN     & JTAGEN  & SPIEN  & CKOPT  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+    \hline
+m165/169  & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m325/329  & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m645/649  & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m640      & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m1280     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m2560     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+    \hline
+m328       & RSTDISBL   & DWEN  & SPIEN  & WDTON  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+    \hline
+m88/48     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+m168       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+90PWM2/3   & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t24/25     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t261       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t44/441    & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t461       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t45/48     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t84/841    & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t85/87     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t88/861    & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t167       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+t1634      & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+    \hline
+t4313/2313 &  DWEN   & EESAVE    & SPIEN   & WDTON  & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+    \hline
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Belegung der High Fuse von AVR Prozessoren}
+  \label{tab:fuseHigh}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c | c || c | c | c | c |}
+    \hline
+   Typ     &   Bit 7  &  Bit 6  & Bit 5 & Bit 4 & Bit 3  & Bit 2  & Bit 1  & Bit 0 \\
+    \hline
+    \hline
+m64/128     &    -     &    -    &   -   &   -   &    -   &    -   & M103C  & WDTON   \\
+    \hline
+m165/169    &    -     &    -    &   -   &   -   & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+m325/329    &    -     &    -    &   -   &   -   & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+m645/649    &    -     &    -    &   -   &   -   & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+m640        &    -     &    -    &   -   &   -   & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+m1280/2560  &    -     &    -    &   -   &   -   & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+    \hline
+m48         &    -     &    -    &   -   &   -   &    -   &    -   &   -    & SELFPRGEN   \\
+t24/25/261  &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t2313       &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t4313/44    &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t45/461/48  &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t84/85/861  &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t87/88      &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+t167        &    -     &    -    &   -   &   -   &    -   &    -   &    -   & SELFPRGEN   \\
+    \hline
+t441/841   & \multicolumn{3}{c |}{ULPOSCSEL2:1} & BODPD1 &  BODPD0 & \multicolumn{2}{c |}{BODACT1:0} & SELFPRGEN  \\
+    \hline
+t1634      &    -     &    -    &   -   & BODPD1 & BODPD0 & \multicolumn{2}{c |}{BODACT1:0} & SELFPRGEN   \\
+    \hline
+m328/168/88 &    -     &    -    &   -   &   -   &    -   & \multicolumn{2}{c |}{BOOTSZ1:0}  & BOOTRST   \\
+    \hline
+90PWM2/3   & PSC2RB   & PSC1RB  & PSC0RB  & PSCRV  & -   & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Belegung der Extended Fuse von AVR Prozessoren}
+  \label{tab:fuseExt}
 \end{table}
