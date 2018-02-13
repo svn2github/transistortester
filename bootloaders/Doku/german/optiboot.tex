@@ -583,6 +583,160 @@ Lediglich bei sehr hohen Baud-Raten erwarte ich Probleme. Bei 115200 Baud läuft
 aber einwandfrei. Sehr viel höhere Baudraten sind bei der Softwarelösung sowieso
 oft nicht möglich.
 
+\subsection{Benutzung der automatischen Baudraten-Bestimmung}
+
+Wenn für die Erzeugung des Bootloaders eine Baudrate unter \(100Baud\)
+angegeben wird, wird die Baudrate aus dem ersten empfangenen Zeichen
+automatisch ermittelt.
+Zum Beginn einer Übertragung mit dem STK500 Protokoll sendet der Rechner
+das Kommando STK\_GET\_SYNC (0x30) gefolgt vom Steuerzeichen CRC\_EOP (0x20).
+Bei der seriellen Übertragung ist als Ruhezustand der High-Pegel (1)
+verabredet. Die Übertragung beginnt dann mit einen Start-Bit auf Low-Pegel (0).
+Unmittelbar darauf wird die verabredete Zahl der Datenbits (8) beginnend
+mit dem niederwertigsten Bit übertragen und dann die Übertragung mit einem oder
+mehreren Stop-Bit (1) abgeschlossen. 
+Der Pegel jedes einzelnen Bits wird für die verabredete Baud-Zeit beibehalten.
+Unmittelbar nach dem Ende der Stop-Bit Übertragung kann das nächste Start-Bit
+folgen. Es kann aber auch eine Pause mit nicht definierter Zeit bis zur 
+Übertragung der nächsten Bitfolge auf das Stop-Bit folgen. 
+In der Abbildung \ref{fig:AutoBaud} ist das erwartete Ergebnis für die möglichen
+Zeitmessungen dargestellt. Auf der Zeitachse ,,t'' sind vier mögliche Startpositionen
+für eine vollständige Zeitmessung dargestellt. Der Counter wird jeweils
+bei einer erkannten 1 - 0 Flanke gestartet. Die richtige Startposition
+für das STK\_GET\_SYNC Zeichen ist mit der ,,1'' markiert.
+Die Marken ,,2'', ,,3'' und ,,4'' zeigen die Situation für drei falsche Startpositionen.
+Bei der Marke ,,2'' und ,,4'' wird fälschlicherweise eine 1-0 Flanke in der
+Datenübertragung als Start-Bit angenommen. Bei der Marke ,,3'' wird zwar
+ein Start-Bit richtig erkannt, es ist aber das falsche Zeichen.
+Es können immer dann die falschen Start-Bits erkannt werden, wenn der Bootloader
+erst gestartet wird, wenn die Datenübertragung schon läuft.
+In der Abbildung~\ref{fig:AutoBaud} sind die erwarteten Zählerstände für die
+4 möglichen Startfälle angegeben. Dabei bedeutet das ,,b'' den Zählerstand
+für ein Bit (Baud-Dauer), das ,,d'' steht für eine mögliche Zeitverzögerung
+zwischen dem Ende der Stopbit-Übertragung bis zum Beginn eines neuen Startbits.
+Das ,,D'' steht für eine zu erwartende lange Zeitverzögerung bis zum nächsten
+Startbit. Die Sendesequenz ist hier zu Ende und der Rechner wartet auf eine
+Antwort des AVRs.
+In der Rx-Reihe sind die Datenbits von ,,0'' (kleinstes Bit) bis ,,7'' (höchstes Bit)
+nummeriert. Das Start-Bit ist mit ,,A'' und das Stop-Bit mit ,,E'' gekennzeichnet.
+Das este Byte ist die Codierung des STK\_GET\_SYNC Kommandos und das zweite Byte
+die Kodierung des Steuerzeichen CRC\_EOP.
+
+
+\begin{figure}[H]
+\centering
+\scalebox{0.55}{\includegraphics[]{../FIG/AutoBaud.eps}}
+\caption{Mögliche Zeitmessungen für die STK\_GET\_SYNC Bitfolge}
+\label{fig:AutoBaud}
+\end{figure}
+
+\begin{itemize}
+
+\item {Einfachste Form der Baudraten Messung, BAUD\_RATE \textless~50}
+
+Die einfachste Form der Baudraten-Messung beachtet die Möglichkeit der
+falschen Startbit Wahl überhaupt nicht. Es wird fest davon ausgegangen,
+daß das erkannt Startbit zum STK\_\-GET\_\-SYNC Zeichen gehört.
+Nach der Startbit Erkennung wird bis zur nächsten 0-1 Flanke gewartet
+und dann ein 16-Bit Zähler mit der Frequenz F\_CPU/8 bei -1 gestartet.
+Bei der darauf folgenden 1-0 Flanke wird der Zählerstand abgelesen
+und halbiert als Frequenzteiler des UARTs genommen.
+Die Halbierung ist notwendig, weil die Zeit von 2 Datenbits gemessen wurde.
+Eigentlich muß noch 1 vom Ergebnis für den Frequenzteiler abgezogen werden.
+Aber bei der Halbierung sollte gerundet werden, also 1 auf den Zählerstand
+addiert werden. Anstelle der Subtraktion der 1 vom Divisions-Ergebnis kann
+man auch 2 vom Zählerstand subtrahieren. Um Rechenschritte zu sparen
+wird die Subtraktion von (2-1)=1 vom Zählerstand durch die Vorbesetzung
+auf -1 beim Start erledigt.
+Die Methode funktioniert ausreichend gut,
+wenn automatisch kurz vor dem Übertragungs-Start ein Reset des AVRs und damit
+ein Neustart des Bootloaders ausgelöst wird. Dies ist dann der Fall,
+wenn das DTR (Data Terminal Ready) Signal für die Erzeugung eines Reset-Signals
+benutzt wird.
+Man kann auch ohne das automatisch generierte Reset-Signal erfolgreich sein,
+wenn eine Reset-Taste am AVR angeschlossen ist, die solange gedrückt gehalten
+wird, bis das Übertragungsprogramm gestartet ist. Hier ist aber etwas
+Gefühl für den richtigen Loslass-Zeitpunkt des Tasters erforderlich.
+Das Bootloader-Programm wartet nur maximal die Zeit auf den Beginn der Übertragung,
+die über der Watchdog-Timer vorgegeben ist.
+Wenn der Watchdog-Timer einen Reset auslöst, wird normalerweise das Anwenderprogramm
+gestartet. Nur wenn noch kein Anwenderprogramm geladen wurde,
+startet der Bootloader erneut und versucht es noch einmal.
+
+\item {Leicht verbesserte Form der Baudraten Messung, BAUD\_RATE \textless~60}
+
+Hier wird die gleiche Methode der Baudraten-Bestimmung angewendet, wie bei
+der einfachsten Form. Es wird nur zusätzlich eine Beschränkung der
+Zeit für den Zähler durchgeführt.
+Wenn diese Zeit überschritten ist, beginnt das Programm sofort mit der Suche
+nach einem neuen Start-Bit. Ohne diese Begrenzung würde das Programm in der
+Schleife verweilen, bis entweder ein Start-Bit entdeckt wird oder 
+die Schleife durch einen Reset vom Watchdog-Timer abgebrochen wird.
+Wahrscheinlich wird dadurch das Problem mit der Start-Position ,,4'' im
+Diagramm~\ref{fig:AutoBaud} etwas verbessert.
+Aber auch der Neustart der Start-Bit Suche würde einen Reset vom Watchdog-Timer
+nur geringfügig verzögern. Bei der Suche nach dem Start-Bit darf der
+Watchdog-Timer nicht zurückgesetzt werden, weil sonst kein Anwenderprogramm
+mehr gestartet würde. Deshalb muß die Zeit für den Watchdog-Timer größer
+sein als die Zeit bis zur Wiederholung der STK\_GET\_SYNC Sequenz
+ohne eine Antwort auf die vorausgehende STK\_GET\_SYNC Sequenz.
+
+\item {Aufwendige Form der Baudraten Messung, BAUD\_RATE \textless~80}
+
+Bei dieser Methode wird der Zähler mit der Erkennung eines Start-Bits
+sofort bei 0 gestartet und bei den folgenden 3 Bitwechseln der Zählerstand
+abgelesen. Dadurch ist die Zeitfolge der Bitwechsel für das STK\_GET\_SYNC
+Zeichen vollständig bekannt.
+Vom Programm wird die Zeitfolge auf Plausibilität geprüft.
+Als erster Test wird geprüft, ob die Differenz zwischen der 3. Zählerlesung
+und der ersten Zählerlesung kleiner ist als die erste Zählerlesung.
+Für den richtigen Startpunkt ,,1'' ist das der Fall ((9b - 5b) < 5b).
+Für den falschen Startpunkt ,,3'' ist das aber leider auch der Fall
+((9b - 6b) < 6b). 
+Mit großer Wahrscheinlichkeit ist das für den Startpunkt ,,3'' aber nicht der
+Fall ((9b -3b) < (3b+d)), wenn die Zeitverzögerung des zweiten Startbits ,,d''
+hinreichend klein ist. 
+Für den falschen Startpunkt ,,4'' hilft ohnehin nur eine Zeitüberwachung beim
+Warten auf den 2. Bitwechsel, da die Wiederholung der STK\_GET\_SYNC Sequenz
+erst nach längerer Wartezeit (,,D'') auf die Antwort erfolgt.
+Mit einem zweiten Test wird geprüft, ob die Differenz zwischen der 3.
+Zählerlesung und der 2. Zählerlesung nicht deutlich größer ist als
+die Differenz zwischen der 2. Zählerlesung und der ersten.
+Für den richtigen Startpunkt ,,1'' ergibt sich folgender Vergleich:
+((9b-7b) < (7b-5b+4)) oder (2b < 2b+4).
+Für den falschen Startpunkt ,,2'' sieht der Vergleich so aus:
+((9b-3b) < (3b+d-2b+4)) oder (6b < (b+d+4)).
+Für den falschen Startpunkt ,,3'' ergibt sich der Vergleich so:
+((9b-7b) < (7b-6b+4)) oder (2b < (b+4)).
+Diese Prüfungen sind relativ sicher, erfordern aber auch relativ viel
+zusätzlichen Speicherplatz für das Programm. Diese Methode ist
+besonders dann zu empfehlen, wenn ohnehin mindestens 1024 Byte für den Bootloader
+reserviert sind (Bootloader Page Size).
+Für die Berechnung des UART Frequenzteilers wird die Differenz der
+3. Zählerlesung und der 2. Zählerlesung halbiert (9b-7b-1)/2 = (2b+1)/2-1.
+
+\item {Aufwendige Form der Baudraten Messung, BAUD\_RATE \textless~100}
+
+Alle Zeitlesungen und Kontrollen werden wie bei der Methode mit
+Baud\_RATE \textless~80) durchgeführt. Lediglich für die Berechnung
+des UART Frequenzteilers wird die Zeit von 4 Bits benutzt.
+Somit ergibt sich für den richtigen Startpunkt ,,1'' die folgende
+Berechnung (9b-5b-2)/4 = (4b+2)/4-1.
+
+\end{itemize}
+
+Für alle Methoden der Baudraten-Bestimmung würde ich die Zusatzfunktion des
+LED-Blinkens weglassen, um die Erkennung des Start-Bits nicht zu verzögern.
+Leider braucht auch die simpelste Form der Baudraten-Messung so viel
+Programmspeicher, daß der Bootloader nicht in 512 Byte Flash passt,
+wenn auch das EEprom-Laden unterstützt wird (SUPPORT\_EEPROM=1).
+Bei einigen Prozessoren kann als Zusatzfunktion noch die LED\_DATA\_FLASH
+gewählt werden ohne die 512 Byte Grenze zu überschreiten. 
+Wenn die Grenze von 512 Byte wegen benötigter Funktionen ohnehin überschritten
+wird, sind auch mit der Baudratenmessung alle Funktionen im Prinzip
+wieder möglich. Derzeit kann nur die SOFT\_UART Funktion nicht zusammen
+mit der Baudratenmessung benutzt werden.
+
 \section{Einige Beispiele für die Erzeugung eines optiboot Bootloaders}
 
 Das erste Beispiel ist die Bildung eines Bootloaders für den beliebten ATmega328P:

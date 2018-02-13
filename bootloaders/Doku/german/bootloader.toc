@@ -19,31 +19,32 @@
 \contentsline {subsection}{\numberline {3.6.1}Berechnung der Verz\IeC {\"o}gerungszeit}{25}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Benutzung von mehr als einer seriellen Schnittstelle}{26}{subsection.3.6.2}
 \contentsline {subsection}{\numberline {3.6.3}Serielle Eingabe und Ausgabe \IeC {\"u}ber nur einen AVR Pin}{27}{subsection.3.6.3}
-\contentsline {section}{\numberline {3.7}Einige Beispiele f\IeC {\"u}r die Erzeugung eines optiboot Bootloaders}{29}{section.3.7}
-\contentsline {section}{\numberline {3.8}Anpassung der Taktfrequenz bei internem RC-Generator}{30}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}Untersuchung der RC-Generatoren des ATmega8}{31}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Untersuchung der RC-Generatoren des ATmega8535}{31}{subsection.3.8.2}
-\contentsline {subsection}{\numberline {3.8.3}Untersuchung der RC-Generatoren des ATmega8515 und des ATmega162}{32}{subsection.3.8.3}
-\contentsline {subsection}{\numberline {3.8.4}Untersuchung der RC-Generatoren der ATmega328 Familie}{32}{subsection.3.8.4}
-\contentsline {subsection}{\numberline {3.8.5}Untersuchung der RC-Generatoren des ATmega32 / 16}{33}{subsection.3.8.5}
-\contentsline {subsection}{\numberline {3.8.6}Untersuchung des RC-Generators des ATmega163L}{34}{subsection.3.8.6}
-\contentsline {subsection}{\numberline {3.8.7}Untersuchung der RC-Generatoren des ATmega64 / 128}{34}{subsection.3.8.7}
-\contentsline {subsection}{\numberline {3.8.8}Untersuchung der RC-Generatoren der ATmega644 Familie}{35}{subsection.3.8.8}
-\contentsline {subsection}{\numberline {3.8.9}Untersuchung der RC-Generatoren der ATmega645 Familie}{35}{subsection.3.8.9}
-\contentsline {subsection}{\numberline {3.8.10}Untersuchung der RC-Generatoren der ATmega649 Familie}{35}{subsection.3.8.10}
-\contentsline {subsection}{\numberline {3.8.11}Untersuchung des RC-Generators der ATmega2560 Familie}{36}{subsection.3.8.11}
-\contentsline {subsection}{\numberline {3.8.12}Untersuchung der RC-Generatoren der ATtiny4313 Familie}{36}{subsection.3.8.12}
-\contentsline {subsection}{\numberline {3.8.13}Untersuchung der RC-Generatoren der ATtiny84 Familie}{37}{subsection.3.8.13}
-\contentsline {subsection}{\numberline {3.8.14}Untersuchung der RC-Generatoren der ATtiny85 Familie}{37}{subsection.3.8.14}
-\contentsline {subsection}{\numberline {3.8.15}Untersuchung der RC-Generatoren der ATtiny841 Familie}{38}{subsection.3.8.15}
-\contentsline {subsection}{\numberline {3.8.16}Untersuchung der RC-Generatoren der ATtiny861 Familie}{39}{subsection.3.8.16}
-\contentsline {subsection}{\numberline {3.8.17}Untersuchung des RC-Generators der ATtiny88 Familie}{39}{subsection.3.8.17}
-\contentsline {subsection}{\numberline {3.8.18}Untersuchung der RC-Generatoren des ATtiny1634}{39}{subsection.3.8.18}
-\contentsline {subsection}{\numberline {3.8.19}Untersuchung des RC-Generators der AT90PWM Familie}{40}{subsection.3.8.19}
-\contentsline {chapter}{\numberline {4}Daten der AVR 8-Bit Mikrocontroller}{41}{chapter.4}
-\contentsline {section}{\numberline {4.1}Signatur Bytes und Standard Fuse Einstellung}{41}{section.4.1}
-\contentsline {section}{\numberline {4.2}Belegung der Fuses}{43}{section.4.2}
-\contentsline {chapter}{\numberline {5}Verschiedene USB zu Seriell Wandler mit Linux}{46}{chapter.5}
-\contentsline {section}{\numberline {5.1}Der CH340G und der CP2102 Wandler }{46}{section.5.1}
-\contentsline {section}{\numberline {5.2}Der PL-2303 und der FT232R Wandler}{49}{section.5.2}
-\contentsline {section}{\numberline {5.3}Der USB-serial Wandler mit der ATmega16X2 Software}{52}{section.5.3}
+\contentsline {subsection}{\numberline {3.6.4}Benutzung der automatischen Baudraten-Bestimmung}{29}{subsection.3.6.4}
+\contentsline {section}{\numberline {3.7}Einige Beispiele f\IeC {\"u}r die Erzeugung eines optiboot Bootloaders}{31}{section.3.7}
+\contentsline {section}{\numberline {3.8}Anpassung der Taktfrequenz bei internem RC-Generator}{33}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Untersuchung der RC-Generatoren des ATmega8}{33}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Untersuchung der RC-Generatoren des ATmega8535}{34}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}Untersuchung der RC-Generatoren des ATmega8515 und des ATmega162}{34}{subsection.3.8.3}
+\contentsline {subsection}{\numberline {3.8.4}Untersuchung der RC-Generatoren der ATmega328 Familie}{34}{subsection.3.8.4}
+\contentsline {subsection}{\numberline {3.8.5}Untersuchung der RC-Generatoren des ATmega32 / 16}{35}{subsection.3.8.5}
+\contentsline {subsection}{\numberline {3.8.6}Untersuchung des RC-Generators des ATmega163L}{36}{subsection.3.8.6}
+\contentsline {subsection}{\numberline {3.8.7}Untersuchung der RC-Generatoren des ATmega64 / 128}{36}{subsection.3.8.7}
+\contentsline {subsection}{\numberline {3.8.8}Untersuchung der RC-Generatoren der ATmega644 Familie}{37}{subsection.3.8.8}
+\contentsline {subsection}{\numberline {3.8.9}Untersuchung der RC-Generatoren der ATmega645 Familie}{37}{subsection.3.8.9}
+\contentsline {subsection}{\numberline {3.8.10}Untersuchung der RC-Generatoren der ATmega649 Familie}{37}{subsection.3.8.10}
+\contentsline {subsection}{\numberline {3.8.11}Untersuchung des RC-Generators der ATmega2560 Familie}{38}{subsection.3.8.11}
+\contentsline {subsection}{\numberline {3.8.12}Untersuchung der RC-Generatoren der ATtiny4313 Familie}{38}{subsection.3.8.12}
+\contentsline {subsection}{\numberline {3.8.13}Untersuchung der RC-Generatoren der ATtiny84 Familie}{39}{subsection.3.8.13}
+\contentsline {subsection}{\numberline {3.8.14}Untersuchung der RC-Generatoren der ATtiny85 Familie}{39}{subsection.3.8.14}
+\contentsline {subsection}{\numberline {3.8.15}Untersuchung der RC-Generatoren der ATtiny841 Familie}{40}{subsection.3.8.15}
+\contentsline {subsection}{\numberline {3.8.16}Untersuchung der RC-Generatoren der ATtiny861 Familie}{41}{subsection.3.8.16}
+\contentsline {subsection}{\numberline {3.8.17}Untersuchung des RC-Generators der ATtiny88 Familie}{41}{subsection.3.8.17}
+\contentsline {subsection}{\numberline {3.8.18}Untersuchung der RC-Generatoren des ATtiny1634}{41}{subsection.3.8.18}
+\contentsline {subsection}{\numberline {3.8.19}Untersuchung des RC-Generators der AT90PWM Familie}{42}{subsection.3.8.19}
+\contentsline {chapter}{\numberline {4}Daten der AVR 8-Bit Mikrocontroller}{43}{chapter.4}
+\contentsline {section}{\numberline {4.1}Signatur Bytes und Standard Fuse Einstellung}{43}{section.4.1}
+\contentsline {section}{\numberline {4.2}Belegung der Fuses}{45}{section.4.2}
+\contentsline {chapter}{\numberline {5}Verschiedene USB zu Seriell Wandler mit Linux}{48}{chapter.5}
+\contentsline {section}{\numberline {5.1}Der CH340G und der CP2102 Wandler }{48}{section.5.1}
+\contentsline {section}{\numberline {5.2}Der PL-2303 und der FT232R Wandler}{51}{section.5.2}
+\contentsline {section}{\numberline {5.3}Der USB-serial Wandler mit der ATmega16X2 Software}{54}{section.5.3}
