@@ -584,6 +584,9 @@ no_pll:
 	ldi	r19, hi8(RAMSTART)	; 
 
 #if SOFT_UART == 0
+ #if INVERSE_UART > 0
+  #error "Inverse UART data are not supported with Hardware UART!"
+ #endif
  /* I don't know the reason for disabling the Pull-Up resistors!
   * The port D is only correct for ATmega8/88/168/328.
   * Other processors must use other Ports, probably depending
@@ -614,21 +617,30 @@ no_pll:
 
 #if SOFT_UART > 0
  #if (UART_TX_DDR == UART_RX_DDR) && (UART_TX_BIT == UART_RX_BIT)
-  #ifdef INVERSE_UART
+  #if INVERSE_UART > 1
    #warning "One Pin UART can not be used with INVERSE_UART !"
    #undef INVERSE_UART
+   #define INVERSE_UART 0
   #endif
   #warning "One Wire mode serial IO selected!"
 	ACBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to low
 	ACBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as input, High level with Pull-Up
  #else
 	; initialize the TX output, normal mode
-  #ifdef INVERSE_UART
+  #if INVERSE_UART > 1
 	ACBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to low
   #else
 	ASBI	UART_TX_PORT, UART_TX_BIT	; set TX bit to high
   #endif
 	ASBI	UART_TX_DDR, UART_TX_BIT	; set TX DDR bit as output
+ #endif
+
+ #if BAUD_RATE < 100
+  ; try with Auto-baud
+
+  #include "flash_led_opti.S"	/* flash the led before init of UART */
+  #include "init_uart_auto_baud.S"
+
  #endif
 #endif
 
@@ -795,7 +807,8 @@ is_PROG:
 
     // PROGRAM PAGE - we support flash and optional EEPROM programming
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#if (SUPPORT_EEPROM > 0) && (NRWWSTART != 0)
+//#if (SUPPORT_EEPROM > 0) && (NRWWSTART != 0)
+#if (NRWWSTART != 0)
     	breq	no_pg_erase	; if (type)
 #endif
 #if NRWWSTART != 0
@@ -845,6 +858,10 @@ ee_wrlop:
 	brne	ee_wrlop
 	; eeprom write is finished
 	rjmp	put_ok		; putch(STK_OK); rjmp get_nextp
+#else
+	cpse	r6, r1		; r6 = 0, is EEprom write
+	rjmp	write_flash	; if (!type)
+	rjmp	put_ok		; putch(STK_OK); rjmp get_nextp ; simulate OK
 #endif		/* SUPPORT_EEPROM */
 
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1279,13 +1296,10 @@ wr_eeprom:
 	sbi	_SFR_IO_ADDR(EECR), EEMPE
 	sbi	_SFR_IO_ADDR(EECR), EEPE	/* Start EEprom write by setting EEPE */
  #else
-;	lds	r24, _SFR_MEM_ADDR(EECR)
 	AIN	r24, EECR
 	sbr	r24, EEMPE
-;	sts	_SFR_MEM_ADDR(EECR), r24
 	AOUT	EECR, r24
 	sbr	r24, EEPE		/* Start EEprom write by setting EEPE */
-;	sts	_SFR_MEM_ADDR(EECR), r24
 	AOUT	EECR, r24
  #endif
 	ret			; return wr_eeprom function
@@ -1351,10 +1365,10 @@ get_length:
 	mov	r16, r24	; r16 = lower bits of length
 	movw	r26, r16	; can be changed by sbiw or adiw
 	rcall	getch		; read in type
-#if SUPPORT_EEPROM > 0
+//#if SUPPORT_EEPROM > 0
 	subi	r24, 'E'	; type = getch() - 'E'
 	mov	r6, r24
-#endif
+//#endif
 	ret
 
 ;**********************************************************

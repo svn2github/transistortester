@@ -1,8 +1,16 @@
  ; init_uart_auto_baud is part of optiboot 
+ ; designed by K.-H. Kuebbeler
+ ; based on an idea and code from A. Watterott
  ;
  ; This part of assembler code tries to detect the
  ; STK_GET_SYNC (0x30 = 0b00110000) at the RX PIN,
  ; which should be the first character received
+ ; use register r10:r11, r12:r13, r22:r23, r24:r25, r26:r27, r28:r29
+
+//#define SHOW_BAUD		/* output of LSB Baud at PORTC */
+#define TWO_STOP_BITS 0		/* 1 = output with two Stop bits to Tx */
+
+#include "set_loop_tics.h"	/* required for SOFT_UART */
 
 #if defined(UART_SRC) && defined(UART_SEL)
  ; version for m8, m16, m32 for example,
@@ -13,21 +21,43 @@
  #define UART_SRRH UART_SRC
 #endif
 
+next_try:
+	wdr				; watchdog timer reset
+wt_rx0low:
+#if INVERSE_UART > 0
+	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+#else
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+#endif
+	rjmp	wt_rx0low			; wait for at least one 1 read
+RX_was_high:
+
+#if SOFT_UART > 0
+ #define START_COUNTER_COMMAND  (1<<CS10)	/* run counter at full F_CPU speed */
+ #if ((BAUD_RATE - ((BAUD_RATE/2)*2)) != 0)
+  // slow 15 bit loop, 5 tics per count
+  #define TICS_PER_LOOP_PASS 5
+  #define XTRA_TIC 1
+ #else
+  // fast 8 bit loop, 3 tics per count
+  #define TICS_PER_LOOP_PASS 3
+  #define XTRA_TIC 0
+ #endif
+#else
+ #define START_COUNTER_COMMAND  (1<<CS11)	/* run counter at F_CPU/8 speed */
+#endif
+
 #ifdef TCNT1H
  #define CNT16_CNTH  TCNT1H
  #define CNT16_CNTL  TCNT1L
  #define CNT16_CCRB  TCCR1B
- #define CNT16_OCREGL OCR1AL
- #define CNT16_OCREGH OCR1AH
- #define OCFLAG OCF1A
+ #define TOVFLAG TOV1
 
 #elif defined(TCNT0H)
  #define CNT16_CNTH  TCNT0H
  #define CNT16_CNTL  TCNT0L
  #define CNT16_CCRB  TCCR0B
- #define CNT16_OCREGL OCR0A
- #define CNT16_OCREGH OCR0B
- #define OCFLAG OCF0A
+ #define TOVFLAG TOV0
 	ldi	r24, (1<<TCW0)		; switch counter 0 to 16-Bit (tiny861)
 	AOUT	TCCR0A, r24
 
@@ -39,40 +69,44 @@
  #define TIFR1 TIFR
 #endif
 
+#if SOFT_UART == 0
 	ldi	r24, (1<<U2X0)		; UART double speed mode
 	AOUT	UART_SRA, r24
    ; prepare the UART
-#if defined(UART_SRC) && defined(UART_SEL)
+ #if defined(UART_SRC) && defined(UART_SEL)
 	; version for m8, m16, m32 for example (with double function UCSRC)
-	ldi	r23, (1<<UART_SEL)|(1<<UCSZ01)|(1<<UCSZ00)	;config UART
+	ldi	r23, (1<<UART_SEL)|(TWO_STOP_BITS<<USBS0)|(1<<UCSZ01)|(1<<UCSZ00)	;config UART U8N2
 	AOUT	UART_SRC, r23
-#else
+ #else
     /* no ATmega8_16_32 */
- #ifndef __AVR_ATmega163__
-	ldi	r23, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
+  #ifndef __AVR_ATmega163__
+	ldi	r23, (TWO_STOP_BITS<<USBS0)|(1<<UCSZ00)|(1<<UCSZ01)	;config UART U8N2
 	AOUT	UART_SRC, r23
- #endif
-#endif	/* defined(UART_SRC) && defined(UART_SEL) */
+  #endif
+ #endif	/* defined(UART_SRC) && defined(UART_SEL) */
+#endif
 
-next_try:
   ; use the 16-Bit counter to measure Baud time
   ; prepare the counter 1
-	AOUT	CNT16_CCRB, r1		; Stop counter 1 with /8 scaler
+	AOUT	CNT16_CCRB, r1		; Stop counter 1 
+#if (BAUD_RATE < 60) && (SOFT_UART == 0)
 	ldi	r24, -1
 	AOUT	CNT16_CNTH, r24		; set initial counter to -1
 	AOUT	CNT16_CNTL, r24
-	wdr				; watchdog timer reset
+#else	/* BAUD_RATE >= 60 */
+	AOUT	CNT16_CNTH, r1		; set initial counter to 0
+	AOUT	CNT16_CNTL, r1
+#endif
 
 #if BAUD_RATE < 60
   ; simple detection of the baud-rate
- #if LED_START_FLASHES >= 0
-wt_rx0low:
-	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
-	rjmp	wt_rx0low			; wait for at least one 1 read
- #endif
 ; wait, if the UART-RX-Bit is low
 wt_rx0s:
+ #if INVERSE_UART > 0
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low, INVERSE
+ #else
 	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #endif
 	rjmp	wt_rx0s
 	; Probably start bit is found, at least a 1 to 0 transition.
 	; STK500 protocol send a '3'=0x30 followed by ' '=0x20.
@@ -101,34 +135,64 @@ wt_rx0s:
 	; of the possible start conditions. So we check here only a upper time limit
 	; for the position 4 for saving flash memory (BAUD_RATE > 49).
 	; A full plausibility check is done for a Boot-Page size of more than 512 Byte.
-
-	ldi	r24, (1<<CS11)			; start command for counter with /8 scaler
+	ldi	r24, START_COUNTER_COMMAND	; start command for counter with /8 scaler or full speed
 wt_rx1s:
+ #if INVERSE_UART > 0
+	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #else
 	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #endif
 	rjmp	wt_rx1s
 	; begin of first "1" data bit is found after S0000, if it was a STK_GET_SYNC, 0x30
 	AOUT	CNT16_CCRB, r24		; Start counter 1 with /8 scaler
  #if BAUD_RATE > 49
 	; the optional time-limit check is only done, if the BAUD_RATE is set > 49 
-	ldi	r24, hi8(4864)		; Set upper limit
-	AOUT	CNT16_OCREGH, r24
-	AOUT	CNT16_OCREGL, r1		; lower bits to 0
   #if TIFR1 < (0x20 + __SFR_OFFSET)
-	sbi	_SFR_IO_ADDR(TIFR1), OCFLAG	; Clear Compare A Flag
+	sbi	_SFR_IO_ADDR(TIFR1), TOVFLAG	; Clear Timer OV Flag
   #else
-	ldi	r26, (1<<OCFLAG)
+	ldi	r26, (1<<TOVFLAG)
 	AOUT	TIFR1, r26		; clear Compare A Flag
   #endif
  #endif	/* BAUD_RATE > 49 */
 wt_rx0bs:
  #if BAUD_RATE > 49
-	ASBIC	TIFR1, OCFLAG	; Look if time limit is reached, Compare A Flag
+	ASBIC	TIFR1, TOVFLAG	; Look if time limit is reached, OV Flag
 	rjmp	next_try		; upper limit for 2x Baud-time is reached
  #endif
+ #if INVERSE_UART > 0
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #else
 	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #endif
 	rjmp	wt_rx0bs
 	AIN	r24, CNT16_CNTL			; read counter after second '1' bit is finished
 	AIN	r25, CNT16_CNTH
+
+ ; Transmission of byte is not finished, we must wait for last two "0" Bits
+wt_rx1bs:
+ #if INVERSE_UART > 0
+	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #else
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #endif
+	rjmp	wt_rx1bs
+
+ #if SOFT_UART > 0
+	; we have measured the count of cpu-tics for two RX bits
+	sbiw	r24, (LOOP_TICS+RCALL_TICS+XTRA_TIC+RCALL_TICS+XTRA_TIC)*2-(TICS_PER_LOOP_PASS*2)
+	ldi	r28, -1
+	ldi	r29, -1		; set divlop counter
+divlop1:
+	adiw	r28, 1
+	sbiw	r24, (TICS_PER_LOOP_PASS*2*2)	; 2 loop calls for every Tx bit, /2 for 2 bit measured
+	brsh	divlop1
+	movw	r10, r28		; r10:11 hold the delay loop counter
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r10		; show the lower bits, if requested
+  #endif
+ #else
 	; because we have measured the time of two bits,
 	; we must divide by 2 and subtract 1 to get the final UBRR
 	; ((two_bit_time + 1) / 2) - 1  is equal to
@@ -136,26 +200,26 @@ wt_rx0bs:
 	; The -1 is done with counter preset to -1
 	lsr	r25
 	ror	r24		; rotate through carry
-
- ; Transmission of byte is not finished, we must wait for last two "0" Bits
-wt_rx1bs:
-	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
-	rjmp	wt_rx1bs
 	; now we can start the UART
-	AOUT	UART_SRRL, r24
+	AOUT	UART_SRRL, r24		; set the UART divider
 	AOUT	UART_SRRH, r25
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r24		; show the lower bits, if requested
+  #endif
+ #endif
  #undef DELAY_NEXT_REQUEST
-#else
+#else		/* BAUD_RATE >= 60 */
   ;------------------------------------------------------------------------------------
   ; you assume enough space for exact analye for BAUD_RATE >= 60
-	ldi	r24, (1<<CS11)			; start command for counter with /8 scaler
- #if LED_START_FLASHES >= 0
-wt_rx1low:
-	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
-	rjmp	wt_rx1low			; wait for at least one 1 read
- #endif
+	ldi	r24, START_COUNTER_COMMAND	; start command for counter with /8 scaler or full speed
 wt_rx0l:
+ #if INVERSE_UART > 0
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #else
 	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #endif
 	rjmp	wt_rx0l
 	; Probably start bit is found, at least a 1 to 0 transition.
 	; STK500 protocol send a '3'=0x30 followed by ' '=0x20.
@@ -177,36 +241,41 @@ wt_rx0l:
 
 	AOUT	CNT16_CCRB, r24		; Start counter 1 with /8 scaler, begin measurement
 wt_rx1l:
+ #if INVERSE_UART > 0
+	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #else
 	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #endif
 	rjmp	wt_rx1l
 	; now we should have start-bit and 4 data bits 0
 	AIN	r10, CNT16_CNTL			; read counter after 'S0000'
 	AIN	r11, CNT16_CNTH
-	movw	r26, r10
-	add	r26, r26		; * 2
-	adc	r27, r27
-	add	r26, r26		; * 2
-	adc	r27, r27
-	AOUT	CNT16_OCREGH, r27
-	AOUT	CNT16_OCREGL, r26
  #if TIFR1 < (0x20 + __SFR_OFFSET)
-	sbi	_SFR_IO_ADDR(TIFR1), OCFLAG
+	sbi	_SFR_IO_ADDR(TIFR1), TOVFLAG
  #else
-	ldi	r26, (1<<OCFLAG)
+	ldi	r26, (1<<TOVFLAG)
 	AOUT	TIFR1, r26
  #endif
 
 wt_rx0bl:
-	ASBIC	TIFR1, OCFLAG	; Look if time limit is reached
+	ASBIC	TIFR1, TOVFLAG	; Look if time limit is reached
 	rjmp	next_try		; 4x first time must be greater than actual time
+ #if INVERSE_UART > 0
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #else
 	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #endif
 	rjmp	wt_rx0bl
 	; now we should have start-bit + 4 data 0 bits + 2 date 1 bits
 	AIN	r12, CNT16_CNTL			; read counter after 'S000011'
 	AIN	r13, CNT16_CNTH
  ; Transmission of byte is not finished, we must wait for last two "0" Bits
 wt_rx1bs:
+ #if INVERSE_UART > 0
+	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #else
 	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #endif
 	rjmp	wt_rx1bs
 	AIN	r26, CNT16_CNTL		; read counter after 'S00001100', full 8 Bit transmission with Start bit
 	AIN	r27, CNT16_CNTH
@@ -229,13 +298,30 @@ wt_rx1bs:
 	sbc	r29, r11
 	cp	r26, r28		; 11 + d > 00 ?
 	cpc	r27, r29
-	brcc	next_try		; wait for next data word.
+	brcc	to_next_try		; wait for next data word.
+ #if SOFT_UART > 0
+	; we have measured the count of cpu-tics for four RX bits
+	sbiw	r24, (LOOP_TICS+RCALL_TICS+XTRA_TIC+RCALL_TICS+XTRA_TIC)*2-(TICS_PER_LOOP_PASS*2)
+	sbiw	r24, (LOOP_TICS+RCALL_TICS+XTRA_TIC+RCALL_TICS+XTRA_TIC)*2-(TICS_PER_LOOP_PASS*2)
+	ldi	r28, -1
+	ldi	r29, -1		; set divlop counter
+divlop2:
+	adiw	r28, 1
+	sbiw	r24, (TICS_PER_LOOP_PASS*2*4)	; 2 loop calls for every Tx bit, /4 for 4 bit time
+	brsh	divlop2
+	movw	r10, r28
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r10
+  #endif
+ #else
 	; we have allready the sum of the 11 and 00 time in r24:25
 	; because we have measured the time of four bits,
 	; we must divide by 4 to get the final UBRR
 	; ((four_bit_time + 2) / 4) - 1  is equal to
 	; (four_bit_time - 2) / 4 
-	sbiw	r24, 2		; subtract 2 from the four bit time
+	sbiw	r24, 2		; subtract 2 from the four bit time, with rounding
 	lsr	r25		; /2
 	ror	r24		; rotate through carry
 	lsr	r25		; /2
@@ -243,8 +329,31 @@ wt_rx1bs:
 	; now we can start the UART
 	AOUT	UART_SRRL, r24
 	AOUT	UART_SRRH, r25
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r24
+  #endif
+ #endif
 
  #else		/* 60 <= BAUDRATE < 80 */
+
+  #if SOFT_UART > 0
+	; we have measured the count of cpu-tics for two RX bits
+	sbiw	r26, (LOOP_TICS+RCALL_TICS+XTRA_TIC+RCALL_TICS+XTRA_TIC)*2-(TICS_PER_LOOP_PASS*2)
+	ldi	r28, -1
+	ldi	r29, -1		; set divlop counter
+divlop3:
+	adiw	r28, 1
+	sbiw	r26, (TICS_PER_LOOP_PASS*2*2)	; 2 loop calls for every Tx bit, /2 for 2 bit measured
+	brsh	divlop3
+	movw	r10, r28
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r10
+  #endif
+  #else
 	; We have the time of the 00 bits in r26:r27
 	; because we have measured the time of two bits,
 	; we must divide by 2 to get the final UBRR
@@ -253,20 +362,28 @@ wt_rx1bs:
 	sbiw	r26, 1		; subtract 1 from the two bit time
 	lsr	r27		; /2
 	ror	r26		; rotate through carry
-
 	; now we can start the UART
 	AOUT	UART_SRRL, r26
 	AOUT	UART_SRRH, r27
+  #ifdef SHOW_BAUD
+	ldi	r28, 0xff
+	AOUT	DDRC, r28
+	AOUT	PORTC, r26
+  #endif
+  #endif
  #endif	/* BAUD_RATE  >= 80 */
  #define DELAY_NEXT_REQUEST
 #endif		/* BAUD_RATE < 60 */
 
-#ifdef UART_ONE_WIRE
+#if SOFT_UART == 0
+ #ifdef UART_ONE_WIRE
 	ldi	r24, (1<<RXEN0)		;0x10	
-#else
+ #else
 	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-#endif
+ #endif
 	AOUT	UART_SRB, r24
+#endif
+
 #if TEST_OUTPUT == 1
 	rjmp	test_out	; output 'U'= S10101010P for speed measuring
 #else
@@ -275,9 +392,14 @@ wt_rx1bs:
 
 #ifdef DELAY_NEXT_REQUEST
 delay_next_try:
+ #if INVERSE_UART > 0
+	ASBIS	UART_RX_PIN, UART_RX_BIT	; Look if RX is still low
+ #else
 	ASBIC	UART_RX_PIN, UART_RX_BIT	; Look if RX is still high
+ #endif
 	rjmp	delay_next_try
 	; RX=0 can be a data 0 bit or a start bit. We hope,that is is a data bit.
+to_next_try:
 	rjmp	next_try			; wait for next stop bit
 #endif 
 

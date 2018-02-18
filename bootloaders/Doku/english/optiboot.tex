@@ -582,6 +582,343 @@ I expect only problems with very high baud rates.
 At 115200 baud the circuit operates well. Much higher baud rates can 
 not be used in most cases with the software serial interface.
 
+\subsection{Use of the automatic baud rate detection}
+
+If you specify a baud rate below \(100Baud\) for generating the bootloader code,
+the program will be prepared to detect the baud rate from the first
+received character.
+At the begin if the transmission with the STK500 protocol the computer send
+a command STK\_GET\_SYNC (0x30) followed by the control character CRC\_EOP (0x20).
+For the serial transmission protocol the High level (1) is defined as the idle state.
+The begin of a transmission is started by s start bit with Low level (0).
+Directly after the end of the start bit the first data bit is send 
+beginning with the low order bit. After the last of the aggreed count of bits (8)
+is transmitted, the transmission is finished with one or more Stop bits at High level (1).
+The level of every bit is hold exactly the aggreed baud time.
+The time between the end of the last Stop bit and the begin of the next Start bit
+is unspecified.
+The figure~\ref{fig:AutoBaud} shows the expected results for all possible
+time measurement. At the time axis ''t'' four possible start positions
+are marked for a complete time measurement of the assumed character.
+The counter is started in each case of a detected 1-0 slope.
+The right start position for the STK\_GET\_SYNC character is marked with ''1''.
+The marks ''2'', ''3'' and ''4'' show the situation for three possible
+wrong Start bit detections.
+For the mark ''2'' and ''4'' a 1-0 slope of data bits is detected as Start bit
+in a wrong way. For the mark '3' is a Start bit correctly detected, but for the
+wrong character (CRC\_EOP).
+The wrong detections are allways possible, if the bootloader is started not
+before the transmission was running.
+The expected counter values are marked at the counter level graph for all
+four start positions in figure~\ref{fig:AutoBaud}. 
+The ''b'' means the counter reading for one bit transmission time (baud time),
+the ''d'' stand for a possible time delay between the end of the Stop bit transfer 
+and the start of a new Start bit.
+The ''D'' represents a expected long time delay to the begin of the next message.
+The transmit sequence of the message has reached it's end and the computer
+wait for an answer of the AVR.
+In the ''Rx''-row the data bits are labled with ''0'' (least significant bit)
+to ''7'' (highest significant bit). The Start bit has the label 'A' and
+a Stop bit has the label 'E'.
+The first byte is the coding of the STK\_GET\_SYNC character and the second byte
+is the coding of the control character CRC\_EOP.
+
+
+\begin{figure}[H]
+\centering
+\scalebox{0.55}{\includegraphics[]{../FIG/AutoBaud.eps}}
+\caption{Possibel timer measurements for the STK\_GET\_SYNC sequence}
+\label{fig:AutoBaud}
+\end{figure}
+
+\begin{itemize}
+
+\item {Simplest way of baud rate measurement, BAUD\_RATE \textless~50}
+
+The simplest form of baud rate measurement doesn't take into account
+the wrong start bit choise.
+It is assumed, that the detected Start bit belongs to the STK\_GET\_SYNC
+character.
+After the Start bit detection the program waits to the next 0-1 slope
+and starts a 16-bit counter with the frequency F\_CPU/8 with the
+stating value -1. At the next 1-0 slope the counter value is read out
+and the half of this value is taken as frequency divider for the UART.
+The building of the half value is required because the time of two data bits
+was measured.
+Normally 1 must be subtracted for the UART frequency divider.
+But when halving should be rounded, a 1 must be added before the halving.
+Because also 2 can be subtracted from the counter result instead of
+1 from the division result, totally only one must be subtracted from the
+counter result. In order to save computation steps, the subtraction (2-1=1)
+from the count is done by a start value of the counter of -1.
+
+This mmothod works well, if the bootloader is started automatically just
+before the transmission by generating a reset pulse from the DTR (Data Terminal Ready)
+signal of the serial interface.
+You can also be successfull without the automatically generated Reset,
+if a Reset key is connected to the AVR, which should be hold pressed
+until the transmission program is started.
+But this procedure requires some feeling for the right release time
+of the button.
+
+The bootloader only waits a maximum time for the beginning of the transmission,
+which is specified from the watchdog timer.
+When the watchdog timer triggers a reset, usually the user program is started.
+Only if no user program has been loaded yet, the boot loader starts again for a retry.
+
+\item {Slightly improved way of baud rate measurement, BAUD\_RATE \textless~60}
+
+The same method as the simplest way is used for this method.
+Only a additional limitation for the timer value is used here.
+If the time limit is passed over, the program starts again with the search
+for a new Start bit.
+Without this limitation the program can stay in a loop for detecting
+a low level for the start condition ''4''. 
+Probably the bad situation with the start position ''4'' in the 
+diagram~\ref{fig:AutoBaud} is a little better. 
+The restart of the start bit serach with the time limit would
+delay a reset from the watchdog timer only a little bit.
+The bootloader program may not reset the watchdog timer inside
+the search loop, because then the user program is never started
+without the transmission of a new program.
+For this reason the time limit of the watchdog timer must be greater
+as the time delay for repeating the STK\_GET\_SYNC sequence
+without a answer to the previous STK\_GET\_SYNC sequence.
+
+
+\item {Complex way of baud rate measurement, BAUD\_RATE \textless~80}
+
+With this method the counter is started immediately with the detection
+of a Start bit and the counter value is read with every of the
+next 3 bit changes.
+The time sequence of bit changes for the STK\_GET\_SYNC character is 
+measured with this method, if the start position is well (''1'').
+With this measured time sequence some plausibility checks are done.
+For a first is checked, that the difference between the third counter
+reading and the first counter reading is less than the value
+of the first reading.
+For the start position ''1'' this is the case ((9b~-~5b) < 5b).
+For the wrong start position ''3'' this is unfortunately also the case ((9b~-~6b) < 6b)
+But this test will fail for start condition ''2'', if the time delay ''d'' of
+the second start bit of the STK\_GET\_SYNC sequence is sufficiently small.
+For the wrong start position ''4'' can help only a time limitation for
+the second bit change wait loop, because the repetition of the STK\_GET\_SYNC
+is done after a longer wait time for the answer (''D''). 
+
+A second test checks, if the difference between the third and the
+second counter reading isn't significant greater than the difference
+between the second and the first counter reading.
+For the correct start posistion ''1'' this result to the equation ((9b-7b) < (7b-5b+4))
+or (2b < 2b+4).
+For the false start position ''2'' you get the equation ((9b-3b) < (3b+d-2b+4)) or
+(6b < (b+d+4)).
+For the false start position ''3'' we get the equation ((9b-7b) < (7b-6b+4)) or (2b < (b+4)).
+This exams are relatively safe for detecting the right baud rate, but they
+require a lot of additional space for the program.
+This method is especially recommended, if at least 1024 bytes are reserved
+for the boot loader anyway (boot loader page size).
+For setting the correct UART frequency divider, the difference between 
+the third counter reading and the second counter reading is divided by 2
+(9b-7b-1)/2 = (2b+1)/2-1.
+
+\item {Aufwendige Form der Baudraten Messung, BAUD\_RATE \textless~100}
+
+All counter readings and checks are done in the same way as the
+BAUD\_RATE \textless~80 method. Only the calculation of
+the UART divider is based on the time of four bits instead of two bits.
+Consequently the equation for the correct starting position
+look like (9b-5b-2)/4 = (4b+2//4-1.
+
+\end{itemize}
+
+I recommend for all methods of the baud rate determination to omit
+the LED flashing at the begin of the bootloader program
+to prevent a delay of the start bit detection.
+Unfortunately even the simplest way of baud rate measurement
+need so much additional program memory, that the bootloader
+will not fit into the 512 byte limit, if the EEprom support
+is selected (SUPPORT\_EEPROM=1) with the flashing LED function.
+For some processors you can select the additional function LED\_DATA\_FLASH
+without exceeding the 512 byte limit, when the EEprom support is deselected.
+If the 512 byte limit is overshoot by a required function,
+the next limit of 1024 byte give enough space for all additional
+selections.
+You can select the SOFT\_UART function together with the automatic
+baud rate detection (BAUD\_RATE \textless 100) only for the
+assembler version of optiboot, not for the C-version.
+
+There are some differencies and special features for the baud rate measuring
+together with the Soft UART solution compared to the hardware UART solution.
+Usually a 8-Bit counter loop is used to generate the delay for the half baud time.
+Because of the used instructions in this loop, you can select the time
+only with a solution of 3 clock tics.
+To get the full baud time the loop must be called twice, so that
+the resolution is doubled too.
+With a known fixed baud rate this error will be compensated by extra instructions.
+But this is impossible, if the baud rate  is unknown in advance.
+To get the best possible rounding of the selected baud rate,
+the time measurement is done with the 16-bit counter at the full CPU clock rate (F\_CPU).
+For the hardware UART the counter can be used with F\_CPU/8.
+
+The use of a 8-bit delay loop result to a upper limit of the baud time
+depending on the CPU clock rate.
+The resulting minumum baud rate is definite higher with the 8-bit loop
+compared to the minimum baud rate with the hardware UART.
+With the limited resolution of the period selection for the baud rate
+the upper limit can be specified with a guaranteed baud rate error below 2\%.
+If the AVR processor is operated with a RC clock generator, the clock rate
+is usually imprecise. By measuring the baud rate with a counter controlled
+with the same clock, this error is compensated.
+But the error by reason of the limited resolution of the baud rate divider 
+can not be calculated in advance.
+I would like to show you what I mean by an example for the hardware UART. 
+The baud rate \(250kHz\) can be used with a clockrate of exactly \(8MHz\).
+If you select the divider of 4, the desired baud rate is together with
+the factor 8 prescaler produced without a deviation.
+If I assume a inexact real clock rate of \(7.6MHz\),
+the best selectable divider is still 4.
+For this case the actual baud rate is now \(237.5kHz\) with the same
+error of -5\% as the base clock rate.
+To overcome at least the lower baud limit with the software UART solution,
+all odd baud rate selections below 100 will generate a code
+with a 15-bit delay loop.
+Unfortunately the pass time of this loop is 5 tics for the 15-bit loop.
+Because of the double delay call for the full baud time,
+the resolution is only 10 tics and thereby more worth than the 
+8 tics resolution of the hardware UART caused by the 8:1 prescaler.
+You should use this option only, if you need the support of low baud speeds
+and deside not to use very high baud rates.
+The following table~\ref{tab:AutoBaud8} is intended to clarify the use of
+the different auto baud functions at the operating frequency \(8MHz\).
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c | c |}
+    \hline
+   BAUD\_RATE  & SOFT\_ & Minimum & BAUD-Err & Comment  \\
+   Option      & UART   & Baud    & \textless 2\% @ Baud &  \\
+    \hline
+    \hline
+    40-99      &  0     &  1949       &   40.0k  & HW\_UART  \\
+    \hline
+    48         &  1     &  5151       &   46.2k  & Simple, 2-Bit Time, 8-Bit Delay  \\
+    \hline
+    68         &  1     &  5151       &   46.2k  & Complex, 2-Bit Time, 8-Bit Delay  \\
+    \hline
+    88         &  1     &  5151       &   46.2k  & Complex, 4-Bit Time, 8-Bit Delay  \\
+    \hline
+    49         &  1     &  244       &   29.0k  &  Simple, 2-Bit Time, 15-Bit Delay\\
+    \hline
+    69         &  1     &  1220       &   29.0k &  Complex, 2-Bit Time, 15-Bit Delay \\
+    \hline
+    89         &  1     &  1220       &   29.0k & Complex, 4-Bit Time, 15-Bit Delay \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Limits for the automatic baud rate selection with a \(8MHz\) clock.}
+  \label{tab:AutoBaud8}
+\end{table}
+
+If you select a hardware UART interface, you can select the standard
+baud rates 2400, 4800, 9600, 19200 and 38400 with all arbitrary options.
+Higher baud rates than the specified 40 kBaud are not safe to use,
+although 57600 baud also worked well in tests.
+Likewise, a test with 115.2 kBaud at \(16MHz\) crystal operation was still successful
+when using a software UART with a 15-bit delay loop.
+If only a 8-bit delay loop is used with the software UART solution,
+the baud rates 2400 and 4800 can not be used.
+The lower baud rates are only usable, if you configure the optiboot
+with a 15-bit delay loop.
+The different limit for the 49 and 69 or 89 baud rate selection is caused
+by the different use of the 16-bit AVR counter.
+With the 49 selection (all below 60) only the time of two data bits is measured
+with the counter. For selections above 59 the complete byte sequence is
+measured from the Start bit to the Stop bit with the 16-bit counter.
+Probably baud rated below 9600 are rarely used anyway.
+Of course the limits of the baud rates change with other processor clock rate.
+
+Finally I would like to show the results from tests, which I have done with
+a ATmega1281 with the internal \(8MHz\) RC-generator clock at a specified baud rate
+and also above the specified baud rate.
+The frequency was tuned with the OSCCAL\_CORR option in steps of two and
+of course measured.
+The functionality was tested by loading a small user program.
+All tests within the specified baud rate was successfull.
+Because all tests run well, additionally tests with a higher baud rate than
+specified (\(115.2 kBaud\)) was also done.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c || c | c | c || c | c |}
+    \hline
+   OSCCAL  & Frequency & HW-UART & SW-UART & SW-UART & SW-UART & SW-UART \\
+   \_CORR  & kHz       & 57600   & 57600   & 57600   & 115200  & 115200  \\
+           &           & Mode 82 & Mode 82 & Mode 83 & Mode 52 & Mode 53 \\
+    \hline
+    \hline
+    20     &  7157   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    18     &  7217   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    \hline
+    16     &  7318   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    14     &  7404   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    12     &  7521   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    10     &  7591   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+     8     &  7710   &  OK (Err)  &   OK     &   OK    &  OK     &   OK  \\
+     6     &  7815   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+     4     &  7933   &  OK (OK)   &   OK     &   OK    &  Err    &   Err \\
+     2     &  8012   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    \hline
+     0     &  8141   &  OK (Err)  &   OK     &   OK    &  OK     &   Err \\
+    -2     &  8247   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    \hline
+    -4     &  8390   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    -6     &  8485   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    -8     &  8623   &  OK (OK)   &   OK     &   OK    &  Err    &   OK  \\
+    -10    &  8745   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -12    &  8889   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Test for the automatic baud rate at \(8MHz\) clock.}
+  \label{tab:AutoBaudTest8}
+\end{table}
+
+The bracketed values in the HardWare UART column appear only, if a second Stop bit
+is selected with the UCBS1 bit in the UCSR1C register.
+This problem is incomprehensible because, as described in the datasheet, this bit
+should only affect the transmitter.
+For the receiver of the data, a second stop bit means only a longer wait time to the next start bit.
+This should be no reason for difficulties. Only the transmission time is a little bit longer.
+The significant increase in errors allows only the conclusion that either the timing
+of the receiver changes also by setting the USBS1 bit or the used USB-serial converter
+can not handle this setting correctly.
+
+For the operating mode 82 I have additionally checked the odd OSCCAL\_CORR settings without
+any noticeable difficulties. The also checked simplest mode 42 has not shown
+any difficulties with the tested even OSCCAL\_CORR values of the table.
+
+Only at the extemely high baud rate of \(115,2k\) for this CPU frequency the operation
+mode 52 shows four failures and with the operation mode 53 eight failures are stated.
+The increase in failures in mode 53 with the 15-bit delay loop is expected and caused by
+the coarser grid of adjustable delay times.
+In another test series with the hardware UART at \(115.2kBaud\), which is not included
+to the table, I could find five set frequencies where program loading was inpossible.
+
+A test with a chinese Arduino UNO board, which use a CH340G chip as USB-serial converter,
+could operate only up to \(38.4kBaud\) correctly.
+With higher baud rates the read back of the flash data caused problems.
+Probably the last byte of a package is sometimes not transmitted to the host and
+the communication blocks.
+The same test with a other Arduino UNO board, which use a Mega16U2 controller
+for USB-serial conversion, didn't show the same problem.
+This board could run with \(115.2kBaud\) and also with \(230.4kBaud\). 
+Probably the reason is, that both processors (ATmega328p and Mega16U2)
+use a real baud rate of \(250kBaud\).
+
 
 \section{Some examples of building a optiboot bootloader}
 
@@ -590,29 +927,33 @@ The first example is the building of a bootloader for the popular ATmega328P:
 \begin{verbatim}
 optiboot $ make atmega328p
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
- -fno-diagnostics-show-caret \
- -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
- -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:254:0
-pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.S:530:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x7E00
-######################################
+ -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:254:0:
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:612:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    474	      0	      0	    474	    1da	optiboot.elf
+    476	      0	      0	    476	    1dc	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot_atmega328p.hex
+   -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
+
 
 With no additional option a baudrate of 115200 with a clock frequency of \(16 MHz\) is selected.
 For serial output the hardware interface is selected.
@@ -622,29 +963,31 @@ The second example with the same processor is done with a software solution for 
 \begin{verbatim}
 optiboot $ make atmega328p SOFT_UART=1
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
- -fno-diagnostics-show-caret \
- -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
- -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+ -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=01 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
 In file included from optiboot.S:254:0:
-pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:192:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
-pin_defs.h:200:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x7E00
-######################################
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:206:6: warning: #warning "SOFT_UART use Pin D0 as RX" [-Wcpp]
+pin_defs.h:216:6: warning: #warning "SOFT_UART use Pin D1 as TX" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115107, Delay: 116*1, Error=-.07%
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    494	      0	      0	    494	    1ee	optiboot.elf
+    496	      0	      0	    496	    1f0	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot_atmega328p.hex
+   -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Please note, that the software solution for the serial interface requires a little more flash memory,
@@ -656,6 +999,73 @@ In this example the feature is used to automatically select the RX and TX of the
 Please ignore the three warning messages, which tell you about the automatic selection.
 The automatic IO-pin selection depends on the selected processor type and the selected UART number, if more than
 one UART is available.
+
+
+The last examples shows a configuration with the new automatic selection of the baud rate
+by measuring the rate of the first incoming data.
+The flashing of the LED at the program start is deselected in the first example to save flash memory.
+
+\begin{verbatim}
+optiboot $ make atmega328p LED_START_FLASHES=0 BAUD_RATE=52
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret -DBAUD_RATE=52 -DLED_START_FLASHES=0 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+--------------------------------------------------------------------------------
+Simple Baudrate measurement with time limit implemented in optiboot!
+UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
+
+16000000 Hz operation with Auto-Baudrate configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    494	      0	      0	    494	    1ee	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot_atmega328p.hex
+\end{verbatim}
+
+
+for the last example the most complex methode of baud rate measurement
+was selected because the limit of 512 byte would be exceeded with
+selecting the LED flashing and the simplest measurement method (534 byte).
+
+\begin{verbatim}
+optiboot $ make atmega328p BAUD_RATE=82
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret -DBAUD_RATE=82 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:254:0:
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+--------------------------------------------------------------------------------
+Complex Baudrate measurement implemented in optiboot! (4-bit)
+UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7C00 = 31744
+###########################################
+
+16000000 Hz operation with Auto-Baudrate configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    596	      0	      0	    596	    254	optiboot.elf
+Requires 2 Boot Pages, 512 Bytes each
+BOOTSZ=2
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot_atmega328p.hex
+\end{verbatim}
+
 
 \section{Clock Frequency Correction of the internal RC-Generator}
 
@@ -1104,7 +1514,7 @@ The table~\ref{tab:mega2560freq} shows the results for the checked processors.
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-mega1281 &          8M & 0xC2  & 38.4k &   &  &   &   &   &  \\
+mega1281 &          8M & 0xC2  & 38.4k &  -5 & 8405k & 5 & 7871   & 2  &  8012k \\
     \hline
 mega2561 &          8M & 0xC2  & 38.4k &  -8 & 8363k & 4  & 7870k  & 1  & 7990k \\
     \hline

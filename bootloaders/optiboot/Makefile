@@ -186,7 +186,15 @@ BAUD_RATE_CMD = -DBAUD_RATE=$(BAUD_RATE)
 COMMON_OPTIONS = $(BAUD_RATE_CMD) $(LED_START_FLASHES_CMD) $(BIGBOOT_CMD)
 COMMON_OPTIONS += $(LED_DATA_FLASH_CMD)
 ifdef TEST_OUTPUT
-COMMON_OPTIONS += -DTEST_OUTPUT=1
+ COMMON_OPTIONS += -DTEST_OUTPUT=1
+endif
+
+ifdef INVERSE_UART
+ COMMON_OPTIONS += -DINVERSE_UART=1
+else
+ ifdef INVERS_UART
+  COMMON_OPTIONS += -DINVERSE_UART=1
+ endif
 endif
 
 #
@@ -354,10 +362,7 @@ override LDFLAGS       = -Wl,--relax -nostartfiles -nostdlib
 OBJCOPY        = $(GCCROOT)avr-objcopy
 OBJDUMP        = $(call fixpath,$(GCCROOT)avr-objdump)
 
-ifndef FLASH_ERASE_CNT
- FLASH_ERASE_CNT = 1
-endif
-
+AUTO_BAUD = $(shell $(ECHO_CMD) "$(BAUD_RATE) / 100" | $(BC_CMD))
 
 #---------------------------------------------------------------------------
 #
@@ -368,7 +373,9 @@ FORCE:
 
 export ECHO_CMD BC_CMD TR_CMD
 baudcheck: FORCE
-	- @$(CC) $(CFLAGS) $(COMMON_OPTIONS) -DSOFT_UART=0$(SOFT_UART) -DF_CPU=$(AVR_FREQ) -E -o baudcheck.tmp.sh baudcheck.c
+	- @$(CC) $(CFLAGS) $(COMMON_OPTIONS) \
+	 -DUART=0$(UART) -DSOFT_UART=0$(SOFT_UART) -DUART_RX=p$(UART_RX) -DUART_TX=p$(UART_TX) \
+	 -DF_CPU=$(AVR_FREQ) -E -o baudcheck.tmp.sh baudcheck.S
 	- @bash ./baudcheck.tmp.sh
 
 $(PROGRAM).o: $(PROGRAM).$(SOURCE_TYPE) FORCE
@@ -449,7 +456,11 @@ $(PROGRAM).elf:  $(PROGRAM).o baudcheck  BL_StartAdr.dat
 	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) \
         -Wl,--section-start=.text=0x$(shell $(CAT_CMD) BL_StartAdr.dat) $(LDFLAGS) -o $(PROGRAM).elf $< $(LIBS)
 	@$(ECHO_CMD)
+ifeq ($(AUTO_BAUD), 0)
+	@$(ECHO_CMD) $(AVR_FREQ) Hz operation with Auto-Baudrate configured.
+else
 	@$(ECHO_CMD) $(AVR_FREQ) Hz operation with Baudrate $(BAUD_RATE) configured.
+endif
 	$(SIZE) $(PROGRAM).elf
 
 # remove all generated files

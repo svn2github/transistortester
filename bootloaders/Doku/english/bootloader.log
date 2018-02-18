@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.20)  10 FEB 2018 12:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.20)  18 FEB 2018 16:31
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -767,7 +767,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.41 ... of the ATtiny1634}{37}{subsection.3.8.18}
+l.41 ...he ATtiny88 family}{43}{subsection.3.8.17}
                                                    [1
 
 ])
@@ -795,7 +795,7 @@ Package epstopdf Info: Source file: <../FIG/ablauf.eps>
 -to.pdf ../FIG/ablauf.eps>
 (epstopdf)             \includegraphics on input line 47.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/ablauf-eps-converted-to.pdf, id=266, 258.9675pt x 388.45125pt>
+<../FIG/ablauf-eps-converted-to.pdf, id=276, 258.9675pt x 388.45125pt>
 File: ../FIG/ablauf-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ablauf-eps-converted-to.pdf>
@@ -821,7 +821,7 @@ Package epstopdf Info: Source file: <../FIG/avr_block.eps>
 ted-to.pdf ../FIG/avr_block.eps>
 (epstopdf)             \includegraphics on input line 16.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/avr_block-eps-converted-to.pdf, id=282, 458.71375pt x 403.5075pt>
+<../FIG/avr_block-eps-converted-to.pdf, id=292, 458.71375pt x 403.5075pt>
 File: ../FIG/avr_block-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/avr_block-eps-converted-to.pdf>
@@ -844,7 +844,7 @@ o.pdf ../FIG/port.eps>
 (epstopdf)             \includegraphics on input line 82.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/port-eps-converted-to.pdf, id=300, 241.90375pt x 123.46124pt>
+<../FIG/port-eps-converted-to.pdf, id=310, 241.90375pt x 123.46124pt>
 File: ../FIG/port-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/port-eps-converted-to.pdf>
@@ -863,7 +863,7 @@ rted-to.pdf ../FIG/boot_pages.eps>
 (epstopdf)             \includegraphics on input line 170.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/boot_pages-eps-converted-to.pdf, id=316, 433.62pt x 768.8725pt>
+<../FIG/boot_pages-eps-converted-to.pdf, id=327, 433.62pt x 768.8725pt>
 File: ../FIG/boot_pages-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/boot_pages-eps-converted-to.pdf>
@@ -888,7 +888,7 @@ Package epstopdf Info: Source file: <../FIG/ISP.eps>
 (epstopdf)             \includegraphics on input line 310.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/ISP-eps-converted-to.pdf, id=340, 314.17375pt x 147.55125pt>
+<../FIG/ISP-eps-converted-to.pdf, id=350, 314.17375pt x 147.55125pt>
 File: ../FIG/ISP-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/ISP-eps-converted-to.pdf>
@@ -907,7 +907,7 @@ to.pdf ../FIG/UM232.eps>
 (epstopdf)             \includegraphics on input line 361.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/UM232-eps-converted-to.pdf, id=353, 384.43625pt x 131.49126pt>
+<../FIG/UM232-eps-converted-to.pdf, id=363, 384.43625pt x 131.49126pt>
 File: ../FIG/UM232-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/UM232-eps-converted-to.pdf>
@@ -943,7 +943,7 @@ Package epstopdf Info: Source file: <../FIG/VectorMove.eps>
 rted-to.pdf ../FIG/VectorMove.eps>
 (epstopdf)             \includegraphics on input line 344.
 Package epstopdf Info: Output file is already uptodate.
-<../FIG/VectorMove-eps-converted-to.pdf, id=405, 278.03876pt x 466.74374pt>
+<../FIG/VectorMove-eps-converted-to.pdf, id=415, 278.03876pt x 466.74374pt>
 File: ../FIG/VectorMove-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/VectorMove-eps-converted-to.pdf>
@@ -963,7 +963,7 @@ s-converted-to.pdf ../FIG/uart_getch_timing.eps>
 (epstopdf)             \includegraphics on input line 417.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/uart_getch_timing-eps-converted-to.pdf, id=424, 442.65375pt x 775.89874
+<../FIG/uart_getch_timing-eps-converted-to.pdf, id=434, 442.65375pt x 775.89874
 pt>
 File: ../FIG/uart_getch_timing-eps-converted-to.pdf Graphic file (type pdf)
  <use ../FIG/uart_getch_timing-eps-converted-to.pdf>
@@ -983,7 +983,7 @@ s-converted-to.pdf ../FIG/uart_putch_timing.eps>
 (epstopdf)             \includegraphics on input line 425.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/uart_putch_timing-eps-converted-to.pdf, id=431, 389.455pt x 521.95pt>
+<../FIG/uart_putch_timing-eps-converted-to.pdf, id=442, 389.455pt x 521.95pt>
 File: ../FIG/uart_putch_timing-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/uart_putch_timing-eps-converted-to.pdf>
@@ -1005,7 +1005,7 @@ onverted-to.pdf ../FIG/OneWire_simple.eps>
 (epstopdf)             \includegraphics on input line 542.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/OneWire_simple-eps-converted-to.pdf, id=462, 303.1325pt x 191.71625pt>
+<../FIG/OneWire_simple-eps-converted-to.pdf, id=472, 303.1325pt x 191.71625pt>
 File: ../FIG/OneWire_simple-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/OneWire_simple-eps-converted-to.pdf>
@@ -1023,7 +1023,7 @@ d-to.pdf ../FIG/OneWire.eps>
 (epstopdf)             \includegraphics on input line 561.
 Package epstopdf Info: Output file is already uptodate.
 
-<../FIG/OneWire-eps-converted-to.pdf, id=464, 1020.81375pt x 541.02126pt>
+<../FIG/OneWire-eps-converted-to.pdf, id=474, 1020.81375pt x 541.02126pt>
 File: ../FIG/OneWire-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ../FIG/OneWire-eps-converted-to.pdf>
@@ -1032,33 +1032,100 @@ Package pdftex.def Info: ../FIG/OneWire-eps-converted-to.pdf used on input line
 (pdftex.def)             Requested size: 1020.81126pt x 541.01993pt.
  [26 <../FIG/OneWire_simple-eps-converted-to.pdf>] [27 <../FIG/OneWire-eps-conv
 erted-to.pdf>]
-Overfull \hbox (0.37563pt too wide) in paragraph at lines 615--615
+Package epstopdf Info: Source file: <../FIG/AutoBaud.eps>
+(epstopdf)                    date: 2018-02-14 00:12:34
+(epstopdf)                    size: 20366 bytes
+(epstopdf)             Output file: <../FIG/AutoBaud-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-02-14 00:12:35
+(epstopdf)                    size: 7057 bytes
+(epstopdf)             Command: <epstopdf --outfile=../FIG/AutoBaud-eps-convert
+ed-to.pdf ../FIG/AutoBaud.eps>
+(epstopdf)             \includegraphics on input line 629.
+Package epstopdf Info: Output file is already uptodate.
+
+<../FIG/AutoBaud-eps-converted-to.pdf, id=504, 894.34125pt x 225.84375pt>
+File: ../FIG/AutoBaud-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ../FIG/AutoBaud-eps-converted-to.pdf>
+Package pdftex.def Info: ../FIG/AutoBaud-eps-converted-to.pdf used on input lin
+e 629.
+(pdftex.def)             Requested size: 894.33907pt x 225.84319pt.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 636.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmr.fd
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 636.
+ [28 <../FIG/AutoBaud-eps-converted-to.pdf>]
+Overfull \hbox (31.84885pt too wide) in paragraph at lines 734--749
+\T1/lmr/m/n/12 the flash-ing LED func-tion. For some pro-ces-sors you can se-le
+ct the ad-di-tional func-tion LED_DATA_FLASH
+ []
+
+[29] [30] [31]
+Overfull \hbox (18.90063pt too wide) in paragraph at lines 955--955
+[]\T1/lmtt/m/n/12 init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error
+ greater than 2%" [-Wcpp][] 
+ []
+
+
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 955--955
+[]\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
+ .version=alloc,load \[] 
+ []
+
+[32]
+Overfull \hbox (0.36862pt too wide) in paragraph at lines 991--991
+[]\T1/lmtt/m/n/12 BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115107, Del
+ay: 116*1, Error=-.07%[] 
+ []
+
+
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 991--991
+[]\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
+ .version=alloc,load \[] 
+ []
+
+[33]
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 1033--1033
 []\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
  .version=alloc,load \[] 
  []
 
 
-Overfull \hbox (0.37563pt too wide) in paragraph at lines 648--648
+Overfull \hbox (0.37563pt too wide) in paragraph at lines 1067--1067
 []\T1/lmtt/m/n/12 avr-objcopy -j .text -j .data -j .version --set-section-flags
  .version=alloc,load \[] 
  []
 
-[28]
-Overfull \hbox (13.2642pt too wide) in paragraph at lines 660--660
+
+Overfull \hbox (13.2642pt too wide) in paragraph at lines 1070--1070
 []\T1/lmr/bx/n/17.28 Clock Fre-quency Cor-rec-tion of the in-ter-nal RC-Generat
 or 
  []
 
-[29] [30] [31] [32] [33] [34] [35] [36] [37]) [38]
+[34] [35] [36] [37] [38] [39] [40] [41] [42] [43]) [44]
 \openout2 = `AVRdata.aux'.
 
  (./AVRdata.tex
 Chapter 4.
-[39
+[45
 
 
 
-]) [40] [41]
+] [46]
+Overfull \hbox (5.99031pt too wide) in paragraph at lines 265--302
+ [] 
+ []
+
+[47]
+Overfull \hbox (19.5691pt too wide) in paragraph at lines 309--346
+ [] 
+ []
+
+) [48] [49]
 \openout2 = `USBserial.aux'.
 
  (./USBserial.tex
@@ -1075,17 +1142,17 @@ Overfull \hbox (105.33667pt too wide) in paragraph at lines 42--42
 ternational, Ltd FT232 Serial (UART) IC[] 
  []
 
-[42
+[50
 
 
 
-] [43] [44]
+] [51] [52]
 Overfull \hbox (105.33667pt too wide) in paragraph at lines 220--220
 []\T1/lmtt/m/n/12 Bus 002 Device 076: ID 0403:6001 Future Technology Devices In
 ternational, Ltd FT232 Serial (UART) IC[] 
  []
 
-[45] [46] [47] [48]) [49] [50
+[53] [54] [55] [56]) [57] [58
 
 
 ]
@@ -1094,7 +1161,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 221--226
  / atmel / avrdude . pdf$[] \T1/lmr/m/it/12 AVR-DUDE User-
  []
 
-[51]
+[59]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
  (./bootloader.aux (./preface.aux) (./principle.aux) (./AVRhardware.aux)
@@ -1102,27 +1169,29 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 269.
 Package rerunfilecheck Info: File `bootloader.out' has not changed.
-(rerunfilecheck)             Checksum: 4AAC8A61A4398DB4D413352EDE5C9FA4;4190.
+(rerunfilecheck)             Checksum: 8AF887387E3AE77FFE74DDC5A40D4992;4350.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
  ) 
 Here is how much of TeX's memory you used:
- 23678 strings out of 493029
- 505757 string characters out of 6136234
- 694260 words of memory out of 5000000
- 26577 multiletter control sequences out of 15000+600000
+ 23724 strings out of 493029
+ 506492 string characters out of 6136234
+ 694728 words of memory out of 5000000
+ 26603 multiletter control sequences out of 15000+600000
  58474 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,9n,56p,434b,661s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share
-/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on bootloader.pdf (52 pages, 379932 bytes).
+ips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm
+/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts
+/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
+
+Output written on bootloader.pdf (60 pages, 415072 bytes).
 PDF statistics:
- 770 PDF objects out of 1000 (max. 8388607)
- 677 compressed objects within 7 object streams
- 187 named destinations out of 1000 (max. 500000)
- 444 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 837 PDF objects out of 1000 (max. 8388607)
+ 732 compressed objects within 8 object streams
+ 203 named destinations out of 1000 (max. 500000)
+ 465 words of extra memory for PDF output out of 10000 (max. 10000000)
 

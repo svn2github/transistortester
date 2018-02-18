@@ -607,7 +607,7 @@ für das STK\_GET\_SYNC Zeichen ist mit der ,,1'' markiert.
 Die Marken ,,2'', ,,3'' und ,,4'' zeigen die Situation für drei falsche Startpositionen.
 Bei der Marke ,,2'' und ,,4'' wird fälschlicherweise eine 1-0 Flanke in der
 Datenübertragung als Start-Bit angenommen. Bei der Marke ,,3'' wird zwar
-ein Start-Bit richtig erkannt, es ist aber das falsche Zeichen.
+ein Start-Bit richtig erkannt, es ist aber das falsche Zeichen (CRC\_EOP).
 Es können immer dann die falschen Start-Bits erkannt werden, wenn der Bootloader
 erst gestartet wird, wenn die Datenübertragung schon läuft.
 In der Abbildung~\ref{fig:AutoBaud} sind die erwarteten Zählerstände für die
@@ -729,13 +729,190 @@ Für alle Methoden der Baudraten-Bestimmung würde ich die Zusatzfunktion des
 LED-Blinkens weglassen, um die Erkennung des Start-Bits nicht zu verzögern.
 Leider braucht auch die simpelste Form der Baudraten-Messung so viel
 Programmspeicher, daß der Bootloader nicht in 512 Byte Flash passt,
-wenn auch das EEprom-Laden unterstützt wird (SUPPORT\_EEPROM=1).
+wenn zusammen mit der EEprom-Unterstützung (SUPPORT\_EEPROM=1) auch
+das LED-Blinken gewählt wird.
 Bei einigen Prozessoren kann als Zusatzfunktion noch die LED\_DATA\_FLASH
 gewählt werden ohne die 512 Byte Grenze zu überschreiten. 
 Wenn die Grenze von 512 Byte wegen benötigter Funktionen ohnehin überschritten
 wird, sind auch mit der Baudratenmessung alle Funktionen im Prinzip
-wieder möglich. Derzeit kann nur die SOFT\_UART Funktion nicht zusammen
-mit der Baudratenmessung benutzt werden.
+wieder möglich. 
+Zusammen mit der SOFT\_UART Funktion kann die Baudratenbestimmung nur mit
+der Assembler-Version des Optiboot Programms benutzt werden.
+Die C-Variante unterstützt die Baudratenmessung mit der automatischen Einstellung
+der Baudrate nur für einen Hardware-UART.
+
+Bei der Baudratenmessung für die Software UART Funktion bestehen einige Unterschiede
+und Besonderheiten gegenüber der Lösungen für die Hardware UART Schnittstelle.
+Normalerweise  für wird für die halbe Baud-Zeit ein 8-Bit Zähler in einer
+Verzögerungsschleife benutzt. Mit diesem Zähler kann die Anzahl der CPU-Takte für die
+Verzögerung wegen der Schleifen-Durchlaufzeit nur auf 3 Takte genau eingestellt werden. 
+Wegen des doppelten Aufrufs der Schleife für die volle Baud-Zeit muß man 
+die Auflösung ebenfalls verdoppeln.. Bei einer fest gewählten
+Baudrate wird der dadurch entstehende Fehler im Programm ausgeglichen. 
+Das ist hier nicht möglich, da die Baudrate ja nicht im voraus bekannt ist.
+Um auf jeden Fall die bestmögliche Rundung des eingestellten Wertes zu ermöglichen,
+wird für die Zeitmessung der Zähler bei der vollen CPU-Taktrate (F\_CPU) betrieben.
+Für den Hardware-UART reicht für den Zähler ein Betrieb mit F\_CPU/8.
+
+Bedingt durch den 8-Bit Zähler ergibt sich abhängig von der CPU-Taktrate
+eine maximale Verzögerungszeit und damit eine Mindest-Baudrate, die
+deutlich höher ist als die Mindest-Baudrate für den Hardware-UART.
+Durch die beschränkte Auflösung der Perioden-Einstellung für
+die Baudrate ergibt sich auch eine obere Baudrate, für die ein Fehler von 
+kleiner als 4\% garantiert werden kann.
+Bei Betrieb des AVR mit einem RC-Generator ist oft die Taktrate selbst schon
+fehlerbehaftet. Bei der Messung der Baudrate ist dieser Fehler dann
+schon vom Zähler berücksichtigt, der Fehler durch die beschränkte Einstellmöglichkeit
+ist dann aber nicht im voraus berechenbar.
+An einem Beispiel für den Hardware-UART  möchte ich zeigen, was ich damit meine.
+Die Baudrate von \(250kHz\) ist bei einer Taktrate von genau \(8MHz\) benutzbar.
+Dazu wird der Teiler für die Baudraten-Erzeugung auf 32=4*8 eingestellt, wobei sich 
+dann kein Fehler ergibt.
+Wenn ich nun eine abweichende Taktrate von \(7.6MHz\) annehme, ist
+der bestmögliche Teiler ebenfalls 32. Dadurch ergibt sich die Baudrate mit
+dem gleichen Fehler wie die Taktrate von \(237.5kHz\), in beiden Fällen sind es -5\%.
+Um wenigstens die untere Baud-Grenze mit der Software-UART Lösung überwinden
+zu können, wird bei allen vorgegebenen Baudwerten unter 100, die ungerade sind
+eine Verzögerungsschleife mit 15-Bit benutzt. Leider beträgt dann die Durchlaufzeit
+der Schleife dann 5 Takte. Durch den doppelten Aufruf der Verzögerungsschleife beträgt
+die Auflösung nur noch 10 Takte und damit etwas schlechter als die Hardware-UART
+Lösung durch den 8:1 Vorteiler.
+Daher sollte man diese Option nur dann benutzen, wenn man keine sehr hohen Baudraten benutzen möchte.
+Die folgende Tabelle~\ref{tab:AutoBaud8} soll den Einsatzbereich der verschiedenen Optionen
+bei der Betriebsfrequenz \(8MHz\) zeigen.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c | c |}
+    \hline
+   BAUD\_RATE  & SOFT\_ & Minimum & BAUD-Err & Kommentar  \\
+   Option      & UART   & Baud    & \textless 4\% @ Baud &  \\
+    \hline
+    \hline
+    40-99      &  0     &  1949       &   80.0k  & HW\_UART  \\
+    \hline
+    42         &  1     &  5151       &   81.6k  & Simple, 2-Bit Time, 8-Bit Delay  \\
+    \hline
+    62         &  1     &  5151       &   81.6k  & Complex, 2-Bit Time, 8-Bit Delay  \\
+    \hline
+    82         &  1     &  5151       &   81.6k  & Complex, 4-Bit Time, 8-Bit Delay  \\
+    \hline
+    43         &  1     &  244       &   53.3k  &  Simple, 2-Bit Time, 15-Bit Delay\\
+    \hline
+    63         &  1     &  1220       &   53.3k &  Complex, 2-Bit Time, 15-Bit Delay \\
+    \hline
+    83         &  1     &  1220       &   53.3k & Complex, 4-Bit Time, 15-Bit Delay \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Grenzen für die automatische Baudrate bei 8MHz Takt.}
+  \label{tab:AutoBaud8}
+\end{table}
+
+Für die Fehlergrenze von 2\%, die normalerweise als Grenze für das Gelingen
+angenommen wird, ist angenommen worden, daß beide Gegenstellen einen Fehler
+in unterschiedlicher Richtung haben können. Da bei der Autobaud-Funktion
+der Fehler der Gegenstelle mitgemessen wird, kann man hier eine doppelte
+Obergrenze für den Fehler von 4\% annehmen.
+Bei Benutzung der Hardware-UART Schnittstelle sind unabhängig der gewählten
+Option für die Messung die Standard Baudraten 2400, 4800, 9600, 19200, 38400 und 57600
+benutzbar. Höhere Baudraten sind nicht mehr sicher bei der Benutzung, obwohl
+auch \(115.6kBaud\) bei Tests oft funktionierte.
+Ebenso war ein Test mit 115.2 kBaud bei \(16 MHz\) Quarz-Betrieb erfolgreich,
+selbst bei Benutzung der 15-Bit Verzögerungsschleife.
+Wenn für die Software-UART Lösung die 8-Bit Verzögerungsschleife benutzt wird,
+kann die Baudrate 2400 und 4800 nicht benutzt werden.
+Erst bei Benutzung der 15-Bit Verzögerungsschleife sind die unteren Baudraten
+benutzbar. Der Unterschied zwischen der 49 und der 69 bzw. 89 Einstellung ergibt
+sich durch den verwendeten 16-Bit Zähler. Bei der Einstellung 49 wird nur
+die Zeit von 2 Datenbits gemessen, bei den Einstellungen über 59 wird
+die komplette Byte-Sequenz vom Start-Bit bis zum Stop-Bit mit dem 16-Bit Zähler gemessen.
+Baudraten unter 9600 Baud werden wahrscheinlich aber ohnehin eher selten benutzt.
+Die Bereiche für die Baudrate verschieben sich natürlich mit der verwendeten
+Taktrate für den Prozessor.
+
+Abschließend möchte ich die Ergebnisse von Tests mit einen ATmega1281 bei etwa \(8MHz\)
+RC-Oszillator Frequenz vorstellen, die ich bei und oberhalb der garantierten Baudrate
+durchgeführt habe. Die Frequenz des RC-Generators habe ich dabei mit der
+OSCCAL\_CORR Option in 2er Schritten verstimmt und jeweils gemessen.
+Mit der Software UART Lösung gelangen alle Tests, ein kleines Anwenderprogramm
+zu laden. Weil die Ergebnisse bei der Baudrate 57600
+so ermutigend waren, habe ich zusätzlich die Tabelle um Tests bei 115200 Baud
+ergänzt. 
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| c | c || c | c | c || c | c |}
+    \hline
+   OSCCAL  & Frequency & HW-UART & SW-UART & SW-UART & SW-UART & SW-UART \\
+   \_CORR  & kHz       & 57600   & 57600   & 57600   & 115200  & 115200  \\
+           &           & Mode 82 & Mode 82 & Mode 83 & Mode 52 & Mode 53 \\
+    \hline
+    \hline
+    20     &  7157   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    18     &  7217   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    \hline
+    16     &  7318   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    14     &  7404   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    12     &  7521   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    10     &  7591   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+     8     &  7710   &  OK (Err)  &   OK     &   OK    &  OK     &   OK  \\
+     6     &  7815   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+     4     &  7933   &  OK (OK)   &   OK     &   OK    &  Err    &   Err \\
+     2     &  8012   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    \hline
+     0     &  8141   &  OK (Err)  &   OK     &   OK    &  OK     &   Err \\
+    -2     &  8247   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    \hline
+    -4     &  8390   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+    -6     &  8485   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    -8     &  8623   &  OK (OK)   &   OK     &   OK    &  Err    &   OK  \\
+    -10    &  8745   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -12    &  8889   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Test für die automatische Baudrate bei 8MHz Takt.}
+  \label{tab:AutoBaudTest8}
+\end{table}
+
+Die eingeklammerten Werte bei der Hardware UART Lösung zeigen sich dann,
+wenn mit dem USBS0 Bit im UCSR0C Register ein zweites Stop Bit eingeschaltet wird.
+Dieses Problem ist unverständlich, da nach der Beschreibung im Datenblatt dieses Bit
+nur auf den Transmitter wirken soll.
+Für den Empfänger der Daten bedeutet ein zweites Stop-Bit aber nur eine längere Wärtezeit
+auf das nächste Start-Bit. Dadurch sind aber keine Schwierigkeiten zu erwarten.
+Die Datenübetragung dauert nur geringfügig länger. Die deutliche Zunahme der Fehler
+läßt nur den Schluß zu, daß sich entweder das Zeitverhalten des Receivers (Empfängers)
+doch mit dem Setzen des USBS0 Bits ändert oder der zwischengeschaltete USB-Serial Wandler
+mit dem zweiten Stop Bit nicht zurecht kommt.
+
+
+Für den Betriebsmodus 82 habe ich mit dem Software UART
+auch die ungeraden OSCCAL\_CORR Einstellungen ohne erkennbare Schwierigkeiten geprüft.
+Auch mit dem einfachsten Betriebsmodus 42 waren bei den geraden OSCCAL\_CORR
+Einstellungen der Tabelle keine Ausfälle zu verzeichnen.
+Erst bei der für diese CPU-Frequenz extrem hohen Baudrate von \(115.2k\) waren 
+für den Betriebsmodus 52 vier Ausfälle und mit dem Betriebsmodus 53 acht Ausfälle
+zu beobachten. Die Zunahme der Ausfälle bei Betriebsart 53 mit der 15-Bit Zeitschleife war
+wegen der groberen Rasterung der einstellbaren Zeiten zu erwarten.
+Bei einer weiteren Testreihe mit Hardware UART, die nicht in die Tabelle aufgenommen wurde,
+funktionierte bei \(115.2kBaud\) das Programmladen bei fünf eingestellten Frequenzen nicht.
+
+Ein Test mit einer chinesischen Arduino UNO Platine, die als USB-seriell Wandler einen
+CH340G Chip verwendet, lief übrigens nur bis 38400 Baud einwandfrei.
+Bei höheren Baudraten machte das Zurücklesen der Programmdaten Probleme.
+Wahrscheinlich wird das letzte Byte eines Datenpakets nicht zum Rechner übertragen und
+die Kommunikation bleibt hängen. Bei einer Arduino UNO Platine mit Mega16U2 Controller
+als USB-seriell Wandler trat das Problem nicht auf. Mit dieser Platine war sogar
+ein Betrieb der seriellen Schnittstelle bei \(230.4kBaud\) möglich, wahrscheinlich
+weil sowohl der ATmega328p als auch der Mega16U2 die gleiche tatsächliche Baudrate
+von \(250kBaud\) benutzen.
+
 
 \section{Einige Beispiele für die Erzeugung eines optiboot Bootloaders}
 
@@ -744,28 +921,31 @@ Das erste Beispiel ist die Bildung eines Bootloaders für den beliebten ATmega32
 \begin{verbatim}
 optiboot $ make atmega328p
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
- -fno-diagnostics-show-caret \
- -DBAUD_RATE=115200 -DLED_START_FLASHES=3 -DSUPPORT_EEPROM=1 \
- -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
-In file included from optiboot.S:254:0
-pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.S:530:6: warning: #warning BAUD_RATE error greater than 2% [-Wcpp]
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRRL = 16, Error=2.12%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x7E00
-######################################
+ -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:254:0:
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:612:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    474	      0	      0	    474	    1da	optiboot.elf
+    476	      0	      0	    476	    1dc	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot_atmega328p.hex
+   -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Wenn keine zusätzliche Option angegeben wird, wird eine Baudrate von 115200 mit einer Taktfrequenz von \(16 MHz\) gewählt.
@@ -777,29 +957,31 @@ für die serielle Schnittstelle.
 \begin{verbatim}
 optiboot $ make atmega328p SOFT_UART=1
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
- -fno-diagnostics-show-caret \
- -DBAUD_RATE=115200 -DLED_START_FLASHES=3  -DSOFT_UART=1 -DSUPPORT_EEPROM=1 \
- -DLED=p -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 -c -o optiboot.o optiboot.S
+ -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=01 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
 In file included from optiboot.S:254:0:
-pin_defs.h:183:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:192:4: warning: #warning use default RX PD0 for Soft UART [-Wcpp]
-pin_defs.h:200:4: warning: #warning use default TX PD1 for Soft UART [-Wcpp]
----------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115107, Error=-.08%
----------------------------------------------------------------------------
-######################################
-Boot Loader start address: 0x7E00
-######################################
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+pin_defs.h:206:6: warning: #warning "SOFT_UART use Pin D0 as RX" [-Wcpp]
+pin_defs.h:216:6: warning: #warning "SOFT_UART use Pin D1 as TX" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115107, Delay: 116*1, Error=-.07%
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
 
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    494	      0	      0	    494	    1ee	optiboot.elf
+    496	      0	      0	    496	    1f0	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
- -O ihex optiboot.elf optiboot_atmega328p.hex
+   -O ihex optiboot.elf optiboot_atmega328p.hex
 \end{verbatim}
 
 Beachten Sie bitte, daß die Software-Lösung für die serielle Schnittstelle etwas mehr flash-Speicher braucht,
@@ -812,6 +994,70 @@ gewählt werden. In diesem Beispiel wird die Fähigkeit benutzt, automatisch die
 Die drei ,,warning'' Meldungen, die Sie über diese automatische Wahl informieren, können Sie ignorieren.
 Die automatische Wahl der IO-Pins hängt vom gewählten Prozessor-Typ und von der gewählten UART Nummer ab,
 wenn mehr als ein UART zur Verfügung steht.
+
+Die letzten beiden Beispiele zeigen jeweils eine Konfiguration mit der neuen automatischen Anpassung der Baudrate.
+Um Platz im Speicher zu sparen, wurde beim ersten Beispiel die LED-Blinkfunktion abgewählt.
+
+\begin{verbatim}
+optiboot $ make atmega328p LED_START_FLASHES=0 BAUD_RATE=52
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret -DBAUD_RATE=52 -DLED_START_FLASHES=0 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+--------------------------------------------------------------------------------
+Simple Baudrate measurement with time limit implemented in optiboot!
+UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
+
+16000000 Hz operation with Auto-Baudrate configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    494	      0	      0	    494	    1ee	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot_atmega328p.hex
+\end{verbatim}
+
+Beim letzten Beispiel wurde die aufwendigste Methode der Baudraten-Messung
+gewählt, da mit der LED-Blink Funktion ohnehin die Grenze von 512 Byte
+überschritten würde (534 Bytes).
+
+\begin{verbatim}
+optiboot $ make atmega328p BAUD_RATE=82
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
+ -fno-diagnostics-show-caret -DBAUD_RATE=82 -DLED_START_FLASHES=3 \
+ -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:254:0:
+pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+--------------------------------------------------------------------------------
+Complex Baudrate measurement implemented in optiboot! (4-bit)
+UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+--------------------------------------------------------------------------------
+###########################################
+Boot Loader start address: 0x7C00 = 31744
+###########################################
+
+16000000 Hz operation with Auto-Baudrate configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    596	      0	      0	    596	    254	optiboot.elf
+Requires 2 Boot Pages, 512 Bytes each
+BOOTSZ=2
+avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load \
+ -O ihex optiboot.elf optiboot_atmega328p.hex
+\end{verbatim}
+
 
 \section{Anpassung der Taktfrequenz bei internem RC-Generator}
 
@@ -1240,7 +1486,7 @@ Die Tabelle~\ref{tab:mega2560freq} zeigt die Resultate der untersuchten Prozesso
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-mega1281 &          8M & 0xC2  & 38.4k &   &  &   &   &   &  \\
+mega1281 &          8M & 0xC2  & 38.4k &  -5 & 8405k & 5 & 7871   & 2  &  8012k \\
     \hline
 mega2561 &          8M & 0xC2  & 38.4k &  -8 & 8363k & 4  & 7870k  & 1  & 7990k \\
     \hline

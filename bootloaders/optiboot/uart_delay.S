@@ -22,32 +22,9 @@
 ;
 
 // AVR305 equation: #define UART_B_VALUE (((F_CPU/BAUD_RATE)-23)/6)
-// loop requires 9,10 or 11 tics
 
-#undef LOOP_TICS	/* new LOOP_TICS will be determined with UART_PORT address and INVERS_UART */
-#if	(UART_PORT < (0x40 + __SFR_OFFSET))
- ; for this Port we can use IN and OUT commands
- #ifdef INVERS_UART
-  #define LOOP_TICS 10
- #else
-  #define LOOP_TICS 9
- #endif
-#else
- ; (UART_PORT >= (0x40 + __SFR_OFFSET))
- ; for this Port we must use LDS and STS commands
- #ifdef INVERS_UART
-  #define LOOP_TICS 11
- #else
-  #define LOOP_TICS 10
- #endif
-#endif
-
-#undef RCALL_TICS		/* can be redefined as constant value, depends only on processor type */
-#if FLASHEND > 0x1ffff
- #define RCALL_TICS 9		/* sum of tics for rcall and ret if more than 128kbyte flash */
-#else
- #define RCALL_TICS 7		/* sum of tics for rcall and ret  if less than 128kbyte flash */
-#endif
+#include "set_loop_tics.h"	/* set LOOP_TICS and RCALL_TICS */
+// loop requires 9,10 or 11 tics, rcall 7 or 9 tics
 
 ; Now we know all clocktics needed for generating the bit sequence,
 ; let's take a look, how many clock tics must be wasted with a loop to get the BAUD time.
@@ -56,6 +33,9 @@
 #undef UART_B_VALUE
 #undef UART_R_VALUE
 #define DelayMul 1
+
+#if BAUD_RATE >= 100
+
 #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
 ; CLOCKS_PER_BIT is now the total clock tics required for matching the BAUD time.
 #if CLOCKS_PER_BIT < 0
@@ -339,3 +319,38 @@ BASE_DELAY_CALL :
 	ret
  #endif		/* NEW_DELAY_CODE_REQUIRED  */
 #endif		/* else CLOCKS_PER_BIT < 0) */
+
+#else		/* BAUD_RATE < 100 */
+ ;
+ ; with the Auto-Baud function we use allways the same delay function
+  #if !defined(BIT_CLOCKS_A)
+   #undef DOUBLE_DELAY_CALL
+   #undef SINGLE_DELAY_CALL
+   #define DOUBLE_DELAY_CALL call	double_uartDelay_a
+   #define SINGLE_DELAY_CALL call	single_uartDelay_a
+   #define BIT_CLOCKS_A 1
+double_uartDelay_a:
+	rcall	single_uartDelay_a	; after first call runs to uartDelay and returns to DOUBLE_DELAY_CALL 
+   #if ((BAUD_RATE & 1) != 0)
+   // slow 15 bit loop, 5 tics per count
+single_uartDelay_a:
+	mov	r25, r10	; use the count from auto-baud in r10:11
+	mov	r0, r11		; use r0 for upper bits
+count_lower:
+	dec	r25		; 1
+	brne	next_lower	; 1,2
+	dec	r0		; 1, higher bits
+	brpl	count_lower	; 1,2
+	ret			; lower bits are counted to 0 and higher bits are -1
+next_lower:
+	rjmp	count_lower	; 2
+   #else
+   // fast 8 bit loop, 3 tics per count
+single_uartDelay_a:
+	mov	r25, r10	; use the count from auto-baud in r10
+	dec	r25		; important: dec don't change the carry!
+	brne	.-4
+	ret
+   #endif
+  #endif
+#endif		/* BAUD_RATE < 100 */

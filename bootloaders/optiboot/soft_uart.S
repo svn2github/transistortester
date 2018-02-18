@@ -11,7 +11,7 @@
 ;		the code for the function getch_1() and putch_1(char c) is generated.
 ;	F_CPU 		must be set to the clock frequency, which the AVR is running.
 ;	BAUD_RATE	must be set to the desired baud rate .
-;	INVERS_UART	ĉan be specified, if the output should be inverted (0=STOP level).
+;	INVERSE_UART	ĉan be specified, if the output should be inverted (0=STOP level).
 ;	
 ;	NO_SOFT_UART_TX can be specified, if no code for serial data output is required.
 ;	NO_SOFT_UART_RX can be specified, if no code for serial data input is required.
@@ -127,7 +127,8 @@
 #endif
 #if (BAUD_RATE != 600) && (BAUD_RATE != 1200) && (BAUD_RATE != 2400) && (BAUD_RATE != 4800) \
  && (BAUD_RATE != 9600) && (BAUD_RATE != 19200) && (BAUD_RATE != 38400) && (BAUD_RATE != 57600) \
- && (BAUD_RATE != 115200) && (BAUD_RATE != 230400) && (BAUD_RATE != 500000) && (BAUD_RATE != 1000000) 
+ && (BAUD_RATE != 115200) && (BAUD_RATE != 230400) && (BAUD_RATE != 500000) && (BAUD_RATE != 1000000) \
+ && (BAUD_RATE >= 100)
  #warning Selected BAUD Rate has no usual value like 600,1200,2400.4800,9600,19200,38400,57600,115200,230400,500000 or 1000000!
 #endif
 
@@ -137,9 +138,10 @@
  #if (SOFT_UART_TX_DDR == SOFT_UART_RX_DDR) && (SOFT_UART_TX_BIT == SOFT_UART_RX_BIT)
   #undef UART_ONE_WIRE
   #define UART_ONE_WIRE 
-  #ifdef INVERS_UART
-   #warning UART RX and TX to the same Port Bit not possible with INVERS_UART! Option is canceled!
-   #undef INVERS_UART
+  #if INVERSE_UART > 0
+   #warning UART RX and TX to the same Port Bit not possible with INVERSE_UART! Option is canceled!
+   #undef INVERSE_UART
+   #define INVERSE_UART 0
   #endif
  #endif
 #endif
@@ -191,7 +193,7 @@ PUT_CH :	/*  void putch(char ch) */
   #endif
  #endif
 
- #ifdef INVERS_UART
+ #if INVERSE_UART > 0
 	clc			; clear carry for start bit
  #else
 	com	r24
@@ -251,7 +253,7 @@ TX_IS_SET :
  #if QuickStopBit == 0
 	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
  #endif
- #ifdef INVERS_UART
+ #if INVERSE_UART > 0
 	sec			; 5+1 set carry for stop bit
 	ror	r24		; 5+1+1 shift right with carry
  #else
@@ -295,7 +297,7 @@ GET_CH :
  #endif
 WAIT_START :
  #if SOFT_UART_RX_PIN < (0x20 + __SFR_OFFSET)
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
 	sbis	_SFR_IO_ADDR(SOFT_UART_RX_PIN), SOFT_UART_RX_BIT
   #else
         sbic    _SFR_IO_ADDR(SOFT_UART_RX_PIN), SOFT_UART_RX_BIT
@@ -306,7 +308,7 @@ WAIT_START :
   #else
         lds     r25, _SFR_MEM_ADDR(SOFT_UART_RX_PIN)
   #endif
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
         sbrs    r25, SOFT_UART_RX_BIT
   #else
         sbrc    r25, SOFT_UART_RX_BIT
@@ -326,7 +328,7 @@ WAIT_START :
 ;	rcall	direct_return0		; some clock ticks are missing to the half delay time
 GET_NEXT_BIT :
 	DOUBLE_DELAY_CALL 	; takes 2*(7 + UART_B_VALUE*3 + UART_R_VALUE clock tics)
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
 	sec			; 1 set carry
   #else
 	clc			; 1 clear carry  
@@ -342,7 +344,7 @@ e       in      r25, _SFR_IO_ADDR(SOFT_UART_RX_PIN)	; 1+1
   #endif
         sbrc    r25, SOFT_UART_RX_BIT                ; 1+1+1+1 or 1+2+1 are same
  #endif
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
 	clc			; 3+1 or 4+1 clear carry, bit was set
   #else
 	sec			; 3+1 or 4+1 set carry, bit was set
@@ -350,13 +352,13 @@ e       in      r25, _SFR_IO_ADDR(SOFT_UART_RX_PIN)	; 1+1
 	dec	r22		; 3+1+1 or 4+1+1
 	breq	FIN_RX		; 3+1+1+1 or 4+1+1+1
 	ror	r24		; 6 or 7
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
 	nop			; 7 or 8 for invers mode
   #endif
 	rjmp	GET_NEXT_BIT	; 7+2 + 2*7 clock tics (22 + UART_B_VALUE*6 + UART_R_VALUE*2)
 FIN_RX :
 #if 0
-  #ifdef INVERS_UART
+  #if INVERSE_UART > 0
 	brcs	.+2	; skip wdr instruction, if carry is set, framing error, no STOP
   #else
 	brcc	.+2	; skip wdr instruction, if no carry set, framing error, no STOP

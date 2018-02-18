@@ -10,13 +10,21 @@ fl_lop:
 	ASBI	LED_PORT, LEDbit	; set LED-Pin high, LED on
 	rcall	wait_T1ov
   #if Check_RX != 0		/* Check for RX Start bit is detected */
-	brcs	fl_lop_end		; break loop if RX data present
+   #if BAUD_RATE < 100
+	brcs	RX_was_high	; break loop, RX Start Bit detected, skip low wait
+   #else
+	brcs	fl_lop_end		; break loop if RX Start bit detected
+   #endif
   #endif
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
 	rcall	wait_T1ov
  #if (LED_START_FLASHES > 1) || (LED_START_FLASHES < -1)
   #if Check_RX != 0		/* Check for RX Start bit is detected */
-	brcs	fl_lop_end		; break loop if RX data present
+   #if BAUD_RATE < 100
+	brcs	RX_was_high	; break loop, RX Start Bit detected, skip low wait
+   #else
+	brcs	fl_lop_end		; break loop if RX Start bit detected
+   #endif
   #endif
   #if LED_START_FLASHES < 0
 	inc	r21		; while (++count)

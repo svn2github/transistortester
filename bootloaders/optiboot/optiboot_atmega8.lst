@@ -160,14 +160,16 @@ fl_lop:
     1e3e:	c5 9a       	sbi	0x18, 5	; 24
 	rcall	wait_T1ov
     1e40:	b8 d0       	rcall	.+368    	; 0x1fb2 <wait_T1ov>
-  #if Check_RX != 0		/* Check for RX Start bit is detected */
-	brcs	fl_lop_end		; break loop if RX data present
+	brcs	RX_was_high	; break loop, RX Start Bit detected, skip low wait
+   #else
+	brcs	fl_lop_end		; break loop if RX Start bit detected
+   #endif
   #endif
 	ACBI	LED_PORT, LEDbit	; set LED-Pin low, LED off
     1e42:	c5 98       	cbi	0x18, 5	; 24
 	rcall	wait_T1ov
     1e44:	b6 d0       	rcall	.+364    	; 0x1fb2 <wait_T1ov>
-	brcs	fl_lop_end		; break loop if RX data present
+   #endif
   #endif
   #if LED_START_FLASHES < 0
 	inc	r21		; while (++count)
@@ -328,7 +330,8 @@ ck_PP:
 
     // PROGRAM PAGE - we support flash and optional EEPROM programming
 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#if (SUPPORT_EEPROM > 0) && (NRWWSTART != 0)
+//#if (SUPPORT_EEPROM > 0) && (NRWWSTART != 0)
+#if (NRWWSTART != 0)
     	breq	no_pg_erase	; if (type)
     1ea0:	21 f0       	breq	.+8      	; 0x1eaa <no_pg_erase>
 #endif
@@ -774,12 +777,12 @@ get_length:
     1f88:	d8 01       	movw	r26, r16
 	rcall	getch		; read in type
     1f8a:	ed df       	rcall	.-38     	; 0x1f66 <getch>
-#if SUPPORT_EEPROM > 0
+//#if SUPPORT_EEPROM > 0
 	subi	r24, 'E'	; type = getch() - 'E'
     1f8c:	85 54       	subi	r24, 0x45	; 69
 	mov	r6, r24
     1f8e:	68 2e       	mov	r6, r24
-#endif
+//#endif
 	ret
     1f90:	08 95       	ret
 

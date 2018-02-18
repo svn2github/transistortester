@@ -13,6 +13,10 @@
  * See optiboot.c for details.
  */
 
+#ifndef INVERSE_UART
+ #define INVERSE_UART 0
+#endif
+
 #ifndef UART
  #define UART_NR 0		/* predefine 0 as default UART number */
 #else
@@ -75,7 +79,9 @@
 
 /* We now compute the NRWWSTART address from FLASHEND and BOOT_PAGE_LEN */
 #ifndef BOOT_PAGE_LEN
- #warning "BOOT_PAGE_LEN is not set"
+ #ifndef NO_WARNING
+  #warning "BOOT_PAGE_LEN is not set"
+ #endif
  #if FLASHEND >= 0xffff
   #define BOOT_PAGE_LEN 1024
  #elif FLASHEND >= 0x7fff
@@ -93,9 +99,9 @@
 #else
  /* the total Bootloader area (8 Boot pages) is NRWW */
  #ifdef __ASSEMBLER__
-  #define NRWWSTART  (((FLASHEND+1)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+  #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
  #else
-  #define NRWWSTART  (((FLASHEND+1)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+  #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
  #endif
 #endif
 
@@ -185,7 +191,9 @@
 
  /* Onboard LED is connected to pin PB5 in Arduino NG, Diecimila, and Duemilanove */ 
  #if (LED == n) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B5"
+  #endif
   #define LEDX           pB5	/* coded Port B Bit 5 */
  #else
   #define LEDX           LED
@@ -194,7 +202,9 @@
  /* Default "SOFT" UART Ports for ATmega8/48/88/168/328 */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D0 as RX"
+   #endif
   #endif
   #define UART_RXX      pD0
  #else
@@ -202,7 +212,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D1 as TX"
+   #endif
   #endif
   #define UART_TXX      pD1
  #else
@@ -217,8 +229,10 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default A4"
-   #define LEDX        pA4
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default A4"
+  #endif
+  #define LEDX        pA4
  #else
   #define LEDX         LED
  #endif
@@ -227,7 +241,9 @@
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin A3 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin A3 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pA3
  #else
@@ -235,7 +251,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin A2 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin A2 as TX"
+   #endif
   #endif
   #define UART_TXX	pA2
  #else
@@ -254,7 +272,9 @@
   #define NRWWSTART 0
  /* Onboard LED can be connected to pin PB0 on Sanguino */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default A0"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default A0"
+  #endif
   #define LEDX         pA0
  #else
   #define LEDX         LED
@@ -265,12 +285,16 @@
   #if UART_NR == 0
     /* UART0 RX can be remapped to B2 with Bit U0MAP in the REMAP register */
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin A2 as RX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin A2 as RX for UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pA2
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin A4 as RX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin A4 as RX for UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pA4
   #endif
@@ -281,12 +305,16 @@
   #if UART_NR == 0
    #if SOFT_UART > 0
     /* UART0 TX can be remapped to A7 with Bit U0MAP in the REMAP register */
-    #warning "SOFT_UART use Pin A1 as TX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin A1 as TX for UART 0"
+    #endif
    #endif
    #define UART_TXX	pA1
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin A5 as TX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin A5 as TX for UART 1"
+    #endif
    #endif
    #define UART_TXX	pA5
   #endif
@@ -303,7 +331,9 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B5"
+  #endif
    #define LEDX        pB5
  #else
   #define LEDX         LED
@@ -313,13 +343,17 @@
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
  #if SOFT_UART > 0
   #if UART_RX == p
-   #warning "SOFT_UART use Pin D0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D0 as RX"
+   #endif
    #define UART_RXX	pD0
   #else
    #define UART_RXX      UART_RX
   #endif
   #if UART_TX == p
-   #warning "SOFT_UART use Pin D1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D1 as TX"
+   #endif
    #define UART_TXX	pD1
   #else
    #define UART_TXX      UART_TX
@@ -335,7 +369,9 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B2"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B2"
+  #endif
    #define LEDX        pB2
  #else
   #define LEDX         LED
@@ -345,13 +381,17 @@
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
  #if SOFT_UART > 0
   #if UART_RX == p
-   #warning "SOFT_UART use Pin B0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin B0 as RX"
+   #endif
    #define UART_RXX	pB0
   #else
    #define UART_RXX      UART_RX
   #endif
   #if UART_TX == p
-   #warning "SOFT_UART use Pin B1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin B1 as TX"
+   #endif
    #define UART_TXX	pB1
   #else
    #define UART_TXX      UART_TX
@@ -368,7 +408,9 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default A0"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default A0"
+  #endif
    #define LEDX        pA0
  #else
   #define LEDX         LED
@@ -378,13 +420,17 @@
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
  #if SOFT_UART > 0
   #if UART_RX == p
-   #warning "SOFT_UART use Pin B0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin B0 as RX"
+   #endif
    #define UART_RXX	pB0
   #else
    #define UART_RXX      UART_RX
   #endif
   #if UART_TX == p
-   #warning "SOFT_UART use Pin B1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin B1 as TX"
+   #endif
    #define UART_TXX	pB1
   #else
    #define UART_TXX      UART_TX
@@ -399,7 +445,9 @@
 /*------------------------------------------------------------------------ */
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B5"
+  #endif
    #define LEDX        pB1
  #else
   #define LEDX         LED
@@ -408,7 +456,9 @@
  /* Default "SOFT" UART Ports for ATtiny4313 */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D0 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pD0
  #else
@@ -416,7 +466,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D1 as TX"
+   #endif
   #endif
   #define UART_TXX	pD1
  #else
@@ -435,7 +487,9 @@
   #define NRWWSTART 0
  /* Red LED is connected to pin PA4 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B1"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B1"
+  #endif
    #define LEDX        pB1
  #else
   #define LEDX         LED
@@ -445,7 +499,9 @@
  /* Ports for soft UART - left port only for now. TX/RX on PA2/PA3 */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin A7 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin A7 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pA7
  #else
@@ -453,7 +509,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin B0 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin B0 as TX"
+   #endif
   #endif
   #define UART_TXX	pB0
  #else
@@ -484,7 +542,9 @@
  #endif
  /* Onboard LED is connected to pin PB0 on Sanguino */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B0"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B0"
+  #endif
   #define LEDX         pB0
  #else
   #define LEDX         LED
@@ -494,12 +554,16 @@
  #if UART_RX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D0 as RX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D0 as RX for UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pD0
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pD2
   #endif
@@ -509,12 +573,16 @@
  #if UART_TX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D1 as TX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D1 as TX for UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pD1
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pD3
   #endif
@@ -529,7 +597,9 @@
 /*------------------------------------------------------------------------ */
  /* Onboard LED is connected to pin PB0  */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B5"
+  #endif
   #define LEDX         pB5
  #else
   #define LEDX         LED
@@ -539,12 +609,16 @@
  #if UART_RX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pE0
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pD2
   #endif
@@ -554,12 +628,16 @@
  #if UART_TX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pE1
   #else
    #if SOFT_UART > 0
-    #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pD3
   #endif
@@ -573,7 +651,11 @@
 /*------------------------------------------------------------------------ */
 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default D2"
+  #if SOFT_UART > 0
+   #ifndef NO_WARNING
+    #warning "LED bit is set to default D2"
+   #endif
+  #endif
   #define LEDX           pD2	/* coded Port D Bit 2 */
  #else
   #define LEDX           LED
@@ -582,7 +664,9 @@
  /* Default "SOFT" UART Ports for AT90PWM */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D4 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D4 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX      pD4
  #else
@@ -590,7 +674,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D3 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D3 as TX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX      pD3
  #else
@@ -609,7 +695,11 @@
 /*------------------------------------------------------------------------ */
 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default C1"
+  #if SOFT_UART > 0
+   #ifndef NO_WARNING
+    #warning "LED bit is set to default C1"
+   #endif
+  #endif
   #define LEDX           pC1	/* coded Port C Bit 1 */
  #else
   #define LEDX           LED
@@ -618,7 +708,9 @@
  /* Default "SOFT" UART Ports for AT90PWM */
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D4 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D4 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX      pD4
  #else
@@ -626,7 +718,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D3 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D3 as TX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX      pD3
  #else
@@ -649,7 +743,9 @@
  #define UART_NR 0
  /* Onboard LED is connected to pin PB0  */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B7"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B7"
+  #endif
   #define LEDX         pB7
  #else
   #define LEDX         LED
@@ -658,7 +754,9 @@
  /* Default "SOFT" UART Ports for ATmega644/1284/32 */
  #if UART_RX == p
   #if SOFT_UART > 0
+   #ifndef NO_WARNING
     #warning "SOFT_UART use Pin E0 as RX for UART 0"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pE0
  #else
@@ -666,7 +764,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
+   #ifndef NO_WARNING
     #warning "SOFT_UART use Pin E1 as TX for UART 0"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pE1
  #else
@@ -677,14 +777,18 @@
 #if defined(__AVR_ATmega162__) || defined(__AVR_ATmega163__) || defined(__AVR_ATmega323__)
  /* Onboard LED is connected to pin PB5 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B0"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B0"
+  #endif
   #define LEDX         pB0
  #else
   #define LEDX         LED
  #endif
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D0 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pD0
  #else
@@ -692,7 +796,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin D1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D1 as TX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pD1
  #else
@@ -704,14 +810,18 @@
     defined(__AVR_ATmega169A__) || defined(__AVR_ATmega169PA__)
  /* Onboard LED is connected to pin PB5 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B5"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B5"
+  #endif
   #define LEDX         pB5
  #else
   #define LEDX         LED
  #endif
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin E0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin E0 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pE0
  #else
@@ -719,7 +829,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin E1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin E1 as TX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pE1
  #else
@@ -749,14 +861,18 @@
  
  /* Onboard LED can be connected to pin PG0 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B7"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B7"
+  #endif
   #define LEDX         pB7
  #else
   #define LEDX         LED
  #endif
  #if UART_RX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin E0 as RX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin E0 as RX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pE0
  #else
@@ -764,7 +880,9 @@
  #endif
  #if UART_TX == p
   #if SOFT_UART > 0
-   #warning "SOFT_UART use Pin E1 as TX"
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin E1 as TX"
+   #endif
   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pE1
  #else
@@ -779,7 +897,9 @@
 /*------------------------------------------------------------------------ */
  /* Onboard LED is connected to pin PB7 on Arduino Mega1280 */ 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #warning "LED bit is set to default B7"
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default B7"
+  #endif
   #define LEDX	pB7
  #else
   #define LEDX   LED
@@ -789,25 +909,33 @@
  #if UART_RX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "ATmega use Pin E0 as RX for soft UART 0"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin E0 as RX for soft UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pE0
   #endif
   #if UART_NR == 1
    #if SOFT_UART > 0
-    #warning "ATmega use Pin D2 as RX for soft UART 1"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin D2 as RX for soft UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pD2
   #endif
   #if UART_NR == 2
    #if SOFT_UART > 0
-    #warning "ATmega use Pin H0 as RX for soft UART 2"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin H0 as RX for soft UART 2"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pH0
   #endif
   #if UART_NR == 3
    #if SOFT_UART > 0
-    #warning "ATmega use Pin J0 as RX for soft UART 3"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin J0 as RX for soft UART 3"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_RXX	pJ0
   #endif
@@ -817,25 +945,33 @@
  #if UART_TX == p
   #if UART_NR == 0
    #if SOFT_UART > 0
-    #warning "ATmega use Pin E1 as TX for soft UART 0"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin E1 as TX for soft UART 0"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pE1
   #endif
   #if UART_NR == 1
    #if SOFT_UART > 0
-    #warning "ATmega use Pin D3 as TX for soft UART 1"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin D3 as TX for soft UART 1"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pD3
   #endif
   #if UART_NR == 2
    #if SOFT_UART > 0
-    #warning "ATmega use Pin H1 as TX for soft UART 2"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin H1 as TX for soft UART 2"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pH1
   #endif
   #if UART_NR == 3
    #if SOFT_UART > 0
-    #warning "ATmega use Pin J1 as TX for soft UART 3"
+    #ifndef NO_WARNING
+     #warning "ATmega use Pin J1 as TX for soft UART 3"
+    #endif
    #endif		/* SOFT_UART > 0 */
    #define UART_TXX	pJ1
   #endif
@@ -964,6 +1100,10 @@
   #define UART_UDR UDR3
  #else
   #error "Unknown UART number, only 0 to 3 !!!"
+ #endif
+ // use a uniform version for the 2 Stop Bit transmission option bit
+ #if !defined(USBS0) && defined(USBS)
+  #define USBS0 USBS
  #endif
 
 #endif		/* SOFT_UART > 0 */
@@ -1133,12 +1273,15 @@
 
 #if (UART_TXX == UART_RXX)
  #define UART_ONE_WIRE 
- #ifdef INVERS_UART
-  #warning UART RX and TX to the same Port Bit not possible with INVERS_UART! Option is canceled!
-  #undef INVERS_UART
+ #if INVERSE_UART > 0
+  #warning UART RX and TX to the same Port Bit not possible with INVERSE_UART! Option is canceled!
+  #undef INVERSE_UART
+  #define INVERSE_UART 0
  #endif
  #if SOFT_UART == 0
-  #warning "for using One-Wire mode with hardware UART, please connect TX and RX pin!"
+  #ifndef NO_WARNING
+   #warning "for using One-Wire mode with hardware UART, please connect TX and RX pin!"
+  #endif
  #endif
 #endif
 
@@ -1184,16 +1327,24 @@
 
  #if !defined (save_vect_num)
   #if (defined (SPM_RDY_vect_num)) && ((SPM_RDY_vect_num * Vect2Byte) < SPM_PAGESIZE)
-   #warning "SPM_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
+   #ifndef NO_WARNING
+    #warning "SPM_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
+   #endif
    #define save_vect_num (SPM_RDY_vect_num)
   #elif (defined (EE_RDY_vect_num)) && ((EE_RDY_vect_num * Vect2Byte) < SPM_PAGESIZE)
-   #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
+   #ifndef NO_WARNING
+    #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!"
+   #endif
    #define save_vect_num (EE_RDY_vect_num)
   #elif (defined (WDT_vect_num)) && ((WDT_vect_num * Vect2Byte) < SPM_PAGESIZE)
-   #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!"
+   #ifndef NO_WARNING
+    #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!"
+   #endif
    #define save_vect_num (WDT_vect_num)
   #elif (defined (UART_TX_vect_num)) && ((UART_TX_vect_num * Vect2Byte) < SPM_PAGESIZE)
-   #warning "UART_TX_vect_num is selected as save_vect_num for virtual boot partition!"
+   #ifndef NO_WARNING
+    #warning "UART_TX_vect_num is selected as save_vect_num for virtual boot partition!"
+   #endif
    #define save_vect_num (UART_TX_vect_num)
   #else
    #error "Cant find SPM, EE, WDT or UART_TX interrupt vector for this CPU to support virtual boot partition"
@@ -1228,9 +1379,17 @@
  #define appstart_vec (0)
 #endif // VIRTUAL_BOOT_PARTITION
 
+// AVR processors with more than 128kbyte flash have slower rcall and ret commands
+#undef RCALL_TICS               /* can be redefined as constant value, depends only on processor type */
+#if FLASHEND > 0x1ffff
+ #define RCALL_TICS 9           /* sum of tics for rcall and ret if more than 128kbyte flash */
+#else
+ #define RCALL_TICS 7           /* sum of tics for rcall and ret  if less than 128kbyte flash */
+#endif
+
 
 // setup some Macros for Assembly language use to simplify the port access
-#ifdef __ASSEMBLER__
+#if defined(__ASSEMBLER__) && (__ASSEMBLER__ != 33)
 
 /* define AOUT macro */
 /* AOUT select automatically the right instruction "out" or "sts" depending on argument. */

@@ -42,7 +42,7 @@ die Installation von Unix Tools (cygwin?) erforderlich.
 Getestet habe ich diese Assemblerversion des optiboot Loaders nur mit einem
 Arduino-UNO und -Nano Board sowie mit fast allen Prozessoren, die unterstützt
 werden (siehe Liste am Ende der LiesMich Datei). 
-Nur die AT90CAN Familie und der ATmega1280/1281/2560 ist ungetestet.
+Nur die AT90CAN Familie und der ATmega1280/2560 ist ungetestet.
 
 
 Die optionale Software-UART Lösung für die serielle Kommunikation braucht etwas

@@ -1,5 +1,5 @@
 /*
- * baudcheck.c
+ * baudcheck.S
  * Mar, 2013 by Bill Westfield (WestfW@yahoo.com)
  * Exercises in executing arithmetic code on a system that we can't count
  * on having the usual languages or tools installed.
@@ -23,24 +23,19 @@
 // bps=${bpsx/U/}
 // determine the count of loop tics
 
-#if	1	/* usually the Port address is lower than 0x40 */
- #ifdef INVERS_UART
-  #define LOOP_TICS 10
- #else
-  #define LOOP_TICS 9
- #endif
-#else
- // loop can only use STS and LDS
- #ifdef INVERS_UART
-  #define LOOP_TICS 11
- #else
-  #define LOOP_TICS 10
- #endif
-#endif
+#include <avr/io.h>
+#undef __ASSEMBLER__
+#define __ASSEMBLER__ 33
+#define NO_WARNING
+#include "pin_defs.h"
+
+#define SOFT_UART_PORT UART_RX_PORT
+#include "set_loop_tics.h"
 
 #ifndef BAUD_RATE
  #error "in check_baudrate.c is BAUD_RATE not set"
 #endif
+
 bps=`$ECHO_CMD BAUD_RATE | $TR_CMD -d LU`
 #ifndef F_CPU
  #error "in check_baudrate.c is F_CPU not set"
@@ -55,12 +50,43 @@ fcpu=`$ECHO_CMD F_CPU | $TR_CMD -d LU`
  * Compute the divisor
  */
 $ECHO_CMD --------------------------------------------------------------------------------
-#if SOFT_UART > 0
- #if FLASHEND > 0x1ffff
-  #define RCALL_TICS 9
+#if BAUD_RATE < 100
+ #if BAUD_RATE < 50
+ $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot!"
+ #elif BAUD_RATE < 60
+ $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot!"
+ #elif BAUD_RATE < 80
+ $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (2-bit)"
  #else
-  #define RCALL_TICS 7
+ $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (4-bit)"
  #endif
+ 
+#if SOFT_UART > 0
+ #if ((BAUD_RATE - ((BAUD_RATE/2)*2)) == 1)
+  #if BAUD_RATE < 60
+   UartDelay=$(( (65535/2) ))
+  #else
+   UartDelay=$(( (65535/10) ))
+  #endif
+
+UartMinDelay=$(( ((25*5)+(RCALL_TICS+1)*2 + LOOP_TICS) ))
+$ECHO_CMD "SoftUART Minimum `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / $UartMinDelay / 1000)" | $BC_CMD` kBaud, Slow 15-Bit loop"
+
+ #else
+
+UartDelay=$(( ((255*3*2) + (RCALL_TICS*2)  + LOOP_TICS) ))
+UartMinDelay=$(( ((25*3)+(RCALL_TICS*2) + LOOP_TICS) ))
+$ECHO_CMD "SoftUART Minimum `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / $UartMinDelay / 1000)" | $BC_CMD` kBaud, Fast 8-Bit loop"
+ #endif
+
+#else
+
+$ECHO_CMD "UART Minimum `$ECHO_CMD "scale=0;($fcpu / (8+4096))" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / (8*12500))" | $BC_CMD` kBaud"
+
+#endif
+
+#else 	/* BAUD_RATE >= 100) */
+#if SOFT_UART > 0
  #define DelayMul 1
  #define CLOCKS_PER_BIT ((F_CPU-((((2*RCALL_TICS+LOOP_TICS)*2-1)*BAUD_RATE)/2))/BAUD_RATE)
  #if CLOCKS_PER_BIT < 0
@@ -130,11 +156,11 @@ delay_mul=$(( DelayMul ))
 clocks=$(( (CLOCKS_PER_BIT / DelayMul) ))
 UartDelay=$(( (((RCALL_TICS*2) + (CLOCKS_PER_BIT/DelayMul)) * DelayMul) + LOOP_TICS ))
  #if BAUD_RATE > 10000
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%"
  #elif BAUD_RATE > 1000
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%"
  #else
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  SoftUART_Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, Delay: $clocks*$delay_mul, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay)- $bps) ) / $bps"| $BC_CMD`\%"
  #endif
 #else
 // for hardware UART
@@ -166,13 +192,14 @@ UartDelay=$(( (8 * ((BAUD_SETTING) +1)) ))
  * Print a nice message containing the info we've calculated
  */
  #if BAUD_RATE > 10000
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%"
  #elif BAUD_RATE > 1000
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=1;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%"
  #else
-$ECHO_CMD BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%
+$ECHO_CMD "BAUD RATE CHECK: Desired: $bps,  Real: `$ECHO_CMD "scale=2;($fcpu / $UartDelay)" | $BC_CMD`, UBRR = $BAUD_SETTING, Error=`$ECHO_CMD "scale=2;(100*(($fcpu / $UartDelay) - $bps) ) / $bps"| $BC_CMD`\%"
  #endif
 #endif	/* SOFT_UART */
+#endif	/* BAUD_RATE < 100 */
 $ECHO_CMD --------------------------------------------------------------------------------
 
 
