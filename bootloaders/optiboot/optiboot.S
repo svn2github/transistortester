@@ -2,6 +2,10 @@
 /* Assembler-Version of Optiboot created by K.-H. Kuebbeler (kh_kuebbeler@web.de) */
 /* This Version can support additional EEprom read/write  with blinking LED       */
 /* within 512 bytes. */
+/* A automatic baud rate measurement can also be selected for the HW-UART or with */
+/* the software UART.                                                             */
+/* The automatic baud rate version can operate with the 512 byte space limit only */
+/* if you use the HW-UART and without the LED-flashing.                           */
 /* One Pin operation is possible with a additional hardware interface.            */
 /* This Hardware interface must be connected between the host UART IO and         */
 /* the one Pin RX/TX of the AVR. The hardware interface prevents a echo to the    */

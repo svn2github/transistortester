@@ -1,3 +1,11 @@
+/**********************************************************************************/
+/* Updated Version of Optiboot created by K.-H. Kuebbeler (kh_kuebbeler@web.de)   */
+/* This version can support optional the handling of EEprom data and a automatic  */
+/* baud rate selection for the HW-UART. If you select one of this features, the   */
+/* optiboot code will not fit into 512 byte flash.                                */
+/* The assembler version of the program selects the EEprom support by default.    */
+/**********************************************************************************/
+
 /**********************************************************/
 /* Optiboot bootloader for Arduino                        */
 /*                                                        */

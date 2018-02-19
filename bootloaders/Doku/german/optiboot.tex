@@ -1102,17 +1102,17 @@ In der Tabelle \ref{tab:mega8freq} habe ich alle 4 Frequenzeinstellungen untersu
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
-             FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
+   FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-                1M & 0xA1  &  9.6k &  -8  & 1050k &  4  & 983k  & 0  & 1004k \\
+      1M & 0xA1  &  9.6k &  -8  & 1050k &  4  & 983k  & 0  & 1004k \\
     \hline
-                2M & 0xA2  & 19.2k &  -8  & 2098k &  4  & 1967k & 0  & 2008k \\
+      2M & 0xA2  & 19.2k &  -8  & 2098k &  4  & 1967k & 0  & 2008k \\
     \hline
-                4M & 0xA3  & 19.2k &  -2  & 4201k & 10  & 3927k & 7  & 3999k \\
+      4M & 0xA3  & 19.2k &  -2  & 4201k & 10  & 3927k & 7  & 3999k \\
     \hline
-                8M & 0xA4  & 57.6k &   0  & 8231k & 13  & 7723k & 6  & 7990k \\
+      8M & 0xA4  & 57.6k &   0  & 8231k & 13  & 7723k & 6  & 7990k \\
     \hline
     \end{tabular}
   \end{center}
@@ -1137,7 +1137,7 @@ In der Tabelle \ref{tab:mega8535freq} sind die Ergebnisse bei einem Exemplar fü
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1167,7 +1167,7 @@ In der Tabelle \ref{tab:mega8515freq} sind die Ergebnisse bei einem Exemplar fü
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1192,7 +1192,7 @@ ein ATmega162 die Ergebnisse von Tabelle~\ref{tab:mega162freq}.
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1215,7 +1215,7 @@ werden kann. Die Tabelle~\ref{tab:mega328freq} zeigt die Resultate der untersuch
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1248,7 +1248,7 @@ In den Tabellen \ref{tab:mega32freq} und \ref{tab:mega16freq} habe ich alle
   \begin{center}
     \begin{tabular}{| c | c | c | c || c | c || c | c || c | c |}
     \hline
-        &     AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+       & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
  Typ    &     FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1274,7 +1274,7 @@ m32a &             &       &       &   2  & 8408k & 14  & 7921k & 11  & 8014k \\
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1309,7 +1309,7 @@ auf etwa \(1MHz\) einstellen zu können.
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1335,7 +1335,7 @@ erfolgt. Dies muß natürlich beim Anschluß an den Programmer berücksichtigt w
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1357,7 +1357,7 @@ erfolgt. Dies muß natürlich beim Anschluß an den Programmer berücksichtigt w
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-             AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+        AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
              FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1397,7 +1397,7 @@ Die Tabelle~\ref{tab:mega644freq} zeigt die Resultate der untersuchten Prozessor
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1425,7 +1425,7 @@ werden kann. Die Tabelle~\ref{tab:mega645freq} zeigt die Resultate der untersuch
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+   Typ  &   AVR\_ & LFUSE & Baud- & \multicolumn{2}{c |}{Minimum} & \multicolumn{2}{c |}{Maximum} & \multicolumn{2}{c |}{Best} \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1454,7 +1454,7 @@ werden kann. Die Tabelle~\ref{tab:mega649freq} zeigt die Resultate der untersuch
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1482,11 +1482,11 @@ Die Tabelle~\ref{tab:mega2560freq} zeigt die Resultate der untersuchten Prozesso
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-mega1281 &          8M & 0xC2  & 38.4k &  -5 & 8405k & 5 & 7871   & 2  &  8012k \\
+mega1281 &          8M & 0xC2  & 38.4k &  -5 & 8405k & 5 & 7871k   & 2  &  8012k \\
     \hline
 mega2561 &          8M & 0xC2  & 38.4k &  -8 & 8363k & 4  & 7870k  & 1  & 7990k \\
     \hline
@@ -1516,7 +1516,7 @@ Die Tabelle \ref{tab:tiny4313freq} zeigt die Ergebnisse der Frequenzmessung beim
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1560,7 +1560,7 @@ OSCCAL Änderungen für den \(8MHz\) Betrieb dar.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1591,7 +1591,7 @@ OSCCAL Änderungen für den \(8MHz\) Betrieb dar.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1621,7 +1621,7 @@ diese Frequenz wird aber immer durch Faktor 4 geteilt.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1654,7 +1654,7 @@ ab.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1683,7 +1683,7 @@ dargestellt.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1719,7 +1719,7 @@ OSCCAL Änderungen für den \(8MHz\) Betrieb dar.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1753,7 +1753,7 @@ für die Kalibration des internen \(8MHz\) Generators bei zwei Exemplaren der Fa
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1785,7 +1785,7 @@ nicht vom Optiboot Bootloader unterstützt.
   \begin{center}
     \begin{tabular}{| c | c | c || c | c || c | c || c | c |}
     \hline
-       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+   AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
        FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1808,7 +1808,7 @@ Mit dem PLL-Oszillator kann der Prozessor mit \(16MHz\) betrieben werden.
   \begin{center}
     \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
     \hline
-   Typ  &       AVR\_ & LFUSE & Baud- & Min- & Min- & Max- & Max- & Best- & Best-  \\
+   Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
@@ -1818,7 +1818,7 @@ at90pwm3  &         8M & 0xE2  & 38.4k &  -10  & 8359k &  4  & 7885k  & 1  & 799
     \hline
 at90pwm2b &        16M & 0xE3  & 38.4k &  -14  & 16.74M & -1  & 15.74M  & -4  & 15.97M \\
     \hline
-at90pwm3  &        16M & 0xE3  & 38.4k &  -10  & 16.76M &  4  & 7885k  & 2  & 15.97M \\
+at90pwm3  &        16M & 0xE3  & 38.4k &  -10  & 16.79M &  5  & 15.79M  & 2  & 15.98M \\
     \hline
     \end{tabular}
   \end{center}
