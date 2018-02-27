@@ -326,8 +326,8 @@ BASE_DELAY_CALL :
   #if !defined(BIT_CLOCKS_A)
    #undef DOUBLE_DELAY_CALL
    #undef SINGLE_DELAY_CALL
-   #define DOUBLE_DELAY_CALL call	double_uartDelay_a
-   #define SINGLE_DELAY_CALL call	single_uartDelay_a
+   #define DOUBLE_DELAY_CALL rcall	double_uartDelay_a
+   #define SINGLE_DELAY_CALL rcall	single_uartDelay_a
    #define BIT_CLOCKS_A 1
 double_uartDelay_a:
 	rcall	single_uartDelay_a	; after first call runs to uartDelay and returns to DOUBLE_DELAY_CALL 

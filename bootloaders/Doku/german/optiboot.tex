@@ -209,6 +209,8 @@ und \ref{tab:options2}
     \hline
     BAUD\_RATE     & BAUD\_         & Gibt die Baud-Rate für die serielle Kommunikation an. \\
                    &  RATE=9600      & Es werden immer 8 Datenbits ohne Parity verwendet. \\
+                   &                & Werte unter 100 aktivieren eine Messung and Anpassung \\
+                   &                & der Baudrate.  \\
     \hline
     SOFT\_UART     & SOFT\_UART=1   & Wählt Software-Lösung für die serielle Kommunikation. \\
     \hline
@@ -584,6 +586,7 @@ aber einwandfrei. Sehr viel höhere Baudraten sind bei der Softwarelösung sowie
 oft nicht möglich.
 
 \subsection{Benutzung der automatischen Baudraten-Bestimmung}
+\label{sec:autobaud}
 
 Wenn für die Erzeugung des Bootloaders eine Baudrate unter \(100Baud\)
 angegeben wird, wird die Baudrate aus dem ersten empfangenen Zeichen
@@ -632,22 +635,22 @@ die Kodierung des Steuerzeichen CRC\_EOP.
 
 \begin{itemize}
 
-\item {Einfachste Form der Baudraten Messung, BAUD\_RATE \textless~50}
+\item {Einfachste Form der Baudraten Messung, BAUD\_RATE \textless~30}
 
 Die einfachste Form der Baudraten-Messung beachtet die Möglichkeit der
 falschen Startbit Wahl überhaupt nicht. Es wird fest davon ausgegangen,
 daß das erkannt Startbit zum STK\_\-GET\_\-SYNC Zeichen gehört.
 Nach der Startbit Erkennung wird bis zur nächsten 0-1 Flanke gewartet
 und dann ein 16-Bit Zähler mit der Frequenz F\_CPU/8 bei -1 gestartet.
+Wenn die Einerstelle der Baudrate größer als 5 ist, wird der
+16-Bit Zähler mit der F\_CPU Frequenz gestartet.
 Bei der darauf folgenden 1-0 Flanke wird der Zählerstand abgelesen
 und halbiert als Frequenzteiler des UARTs genommen.
 Die Halbierung ist notwendig, weil die Zeit von 2 Datenbits gemessen wurde.
 Eigentlich muß noch 1 vom Ergebnis für den Frequenzteiler abgezogen werden.
 Aber bei der Halbierung sollte gerundet werden, also 1 auf den Zählerstand
 addiert werden. Anstelle der Subtraktion der 1 vom Divisions-Ergebnis kann
-man auch 2 vom Zählerstand subtrahieren. Um Rechenschritte zu sparen
-wird die Subtraktion von (2-1)=1 vom Zählerstand durch die Vorbesetzung
-auf -1 beim Start erledigt.
+man auch 2 vom Zählerstand subtrahieren. 
 Die Methode funktioniert ausreichend gut,
 wenn automatisch kurz vor dem Übertragungs-Start ein Reset des AVRs und damit
 ein Neustart des Bootloaders ausgelöst wird. Dies ist dann der Fall,
@@ -663,13 +666,32 @@ Wenn der Watchdog-Timer einen Reset auslöst, wird normalerweise das Anwenderpro
 gestartet. Nur wenn noch kein Anwenderprogramm geladen wurde,
 startet der Bootloader erneut und versucht es noch einmal.
 
-\item {Leicht verbesserte Form der Baudraten Messung, BAUD\_RATE \textless~60}
+\item {Verbesserte Form der Baudraten Messung, BAUD\_RATE \textless~40}
+
+Wie bei der einfachsten Form der Baudraten-Messung wird hier auf eine Prüfung
+der Bit-Wechselzeiten verzichet.
+Es wird nur weiter auf die nächste 0-1 Flanke des RX-Signals
+gewartet und erst dann der Zähler gelesen.
+Dadurch wird die Zeit von vier Datenbits gemessen, die dann für die Berechnung
+der Baudrate verwendet wird.
+Da die Zeiterfassung durch die Abfrage-Schleife (polling) unpräzise ist,
+wirkt dieser mögliche Zeitfehler weniger, wenn er durch vier statt durch
+zwei geteilt wird.  
+Daher sollte diese Form immer dann gewählt werden, wenn es auf wenig Speicherbelegung
+ankommt. Gegenüber der einfachsten Form werden nur 4 Byte mehr belegt.
+
+\item {Einfachste Form der Baudraten Messung mit Zeitüberwachung, BAUD\_RATE \textless~50}
 
 Hier wird die gleiche Methode der Baudraten-Bestimmung angewendet, wie bei
-der einfachsten Form. Es wird nur zusätzlich eine Beschränkung der
-Zeit für den Zähler durchgeführt.
-Wenn diese Zeit überschritten ist, beginnt das Programm sofort mit der Suche
-nach einem neuen Start-Bit. Ohne diese Begrenzung würde das Programm in der
+der einfachsten Form. 
+Nur wird das mögliche Überlauf-Ereignis des Zählers zusätzlich
+überwacht, was die Abfrage-Schleifezusätzlich verlangsamt.
+Durch den längeren Schleifen-Zyklus wird die Zeitmessung weniger exakt als
+bei der Methode ohne Zeitüberwachung zu erwarten ist.
+Daher ist diese Version nicht bei der Verwendung hoher Baudraten zu empfehlen.
+Bei dem Überlauf-Ereignis wird sofort mit der Suche nach einem neuen RX-Start-Bit
+begonnen.
+Ohne diese Begrenzung würde das Programm in der
 Schleife verweilen, bis entweder ein Start-Bit entdeckt wird oder 
 die Schleife durch einen Reset vom Watchdog-Timer abgebrochen wird.
 Wahrscheinlich wird dadurch das Problem mit der Start-Position ,,4'' im
@@ -680,6 +702,15 @@ Watchdog-Timer nicht zurückgesetzt werden, weil sonst kein Anwenderprogramm
 mehr gestartet würde. Deshalb muß die Zeit für den Watchdog-Timer größer
 sein als die Zeit bis zur Wiederholung der STK\_GET\_SYNC Sequenz
 ohne eine Antwort auf die vorausgehende STK\_GET\_SYNC Sequenz.
+
+\item {Verbesserte Form der Baudraten Messung mit Zeitüberwachung, BAUD\_RATE \textless~60}
+
+Die Messung der Baudrate erfolgt genau so wie bei der verbesserten Methode (\textless~40).
+Nur wird wie bei der Methode \textless~50 beschrieben zusätzlich eine
+Begrenzung der Wartezeit durchgeführt.
+Weil der Zählerstand erst bei der 0-1 Flanke gelesen wird und da der Zählerüberlauf
+nur bei der 1-0 Flanke geprüft wird, ist die Zeit genau so inexakt wie
+bei der verbesserten Methode ohne die Zeitüberwachung.
 
 \item {Aufwendige Form der Baudraten Messung, BAUD\_RATE \textless~80}
 
@@ -772,7 +803,7 @@ Wenn ich nun eine abweichende Taktrate von \(7.6MHz\) annehme, ist
 der bestmögliche Teiler ebenfalls 32. Dadurch ergibt sich die Baudrate mit
 dem gleichen Fehler wie die Taktrate von \(237.5kHz\), in beiden Fällen sind es -5\%.
 Um wenigstens die untere Baud-Grenze mit der Software-UART Lösung überwinden
-zu können, wird bei allen vorgegebenen Baudwerten unter 100, die ungerade sind
+zu können, wird bei allen vorgegebenen Baud-Werten unter 100, die ungerade sind
 eine Verzögerungsschleife mit 15-Bit benutzt. Leider beträgt dann die Durchlaufzeit
 der Schleife dann 5 Takte. Durch den doppelten Aufruf der Verzögerungsschleife beträgt
 die Auflösung nur noch 10 Takte und damit etwas schlechter als die Hardware-UART
@@ -780,6 +811,8 @@ Lösung durch den 8:1 Vorteiler.
 Daher sollte man diese Option nur dann benutzen, wenn man keine sehr hohen Baudraten benutzen möchte.
 Die folgende Tabelle~\ref{tab:AutoBaud8} soll den Einsatzbereich der verschiedenen Optionen
 bei der Betriebsfrequenz \(8MHz\) zeigen.
+In der Tabelle ist der Zeit-Fehler nicht berücksichtigt, der bei der Messung der Baudrate
+durch die Abfrageschleife des RX-Signals entstehen kann.
 
 \begin{table}[H]
   \begin{center}
@@ -812,18 +845,20 @@ bei der Betriebsfrequenz \(8MHz\) zeigen.
 Für die Fehlergrenze von 2\%, die normalerweise als Grenze für das Gelingen
 angenommen wird, ist angenommen worden, daß beide Gegenstellen einen Fehler
 in unterschiedlicher Richtung haben können. Da bei der Autobaud-Funktion
-der Fehler der Gegenstelle mitgemessen wird, kann man hier eine doppelte
+der Fehler der Gegenstelle mit gemessen wird, kann man hier eine doppelte
 Obergrenze für den Fehler von 4\% annehmen.
 Bei Benutzung der Hardware-UART Schnittstelle sind unabhängig der gewählten
-Option für die Messung die Standard Baudraten 2400, 4800, 9600, 19200, 38400 und 57600
-benutzbar. Höhere Baudraten sind nicht mehr sicher bei der Benutzung, obwohl
+Option für die Messung die Standard Baudraten 1200, 2400, 4800, 9600, 19200,
+38400 und 57600 benutzbar.
+Höhere Baudraten sind nicht mehr sicher bei der Benutzung, obwohl
 auch \(115.6kBaud\) bei Tests oft funktionierte.
 Ebenso war ein Test mit 115.2 kBaud bei \(16 MHz\) Quarz-Betrieb erfolgreich,
-selbst bei Benutzung der 15-Bit Verzögerungsschleife.
+selbst bei Benutzung der Software UART Lösung mit der 15-Bit Verzögerungsschleife.
 Wenn für die Software-UART Lösung die 8-Bit Verzögerungsschleife benutzt wird,
-kann die Baudrate 2400 und 4800 nicht benutzt werden.
+kann die Baudrate 1200, 2400 und 4800 nicht benutzt werden.
 Erst bei Benutzung der 15-Bit Verzögerungsschleife sind die unteren Baudraten
-benutzbar. Der Unterschied zwischen der 49 und der 69 bzw. 89 Einstellung ergibt
+mit Software UART benutzbar.
+Der Unterschied zwischen der 49 und der 69 bzw. 89 Einstellung ergibt
 sich durch den verwendeten 16-Bit Zähler. Bei der Einstellung 49 wird nur
 die Zeit von 2 Datenbits gemessen, bei den Einstellungen über 59 wird
 die komplette Byte-Sequenz vom Start-Bit bis zum Stop-Bit mit dem 16-Bit Zähler gemessen.
@@ -842,54 +877,43 @@ ergänzt.
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c || c | c | c || c | c |}
+    \begin{tabular}{| c | c || c | c | c || c | c | c |}
     \hline
-   OSCCAL  & Frequency & HW-UART & SW-UART & SW-UART & SW-UART & SW-UART \\
-   \_CORR  & kHz       & 57600   & 57600   & 57600   & 115200  & 115200  \\
-           &           & Mode 82 & Mode 82 & Mode 83 & Mode 52 & Mode 53 \\
+   OSCCAL  & Freq. & HW-UART & \multicolumn{2}{c ||}{SW-UART} & HW-UART & \multicolumn{2}{c |}{SW-UART} \\
+   \_CORR  & kHz       & 57600   & \multicolumn{2}{c ||}{57600}  & 115200  & \multicolumn{2}{c |}{115200}  \\
+           &           & Mode 82 & Mode 82 & Mode 83 & Mode 56 & Mode 52 & Mode 53 \\
     \hline
     \hline
-    20     &  7157   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
-    18     &  7217   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    20     &  7157   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
+    18     &  7217   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
     \hline
-    16     &  7318   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
-    14     &  7404   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    16     &  7318   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
+    14     &  7404   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-    12     &  7521   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
-    10     &  7591   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    12     &  7521   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+    10     &  7591   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-     8     &  7710   &  OK (Err)  &   OK     &   OK    &  OK     &   OK  \\
-     6     &  7815   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+     8     &  7710   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+     6     &  7815   &  OK       &   OK    &   OK    &  Err    &  OK     &   OK  \\
     \hline
-     4     &  7933   &  OK (OK)   &   OK     &   OK    &  Err    &   Err \\
-     2     &  8012   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+     4     &  7933   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
+     2     &  8012   &  OK       &   OK    &   OK    &  Err    &  OK     &   Err \\
     \hline
-     0     &  8141   &  OK (Err)  &   OK     &   OK    &  OK     &   Err \\
-    -2     &  8247   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+     0     &  8141   &  OK       &   OK    &   OK    &  Err    &  OK     &   Err \\
+    -2     &  8247   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
     \hline
-    -4     &  8390   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
-    -6     &  8485   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -4     &  8390   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
+    -6     &  8485   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-    -8     &  8623   &  OK (OK)   &   OK     &   OK    &  Err    &   OK  \\
-    -10    &  8745   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
-    -12    &  8889   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -8     &  8623   &  OK       &   OK    &   OK    &  OK     &  Err    &   OK  \\
+    -10    &  8745   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+    -12    &  8889   &  OK       &   OK    &   OK    &  Err    &  OK     &   OK  \\
     \hline
     \end{tabular}
   \end{center}
   \caption{Test für die automatische Baudrate bei 8MHz Takt.}
   \label{tab:AutoBaudTest8}
 \end{table}
-
-Die eingeklammerten Werte bei der Hardware UART Lösung zeigen sich dann,
-wenn mit dem USBS0 Bit im UCSR0C Register ein zweites Stop Bit eingeschaltet wird.
-Dieses Problem ist unverständlich, da nach der Beschreibung im Datenblatt dieses Bit
-nur auf den Transmitter wirken soll.
-Für den Empfänger der Daten bedeutet ein zweites Stop-Bit aber nur eine längere Wärtezeit
-auf das nächste Start-Bit. Dadurch sind aber keine Schwierigkeiten zu erwarten.
-Die Datenübetragung dauert nur geringfügig länger. Die deutliche Zunahme der Fehler
-läßt nur den Schluß zu, daß sich entweder das Zeitverhalten des Receivers (Empfängers)
-doch mit dem Setzen des USBS0 Bits ändert oder der zwischengeschaltete USB-Serial Wandler
-mit dem zweiten Stop Bit nicht zurecht kommt.
 
 
 Für den Betriebsmodus 82 habe ich mit dem Software UART
@@ -900,8 +924,6 @@ Erst bei der für diese CPU-Frequenz extrem hohen Baudrate von \(115.2k\) waren
 für den Betriebsmodus 52 vier Ausfälle und mit dem Betriebsmodus 53 acht Ausfälle
 zu beobachten. Die Zunahme der Ausfälle bei Betriebsart 53 mit der 15-Bit Zeitschleife war
 wegen der groberen Rasterung der einstellbaren Zeiten zu erwarten.
-Bei einer weiteren Testreihe mit Hardware UART, die nicht in die Tabelle aufgenommen wurde,
-funktionierte bei \(115.2kBaud\) das Programmladen bei fünf eingestellten Frequenzen nicht.
 
 Ein Test mit einer chinesischen Arduino UNO Platine, die als USB-seriell Wandler einen
 CH340G Chip verwendet, lief übrigens nur bis 38400 Baud einwandfrei.
@@ -1007,8 +1029,8 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
 --------------------------------------------------------------------------------
-Simple Baudrate measurement with time limit implemented in optiboot!
-UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+Simple Baudrate measurement with time limit implemented in optiboot! (4-bit, CLK/8)
+UART Minimum 976 Baud, Error surely less than 4% up to 160.0 kBaud
 --------------------------------------------------------------------------------
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
@@ -1017,7 +1039,7 @@ Boot Loader start address: 0x7E00 = 32256
 16000000 Hz operation with Auto-Baudrate configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    494	      0	      0	    494	    1ee	optiboot.elf
+    498	      0	      0	    498	    1f2	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
@@ -1040,8 +1062,8 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
 In file included from optiboot.S:254:0:
 pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-Complex Baudrate measurement implemented in optiboot! (4-bit)
-UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+Complex Baudrate measurement implemented in optiboot! (4-bit, CLK/8)
+UART Minimum 488 Baud, Error surely less than 4% up to 160.0 kBaud
 --------------------------------------------------------------------------------
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
@@ -1089,8 +1111,17 @@ und Betriebsspannung.
 Um vorhandene Fehler der Frequenz mit dem internen RC-Generators ausgleichen zu können,
 wird der Kalibrationswert des Herstellers beim Start des Prozessors in das IO-Register OSCCAL kopiert.
 Der Optiboot Bootloader kann die Option OSCCAL\_CORR benutzen, um den vorhandenen Restfehler
-auszugleichen. In den folgenden Unterkapiteln werde ich einige AVR-Typen exemplarisch näher
-untersuchen.
+auszugleichen.
+
+Wenn die aktuelle Taktrate für Ihre Applikation unwichtig ist und
+Sie mehr Speicherplatz für den Bootloader zur Verfügung stellen können,
+können Sie auch die automatische Baudraten-Anpassung von Optiboot benutzen.
+Die automatische Baudraten-Anpassung wird immer dann eingebaut,
+wenn Sie bei der Erzeugung eine Baudrate unter 100 angeben.
+Näheres zur automatischen Baudraten-Anpassung finden Sie
+im Unterkapitel~\ref{sec:autobaud} aud Seite~\pageref{sec:autobaud}.
+
+In den folgenden Unterkapiteln werde ich einige AVR-Typen exemplarisch näher untersuchen.
 
 \subsection{Untersuchung der RC-Generatoren des ATmega8}
 
@@ -1828,3 +1859,30 @@ at90pwm3  &        16M & 0xE3  & 38.4k &  -10  & 16.79M &  5  & 15.79M  & 2  & 1
 
 Beim untersuchten AT90PWM2B wäre der Betrieb der seriellen Schnittstelle ohne
 die OSCCAL-Korrektur nicht möglich gewesen.
+
+\subsection{Untersuchung des RC-Generators der AT90CAN Familie}
+
+Untersucht habe ich nur jeweils ein Exemplar AT90CAN32 und AT90CAN128.
+Beide Exemplare können nur einen internen \(8~MHz\) RC-Oszillator wählen.
+Alle anderen Wahlmöglichkeiten erfordern einen externen Quarz oder einen externen Taktgenerator.
+Die Taktfrequenz kann optional auch mit dem Faktor 8 geteilt werden,
+so daß auch \(1~MHz\) Betrieb mit dem internen Takt möglich ist.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+at90can32 &         8M & 0xE2  & 38.4k &  0  & 8379k & 6  & 7920k  & 5  & 8019k \\
+    \hline
+at90can128 &         8M & 0xE2  & 38.4k &  0  & 8303k &  3  & 7922k  & 2  & 8057k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die AT90CAN Familie}
+  \label{tab:t90canfreq}
+\end{table}
+

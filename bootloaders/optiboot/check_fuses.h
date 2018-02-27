@@ -78,7 +78,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 3)
-  #error "CKSEL 3 (128k) is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 3 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0e) == 0x04)
@@ -254,7 +256,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 4)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 4 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0f) == 6)
@@ -396,14 +400,16 @@
    #error "Wrong LFuse setting for this ATtiny88/48!"
  #endif
 
- #if ((BLFUSE & 0x0f) == 2)
+ #if ((BLFUSE & 0x03) == 2)
   #if (CK_FREQ < 6000000) || (CK_FREQ > 10000000)
    #error "Int RC mode, wrong Lfuse setting for this frequency (ATtiny88/48)!"
   #endif
  #endif
 
  #if ((BLFUSE & 0x03) == 3)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 3 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x03) == 0x00)
@@ -422,6 +428,81 @@
  #endif
 
 #endif		/* ATtiny88/48 */
+
+/* ================================================================== */
+#if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+/* RSTDISBL in HFUSE 7 */
+/* CKDIV8 in LFUSE 7, CKSEL 3:0 in LFUSE 3:0 */
+ #define MAX_FREQ 16000000
+
+ #if ((BLFUSE & 0x80) == 0x00)
+  #define CK_FREQ  (F_CPU*8)
+ #else
+  #define CK_FREQ  F_CPU
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 0x01) 
+   #error "Wrong LFuse setting for this ATtiny87/167!"
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 0x00)
+  #if (CK_FREQ > (MAX_FREQ + 100000))
+   #error "Frequency setting is illegal for external clock!"
+  #else 
+   #warning ">>>>> External clock is selectet! <<<<<"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 2)
+  #if (CK_FREQ < 6000000) || (CK_FREQ > 10000000)
+   #error "Int RC mode, wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 3)
+  #if BAUD_RATE >= 100
+   #error "CKSEL 3 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0c) == 4)	/* 4-7 */
+  #if (CK_FREQ < 32000) || (CK_FREQ > 34000)
+   #error "Low Freq. oscillator , wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 8)
+  #if (CK_FREQ < 400000) || (CK_FREQ > 900000)
+   #error "Ceramic resonator , wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0a)
+  #if (CK_FREQ < 900000) || (CK_FREQ > 3000000)
+   #error "Crystal mode, wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0c)
+  #if (CK_FREQ < 3000000) || (CK_FREQ > 8000000)
+   #error "Crystal mode, wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0e)
+  #if (CK_FREQ < 8000000) || (CK_FREQ > (MAX_FREQ + 100000))
+   #error "Crystal mode, wrong Lfuse setting for this frequency (ATtiny87/167)!"
+  #endif
+ #endif
+
+ #if ((BHFUSE & 0x80) == 0)
+  #warning "RSTDISBL is set in HFUSE, you can NOT use ISP again."
+  #if !defined(FORCE_RSTDISBL)
+   #error "Setting of Fuse RSTDISBL not allowed without Option FORCE_RSTDISBL"
+  #endif
+ #endif
+
+#endif		/* ATtiny87/167 */
 
 /* ================================================================== */
 #if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
@@ -452,7 +533,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 4)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 4 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0f) == 6)
@@ -529,7 +612,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 3)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 3 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0c) == 0x04)		/* 4-7 */
@@ -610,7 +695,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 6)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 6 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0e) == 8)
@@ -762,7 +849,9 @@
  #endif
 
  #if ((BLFUSE & 0x0f) == 3)
-  #error "The internal 128k oszillator is not usable for the bootloader!"
+  #if BAUD_RATE >= 100
+   #error "CKSEL 3 (128k) is not usable for the bootloader with fix baud rate!"
+  #endif
  #endif
 
  #if ((BLFUSE & 0x0e) == 0x04)

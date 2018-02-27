@@ -120,6 +120,22 @@ endif
 t2313: BAUD_RATE := 38400
 t2313: $(DO_PGM)
 
+t87: PARTNO := t87
+t87: MCU := attiny87
+ifndef AVR_FREQ
+t87: AVR_FREQ := 8000000
+endif
+t87: BAUD_RATE := 38400
+t87: $(DO_PGM)
+
+t167: PARTNO := t167
+t167: MCU := attiny167
+ifndef AVR_FREQ
+t167: AVR_FREQ := 8000000
+endif
+t167: BAUD_RATE := 38400
+t167: $(DO_PGM)
+
 # 28-Pin ATtiny
 t88: PARTNO := t88
 t88: MCU := attiny88

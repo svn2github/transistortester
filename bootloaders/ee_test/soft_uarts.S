@@ -3,7 +3,8 @@
  #define __ASSEMBLER__
 #endif
 #include <avr/io.h>
-#include "uart_defs.h"
+#include "pin_defs.h"
+#include "io_macros.h"
 
 
 ;***************************************************************

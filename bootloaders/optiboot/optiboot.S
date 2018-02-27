@@ -256,6 +256,9 @@
 
 #include "stk500.h"
 #include "pin_defs.h"
+#include "optiboot.h"
+#include "led_defs.h"
+#include "io_macros.h"
 
 #include "check_fuses.h"
 
@@ -1235,20 +1238,20 @@ putch:	/* void putch(char r24) */
         /* TX output is enables only during the transmission time. */
 	/* Therefore we must wait to finish of transmission to reenable */
         /* the RX input again */
-	ldi	r25, (1<<TXEN0)	;0x08	
+	ldi	r26, UART_ENABLE_TX
 	AOUT	UART_SRB, r25		; enable UART output, disable input
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
 ptch2:
-	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(TXC0)));
+	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(TXC0)));
       	sbrs	r25, TXC0
       	rjmp	ptch2		; wait, UART transmit not completed
-	ldi	r25, (1<<RXEN0)	;0x10	
+	ldi	r25, UART_ENABLE_RX	
 	AOUT	UART_SRB, r25		; enable UART input
  #else
 	/* For normal serial transfer we wait until the buffer UDR is free. */
 	/* After loading the buffer we return immediately to caller */
 ptch1:
-	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
+	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
       	sbrs	r25, UDRE0
       	rjmp	ptch1		; wait, UART out not ready
  #endif
@@ -1267,9 +1270,12 @@ getch:
 	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
-	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
+	AIN	r24, UART_STATUS	; if (UART_SRA & _BV(RXC0)) {
      	sbrs	r24, RXC0
        	rjmp	gtch1			; no data received, wait
+#if UART_STATUS != UART_ERRSTAT
+	AIN	r24, UART_ERRSTAT
+#endif
       	sbrs	r24, FE0		; if (!(UART_SRA & _BV(FE0))) {
      	wdr		; watchdogReset();
        /*

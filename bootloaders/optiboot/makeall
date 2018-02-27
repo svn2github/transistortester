@@ -164,6 +164,12 @@ make attiny84 $AllEEprom=1 $XTRA_OPT=1
 echo " "; echo "***** make attiny85 ******"
 make attiny85 $AllEEprom=1 $XTRA_OPT=1
 #
+echo " "; echo "***** make attiny87 ******"
+make attiny87 $AllEEprom=1 $XTRA_OPT=1
+#
+echo " "; echo "***** make attiny167 ******"
+make attiny167 $AllEEprom=1 $XTRA_OPT=1
+#
 echo " "; echo "***** make attiny88 ******"
 make attiny88 $AllEEprom=1 $XTRA_OPT=1
 #

@@ -24,8 +24,9 @@
 // determine the count of loop tics
 
 #include <avr/io.h>
-#undef __ASSEMBLER__
-#define __ASSEMBLER__ 33
+#ifndef __ASSEMBLER__
+ #define __ASSEMBLER__ 
+#endif
 #define NO_WARNING
 #include "pin_defs.h"
 
@@ -51,39 +52,91 @@ fcpu=`$ECHO_CMD F_CPU | $TR_CMD -d LU`
  */
 $ECHO_CMD --------------------------------------------------------------------------------
 #if BAUD_RATE < 100
- #if BAUD_RATE < 50
- $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot!"
+ #if (BAUD_RATE < 25) && (SOFT_UART == 0)
+  $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot! (2-bit, CLK/8)"
+  #define TWO_BIT_MEASURE
+  #undef FULL_SPEED_CLK
+ #elif BAUD_RATE < 30
+  $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot! (2-bit, CLK/1)"
+  #define TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
+ #elif (BAUD_RATE < 35) && (SOFT_UART == 0)
+  $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot! (4-bit, CLK/8)"
+  #undef TWO_BIT_MEASURE
+  #undef FULL_SPEED_CLK
+ #elif BAUD_RATE < 40
+  $ECHO_CMD  "Simple Baudrate measurement implemented in optiboot! (4-bit, CLK/1)"
+  #undef TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
+ #elif (BAUD_RATE < 45) && (SOFT_UART == 0)
+  $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot! (2-bit, CLK/8)"
+  #define TWO_BIT_MEASURE
+  #undef FULL_SPEED_CLK
+ #elif BAUD_RATE < 50
+  $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot! (2-bit, CLK/1)"
+  #define TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
+ #elif (BAUD_RATE < 55) && (SOFT_UART == 0)
+  $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot! (4-bit, CLK/8)"
+  #undef TWO_BIT_MEASURE
+  #undef FULL_SPEED_CLK
  #elif BAUD_RATE < 60
- $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot!"
+  $ECHO_CMD  "Simple Baudrate measurement with time limit implemented in optiboot! (4-bit, CLK/1)"
+  #undef TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
  #elif BAUD_RATE < 80
- $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (2-bit)"
+  $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (2-bit, CLK/1)"
+  #define TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
  #else
- $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (4-bit)"
+  #undef TWO_BIT_MEASURE
+  #define FULL_SPEED_CLK
  #endif
  
-#if SOFT_UART > 0
- #if ((BAUD_RATE - ((BAUD_RATE/2)*2)) == 1)
-  #if BAUD_RATE < 60
-   UartDelay=$(( (65535/2) ))
-  #else
-   UartDelay=$(( (65535/10) ))
-  #endif
+ #if SOFT_UART > 0
+  #if ((BAUD_RATE - ((BAUD_RATE/2)*2)) == 1)
+   // 15-bit delay 
+   #if BAUD_RATE < 60
+    #ifdef TWO_BIT_MEASURE
+     UartDelay=$(( (65535/2) ))
+    #else
+     UartDelay=$(( (65535/4) ))
+    #endif
+   #else
+    // With full check (10 bits)
+    UartDelay=$(( (65535/10) ))
+   #endif
 
 UartMinDelay=$(( ((25*5)+(RCALL_TICS+1)*2 + LOOP_TICS) ))
 $ECHO_CMD "SoftUART Minimum `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / $UartMinDelay / 1000)" | $BC_CMD` kBaud, Slow 15-Bit loop"
 
- #else
+  #else		/* 8-bit delay */
 
 UartDelay=$(( ((255*3*2) + (RCALL_TICS*2)  + LOOP_TICS) ))
 UartMinDelay=$(( ((25*3)+(RCALL_TICS*2) + LOOP_TICS) ))
 $ECHO_CMD "SoftUART Minimum `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / $UartMinDelay / 1000)" | $BC_CMD` kBaud, Fast 8-Bit loop"
+  #endif
+
+ #else		/* HW UART */
+  #if BAUD_RATE < 60
+   // simple mode
+   #ifdef TWO_BIT_MEASURE
+    UartDelay=$(( (65535/2) ))
+   #else
+    UartDelay=$(( (65535/4) ))
+   #endif
+  #else
+   // full 10-bit check
+   #ifdef FULL_SPEED_CLK
+    UartDelay=$(( (65535/4) ))
+   #else
+    UartDelay=$(( (8*4096) ))
+   #endif
+  #endif
+
+$ECHO_CMD "UART Minimum `$ECHO_CMD "scale=0;($fcpu / $UartDelay)" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / (8*12500))" | $BC_CMD` kBaud"
+
  #endif
-
-#else
-
-$ECHO_CMD "UART Minimum `$ECHO_CMD "scale=0;($fcpu / (8+4096))" | $BC_CMD` Baud, Error surely less than 4% up to `$ECHO_CMD "scale=1;($fcpu / (8*12500))" | $BC_CMD` kBaud"
-
-#endif
 
 #else 	/* BAUD_RATE >= 100) */
 #if SOFT_UART > 0

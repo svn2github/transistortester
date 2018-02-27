@@ -10,7 +10,7 @@
 
 	#define MAIN_C
 	#include "wait1000ms.h"
-	#include "uart_defs.h"
+	#include "pin_defs.h"
 	#include "find_ctr.h"
 
 
@@ -264,17 +264,32 @@ int main(void) {
   #if BAUD_DIV > 4095
    #error Unachievable baud rate (too slow) BAUD_RATE
   #endif // baud rate slow check
-        UART_SRA = (0<<U2X0);
+  #if defined(LINBTR)
+	LINBTR = 16 | (1<<LDISR);	// set single speed divider
+  #else
+        UART_SRA = (0<<U2X0);		// set to single speed
+  #endif
  #else
-        UART_SRA = (1<<U2X0);
+  #if defined(LINBTR)
+	LINBTR = 8 | (1<<LDISR);	// set double speed divider
+  #else
+        UART_SRA = (1<<U2X0);		// set to double speed
+  #endif
  #endif
-        UART_SRB = (1<<RXEN0)|(1<<TXEN0);
- #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
-        UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);	// config UART
-        UBRRL = (uint8_t)BAUD_DIV;	// set the lower bits of the scaler
-        UCSRC = BAUD_DIV / 256;		// set upper bits of scaler (without URSEL)
+ #if defined(LINCR)
+	LINCR = (1<<LENA)|(1<<LCMD2)|(1<<LCMD1)|(1<<LCMD0); // enable Rx and Tx
  #else
+        UART_SRB = (1<<RXEN0)|(1<<TXEN0);	// enable Rx and Tx
+ #endif
+// #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
+ #if defined(UART_SRC) && defined(UART_SEL)
+        UART_SRC = (1<<UART_SEL)|(1<<UCSZ1)|(1<<UCSZ0);	// config UART
+        UART_SRRL = (uint8_t)BAUD_DIV;	// set the lower bits of the scaler
+        UART_SRC = BAUD_DIV / 256;		// set upper bits of scaler (without URSEL)
+ #else
+  #if !defined(__AVR_ATmega163__) && !defined(__AVR_ATtiny87__) && !defined(__AVR_ATtiny167__)
         UART_SRC = (1<<UCSZ00)|(1<<UCSZ01);		// config UART
+  #endif
 	UART_SRRL = (uint8_t)BAUD_DIV;	// set the lower bits of scaler
 	UART_SRRH = BAUD_DIV / 256;	// set the higher bits of scaler 
  #endif

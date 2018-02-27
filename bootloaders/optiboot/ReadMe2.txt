@@ -43,7 +43,7 @@ This kind of automatic is tested at a Linux system and should run at any Linux s
 But it is completely untested for any Windows system.
 This optiboot bootloader is tested with a Arduino-UNO and -Nano board and with 
 nearly all supported processors (see the list at the end of this ReadMe2).
-Only the AT90CAN series and ATmega1280/1281/2560 is untested.
+Only the AT90CAN64 and ATmega1280/2560 is untested.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -94,7 +94,7 @@ BAUD_RATE		specifies the baud rate for the serial interface.
 			measurement of the baud rate instead of a fixed baud rate.
 			If a baud rate below 60 is specified, a simpler measurement
 			is used to save memory.
-			If a baud rate below 50 is specified, a additional monitoring
+			If a baud rate below 40 is specified, a additional monitoring
 			of the time is omitted with this simpler measurement.
 
 SOFT_UART		Whith this option you select a software UART solution instead of

@@ -98,6 +98,20 @@
   #define MAX_OSCCAL 255
 #endif	/* __AVR_ATtiny88__ || __AVR_ATtiny48__ */
 
+/* Support for ATtiny87 and ATtiny167 */
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+  #define TST_COUNTER_PIN "PA2"
+  #define CNT_ENABLE_DDR  DDRA
+  #define CNT_ENABLE_PIN  DDA2
+  #define TST_TCCR_A TCCR0A
+  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
+  #define TST_TCCR_B TCCR0B
+  #define TST_TCCR_B_SET (1<<CS00)
+  #define MAX_OSCCAL 255
+#endif	/* __AVR_ATtiny87__ || __AVR_ATtiny167__ */
+
+
 /* Support for ATtiny85 family*/
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny25__)

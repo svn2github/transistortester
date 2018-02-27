@@ -340,6 +340,10 @@ ifneq "$(origin BOOT_PAGE_LEN)" "undefined"
  endif
 endif
 
+ifndef FLASH_ERASE_CNT
+ FLASH_ERASE_CNT = 1
+endif
+
 
 SIZE           = $(GCCROOT)avr-size
 
@@ -419,7 +423,7 @@ isp-stk500: $(PROGRAM).hex
 #  After computing the required size (and the possible relocation address),
 #  This x.elf is removed later.
 $(PROGRAM)x.elf: $(PROGRAM).o
-	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) $(LDFLAGS)  -o $(PROGRAM)x.elf $< $(LIBS)
+	$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) $(LDFLAGS)  -o $(PROGRAM)x.elf $< $(LIBS)
 
 # BootPages.dat fetch the actual boot loader size from a interim $(PROGRAM)x.elf file, not from the
 # $(PROGRAM).o file. The ld program can do some optimizing for code generated from a C-source.
@@ -450,18 +454,18 @@ endif
 # Generate the final $(PROGRAM).elf file at the right Start Address,
 # which is the base to generate the $(PROGRAM)_$(TARGET).hex and $(PROGRAM)_$(TARGET).lst files.
 $(PROGRAM).elf:  $(PROGRAM).o baudcheck  BL_StartAdr.dat
-	@$(ECHO_CMD) "###########################################"
-	@$(ECHO_CMD) "Boot Loader start address: 0x$(shell $(CAT_CMD) BL_StartAdr.dat) = $(shell $(CAT_CMD) base_cmd BL_StartAdr.dat | $(BC_CMD))"
-	@$(ECHO_CMD) "###########################################"
+	- @$(ECHO_CMD) "###########################################"
+	- @$(ECHO_CMD) "Boot Loader start address: 0x$(shell $(CAT_CMD) BL_StartAdr.dat) = $(shell $(CAT_CMD) base_cmd BL_StartAdr.dat | $(BC_CMD))"
+	- @$(ECHO_CMD) "###########################################"
 	@$(CC) $(CFLAGS) $(COMMON_OPTIONS) $(LDSECTIONS) \
         -Wl,--section-start=.text=0x$(shell $(CAT_CMD) BL_StartAdr.dat) $(LDFLAGS) -o $(PROGRAM).elf $< $(LIBS)
-	@$(ECHO_CMD)
+	- @$(ECHO_CMD)
 ifeq ($(AUTO_BAUD), 0)
-	@$(ECHO_CMD) $(AVR_FREQ) Hz operation with Auto-Baudrate configured.
+	- @$(ECHO_CMD) $(AVR_FREQ) Hz operation with Auto-Baudrate configured.
 else
-	@$(ECHO_CMD) $(AVR_FREQ) Hz operation with Baudrate $(BAUD_RATE) configured.
+	- @$(ECHO_CMD) $(AVR_FREQ) Hz operation with Baudrate $(BAUD_RATE) configured.
 endif
-	$(SIZE) $(PROGRAM).elf
+	- $(SIZE) $(PROGRAM).elf
 
 # remove all generated files
 .PHONY: clean steril hex_copy hex_file
@@ -476,12 +480,12 @@ steril:
 # With option VIRTUAL_BOOT_PARTITION BOOTSZ.dat is allways set to 3
 BOOTSZ.dat: $(PROGRAM).elf BootPages.dat
 ifeq ($(VIRTUAL_BOOT_PARTITION), 1)
-	@$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Flash Pages, $(FLASH_PAGE_SIZE) Bytes each"
-	@$(ECHO_CMD) "3" > BOOTSZ.dat
+	- @$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Flash Pages, $(FLASH_PAGE_SIZE) Bytes each"
+	- @$(ECHO_CMD) "3" > BOOTSZ.dat
 else
-	@$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Boot Pages, $(BOOT_PAGE_LEN) Bytes each"
-	@$(ECHO_CMD) "BOOTSZ=$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))"
-	@$(ECHO_CMD)   "$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))" > BOOTSZ.dat
+	- @$(ECHO_CMD) "Requires $(shell $(CAT_CMD) BootPages.dat) Boot Pages, $(BOOT_PAGE_LEN) Bytes each"
+	- @$(ECHO_CMD) "BOOTSZ=$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))"
+	- @$(ECHO_CMD)   "$(shell $(ECHO_CMD) "pg_anz=(`$(SIZE) -C $(PROGRAM).elf | $(GREP_CMD) "Program:" | $(CUT_CMD) -c 10-16`/$(BOOT_PAGE_LEN) +1); 0 + (pg_anz<5) + (pg_anz<3) + (pg_anz<2)" | $(BC_CMD))" > BOOTSZ.dat
 endif
 
 # copy the  .lst and .hex files to files which identify the target

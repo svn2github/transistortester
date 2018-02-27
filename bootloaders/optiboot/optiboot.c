@@ -263,6 +263,8 @@
  * ability to use UART=n and LED=D3, and some avr family bit name differences.
  */
 #include "pin_defs.h"
+#include "optiboot.h"
+#include "led_defs.h"
 
 /*
  * stk500.h contains the constant definitions for the stk500v1 comm protocol
@@ -538,7 +540,7 @@ int main(void) {
    */
 #if ((UART_TXX & 0xff00) == (UART_RXX & 0xff00))
   UART_TX_PORT &= ~((1<<UART_TX_BIT) || (1<<UART_RX_BIT));
-#else
+#else	/* RX and TX use not the same port */
   UART_TX_PORT &= ~(1<<UART_TX_BIT);
   UART_RX_PORT &= ~(1<<UART_RX_BIT);
 #endif
@@ -572,9 +574,9 @@ int main(void) {
  #endif		/* BAUD_RATE >= 100 */
 
  #ifdef UART_MODE_2X
-   UART_SRA = _BV(U2X0);	// Double speed mode USART
+   UART_CNTL = UART_SCALER8;	// Double speed mode USART
  #else
-   UART_SRA = 0;		// Single speed mode USART
+   UART_CNTL = UART_SCALER16;		// Single speed mode USART
  #endif
  //#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__) || defined(__AVR_ATmega16__)
  #if defined(UART_SRC) && defined(UART_SEL)
@@ -590,9 +592,12 @@ int main(void) {
    UART_SRRH = (uint8_t)( BAUD_DIV/256 );
   #endif
   #ifdef UART_ONE_WIRE
-  UART_SRB = _BV(RXEN0);		// enable only UART input
+  UART_SRB = UART_ENABLE_RX;		// enable only UART input
   #else
-  UART_SRB = _BV(RXEN0) | _BV(TXEN0);	// enable UART input and output
+  UART_SRB = (UART_ENABLE_RX|UART_ENABLE_TX);	// enable UART input and output
+  #endif
+  #ifdef LINDAT
+  LINDAT = 0;		// init TX ready flag
   #endif
  #endif
 #endif		/* SOFT_UART > 0 */
@@ -785,8 +790,6 @@ RX_was_high:		/* entry for detected Start bit during flashing */
    #endif
    UART_SRRL = baud_t1.b[0];
    UART_SRRH = baud_t1.b[1];
-  DDRC = 0xff;		//#########################################
-  PORTC = baud_t1.b[0];	//#########################################
 
 
  #else		/* BAUD_RATE >= 60 */
@@ -880,13 +883,22 @@ RX_was_high:		/* entry for detected Start bit during flashing */
 
   UART_SRRL = baud_t3.b[0];
   UART_SRRH = baud_t3.b[1];
-  DDRC = 0xff;		//#########################################
-  PORTC = baud_t3.b[0];	//#########################################
  #endif		/* BOOT_PAGE_LEN < 1024 */
- #ifdef UART_ONE_WIRE
-  UART_SRB = _BV(RXEN0);		// enable only UART input
+ #ifdef LINCR
+  #ifdef UART_ONE_WIRE
+  LINCR = (1<<LENA)|(1<<LCMD2)|(1<<LCMD1);	// enable Rx
+  #else
+  LINCR = (1<<LENA)|(1<<LCMD2)|(1<<LCMD1)|(1<<LCMD0);	// enable Rx + Tx
+  #endif
  #else
+  #ifdef UART_ONE_WIRE
+  UART_SRB = _BV(RXEN0);		// enable only UART input
+  #else
   UART_SRB = _BV(RXEN0) | _BV(TXEN0);	// enable UART input and output
+  #endif
+  #ifdef LINDAT
+  LINDAT = 0;		// init TX ready flag
+  #endif
  #endif
  #if TEST_OUTPUT == 0
 //   verifySpace();
@@ -1258,14 +1270,18 @@ void putch(uint8_t ch) {
   // The main advantage of Hardware UART can not be used with ONE_WIRE mode.
   // We enable the TX transfer only for transmission time, therefore we must
   // wait until the transfer is done
-  UART_SRB = (1<<TXEN0);	// enable UART output, disable input
+  UART_SRB = UART_ENABLE_TX;	// enable UART output, disable input
   UART_UDR = ch;		// load data to transfer
-  while (!(UART_SRA & _BV(TXC0)));	// wait for TX transfer complete
-  UART_SRB = (1<<RXEN0);	// enable UART input, disable output
+  while (!(UART_STATUS & _BV(TXC0)));	// wait for TX transfer complete
+  UART_SRB = UART_ENABLE_RX;	// enable UART input, disable output
  #else
   // For normal Serial communication we wait until the buffer can be loaded again
   // and return to caller after loading the new data.
-  while (!(UART_SRA & _BV(UDRE0)));	// wait for buffer empty
+  #ifdef LINSIR
+  while((LINSIR & _BV(LTXOK)) == 0);	// wait for last character transmitted
+  #else
+  while (!(UART_STATUS & _BV(UDRE0)));	// wait for buffer empty
+  #endif
   UART_UDR = ch;
  #endif
 #else
@@ -1332,9 +1348,9 @@ uint8_t getch(void) {
       "r25"
 );
 #else
-  while(!(UART_SRA & _BV(RXC0)))
+  while(!(UART_STATUS & _BV(RXC0)))
     ;
-  if (!(UART_SRA & _BV(FE0))) {
+  if (!(UART_ERRSTAT & _BV(FE0))) {
       /*
        * A Framing Error indicates (probably) that something is talking
        * to us at the wrong bit rate.  Assume that this is because it

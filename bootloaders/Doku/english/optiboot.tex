@@ -583,6 +583,7 @@ At 115200 baud the circuit operates well. Much higher baud rates can
 not be used in most cases with the software serial interface.
 
 \subsection{Use of the automatic baud rate detection}
+\label{sec:autobaud}
 
 If you specify a baud rate below \(100Baud\) for generating the bootloader code,
 the program will be prepared to detect the baud rate from the first
@@ -623,7 +624,6 @@ a Stop bit has the label 'E'.
 The first byte is the coding of the STK\_GET\_SYNC character and the second byte
 is the coding of the control character CRC\_EOP.
 
-
 \begin{figure}[H]
 \centering
 \scalebox{0.55}{\includegraphics[]{../FIG/AutoBaud.eps}}
@@ -633,7 +633,7 @@ is the coding of the control character CRC\_EOP.
 
 \begin{itemize}
 
-\item {Simplest way of baud rate measurement, BAUD\_RATE \textless~50}
+\item {Simplest way of baud rate measurement, BAUD\_RATE \textless~30}
 
 The simplest form of baud rate measurement doesn't take into account
 the wrong start bit choise.
@@ -666,7 +666,22 @@ which is specified from the watchdog timer.
 When the watchdog timer triggers a reset, usually the user program is started.
 Only if no user program has been loaded yet, the boot loader starts again for a retry.
 
-\item {Slightly improved way of baud rate measurement, BAUD\_RATE \textless~60}
+\item {Improved way of baud rate measurement, BAUD\_RATE \textless~40}
+
+Same as the simple way of baud rate measurement this method does not
+check the correctness of the bit change sequence.
+But the software wait for the next 0-1 slope until the counter value
+is read.
+So this counter reading is the time of four data bits,
+which is then used for the baud rate determination.
+Because the time recording is slightly inexact because of the
+polling loop, the baud time result will be better with dividing by four
+than by dividing by two.
+For that reason this method should be prefered, if little flash memory
+use is important. This improved method use only 4 byte more than the
+simple way.
+
+\item {Simplest way of baud rate measurement with time limit, BAUD\_RATE \textless~50}
 
 The same method as the simplest way is used for this method.
 Only a additional limitation for the timer value is used here.
@@ -675,8 +690,8 @@ for a new Start bit.
 Without this limitation the program can stay in a loop for detecting
 a low level for the start condition ''4''. 
 Probably the bad situation with the start position ''4'' in the 
-diagram~\ref{fig:AutoBaud} is a little better. 
-The restart of the start bit serach with the time limit would
+diagram~\ref{fig:AutoBaud} can be handled a little better. 
+The restart of the start bit search with the time limit would
 delay a reset from the watchdog timer only a little bit.
 The bootloader program may not reset the watchdog timer inside
 the search loop, because then the user program is never started
@@ -684,6 +699,15 @@ without the transmission of a new program.
 For this reason the time limit of the watchdog timer must be greater
 as the time delay for repeating the STK\_GET\_SYNC sequence
 without a answer to the previous STK\_GET\_SYNC sequence.
+
+\item {Improved way of baud rate measurement with time limit, BAUD\_RATE \textless~60}
+
+The baud rate measuring is done in the same way as described for the
+improved way (\textless 40).
+Simular to the method ''\textless 50'' the wait time for the 1-0 slope
+is limited to the overflow of the 16-bit counter.
+But because the counter value is normally read at the next 0-1 slope,
+the result is equal to the improved way without the time limit.
 
 
 \item {Complex way of baud rate measurement, BAUD\_RATE \textless~80}
@@ -790,28 +814,30 @@ You should use this option only, if you need the support of low baud speeds
 and deside not to use very high baud rates.
 The following table~\ref{tab:AutoBaud8} is intended to clarify the use of
 the different auto baud functions at the operating frequency \(8MHz\).
+The table does not respect the time error, which can be caused by the
+polling loops for the RX signal.
 
 \begin{table}[H]
   \begin{center}
     \begin{tabular}{| c | c | c | c | c | c |}
     \hline
    BAUD\_RATE  & SOFT\_ & Minimum & BAUD-Err & Comment  \\
-   Option      & UART   & Baud    & \textless 2\% @ Baud &  \\
+   Option      & UART   & Baud    & \textless 4\% @ Baud &  \\
     \hline
     \hline
-    40-99      &  0     &  1949       &   40.0k  & HW\_UART  \\
+    20-99      &  0     &  1949       &   80.0k  & HW\_UART  \\
     \hline
-    48         &  1     &  5151       &   46.2k  & Simple, 2-Bit Time, 8-Bit Delay  \\
+    48         &  1     &  5151       &   81.6k  & Simple, 2-Bit Time, 8-Bit Delay  \\
     \hline
-    68         &  1     &  5151       &   46.2k  & Complex, 2-Bit Time, 8-Bit Delay  \\
+    68         &  1     &  5151       &   81.6k  & Complex, 2-Bit Time, 8-Bit Delay  \\
     \hline
-    88         &  1     &  5151       &   46.2k  & Complex, 4-Bit Time, 8-Bit Delay  \\
+    88         &  1     &  5151       &   81.6k  & Complex, 4-Bit Time, 8-Bit Delay  \\
     \hline
-    49         &  1     &  244       &   29.0k  &  Simple, 2-Bit Time, 15-Bit Delay\\
+    49         &  1     &  244       &   53.3k  &  Simple, 2-Bit Time, 15-Bit Delay\\
     \hline
-    69         &  1     &  1220       &   29.0k &  Complex, 2-Bit Time, 15-Bit Delay \\
+    69         &  1     &  1220       &   53.3k &  Complex, 2-Bit Time, 15-Bit Delay \\
     \hline
-    89         &  1     &  1220       &   29.0k & Complex, 4-Bit Time, 15-Bit Delay \\
+    89         &  1     &  1220       &   53.3k & Complex, 4-Bit Time, 15-Bit Delay \\
     \hline
     \end{tabular}
   \end{center}
@@ -819,16 +845,20 @@ the different auto baud functions at the operating frequency \(8MHz\).
   \label{tab:AutoBaud8}
 \end{table}
 
+Usually a limit for the baud error is set to only 2\%, because the transmitter and
+the receiver can have a baud rate error to the opposite direction.
+The Auto-baud function measure the actual baud rate of the transmitter,
+so that the error rate of the Auto-baud function can take the double value of 4\%.
 If you select a hardware UART interface, you can select the standard
-baud rates 2400, 4800, 9600, 19200 and 38400 with all arbitrary options.
+baud rates 1200, 2400, 4800, 9600, 19200 and 38400 with all arbitrary options.
 Higher baud rates than the specified 40 kBaud are not safe to use,
 although 57600 baud also worked well in tests.
 Likewise, a test with 115.2 kBaud at \(16MHz\) crystal operation was still successful
 when using a software UART with a 15-bit delay loop.
 If only a 8-bit delay loop is used with the software UART solution,
-the baud rates 2400 and 4800 can not be used.
-The lower baud rates are only usable, if you configure the optiboot
-with a 15-bit delay loop.
+the baud rates 1200, 2400 and 4800 can not be used.
+The lower baud rates are only usable with the software UART, if you configures
+the optiboot with a 15-bit delay loop.
 The different limit for the 49 and 69 or 89 baud rate selection is caused
 by the different use of the 16-bit AVR counter.
 With the 49 selection (all below 60) only the time of two data bits is measured
@@ -849,53 +879,43 @@ specified (\(115.2 kBaud\)) was also done.
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{| c | c || c | c | c || c | c |}
+    \begin{tabular}{| c | c || c | c | c || c |  c | c |}
     \hline
-   OSCCAL  & Frequency & HW-UART & SW-UART & SW-UART & SW-UART & SW-UART \\
-   \_CORR  & kHz       & 57600   & 57600   & 57600   & 115200  & 115200  \\
-           &           & Mode 82 & Mode 82 & Mode 83 & Mode 52 & Mode 53 \\
+  OSCCAL  & Freq.    & HW-UART & \multicolumn{2}{c ||}{SW-UART} & HW-UART & \multicolumn{2}{c |}{SW-UART} \\
+   \_CORR  & kHz       & 57600   & \multicolumn{2}{c ||}{57600}  & 115200  & \multicolumn{2}{c |}{115200} \\
+           &           & Mode 82 & Mode 82 & Mode 83 & Mode 56 & Mode 52 & Mode 53 \\
     \hline
     \hline
-    20     &  7157   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
-    18     &  7217   &  OK (Err)  &   OK     &   OK    &  Err    &   Err \\
+    20     &  7157   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
+    18     &  7217   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
     \hline
-    16     &  7318   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
-    14     &  7404   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    16     &  7318   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
+    14     &  7404   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-    12     &  7521   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
-    10     &  7591   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    12     &  7521   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+    10     &  7591   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-     8     &  7710   &  OK (Err)  &   OK     &   OK    &  OK     &   OK  \\
-     6     &  7815   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+     8     &  7710   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+     6     &  7815   &  OK       &   OK    &   OK    &  Err    &  OK     &   OK  \\
     \hline
-     4     &  7933   &  OK (OK)   &   OK     &   OK    &  Err    &   Err \\
-     2     &  8012   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+     4     &  7933   &  OK       &   OK    &   OK    &  Err    &  Err    &   Err \\
+     2     &  8012   &  OK       &   OK    &   OK    &  Err    &  OK     &   Err \\
     \hline
-     0     &  8141   &  OK (Err)  &   OK     &   OK    &  OK     &   Err \\
-    -2     &  8247   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
+     0     &  8141   &  OK       &   OK    &   OK    &  Err    &  OK     &   Err \\
+    -2     &  8247   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
     \hline
-    -4     &  8390   &  OK (OK)   &   OK     &   OK    &  OK     &   Err \\
-    -6     &  8485   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -4     &  8390   &  OK       &   OK    &   OK    &  OK     &  OK     &   Err \\
+    -6     &  8485   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
     \hline
-    -8     &  8623   &  OK (OK)   &   OK     &   OK    &  Err    &   OK  \\
-    -10    &  8745   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
-    -12    &  8889   &  OK (OK)   &   OK     &   OK    &  OK     &   OK  \\
+    -8     &  8623   &  OK       &   OK    &   OK    &  OK     &  Err    &   OK  \\
+    -10    &  8745   &  OK       &   OK    &   OK    &  OK     &  OK     &   OK  \\
+    -12    &  8889   &  OK       &   OK    &   OK    &  Err    &  OK     &   OK  \\
     \hline
     \end{tabular}
   \end{center}
   \caption{Test for the automatic baud rate at \(8MHz\) clock.}
   \label{tab:AutoBaudTest8}
 \end{table}
-
-The bracketed values in the HardWare UART column appear only, if a second Stop bit
-is selected with the UCBS1 bit in the UCSR1C register.
-This problem is incomprehensible because, as described in the datasheet, this bit
-should only affect the transmitter.
-For the receiver of the data, a second stop bit means only a longer wait time to the next start bit.
-This should be no reason for difficulties. Only the transmission time is a little bit longer.
-The significant increase in errors allows only the conclusion that either the timing
-of the receiver changes also by setting the USBS1 bit or the used USB-serial converter
-can not handle this setting correctly.
 
 For the operating mode 82 I have additionally checked the odd OSCCAL\_CORR settings without
 any noticeable difficulties. The also checked simplest mode 42 has not shown
@@ -905,8 +925,6 @@ Only at the extemely high baud rate of \(115,2k\) for this CPU frequency the ope
 mode 52 shows four failures and with the operation mode 53 eight failures are stated.
 The increase in failures in mode 53 with the 15-bit delay loop is expected and caused by
 the coarser grid of adjustable delay times.
-In another test series with the hardware UART at \(115.2kBaud\), which is not included
-to the table, I could find five set frequencies where program loading was inpossible.
 
 A test with a chinese Arduino UNO board, which use a CH340G chip as USB-serial converter,
 could operate only up to \(38.4kBaud\) correctly.
@@ -1014,8 +1032,8 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
 --------------------------------------------------------------------------------
-Simple Baudrate measurement with time limit implemented in optiboot!
-UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+Simple Baudrate measurement with time limit implemented in optiboot! (4-bit, CLK/8)
+UART Minimum 976 Baud, Error surely less than 4% up to 160.0 kBaud
 --------------------------------------------------------------------------------
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
@@ -1024,7 +1042,7 @@ Boot Loader start address: 0x7E00 = 32256
 16000000 Hz operation with Auto-Baudrate configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    494	      0	      0	    494	    1ee	optiboot.elf
+    498	      0	      0	    498	    1f2	optiboot.elf
 Requires 1 Boot Pages, 512 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
@@ -1048,8 +1066,8 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p \
 In file included from optiboot.S:254:0:
 pin_defs.h:195:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-Complex Baudrate measurement implemented in optiboot! (4-bit)
-UART Minimum 3898 Baud, Error surely less than 4% up to 160.0 kBaud
+Complex Baudrate measurement implemented in optiboot! (4-bit, CLK/8)
+UART Minimum 488 Baud, Error surely less than 4% up to 160.0 kBaud
 --------------------------------------------------------------------------------
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
@@ -1105,6 +1123,15 @@ of the clock frequency is copied to a special IO register with the name OSCCAL
 at every start of the processor.
 The Optiboot bootloader can use the option OSCCAL\_CORR to correct a
 known residual error of the clock frequency.
+
+If the actual clock rate is uncritical for your application and you
+can spend the additional memory space to the bootloader,
+you can also use the automatic baud rate selection of optiboot.
+The automatic baud rate selection is implemented by the optiboot bootloader,
+if you select a baud rate below 100 at the generation time.
+You can find more details about the automatic baud rate selection in
+subsection~\ref{sec:autobaud} at page~\pageref{sec:autobaud}.
+
 In the following subsections I have analysed the correction of the
 RC clock frequency for some AVR examples.
 
@@ -1864,3 +1891,29 @@ at90pwm3  &        16M & 0xE3  & 38.4k &  -10  & 16.79M &  4  & 15.79M  & 2  & 1
 \end{table}
 
 The AT90PWM2B can not use the serial interface without a OSCCAL correction.
+
+\subsection{RC-Generators check of the AT90CAN family}
+
+I have examined only one copy of a AT90CAN32 and AT90CAN132.
+Both AT90CAN examples can only select one internal \(8~MHz\) RC-oscillator.
+All other choises require an external crystal or external clock generator.
+The clock frequency can optionally be divided by the factor 8,
+so that also a \(1~MHz\) operation is possible with the internal clock.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+   Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+at90can32 &         8M & 0xE2  & 38.4k &  0  & 8379k & 6  & 7920k  & 5  & 8019k \\
+    \hline
+at90can128 &         8M & 0xE2  & 38.4k &  0  & 8303k &  3  & 7922k  & 2  & 8057k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the AT90CAN family}
+  \label{tab:t90canfreq}
+\end{table}

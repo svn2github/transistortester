@@ -4,14 +4,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:592:7: warning: #warning "BAUD_RATE error greater than -2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -19,7 +15,7 @@ Boot Loader start address: 0x3C00 = 15360
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_lilypad.lst
@@ -30,14 +26,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexC6 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:592:7: warning: #warning "BAUD_RATE error greater than -2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -45,7 +37,7 @@ Boot Loader start address: 0x3C00 = 15360
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_pro_8MHz.lst
@@ -56,14 +48,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDD -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -71,7 +59,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_pro_16MHz.lst
@@ -82,13 +70,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=20000000 \
         -DHFUSE=hexDC -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 113636, UBRR = 21, Error=-1.35%
+BAUD RATE CHECK: Desired: 115200,  Real: 113636, UBRR = 21, Error=-1.35\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -96,7 +81,7 @@ Boot Loader start address: 0x3C00 = 15360
 20000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_pro_20Mhz.lst
@@ -107,19 +92,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:592:7: warning: #warning "BAUD_RATE error greater than -2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -127,7 +103,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega328_pro_8MHz.lst
@@ -138,12 +114,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -151,29 +125,23 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    614	      0	      0	    614	    266	optiboot.elf
+    624	      0	      0	    624	    270	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_sanguino.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_sanguino.hex
  
 ***** make mega128 ******
-make: *** Keine Regel, um „mega128“ zu erstellen.  Schluss.
  
 ***** make luminet ******
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=1000000 \
         -DHFUSE=hexDD -DLFUSE=hex62 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:230:5: warning: #warning "SOFT_UART use Pin A3 as RX" [-Wcpp]
-pin_defs.h:238:5: warning: #warning "SOFT_UART use Pin A2 as TX" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 9600, SoftUART_Real: 9615.3, Delay: 81*1, Error=.16%
+BAUD RATE CHECK: Desired: 9600,  SoftUART_Real: 9615.3, Delay: 81*1, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1D40 = 7488
 ###########################################
@@ -191,14 +159,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -206,7 +170,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_diecimila.lst
@@ -217,12 +181,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -230,7 +192,7 @@ Boot Loader start address: 0x1FC00 = 130048
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    624	      0	      0	    624	    270	optiboot.elf
+    634	      0	      0	    634	    27a	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_bobuino.lst
@@ -241,11 +203,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 1000000, Real: 1000000, UBRR = 1, Error=0%
+BAUD RATE CHECK: Desired: 1000000,  Real: 1000000, UBRR = 1, Error=0\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -253,7 +214,7 @@ Boot Loader start address: 0x1FC00 = 130048
 16000000 Hz operation with Baudrate 1000000 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    624	      0	      0	    624	    270	optiboot.elf
+    634	      0	      0	    634	    27a	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_wildfirev2.lst
@@ -264,20 +225,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=11059200 \
         -DHFUSE=hexCE -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 115200, UBRR = 11, Error=0%
+BAUD RATE CHECK: Desired: 115200,  Real: 115200, UBRR = 11, Error=0\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -285,7 +236,7 @@ Boot Loader start address: 0x7C00 = 31744
 11059200 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    564	      0	      0	    564	    234	optiboot.elf
+    574	      0	      0	    574	    23e	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega32.lst
@@ -296,14 +247,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -311,7 +258,7 @@ Boot Loader start address: 0x1C00 = 7168
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega88p.lst
@@ -322,14 +269,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -337,7 +280,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega168p.lst
@@ -350,13 +293,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -364,7 +304,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 57600 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_xplained168pb.lst
@@ -378,17 +318,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -396,7 +329,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 57600 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_xplained328p.lst
@@ -410,17 +343,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600, Real: 57142, UBRR = 34, Error=-.79%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -428,7 +354,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 57600 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_xplained328pb.lst
@@ -440,17 +366,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnosti
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexCC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -458,7 +377,7 @@ Boot Loader start address: 0x1C00 = 7168
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    560	      0	      0	    560	    230	optiboot.elf
+    570	      0	      0	    570	    23a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega8.lst
@@ -469,14 +388,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -484,7 +399,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
@@ -495,19 +410,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -515,7 +421,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
@@ -526,19 +432,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -546,7 +443,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
@@ -557,14 +454,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:188:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -572,7 +465,7 @@ Boot Loader start address: 0x1C00 = 7168
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega88.lst
@@ -583,14 +476,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -598,7 +487,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega164a.lst
@@ -609,14 +498,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -624,7 +509,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega164p.lst
@@ -635,19 +520,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -655,7 +531,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    584	      0	      0	    584	    248	optiboot.elf
+    594	      0	      0	    594	    252	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega324p.lst
@@ -666,14 +542,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -681,7 +553,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    614	      0	      0	    614	    266	optiboot.elf
+    624	      0	      0	    624	    270	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega644.lst
@@ -692,14 +564,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -707,7 +575,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    614	      0	      0	    614	    266	optiboot.elf
+    624	      0	      0	    624	    270	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega644p.lst
@@ -718,14 +586,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9F -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -733,7 +597,7 @@ Boot Loader start address: 0x1FC00 = 130048
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    624	      0	      0	    624	    270	optiboot.elf
+    634	      0	      0	    634	    27a	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
@@ -744,14 +608,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -759,7 +619,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega165a.lst
@@ -770,14 +630,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -785,7 +641,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega165p.lst
@@ -796,19 +652,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -816,7 +663,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    590	      0	      0	    590	    24e	optiboot.elf
+    600	      0	      0	    600	    258	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega325.lst
@@ -827,19 +674,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -847,7 +685,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    590	      0	      0	    590	    24e	optiboot.elf
+    600	      0	      0	    600	    258	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega325p.lst
@@ -858,19 +696,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -878,7 +707,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega3250.lst
@@ -889,19 +718,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-In file included from optiboot.c:257:0:
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -909,7 +729,7 @@ Boot Loader start address: 0x7C00 = 31744
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega3250p.lst
@@ -920,14 +740,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -935,7 +751,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    620	      0	      0	    620	    26c	optiboot.elf
+    630	      0	      0	    630	    276	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega645.lst
@@ -946,14 +762,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -961,7 +773,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    620	      0	      0	    620	    26c	optiboot.elf
+    630	      0	      0	    630	    276	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega645p.lst
@@ -972,14 +784,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -987,7 +795,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    622	      0	      0	    622	    26e	optiboot.elf
+    632	      0	      0	    632	    278	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega6450.lst
@@ -998,13 +806,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:707:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -1012,7 +817,7 @@ Boot Loader start address: 0x3C00 = 15360
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    596	      0	      0	    596	    254	optiboot.elf
+    606	      0	      0	    606	    25e	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega169.lst
@@ -1023,13 +828,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:707:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -1037,7 +839,7 @@ Boot Loader start address: 0x3C00 = 15360
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    590	      0	      0	    590	    24e	optiboot.elf
+    600	      0	      0	    600	    258	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega169p.lst
@@ -1048,17 +850,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1066,7 +861,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    590	      0	      0	    590	    24e	optiboot.elf
+    600	      0	      0	    600	    258	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega329.lst
@@ -1077,17 +872,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1095,7 +883,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    590	      0	      0	    590	    24e	optiboot.elf
+    600	      0	      0	    600	    258	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega329p.lst
@@ -1106,17 +894,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1124,7 +905,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega3290.lst
@@ -1135,17 +916,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1153,7 +927,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    592	      0	      0	    592	    250	optiboot.elf
+    602	      0	      0	    602	    25a	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega3290p.lst
@@ -1164,13 +938,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1178,7 +949,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    620	      0	      0	    620	    26c	optiboot.elf
+    630	      0	      0	    630	    276	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega649.lst
@@ -1189,13 +960,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1203,7 +971,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    622	      0	      0	    622	    26e	optiboot.elf
+    632	      0	      0	    632	    278	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega649p.lst
@@ -1214,13 +982,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1228,7 +993,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    622	      0	      0	    622	    26e	optiboot.elf
+    632	      0	      0	    632	    278	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega6490.lst
@@ -1239,13 +1004,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagn
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:752:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1253,7 +1015,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    622	      0	      0	    622	    26e	optiboot.elf
+    632	      0	      0	    632	    278	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega6490p.lst
@@ -1264,14 +1026,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:782:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1279,7 +1037,7 @@ Boot Loader start address: 0xFC00 = 64512
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    624	      0	      0	    624	    270	optiboot.elf
+    634	      0	      0	    634	    27a	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega640.lst
@@ -1290,14 +1048,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:782:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1305,7 +1059,7 @@ Boot Loader start address: 0x1FC00 = 130048
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    626	      0	      0	    626	    272	optiboot.elf
+    636	      0	      0	    636	    27c	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega1280.lst
@@ -1316,14 +1070,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:782:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1331,28 +1081,23 @@ Boot Loader start address: 0x1FC00 = 130048
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    628	      0	      0	    628	    274	optiboot.elf
+    638	      0	      0	    638	    27e	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega1281.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1281.hex
  
 ***** make atmega2560 ******
-make: *** Keine Regel, um „atmega2560“ zu erstellen.  Schluss.
  
 ***** make atmega2561 ******
 avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:782:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3FC00 = 261120
 ###########################################
@@ -1360,7 +1105,7 @@ Boot Loader start address: 0x3FC00 = 261120
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    682	      0	      0	    682	    2aa	optiboot.elf
+    694	      0	      0	    694	    2b6	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega2561.lst
@@ -1371,14 +1116,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexCE -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:652:4: warning: #warning "LED bit is set to default B7" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:592:7: warning: #warning "BAUD_RATE error greater than -2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1386,7 +1127,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    612	      0	      0	    612	    264	optiboot.elf
+    622	      0	      0	    622	    26e	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_atmega64.lst
@@ -1397,17 +1138,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -1415,7 +1149,7 @@ Boot Loader start address: 0x3C00 = 15360
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    556	      0	      0	    556	    22c	optiboot.elf
+    566	      0	      0	    566	    236	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega16.lst
@@ -1426,16 +1160,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:680:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -1443,7 +1171,7 @@ Boot Loader start address: 0x3C00 = 15360
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    560	      0	      0	    560	    230	optiboot.elf
+    570	      0	      0	    570	    23a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega162.lst
@@ -1454,14 +1182,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=4000000 \
         -DHFUSE=hexFC -DLFUSE=hex9A \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:680:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:390:5: warning: #warning "NRWWSTART for ATmega163 must be unset or zero!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 12, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3C00 = 15360
 ###########################################
@@ -1469,7 +1193,7 @@ Boot Loader start address: 0x3C00 = 15360
 4000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    540	      0	      0	    540	    21c	optiboot.elf
+    550	      0	      0	    550	    226	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega163.lst
@@ -1480,20 +1204,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=4000000 \
         -DHFUSE=hex9E -DLFUSE=hexFA \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:680:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 12, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1501,7 +1215,7 @@ Boot Loader start address: 0x7C00 = 31744
 4000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    572	      0	      0	    572	    23c	optiboot.elf
+    582	      0	      0	    582	    246	optiboot.elf
 Requires 2 Boot Pages, 512 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_atmega323.lst
@@ -1512,17 +1226,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1530,7 +1237,7 @@ Boot Loader start address: 0x1C00 = 7168
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    560	      0	      0	    560	    230	optiboot.elf
+    570	      0	      0	    570	    23a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega8515.lst
@@ -1541,17 +1248,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:487:4: warning: #warning "LED bit is set to default B0" [-Wcpp]
-optiboot.c:425:0: warning: "UART_SRRH" redefined
-In file included from optiboot.c:257:0:
-pin_defs.h:924:0: note: this is the location of the previous definition
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 117647, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1559,7 +1259,7 @@ Boot Loader start address: 0x1C00 = 7168
 16000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    560	      0	      0	    560	    230	optiboot.elf
+    570	      0	      0	    570	    23a	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_atmega8535.lst
@@ -1570,25 +1270,19 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:220:4: warning: #warning "LED bit is set to default A4" [-Wcpp]
-pin_defs.h:230:5: warning: #warning "SOFT_UART use Pin A3 as RX" [-Wcpp]
-pin_defs.h:238:5: warning: #warning "SOFT_UART use Pin A2 as TX" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115942, Delay: 46*1, Error=.64%
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
-Boot Loader start address: 0x1D40 = 7488
+Boot Loader start address: 0x1D00 = 7424
 ###########################################
 
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    702	      0	      0	    702	    2be	optiboot.elf
-Requires 11 Flash Pages, 64 Bytes each
+    712	      0	      0	    712	    2c8	optiboot.elf
+Requires 12 Flash Pages, 64 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny84.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny84.hex
  
@@ -1597,54 +1291,82 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:338:4: warning: #warning "LED bit is set to default B2" [-Wcpp]
-pin_defs.h:348:5: warning: #warning "SOFT_UART use Pin B0 as RX" [-Wcpp]
-pin_defs.h:354:5: warning: #warning "SOFT_UART use Pin B1 as TX" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
-optiboot.c: In function 't1_delay':
-optiboot.c:1316:4: warning: #warning "no 16-Bit counter, no 16-Bit counter1" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, SoftUART_Real: 38461, Delay: 185*1, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  SoftUART_Real: 38461, Delay: 185*1, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
-Boot Loader start address: 0x1D40 = 7488
+Boot Loader start address: 0x1D00 = 7424
 ###########################################
 
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    698	      0	      0	    698	    2ba	optiboot.elf
-Requires 11 Flash Pages, 64 Bytes each
+    708	      0	      0	    708	    2c4	optiboot.elf
+Requires 12 Flash Pages, 64 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny85.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny85.hex
  
-***** make attiny88 ******
-avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+***** make attiny87 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
-        -DHFUSE=hexDD -DLFUSE=hexEE \
-        -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:306:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:316:5: warning: #warning "SOFT_UART use Pin D0 as RX" [-Wcpp]
-pin_defs.h:322:5: warning: #warning "SOFT_UART use Pin D1 as TX" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
+        -DHFUSE=hexDD -DLFUSE=hexE2 \
+        -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.c
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115942, Delay: 46*1, Error=.64%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
-Boot Loader start address: 0x1D40 = 7488
+Boot Loader start address: 0x1D00 = 7424
 ###########################################
 
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
     700	      0	      0	    700	    2bc	optiboot.elf
-Requires 11 Flash Pages, 64 Bytes each
+Requires 6 Flash Pages, 128 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny87.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny87.hex
+ 
+***** make attiny167 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexDD -DLFUSE=hexE2 \
+        -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.c
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x3D00 = 15616
+###########################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    672	      0	      0	    672	    2a0	optiboot.elf
+Requires 6 Flash Pages, 128 Bytes each
+avr-objdump -h -S optiboot.elf > optiboot_attiny167.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny167.hex
+ 
+***** make attiny88 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexDD -DLFUSE=hexEE \
+        -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x1D00 = 7424
+###########################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    710	      0	      0	    710	    2c6	optiboot.elf
+Requires 12 Flash Pages, 64 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny88.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny88.hex
  
@@ -1653,16 +1375,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexEF \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:257:4: warning: #warning "LED bit is set to default A0" [-Wcpp]
-pin_defs.h:1193:5: warning: #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:592:7: warning: #warning "BAUD_RATE error greater than -2%" [-Wcpp]
-optiboot.c:988:5: warning: #warning "4 page erase for t841/441" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, Real: 111111, UBRR = 8, Error=-3.54%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1D40 = 7488
 ###########################################
@@ -1670,7 +1386,7 @@ Boot Loader start address: 0x1D40 = 7488
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    694	      0	      0	    694	    2b6	optiboot.elf
+    704	      0	      0	    704	    2c0	optiboot.elf
 Requires 44 Flash Pages, 16 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny841.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny841.hex
@@ -1680,27 +1396,19 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:371:4: warning: #warning "LED bit is set to default A0" [-Wcpp]
-pin_defs.h:381:5: warning: #warning "SOFT_UART use Pin B0 as RX" [-Wcpp]
-pin_defs.h:387:5: warning: #warning "SOFT_UART use Pin B1 as TX" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
-optiboot.c: In function 't1_delay':
-optiboot.c:1303:4: warning: #warning "16-Bit counter 0 is used instead of counter1" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200, SoftUART_Real: 115942, Delay: 46*1, Error=.64%
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
-Boot Loader start address: 0x1D40 = 7488
+Boot Loader start address: 0x1D00 = 7424
 ###########################################
 
 8000000 Hz operation with Baudrate 115200 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    704	      0	      0	    704	    2c0	optiboot.elf
-Requires 11 Flash Pages, 64 Bytes each
+    714	      0	      0	    714	    2ca	optiboot.elf
+Requires 12 Flash Pages, 64 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny861.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny861.hex
  
@@ -1709,16 +1417,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:438:4: warning: #warning "LED bit is set to default B1" [-Wcpp]
-pin_defs.h:1193:5: warning: #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-optiboot.c:985:5: warning: #warning "4 page erase for t1634" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600, Real: 58823, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3D00 = 15616
 ###########################################
@@ -1726,7 +1428,7 @@ Boot Loader start address: 0x3D00 = 15616
 8000000 Hz operation with Baudrate 57600 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    658	      0	      0	    658	    292	optiboot.elf
+    668	      0	      0	    668	    29c	optiboot.elf
 Requires 24 Flash Pages, 32 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny1634.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny1634.hex
@@ -1736,15 +1438,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE4 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:402:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-pin_defs.h:1190:5: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
-optiboot.c: In function 'main':
-optiboot.c:599:7: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600, Real: 58823, UBRR = 16, Error=2.12%
+BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xD40 = 3392
 ###########################################
@@ -1752,7 +1449,7 @@ Boot Loader start address: 0xD40 = 3392
 8000000 Hz operation with Baudrate 57600 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    668	      0	      0	    668	    29c	optiboot.elf
+    678	      0	      0	    678	    2a6	optiboot.elf
 Requires 11 Flash Pages, 64 Bytes each
 avr-objdump -h -S optiboot.elf > optiboot_attiny4313.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny4313.hex
@@ -1762,17 +1459,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:532:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:935:43: note: in expansion of macro 'NRWWSTART'
-pin_defs.h:98:33: warning: integer overflow in expression [-Woverflow]
-optiboot.c:995:28: note: in expansion of macro 'NRWWSTART'
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1780,7 +1470,7 @@ Boot Loader start address: 0x7C00 = 31744
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    630	      0	      0	    630	    276	optiboot.elf
+    640	      0	      0	    640	    280	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_at90can32.lst
@@ -1791,13 +1481,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:532:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1805,7 +1492,7 @@ Boot Loader start address: 0xFC00 = 64512
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    630	      0	      0	    630	    276	optiboot.elf
+    640	      0	      0	    640	    280	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_at90can64.lst
@@ -1816,13 +1503,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagno
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:532:4: warning: #warning "LED bit is set to default B5" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1830,7 +1514,7 @@ Boot Loader start address: 0x1FC00 = 130048
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    634	      0	      0	    634	    27a	optiboot.elf
+    644	      0	      0	    644	    284	optiboot.elf
 Requires 1 Boot Pages, 1024 Bytes each
 BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_at90can128.lst
@@ -1841,13 +1525,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:576:4: warning: #warning "LED bit is set to default D2" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1855,7 +1536,7 @@ Boot Loader start address: 0x1C00 = 7168
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    598	      0	      0	    598	    256	optiboot.elf
+    608	      0	      0	    608	    260	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_at90pwm2.lst
@@ -1866,13 +1547,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:576:4: warning: #warning "LED bit is set to default D2" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1880,7 +1558,7 @@ Boot Loader start address: 0x1C00 = 7168
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    598	      0	      0	    598	    256	optiboot.elf
+    608	      0	      0	    608	    260	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_at90pwm2b.lst
@@ -1891,13 +1569,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnost
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:612:4: warning: #warning "LED bit is set to default C1" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1905,7 +1580,7 @@ Boot Loader start address: 0x1C00 = 7168
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    598	      0	      0	    598	    256	optiboot.elf
+    608	      0	      0	    608	    260	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_at90pwm3.lst
@@ -1916,13 +1591,10 @@ avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnos
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.c
-In file included from optiboot.c:257:0:
-pin_defs.h:612:4: warning: #warning "LED bit is set to default C1" [-Wcpp]
-optiboot.c: In function 'main':
-<built-in>: warning: function declared 'noreturn' has a 'return' statement
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400, Real: 38461, UBRR = 25, Error=.16%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
 --------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1C00 = 7168
 ###########################################
@@ -1930,7 +1602,7 @@ Boot Loader start address: 0x1C00 = 7168
 8000000 Hz operation with Baudrate 38400 configured.
 avr-size optiboot.elf
    text	   data	    bss	    dec	    hex	filename
-    598	      0	      0	    598	    256	optiboot.elf
+    608	      0	      0	    608	    260	optiboot.elf
 Requires 4 Boot Pages, 256 Bytes each
 BOOTSZ=1
 avr-objdump -h -S optiboot.elf > optiboot_at90pwm3b.lst

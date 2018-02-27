@@ -102,39 +102,39 @@ optiboot:
 	ldi	r19, hi8(RAMSTART)	; 
     7e22:	31 e0       	ldi	r19, 0x01	; 1
    #undef UART_MODE_2x
- 	ldi	r24, (0<<U2X0)		; single speed mode
+	ldi	r24, UART_SCALER16	; single speed mode (0<<U2X)
   #else
    #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
    #define UART_MODE_2x
-	ldi	r24, (1<<U2X0)		; double speed mode
+	ldi	r24, UART_SCALER8	; double speed mode (1<<U2X)
     7e24:	82 e0       	ldi	r24, 0x02	; 2
   #endif		/* BAUD_DIV > 255 */
-	AOUT	UART_SRA, r24
+	AOUT	UART_CNTL, r24		; set scaler to 8 or 16
     7e26:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
-  #include "report_baud_div.h"
-
-  #ifdef UART_ONE_WIRE
-	ldi	r24, (1<<RXEN0)		;0x10	
-  #else
-	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-    7e2a:	88 e1       	ldi	r24, 0x18	; 24
-  #endif
-	AOUT	UART_SRB, r24
-    7e2c:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
 	AOUT	UART_SRC, r25		; without (1<<URSEL) we write the upper BAUD_DIV
    #endif
   #else
     /* no ATmega8_16_32 */
-   #ifndef __AVR_ATmega163__
+   #if !defined(__AVR_ATmega163__) && !defined(__AVR_ATtiny87__) && !defined(__AVR_ATtiny167__)
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
-    7e30:	96 e0       	ldi	r25, 0x06	; 6
+    7e2a:	96 e0       	ldi	r25, 0x06	; 6
 	AOUT	UART_SRC, r25
-    7e32:	90 93 c2 00 	sts	0x00C2, r25	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
+    7e2c:	90 93 c2 00 	sts	0x00C2, r25	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
    #endif
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
-    7e36:	90 e1       	ldi	r25, 0x10	; 16
+    7e30:	90 e1       	ldi	r25, 0x10	; 16
 	AOUT	UART_SRRL, r25
-    7e38:	90 93 c4 00 	sts	0x00C4, r25	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
+    7e32:	90 93 c4 00 	sts	0x00C4, r25	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
+   #endif
+  #endif	/* defined(UCSRC) && defined(URSEL) */
+  #ifdef UART_ONE_WIRE
+	ldi	r24, UART_ENABLE_RX
+  #else
+	ldi	r24, (UART_ENABLE_RX|UART_ENABLE_TX)
+    7e36:	88 e1       	ldi	r24, 0x18	; 24
+  #endif
+	AOUT	UART_SRB, r24
+    7e38:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
 
 #if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
@@ -682,7 +682,7 @@ no_to:
 	/* For normal serial transfer we wait until the buffer UDR is free. */
 	/* After loading the buffer we return immediately to caller */
 ptch1:
-	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
+	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
     7f5a:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
       	sbrs	r25, UDRE0
     7f5e:	95 ff       	sbrs	r25, 5
@@ -705,12 +705,15 @@ getch:
 	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
-	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
+	AIN	r24, UART_STATUS	; if (UART_SRA & _BV(RXC0)) {
     7f6a:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
      	sbrs	r24, RXC0
     7f6e:	87 ff       	sbrs	r24, 7
        	rjmp	gtch1			; no data received, wait
     7f70:	fc cf       	rjmp	.-8      	; 0x7f6a <getch>
+#if UART_STATUS != UART_ERRSTAT
+	AIN	r24, UART_ERRSTAT
+#endif
       	sbrs	r24, FE0		; if (!(UART_SRA & _BV(FE0))) {
     7f72:	84 ff       	sbrs	r24, 4
      	wdr		; watchdogReset();

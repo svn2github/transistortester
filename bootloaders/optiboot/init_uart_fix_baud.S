@@ -8,13 +8,13 @@
    #endif // baud rate slow check
    #define BAUD_ACTUAL (F_CPU/(16 * ((BAUD_DIV)+1)))
    #undef UART_MODE_2x
- 	ldi	r24, (0<<U2X0)		; single speed mode
+	ldi	r24, UART_SCALER16	; single speed mode (0<<U2X)
   #else
    #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
    #define UART_MODE_2x
-	ldi	r24, (1<<U2X0)		; double speed mode
+	ldi	r24, UART_SCALER8	; double speed mode (1<<U2X)
   #endif		/* BAUD_DIV > 255 */
-	AOUT	UART_SRA, r24
+	AOUT	UART_CNTL, r24		; set scaler to 8 or 16
 
   #if BAUD_ACTUAL <= BAUD_RATE
     #define BAUD_ERROR (( 100*(BAUD_RATE - BAUD_ACTUAL) ) / BAUD_RATE)
@@ -37,13 +37,6 @@
     #error "Unachievable baud rate (too fast) BAUD_RATE"
   #endif // baud rate fastn check
   #include "report_baud_div.h"
-
-  #ifdef UART_ONE_WIRE
-	ldi	r24, (1<<RXEN0)		;0x10	
-  #else
-	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-  #endif
-	AOUT	UART_SRB, r24
   #if defined(UART_SRC) && defined(UART_SEL)
 	; version for m8, m16, m32 for example (with double function UCSRC)
 	ldi	r25, (1<<UART_SEL)|(1<<UCSZ01)|(1<<UCSZ00)	; config UART
@@ -57,7 +50,7 @@
    #endif
   #else
     /* no ATmega8_16_32 */
-   #ifndef __AVR_ATmega163__
+   #if !defined(__AVR_ATmega163__) && !defined(__AVR_ATtiny87__) && !defined(__AVR_ATtiny167__)
 	ldi	r25, (1<<UCSZ00)|(1<<UCSZ01)	;0x06
 	AOUT	UART_SRC, r25
    #endif
@@ -68,3 +61,12 @@
 	AOUT	UART_SRRH, r25
    #endif
   #endif	/* defined(UCSRC) && defined(URSEL) */
+  #ifdef UART_ONE_WIRE
+	ldi	r24, UART_ENABLE_RX
+  #else
+	ldi	r24, (UART_ENABLE_RX|UART_ENABLE_TX)
+  #endif
+	AOUT	UART_SRB, r24
+  #ifdef LINDAT
+  	AOUT	LINDAT, r0	;Write first data to start, I had found no other way to set LRXOK in LINSIR	
+  #endif

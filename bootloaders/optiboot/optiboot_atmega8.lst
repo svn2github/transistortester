@@ -115,36 +115,39 @@ optiboot:
 	ldi	r19, hi8(RAMSTART)	; 
     1e2a:	30 e0       	ldi	r19, 0x00	; 0
    #undef UART_MODE_2x
- 	ldi	r24, (0<<U2X0)		; single speed mode
+	ldi	r24, UART_SCALER16	; single speed mode (0<<U2X)
   #else
    #define BAUD_ACTUAL (F_CPU/(8 * ((BAUD_DIV)+1)))
    #define UART_MODE_2x
-	ldi	r24, (1<<U2X0)		; double speed mode
+	ldi	r24, UART_SCALER8	; double speed mode (1<<U2X)
     1e2c:	82 e0       	ldi	r24, 0x02	; 2
   #endif		/* BAUD_DIV > 255 */
-	AOUT	UART_SRA, r24
+	AOUT	UART_CNTL, r24		; set scaler to 8 or 16
     1e2e:	8b b9       	out	0x0b, r24	; 11
+    #error "Unachievable baud rate (too fast) BAUD_RATE"
+  #endif // baud rate fastn check
   #include "report_baud_div.h"
-
-  #ifdef UART_ONE_WIRE
-	ldi	r24, (1<<RXEN0)		;0x10	
-  #else
-	ldi	r24, (1<<RXEN0)|(1<<TXEN0)	;0x18	
-    1e30:	88 e1       	ldi	r24, 0x18	; 24
-  #endif
-	AOUT	UART_SRB, r24
-    1e32:	8a b9       	out	0x0a, r24	; 10
   #if defined(UART_SRC) && defined(UART_SEL)
 	; version for m8, m16, m32 for example (with double function UCSRC)
 	ldi	r25, (1<<UART_SEL)|(1<<UCSZ01)|(1<<UCSZ00)	; config UART
-    1e34:	96 e8       	ldi	r25, 0x86	; 134
+    1e30:	96 e8       	ldi	r25, 0x86	; 134
 	AOUT	UART_SRC, r25
-    1e36:	90 bd       	out	0x20, r25	; 32
+    1e32:	90 bd       	out	0x20, r25	; 32
   	; This processor family has no double register for the 12-bit scaler
 	ldi	r25, lo8(BAUD_DIV)	; 0x10
-    1e38:	90 e1       	ldi	r25, 0x10	; 16
+    1e34:	90 e1       	ldi	r25, 0x10	; 16
 	AOUT	UART_SRRL, r25
-    1e3a:	99 b9       	out	0x09, r25	; 9
+    1e36:	99 b9       	out	0x09, r25	; 9
+   #endif
+  #endif	/* defined(UCSRC) && defined(URSEL) */
+  #ifdef UART_ONE_WIRE
+	ldi	r24, UART_ENABLE_RX
+  #else
+	ldi	r24, (UART_ENABLE_RX|UART_ENABLE_TX)
+    1e38:	88 e1       	ldi	r24, 0x18	; 24
+  #endif
+	AOUT	UART_SRB, r24
+    1e3a:	8a b9       	out	0x0a, r24	; 10
 
 #if (LED_START_FLASHES) != 0
  ; Flash the LED is requested
@@ -690,7 +693,7 @@ no_to:
 	/* For normal serial transfer we wait until the buffer UDR is free. */
 	/* After loading the buffer we return immediately to caller */
 ptch1:
-	AIN	r25, UART_SRA	; while (!(UART_SRA & _BV(UDRE0)));
+	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
     1f5a:	9b b1       	in	r25, 0x0b	; 11
       	sbrs	r25, UDRE0
     1f5c:	95 ff       	sbrs	r25, 5
@@ -713,12 +716,15 @@ getch:
 	ASBI	LED_PORT, LEDbit
  #endif
 gtch1:
-	AIN	r24, UART_SRA		; if (UART_SRA & _BV(RXC0)) {
+	AIN	r24, UART_STATUS	; if (UART_SRA & _BV(RXC0)) {
     1f66:	8b b1       	in	r24, 0x0b	; 11
      	sbrs	r24, RXC0
     1f68:	87 ff       	sbrs	r24, 7
        	rjmp	gtch1			; no data received, wait
     1f6a:	fd cf       	rjmp	.-6      	; 0x1f66 <getch>
+#if UART_STATUS != UART_ERRSTAT
+	AIN	r24, UART_ERRSTAT
+#endif
       	sbrs	r24, FE0		; if (!(UART_SRA & _BV(FE0))) {
     1f6c:	84 ff       	sbrs	r24, 4
      	wdr		; watchdogReset();
