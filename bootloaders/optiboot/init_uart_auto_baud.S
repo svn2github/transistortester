@@ -8,7 +8,7 @@
  ; use register r10:r11, r12:r13, r22:r23, r24:r25, r26:r27, r28:r29
 
 ; Settings for dignostic
-//#define SHOW_BAUD 13		/* output of LSB Baud at PORTA if 1, PORTB if 2 PORTC if 3 */
+//#define SHOW_BAUD 01		/* output of LSB Baud at PORTA if 1, PORTB if 2 PORTC if 3 */
 ;				/* 1,2,3 show the LSB UBRR setting for hardware UART */
 ;				/*  and the LSB bits for software UART delay loop */
 ;				/* 11,12,13 show the LSB bits of the time measurement */
@@ -33,6 +33,9 @@
 #endif
 
 next_try:
+#if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit)
+	ASBI	LED_PORT, LEDbit
+#endif
 	wdr				; watchdog timer reset
 wt_rx0low:
 #if INVERSE_UART > 0
@@ -427,9 +430,9 @@ wt_rx1bs:
 	rjmp	wt_rx1bs
 	AIN	r26, CNT16_CNTL		; read counter after 'S00001100', full 8 Bit transmission with Start bit
 	AIN	r27, CNT16_CNTH
+
 ;	All time measurements are done for full check
 ;       =============================================
-
 	movw	r24, r26
 	sub	r24, r10		; S00001100-S0000 = 1100 time
 	sbc	r25, r11
@@ -443,7 +446,11 @@ wt_rx1bs:
  #ifndef TWO_BIT_MEASURE
 	; full check, we use a four bit time (1100) for baud-rate calculation.
 	movw	r28, r12		; S000011
-	adiw	r28, 4			; 
+  #ifdef FULLSPEED_CTR
+	adiw	r28, 32			; 
+  #else
+	adiw	r28, 4
+  #endif
 	sub	r28, r10		; build time diff  S000011 - S0000 = 11
 	sbc	r29, r11
 	cp	r26, r28		; 11 + d > 00 ?
@@ -499,19 +506,8 @@ divlop2:
 	; ((four_bit_time + 2) / 4) - 1  is equal to
 	; (four_bit_time - 2) / 4 
    #ifdef FULLSPEED_CTR
-;	sbiw	r24, 4		; (four_bit_time - 4) / 32
-;	sbiw	r24, 6		; (four_bit_time - 6) / 32
-;	sbiw	r24, 8		; (four_bit_time - 8) / 32
-;	sbiw	r24, 10		; (four_bit_time - 10) / 32
-;	sbiw	r24, 12		; (four_bit_time - 12) / 32
-;	sbiw	r24, 14		; (four_bit_time - 14) / 32
 ;	sbiw	r24, 16		; (four_bit_time - 16) / 32
-;	sbiw	r24, 18		; (four_bit_time - 18) / 32, faster selection than correct round up
-;	sbiw	r24, 20		; (four_bit_time - 20) / 32, faster selection than correct round up
-;	sbiw	r24, 22		; (four_bit_time - 22) / 32, faster selection than correct round up
 	sbiw	r24, 24		; (four_bit_time - 24) / 32, faster selection than correct round up
-;	sbiw	r24, 26		; (four_bit_time - 26) / 32, faster selection than correct round up
-;	sbiw	r24, 28		; (four_bit_time - 28) / 32, faster selection than correct round up
 	ldi	r28, 5		; divide by 32
 div4lop2:
 	lsr	r25		; /2
@@ -643,6 +639,10 @@ div2lop2:
  #ifdef LINDAT
 	AOUT	LINDAT, r1
  #endif
+#endif
+
+#if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit)
+	ACBI	LED_PORT, LEDbit
 #endif
 
 #if TEST_OUTPUT == 1

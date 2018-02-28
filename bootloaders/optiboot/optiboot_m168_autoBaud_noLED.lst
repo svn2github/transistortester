@@ -96,11 +96,11 @@ optiboot:
     3e20:	31 e0       	ldi	r19, 0x01	; 1
 
 00003e22 <next_try>:
- #undef UART_SRRH
- #define UART_SRRH UART_SRC
-#endif
 
 next_try:
+#if ((LED_DATA_FLASH & 0x01) > 0) && defined(LED_PORT) && defined(LEDbit)
+	ASBI	LED_PORT, LEDbit
+#endif
 	wdr				; watchdog timer reset
     3e22:	a8 95       	wdr
 

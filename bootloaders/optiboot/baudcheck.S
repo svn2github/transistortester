@@ -89,6 +89,7 @@ $ECHO_CMD ----------------------------------------------------------------------
   #define TWO_BIT_MEASURE
   #define FULL_SPEED_CLK
  #else
+  $ECHO_CMD "Complex Baudrate measurement implemented in optiboot! (4-bit, CLK/1)"
   #undef TWO_BIT_MEASURE
   #define FULL_SPEED_CLK
  #endif
