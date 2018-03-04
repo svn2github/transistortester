@@ -1601,7 +1601,8 @@ because a small OSCCAL correction results to a relatively strong frequency chang
 The ATtiny84 family can select the \(128kHz\) clock of the watch dog additional
 to the \(8MHz\) internal RC-generator as the main clock.
 But the \(128kHz\) clock can not be adjusted. If you use this clock,
-you can only correct the generated baud rate by selecting another baud rate value.
+you can only correct the generated baud rate by selecting another baud rate value
+or you can use the automatic baud rate selection.
 For a ATtiny24a I have checked the generated baud rate. Instead of the selected
 2400 Baud I could measure only 2170 Baud.
 This results to a frequency error of about 9.6\%, which is much too high for
@@ -1622,7 +1623,7 @@ at the \(8Mhz\) operation for the checked processors.
     \hline
 attiny84 &          8M & 0xE2  & 19.2k &  -6  & 8453k & 14  & 7673k  & 5  & 8019k \\
     \hline
-attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & 7  & 7984k \\
+attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & -7  & 7984k \\
     \hline
 attiny24a &         8M & 0xE2  & 19.2k &  -4  & 8388k & 11  & 7685k  & 4  & 7992k \\
     \hline
@@ -1639,7 +1640,8 @@ a \(128kHz\) clock of the watchdog circuit.
 The \(6.4MHz\) RC-generator clock is allways scaled to \(1.6Mhz\) for
 the processor clock.
 The \(128kHz\) clock can not be calibrated. If you wish to use this clock,
-you can adjust the baud rate only by selecting a corrected baud rate value.
+you can adjust the baud rate only by selecting a corrected baud rate value
+or you can use the automatic baud rate selection.
 The first table~\ref{tab:tiny85freq8} shows the results of the frequeny measurement
 at the \(8Mhz\) operation for the checked processors.
 
@@ -1718,12 +1720,12 @@ As expected, these results do not differ significantly from the \(8MHz\) results
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-attiny85 &         1.6M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
+attiny85 &         16M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
     \hline
-attiny45  &        1.6M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
+attiny45  &        16M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
     \hline
-attiny25  &        1.6M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
-attiny25  &        1.6M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
+attiny25  &        16M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
+attiny25  &        16M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
     \hline
     \end{tabular}
   \end{center}
@@ -1788,7 +1790,7 @@ attiny861 &          8M & 0xE2  & 38.4k &  -2  & 8415k & 18  & 7693k  & 9  & 800
           &             &       &       &  -1  & 8436k & 19  & 7678k  & 10 & 8011k \\
     \hline
 attiny461  &         8M & 0xE2  & 38.4k &  -2  & 8418k & 17 & 7690k  & 9  & 7995k \\
-           &            &       &       &  -4  & 8380k & 14 & 7695k  & 3  & 8030k \\
+           &            &       &       &  -4  & 8380k & 14 & 7695k  & 5  & 8030k \\
     \hline
 attiny261  &         8M & 0xE2  & 38.4k &  -4  & 8403k & 17 & 7710k  & 9  & 7986k \\
     \hline
@@ -1800,6 +1802,32 @@ attiny261  &         8M & 0xE2  & 38.4k &  -4  & 8403k & 17 & 7710k  & 9  & 7986
 
 For the ATtiny261 I have omitted the optional LED-flashing at the start of the optiboot
 to get enough space for the test program (option LED\_START\_FLASHES=0).
+
+
+\subsection{RC-Generators check of the ATtiny87 family}
+
+The ATtiny87 family can select a internal \(8MHz\) RC-generator and a
+internal \(128kHz\) generator as processor clock.
+You can also select a factor 8 scaler for the processor clock with the Low-fuse.
+The table~\ref{tab:tiny87freq} shows the calibration results of two examples of this family.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny87 &          8M & 0xE2  & 57.6k &  -1  & 8270k & 7  & 7940k  & 3  & 8035k \\
+    \hline
+attiny167 &         8M & 0xE2  & 57.6k &  -5  & 8227k & 2  & 7839k  & -1  & 8009k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Possible OSCCAL\_CORR selections for the ATtiny87 family}
+  \label{tab:tiny87freq}
+\end{table}
 
 
 \subsection{RC-Generators check of the ATtiny88 family}

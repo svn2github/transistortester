@@ -283,7 +283,7 @@ int main(void) {
  #endif
 // #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
  #if defined(UART_SRC) && defined(UART_SEL)
-        UART_SRC = (1<<UART_SEL)|(1<<UCSZ1)|(1<<UCSZ0);	// config UART
+        UART_SRC = (1<<UART_SEL)|(1<<UCSZ01)|(1<<UCSZ00);	// config UART
         UART_SRRL = (uint8_t)BAUD_DIV;	// set the lower bits of the scaler
         UART_SRC = BAUD_DIV / 256;		// set upper bits of scaler (without URSEL)
  #else

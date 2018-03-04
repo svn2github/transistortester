@@ -221,13 +221,14 @@ wt_rx1bs:
     3e5c:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
 	AIN	r25, CNT16_CNTH
     3e60:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
-	; we must divide by 4 and subtract 1 to get the final UBRR
-	; ((two_bit_time + 2) / 4) - 1  is equal to
-	; (two_bit_time - 2) / 4  
-   #ifdef FULLSPEED_CTR
-;	sbiw	r24, 16		; (four_bit_time - 16) / 32
-	sbiw	r24, 22		; (four_bit_time - 22) / 32, faster selection than correct round up
-    3e64:	46 97       	sbiw	r24, 0x16	; 22
+    #if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+	sbiw	r24, 28		; (four_bit_time - 28) / 32, faster selection than correct round up
+    #elif defined(__AVR_ATmega162__)
+	sbiw	r24, 19		; (four_bit_time - 19) / 32, faster selection than correct round up
+    #else
+	sbiw	r24, 24		; (four_bit_time - 24) / 32, faster selection than correct round up
+    3e64:	48 97       	sbiw	r24, 0x18	; 24
+    #endif
 	ldi	r28, 5		; divide by 32
     3e66:	c5 e0       	ldi	r28, 0x05	; 5
 
@@ -782,10 +783,16 @@ no_to:
 ptch1:
 	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
     3f90:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
+  #if UART_STATUS == LINSIR
+	andi	r25, (1<<LBUSY)|(1<<LTXOK)
+	cpi	r25, (1<<LBUSY)	
+	breq	ptch1		; wait if LBUSY and !LTXOK
+  #else
       	sbrs	r25, UDRE0
     3f94:	95 ff       	sbrs	r25, 5
       	rjmp	ptch1		; wait, UART out not ready
     3f96:	fc cf       	rjmp	.-8      	; 0x3f90 <ptch1>
+  #endif
  #endif
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
     3f98:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7e00c6>

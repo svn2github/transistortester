@@ -68,5 +68,5 @@
   #endif
 	AOUT	UART_SRB, r24
   #ifdef LINDAT
-  	AOUT	LINDAT, r0	;Write first data to start, I had found no other way to set LRXOK in LINSIR	
+ ; 	AOUT	LINDAT, r0	;Write first data to start, I had found no other way to set LRXOK in LINSIR	
   #endif

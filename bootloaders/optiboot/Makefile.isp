@@ -155,6 +155,9 @@ endif
 ifeq ($(MCU_TARGET), at90pwm2)
 USE_Edat := 1
 endif
+ifeq ($(MCU_TARGET), at90pwm2b)
+USE_Edat := 1
+endif
 ifeq ($(MCU_TARGET), at90pwm3)
 USE_Edat := 1
 endif

@@ -1252,8 +1252,14 @@ ptch2:
 	/* After loading the buffer we return immediately to caller */
 ptch1:
 	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
+  #if UART_STATUS == LINSIR
+	andi	r25, (1<<LBUSY)|(1<<LTXOK)
+	cpi	r25, (1<<LBUSY)	
+	breq	ptch1		; wait if LBUSY and !LTXOK
+  #else
       	sbrs	r25, UDRE0
       	rjmp	ptch1		; wait, UART out not ready
+  #endif
  #endif
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
  #if ((LED_DATA_FLASH & 0x02) > 0) && defined(LED_PORT) && defined(LEDbit)

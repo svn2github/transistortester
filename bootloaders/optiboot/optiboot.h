@@ -68,14 +68,17 @@
  #endif
 #endif
 
-#if BOOT_PAGE_LEN <= SPM_PAGESIZE
- /* I know no device, where the BOOT_PAGE_LEN is less or equal to SPM_PAGESIZE */
- #define NRWWSTART 0		/* device has no Boot Partition */
-#else
- /* the total Bootloader area (8 Boot pages) is NRWW */
- #ifdef __ASSEMBLER__
-  #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+
+#ifndef NRWWSTART
+ #if BOOT_PAGE_LEN <= SPM_PAGESIZE
+  /* I know no device, where the BOOT_PAGE_LEN is less or equal to SPM_PAGESIZE */
+  #define NRWWSTART 0		/* device has no Boot Partition */
  #else
-  #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+  /* the total Bootloader area (8 Boot pages) is NRWW */
+  #ifdef __ASSEMBLER__
+   #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+  #else
+   #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+  #endif
  #endif
 #endif

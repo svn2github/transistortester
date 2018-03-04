@@ -8,7 +8,7 @@
  ; use register r10:r11, r12:r13, r22:r23, r24:r25, r26:r27, r28:r29
 
 ; Settings for dignostic
-//#define SHOW_BAUD 01		/* output of LSB Baud at PORTA if 1, PORTB if 2 PORTC if 3 */
+//#define SHOW_BAUD 11		/* output of LSB Baud at PORTA if 1, PORTB if 2 PORTC if 3 */
 ;				/* 1,2,3 show the LSB UBRR setting for hardware UART */
 ;				/*  and the LSB bits for software UART delay loop */
 ;				/* 11,12,13 show the LSB bits of the time measurement */
@@ -325,7 +325,13 @@ div2lop1:
 	; (two_bit_time - 2) / 4  
    #ifdef FULLSPEED_CTR
 ;	sbiw	r24, 16		; (four_bit_time - 16) / 32
-	sbiw	r24, 22		; (four_bit_time - 22) / 32, faster selection than correct round up
+    #if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+	sbiw	r24, 28		; (four_bit_time - 28) / 32, faster selection than correct round up
+    #elif defined(__AVR_ATmega162__)
+	sbiw	r24, 19		; (four_bit_time - 19) / 32, faster selection than correct round up
+    #else
+	sbiw	r24, 24		; (four_bit_time - 24) / 32, faster selection than correct round up
+    #endif
 	ldi	r28, 5		; divide by 32
 div4lop1:
 	lsr	r25
@@ -507,7 +513,13 @@ divlop2:
 	; (four_bit_time - 2) / 4 
    #ifdef FULLSPEED_CTR
 ;	sbiw	r24, 16		; (four_bit_time - 16) / 32
+    #if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+	sbiw	r24, 28		; (four_bit_time - 28) / 32, faster selection than correct round up
+    #elif defined(__AVR_ATmega162__)
+	sbiw	r24, 19		; (four_bit_time - 19) / 32, faster selection than correct round up
+    #else
 	sbiw	r24, 24		; (four_bit_time - 24) / 32, faster selection than correct round up
+    #endif
 	ldi	r28, 5		; divide by 32
 div4lop2:
 	lsr	r25		; /2
@@ -637,7 +649,7 @@ div2lop2:
  #endif
 	AOUT	UART_SRB, r24
  #ifdef LINDAT
-	AOUT	LINDAT, r1
+;	AOUT	LINDAT, r1	; output 0 to TX Port to initialize LTXOK in LINSIR
  #endif
 #endif
 

@@ -695,10 +695,16 @@ no_to:
 ptch1:
 	AIN	r25, UART_STATUS	; while (!(UART_SRA & _BV(UDRE0)));
     1f5a:	9b b1       	in	r25, 0x0b	; 11
+  #if UART_STATUS == LINSIR
+	andi	r25, (1<<LBUSY)|(1<<LTXOK)
+	cpi	r25, (1<<LBUSY)	
+	breq	ptch1		; wait if LBUSY and !LTXOK
+  #else
       	sbrs	r25, UDRE0
     1f5c:	95 ff       	sbrs	r25, 5
       	rjmp	ptch1		; wait, UART out not ready
     1f5e:	fd cf       	rjmp	.-6      	; 0x1f5a <ptch1>
+  #endif
  #endif
 	AOUT	UART_UDR, r24	; UART_UDR = ch;
     1f60:	8c b9       	out	0x0c, r24	; 12

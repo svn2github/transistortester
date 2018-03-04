@@ -1578,7 +1578,8 @@ relativ stark ändert.
 Bei der ATtiny84 Familie kann außer dem \(8MHz\) RC-Oszillator auch noch der 
 \(128kHz\) Takt der Watchdog-Schaltung benutzt werden.
 Der \(128kHz\) Takt kann nicht kalibriert werden. Wenn man diesen Takt benutzen möchte,
-kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren.
+kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren oder
+die automatische Baudraten-Anpassung benutzen.
 Bei einem ATtiny24a habe ich die erzeugte Baudrate kontrolliert. Statt der
 eingestellten 2400 Baud habe ich nur 2170 Baud gemessen. Das ergibt einen Frequenzfehler
 von etwa 9.6\% und damit deutlich zu viel, um ohne Korrektur benutzt werden zu können.
@@ -1597,7 +1598,7 @@ OSCCAL Änderungen für den \(8MHz\) Betrieb dar.
     \hline
 attiny84 &          8M & 0xE2  & 19.2k &  -6  & 8453k & 14  & 7673k  & 5  & 8019k \\
     \hline
-attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & 7  & 7984k \\
+attiny44a &         8M & 0xE2  & 19.2k &  -16  & 8367k & 3  & 7673k  & -7  & 7984k \\
     \hline
 attiny24a &         8M & 0xE2  & 19.2k &  -4  & 8388k & 11  & 7685k  & 4  & 7992k \\
     \hline
@@ -1614,7 +1615,8 @@ ein \(6.4MHz\) RC-Oszillator und der \(128kHz\) Takt der Watchdog-Schaltung benu
 Der \(6.4MHz\) RC-Oszillator wird aber immer mit einem Frequenzteiler auf \(1.6MHz\)
 heruntergeteilt.
 Der \(128kHz\) Takt kann nicht kalibriert werden. Wenn man diesen Takt benutzen möchte,
-kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren.
+kann man die erzeugte Baudrate nur über den vorgegebenen Wert korrigieren oder
+die automatische Baudraten-Anpassung benutzen.
 Die erste Tabelle~\ref{tab:tiny85freq8} stellt für die untersuchten Exemplare die möglichen
 OSCCAL Änderungen für den \(8MHz\) Betrieb dar.
 
@@ -1689,12 +1691,12 @@ ab.
         &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
     \hline
     \hline
-attiny85 &         1.6M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
+attiny85 &         16M & 0xF1  & 38.4k &  -4  & 16.87M &  10  & 15.41M  & 4  & 16.02M \\
     \hline
-attiny45  &        1.6M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
+attiny45  &        16M & 0xF1  & 38.4k &  -4  & 16.87M & 10  & 15.41M  & 4  & 15.95M \\
     \hline
-attiny25  &        1.6M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
-attiny25  &        1.6M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
+attiny25  &        16M & 0xF1  & 38.4k &  -9   & 16.91M & 47 & 15.38M  & 41  & 16.03M \\
+attiny25  &        16M & 0xF1  & 38.4k &  -11  & 16.82M & 7  & 15.43M  & -2  & 16.07M \\
     \hline
     \end{tabular}
   \end{center}
@@ -1739,7 +1741,7 @@ OSCCAL-Korrektur benutzt werden.
 Bei der ATtiny861 Familie kann außer dem \(8MHz\) RC-Oszillator noch ein PLL-Oszillator
 und der \(128kHz\) Takt der Watchdog-Schaltungs als Prozessor-Takt benutzt werden.
 Der \(128kHz\) Takt der Watchdog-Schaltung kann aber nicht kalibriert werden und
-kommt daher für die Bootloader-Anwendung nicht in Frage.
+kommt daher für die Bootloader-Anwendung sinnvoll nur mit der automatischen Baudraten-Anpassung in Frage.
 Der PLL-Oszillator hat für den Prozessor eine Frequenz von \(16MHz\), kann aber leider
 nur vom internen RC-Oszillator synchronisiert werden. Daher kann mit dem PLL-Oszillator
 keine genaue Zeitmessung durchgeführt werden.
@@ -1758,7 +1760,7 @@ attiny861 &          8M & 0xE2  & 38.4k &  -2  & 8415k & 18  & 7693k  & 9  & 800
           &             &       &       &  -1  & 8436k & 19  & 7678k  & 10 & 8011k \\
     \hline
 attiny461  &         8M & 0xE2  & 38.4k &  -2  & 8418k & 17 & 7690k  & 9  & 7995k \\
-           &            &       &       &  -4  & 8380k & 14 & 7695k  & 3  & 8030k \\
+           &            &       &       &  -4  & 8380k & 14 & 7695k  & 5  & 8030k \\
     \hline
 attiny261  &         8M & 0xE2  & 38.4k &  -4  & 8403k & 17 & 7710k  & 9  & 7986k \\
     \hline
@@ -1771,6 +1773,31 @@ attiny261  &         8M & 0xE2  & 38.4k &  -4  & 8403k & 17 & 7710k  & 9  & 7986
 Beim ATtiny261 habe ich auf das optionale LED-Blinken beim Start von Optiboot verzichtet,
 damit genug Platz für das Testprogramm zur Verfügung steht (Option LED\_START\_FLASHES=0).
 
+\subsection{Untersuchung des RC-Generators der ATtiny87 Familie}
+
+Die ATtiny87 Familie kann außer einem \(8MHz\) internem RC-Generator nur noch einen
+nicht kalibrierbaren \(128kHz\) Generator oder einen externen Takt als Taktgeber für
+den Prozessor wählen. Ein Frequenzteiler mit Faktor 8 ist für den Prozessortakt
+bei der LFUSE auch einstellbar. In der Tabelle~\ref{tab:tiny87freq} sind die Ergebnisse
+für die Kalibration des internen \(8MHz\) Generators bei zwei Exemplaren der Familie dargestellt. 
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l | c | c | c || c | c || c | c || c | c |}
+    \hline
+  Typ & AVR\_ & LFUSE & Baud- & \multicolumn{2}{c ||}{Minimum} & \multicolumn{2}{c ||}{Maximum} & \multicolumn{2}{c |}{Best}  \\
+        &       FREQ  &       & rate & Corr & Freq & Corr & Freq  & Corr  & Freq  \\
+    \hline
+    \hline
+attiny87 &          8M & 0xE2  & 57.6k &  -1  & 8270k & 7  & 7940k  & 3  & 8035k \\
+    \hline
+attiny167 &         8M & 0xE2  & 57.6k &  -5  & 8227k & 2  & 7839k  & -1  & 8009k \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Mögliche OSCCAL\_CORR Einstellungen für die ATtiny87 Familie}
+  \label{tab:tiny87freq}
+\end{table}
 
 \subsection{Untersuchung des RC-Generators der ATtiny88 Familie}
 
