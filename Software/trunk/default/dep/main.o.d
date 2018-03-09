@@ -16,7 +16,7 @@ main.o: ../main.c /usr/avr/include/avr/io.h \
  ../langFRANCAIS.h ../langGERMAN.h ../langITALIAN.h ../langPOLISH.h \
  ../langCZECH.h ../langSLOVAK.h ../langSLOVENE.h ../langDUTCH.h \
  ../langBRASIL.h ../langSPANISH.h ../langRUSSIAN.h ../langUKRAINIAN.h \
- ../langHUNGARIAN.h ../langLITHUANIAN.h ../AutoCheck.c \
+ ../langHUNGARIAN.h ../langLITHUANIAN.h ../langDANISH.h ../AutoCheck.c \
  ../mark_as_uncalibrated.c ../GetIr.c
 
 /usr/avr/include/avr/io.h:
@@ -114,6 +114,8 @@ main.o: ../main.c /usr/avr/include/avr/io.h \
 ../langHUNGARIAN.h:
 
 ../langLITHUANIAN.h:
+
+../langDANISH.h:
 
 ../AutoCheck.c:
 
