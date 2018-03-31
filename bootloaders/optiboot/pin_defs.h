@@ -608,27 +608,43 @@
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega64A__) || \
     defined(__AVR_ATmega128__)
 /*------------------------------------------------------------------------ */
- #undef UART_NR
- #define UART_NR 0
 
  /* Default "SOFT" UART Ports for ATmega644/1284/32 */
  #if UART_RX == p
-  #if SOFT_UART > 0
-   #ifndef NO_WARNING
-    #warning "SOFT_UART use Pin E0 as RX for UART 0"
-   #endif
-  #endif		/* SOFT_UART > 0 */
+  #if UART_NR == 0
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #endif
+   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pE0
+  #else
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #endif
+   #endif		/* SOFT_UART > 0 */
+  #define UART_RXX	pD2
+  #endif
  #else
   #define UART_RXX      UART_RX
  #endif
  #if UART_TX == p
-  #if SOFT_UART > 0
-   #ifndef NO_WARNING
-    #warning "SOFT_UART use Pin E1 as TX for UART 0"
-   #endif
-  #endif		/* SOFT_UART > 0 */
+  #if UART_NR == 0
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #endif
+   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pE1
+  #else
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #endif
+   #endif		/* SOFT_UART > 0 */
+  #define UART_TXX	pD3
+  #endif
  #else
   #define UART_TXX      UART_TX
  #endif
