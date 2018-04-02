@@ -76,7 +76,7 @@
  #else
   /* the total Bootloader area (8 Boot pages) is NRWW */
   #ifdef __ASSEMBLER__
-   #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
+   #define NRWWSTART  (((FLASHEND+1)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
   #else
    #define NRWWSTART  (((FLASHEND+1UL)  - (BOOT_PAGE_LEN * 8)) & 0xffff)
   #endif
