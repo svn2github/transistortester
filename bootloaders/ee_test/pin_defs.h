@@ -43,7 +43,7 @@
  #define UART_TX p
 #endif
 
-#if defined(UDR)
+#if defined(UDR) && !defined(UDRE0)
   //Name conversion R.Wiersma
   #undef UDR0		/* probably was Bit 0 of UDR before */
   #define UDR0 		UDR
@@ -54,14 +54,13 @@
   #define U2X0		U2X
   #define RXEN0		RXEN
   #define TXEN0		TXEN
-#else
- #if defined(UDR1)
-  #define UDR0 		UDR1
-  #define UDRE0 	UDRE1
-  #define RXC0		RXC1
-  #define FE0           FE1
- #endif
 #endif		/* defined(UDR)  ... */
+#if !defined(UDR0) && defined(UDR1)
+ #define UDR0 		UDR1
+ #define UDRE0 	UDRE1
+ #define RXC0		RXC1
+ #define FE0           FE1
+#endif
 
 #if (!defined(UDR0)) && defined(LINDAT)
   // ATtiny87 and ATtiny167 has a LIN/UART controller
@@ -991,6 +990,10 @@
  // use a uniform version for the 2 Stop Bit transmission option bit
  #if !defined(USBS0) && defined(USBS)
   #define USBS0 USBS
+ #else
+  #if !defined(USBS0) && defined(USBS1)
+   #define USBS0 USBS1
+  #endif
  #endif
 
 #endif		/* SOFT_UART > 0 */

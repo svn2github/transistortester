@@ -1,13 +1,17 @@
  
 ***** make lilypad ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -22,14 +26,18 @@ avr-objdump -h -S optiboot.elf > optiboot_lilypad.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_lilypad.hex
  
 ***** make pro8 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexC6 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -44,14 +52,18 @@ avr-objdump -h -S optiboot.elf > optiboot_pro_8MHz.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_8MHz.hex
  
 ***** make pro16 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDD -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -66,14 +78,16 @@ avr-objdump -h -S optiboot.elf > optiboot_pro_16MHz.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_16MHz.hex
  
 ***** make pro20 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=20000000 \
         -DHFUSE=hexDC -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 113636, UBRR = 21, Error=-1.35\%
+BAUD RATE CHECK: Desired: 115200,  Real: 113636, UBRR = 21, Error=-1.35%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -88,14 +102,18 @@ avr-objdump -h -S optiboot.elf > optiboot_pro_20Mhz.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_pro_20Mhz.hex
  
 ***** make atmega328_pro8 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -110,14 +128,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega328_pro_8MHz.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328_pro_8MHz.hex
  
 ***** make sanguino ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB0 -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB0 -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -131,17 +151,46 @@ BOOTSZ=3
 avr-objdump -h -S optiboot.elf > optiboot_sanguino.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_sanguino.hex
  
-***** make mega128 ******
+***** make atmega128 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega128  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexCE -DLFUSE=hexBF \
+        -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:303:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega128  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x1FC00 = 130048
+###########################################
+
+8000000 Hz operation with Baudrate 115200 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    470	      0	      0	    470	    1d6	optiboot.elf
+Requires 1 Boot Pages, 1024 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega128.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega128.hex
  
 ***** make luminet ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=1000000 \
         -DHFUSE=hexDD -DLFUSE=hex62 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:204:6: warning: #warning "SOFT_UART use Pin A3 as RX" [-Wcpp]
+pin_defs.h:214:6: warning: #warning "SOFT_UART use Pin A2 as TX" [-Wcpp]
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 9600,  SoftUART_Real: 9615.3, Delay: 81*1, Error=.16\%
+BAUD RATE CHECK: Desired: 9600,  SoftUART_Real: 9615.3, Delay: 81*1, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=9600 -DLED_START_FLASHES=0   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1DC0 = 7616
 ###########################################
@@ -155,14 +204,18 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny84.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny84.hex
  
 ***** make diecimila ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -177,14 +230,16 @@ avr-objdump -h -S optiboot.elf > optiboot_diecimila.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_diecimila.hex
  
 ***** make bobuino ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB7 -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB7 -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -199,14 +254,14 @@ avr-objdump -h -S optiboot.elf > optiboot_bobuino.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_bobuino.hex
  
 ***** make wildfirev2 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB7 -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=pB7 -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexF7 \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 1000000,  Real: 1000000, UBRR = 1, Error=0\%
+BAUD RATE CHECK: Desired: 1000000,  Real: 1000000, UBRR = 1, Error=0%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=1000000 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -221,14 +276,16 @@ avr-objdump -h -S optiboot.elf > optiboot_wildfirev2.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_wildfirev2.hex
  
 ***** make atmega32 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=11059200 \
         -DHFUSE=hexCE -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 115200, UBRR = 11, Error=0\%
+BAUD RATE CHECK: Desired: 115200,  Real: 115200, UBRR = 11, Error=0%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -243,14 +300,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega32.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega32.hex
  
 ***** make atmega88p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -265,14 +326,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega88p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega88p.hex
  
 ***** make atmega168p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -289,14 +354,16 @@ avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,loa
 ***** make xplained168pb ******
 make atmega168
 make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/optiboot“ wird betreten
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -314,14 +381,16 @@ make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/
 ***** make xplained328p ******
 make atmega328
 make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/optiboot“ wird betreten
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -339,14 +408,16 @@ make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/
 ***** make xplained328pb ******
 make atmega328
 make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/optiboot“ wird betreten
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79\%
+BAUD RATE CHECK: Desired: 57600,  Real: 57142, UBRR = 34, Error=-.79%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -362,14 +433,18 @@ avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,loa
 make[1]: Verzeichnis „/home/kub/Transistortester/transistortester/bootloaders/optiboot“ wird verlassen
  
 ***** make atmega8 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexCC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -384,14 +459,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega8.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8.hex
  
 ***** make atmega168 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega168  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -406,14 +485,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega168.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega168.hex
  
 ***** make atmega328 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -428,14 +511,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega328.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328.hex
  
 ***** make atmega328p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega328p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -450,14 +537,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega328p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega328p.hex
  
 ***** make atmega88 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000  \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:43:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -472,14 +563,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega88.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega88.hex
  
 ***** make atmega164a ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -494,14 +589,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega164a.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega164a.hex
  
 ***** make atmega164p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega164p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -516,14 +615,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega164p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega164p.hex
  
 ***** make atmega324p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega324p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -538,14 +641,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega324p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega324p.hex
  
 ***** make atmega644 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -560,14 +667,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega644.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega644.hex
  
 ***** make atmega644p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega644p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -582,14 +693,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega644p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega644p.hex
  
 ***** make atmega1284p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9F -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1284p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -604,14 +719,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega1284p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1284p.hex
  
 ***** make atmega165a ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165a  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -626,14 +745,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega165a.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega165a.hex
  
 ***** make atmega165p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega165p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -648,14 +771,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega165p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega165p.hex
  
 ***** make atmega325 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -670,14 +797,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega325.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega325.hex
  
 ***** make atmega325p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega325p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -692,14 +823,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega325p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega325p.hex
  
 ***** make atmega3250 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -714,14 +849,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega3250.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega3250.hex
  
 ***** make atmega3250p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3250p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -736,14 +875,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega3250p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega3250p.hex
  
 ***** make atmega645 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -758,14 +901,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega645.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega645.hex
  
 ***** make atmega645p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega645p  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -780,14 +927,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega645p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega645p.hex
  
 ***** make atmega6450 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex98 -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6450  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -802,14 +953,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega6450.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega6450.hex
  
 ***** make atmega169 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:329:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -824,14 +977,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega169.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega169.hex
  
 ***** make atmega169p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:329:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega169p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -846,14 +1001,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega169p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega169p.hex
  
 ***** make atmega329 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -868,14 +1025,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega329.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega329.hex
  
 ***** make atmega329p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega329p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -890,14 +1049,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega329p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega329p.hex
  
 ***** make atmega3290 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -912,14 +1073,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega3290.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega3290.hex
  
 ***** make atmega3290p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega3290p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -934,14 +1097,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega3290p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega3290p.hex
  
 ***** make atmega649 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -956,14 +1121,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega649.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega649.hex
  
 ***** make atmega649p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega649p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -978,14 +1145,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega649p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega649p.hex
  
 ***** make atmega6490 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1000,14 +1169,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega6490.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega6490.hex
  
 ***** make atmega6490p ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:360:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega6490p  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1022,14 +1193,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega6490p.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega6490p.hex
  
 ***** make atmega640 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:376:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega640  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1044,14 +1219,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega640.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega640.hex
  
 ***** make atmega1280 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:376:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1280  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1066,14 +1245,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega1280.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1280.hex
  
 ***** make atmega1281 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDE -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:376:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega1281  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1088,14 +1271,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega1281.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega1281.hex
  
 ***** make atmega2560 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2560  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2560  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:376:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2560  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2560  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3FC00 = 261120
 ###########################################
@@ -1110,14 +1297,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega2560.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega2560.hex
  
 ***** make atmega2561 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9E -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:376:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega2561  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3FC00 = 261120
 ###########################################
@@ -1132,14 +1323,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega2561.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega2561.hex
  
 ***** make atmega64 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexCE -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:303:5: warning: #warning "LED bit is set to default B7" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega64  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1154,14 +1349,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega64.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega64.hex
  
 ***** make atmega16 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hex9C -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -1176,14 +1375,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega16.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega16.hex
  
 ***** make atmega162 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9C -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:316:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega162  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -1198,14 +1399,17 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega162.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega162.hex
  
 ***** make atmega163 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=4000000 \
         -DHFUSE=hexFC -DLFUSE=hex9A \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:316:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+optiboot.S:314:5: warning: #warning "NRWWSTART for ATmega163 must be unset or zero!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega163  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3E00 = 15872
 ###########################################
@@ -1220,14 +1424,16 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega163.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega163.hex
  
 ***** make atmega323 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=4000000 \
         -DHFUSE=hex9E -DLFUSE=hexFA \
         -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:316:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 12, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega323  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7E00 = 32256
 ###########################################
@@ -1242,14 +1448,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega323.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega323.hex
  
 ***** make atmega8515 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8515  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1264,14 +1474,18 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega8515.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8515.hex
  
 ***** make atmega8535 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=16000000 \
         -DHFUSE=hexDC -DLFUSE=hexBF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:210:5: warning: #warning "LED bit is set to default B0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 115200,  Real: 117647, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8535  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1286,14 +1500,21 @@ avr-objdump -h -S optiboot.elf > optiboot_atmega8535.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8535.hex
  
 ***** make attiny84 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:204:6: warning: #warning "SOFT_UART use Pin A3 as RX" [-Wcpp]
+pin_defs.h:214:6: warning: #warning "SOFT_UART use Pin A2 as TX" [-Wcpp]
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:60:5: warning: #warning "LED bit is set to default A4" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny84  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1DC0 = 7616
 ###########################################
@@ -1307,14 +1528,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny84.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny84.hex
  
 ***** make attiny85 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:343:6: warning: #warning "SOFT_UART use Pin B0 as RX" [-Wcpp]
+pin_defs.h:351:6: warning: #warning "SOFT_UART use Pin B1 as TX" [-Wcpp]
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:129:5: warning: #warning "LED bit is set to default B2" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  SoftUART_Real: 38461, Delay: 185*1, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  SoftUART_Real: 38461, Delay: 185*1, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny85  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1DC0 = 7616
 ###########################################
@@ -1328,14 +1556,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny85.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny85.hex
  
 ***** make attiny87 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:113:5: warning: #warning "LED bit is set to default A2" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny87  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1D80 = 7552
 ###########################################
@@ -1349,14 +1584,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny87.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny87.hex
  
 ***** make attiny167 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:113:5: warning: #warning "LED bit is set to default A2" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny167  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3D80 = 15744
 ###########################################
@@ -1370,14 +1612,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny167.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny167.hex
  
 ***** make attiny88 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexEE \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:287:6: warning: #warning "SOFT_UART use Pin D0 as RX" [-Wcpp]
+pin_defs.h:295:6: warning: #warning "SOFT_UART use Pin D1 as TX" [-Wcpp]
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:97:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny88  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1D80 = 7552
 ###########################################
@@ -1391,14 +1640,22 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny88.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny88.hex
  
 ***** make attiny841 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexEF \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:1178:6: warning: #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:79:5: warning: #warning "LED bit is set to default A0" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:24:8: warning: #warning "BAUD_RATE error less than -2%" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
+optiboot.S:1421:5: warning: #warning "4 page erase for t841/441" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54\%
+BAUD RATE CHECK: Desired: 115200,  Real: 111111, UBRR = 8, Error=-3.54%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny841  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1DC0 = 7616
 ###########################################
@@ -1412,14 +1669,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny841.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny841.hex
  
 ***** make attiny861 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=01 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:372:6: warning: #warning "SOFT_UART use Pin B0 as RX" [-Wcpp]
+pin_defs.h:380:6: warning: #warning "SOFT_UART use Pin B1 as TX" [-Wcpp]
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:146:5: warning: #warning "LED bit is set to default A0" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64\%
+BAUD RATE CHECK: Desired: 115200,  SoftUART_Real: 115942, Delay: 46*1, Error=.64%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny861  -fno-diagnostics-show-caret -DBAUD_RATE=115200 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1DC0 = 7616
 ###########################################
@@ -1433,14 +1697,22 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny861.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny861.hex
  
 ***** make attiny1634 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE2 \
         -DBOOT_PAGE_LEN=128 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:1178:6: warning: #warning "WDT_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:184:5: warning: #warning "LED bit is set to default B1" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
+optiboot.S:1418:5: warning: #warning "4 page erase for t1634" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny1634  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x3D80 = 15744
 ###########################################
@@ -1454,14 +1726,21 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny1634.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny1634.hex
  
 ***** make attiny4313 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DVIRTUAL_BOOT_PARTITION -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexE4 \
         -DBOOT_PAGE_LEN=64 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:258:0:
+pin_defs.h:1173:6: warning: #warning "EE_RDY_vect_num is selected as save_vect_num for virtual boot partition!" [-Wcpp]
+In file included from optiboot.S:260:0:
+led_defs.h:163:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+In file included from optiboot.S:619:0:
+init_uart_fix_baud.S:31:8: warning: #warning "BAUD_RATE error greater than 2%" [-Wcpp]
+optiboot.S:897:3: warning: #warning "RESET vector will be patched!" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12\%
+BAUD RATE CHECK: Desired: 57600,  Real: 58823, UBRR = 16, Error=2.12%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=attiny4313  -fno-diagnostics-show-caret -DBAUD_RATE=57600 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xDC0 = 3520
 ###########################################
@@ -1475,14 +1754,16 @@ avr-objdump -h -S optiboot.elf > optiboot_attiny4313.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_attiny4313.hex
  
 ***** make at90can32 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:226:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can32  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x7C00 = 31744
 ###########################################
@@ -1497,14 +1778,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90can32.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90can32.hex
  
 ***** make at90can64 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:226:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can64  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0xFFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0xFC00 = 64512
 ###########################################
@@ -1519,14 +1802,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90can64.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90can64.hex
  
 ***** make at90can128 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hex9E -DLFUSE=hexCF \
         -DBOOT_PAGE_LEN=1024 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:226:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90can128  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1FC00 = 130048
 ###########################################
@@ -1541,14 +1826,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90can128.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90can128.hex
  
 ***** make at90pwm2 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:241:5: warning: #warning "LED bit is set to default D2" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1563,14 +1850,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90pwm2.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90pwm2.hex
  
 ***** make at90pwm2b ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:241:5: warning: #warning "LED bit is set to default D2" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm2b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1585,14 +1874,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90pwm2b.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90pwm2b.hex
  
 ***** make at90pwm3 ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:256:5: warning: #warning "LED bit is set to default C1" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1607,14 +1898,16 @@ avr-objdump -h -S optiboot.elf > optiboot_at90pwm3.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90pwm3.hex
  
 ***** make at90pwm3b ******
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
         -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
         -DHFUSE=hexDD -DLFUSE=hexFF \
         -DBOOT_PAGE_LEN=256 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:256:5: warning: #warning "LED bit is set to default C1" [-Wcpp]
 --------------------------------------------------------------------------------
-BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16\%
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
 --------------------------------------------------------------------------------
-avr-gcc-4.9.2 -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=at90pwm3b  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
 ###########################################
 Boot Loader start address: 0x1E00 = 7680
 ###########################################
@@ -1627,3 +1920,123 @@ Requires 2 Boot Pages, 256 Bytes each
 BOOTSZ=2
 avr-objdump -h -S optiboot.elf > optiboot_at90pwm3b.lst
 avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_at90pwm3b.hex
+ 
+***** make atmega8u2 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:271:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega8u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x1FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x1E00 = 7680
+###########################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    476	      0	      0	    476	    1dc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega8u2.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega8u2.hex
+ 
+***** make atmega16u2 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:271:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x3E00 = 15872
+###########################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    476	      0	      0	    476	    1dc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega16u2.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega16u2.hex
+ 
+***** make atmega32u2 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hexDE -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:271:5: warning: #warning "LED bit is set to default B5" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32u2  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    476	      0	      0	    476	    1dc	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega32u2.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega32u2.hex
+ 
+***** make atmega16u4 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16u4  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hex9E -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:286:5: warning: #warning "LED bit is set to default C6" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega16u4  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x3FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x3E00 = 15872
+###########################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    482	      0	      0	    482	    1e2	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega16u4.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega16u4.hex
+ 
+***** make atmega32u4 ******
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32u4  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -DLED=p -DUART=0 -DSOFT_UART=0 \
+        -DUART_RX=p -DUART_TX=p -DF_CPU=8000000 \
+        -DHFUSE=hex9E -DLFUSE=hexFF \
+        -DBOOT_PAGE_LEN=512 -c -o optiboot.o optiboot.S
+In file included from optiboot.S:260:0:
+led_defs.h:286:5: warning: #warning "LED bit is set to default C6" [-Wcpp]
+--------------------------------------------------------------------------------
+BAUD RATE CHECK: Desired: 38400,  Real: 38461, UBRR = 25, Error=.16%
+--------------------------------------------------------------------------------
+avr-gcc -g -Wall -Os -fno-split-wide-types -mrelax -mmcu=atmega32u4  -fno-diagnostics-show-caret -DBAUD_RATE=38400 -DLED_START_FLASHES=3   -DSUPPORT_EEPROM=1 -Wl,--section-start=.version=0x7FFE -Wl,--relax -nostartfiles -nostdlib  -o optibootx.elf optiboot.o -lc
+###########################################
+Boot Loader start address: 0x7E00 = 32256
+###########################################
+
+8000000 Hz operation with Baudrate 38400 configured.
+avr-size optiboot.elf
+   text	   data	    bss	    dec	    hex	filename
+    482	      0	      0	    482	    1e2	optiboot.elf
+Requires 1 Boot Pages, 512 Bytes each
+BOOTSZ=3
+avr-objdump -h -S optiboot.elf > optiboot_atmega32u4.lst
+avr-objcopy -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex optiboot.elf optiboot_atmega32u4.hex

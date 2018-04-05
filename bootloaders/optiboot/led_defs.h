@@ -268,7 +268,7 @@
 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
   #ifndef NO_WARNING
-   #warning "LED bit is set to default C6"
+   #warning "LED bit is set to default B5"
   #endif
   #define LEDX           pB5	/* coded Port B Bit 5 */
  #else

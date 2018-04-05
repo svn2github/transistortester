@@ -21,8 +21,8 @@ echo " "; echo "***** make atmega328_pro8 ******"
 make atmega328_pro8 $AllEEprom=1 $XTRA_OPT=1
 echo " "; echo "***** make sanguino ******"
 make sanguino $AllEEprom=1 $XTRA_OPT=1
-echo " "; echo "***** make mega128 ******"
-make mega128 $AllEEprom=1 $XTRA_OPT=1
+echo " "; echo "***** make atmega128 ******"
+make atmega128 $AllEEprom=1 $XTRA_OPT=1
 echo " "; echo "***** make luminet ******"
 make luminet $AllEEprom=1 $XTRA_OPT=1
 echo " "; echo "***** make diecimila ******"
@@ -202,5 +202,17 @@ echo " "; echo "***** make at90pwm3 ******"
 make at90pwm3 $AllEEprom=1 $XTRA_OPT=1
 echo " "; echo "***** make at90pwm3b ******"
 make at90pwm3b $AllEEprom=1 $XTRA_OPT=1
+#
+echo " "; echo "***** make atmega8u2 ******"
+make atmega8u2 $AllEEprom=1 $XTRA_OPT=1
+echo " "; echo "***** make atmega16u2 ******"
+make atmega16u2 $AllEEprom=1 $XTRA_OPT=1
+echo " "; echo "***** make atmega32u2 ******"
+make atmega32u2 $AllEEprom=1 $XTRA_OPT=1
+#
+echo " "; echo "***** make atmega16u4 ******"
+make atmega16u4 $AllEEprom=1 $XTRA_OPT=1
+echo " "; echo "***** make atmega32u4 ******"
+make atmega32u4 $AllEEprom=1 $XTRA_OPT=1
 
 
