@@ -267,19 +267,19 @@ int main(void) {
   #if defined(LINBTR)
 	LINBTR = 16 | (1<<LDISR);	// set single speed divider
   #else
-        UART_SRA = (0<<U2X0);		// set to single speed
+        UART_SRA = UART_SCALER16;		// set to single speed (0<<U2X0)
   #endif
  #else
   #if defined(LINBTR)
 	LINBTR = 8 | (1<<LDISR);	// set double speed divider
   #else
-        UART_SRA = (1<<U2X0);		// set to double speed
+        UART_SRA = UART_SCALER8;	// set to double speed (1<<U2X0)
   #endif
  #endif
  #if defined(LINCR)
 	LINCR = (1<<LENA)|(1<<LCMD2)|(1<<LCMD1)|(1<<LCMD0); // enable Rx and Tx
  #else
-        UART_SRB = (1<<RXEN0)|(1<<TXEN0);	// enable Rx and Tx
+        UART_SRB = UART_ENABLE_RX | UART_ENABLE_TX; // enable Rx and Tx (1<<RXEN0)|(1<<TXEN0)
  #endif
 // #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega16__) || defined (__AVR_ATmega32__)
  #if defined(UART_SRC) && defined(UART_SEL)

@@ -54,15 +54,49 @@
   #define U2X0		U2X
   #define RXEN0		RXEN
   #define TXEN0		TXEN
+#else
+ #if defined(UDR1)
+  #define UDR0 		UDR1
+  #define UDRE0 	UDRE1
+  #define RXC0		RXC1
+  #define FE0           FE1
+ #endif
 #endif		/* defined(UDR)  ... */
 
 #if (!defined(UDR0)) && defined(LINDAT)
-  // ATtiny67 and ATtiny167 has a LIN/UART controller
+  // ATtiny87 and ATtiny167 has a LIN/UART controller
  #define UDR0		LINDAT
- #define UCSR0A		LINSIR
+
+ #define UCSR0A		LINBTR
+ #define UART_SCALER8	(8|(1<<LDISR))
+ #define UART_SCALER16	(16|(1<<LDISR))
+
+ #define UART_STATUS	LINSIR
  #define UDRE0		LTXOK
  #define RXC0		LRXOK
- #define FE0		LERR
+
+ #define UART_ERRSTAT	LINERR
+ #define FE0		LFERR	/* framing error */
+ #define DOR0		LOVERR	/* data overrun */
+ #define UPE0		LPERR	/* parity error */
+
+ #define UART_ENABLE_RX (1<<LENA)|(1<<LCMD2)|(1<<LCMD1)
+ #define UART_ENABLE_TX (1<<LENA)|(1<<LCMD2)|(1<<LCMD0)
+#else
+ #if !defined(U2X0)
+  /* no UART0 defined */
+  #define UART_SCALER8	(1<<U2X1)
+  #define UART_SCALER16	(0<<U2X1)
+ 
+  #define UART_ENABLE_RX (1<<RXEN1)
+  #define UART_ENABLE_TX (1<<TXEN1)
+ #else
+  #define UART_SCALER8	(1<<U2X0)
+  #define UART_SCALER16	(0<<U2X0)
+ 
+  #define UART_ENABLE_RX (1<<RXEN0)
+  #define UART_ENABLE_TX (1<<TXEN0)
+ #endif
 #endif
 
 #ifndef UBRR0L
@@ -94,10 +128,19 @@
   #define UCSR0A	UCSRA
   #define UCSR0B	UCSRB
 #endif
+#if (!defined(UCSR0B)) && defined(LINCR)
+  #define UCSR0B	LINCR
+#endif
+
 #if (!defined(UCSR0C)) && defined(UCSRC)
   #define UCSR0C	UCSRC
   #define UCSZ01	UCSZ1
   #define UCSZ00	UCSZ0
+#endif
+#if (!defined(UCSR0C)) && defined(UCSR1C)
+  #define UCSR0C	UCSRC
+  #define UCSZ01	UCSZ11
+  #define UCSZ00	UCSZ10
 #endif
 #if (!defined(URSEL0)) && defined(URSEL)
   #define URSEL0	URSEL
@@ -470,6 +513,37 @@
 #endif		/* __AVR_ATmega644P__  .. */
 
 /*------------------------------------------------------------------------ */
+/* Support for ATmaga16U4, ATmega32U4, ATmega8U2, ATmega16U2, ATmega32U2 */
+#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)  || \
+    defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)
+/*------------------------------------------------------------------------ */
+ #undef UART_NR
+ #define UART_NR 1	/* support only UART No 1 */
+
+ /* Default "SOFT" UART Ports for ATmega32U4... */
+ #if UART_RX == p
+  #if SOFT_UART > 0
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D2 as RX for UART 1"
+   #endif
+  #endif		/* SOFT_UART > 0 */
+  #define UART_RXX	pD2
+ #else
+  #define UART_RXX      UART_RX
+ #endif
+ #if UART_TX == p
+  #if SOFT_UART > 0
+   #ifndef NO_WARNING
+    #warning "SOFT_UART use Pin D3 as TX for UART 1"
+   #endif
+  #endif		/* SOFT_UART > 0 */
+  #define UART_TXX	pD3
+ #else
+  #define UART_TXX      UART_TX
+ #endif
+#endif		/* __AVR_ATmega16U4__ ||  __AVR_ATmega32U4__ ... */
+
+/*------------------------------------------------------------------------ */
 /* Support for AT90CAN32_64_128 */
 #if defined(__AVR_AT90CAN32__) || defined(__AVR_AT90CAN64__) || defined(__AVR_AT90CAN128__) 
 /*------------------------------------------------------------------------ */
@@ -586,27 +660,43 @@
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega64A__) || \
     defined(__AVR_ATmega128__)
 /*------------------------------------------------------------------------ */
- #undef UART_NR
- #define UART_NR 0
 
  /* Default "SOFT" UART Ports for ATmega644/1284/32 */
  #if UART_RX == p
-  #if SOFT_UART > 0
-   #ifndef NO_WARNING
-    #warning "SOFT_UART use Pin E0 as RX for UART 0"
-   #endif
-  #endif		/* SOFT_UART > 0 */
+  #if UART_NR == 0
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E0 as RX for UART 0"
+    #endif
+   #endif		/* SOFT_UART > 0 */
   #define UART_RXX	pE0
+  #else
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D2 as RX for UART 1"
+    #endif
+   #endif		/* SOFT_UART > 0 */
+  #define UART_RXX	pD2
+  #endif
  #else
   #define UART_RXX      UART_RX
  #endif
  #if UART_TX == p
-  #if SOFT_UART > 0
-   #ifndef NO_WARNING
-    #warning "SOFT_UART use Pin E1 as TX for UART 0"
-   #endif
-  #endif		/* SOFT_UART > 0 */
+  #if UART_NR == 0
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin E1 as TX for UART 0"
+    #endif
+   #endif		/* SOFT_UART > 0 */
   #define UART_TXX	pE1
+  #else
+   #if SOFT_UART > 0
+    #ifndef NO_WARNING
+     #warning "SOFT_UART use Pin D3 as TX for UART 1"
+    #endif
+   #endif		/* SOFT_UART > 0 */
+  #define UART_TXX	pD3
+  #endif
  #else
   #define UART_TXX      UART_TX
  #endif
@@ -887,6 +977,17 @@
  #else
   #error "Unknown UART number, only 0 to 3 !!!"
  #endif
+ 
+ #ifndef UART_ERRSTAT
+  #define UART_ERRSTAT UART_SRA
+ #endif
+ #ifndef UART_STATUS
+  #define UART_STATUS UART_SRA
+ #endif
+ #ifndef UART_CNTL
+  #define UART_CNTL UART_SRA
+ #endif
+
  // use a uniform version for the 2 Stop Bit transmission option bit
  #if !defined(USBS0) && defined(USBS)
   #define USBS0 USBS

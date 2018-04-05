@@ -52,6 +52,142 @@
 #endif		/* ATmega163 */
 
 /* ================================================================== */
+#if defined(__AVR_ATmega8U2__) || defined(AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)
+/* CKDIV8 is in LFUSE 7, CKSEL 3:0 is in LFUSE 3:0 */
+ #define MAX_FREQ 16000000
+
+ #if ((BLFUSE & 0x80) == 0x00)
+  #define CK_FREQ  (F_CPU*8)
+ #else
+  #define CK_FREQ  F_CPU
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 1)
+  #error "CKSEL 1 is illegal for the ATmega32U2 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 3)
+  #error "CKSEL 3 is illegal for the ATmega32U2 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 4)
+  #error "CKSEL 4 and 5 is illegal for the ATmega32U2 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 2)
+  #if (CK_FREQ < 7300000) || (CK_FREQ > 8100000)
+   #error "Int RC mode, wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x06)
+  #if (CK_FREQ < 400000) || (CK_FREQ > MAX_FREQ)
+   #error "Crystal mode, wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x08)
+  #if (CK_FREQ < 400000) || (CK_FREQ > 900000)
+   #error "LP Ceramic resonator , wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0a)
+  #if (CK_FREQ < 900000) || (CK_FREQ > 3000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0c)
+  #if (CK_FREQ < 3000000) || (CK_FREQ > 8000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0e)
+  #if (CK_FREQ < 8000000) || (CK_FREQ > 17000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U2 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 0x00)
+  #if (CK_FREQ > MAX_FREQ)
+   #error "Frequency setting is illegal for external clock!"
+  #else 
+   #warning ">>>>> External clock is selectet! <<<<<"
+  #endif
+ #endif
+#endif  /* __AVR_ATmega8U2__ || __AVR_ATmega16U2__ || __AVR_ATmega32U2__ */
+
+/* ================================================================== */
+#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+/* CKDIV8 is in LFUSE 7, CKSEL 3:0 is in LFUSE 3:0 */
+ #define MAX_FREQ 16000000
+
+ #if ((BLFUSE & 0x80) == 0x00)
+  #define CK_FREQ  (F_CPU*8)
+ #else
+  #define CK_FREQ  F_CPU
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 1)
+  #error "CKSEL 1 is illegal for the ATmega32U4 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 3)
+  #error "CKSEL 3 is illegal for the ATmega32U4 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 6)
+  #error "CKSEL 6 and 7 is illegal for the ATmega32U4 family!"
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 2)
+  #if (CK_FREQ < 7300000) || (CK_FREQ > 8100000)
+   #error "Int RC mode, wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x04)
+  #if (CK_FREQ < 32000) || (CK_FREQ > 34000)
+   #error "Low Freq. oscillator , wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x08)
+  #if (CK_FREQ < 400000) || (CK_FREQ > 900000)
+   #error "LP Ceramic resonator , wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0a)
+  #if (CK_FREQ < 900000) || (CK_FREQ > 3000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0c)
+  #if (CK_FREQ < 3000000) || (CK_FREQ > 8000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0e) == 0x0e)
+  #if (CK_FREQ < 8000000) || (CK_FREQ > 17000000)
+   #error "LP Crystal mode, wrong Lfuse setting for this frequency (ATmega32U4 family)!"
+  #endif
+ #endif
+
+ #if ((BLFUSE & 0x0f) == 0x00)
+  #if (CK_FREQ > MAX_FREQ)
+   #error "Frequency setting is illegal for external clock!"
+  #else 
+   #warning ">>>>> External clock is selectet! <<<<<"
+  #endif
+ #endif
+#endif  /* __AVR_ATmega16U4__ || __AVR_ATmega32U4__ */
+
+/* ================================================================== */
 #if defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || \

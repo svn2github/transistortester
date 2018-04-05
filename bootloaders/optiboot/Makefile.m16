@@ -258,6 +258,136 @@ atmega8535: LFUSE := BF
 endif
 atmega8535: hex_file
 
+#
+# ATmega8u2
+################################################
+# generic atmega8u2
+# let board specific change the frequency and fuses
+atmega8u2: TARGET:= atmega8u2
+atmega8u2: override MCU_TARGET := atmega8u2
+atmega8u2: override FLASH_SIZE := 8192
+atmega8u2: override FLASH_PAGE_SIZE := 128
+atmega8u2: override BOOT_PAGE_LEN := 512
+atmega8u2: AVR_FREQ := 8000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega8u2: HFUSE := DE
+endif
+ifndef LFUSE
+# 8MHz Xtal 16k CK + 65ms
+atmega8u2: LFUSE := FF
+endif
+ifndef EFUSE
+# 3.0V brownout
+atmega8u2: EFUSE := F4
+endif
+atmega8u2: BAUD_RATE := 38400
+atmega8u2: hex_file
+
+#
+# ATmega16u2
+################################################
+# generic atmega16u2
+# let board specific change the frequency and fuses
+atmega16u2: TARGET:= atmega16u2
+atmega16u2: override MCU_TARGET := atmega16u2
+atmega16u2: override FLASH_SIZE := 16384
+atmega16u2: override FLASH_PAGE_SIZE := 128
+atmega16u2: override BOOT_PAGE_LEN := 512
+atmega16u2: AVR_FREQ := 8000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega16u2: HFUSE := DE
+endif
+ifndef LFUSE
+# 8MHz Xtal 16k CK + 65ms
+atmega16u2: LFUSE := FF
+endif
+ifndef EFUSE
+# 3.0V brownout
+atmega16u2: EFUSE := F4
+endif
+atmega16u2: BAUD_RATE := 38400
+atmega16u2: hex_file
+
+#
+# ATmega32u2
+################################################
+# generic atmega32u2
+# let board specific change the frequency and fuses
+atmega32u2: TARGET:= atmega32u2
+atmega32u2: override MCU_TARGET := atmega32u2
+atmega32u2: override FLASH_SIZE := 32768
+atmega32u2: override FLASH_PAGE_SIZE := 128
+atmega32u2: override BOOT_PAGE_LEN := 512
+atmega32u2: AVR_FREQ := 8000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega32u2: HFUSE := DE
+endif
+ifndef LFUSE
+# 8MHz Xtal 16k CK + 65ms
+atmega32u2: LFUSE := FF
+endif
+ifndef EFUSE
+# 3.0V brownout
+atmega32u2: EFUSE := F4
+endif
+atmega32u2: BAUD_RATE := 38400
+atmega32u2: hex_file
+
+#
+# ATmega16u4
+################################################
+# generic atmega16u4
+# let board specific change the frequency and fuses
+atmega16u4: TARGET:= atmega16u4
+atmega16u4: override MCU_TARGET := atmega16u4
+atmega16u4: override FLASH_SIZE := 16384
+atmega16u4: override FLASH_PAGE_SIZE := 128
+atmega16u4: override BOOT_PAGE_LEN := 512
+atmega16u4: AVR_FREQ := 8000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega16u4: HFUSE := 9E
+endif
+ifndef LFUSE
+# 8MHz Xtal 16k CK + 65ms
+atmega16u4: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.6V brownout
+atmega16u4: EFUSE := F3
+endif
+atmega16u4: BAUD_RATE := 38400
+atmega16u4: hex_file
+
+#
+# ATmega32u4
+################################################
+# generic atmega32u4
+# let board specific change the frequency and fuses
+atmega32u4: TARGET:= atmega32u4
+atmega32u4: override MCU_TARGET := atmega32u4
+atmega32u4: override FLASH_SIZE := 32768
+atmega32u4: override FLASH_PAGE_SIZE := 128
+atmega32u4: override BOOT_PAGE_LEN := 512
+atmega32u4: AVR_FREQ := 8000000
+ifndef HFUSE
+#  Bootsize=512B
+atmega32u4: HFUSE := 9E
+endif
+ifndef LFUSE
+# 8MHz Xtal 16k CK + 65ms
+atmega32u4: LFUSE := FF
+endif
+ifndef EFUSE
+# 2.6V brownout
+atmega32u4: EFUSE := C3
+endif
+atmega32u4: BAUD_RATE := 38400
+atmega32u4: hex_file
+
 ################################################
 # Test platforms
 ################################################

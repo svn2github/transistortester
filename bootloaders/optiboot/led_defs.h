@@ -245,24 +245,52 @@
   #define LEDX           LED
  #endif
 
-#endif		/* __AVR_AT90PWM... */
+#endif		/* __AVR_AT90PWM2... */
 
 /*------------------------------------------------------------------------ */
 #if defined(__AVR_AT90PWM3__) || defined(__AVR_AT90PWM3B__)
 /*------------------------------------------------------------------------ */
 
  #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
-  #if SOFT_UART > 0
-   #ifndef NO_WARNING
-    #warning "LED bit is set to default C1"
-   #endif
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default C1"
   #endif
   #define LEDX           pC1	/* coded Port C Bit 1 */
  #else
   #define LEDX           LED
  #endif
 
-#endif		/* __AVR_AT90PWM... */
+#endif		/* __AVR_AT90PWM3... */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)
+/*------------------------------------------------------------------------ */
+
+ #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default C6"
+  #endif
+  #define LEDX           pB5	/* coded Port B Bit 5 */
+ #else
+  #define LEDX           LED
+ #endif
+
+#endif		/* __AVR_ATmega32U2__ ... */
+
+/*------------------------------------------------------------------------ */
+#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+/*------------------------------------------------------------------------ */
+
+ #if (LED == p) && ((LED_DATA_FLASH > 0) || (LED_START_FLASHES != 0))
+  #ifndef NO_WARNING
+   #warning "LED bit is set to default C6"
+  #endif
+  #define LEDX           pC6	/* coded Port C Bit 6 */
+ #else
+  #define LEDX           LED
+ #endif
+
+#endif		/* __AVR_ATmega32U4__ ... */
 
 /*------------------------------------------------------------------------ */
 /* Support for ATmega64 */

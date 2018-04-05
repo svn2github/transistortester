@@ -243,6 +243,41 @@ m16: AVR_FREQ := 16000000
 endif
 m16: $(DO_PGM)
 
+m8u2: PARTNO := m8u2
+m8u2: MCU = atmega8u2
+ifndef AVR_FREQ
+m8u2: AVR_FREQ := 8000000
+endif
+m8u2: $(DO_PGM)
+
+m16u2: PARTNO := m16u2
+m16u2: MCU = atmega16u2
+ifndef AVR_FREQ
+m16u2: AVR_FREQ := 8000000
+endif
+m16u2: $(DO_PGM)
+
+m32u2: PARTNO := m32u2
+m32u2: MCU = atmega32u2
+ifndef AVR_FREQ
+m32u2: AVR_FREQ := 8000000
+endif
+m32u2: $(DO_PGM)
+
+m16u4: PARTNO := m16u4
+m16u4: MCU = atmega16u4
+ifndef AVR_FREQ
+m16u4: AVR_FREQ := 8000000
+endif
+m16u4: $(DO_PGM)
+
+m32u4: PARTNO := m32u4
+m32u4: MCU = atmega32u4
+ifndef AVR_FREQ
+m32u4: AVR_FREQ := 8000000
+endif
+m32u4: $(DO_PGM)
+
 m162: PARTNO := m162
 m162: MCU = atmega162
 ifndef AVR_FREQ

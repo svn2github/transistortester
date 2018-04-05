@@ -213,9 +213,23 @@ AT90CAN64 & 0x1E & 0x96  & 0x81 & 0x62 & 0x99 & 0xFF & 8/8MHz RC \\
     \hline
 AT90CAN128 & 0x1E & 0x97  & 0x81 & 0x62 & 0x99 & 0xFF & 8/8MHz RC \\
     \hline
+ATmega8U2  & 0x1E & 0x93  & 0x89 & 0x5E & 0xD9 & 0xF4 & 8/8MHz RC \\
+    \hline
+ATmega16U2 & 0x1E & 0x94  & 0x89 & 0x5E & 0xD9 & 0xF4 & 8/8MHz RC \\
+    \hline
+ATmega32U2 & 0x1E & 0x95  & 0x8A & 0x5E & 0xD9 & 0xF4 & Crystal \\
+    \hline
+ATmega16U4RC & 0x1E & 0x94  & 0x88 & 0x52 & 0x99 & 0xFB & Crystal \\
+    \hline
+ATmega32U4RC & 0x1E & 0x95  & 0x87 & 0x52 & 0x99 & 0xFB & Crystal \\
+    \hline
+ATmega16U4 & 0x1E & 0x94  & 0x88 & 0x5E & 0x99 & 0xF3 & Crystal \\
+    \hline
+ATmega32U4 & 0x1E & 0x95  & 0x87 & 0x5E & 0x99 & 0xF3 & Crystal \\
+    \hline
     \end{tabular}
   \end{center}
-  \caption{Signatur Bytes der AT90 Prozessoren und Standard Fuses}
+  \caption{Signatur Bytes und Standard Fuses der AT90 und U Prozessoren}
   \label{tab:at90Signature}
 \end{table}
 
@@ -245,6 +259,8 @@ m165/168/169 & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0
 m325/328/329 & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
 m645/649     & CKDIV8  & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
 90PWM2/3   & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m8U2/16U2/32U2 & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
+m16U4/32U4 & CKDIV8   & CKOUT   & SUT1  & SUT0  & \multicolumn{4}{c |}{CKSEL3:0} \\
     \hline
 t441/841   & CKDIV8   & CKOUT   &   -   & SUT   & \multicolumn{4}{c |}{CKSEL3:0} \\
     \hline
@@ -277,12 +293,15 @@ m645/649  & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}
 m640      & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
 m1280     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
 m2560     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m16U4     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m32U4     & OCDEN     & JTAGEN  & SPIEN  & WDTON & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
     \hline
 m328       & RSTDISBL   & DWEN  & SPIEN  & WDTON  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
     \hline
 m88/48     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
 m168       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
-90PWM2/3   & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+90PWM2     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+90PWM3     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
 t24/25     & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
 t261       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
 t44/441    & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
@@ -294,8 +313,12 @@ t88/861    & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c 
 t167       & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
 t1634      & RSTDISBL   & DWEN   & SPIEN  & WDTON  & EESAVE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
     \hline
-t4313/2313 &  DWEN   & EESAVE    & SPIEN   & WDTON  & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+t4313      &  DWEN   & EESAVE    & SPIEN   & WDTON  & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
+t2313      &  DWEN   & EESAVE    & SPIEN   & WDTON  & \multicolumn{3}{c |}{BODLEVEL2:0} & RSTDISBL \\
     \hline
+m8U2       & DWEN  & RSRDISBL   & SPIEN  & WDTON  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m16U2      & DWEN  & RSRDISBL   & SPIEN  & WDTON  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
+m32U2      & DWEN  & RSRDISBL   & SPIEN  & WDTON  & EESAVE & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
     \hline
     \end{tabular}
   \end{center}
@@ -341,8 +364,68 @@ m328       &    -     &    -    &   -   &   -   &    -   & \multicolumn{2}{c |}{
 90PWM2     & PSC2RB   & PSC1RB  & PSC0RB  & PSCRV  & -   & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
 90PWM3     & PSC2RB   & PSC1RB  & PSC0RB  & PSCRV  & -   & \multicolumn{2}{c |}{BOOTSZ1:0} & BOOTRST \\
     \hline
+m8U2   &    -     &    -    &   -   &   -   & HWBE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+16U2   &    -     &    -    &   -   &   -   & HWBE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+32U2   &    -     &    -    &   -   &   -   & HWBE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+m16U4  &    -     &    -    &   -   &   -   & HWBE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+32U4   &    -     &    -    &   -   &   -   & HWBE & \multicolumn{3}{c |}{BODLEVEL2:0} \\
+    \hline
     \end{tabular}
   \end{center}
   \caption{Belegung der Extended Fuse von AVR Prozessoren}
   \label{tab:fuseExt}
+\end{table}
+
+\newpage
+
+\section{Mögliche Interne Takt-Frequenzen}
+
+Die folgende Tabelle~\ref{tab:clockInt} zeigt die möglichen
+Einstellungen für eine interne Taktfrequenz-Erzeugung für
+verschiedene AVR-Prozessoren.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{| l || c | c | c | c |}
+    \hline
+                      & :8 Teiler & Calibrated RC & 128kHz & zusätzlich \\
+  AVR-Typ             &           & Generator     &        & \\
+    \hline
+    \hline
+ t24,t44,t84          &  X        & 8 MHz         & X      &   \\
+ t87,t167             &  X        & 8 MHz         & X      & \\
+ t48,t88              &  X        & 8 MHz         & X      & \\
+    \hline
+ t25,t45,t85          &  X        & 8, 6.4 MHz    & X      & \\
+    \hline
+ t2313,t4313          &  X        & 8, 4 MHz      & X      &  \\
+    \hline
+ t441,t841            &  X        & 8 MHz         & -      & 32-512kHz \\
+    \hline
+ t1634                &  X        & 8 MHz         & -      & 32kHz \\
+    \hline
+ t261,t461,t861       &  X        & 8 MHz         & X      & 16MHz PLL \\
+    \hline
+ m8,m16,m32,m64,m128  &  -        & 8,4,2,1 MHz   & -      & \\
+ m8515,m8535          &  -        & 8,4,2,1 MHz   & -      & \\
+    \hline
+ m163                 &  -        & 1 MHz         & -      &  \\
+    \hline
+ m48,m88,m168,m328    &  X        & 8 MHz         & X      & \\
+ m164,m324,m644,m1284 & X         & 8 MHz         & X      & \\
+    \hline
+ m165,m325,m645       &  X        & 8 MHz         & -      & \\
+ m169,m329,m649       &  X        & 8 MHz         & -      & \\
+ m640,m1280,m2560     &  X        & 8 MHz         & -      & \\
+ m162                 &  X        & 8 MHz         & -      & \\
+ at90CAN32,64,128     &  X        & 8 MHz         & -      & \\
+ m8U2,m16U2,m32U2     &  X        & 8 MHz         & -      & \\
+ m16U4,m32U4          &  X        & 8 MHz         & -      & \\
+    \hline
+ at90PWM2,2B,3,3B     &  X        & 8 MHz         & -      & 16MHz PLL \\
+    \hline
+    \end{tabular}
+  \end{center}
+  \caption{Interne Taktfrequenzen von AVR Prozessoren}
+  \label{tab:clockInt}
 \end{table}

@@ -43,7 +43,7 @@ This kind of automatic is tested at a Linux system and should run at any Linux s
 But it is completely untested for any Windows system.
 This optiboot bootloader is tested with a Arduino-UNO and -Nano board and with 
 nearly all supported processors (see the list at the end of this ReadMe2).
-Only the AT90CAN64 and ATmega1280/2560 is untested.
+Only the AT90CAN64, the ATmega1280/2560, the ATmega16u4 and the ATmega8u2/16u2 are untestet.
 
 The optional implementation of a software UART requires a little more space, but should
 also match to a 512 Byte boot partition.
@@ -199,6 +199,8 @@ ATmega640/1280/1281/2560/2561
 AT90CAN32/64/128
 AT90PWM2/3
 ATtiny84/841/861/4413/44/441/461/2313/24/85/45/88/48/1634
+ATmega16u4/32u4
+ATmega8u2/16u2/32u2
 For some processors the finish test is missing!
 
 I look forward for any replies to the "assembly language optiboot" subject.

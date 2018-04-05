@@ -56,6 +56,30 @@
 #endif		/* __AVR_ATmega8535__  ... */
 
 /*------------------------------------------------------------------------ */
+#if  defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) 
+  #define TST_COUNTER_PIN "PB7"
+  #define CNT_ENABLE_DDR  DDRB
+  #define CNT_ENABLE_PIN  DDD7
+  #define TST_TCCR_A TCCR0A
+  #define TST_TCCR_A_SET ((0<<COM0A1) | (1<<COM0A0))
+  #define TST_TCCR_B TCCR0B
+  #define TST_TCCR_B_SET  (1<<CS00)
+  #define MAX_OSCCAL 255
+#endif		/* __AVR_ATmega16U4__ ... */
+
+/*------------------------------------------------------------------------ */
+#if  defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) 
+  #define TST_COUNTER_PIN "PD0"
+  #define CNT_ENABLE_DDR  DDRD
+  #define CNT_ENABLE_PIN  DDD0
+  #define TST_TCCR_A TCCR0A
+  #define TST_TCCR_A_SET ((0<<COM0B1) | (1<<COM0B0))
+  #define TST_TCCR_B TCCR0B
+  #define TST_TCCR_B_SET  (1<<CS00)
+  #define MAX_OSCCAL 255
+#endif		/* __AVR_ATmega16U4__ ... */
+
+/*------------------------------------------------------------------------ */
 #if defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny24__) ||\
     defined(__AVR_ATtiny84A__) || defined(__AVR_ATtiny44A__) || defined(__AVR_ATtiny24__) 
   #define TST_COUNTER_PIN "PB2"
